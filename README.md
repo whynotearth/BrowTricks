@@ -1,5 +1,7 @@
 # browtricks
 
+https://browtricks.netlify.app/
+
 ## Project setup
 ```
 npm install
