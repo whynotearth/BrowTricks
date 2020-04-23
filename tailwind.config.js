@@ -1,8 +1,8 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 
-const boxShadow = require('./src/assets/styles/tailwind/shadows');
-const colors = require('./src/assets/styles/tailwind/colors');
-const opacity = require('./src/assets/styles/tailwind/opacities');
+const boxShadow = require('./src/assets/styles/shadows');
+const colors = require('./src/assets/styles/colors');
+const opacity = require('./src/assets/styles/opacities');
 
 module.exports = {
   theme: {
@@ -12,7 +12,7 @@ module.exports = {
       opacity
     },
     fontFamily: {
-      'sans': ['Roboto', ...defaultTheme.fontFamily.sans]
+      sans: ['Roboto', ...defaultTheme.fontFamily.sans]
     }
   },
   variants: {},
