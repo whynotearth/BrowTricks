@@ -1,0 +1,78 @@
+@responsive {
+    .tg-h1-mobile {
+        font-family: Caviar Dreams, sans-serif;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 1.5rem;
+        line-height: 2.5rem;
+    }
+
+    .tg-h2-mobile {
+        font-family: Caviar Dreams, sans-serif;
+        font-style: normal;
+        font-weight: 700;
+        font-size: 1.25rem;
+        line-height: 1.5rem;
+        letter-spacing: 0.15em;
+    }
+
+    .tg-h3-mobile {
+        font-family: Roboto, sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    .tg-body-mobile {
+        font-family: Roboto, sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: .875rem;
+        line-height: 1.25rem;
+    }
+
+    .tg-body-hyperlink-mobile {
+        font-family: Roboto, sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: .875rem;
+        line-height: 1.25rem;
+        text-decoration-line: underline;
+    }
+
+    .tg-caption-mobile {
+        font-family: Roboto, sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: .75rem;
+        line-height: 1rem;
+    }
+
+    .tg-caption-bold-mobile {
+        font-family: Roboto, sans-serif;
+        font-style: normal;
+        font-weight: 700;
+        font-size: .75rem;
+        line-height: 1rem;
+    }
+
+    .tg-caption-strikethrough-mobile {
+        font-family: Roboto, sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: .75rem;
+        line-height: 1rem;
+        text-decoration-line: line-through;
+    }
+
+    .tg-color-label-mobile {
+        font-family: Roboto, sans-serif;
+        font-style: normal;
+        font-weight: 500;
+        font-size: .875rem;
+        line-height: 1.5rem;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+    }
+}
