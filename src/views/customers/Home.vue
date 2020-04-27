@@ -2,7 +2,7 @@
   <div id="customer-home" class="min-h-screen flex flex-col">
     <MenuHeader />
     <div
-      class="p-6 pb-20 flex-grow flex flex-col items-center justify-end text-on-primary-white"
+      class="p-6 pb-20 flex-grow flex flex-col items-center justify-end text-on-background-image-high"
     >
       <div class="tg-h2-mobile mb-4">{{ tenantName }}</div>
       <div class="tg-body-mobile mb-4">
