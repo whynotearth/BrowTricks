@@ -24,6 +24,12 @@ const colors = {
     disabled: 'rgba(0, 0, 0, 0.38)',
     divider: 'rgba(0, 0, 0, 0.12)'
   },
+  'on-background-image': {
+    high: '#ffffff',
+    medium: 'rgba(255, 255, 255, 0.54)',
+    disabled: 'rgba(255, 255, 255, 0.38)',
+    divider: 'rgba(255, 255, 255, 0.12)'
+  },
   'on-surface': {
     high: '#000000',
     medium: 'rgba(0, 0, 0, 0.54)',
