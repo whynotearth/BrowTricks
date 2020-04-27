@@ -11,6 +11,9 @@ module.exports = {
     },
     fontFamily: {
       sans: ['Roboto', ...defaultTheme.fontFamily.sans]
+    },
+    height: {
+      14: '3.5rem'
     }
   },
   variants: {},

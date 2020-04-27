@@ -1,14 +1,17 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    redirect: { name: 'CustomerHome' }
+  },
+  {
+    path: '/shop/test-tenant-slug',
+    name: 'CustomerHome',
+    component: () => import('@/views/customers/Home.vue')
   }
 ];
 
