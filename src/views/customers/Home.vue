@@ -1,8 +1,9 @@
 <template>
   <div id="customer-home" class="min-h-screen flex flex-col">
     <MenuHeader />
+    <MenuDrawer />
     <div
-      class="p-6 pb-20 flex-grow flex flex-col items-center justify-end text-on-background-image-high"
+      class="p-6 pb-20 flex-grow flex flex-col items-center justify-end delay-100 text-on-background-image-high"
     >
       <div class="tg-h2-mobile mb-4">{{ tenantName }}</div>
       <div class="tg-body-mobile mb-4">
