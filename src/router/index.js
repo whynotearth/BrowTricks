@@ -5,13 +5,18 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    redirect: { name: 'CustomerHome' }
-  },
-  {
     path: '/shop/test-tenant-slug',
     name: 'CustomerHome',
     component: () => import('@/views/customers/Home.vue')
+  },
+  {
+    path: '/shop/test-tenant-slug/business-hours',
+    name: 'BusinessHours',
+    component: () => import('@/views/customers/BusinessHours.vue')
+  },
+  {
+    path: '/',
+    redirect: { name: 'CustomerHome' }
   }
 ];
 
