@@ -6,21 +6,35 @@
     >
       <div class="tg-h1-mobile mb-5">Business Hours</div>
       <div class="tg-body-mobile">
-        <div class="grid grid-cols-2 col-gap-12 row-gap-4">
-          <div class="text-left">Monday</div>
-          <div>9:00AM - 5:00PM</div>
-          <div class="text-left">Tuesday</div>
-          <div>9:00AM - 5:00PM</div>
-          <div class="text-left">Wednesday</div>
-          <div>9:00AM - 5:00PM</div>
-          <div class="text-left">Thursday</div>
-          <div>9:00AM - 5:00PM</div>
-          <div class="text-left">Friday</div>
-          <div>9:00AM - 5:00PM</div>
-          <div class="text-left">Saturday</div>
-          <div>9:00AM - 5:00PM</div>
-          <div class="text-left">Sunday</div>
-          <div>Closed</div>
+        <div class="flex flex-col w-64">
+          <div class="flex justify-between w-full pb-4">
+            <div>Monday</div>
+            <div>9:00AM - 5:00PM</div>
+          </div>
+          <div class="flex justify-between w-full pb-4">
+            <div>Tuesday</div>
+            <div>9:00AM - 5:00PM</div>
+          </div>
+          <div class="flex justify-between w-full pb-4">
+            <div>Wednesday</div>
+            <div>9:00AM - 5:00PM</div>
+          </div>
+          <div class="flex justify-between w-full pb-4">
+            <div>Thursday</div>
+            <div>9:00AM - 5:00PM</div>
+          </div>
+          <div class="flex justify-between w-full pb-4">
+            <div>Friday</div>
+            <div>9:00AM - 5:00PM</div>
+          </div>
+          <div class="flex justify-between w-full pb-4">
+            <div>Saturday</div>
+            <div>9:00AM - 5:00PM</div>
+          </div>
+          <div class="flex justify-between w-full">
+            <div>Sunday</div>
+            <div>Closed</div>
+          </div>
         </div>
       </div>
     </div>
