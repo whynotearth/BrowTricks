@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="bg-on-background-medium fixed inset-x-0 top-0 min-h-screen w-full z-20"
+      class="bg-on-background bg-opacity-medium fixed inset-x-0 top-0 min-h-screen w-full z-20"
       @click="toggleMenuDrawer"
       v-if="isMenuDrawerOpen"
     />
@@ -26,10 +26,10 @@
           <div class="pb-8">
             Book Now
           </div>
-          <div class="pb-8 text-on-background-disabled">
+          <div class="pb-8 text-on-background text-opacity-disabled">
             Terms of Use
           </div>
-          <div class="text-on-background-disabled">
+          <div class="text-on-background text-opacity-disabled">
             Privacy Policy
           </div>
         </div>
