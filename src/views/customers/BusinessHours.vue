@@ -2,7 +2,7 @@
   <div id="customer-home" class="min-h-screen flex flex-col">
     <MenuHeader :tenantName="tenantName" />
     <div
-      class="p-6 pb-20 flex-grow flex flex-col items-center justify-center text-on-background-image-high"
+      class="p-6 pb-20 flex-grow flex flex-col items-center justify-center text-on-background-image"
     >
       <div class="tg-h1-mobile mb-5">Business Hours</div>
       <div class="tg-body-mobile">

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="h-14 flex items-center p-5 fixed top-0 z-10 text-on-background-image-high"
+    class="h-14 flex items-center p-5 fixed top-0 z-10 text-on-background-image"
   >
     <a @click.prevent="toggleMenuDrawer"
       ><MenuIcon class="fill-current w-6 h-6"
