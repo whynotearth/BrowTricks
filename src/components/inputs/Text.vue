@@ -33,19 +33,3 @@ export default {
   }
 };
 </script>
-
-<style>
-.input:focus ~ .label,
-.input:not(:placeholder-shown) ~ .label {
-  font-size: 0.75rem;
-  transform: translateY(-1.2rem);
-}
-
-.line {
-  transform: scale(0);
-}
-
-.input:focus ~ .line {
-  transform: scale(1);
-}
-</style>

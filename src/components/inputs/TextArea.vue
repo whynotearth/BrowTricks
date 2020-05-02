@@ -13,7 +13,7 @@
       {{ label }}
     </label>
     <div
-      class="absolute inset-x-0 line border-t border-current w-full h-px transition-all duration-200"
+      class="line absolute inset-x-0 bottom-1 border-t border-current w-full h-px transition-all duration-200"
     />
   </div>
 </template>
@@ -33,20 +33,3 @@ export default {
   }
 };
 </script>
-
-<style>
-.input:focus ~ .label,
-.input:not(:placeholder-shown) ~ .label {
-  font-size: 0.75rem;
-  transform: translateY(-1.25rem);
-}
-
-.line {
-  bottom: 0.25rem;
-  transform: scale(0);
-}
-
-.input:focus ~ .line {
-  transform: scale(1);
-}
-</style>

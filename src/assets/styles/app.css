@@ -8,3 +8,4 @@
 @tailwind  utilities;
 
 @import './typography.css';
+@import './inputs.css';
