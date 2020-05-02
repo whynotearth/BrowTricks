@@ -7,13 +7,16 @@ module.exports = {
   theme: {
     extend: {
       boxShadow,
-      colors
-    },
-    fontFamily: {
-      sans: ['Roboto', ...defaultTheme.fontFamily.sans]
-    },
-    height: {
-      14: '3.5rem'
+      colors,
+      fontFamily: {
+        sans: ['Roboto', ...defaultTheme.fontFamily.sans]
+      },
+      height: {
+        14: '3.5rem'
+      },
+      inset: {
+        1: '0.25rem'
+      }
     }
   },
   variants: {},
