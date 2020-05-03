@@ -15,6 +15,11 @@ const routes = [
     component: () => import('@/views/customers/BusinessHours.vue')
   },
   {
+    path: '/shop/test-tenant-slug/contact',
+    name: 'BusinessHours',
+    component: () => import('@/views/customers/Contact.vue')
+  },
+  {
     path: '/',
     redirect: { name: 'CustomerHome' }
   }
