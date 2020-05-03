@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="text-on-surface">
     <div
       class="bg-on-background bg-opacity-medium fixed inset-x-0 top-0 min-h-screen w-full z-20"
       @click="toggleMenuDrawer"
