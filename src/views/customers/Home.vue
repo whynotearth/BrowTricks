@@ -3,7 +3,7 @@
     <MenuHeader />
     <MenuDrawer />
     <div
-      class="p-6 pb-20 flex-grow flex flex-col items-center justify-end delay-100 text-on-background-image"
+      class="p-6 pb-20 flex-grow flex flex-col items-center justify-end text-on-background-image"
     >
       <div class="tg-h2-mobile mb-4">{{ tenantName }}</div>
       <div class="tg-body-mobile mb-4">
