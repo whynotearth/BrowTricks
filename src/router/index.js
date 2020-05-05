@@ -20,6 +20,11 @@ const routes = [
     component: () => import('@/views/customers/Contact.vue')
   },
   {
+    path: '/test-line-item-component',
+    name: 'TestLineItemComponent',
+    component: () => import('@/views/TestLineItemComponent.vue')
+  },
+  {
     path: '/',
     redirect: { name: 'CustomerHome' }
   }
