@@ -1,17 +1,21 @@
 <template>
   <div class="flex items-center w-full">
-    <img src="https://dummyimage.com/40x40/000/fff" class="h-10 w-10 mr-2" />
-    <div class="tg-body-mobile text-left">
-      <p class="text-on-background">Paul Chris Luke</p>
-      <p class="text-on-background text-opacity-medium">Microblading</p>
-      <p class="text-on-background text-opacity-medium">
-        Feb 12, 2020 - 5:00PM
+    <div class="mr-2 h-10 w-10">
+      <slot name="image" />
+    </div>
+    <div class="text-left">
+      <p>
+        <slot name="title" />
+      </p>
+      <p>
+        <slot name="subtitle" />
+      </p>
+      <p class="text-opacity-medium">
+        <slot name="description" />
       </p>
     </div>
-    <div class="flex-grow text-right">
-      <p class="text-on-background text-opacity-medium tg-caption-mobile">
-        $100
-      </p>
+    <div class="ml-auto" @click="$emit('detailClicked')">
+      <slot name="detail" />
     </div>
   </div>
 </template>
