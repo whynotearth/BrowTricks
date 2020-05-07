@@ -9,11 +9,10 @@
         {{ promoText }}
       </div>
       <div class="w-full px-4">
-        <Button
-          :icon="CalendarIcon"
-          ctaText="Book Now"
-          class="border border-solid"
-        />
+        <Button class="border border-solid">
+          <CalendarIcon slot="icon" class="fill-current" />
+          <span slot="cta-text">Book Now</span>
+        </Button>
       </div>
     </div>
   </div>
@@ -29,7 +28,8 @@ export default {
   name: 'CustomerHome',
   components: {
     MenuHeader,
-    Button
+    Button,
+    CalendarIcon
   },
   props: {
     tenantName: {
@@ -40,11 +40,6 @@ export default {
       type: String,
       default: 'Lucky you! Our promo has 12 spots left! Book now for 20% off!'
     }
-  },
-  data() {
-    return {
-      CalendarIcon
-    };
   },
   computed: {
     ...mapGetters(['isMenuDrawerOpen'])

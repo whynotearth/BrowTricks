@@ -1,30 +1,29 @@
 <template>
   <div id="customer-contact" class="min-h-screen flex flex-col">
     <MenuHeader :tenantName="tenantName" />
-    <MenuDrawer />
     <div
       class="p-6 flex-grow flex flex-col items-center justify-center text-on-background-image"
     >
       <div class="tg-h1-mobile mb-8">Ask us a question</div>
       <div class="flex flex-col w-full tg-body-mobile">
-        <TextInput idName="name" label="Name" class="w-full pb-8" />
+        <TextInput label="Name" class="pb-8">
+          Name
+        </TextInput>
         <TextInput
-          idName="email"
-          label="Email"
           type="email"
-          class="w-full pb-8"
+          class="pb-8"
           :inputStyle="['border-opacity-medium']"
           :lineStyle="['border-opacity-medium']"
-        />
-        <TextAreaInput idName="message" label="Message" class="w-full pb-8" />
-        <Button
-          :icon="SendIcon"
-          ctaText="Send"
-          class="border mb-8 w-full"
-          :iconStyle="['opacity-medium']"
-          :textAreaStyle="['border-opacity-medium']"
-          :lineStyle="['border-opacity-medium']"
-        />
+        >
+          Email
+        </TextInput>
+        <TextAreaInput class="pb-8">
+          Message
+        </TextAreaInput>
+        <Button class="border mb-8 w-full">
+          <SendIcon slot="icon" class="fill-current opacity-medium" />
+          <span slot="cta-text">Send</span>
+        </Button>
         <div class="tg-caption-mobile">
           {{ tenantName }} will receive an email and a text with your message.
         </div>
@@ -35,7 +34,6 @@
 
 <script>
 import MenuHeader from '@/components/MenuHeader.vue';
-import MenuDrawer from '@/components/MenuDrawer.vue';
 import TextInput from '@/components/inputs/Text.vue';
 import TextAreaInput from '@/components/inputs/TextArea.vue';
 import Button from '@/components/ui/Button.vue';
@@ -45,21 +43,16 @@ export default {
   name: 'CustomerHome',
   components: {
     MenuHeader,
-    MenuDrawer,
     TextInput,
     TextAreaInput,
-    Button
+    Button,
+    SendIcon
   },
   props: {
     tenantName: {
       type: String,
       default: 'Carissa Queen'
     }
-  },
-  data() {
-    return {
-      SendIcon
-    };
   }
 };
 </script>
