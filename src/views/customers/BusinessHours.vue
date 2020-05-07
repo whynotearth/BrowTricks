@@ -1,8 +1,9 @@
 <template>
-  <div id="customer-home" class="min-h-screen flex flex-col">
+  <div id="customer-business-hours" class="min-h-screen flex flex-col">
     <MenuHeader :tenantName="tenantName" />
+    <MenuDrawer />
     <div
-      class="p-6 pb-20 flex-grow flex flex-col items-center justify-center text-on-background-image"
+      class="p-6 flex-grow flex flex-col items-center justify-center text-on-background-image"
     >
       <div class="tg-h1-mobile mb-5">Business Hours</div>
       <div class="tg-body-mobile">
@@ -43,11 +44,13 @@
 
 <script>
 import MenuHeader from '@/components/MenuHeader.vue';
+import MenuDrawer from '@/components/MenuDrawer.vue';
 
 export default {
   name: 'CustomerHome',
   components: {
-    MenuHeader
+    MenuHeader,
+    MenuDrawer
   },
   props: {
     tenantName: {
@@ -61,7 +64,7 @@ export default {
 <style scoped>
 /* temporary scoped css to simulate background until actual background is provided by product */
 
-#customer-home:before {
+#customer-business-hours:before {
   content: '';
   display: block;
   position: absolute;

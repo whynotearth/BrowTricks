@@ -2,9 +2,10 @@
   <div class="relative tg-body-mobile">
     <input
       :id="idName"
-      type="text"
+      :type="type"
       placeholder=" "
-      class="input border-b border-current w-full appearance-none outline-none bg-transparent"
+      class="input border-b w-full appearance-none outline-none bg-transparent"
+      :class="inputStyle"
     />
     <label
       :for="idName"
@@ -13,22 +14,35 @@
       {{ label }}
     </label>
     <div
-      class="line border-t border-current w-full h-px transition-all duration-200"
+      class="line border-t w-full h-px transition-all duration-200"
+      :lineStyle="lineStyle"
     />
   </div>
 </template>
 
 <script>
+import { randomId } from '@/helpers.js';
+
 export default {
   name: 'TextInput',
   props: {
+    idName: {
+      type: String,
+      default: randomId
+    },
     label: {
       type: String,
       required: true
     },
-    idName: {
+    type: {
       type: String,
-      required: true
+      default: 'text'
+    },
+    inputStyle: {
+      type: Array
+    },
+    lineStyle: {
+      type: Array
     }
   }
 };
