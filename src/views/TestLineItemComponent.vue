@@ -1,7 +1,6 @@
 <template>
   <div id="test-component" class="min-h-screen flex flex-col">
     <MenuHeader />
-    <MenuDrawer />
     <div
       class="p-6 pb-20 flex-grow flex flex-col items-center justify-center text-on-background"
     >
@@ -46,7 +45,7 @@
           </p>
         </template>
         <template #detail>
-          <DeleteIcon class="text-action fill-current" />
+          <DeleteIcon class="text-action fill-current cursor-pointer" />
         </template>
       </LineItem>
       <LineItem>
@@ -68,7 +67,6 @@
 
 <script>
 import MenuHeader from '@/components/MenuHeader.vue';
-import MenuDrawer from '@/components/MenuDrawer.vue';
 import LineItem from '@/components/ui/LineItem.vue';
 import DeleteIcon from '@/assets/icons/delete.svg';
 import { mapGetters } from 'vuex';
@@ -78,18 +76,7 @@ export default {
   components: {
     LineItem,
     MenuHeader,
-    MenuDrawer,
     DeleteIcon
-  },
-  props: {
-    tenantName: {
-      type: String,
-      default: 'Carissa Queen'
-    },
-    promoText: {
-      type: String,
-      default: 'Lucky you! Our promo has 12 spots left! Book now for 20% off!'
-    }
   },
   computed: {
     ...mapGetters(['isMenuDrawerOpen'])

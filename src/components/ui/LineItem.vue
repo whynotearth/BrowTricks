@@ -4,15 +4,9 @@
       <slot name="image" />
     </div>
     <div class="text-left">
-      <p>
-        <slot name="title" />
-      </p>
-      <p>
-        <slot name="subtitle" />
-      </p>
-      <p class="text-opacity-medium">
-        <slot name="description" />
-      </p>
+      <slot name="title" />
+      <slot name="subtitle" />
+      <slot name="description" />
     </div>
     <div class="ml-auto" @click="$emit('detailClicked')">
       <slot name="detail" />
@@ -25,5 +19,3 @@ export default {
   name: 'LineItem'
 };
 </script>
-
-<style scoped />
