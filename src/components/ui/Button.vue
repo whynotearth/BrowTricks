@@ -6,16 +6,11 @@
     :href="href"
     :to="to"
   >
-    <div class="text-left">
-      <component
-        v-if="icon"
-        :is="icon"
-        class="h-6 w-6 fill-current"
-        :class="iconStyle"
-      />
+    <div class="text-left h-6 w-6">
+      <slot name="icon" />
     </div>
     <div class="flex-grow">
-      {{ ctaText }}
+      <slot name="cta-text" />
     </div>
   </component>
 </template>
@@ -29,16 +24,6 @@ export default {
     },
     to: {
       type: String
-    },
-    ctaText: {
-      type: String,
-      required: true
-    },
-    icon: {
-      type: Object
-    },
-    iconStyle: {
-      type: Array
     }
   },
   computed: {
