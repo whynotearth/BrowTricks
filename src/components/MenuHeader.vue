@@ -8,17 +8,20 @@
     <div v-if="tenantName" class="tg-h2-mobile pl-4">
       {{ tenantName }}
     </div>
+    <MenuDrawer />
   </div>
 </template>
 
 <script>
 import MenuIcon from '@/assets/icons/menu.svg';
+import MenuDrawer from '@/components/MenuDrawer.vue';
 import { mapMutations } from 'vuex';
 
 export default {
   name: 'MenuHeader',
   components: {
-    MenuIcon
+    MenuIcon,
+    MenuDrawer
   },
   props: {
     tenantName: String

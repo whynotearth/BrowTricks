@@ -7,7 +7,7 @@ const colors = {
   error: '#C04545',
   'on-primary': '#0C6986',
   'on-primary-white': '#FFFFFF',
-  'on-secondary':'#0C6986',
+  'on-secondary': '#0C6986',
   'on-background': '#000000',
   'on-background-image': '#ffffff',
   'on-surface': '#000000'

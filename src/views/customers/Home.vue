@@ -1,7 +1,6 @@
 <template>
   <div id="customer-home" class="min-h-screen flex flex-col">
     <MenuHeader />
-    <MenuDrawer />
     <div
       class="p-6 pb-20 flex-grow flex flex-col items-center justify-end text-on-background-image"
     >
@@ -22,7 +21,6 @@
 
 <script>
 import MenuHeader from '@/components/MenuHeader.vue';
-import MenuDrawer from '@/components/MenuDrawer.vue';
 import Button from '@/components/ui/Button.vue';
 import CalendarIcon from '@/assets/icons/calendar_today.svg';
 import { mapGetters } from 'vuex';
@@ -31,7 +29,6 @@ export default {
   name: 'CustomerHome',
   components: {
     MenuHeader,
-    MenuDrawer,
     Button
   },
   props: {
