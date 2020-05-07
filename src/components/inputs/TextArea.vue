@@ -1,5 +1,5 @@
 <template>
-  <div class="relative tg-body-mobile">
+  <div class="relative tg-body-mobile w-full">
     <textarea
       :id="idName"
       class="input w-full appearance-none outline-none disable-scrollbar resize-none bg-transparent border-b"
@@ -11,7 +11,7 @@
       :for="idName"
       class="label absolute top-0 left-0 transition-all duration-200"
     >
-      {{ label }}
+      <slot />
     </label>
     <div
       class="line absolute top-32 border-t-2 w-full h-px transition-all duration-200"
@@ -29,10 +29,6 @@ export default {
     idName: {
       type: String,
       default: randomId
-    },
-    label: {
-      type: String,
-      required: true
     },
     textAreaStyle: {
       type: Array
