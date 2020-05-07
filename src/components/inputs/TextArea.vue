@@ -21,12 +21,14 @@
 </template>
 
 <script>
+import { randomId } from '@/helpers.js';
+
 export default {
   name: 'TextAreaInput',
   props: {
     idName: {
       type: String,
-      required: true
+      default: randomId
     },
     label: {
       type: String,
