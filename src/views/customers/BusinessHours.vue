@@ -1,7 +1,6 @@
 <template>
   <div id="customer-business-hours" class="min-h-screen flex flex-col">
     <MenuHeader :tenantName="tenantName" />
-    <MenuDrawer />
     <div
       class="p-6 flex-grow flex flex-col items-center justify-center text-on-background-image"
     >
@@ -44,13 +43,11 @@
 
 <script>
 import MenuHeader from '@/components/MenuHeader.vue';
-import MenuDrawer from '@/components/MenuDrawer.vue';
 
 export default {
   name: 'CustomerHome',
   components: {
-    MenuHeader,
-    MenuDrawer
+    MenuHeader
   },
   props: {
     tenantName: {
