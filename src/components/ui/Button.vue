@@ -10,7 +10,9 @@
       <slot name="icon" />
     </div>
     <div class="flex-grow">
-      <slot name="cta-text" />
+      <slot name="cta-text">
+        Button
+      </slot>
     </div>
   </component>
 </template>
