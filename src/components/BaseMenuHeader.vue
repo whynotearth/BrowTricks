@@ -5,7 +5,7 @@
     <a @click.prevent="toggleMenuDrawer"
       ><MenuIcon class="fill-current w-6 h-6"
     /></a>
-    <div v-if="tenantName" class="tg-h2-mobile pl-4">
+    <div v-if="tenantName" class="tg-h2-mobile pl-5">
       {{ tenantName }}
     </div>
     <BaseMenuDrawer />
