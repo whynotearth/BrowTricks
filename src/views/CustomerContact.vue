@@ -1,6 +1,6 @@
 <template>
   <div id="customer-contact" class="min-h-screen flex flex-col">
-    <MenuHeader :tenantName="tenantName" />
+    <BaseMenuHeader :tenantName="tenantName" />
     <div
       class="p-6 flex-grow flex flex-col items-center justify-center text-on-background-image"
     >
@@ -33,16 +33,16 @@
 </template>
 
 <script>
-import MenuHeader from '@/components/MenuHeader.vue';
-import TextInput from '@/components/inputs/Text.vue';
-import TextAreaInput from '@/components/inputs/TextArea.vue';
-import Button from '@/components/ui/Button.vue';
+import BaseMenuHeader from '@/components/BaseMenuHeader.vue';
+import TextInput from '@/components/BaseInputText.vue';
+import TextAreaInput from '@/components/BaseInputTextArea.vue';
+import Button from '@/components/BaseButton.vue';
 import SendIcon from '@/assets/icons/send.svg';
 
 export default {
-  name: 'CustomerHome',
+  name: 'CustomerContact',
   components: {
-    MenuHeader,
+    BaseMenuHeader,
     TextInput,
     TextAreaInput,
     Button,

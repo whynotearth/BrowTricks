@@ -1,6 +1,6 @@
 <template>
   <div id="customer-business-hours" class="min-h-screen flex flex-col">
-    <MenuHeader :tenantName="tenantName" />
+    <BaseMenuHeader :tenantName="tenantName" />
     <div
       class="p-6 flex-grow flex flex-col items-center justify-center text-on-background-image"
     >
@@ -42,12 +42,12 @@
 </template>
 
 <script>
-import MenuHeader from '@/components/MenuHeader.vue';
+import BaseMenuHeader from '@/components/BaseMenuHeader.vue';
 
 export default {
-  name: 'CustomerHome',
+  name: 'CustomerBusinessHours',
   components: {
-    MenuHeader
+    BaseMenuHeader
   },
   props: {
     tenantName: {
