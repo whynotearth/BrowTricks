@@ -1,24 +1,23 @@
 <template>
-  <div id="customer-home" class="min-h-screen flex flex-col">
-    <BaseMenuHeader />
-    <div
-      class="p-6 pb-20 flex-grow flex flex-col items-center justify-end text-on-background-image"
-    >
+  <LayoutFixedScrollable>
+    <BaseMenuHeader slot="header" />
+    <div slot="content" class="p-6 pb-20 mt-auto text-on-background-image">
       <div class="tg-h2-mobile mb-4">{{ tenantName }}</div>
       <div class="tg-body-mobile mb-4">
         {{ promoText }}
       </div>
-      <div class="w-full px-4">
+      <div class="w-full px-3">
         <Button class="border border-solid">
           <CalendarIcon slot="icon" class="fill-current" />
           <span slot="cta-text">Book Now</span>
         </Button>
       </div>
     </div>
-  </div>
+  </LayoutFixedScrollable>
 </template>
 
 <script>
+import LayoutFixedScrollable from '@/components/LayoutFixedScrollable.vue';
 import BaseMenuHeader from '@/components/BaseMenuHeader.vue';
 import Button from '@/components/BaseButton.vue';
 import CalendarIcon from '@/assets/icons/calendar_today.svg';
@@ -27,6 +26,7 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'CustomerHome',
   components: {
+    LayoutFixedScrollable,
     BaseMenuHeader,
     Button,
     CalendarIcon
@@ -34,7 +34,7 @@ export default {
   props: {
     tenantName: {
       type: String,
-      default: 'Carissa Queen'
+      default: 'Boise Brow Queen'
     },
     promoText: {
       type: String,
@@ -47,10 +47,10 @@ export default {
 };
 </script>
 
-<style scoped>
-/* temporary scoped css to simulate background until actual background is provided by product */
+<style>
+/* temporary css to simulate background until actual background is provided by product */
 
-#customer-home:before {
+html:before {
   content: '';
   display: block;
   position: absolute;

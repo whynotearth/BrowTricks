@@ -1,9 +1,7 @@
 <template>
-  <div id="customer-business-hours" class="min-h-screen flex flex-col">
-    <BaseMenuHeader :tenantName="tenantName" />
-    <div
-      class="p-6 flex-grow flex flex-col items-center justify-center text-on-background-image"
-    >
+  <LayoutFixedScrollable>
+    <BaseMenuHeader slot="header" :tenantName="tenantName" />
+    <div slot="content" class="p-6 m-auto text-on-background-image">
       <div class="tg-h1-mobile mb-5">Business Hours</div>
       <div class="tg-body-mobile">
         <div class="flex flex-col w-64">
@@ -38,30 +36,32 @@
         </div>
       </div>
     </div>
-  </div>
+  </LayoutFixedScrollable>
 </template>
 
 <script>
+import LayoutFixedScrollable from '@/components/LayoutFixedScrollable.vue';
 import BaseMenuHeader from '@/components/BaseMenuHeader.vue';
 
 export default {
   name: 'CustomerBusinessHours',
   components: {
+    LayoutFixedScrollable,
     BaseMenuHeader
   },
   props: {
     tenantName: {
       type: String,
-      default: 'Carissa Queen'
+      default: 'Boise Brow Queen'
     }
   }
 };
 </script>
 
-<style scoped>
-/* temporary scoped css to simulate background until actual background is provided by product */
+<style>
+/* temporary css to simulate background until actual background is provided by product */
 
-#customer-business-hours:before {
+html:before {
   content: '';
   display: block;
   position: absolute;
