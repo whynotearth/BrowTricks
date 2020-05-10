@@ -1,7 +1,14 @@
 <template>
   <div class="customer-view">
     <LayoutFixedScrollable>
-      <BaseMenuHeader slot="header" />
+      <BaseHeader
+        slot="header"
+        class="text-on-background-image"
+        @iconClicked="toggleMenuDrawer"
+      >
+        <MenuIcon slot="icon" class="h-6 w-6 fill-current" />
+        <CustomerMenuDrawer slot="menu-drawer" />
+      </BaseHeader>
       <div slot="content" class="p-6 pb-20 mt-auto text-on-background-image">
         <div class="tg-h2-mobile mb-4">{{ tenantName }}</div>
         <div class="tg-body-mobile mb-4">
@@ -20,16 +27,20 @@
 
 <script>
 import LayoutFixedScrollable from '@/components/LayoutFixedScrollable.vue';
-import BaseMenuHeader from '@/components/BaseMenuHeader.vue';
+import BaseHeader from '@/components/BaseHeader.vue';
+import MenuIcon from '@/assets/icons/menu.svg';
+import CustomerMenuDrawer from '@/components/CustomerMenuDrawer.vue';
 import BaseButton from '@/components/BaseButton.vue';
 import CalendarIcon from '@/assets/icons/calendar_today.svg';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   name: 'CustomerHome',
   components: {
     LayoutFixedScrollable,
-    BaseMenuHeader,
+    BaseHeader,
+    MenuIcon,
+    CustomerMenuDrawer,
     BaseButton,
     CalendarIcon
   },
@@ -43,6 +54,9 @@ export default {
     ...mapGetters({
       tenantName: 'getTenantName'
     })
+  },
+  methods: {
+    ...mapMutations(['toggleMenuDrawer'])
   }
 };
 </script>
