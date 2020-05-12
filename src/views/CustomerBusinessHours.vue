@@ -44,6 +44,7 @@
 <script>
 import LayoutFixedScrollable from '@/components/LayoutFixedScrollable.vue';
 import BaseMenuHeader from '@/components/BaseMenuHeader.vue';
+import { mapState } from 'vuex';
 
 export default {
   name: 'CustomerBusinessHours',
@@ -51,11 +52,8 @@ export default {
     LayoutFixedScrollable,
     BaseMenuHeader
   },
-  props: {
-    tenantName: {
-      type: String,
-      default: 'Boise Brow Queen'
-    }
+  computed: {
+    ...mapState(['tenantName'])
   }
 };
 </script>

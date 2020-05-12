@@ -5,12 +5,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    isMenuDrawerOpen: false
-  },
-  getters: {
-    isMenuDrawerOpen(state) {
-      return state.isMenuDrawerOpen;
-    }
+    isMenuDrawerOpen: false,
+    tenantName: 'Boise Brow Queen'
   },
   mutations: {
     toggleMenuDrawer(store) {

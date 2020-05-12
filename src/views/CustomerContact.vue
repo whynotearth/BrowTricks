@@ -39,6 +39,7 @@ import TextInput from '@/components/BaseInputText.vue';
 import TextAreaInput from '@/components/BaseInputTextArea.vue';
 import Button from '@/components/BaseButton.vue';
 import SendIcon from '@/assets/icons/send.svg';
+import { mapState } from 'vuex';
 
 export default {
   name: 'CustomerContact',
@@ -50,11 +51,8 @@ export default {
     Button,
     SendIcon
   },
-  props: {
-    tenantName: {
-      type: String,
-      default: 'Boise Brow Queen'
-    }
+  computed: {
+    ...mapState(['tenantName'])
   }
 };
 </script>

@@ -39,12 +39,12 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 
 export default {
   name: 'MenuDrawer',
   computed: {
-    ...mapGetters(['isMenuDrawerOpen'])
+    ...mapState(['isMenuDrawerOpen'])
   },
   methods: {
     ...mapMutations(['toggleMenuDrawer'])

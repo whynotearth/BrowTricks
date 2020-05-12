@@ -23,7 +23,7 @@ import LayoutFixedScrollable from '@/components/LayoutFixedScrollable.vue';
 import BaseMenuHeader from '@/components/BaseMenuHeader.vue';
 import Button from '@/components/BaseButton.vue';
 import CalendarIcon from '@/assets/icons/calendar_today.svg';
-import { mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
   name: 'CustomerHome',
@@ -34,17 +34,13 @@ export default {
     CalendarIcon
   },
   props: {
-    tenantName: {
-      type: String,
-      default: 'Boise Brow Queen'
-    },
     promoText: {
       type: String,
       default: 'Lucky you! Our promo has 12 spots left! Book now for 20% off!'
     }
   },
   computed: {
-    ...mapGetters(['isMenuDrawerOpen'])
+    ...mapState(['tenantName'])
   }
 };
 </script>
