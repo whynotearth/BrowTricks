@@ -6,7 +6,7 @@
     <div class="tg-h2-mobile">
       <slot name="content" />
     </div>
-    <div class="flex-end flex items-center">
+    <div class="flex-end flex items-center tg-caption-mobile">
       <div @click="$emit('detailPrimaryClicked')">
         <slot name="detail-primary" />
       </div>
