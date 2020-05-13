@@ -1,15 +1,18 @@
-<template functional>
-  <div class="h-screen flex flex-col">
+<template>
+  <vue100vh class="flex flex-col">
     <slot name="header" />
-    <div class="flex-1 overflow-auto flex flex-col disable-scrollbars">
+    <div class="flex-grow overflow-auto flex flex-col disable-scrollbars">
       <slot name="content" />
     </div>
     <slot name="footer" />
-  </div>
+  </vue100vh>
 </template>
 
 <script>
+import vue100vh from 'vue-100vh';
+
 export default {
-  name: 'LayoutFixedScrollable'
+  name: 'LayoutFixedScrollable',
+  components: { vue100vh }
 };
 </script>
