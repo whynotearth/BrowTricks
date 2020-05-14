@@ -8,10 +8,10 @@
           {{ promoText }}
         </div>
         <div class="w-full px-3">
-          <Button class="border border-solid">
+          <BaseButton class="border border-solid">
             <CalendarIcon slot="icon" class="fill-current" />
             <span slot="cta-text">Book Now</span>
-          </Button>
+          </BaseButton>
         </div>
       </div>
     </LayoutFixedScrollable>
@@ -21,7 +21,7 @@
 <script>
 import LayoutFixedScrollable from '@/components/LayoutFixedScrollable.vue';
 import BaseMenuHeader from '@/components/BaseMenuHeader.vue';
-import Button from '@/components/BaseButton.vue';
+import BaseButton from '@/components/BaseButton.vue';
 import CalendarIcon from '@/assets/icons/calendar_today.svg';
 import { mapState } from 'vuex';
 
@@ -30,7 +30,7 @@ export default {
   components: {
     LayoutFixedScrollable,
     BaseMenuHeader,
-    Button,
+    BaseButton,
     CalendarIcon
   },
   props: {
