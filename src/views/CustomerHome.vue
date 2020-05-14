@@ -23,7 +23,7 @@ import LayoutFixedScrollable from '@/components/LayoutFixedScrollable.vue';
 import BaseMenuHeader from '@/components/BaseMenuHeader.vue';
 import BaseButton from '@/components/BaseButton.vue';
 import CalendarIcon from '@/assets/icons/calendar_today.svg';
-import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'CustomerHome',
@@ -40,7 +40,9 @@ export default {
     }
   },
   computed: {
-    ...mapState(['tenantName'])
+    ...mapGetters({
+      tenantName: 'getTenantName'
+    })
   }
 };
 </script>

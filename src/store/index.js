@@ -9,6 +9,14 @@ export default new Vuex.Store({
     // FIXME : temporary hardcoded tenantName for testing purposes
     tenantName: 'Boise Brow Queen'
   },
+  getters: {
+    getTenantName(state) {
+      return state.tenantName;
+    },
+    getIsMenuDrawerOpen(state) {
+      return state.isMenuDrawerOpen;
+    }
+  },
   mutations: {
     toggleMenuDrawer(store) {
       store.isMenuDrawerOpen = !store.isMenuDrawerOpen;

@@ -44,7 +44,7 @@
 <script>
 import LayoutFixedScrollable from '@/components/LayoutFixedScrollable.vue';
 import BaseMenuHeader from '@/components/BaseMenuHeader.vue';
-import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'CustomerBusinessHours',
@@ -53,7 +53,9 @@ export default {
     BaseMenuHeader
   },
   computed: {
-    ...mapState(['tenantName'])
+    ...mapGetters({
+      tenantName: 'getTenantName'
+    })
   }
 };
 </script>

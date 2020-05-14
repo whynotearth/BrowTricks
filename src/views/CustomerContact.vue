@@ -39,7 +39,7 @@ import BaseTextInput from '@/components/BaseInputText.vue';
 import BaseTextAreaInput from '@/components/BaseInputTextArea.vue';
 import BaseButton from '@/components/BaseButton.vue';
 import SendIcon from '@/assets/icons/send.svg';
-import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'CustomerContact',
@@ -52,7 +52,9 @@ export default {
     SendIcon
   },
   computed: {
-    ...mapState(['tenantName'])
+    ...mapGetters({
+      tenantName: 'getTenantName'
+    })
   }
 };
 </script>
