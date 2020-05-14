@@ -1,4 +1,4 @@
-/* temporary css to simulate background for customer views until actual background is provided by product */
+/* FIXME : temporary css to simulate background for customer views until actual background is provided by product */
 
 .customer-view:before {
   content: '';

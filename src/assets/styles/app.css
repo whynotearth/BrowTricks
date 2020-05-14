@@ -13,7 +13,7 @@
 @import './scrollbars.css';
 
 /*
-Temporary CSS to simulate a full-page colored background until product can provide assets.
+FIXME: temporary CSS to simulate a full-page colored background until product can provide assets.
 When this is removed, be sure to remove the wrapper divs with 'customer-view' classes on them in the various customer views if applicable.
 */
 @import './temp-customer-view-bg.css';
