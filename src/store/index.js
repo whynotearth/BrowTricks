@@ -5,10 +5,15 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    isMenuDrawerOpen: false
+    isMenuDrawerOpen: false,
+    // FIXME : temporary hardcoded tenantName for testing purposes
+    tenantName: 'Boise Brow Queen'
   },
   getters: {
-    isMenuDrawerOpen(state) {
+    getTenantName(state) {
+      return state.tenantName;
+    },
+    getIsMenuDrawerOpen(state) {
       return state.isMenuDrawerOpen;
     }
   },

@@ -1,13 +1,13 @@
 <template>
   <div class="text-on-surface">
     <div
-      class="bg-on-background bg-opacity-medium fixed inset-x-0 top-0 min-h-screen w-full z-20"
+      class="bg-on-background bg-opacity-medium fixed inset-x-0 top-0 min-h-screen w-full z-10"
       @click="toggleMenuDrawer"
       v-if="isMenuDrawerOpen"
     />
     <transition name="slide">
       <div
-        class="bg-white fixed inset-x-0 top-0 min-h-screen w-4/5 z-30 py-8 px-4"
+        class="bg-white fixed inset-x-0 top-0 min-h-screen w-4/5 z-20 py-8 px-4"
         v-if="isMenuDrawerOpen"
       >
         <div class="flex flex-col tg-h3-mobile text-left">
@@ -44,7 +44,9 @@ import { mapGetters, mapMutations } from 'vuex';
 export default {
   name: 'MenuDrawer',
   computed: {
-    ...mapGetters(['isMenuDrawerOpen'])
+    ...mapGetters({
+      isMenuDrawerOpen: 'getIsMenuDrawerOpen'
+    })
   },
   methods: {
     ...mapMutations(['toggleMenuDrawer'])

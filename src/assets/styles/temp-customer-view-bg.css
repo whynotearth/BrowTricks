@@ -1,0 +1,9 @@
+/* FIXME : temporary css to simulate background for customer views until actual background is provided by product */
+
+.customer-view:before {
+  content: '';
+  z-index: -1;
+  background-image: url('https://i.pinimg.com/originals/80/29/6b/80296b1e27351233d5d82104b3e02a92.jpg');
+
+  @apply block absolute top-0 left-0 w-full h-full opacity-75 bg-top bg-cover bg-no-repeat;
+}

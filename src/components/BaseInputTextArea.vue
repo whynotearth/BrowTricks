@@ -2,7 +2,7 @@
   <div class="relative tg-body-mobile w-full">
     <textarea
       :id="idName"
-      class="input w-full appearance-none outline-none disable-scrollbar resize-none bg-transparent border-b"
+      class="input w-full appearance-none outline-none disable-scrollbars resize-none bg-transparent border-b"
       placeholder=" "
       rows="4"
       :textAreaStyle="textAreaStyle"
@@ -39,15 +39,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.disable-scrollbars::-webkit-scrollbar {
-  width: 0px;
-  background: transparent; /* Chrome/Safari/Webkit */
-}
-
-.disable-scrollbars {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE 10+ */
-}
-</style>

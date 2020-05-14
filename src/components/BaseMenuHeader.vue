@@ -1,27 +1,25 @@
 <template>
-  <div
-    class="h-14 w-full p-5 sticky top-0 z-10 flex items-center text-on-background-image"
-  >
+  <div class="h-14 w-full p-5 flex items-center text-on-background-image">
     <a @click.prevent="toggleMenuDrawer"
       ><MenuIcon class="fill-current w-6 h-6"
     /></a>
-    <div v-if="tenantName" class="tg-h2-mobile pl-4">
+    <div v-if="tenantName" class="tg-h2-mobile pl-5">
       {{ tenantName }}
     </div>
-    <MenuDrawer />
+    <BaseMenuDrawer />
   </div>
 </template>
 
 <script>
 import MenuIcon from '@/assets/icons/menu.svg';
-import MenuDrawer from '@/components/MenuDrawer.vue';
+import BaseMenuDrawer from '@/components/BaseMenuDrawer.vue';
 import { mapMutations } from 'vuex';
 
 export default {
   name: 'MenuHeader',
   components: {
     MenuIcon,
-    MenuDrawer
+    BaseMenuDrawer
   },
   props: {
     tenantName: String
