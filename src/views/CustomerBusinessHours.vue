@@ -6,7 +6,7 @@
         class="text-on-background-image"
         @iconClicked="toggleMenuDrawer"
       >
-        <MenuIcon slot="icon" class="h-6 w-6 fill-current" />
+        <IconMenu slot="icon" class="h-6 w-6 fill-current" />
         <span slot="content" class="pl-5">{{ tenantName }}</span>
         <CustomerMenuDrawer slot="menu-drawer" />
       </BaseHeader>
@@ -52,7 +52,7 @@
 <script>
 import LayoutFixedScrollable from '@/components/LayoutFixedScrollable.vue';
 import BaseHeader from '@/components/BaseHeader.vue';
-import MenuIcon from '@/assets/icons/menu.svg';
+import IconMenu from '@/assets/icons/menu.svg';
 import CustomerMenuDrawer from '@/components/CustomerMenuDrawer.vue';
 import { mapGetters, mapMutations } from 'vuex';
 
@@ -61,7 +61,7 @@ export default {
   components: {
     LayoutFixedScrollable,
     BaseHeader,
-    MenuIcon,
+    IconMenu,
     CustomerMenuDrawer
   },
   computed: {

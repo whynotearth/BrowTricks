@@ -6,7 +6,7 @@
         class="text-on-background-image"
         @iconClicked="toggleMenuDrawer"
       >
-        <MenuIcon slot="icon" class="h-6 w-6 fill-current" />
+        <IconMenu slot="icon" class="h-6 w-6 fill-current" />
         <CustomerMenuDrawer slot="menu-drawer" />
       </BaseHeader>
       <div slot="content" class="p-6 pb-20 mt-auto text-on-background-image">
@@ -16,7 +16,7 @@
         </div>
         <div class="w-full px-3">
           <BaseButton class="border border-solid">
-            <CalendarIcon slot="icon" class="fill-current" />
+            <IconCalendar slot="icon" class="fill-current" />
             <span slot="cta-text">Book Now</span>
           </BaseButton>
         </div>
@@ -28,10 +28,10 @@
 <script>
 import LayoutFixedScrollable from '@/components/LayoutFixedScrollable.vue';
 import BaseHeader from '@/components/BaseHeader.vue';
-import MenuIcon from '@/assets/icons/menu.svg';
+import IconMenu from '@/assets/icons/menu.svg';
 import CustomerMenuDrawer from '@/components/CustomerMenuDrawer.vue';
 import BaseButton from '@/components/BaseButton.vue';
-import CalendarIcon from '@/assets/icons/calendar_today.svg';
+import IconCalendar from '@/assets/icons/calendar_today.svg';
 import { mapGetters, mapMutations } from 'vuex';
 
 export default {
@@ -39,10 +39,10 @@ export default {
   components: {
     LayoutFixedScrollable,
     BaseHeader,
-    MenuIcon,
+    IconMenu,
     CustomerMenuDrawer,
     BaseButton,
-    CalendarIcon
+    IconCalendar
   },
   props: {
     promoText: {

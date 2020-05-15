@@ -6,7 +6,7 @@
         class="text-on-background-image"
         @iconClicked="toggleMenuDrawer"
       >
-        <MenuIcon slot="icon" class="h-6 w-6 fill-current" />
+        <IconMenu slot="icon" class="h-6 w-6 fill-current" />
         <span slot="content" class="pl-5">{{ tenantName }}</span>
         <CustomerMenuDrawer slot="menu-drawer" />
       </BaseHeader>
@@ -28,7 +28,7 @@
             Message
           </BaseInputTextArea>
           <BaseButton class="border mb-8 w-full">
-            <SendIcon slot="icon" class="fill-current opacity-medium" />
+            <IconSend slot="icon" class="fill-current opacity-medium" />
             <span slot="cta-text">Send</span>
           </BaseButton>
           <div class="tg-caption-mobile">
@@ -43,12 +43,12 @@
 <script>
 import LayoutFixedScrollable from '@/components/LayoutFixedScrollable.vue';
 import BaseHeader from '@/components/BaseHeader.vue';
-import MenuIcon from '@/assets/icons/menu.svg';
+import IconMenu from '@/assets/icons/menu.svg';
 import CustomerMenuDrawer from '@/components/CustomerMenuDrawer.vue';
 import BaseInputText from '@/components/BaseInputText.vue';
 import BaseInputTextArea from '@/components/BaseInputTextArea.vue';
 import BaseButton from '@/components/BaseButton.vue';
-import SendIcon from '@/assets/icons/send.svg';
+import IconSend from '@/assets/icons/send.svg';
 import { mapGetters, mapMutations } from 'vuex';
 
 export default {
@@ -56,12 +56,12 @@ export default {
   components: {
     LayoutFixedScrollable,
     BaseHeader,
-    MenuIcon,
+    IconMenu,
     CustomerMenuDrawer,
     BaseInputText,
     BaseInputTextArea,
     BaseButton,
-    SendIcon
+    IconSend
   },
   computed: {
     ...mapGetters({
