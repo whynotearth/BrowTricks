@@ -1,8 +1,8 @@
 <template>
   <div class="h-14 w-full p-5 sticky top-0 z-10 flex items-center">
-    <div @click="$emit('iconClicked')">
+    <a @click.prevent="$emit('iconClicked')">
       <slot name="icon" />
-    </div>
+    </a>
     <div class="tg-h2-mobile">
       <slot name="content" />
     </div>
