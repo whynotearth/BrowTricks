@@ -1,26 +1,34 @@
 <template>
   <div class="customer-view">
     <LayoutFixedScrollable>
-      <BaseMenuHeader slot="header" :tenantName="tenantName" />
+      <BaseHeader
+        slot="header"
+        class="text-on-background-image"
+        @iconClicked="toggleMenuDrawer"
+      >
+        <IconMenu slot="icon" class="h-6 w-6 fill-current" />
+        <span slot="content" class="pl-5">{{ tenantName }}</span>
+        <CustomerMenuDrawer slot="menu-drawer" />
+      </BaseHeader>
       <div slot="content" class="p-6 my-auto text-on-background-image">
         <div class="tg-h1-mobile mb-8">Ask us a question</div>
         <div class="flex flex-col w-full tg-body-mobile">
-          <BaseTextInput label="Name" class="pb-8">
+          <BaseInputText label="Name" class="pb-8">
             Name
-          </BaseTextInput>
-          <BaseTextInput
+          </BaseInputText>
+          <BaseInputText
             type="email"
             class="pb-8"
             :inputStyle="['border-opacity-medium']"
             :lineStyle="['border-opacity-medium']"
           >
             Email
-          </BaseTextInput>
-          <BaseTextAreaInput class="pb-8">
+          </BaseInputText>
+          <BaseInputTextArea class="pb-8">
             Message
-          </BaseTextAreaInput>
+          </BaseInputTextArea>
           <BaseButton class="border mb-8 w-full">
-            <SendIcon slot="icon" class="fill-current opacity-medium" />
+            <IconSend slot="icon" class="fill-current opacity-medium" />
             <span slot="cta-text">Send</span>
           </BaseButton>
           <div class="tg-caption-mobile">
@@ -34,27 +42,34 @@
 
 <script>
 import LayoutFixedScrollable from '@/components/LayoutFixedScrollable.vue';
-import BaseMenuHeader from '@/components/BaseMenuHeader.vue';
-import BaseTextInput from '@/components/BaseInputText.vue';
-import BaseTextAreaInput from '@/components/BaseInputTextArea.vue';
+import BaseHeader from '@/components/BaseHeader.vue';
+import IconMenu from '@/assets/icons/menu.svg';
+import CustomerMenuDrawer from '@/components/CustomerMenuDrawer.vue';
+import BaseInputText from '@/components/BaseInputText.vue';
+import BaseInputTextArea from '@/components/BaseInputTextArea.vue';
 import BaseButton from '@/components/BaseButton.vue';
-import SendIcon from '@/assets/icons/send.svg';
-import { mapGetters } from 'vuex';
+import IconSend from '@/assets/icons/send.svg';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   name: 'CustomerContact',
   components: {
     LayoutFixedScrollable,
-    BaseMenuHeader,
-    BaseTextInput,
-    BaseTextAreaInput,
+    BaseHeader,
+    IconMenu,
+    CustomerMenuDrawer,
+    BaseInputText,
+    BaseInputTextArea,
     BaseButton,
-    SendIcon
+    IconSend
   },
   computed: {
     ...mapGetters({
       tenantName: 'getTenantName'
     })
+  },
+  methods: {
+    ...mapMutations(['toggleMenuDrawer'])
   }
 };
 </script>

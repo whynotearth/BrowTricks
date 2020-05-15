@@ -1,7 +1,14 @@
 <template>
   <div class="customer-view">
     <LayoutFixedScrollable>
-      <BaseMenuHeader slot="header" />
+      <BaseHeader
+        slot="header"
+        class="text-on-background-image"
+        @iconClicked="toggleMenuDrawer"
+      >
+        <IconMenu slot="icon" class="h-6 w-6 fill-current" />
+        <CustomerMenuDrawer slot="menu-drawer" />
+      </BaseHeader>
       <div slot="content" class="p-6 pb-20 mt-auto text-on-background-image">
         <div class="tg-h2-mobile mb-4">{{ tenantName }}</div>
         <div class="tg-body-mobile mb-4">
@@ -9,7 +16,7 @@
         </div>
         <div class="w-full px-3">
           <BaseButton class="border border-solid">
-            <CalendarIcon slot="icon" class="fill-current" />
+            <IconCalendar slot="icon" class="fill-current" />
             <span slot="cta-text">Book Now</span>
           </BaseButton>
         </div>
@@ -20,18 +27,22 @@
 
 <script>
 import LayoutFixedScrollable from '@/components/LayoutFixedScrollable.vue';
-import BaseMenuHeader from '@/components/BaseMenuHeader.vue';
+import BaseHeader from '@/components/BaseHeader.vue';
+import IconMenu from '@/assets/icons/menu.svg';
+import CustomerMenuDrawer from '@/components/CustomerMenuDrawer.vue';
 import BaseButton from '@/components/BaseButton.vue';
-import CalendarIcon from '@/assets/icons/calendar_today.svg';
-import { mapGetters } from 'vuex';
+import IconCalendar from '@/assets/icons/calendar_today.svg';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   name: 'CustomerHome',
   components: {
     LayoutFixedScrollable,
-    BaseMenuHeader,
+    BaseHeader,
+    IconMenu,
+    CustomerMenuDrawer,
     BaseButton,
-    CalendarIcon
+    IconCalendar
   },
   props: {
     promoText: {
@@ -43,6 +54,9 @@ export default {
     ...mapGetters({
       tenantName: 'getTenantName'
     })
+  },
+  methods: {
+    ...mapMutations(['toggleMenuDrawer'])
   }
 };
 </script>
