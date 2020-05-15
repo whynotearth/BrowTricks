@@ -21,6 +21,6 @@
 
 <script>
 export default {
-  name: 'MenuHeader'
+  name: 'BaseHeader'
 };
 </script>
