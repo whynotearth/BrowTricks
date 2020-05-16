@@ -10,8 +10,10 @@
       <slot name="subtitle" />
       <slot name="description" />
     </div>
-    <div class="ml-auto" @click="$emit('detailClicked')">
-      <slot name="detail" />
+    <div class="ml-auto">
+      <a @click.prevent="$emit('detailClicked')">
+        <slot name="detail" />
+      </a>
     </div>
   </div>
 </template>
