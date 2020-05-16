@@ -6,11 +6,11 @@
       </slot>
     </div>
     <div class="text-left">
-      <slot name="title" />
-      <slot name="subtitle" />
-      <slot name="description" />
+      <div class="tg-h3-mobile"><slot name="title" /></div>
+      <div class="tg-body-mobile"><slot name="subtitle" /></div>
+      <div class="tg-body-mobile"><slot name="description" /></div>
     </div>
-    <div class="ml-auto">
+    <div class="ml-auto tg-caption-mobile">
       <a @click.prevent="$emit('detailClicked')">
         <slot name="detail" />
       </a>
