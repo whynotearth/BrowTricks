@@ -2,7 +2,7 @@
   <div class="flex items-center w-full">
     <div class="h-10 w-10 mr-2">
       <slot name="image">
-        <img :src="LineItemImageDefault" class="h-10 w-10" />
+        <img :src="IconLineItemDefault" class="h-10 w-10" />
       </slot>
     </div>
     <div class="text-left">
@@ -22,10 +22,10 @@
 import IconLineItemDefault from '@/assets/icons/line_item_default.png';
 
 export default {
-  name: 'LineItem',
+  name: 'BaseLineItem',
   data() {
     return {
-      LineItemImageDefault
+      IconLineItemDefault
     };
   }
 };
