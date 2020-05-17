@@ -20,6 +20,26 @@
             <span slot="cta-text">Book Now</span>
           </BaseButton>
         </div>
+        <BaseLineItem class="my-4">
+          <template #title>
+            Paul Chris Luke
+          </template>
+          <template #subtitle>
+            <span class="text-on-background-image text-opacity-medium">
+              Microblading
+            </span>
+          </template>
+          <template #description>
+            <span class="text-on-background-image text-opacity-medium">
+              Feb 12, 2020 - 5:00PM
+            </span>
+          </template>
+          <template #detail>
+            <span class="text-on-background-image text-opacity-medium">
+              $100
+            </span>
+          </template>
+        </BaseLineItem>
       </div>
     </LayoutFixedScrollable>
   </div>
@@ -32,6 +52,7 @@ import IconMenu from '@/assets/icons/menu.svg';
 import CustomerMenuDrawer from '@/components/CustomerMenuDrawer.vue';
 import BaseButton from '@/components/BaseButton.vue';
 import IconCalendar from '@/assets/icons/calendar_today.svg';
+import BaseLineItem from '@/components/BaseLineItem.vue';
 import { mapGetters, mapMutations } from 'vuex';
 
 export default {
@@ -42,7 +63,8 @@ export default {
     IconMenu,
     CustomerMenuDrawer,
     BaseButton,
-    IconCalendar
+    IconCalendar,
+    BaseLineItem
   },
   props: {
     promoText: {
