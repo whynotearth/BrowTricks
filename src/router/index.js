@@ -20,6 +20,11 @@ const routes = [
     component: () => import('@/views/CustomerContact.vue')
   },
   {
+    path: '/shop/test-tenant-slug/categories',
+    name: 'CustomerCategories',
+    component: () => import('@/views/CustomerCategories.vue')
+  },
+  {
     path: '/',
     redirect: { name: 'CustomerHome' }
   }
