@@ -11,6 +11,6 @@ const colors = {
   'on-background': '#000000',
   'on-background-image': '#ffffff',
   'on-surface': '#000000'
-}
+};
 
 module.exports = colors;
