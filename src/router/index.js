@@ -25,6 +25,11 @@ const routes = [
     component: () => import('@/views/CustomerCategories.vue')
   },
   {
+    path: '/loading-spinner-test',
+    name: 'LoadingSpinnerTest',
+    component: () => import('@/views/LoadingSpinnerTest.vue')
+  },
+  {
     path: '/',
     redirect: { name: 'CustomerHome' }
   }
