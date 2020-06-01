@@ -1,22 +1,26 @@
-Addresses the following issue(s): # .
+# Issue Being Addressed
 
-# What kind of PR is this? (check all that apply)
+Put the issue(s) # that your PR is addressing here. e.g. #15, #29
 
+# Type of PR
+
+Put an `x` in the brackets for the type(s) of PR this is. You may tick more than one.
+
+- [ ] Bug Fix
 - [ ] Refactor
-- [ ] Bug fix
-- [ ] New feature
-- [ ] Feature update
+- [ ] New Feature
+- [ ] Update to Existing Feature
 - [ ] Other (state below)
 
 # Description
 
-For refactors: What are we refactoring and why? How do your changes address the need for refactoring?
+*For Bug Fixes:* What was the root cause? How do your changes fix the bug effectively?
 
-For bug fixes: What was the root cause? How do your changes fix the bug effectively?
+*For Refactors:* What are we refactoring and why? How do your changes address this need for refactoring?
 
-For new features: What feature are we adding? Explain your technical approach to doing this.
+*For New Features:* What feature are we adding? Explain your technical approach to doing this.
 
-For feature updates: What feature are we updating? Explain your technical approach to doing this.
+*For Feature Updates:* What feature are we updating? Explain your technical approach to doing this.
 
 # How to Test/Reproduce
 
