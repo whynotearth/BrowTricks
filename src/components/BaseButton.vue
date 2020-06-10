@@ -1,7 +1,7 @@
 <template>
   <component
     :is="tag"
-    class="full-width rounded tg-color-label-mobile p-2 flex items-center justify-center"
+    class="full-width rounded-full tg-color-label-mobile p-2 flex items-center justify-center"
     @click="$emit('clicked')"
     :href="href"
     :to="to"
