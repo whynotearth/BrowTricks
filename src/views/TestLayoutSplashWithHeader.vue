@@ -1,6 +1,10 @@
 <template>
   <div>
     <LayoutFixedScrollable>
+      <BaseHeader slot="header" class="text-on-background-image bg-secondary">
+        <IconMenu slot="icon" class="h-6 w-6 fill-current" />
+        <span slot="content" class="pl-5">Menu</span>
+      </BaseHeader>
       <LayoutSplash slot="content">
         <img
           slot="image"
@@ -31,15 +35,19 @@
 
 <script>
 import LayoutFixedScrollable from '@/components/LayoutFixedScrollable.vue';
+import BaseHeader from '@/components/BaseHeader.vue';
 import LayoutSplash from '@/components/LayoutSplash.vue';
 import BaseButton from '@/components/BaseButton.vue';
+import IconMenu from '@/assets/icons/menu.svg';
 
 export default {
   name: 'TestLayoutSplash',
   components: {
     LayoutFixedScrollable,
+    BaseHeader,
     LayoutSplash,
-    BaseButton
+    BaseButton,
+    IconMenu
   }
 };
 </script>
