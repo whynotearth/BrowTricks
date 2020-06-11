@@ -28,7 +28,7 @@
             Message
           </BaseInputTextArea>
           <BaseButton class="border mb-8 w-full">
-            <IconSend slot="icon" class="fill-current opacity-medium" />
+            <IconSend slot="icon" class="fill-current opacity-medium h-6 w-6" />
             <span slot="cta-text">Send</span>
           </BaseButton>
           <div class="tg-caption-mobile">
