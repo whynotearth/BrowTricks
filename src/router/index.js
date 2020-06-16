@@ -5,6 +5,16 @@ Vue.use(VueRouter);
 
 const routes = [
   {
+    path: '/test-layout-splash',
+    name: 'TestLayoutSplash',
+    component: () => import('@/views/TestLayoutSplash.vue')
+  },
+  {
+    path: '/test-layout-splash-with-header',
+    name: 'TestLayoutSplashWithHeader',
+    component: () => import('@/views/TestLayoutSplashWithHeader.vue')
+  },
+  {
     path: '/shop/test-tenant-slug',
     name: 'CustomerHome',
     component: () => import('@/views/CustomerHome.vue')

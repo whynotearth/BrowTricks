@@ -16,7 +16,7 @@
         </div>
         <div class="w-full px-3">
           <BaseButton class="border border-solid">
-            <IconCalendar slot="icon" class="fill-current" />
+            <IconCalendar slot="icon" class="fill-current h-6 w-6" />
             <span slot="cta-text">Book Now</span>
           </BaseButton>
         </div>

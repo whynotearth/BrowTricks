@@ -1,14 +1,12 @@
 <template>
   <component
     :is="tag"
-    class="full-width rounded-full tg-color-label-mobile p-2 flex items-center justify-center"
+    class="w-full rounded-full tg-color-label-mobile px-4 py-2 flex items-center justify-center"
     @click="$emit('clicked')"
     :href="href"
     :to="to"
   >
-    <div class="text-left h-6 w-6">
-      <slot name="icon" />
-    </div>
+    <slot name="icon" />
     <div class="flex-grow">
       <slot name="cta-text">
         Button
