@@ -1,24 +1,24 @@
 <template>
   <div
-    class="layout-splash h-full flex flex-col justify-end items-center p-4 pb-5 text-on-background-image"
+    class="layout-splash h-full flex flex-col justify-end items-center p-4 pb-10 text-on-background-image"
   >
     <slot name="image" />
-    <div class="tg-h1-mobile">
+    <div class="tg-h1-mobile pb-4">
       <slot name="title" />
     </div>
-    <div class="tg-body-mobile">
+    <div class="tg-body-mobile pb-4">
       <slot name="subtitle" />
     </div>
-    <div class="tg-body-hyperlink-mobile text-secondary">
+    <div class="tg-body-hyperlink-mobile text-secondary pb-4">
       <slot name="link" />
     </div>
-    <slot name="primary-cta" />
-    <slot name="secondary-cta" />
-    <div class="tg-color-label-mobile text-error">
+    <div class="pb-4"><slot name="primary-cta" /></div>
+    <div class="pb-4"><slot name="secondary-cta" /></div>
+    <div class="tg-color-label-mobile text-error pb-4">
       <slot name="reject-cta" />
     </div>
     <div
-      class="tg-body-hyperlink-mobile text-on-background-image text-opacity-medium"
+      class="tg-body-hyperlink-mobile text-on-background-image text-opacity-medium pb-4"
     >
       <slot name="tertiary-cta" />
     </div>

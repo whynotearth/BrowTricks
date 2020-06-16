@@ -7,20 +7,20 @@
           src="https://res.cloudinary.com/whynotearth/image/upload/v1585738962/BrowTricks/LOG_IN_alwajv.png"
           class="w-40 h-45 pb-14"
         />
-        <div slot="title" class="pb-4">Brow Tricks Beauty</div>
-        <div slot="subtitle" class="pb-4">This is a test</div>
-        <div slot="link" class="pb-4">This is a test</div>
-        <div slot="primary-cta" class="w-full pb-4">
+        <div slot="title">Brow Tricks Beauty</div>
+        <div slot="subtitle">This is a test</div>
+        <div slot="link">This is a test</div>
+        <div slot="primary-cta" class="w-full">
           <BaseButton class="bg-secondary">
             <span slot="cta-text">Start Setting Up Your Business</span>
           </BaseButton>
         </div>
-        <div slot="secondary-cta" class="w-full pb-6">
+        <div slot="secondary-cta" class="w-full">
           <BaseButton class="bg-secondary">
             <span slot="cta-text">Start Setting Up Your Business</span>
           </BaseButton>
         </div>
-        <div slot="reject-cta" class="pb-4">Cancel Action</div>
+        <div slot="reject-cta">Cancel Action</div>
         <div slot="tertiary-cta">
           No account? Sign Up For Brow Tricks Beauty!
         </div>
