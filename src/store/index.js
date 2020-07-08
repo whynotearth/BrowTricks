@@ -1,12 +1,12 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import auth from './modules/auth';
-
+import tenant from './modules/tenant';
 import VuexPersistence from 'vuex-persist';
 
 const vuexSession = new VuexPersistence({
   storage: window.sessionStorage,
-  modules: ['auth'],
+  modules: ['auth', 'tenant'],
   key: 'vuexSessionStore'
 });
 
@@ -34,6 +34,7 @@ export default new Vuex.Store({
   },
   actions: {},
   modules: {
-    auth
+    auth,
+    tenant
   }
 });
