@@ -9,7 +9,7 @@
     </div>
     <div class="sm:py-10 w-full md:w-auto px-5">
       <div class="py-3">
-        <h1 class="tg-h1-mobile text-white text-opacity-84">
+        <h1 class="tg-h1-mobile text-white text-opacity-high">
           Brow Tricks Beauty
         </h1>
       </div>
@@ -17,7 +17,7 @@
         <Button
           :to="{ name: 'SignUp', params: { step: 'business-info' } }"
           title="START SETTING UP YOUR BUSINESS"
-          class="tg-color-label-mobile text-white text-opacity-84 rounded-full py-3 px-10"
+          class="tg-color-label-mobile text-white text-opacity-high rounded-full py-3 px-10"
         />
       </div>
       <div class="py-3 text-center">
