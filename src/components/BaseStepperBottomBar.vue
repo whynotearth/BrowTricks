@@ -9,7 +9,7 @@
     />
     <Button
       :titleRight="nextStepText"
-       class="text-white text-opacity-high"
+      class="text-white text-opacity-high"
       :width="'flex-grow'"
       @clicked="$emit('nextStep')"
       v-if="!hideNext"

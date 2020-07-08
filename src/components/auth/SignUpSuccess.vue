@@ -1,13 +1,10 @@
 <template>
-  <div class="layout-splash min-h-screen w-full clear-margin clear-max-width flex flex-col justify-between md:justify-center items-center py-20">
+  <div
+    class="layout-splash min-h-screen w-full clear-margin clear-max-width flex flex-col justify-between md:justify-center items-center py-20"
+  >
     <div class="flex flex-col items-center">
       <div class="py-3">
-        <img
-          height="450"
-          width="225"
-          :src="logoUrl"
-          alt="browtricks-logo"
-        />
+        <img height="450" width="225" :src="logoUrl" alt="browtricks-logo" />
       </div>
     </div>
     <div class="w-full md:w-auto px-5">
@@ -18,7 +15,8 @@
       </div>
       <div class="py-3">
         <h1 class="tg-body-mobile text-white text-center">
-          This starts your 30 day free trial. On {date} you will be billed {amount} per month. You can cancel at any time.
+          This starts your 30 day free trial. On {date} you will be billed
+          {amount} per month. You can cancel at any time.
         </h1>
       </div>
       <div class="py-3">

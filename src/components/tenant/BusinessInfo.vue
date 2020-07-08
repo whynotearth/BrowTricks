@@ -42,10 +42,7 @@
         Please enter a valid phone number
       </span>
     </material-input>
-    <text-area
-      v-model="$v.description.$model"
-      label="Description"
-    />
+    <text-area v-model="$v.description.$model" label="Description" />
     <hr class="border-on-background border-opacity-divider my-8" />
     <ImageUpload class="clear-margin" v-model="logo" :defaultImages="logo">
       <template #title>

@@ -19,7 +19,10 @@
     <label
       :for="idName"
       class="label absolute mb-0 top-0 left-0 mt-3 ml-3 cursor-text"
-      :class="[error ? 'text-red-600' : 'text-on-background text-opacity-medium', labelBg]"
+      :class="[
+        error ? 'text-red-600' : 'text-on-background text-opacity-medium',
+        labelBg
+      ]"
     >
       {{ label }}
     </label>

@@ -20,7 +20,8 @@
               <span class="mx-1 text-on-background text-opacity-high">{{
                 notificationType.name
               }}</span>
-              <span class="mx-1 text-on-background text-opacity-medium break-all"
+              <span
+                class="mx-1 text-on-background text-opacity-medium break-all"
                 >({{ authDetail[notificationType.key] }})</span
               >
             </div>

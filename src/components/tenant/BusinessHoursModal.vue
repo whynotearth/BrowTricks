@@ -22,7 +22,9 @@
               <div
                 class="flex justify-between items-center border-b border-on-background border-opacity-divider px-4 pb-4"
               >
-                <div class="tg-body-mobile text-on-background text-opacity-high">
+                <div
+                  class="tg-body-mobile text-on-background text-opacity-high"
+                >
                   <h6>
                     We are
                     {{ !selectedDayOption.isClosed ? 'open' : 'closed' }} on
@@ -39,7 +41,9 @@
             <transition name="fade">
               <div v-if="!selectedDayOption.isClosed">
                 <div>
-                  <div class="grid grid-cols-2 shadow-lg text-on-background uppercase">
+                  <div
+                    class="grid grid-cols-2 shadow-lg text-on-background uppercase"
+                  >
                     <div
                       class="cursor-pointer col-span-1 text-center py-4 text-on-background"
                       :class="
