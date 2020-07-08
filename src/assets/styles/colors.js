@@ -11,7 +11,8 @@ const colors = {
   'on-background': '#000000',
   'on-background-image': '#ffffff',
   'on-surface': '#000000',
-  button: '#33658A'
+  button: '#33658A',
+  footer: '#067BC2'
 };
 
 module.exports = colors;
