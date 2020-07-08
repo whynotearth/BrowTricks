@@ -10,7 +10,8 @@ const colors = {
   'on-secondary': '#0C6986',
   'on-background': '#000000',
   'on-background-image': '#ffffff',
-  'on-surface': '#000000'
+  'on-surface': '#000000',
+  button: '#33658A'
 };
 
 module.exports = colors;
