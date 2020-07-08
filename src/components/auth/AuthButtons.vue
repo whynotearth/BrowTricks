@@ -7,7 +7,7 @@
     >
       <Button
         :title="`Log In With ${name}`"
-        class="tg-color-label-mobile text-white text-opacity-84 rounded-full py-3 md:px-5"
+        class="tg-color-label-mobile text-white text-opacity-high rounded-full py-3 md:px-5"
         @clicked="oauth(name)"
       >
         <template #icon>
