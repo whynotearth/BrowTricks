@@ -10,17 +10,44 @@ module.exports = {
       boxShadow,
       colors,
       opacity,
-      fontFamily: {
-        sans: ['Roboto', ...defaultTheme.fontFamily.sans]
+      screens: {
+        xl: '1280px',
+        xxl: '1920px'
       },
-      height: {
-        14: '3.5rem'
+      spacing: {
+        '0.5': '0.125rem',
+        '1.5': '0.375rem',
+        '14': '3.5rem',
+        '128': '32rem',
+        '160': '40rem'
+      },
+      fontFamily: {
+        sans: ['Open Sans', ...defaultTheme.fontFamily.sans]
       },
       inset: {
-        32: '5rem'
+        '1/2': '50%'
+      },
+      zIndex: {
+        '-1': '-1',
+        '100': '100',
+        '110': '110'
       }
     }
   },
-  variants: {},
+  variants: [
+    'responsive',
+    'group-hover',
+    'group-focus',
+    'focus-within',
+    'first',
+    'last',
+    'odd',
+    'even',
+    'hover',
+    'focus',
+    'active',
+    'visited',
+    'disabled'
+  ],
   plugins: []
 };
