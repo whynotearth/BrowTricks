@@ -4,10 +4,7 @@
       class="min-h-screen bg-background w-full flex flex-col justify-between"
     >
       <div>
-        <StepperTop
-          :navigation="navigation"
-          :page="page"
-        />
+        <StepperTop :navigation="navigation" :page="page" />
         <div class="my-4">
           <transition name="fade" mode="out-in">
             <keep-alive>

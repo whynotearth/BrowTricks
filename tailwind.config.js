@@ -22,7 +22,7 @@ module.exports = {
         '160': '40rem'
       },
       fontFamily: {
-        sans: ['Open Sans', ...defaultTheme.fontFamily.sans]
+        sans: ['Roboto', ...defaultTheme.fontFamily.sans]
       },
       inset: {
         '1/2': '50%'

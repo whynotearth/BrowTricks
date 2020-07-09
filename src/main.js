@@ -9,8 +9,6 @@ import Vuelidate from 'vuelidate';
 import SmoothPicker from 'vue-smooth-picker';
 import 'vue-smooth-picker/dist/css/style.css';
 
-require('typeface-roboto');
-
 Vue.use(SmoothPicker);
 Vue.use(Vuelidate);
 
