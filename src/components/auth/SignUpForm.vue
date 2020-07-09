@@ -5,7 +5,6 @@
     >
       <div>
         <StepperTop
-          class="clear-margin"
           :navigation="navigation"
           :page="page"
         />
@@ -37,7 +36,6 @@
         "
         @previousStep="previousStep"
         @nextStep="nextStep"
-        class="clear-margin"
         :firstPageStepBack="true"
       />
     </div>

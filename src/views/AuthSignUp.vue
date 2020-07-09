@@ -1,5 +1,5 @@
 <template>
-  <div class="clear-margin text-left clear-max-width">
+  <div class="text-left">
     <SignUpForm />
   </div>
 </template>
