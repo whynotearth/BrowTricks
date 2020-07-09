@@ -1,6 +1,6 @@
 <template>
   <div
-    class="layout-splash min-h-screen w-full clear-margin clear-max-width flex flex-col justify-between md:justify-center items-center py-20"
+    class="layout-splash min-h-screen w-full flex flex-col justify-between md:justify-center items-center py-20"
   >
     <div class="py-10 flex flex-col items-center">
       <div class="py-3">
@@ -18,7 +18,7 @@
         :to="{ name: 'SignUp', params: { step: 'business-info' } }"
         class="tg-body-hyperlink-mobile text-on-background-image text-opacity-medium pb-4 normal-case font-normal"
         title="No account? Sign Up For Brow Tricks Beauty!"
-        buttonBg="bg-transparent"
+        background="bg-transparent"
         :isRipple="false"
       />
     </div>
@@ -29,7 +29,7 @@
 import AuthButtons from '@/components/auth/AuthButtons';
 import Button from '@/components/Button.vue';
 
-import { mapActions, mapMutations } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'LogIn',
@@ -54,8 +54,7 @@ export default {
     });
   },
   methods: {
-    ...mapActions('auth', ['ping']),
-    ...mapMutations('auth', ['updateToken'])
+    ...mapActions('auth', ['ping', 'updateToken'])
   }
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="layout-splash min-h-screen w-full clear-margin clear-max-width flex flex-col justify-between sm:justify-center items-center py-20"
+    class="layout-splash min-h-screen w-full flex flex-col justify-between sm:justify-center items-center py-20"
   >
     <div class="sm:py-16 flex flex-col items-center">
       <div class="py-3">
@@ -25,7 +25,7 @@
           :to="{ name: 'LogIn' }"
           class="tg-body-hyperlink-mobile text-on-background-image text-opacity-medium pb-4 normal-case font-normal"
           title="Already have an account? Log in!"
-          buttonBg="bg-transparent"
+          background="bg-transparent"
           :isRipple="false"
         />
       </div>

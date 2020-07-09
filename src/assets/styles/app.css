@@ -18,15 +18,6 @@ When this is removed, be sure to remove the wrapper divs with 'customer-view' cl
 */
 @import './temp-customer-view-bg.css';
 
-
-.clear-margin {
-  @apply mx-0 !important;
-}
-
-.clear-max-width {
-  @apply max-w-none !important;
-}
-
 .layout-splash {
   background-image: url('https://res.cloudinary.com/whynotearth/image/upload/v1590460151/BrowTricks/Action_page_background_zlpen3.png');
   @apply bg-cover bg-no-repeat;
