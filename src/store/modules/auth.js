@@ -26,14 +26,14 @@ const actions = {
         });
     });
   },
-  logout({ commit, state }) {
+  logout({ commit, state, dispatch }) {
     return new Promise((resolve, reject) => {
       httpClient
         .post(`authentication/provider/logout?provider=${state.provider}`)
         .then(
           () => {
             commit('updateProvider', '');
-            commit('updateToken', null);
+            dispatch('updateToken', null);
             resolve('Log Out Successful');
           },
           error => {
@@ -41,6 +41,13 @@ const actions = {
           }
         );
     });
+  },
+  updateToken(store, payload) {
+    if (payload) {
+      httpClient.defaults.headers.common['Authorization'] = `Bearer ${payload}`;
+    } else {
+      delete httpClient.defaults.headers.common['Authorization'];
+    }
   }
 };
 
@@ -50,13 +57,6 @@ const mutations = {
   },
   updateReturnUrl(state, payload) {
     state.returnURL = `${payload}?signUpStarted=true`;
-  },
-  updateToken(state, payload) {
-    if (payload) {
-      httpClient.defaults.headers.common['Authorization'] = `Bearer ${payload}`;
-    } else {
-      delete httpClient.defaults.headers.common['Authorization'];
-    }
   }
 };
 

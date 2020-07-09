@@ -29,7 +29,7 @@
 import AuthButtons from '@/components/auth/AuthButtons';
 import Button from '@/components/Button.vue';
 
-import { mapActions, mapMutations } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'LogIn',
@@ -54,8 +54,7 @@ export default {
     });
   },
   methods: {
-    ...mapActions('auth', ['ping']),
-    ...mapMutations('auth', ['updateToken'])
+    ...mapActions('auth', ['ping', 'updateToken'])
   }
 };
 </script>
