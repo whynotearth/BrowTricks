@@ -1,6 +1,6 @@
 <template>
   <div
-    class="layout-splash min-h-screen w-full clear-margin clear-max-width flex flex-col justify-between md:justify-center items-center py-20"
+    class="layout-splash min-h-screen w-full flex flex-col justify-between md:justify-center items-center py-20"
   >
     <div class="py-10 flex flex-col items-center">
       <div class="py-3">

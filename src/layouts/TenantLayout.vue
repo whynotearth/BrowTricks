@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen mx-auto">
     <transition name="fade" mode="out-in">
-      <router-view class="container mx-auto"></router-view>
+      <router-view class=""></router-view>
     </transition>
   </div>
 </template>
