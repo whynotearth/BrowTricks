@@ -49,7 +49,7 @@ export default {
 
     this.ping().then(response => {
       if (response.isAuthenticated) {
-        this.$router.push({ name: 'Account' });
+        this.$router.push({ name: 'CustomerHome' });
       }
     });
   },
