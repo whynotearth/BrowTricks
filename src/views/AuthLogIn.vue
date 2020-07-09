@@ -18,7 +18,7 @@
         :to="{ name: 'SignUp', params: { step: 'business-info' } }"
         class="tg-body-hyperlink-mobile text-on-background-image text-opacity-medium pb-4 normal-case font-normal"
         title="No account? Sign Up For Brow Tricks Beauty!"
-        buttonBg="bg-transparent"
+        background="bg-transparent"
         :isRipple="false"
       />
     </div>

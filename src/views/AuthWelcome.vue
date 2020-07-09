@@ -25,7 +25,7 @@
           :to="{ name: 'LogIn' }"
           class="tg-body-hyperlink-mobile text-on-background-image text-opacity-medium pb-4 normal-case font-normal"
           title="Already have an account? Log in!"
-          buttonBg="bg-transparent"
+          background="bg-transparent"
           :isRipple="false"
         />
       </div>

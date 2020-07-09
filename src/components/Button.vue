@@ -2,7 +2,7 @@
   <component
     :is="type"
     class="cursor-pointer text-white text-sm font-semibold uppercase inline-block"
-    :class="[isRipple ? 'ripple' : '', width, buttonBg, padding]"
+    :class="[isRipple ? 'ripple' : '', width, background, padding]"
     @click="$emit('clicked')"
     :href="href"
     :to="to"
@@ -56,7 +56,7 @@ export default {
       type: String,
       default: 'w-full'
     },
-    buttonBg: {
+    background: {
       type: String,
       default: 'bg-button'
     },
