@@ -7,13 +7,8 @@
 </template>
 
 <script>
-import NewItemIcon from '@/assets/icons/new_item.svg';
-
 export default {
   name: 'TenantLayout',
-  components: {
-    NewItemIcon
-  },
   computed: {
     appBar() {
       return this.$route.meta.appBar;
