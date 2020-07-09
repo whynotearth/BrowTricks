@@ -39,7 +39,7 @@ export default {
       var myWidget = window.cloudinary.createUploadWidget(
         {
           cloudName: 'whynotearth',
-          uploadPreset: 'foodouken_tenant_CMS',
+          uploadPreset: 'browtricks_tenant_CMS',
           theme: 'minimal',
           ...this.uploaderOptions
         },
