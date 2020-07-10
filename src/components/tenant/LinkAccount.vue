@@ -45,6 +45,7 @@ export default {
       .then(result => {
         if (result && result.isAuthenticated) {
           this.isAuthenticated = true;
+          this.updateEmail(result.userName);
         }
         if (this.$route.query.signUpStarted) {
           this.$emit('nextStep');
@@ -55,8 +56,8 @@ export default {
       });
   },
   methods: {
-    ...mapActions('auth', ['ping']),
-    ...mapMutations('auth', ['updateToken'])
+    ...mapActions('auth', ['ping', 'updateToken']),
+    ...mapMutations('tenant', ['updateEmail'])
   }
 };
 </script>

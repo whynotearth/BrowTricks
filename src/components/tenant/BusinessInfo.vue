@@ -13,21 +13,6 @@
       </span>
     </material-input>
     <material-input
-      v-model="$v.email.$model"
-      label="Email"
-      :error="$v.email.$dirty && (!$v.email.required || !$v.email.email)"
-    >
-      <span
-        v-if="$v.email.$dirty && !$v.email.required"
-        class="text-red-600 text-xs"
-      >
-        Email is required
-      </span>
-      <span v-if="!$v.email.email" class="text-red-600 text-xs">
-        Please enter valid email
-      </span>
-    </material-input>
-    <material-input
       v-model="$v.phone.$model"
       label="Phone number"
       :error="$v.phone.$dirty && (!$v.phone.required || !$v.phone.minLength)"
@@ -62,7 +47,7 @@
 
 <script>
 import { mapMutations, mapGetters } from 'vuex';
-import { required, email, minLength } from 'vuelidate/lib/validators';
+import { required, minLength } from 'vuelidate/lib/validators';
 import MaterialInput from '@/components/inputs/MaterialInput';
 import TextArea from '@/components/inputs/TextArea.vue';
 import ImageUpload from '@/components/imageUpload/ImageUpload.vue';
@@ -81,10 +66,6 @@ export default {
     name: {
       required
     },
-    email: {
-      required,
-      email
-    },
     phone: {
       required,
       minLength: minLength(7)
@@ -101,7 +82,6 @@ export default {
   computed: {
     ...mapGetters('tenant', [
       'getName',
-      'getEmail',
       'getPhone',
       'getDescription',
       'getLogo'
@@ -112,14 +92,6 @@ export default {
       },
       set(value) {
         this.updateName(value);
-      }
-    },
-    email: {
-      get() {
-        return this.getEmail;
-      },
-      set(value) {
-        this.updateEmail(value);
       }
     },
     phone: {
@@ -150,7 +122,6 @@ export default {
   methods: {
     ...mapMutations('tenant', [
       'updateName',
-      'updateEmail',
       'updatePhone',
       'updateDescription',
       'updateLogo'
