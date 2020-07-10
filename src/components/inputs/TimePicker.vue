@@ -199,7 +199,7 @@ export default {
 }
 
 /deep/ .smooth-picker .smooth-middle {
-  border-width: 0.01rem 0 0.01rem 0 !important;
+  border-width: 0.15rem 0 0.15rem 0 !important;
   border-color: #0c6986 !important;
   border-style: solid !important;
 }
