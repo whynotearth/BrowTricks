@@ -29,7 +29,7 @@
           :to="url.to"
           class="hyperlink-text underline text-white text-opacity-medium normal-case"
           :title="url.title"
-          buttonBg="bg-transparent"
+          background="bg-transparent"
           :isRipple="false"
         />
       </div>
