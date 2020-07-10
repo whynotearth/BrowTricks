@@ -99,6 +99,7 @@ export default {
       .then(response => {
         if (response.isAuthenticated) {
           this.navigation.splice(this.navigation.findIndex(nav => nav.step === 'link-account'), 1);
+          this.updateEmail(response.userName);
         }
       })
     }
@@ -110,7 +111,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('tenant', ['pageChange', 'resetCreateTenantForm']),
+    ...mapMutations('tenant', ['pageChange', 'resetCreateTenantForm', 'updateEmail']),
     ...mapActions('tenant', ['createTenant']),
     ...mapActions('auth', ['ping']),
     previousStep() {
