@@ -94,6 +94,14 @@ export default {
     }
   },
   created() {
+    if (!this.$route.query.signUpStarted && this.navigation.length > 0) {
+      this.ping()
+      .then(response => {
+        if (response.isAuthenticated) {
+          this.navigation.splice(this.navigation.findIndex(nav => nav.step === 'link-account'), 1);
+        }
+      })
+    }
     if (
       !this.$route.query.signUpStarted &&
       this.$route.params.step !== 'business-info'
@@ -137,6 +145,15 @@ export default {
           });
         })
         .catch(error => {
+          if (error.response.status === 401) {
+            const isLinkAccountAvailabble = this.navigation.findIndex(nav => nav.step === 'link-account');
+            if (isLinkAccountAvailabble !== -1) {
+              this.navigation.push({
+                step: 'notifications',
+                name: 'Notifications'
+              })
+            }
+          }
           this.errors = error.response.data.errors;
         });
     }

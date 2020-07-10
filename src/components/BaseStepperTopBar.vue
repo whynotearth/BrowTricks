@@ -53,7 +53,6 @@ export default {
   },
   data() {
     return {
-      pageCount: 5,
       radius: 25,
       centerX: 40,
       centerY: 40
@@ -80,6 +79,9 @@ export default {
     },
     pageProgress() {
       return `${this.page} of ${this.pageCount}`;
+    },
+    pageCount() {
+      return this.navigation.length;
     }
   },
   filters: {
