@@ -20,7 +20,7 @@
           class="tg-color-label-mobile text-white text-opacity-high rounded-full py-3 px-10"
         />
       </div>
-      <div class="py-3 text-center">
+      <div class="py-3 text-center" v-if="!isAuthenticated">
         <Button
           :to="{ name: 'LogIn' }"
           class="tg-body-hyperlink-mobile text-on-background-image text-opacity-medium pb-4 normal-case font-normal"
@@ -35,17 +35,27 @@
 
 <script>
 import Button from '@/components/Button.vue';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'Welcome',
   data() {
     return {
       logoUrl: process.env.VUE_APP_LOGO_URL,
-      appName: process.env.VUE_APP_NAME
+      appName: process.env.VUE_APP_NAME,
+      isAuthenticated: false
     };
   },
   components: {
     Button
+  },
+  methods: {
+    ...mapActions('auth', ['ping'])
+  },
+  created() {
+    this.ping().then(result => {
+      this.isAuthenticated = !!result.isAuthenticated
+    })
   }
 };
 </script>
