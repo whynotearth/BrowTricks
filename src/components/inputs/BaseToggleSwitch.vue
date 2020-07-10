@@ -51,12 +51,12 @@ export default {
 }
 
 input:checked ~ .toggle-dot {
-  @apply bg-button;
+  @apply bg-footer;
 
   transform: translateX(100%);
 }
 
 input:checked ~ .toggle-line {
-  @apply bg-button bg-opacity-medium;
+  @apply bg-footer bg-opacity-medium;
 }
 </style>
