@@ -67,7 +67,7 @@ export default {
       logoUrl: process.env.VUE_APP_LOGO_URL,
       appName: process.env.VUE_APP_NAME,
       billAmount: `$${process.env.VUE_APP_BILL_AMOUNT}`,
-      date: this.format(this.addDays(new Date(), 31), 'MM/dd/yyyy')
+      date: this.format(this.addDays(new Date(), 31), 'dd MMM, yyyy')
     };
   },
   computed: {
