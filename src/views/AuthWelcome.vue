@@ -54,8 +54,8 @@ export default {
   },
   created() {
     this.ping().then(result => {
-      this.isAuthenticated = !!result.isAuthenticated
-    })
+      this.isAuthenticated = !!result.isAuthenticated;
+    });
   }
 };
 </script>

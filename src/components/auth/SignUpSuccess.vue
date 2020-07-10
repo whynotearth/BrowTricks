@@ -15,8 +15,8 @@
       </div>
       <div class="py-3">
         <h1 class="tg-body-mobile text-white text-center">
-          This starts your 30 day free trial. On {date} you will be billed
-          {amount} per month. You can cancel at any time.
+          This starts your 30 day free trial. On {{ date }} you will be billed
+          {{ billAmount }} per month. You can cancel at any time.
         </h1>
       </div>
       <div class="py-3">
@@ -54,6 +54,7 @@
 <script>
 import Button from '@/components/Button.vue';
 import AddIcon from '@/assets/icons/new_item.svg';
+import { addDays, format } from 'date-fns';
 
 export default {
   name: 'SignUpSuccesss',
@@ -64,7 +65,9 @@ export default {
   data() {
     return {
       logoUrl: process.env.VUE_APP_LOGO_URL,
-      appName: process.env.VUE_APP_NAME
+      appName: process.env.VUE_APP_NAME,
+      billAmount: `$${process.env.VUE_APP_BILL_AMOUNT}`,
+      date: this.format(this.addDays(new Date(), 31), 'MM/dd/yyyy')
     };
   },
   computed: {
@@ -75,6 +78,10 @@ export default {
         to: { name: 'Shop', params: { slug: tenantSlug } }
       };
     }
+  },
+  methods: {
+    addDays,
+    format
   }
 };
 </script>
