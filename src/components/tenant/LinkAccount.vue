@@ -2,7 +2,7 @@
   <div class="px-8">
     <div class="py-10">
       <h4 class="tg-body-mobile text-on-background text-opacity-high">
-        Link your Facebook or Google account to get started!
+        Link your Google account to get started!
       </h4>
     </div>
     <AuthButtons />

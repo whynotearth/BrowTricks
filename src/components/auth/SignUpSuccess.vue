@@ -10,7 +10,7 @@
     <div class="w-full md:w-auto px-5">
       <div class="py-3">
         <h1 class="tg-h1-mobile text-center text-white text-opacity-high">
-          Brow Tricks Beauty
+          {{ appName }}
         </h1>
       </div>
       <div class="py-3">
@@ -63,7 +63,8 @@ export default {
   },
   data() {
     return {
-      logoUrl: process.env.VUE_APP_LOGO_URL
+      logoUrl: process.env.VUE_APP_LOGO_URL,
+      appName: process.env.VUE_APP_NAME
     };
   },
   computed: {
