@@ -17,3 +17,8 @@ FIXME: temporary CSS to simulate a full-page colored background until product ca
 When this is removed, be sure to remove the wrapper divs with 'customer-view' classes on them in the various customer views if applicable.
 */
 @import './temp-customer-view-bg.css';
+
+.layout-splash {
+  background-image: url('https://res.cloudinary.com/whynotearth/image/upload/v1590460151/BrowTricks/Action_page_background_zlpen3.png');
+  @apply bg-cover bg-no-repeat;
+}

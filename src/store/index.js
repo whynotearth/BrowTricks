@@ -1,9 +1,19 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import auth from './modules/auth';
+import tenant from './modules/tenant';
+import VuexPersistence from 'vuex-persist';
+
+const vuexSession = new VuexPersistence({
+  storage: window.sessionStorage,
+  modules: ['auth', 'tenant'],
+  key: 'vuexSessionStore'
+});
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+  plugins: [vuexSession.plugin],
   state: {
     isMenuDrawerOpen: false,
     // FIXME : temporary hardcoded tenantName for testing purposes
@@ -23,5 +33,8 @@ export default new Vuex.Store({
     }
   },
   actions: {},
-  modules: {}
+  modules: {
+    auth,
+    tenant
+  }
 });

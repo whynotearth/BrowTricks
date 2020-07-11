@@ -1,5 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import store from '../store';
+
+import { authRoutes } from './authRoutes';
 
 Vue.use(VueRouter);
 
@@ -34,6 +37,7 @@ const routes = [
     name: 'CustomerCategories',
     component: () => import('@/views/CustomerCategories.vue')
   },
+  ...authRoutes,
   {
     path: '/',
     redirect: { name: 'CustomerHome' }
@@ -44,6 +48,25 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+});
+
+router.beforeEach((to, from, next) => {
+  store
+    .dispatch('auth/ping')
+    .then(response => {
+      if (response && response.isAuthenticated) {
+        next();
+      } else {
+        throw new Error();
+      }
+    })
+    .catch(() => {
+      if (!to.meta.requiresAuth) {
+        return next();
+      } else {
+        next({ name: 'Welcome' });
+      }
+    });
 });
 
 export default router;
