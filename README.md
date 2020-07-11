@@ -24,3 +24,7 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## License
+
+Licensed under the [GNU Affero General Public License v3.0](LICENSE).
