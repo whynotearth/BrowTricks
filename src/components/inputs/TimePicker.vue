@@ -168,6 +168,7 @@ export default {
   }
 };
 </script>
+
 <style scoped>
 /deep/ .smooth-picker {
   background-color: transparent;
