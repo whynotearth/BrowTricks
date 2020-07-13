@@ -7,7 +7,6 @@ import './assets/styles/app.css';
 import Vuelidate from 'vuelidate';
 
 import SmoothPicker from 'vue-smooth-picker';
-import 'vue-smooth-picker/dist/css/style.css';
 
 Vue.use(SmoothPicker);
 Vue.use(Vuelidate);
