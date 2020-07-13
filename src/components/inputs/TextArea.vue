@@ -1,7 +1,7 @@
 <template>
   <div class="mb-4 relative">
     <textarea
-      class="input text-on-background text-opacity-disabled disable-scrollbars appearance-none resize-none outline-none relative bg-transparent rounded h-32 w-full px-4 py-3 border focus:border-2 active:border-2 focus:border-opacity-medium active:border-opacity-medium"
+      class="input text-on-background text-opacity-high disable-scrollbars appearance-none resize-none outline-none relative bg-transparent rounded h-32 w-full px-4 py-3 border focus:border-2 active:border-2 focus:border-opacity-medium active:border-opacity-medium"
       :class="[
         { filled: value && value.length > 0 },
         error

@@ -5,6 +5,7 @@ const colors = require('./src/assets/styles/colors');
 const opacity = require('./src/assets/styles/opacities');
 
 module.exports = {
+  purge: ['./public/**/*.html', './src/**/*.vue'],
   theme: {
     extend: {
       boxShadow,
