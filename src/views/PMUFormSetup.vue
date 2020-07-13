@@ -1,13 +1,23 @@
 <template>
-  <div>pmu form setup...</div>
+  <div>
+    <BaseSlider>
+      <div class="keen-slider__slide">1</div>
+      <div class="keen-slider__slide">2</div>
+      <div class="keen-slider__slide"><img src="http://placehold.it/500x600" alt=""></div>
+      <div class="keen-slider__slide"><img src="http://placehold.it/500x200" alt=""></div>
+      <div class="keen-slider__slide">5</div>
+      <div class="keen-slider__slide">6</div>
+    </BaseSlider>
+  </div>
 </template>
 
 <script>
 // import { mapMutations } from 'vuex';
+import BaseSlider from '@/components/BaseSlider.vue';
 
 export default {
   name: 'PMUFormSetup',
-  components: {},
+  components: { BaseSlider },
   methods: {
     // ...mapMutations('PMU', [''])
   },
