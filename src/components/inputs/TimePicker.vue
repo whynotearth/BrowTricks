@@ -38,7 +38,6 @@
 
 <script>
 import { timeFormat, extractTimeFrom24H, randomId } from '@/helpers.js';
-import 'vue-smooth-picker/dist/css/style.css';
 
 export default {
   name: 'TimePicker',
@@ -169,7 +168,7 @@ export default {
   }
 };
 </script>
-
+<style src="vue-smooth-picker/dist/css/style.css"></style>
 <style scoped>
 /deep/ .smooth-picker {
   background-color: transparent;
