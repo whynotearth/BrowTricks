@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full bg-background text-left p-2">
+  <div class="text-left p-2">
     <h2 class="tg-body-mobile text-black text-opacity-medium mb-6 py-2">
       Here is your pre-set PMU form:
     </h2>
@@ -26,17 +26,18 @@
 
     add questions <br />
 
-    <button>save PMU form</button>
+    <Button title="save PMU form"></Button>
   </div>
 </template>
 
 <script>
 // import { mapMutations } from 'vuex';
 import BaseSlider from '@/components/BaseSlider.vue';
+import Button from '@/components/Button.vue';
 
 export default {
   name: 'PMUFormSetup',
-  components: { BaseSlider },
+  components: { BaseSlider, Button },
   methods: {
     // ...mapMutations('PMU', [''])
   },
