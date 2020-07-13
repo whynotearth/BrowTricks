@@ -7,7 +7,7 @@
       <div class="sm:flex justify-center items-center h-full">
         <div
           @click.stop
-          class="sm:w-128 sm:h-160 shadow-2xl sm:border border-background border-opacity-disabled"
+          class="sm:w-128 min-h-full sm:min-h-0 sm:h-160 shadow-2xl sm:border border-background border-opacity-disabled"
         >
           <div class="w-full">
             <div class="px-4 py-2">
