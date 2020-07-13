@@ -48,6 +48,7 @@ import LinkAccount from '@/components/tenant/LinkAccount';
 import Notifications from '@/components/tenant/Notifications';
 import BusinessHours from '@/components/tenant/BusinessHours';
 import PaymentMethods from '@/components/tenant/PaymentMethods';
+import BillingMethods from '@/components/tenant/BillingMethods';
 
 export default {
   name: 'SignUpForm',
@@ -58,7 +59,8 @@ export default {
     LinkAccount,
     Notifications,
     BusinessHours,
-    PaymentMethods
+    PaymentMethods,
+    BillingMethods
   },
   data() {
     return {
@@ -82,6 +84,10 @@ export default {
         {
           step: 'payment-methods',
           name: 'Payment Methods'
+        },
+        {
+          step: 'billing-methods',
+          name: 'Billing Methods'
         }
       ],
       errors: null
