@@ -1,3 +1,5 @@
+import store from '@/store';
+
 export function randomId() {
   return Math.random()
     .toString()
@@ -47,4 +49,12 @@ export async function sleep(time) {
       resolve();
     }, time);
   });
+}
+
+export function getAuthHeaders() {
+  const JWTToken = store.getters['authKeep/token'];
+  if (!JWTToken) {
+    return;
+  }
+  return { Authorization: `Bearer ${JWTToken}` };
 }
