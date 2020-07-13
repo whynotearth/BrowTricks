@@ -1,4 +1,4 @@
-import { httpClient } from '@/services/httpClient';
+import { ajax } from '@/services/ajax.js';
 
 const notificationTypes = [
   // {
@@ -111,7 +111,7 @@ const actions = {
     };
 
     return new Promise((resolve, reject) => {
-      httpClient
+      ajax
         .post(`/companies/${registerData.companySlug}/tenants`, registerData)
         .then(
           response => {
@@ -126,7 +126,7 @@ const actions = {
   fetchUserTenants() {
     let companySlug = process.env.VUE_APP_COMPANY_SLUG;
     return new Promise((resolve, reject) => {
-      httpClient.get(`/companies/${companySlug}/tenants/mytenants`).then(
+      ajax.get(`/companies/${companySlug}/tenants/mytenants`).then(
         response => {
           resolve(response.data);
         },
@@ -139,16 +139,14 @@ const actions = {
   userOwnsTenant(context, tenantSlug) {
     let companySlug = process.env.VUE_APP_COMPANY_SLUG;
     return new Promise((resolve, reject) => {
-      httpClient
-        .get(`/companies/${companySlug}/tenants/owns/${tenantSlug}`)
-        .then(
-          response => {
-            resolve(response.data);
-          },
-          error => {
-            reject(error);
-          }
-        );
+      ajax.get(`/companies/${companySlug}/tenants/owns/${tenantSlug}`).then(
+        response => {
+          resolve(response.data);
+        },
+        error => {
+          reject(error);
+        }
+      );
     });
   }
 };
