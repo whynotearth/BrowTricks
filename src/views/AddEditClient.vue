@@ -71,17 +71,9 @@
         </span>
       </material-input>
     </div>
-    <div class="m-4 bg-white shadow-lg py-6 px-2 rounded-lg">
-      <div class="flex justify-between px-4">
-        <div class="flex">
-          <div class="mr-4">icon</div>
-          <h4>Notification Settings</h4>
-        </div>
-        <div>
-          icon
-        </div>
-      </div>
-    </div>
+    <ExpansionPanel title="Notification Settings">
+      <Notification slot="preIcon" class="h-6 w-6 fill-current" />
+    </ExpansionPanel>
     <hr class="mt-12 mb-8" />
     <ImageUpload v-model="images" :defaultImages="[]">
       <template #title>
@@ -102,28 +94,12 @@
       </template>
     </ImageUpload>
     <hr class="mt-12 mb-8" />
-    <div class="m-4 bg-white shadow-lg py-6 px-2 rounded-lg">
-      <div class="flex justify-between px-4">
-        <div class="flex">
-          <div class="mr-4">icon</div>
-          <h4>Notification Settings</h4>
-        </div>
-        <div>
-          icon
-        </div>
-      </div>
-    </div>
-    <div class="m-4 bg-white shadow-lg py-6 px-2 rounded-lg">
-      <div class="flex justify-between px-4">
-        <div class="flex">
-          <div class="mr-4">icon</div>
-          <h4>Notification Settings</h4>
-        </div>
-        <div>
-          icon
-        </div>
-      </div>
-    </div>
+    <ExpansionPanel title="PMU" middleText="Incomplete">
+      <Document slot="preIcon" class="h-6 w-6 fill-current" />
+    </ExpansionPanel>
+    <ExpansionPanel title="Notes">
+      <Notes slot="preIcon" class="h-6 w-6 fill-current" />
+    </ExpansionPanel>
     <div class="m-4 py-6 px-2">
       <Button
         class="rounded-full"
@@ -138,10 +114,15 @@
 <script>
 import { required, minLength, email } from 'vuelidate/lib/validators';
 import BaseHeader from '@/components/BaseHeader.vue';
-import ArrowBack from '@/assets/icons/arrow_back.svg';
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
 import ImageUpload from '@/components/imageUpload/ImageUpload.vue';
 import Button from '@/components/Button.vue';
+import ExpansionPanel from '@/components/ExpansionPanel.vue';
+
+import ArrowBack from '@/assets/icons/arrow_back.svg';
+import Document from '@/assets/icons/document.svg';
+import Notes from '@/assets/icons/notes.svg';
+import Notification from '@/assets/icons/notification.svg';
 
 export default {
   name: 'AddEditClient',
@@ -150,7 +131,11 @@ export default {
     ArrowBack,
     MaterialInput,
     ImageUpload,
-    Button
+    Button,
+    Document,
+    Notes,
+    Notification,
+    ExpansionPanel
   },
   data() {
     return {
