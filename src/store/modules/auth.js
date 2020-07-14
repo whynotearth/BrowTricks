@@ -1,4 +1,4 @@
-import { httpClient } from '@/services/httpClient';
+import { ajax } from '@/services/ajax.js';
 
 const state = {
   provider: '',
@@ -14,7 +14,7 @@ const getters = {
 const actions = {
   ping({ commit }) {
     return new Promise((resolve, reject) => {
-      httpClient
+      ajax
         .get('authentication/ping')
         .then(response => {
           commit('updateProvider', response.data.loginProviders[0]);
@@ -28,7 +28,7 @@ const actions = {
   },
   logout({ commit, state, dispatch }) {
     return new Promise((resolve, reject) => {
-      httpClient
+      ajax
         .post(`authentication/provider/logout?provider=${state.provider}`)
         .then(
           () => {
@@ -44,9 +44,9 @@ const actions = {
   },
   updateToken(store, payload) {
     if (payload) {
-      httpClient.defaults.headers.common['Authorization'] = `Bearer ${payload}`;
+      ajax.defaults.headers.common['Authorization'] = `Bearer ${payload}`;
     } else {
-      delete httpClient.defaults.headers.common['Authorization'];
+      delete ajax.defaults.headers.common['Authorization'];
     }
   }
 };
