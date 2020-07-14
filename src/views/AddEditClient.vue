@@ -8,7 +8,7 @@
       <ArrowBack slot="icon" class="h-6 w-6 fill-current" />
       <span slot="content" class="pl-5">Add Client</span>
     </BaseHeader>
-    <div class="m-4 bg-white shadow-lg py-4 px-2 rounded-lg">
+    <div class="m-4 bg-white shadow-1dp py-4 px-2 rounded-lg">
       <material-input
         v-model="$v.firstName.$model"
         label="firstName"
@@ -71,7 +71,10 @@
         </span>
       </material-input>
     </div>
-    <ExpansionPanel title="Notification Settings">
+    <ExpansionPanel
+      title="Notification Settings"
+      @click="$router.push({ name: 'Notifications' })"
+    >
       <Notification slot="preIcon" class="h-6 w-6 fill-current" />
     </ExpansionPanel>
     <hr class="mt-12 mb-8" />
@@ -94,10 +97,14 @@
       </template>
     </ImageUpload>
     <hr class="mt-12 mb-8" />
-    <ExpansionPanel title="PMU" middleText="Incomplete">
+    <ExpansionPanel
+      @click="$router.push({ name: 'PMU' })"
+      title="PMU"
+      middleText="Incomplete"
+    >
       <Document slot="preIcon" class="h-6 w-6 fill-current" />
     </ExpansionPanel>
-    <ExpansionPanel title="Notes">
+    <ExpansionPanel @click="$router.push({ name: 'Notes' })" title="Notes">
       <Notes slot="preIcon" class="h-6 w-6 fill-current" />
     </ExpansionPanel>
     <div class="m-4 py-6 px-2">
