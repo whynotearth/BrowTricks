@@ -35,20 +35,21 @@ module.exports = {
       }
     }
   },
-  // variants: [
-  //   'responsive',
-  //   'group-hover',
-  //   'group-focus',
-  //   'focus-within',
-  //   'first',
-  //   'last',
-  //   'odd',
-  //   'even',
-  //   'hover',
-  //   'focus',
-  //   'active',
-  //   'visited',
-  //   'disabled'
-  // ],
+  // FIXME: optimise, ISSUE #123
+  variants: [
+    'responsive',
+    'group-hover',
+    'group-focus',
+    'focus-within',
+    'first',
+    'last',
+    'odd',
+    'even',
+    'hover',
+    'focus',
+    'active',
+    'visited',
+    'disabled'
+  ],
   plugins: []
 };

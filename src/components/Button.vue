@@ -1,8 +1,8 @@
 <template>
   <component
     :is="type"
-    class="cursor-pointer text-sm font-semibold uppercase inline-block"
-    :class="[isRipple ? 'ripple' : '', width, background, textColor, padding]"
+    class="cursor-pointer text-white text-sm font-semibold uppercase inline-block"
+    :class="[isRipple ? 'ripple' : '', width, background, padding]"
     @click="$emit('clicked')"
     :href="href"
     :to="to"
@@ -59,10 +59,6 @@ export default {
     background: {
       type: String,
       default: 'bg-button'
-    },
-    textColor: {
-      type: String,
-      default: 'text-white'
     },
     isRipple: {
       type: Boolean,
