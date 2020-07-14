@@ -37,6 +37,16 @@ const routes = [
     name: 'CustomerCategories',
     component: () => import('@/views/CustomerCategories.vue')
   },
+  {
+    path: '/shop/clients/add',
+    name: 'AddClient',
+    component: () => import('@/views/AddEditClient.vue')
+  },
+  {
+    path: '/shop/clients/edit/:clientId',
+    name: 'AddClient',
+    component: () => import('@/views/AddEditClient.vue')
+  },
   ...authRoutes,
   {
     path: '/',
