@@ -54,9 +54,9 @@ export default {
     init() {
       const defaultConfig = {
         // docs https://keen-slider.io/api/#api
-        slidesPerView: 1.1,
+        slidesPerView: 1.0625,
         spacing: 8,
-        centered: true,
+        centered: false,
         loop: false,
 
         initial: this.current,

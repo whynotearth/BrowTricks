@@ -2,7 +2,7 @@ const colors = {
   primary: '#067BC2',
   secondary: '#33658A',
   background: '#F4F1F1',
-  surface: '#F4F1F1',
+  surface: '#FFFFFF',
   action: '#0C6986',
   error: '#C04545',
   'on-primary': '#0C6986',
