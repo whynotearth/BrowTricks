@@ -83,7 +83,7 @@
       </div>
     </div>
     <hr class="mt-12 mb-8" />
-    <ImageUpload v-model="images">
+    <ImageUpload v-model="images" :defaultImages="[]">
       <template #title>
         <div class="tg-body-mobile ">
           <span class="text-on-background text-opacity-high"> Image </span>
@@ -94,13 +94,44 @@
       </template>
     </ImageUpload>
     <hr class="my-4" />
-    <ImageUpload v-model="files">
+    <ImageUpload id="files" v-model="files" :defaultImages="[]">
       <template #title>
         <div class="tg-body-mobile ">
           <span class="text-on-background text-opacity-high"> Files </span>
         </div>
       </template>
     </ImageUpload>
+    <hr class="mt-12 mb-8" />
+    <div class="m-4 bg-white shadow-lg py-6 px-2 rounded-lg">
+      <div class="flex justify-between px-4">
+        <div class="flex">
+          <div class="mr-4">icon</div>
+          <h4>Notification Settings</h4>
+        </div>
+        <div>
+          icon
+        </div>
+      </div>
+    </div>
+    <div class="m-4 bg-white shadow-lg py-6 px-2 rounded-lg">
+      <div class="flex justify-between px-4">
+        <div class="flex">
+          <div class="mr-4">icon</div>
+          <h4>Notification Settings</h4>
+        </div>
+        <div>
+          icon
+        </div>
+      </div>
+    </div>
+    <div class="m-4 py-6 px-2">
+      <Button
+        class="rounded-full"
+        title="Save"
+        :isRipple="false"
+        @clicked="save"
+      />
+    </div>
   </div>
 </template>
 
@@ -110,6 +141,7 @@ import BaseHeader from '@/components/BaseHeader.vue';
 import ArrowBack from '@/assets/icons/arrow_back.svg';
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
 import ImageUpload from '@/components/imageUpload/ImageUpload.vue';
+import Button from '@/components/Button.vue';
 
 export default {
   name: 'AddEditClient',
@@ -117,7 +149,8 @@ export default {
     BaseHeader,
     ArrowBack,
     MaterialInput,
-    ImageUpload
+    ImageUpload,
+    Button
   },
   data() {
     return {
@@ -125,7 +158,7 @@ export default {
       lastName: '',
       phone: '',
       email: '',
-      images: '',
+      images: [],
       files: []
     };
   },
@@ -148,7 +181,8 @@ export default {
   methods: {
     goBack() {
       this.$router.push({ name: 'CustomerHome' });
-    }
+    },
+    save() {}
   }
 };
 </script>
