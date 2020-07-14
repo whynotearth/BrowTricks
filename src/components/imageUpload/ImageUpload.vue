@@ -17,6 +17,7 @@
           maxFiles: 1,
           maxImageWidth: 560
         }"
+        :id="id ? id : 'upload_widget'"
       >
         <label
           class="bg-background m-1 block cursor-pointer"
@@ -72,6 +73,9 @@ export default {
     value: {
       type: Array,
       required: true
+    },
+    id: {
+      type: String
     }
   },
   data() {
