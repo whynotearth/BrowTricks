@@ -19,7 +19,7 @@
         <slot name="middleText">{{ middleText }}</slot>
       </div>
       <div>
-        <slot name="after-icon">
+        <slot name="afterIcon">
           <ArrowRight class="fill-current" />
         </slot>
       </div>

@@ -11,7 +11,7 @@
     <div class="m-4 bg-white shadow-1dp py-4 px-2 rounded-lg">
       <material-input
         v-model="$v.firstName.$model"
-        label="firstName"
+        label="First Name"
         labelBg="bg-white"
         :error="$v.firstName.$dirty && !$v.firstName.required"
       >
@@ -24,7 +24,7 @@
       </material-input>
       <material-input
         v-model="$v.lastName.$model"
-        label="lastName"
+        label="Last Name"
         labelBg="bg-white"
         :error="$v.lastName.$dirty && !$v.lastName.required"
       >
@@ -37,7 +37,7 @@
       </material-input>
       <material-input
         v-model="$v.phone.$model"
-        label="Phone number"
+        label="Phone Number"
         labelBg="bg-white"
         :error="$v.phone.$dirty && (!$v.phone.required || !$v.phone.minLength)"
       >

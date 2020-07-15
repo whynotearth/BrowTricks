@@ -38,13 +38,15 @@ const routes = [
     component: () => import('@/views/CustomerCategories.vue')
   },
   {
-    path: '/shop/clients/add',
+    path: '/tenant/:tenantSlug/clients/add',
     name: 'AddClient',
+    props: true,
     component: () => import('@/views/AddEditClient.vue')
   },
   {
-    path: '/shop/clients/edit/:clientId',
-    name: 'AddClient',
+    path: '/tenant/:tenantSlug/clients/edit/:clientId',
+    name: 'EditClient',
+    props: true,
     component: () => import('@/views/AddEditClient.vue')
   },
   ...authRoutes,
