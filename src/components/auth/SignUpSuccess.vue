@@ -36,7 +36,7 @@
       <div class="">
         <Button
           :to="{
-            name: 'MenuCategoryList',
+            name: 'AddClient',
             params: { tenantSlug: $route.params.slug }
           }"
           title="ADD NEW CLIENTS"
