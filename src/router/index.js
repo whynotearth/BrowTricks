@@ -37,6 +37,12 @@ const routes = [
     name: 'CustomerCategories',
     component: () => import('@/views/CustomerCategories.vue')
   },
+  {
+    path: '/tenant/:tenantSlug/clients',
+    name: 'ClientList',
+    props: true,
+    component: () => import('@/views/ClientList.vue')
+  },
   ...authRoutes,
   {
     path: '/',
