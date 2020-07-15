@@ -37,7 +37,7 @@
         </div>
       </div>
     </div>
-    <div else>
+    <div v-else>
       <div
         class="layout-splash absolute inset-0 min-h-screen w-full flex flex-col justify-end sm:justify-center items-center py-20"
       >
@@ -91,7 +91,7 @@ export default {
   },
   data() {
     return {
-      clients: false,
+      clients: true,
       logoUrl:
         'https://s3-alpha-sig.figma.com/img/9ae4/25d3/f4970958de9560957aa38fb9ad00c57d?Expires=1595808000&Signature=A3fe-i50L5faBbq5FjyHWWP~jHFKj9pJmJIca~vuFOSxRYKt3wY-6loRE6cmS9O4M8pTZQoymgQNY4xIMtEWUyAxn9Fw3OpLevQCnOa4krCkXszvG6j7ls~-9qrW-V5sSu0kmwNfZi1X0OR~Rnl3SYPT9Gravc6VSIMRg1iPdAULpEzuKomWkY2ODhj-jzxPcyjZTtZUNbCe~wJaZN32ho~0oNnyAv5U5ECy9T60qqW0W9ONrrtmkuhQ8EY5J306x~3sJpI9zLbogOfDSZufMXc5ecN4ws7icerZyd4VODUweXQGTR8uet8nt2Vo381Gi17eGfnc1klUnpIPmRxKUw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA'
     };
