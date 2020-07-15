@@ -15,7 +15,7 @@ ajax.interceptors.response.use(
   error => {
     // TODO: handle no connection
     if (error.response.status === 401) {
-      store.commit('auth/logout');
+      store.dispatch('auth/logout');
     }
     if (error.response.status === 403) {
       alert(
