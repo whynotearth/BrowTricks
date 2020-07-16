@@ -12,8 +12,13 @@ export const PMURoutes = [
     meta: { layout: () => import('@/layouts/WithTitleBarLayout.vue') }
   },
   {
-    path: '/pmu/flow-questions',
-    name: 'PMUFlowQuestions',
-    component: () => import('@/views/PMUFlowQuestions.vue')
+    path: '/pmu/flow-questions/start',
+    name: 'PMUFlowQuestionsStart',
+    component: () => import('@/views/PMUFlowQuestionsStart.vue')
+  },
+  {
+    path: '/pmu/flow-questions/:step',
+    name: 'PMUFlowQuestionsSteps',
+    component: () => import('@/views/PMUFlowQuestionsSteps.vue')
   }
 ];

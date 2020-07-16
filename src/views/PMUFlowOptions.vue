@@ -1,14 +1,14 @@
 <template>
   <div class="max-w-sm mx-auto pt-4 px-4">
     <Button
-      :to="{ name: 'PMUFlowQuestions' }"
+      @clicked="sendSMS"
       class="mb-4"
       title="Text to (510) 123-1234"
       :isRounded="true"
       :isRipple="false"
     />
     <Button
-      :to="{ name: 'PMUFlowQuestions' }"
+      :to="{ name: 'PMUFlowQuestionsStart' }"
       class="mb-4"
       title="Complete in Person"
       :isRounded="true"
@@ -24,6 +24,12 @@ export default {
   components: { Button },
   beforeCreate() {
     this.$parent.$emit('layoutTitle', 'Paul - PMU Form');
+  },
+  methods: {
+    sendSMS() {
+      // TODO:
+      alert('Not available yet');
+    }
   }
 };
 </script>

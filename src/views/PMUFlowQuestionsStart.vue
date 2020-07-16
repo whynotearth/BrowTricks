@@ -16,7 +16,7 @@
         </div>
         <div slot="primaryCTA">
           <Button
-            :to="{ name: 'PMUFlowQuestions' }"
+            :to="{ name: 'PMUFlowQuestionsSteps' }"
             class="mb-4"
             title="Get Started"
             :isRounded="true"
@@ -35,7 +35,7 @@ import LayoutSplash from '@/layouts/LayoutSplash.vue';
 import Button from '@/components/Button.vue';
 
 export default {
-  name: 'PMUFlowQuestions',
+  name: 'PMUFlowQuestionsStart',
   components: {
     LayoutFixedScrollable,
     LayoutSplash,
