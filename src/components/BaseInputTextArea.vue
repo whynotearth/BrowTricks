@@ -1,4 +1,6 @@
 <template>
+  <!-- =============================== DEPRECATED ================================= -->
+  <!-- Use TextArea.vue instead -->
   <div class="relative tg-body-mobile w-full">
     <textarea
       :id="idName"

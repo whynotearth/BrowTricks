@@ -3,10 +3,12 @@ import VueRouter from 'vue-router';
 import store from '../store';
 
 import { authRoutes } from './authRoutes';
+import { PMURoutes } from './PMURoutes';
 
 Vue.use(VueRouter);
 
 const routes = [
+  ...PMURoutes,
   {
     path: '/test-layout-splash',
     name: 'TestLayoutSplash',

@@ -35,6 +35,7 @@ module.exports = {
       }
     }
   },
+  // FIXME: optimise, ISSUE #123
   variants: [
     'responsive',
     'group-hover',
