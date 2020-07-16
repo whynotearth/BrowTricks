@@ -1,5 +1,5 @@
 <template>
-  <div id="upload_widget">
+  <div :id="id">
     <slot />
   </div>
 </template>
@@ -12,6 +12,9 @@ export default {
   props: {
     uploaderOptions: {
       default: () => {}
+    },
+    id: {
+      type: String
     }
   },
   mounted() {
@@ -53,7 +56,7 @@ export default {
         }
       );
 
-      document.getElementById('upload_widget').addEventListener(
+      document.getElementById(this.id).addEventListener(
         'click',
         () => {
           this.$emit('opened');

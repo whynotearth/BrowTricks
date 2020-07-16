@@ -1,7 +1,18 @@
 import { ajax } from '@/services/ajax.js';
 
 const state = {
-  clients: []
+  clients: [],
+  clientInfo: {
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+    email: '',
+    notificationType: [],
+    images: [],
+    files: [],
+    pmu: [],
+    notes: []
+  }
 };
 
 const getters = {};

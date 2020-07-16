@@ -91,6 +91,12 @@ export default {
     Button,
     AddIcon
   },
+  props: {
+    tenantSlug: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
       client: false,
@@ -99,7 +105,7 @@ export default {
     };
   },
   created() {
-    this.fetchClients('baribar-67');
+    this.fetchClients(this.tenantSlug);
   },
   methods: {
     ...mapActions('client', ['fetchClients'])

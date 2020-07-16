@@ -43,6 +43,18 @@ const routes = [
     props: true,
     component: () => import('@/views/ClientList.vue')
   },
+  {
+    path: '/tenant/:tenantSlug/clients/add',
+    name: 'AddClient',
+    props: true,
+    component: () => import('@/views/AddEditClient.vue')
+  },
+  {
+    path: '/tenant/:tenantSlug/clients/edit/:clientId',
+    name: 'EditClient',
+    props: true,
+    component: () => import('@/views/AddEditClient.vue')
+  },
   ...authRoutes,
   {
     path: '/',
