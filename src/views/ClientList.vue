@@ -60,7 +60,7 @@
           <Button
             :to="{
               name: 'AddClient',
-              params: { tenantSlug }
+              params: { tenantSlug, step: 'basic-info' }
             }"
             title="ADD NEW CLIENTS"
             class="tg-color-label-mobile text-white text-opacity-high rounded-full py-3 px-10"
@@ -84,7 +84,7 @@ import ArrowBack from '@/assets/icons/arrow_back.svg';
 import AddIcon from '@/assets/icons/new_item.svg';
 
 export default {
-  name: 'AddEditClient',
+  name: 'ClientList',
   components: {
     BaseHeader,
     ArrowBack,
