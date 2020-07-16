@@ -9,11 +9,12 @@
       <span slot="content" class="pl-5">Clients</span>
     </BaseHeader>
     <div v-if="clients.length > 0">
-      <div class="border-b" v-for="n in 4" :key="n">
-        <h6 class="p-3 tg-caption-mobile text-on-background text-opacity-high">
-          A
+      <div class="border-b" v-for="(client, key) in clients" :key="key">
+        <h6 v-if="client.firstName[0].toUpperCase() !== lastCharacter" class="p-3 tg-caption-mobile text-on-background text-opacity-high">
+          {{ client.firstName[0].toUpperCase() }}
         </h6>
-        <div class="px-4 pb-4 flex items-center" v-for="n in 3" :key="n">
+        <div class="hidden">{{ lastCharacter = client.firstName[0].toUpperCase() }}</div>
+        <div class="px-4 pb-4 flex items-center">
           <img
             class="w-10 h-10 rounded-full"
             src="https://s3-alpha-sig.figma.com/img/d070/3253/4a949f321c0c57ce561f6b64e3aefaa6?Expires=1595808000&Signature=EOxOhD2BpqVyUnltYtStBbtxwQZ2WpLSNGG13u6EO5ngMG7Fv1wM1huk-vePD2YXJGWgJPl3OVnPTRnIyT31QZtu~MVzE-oK8dP6eHc9jXYZNkPSquCiTpOqIa4e9pHGGWP9peUKA9iOykdnHjiHPOHJvpeHoT3n03ff0rlr05EaWGx7EcKvhJv1Tpj2KacVWtwG8DWmsgTbz6o9384X-7HTGy5FK5rDA4FwT5DxqEZfNcX34xSZIDfygIQclkzNgIUs-98hwbE9YJA9oAOilWaoacqvdXvV~YKCQPCwfgpMH0M18BFN2wo6v1eYzJ3m6yO7azW1sw5sXcd7QDEGOw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
@@ -21,17 +22,17 @@
           />
           <div class="ml-2">
             <h3 class="tg-body-mobile text-on-background text-opacity-high">
-              Abdullah Calisir
+              {{ client.firstName }} {{ client.lastName }}
             </h3>
             <h4
               class="tg-caption-mobile text-on-background text-opacity-medium"
             >
-              (510) 123-1234
+              {{ client.phoneNumber }}
             </h4>
             <h4
               class="tg-caption-mobile text-on-background text-opacity-medium"
             >
-              abdullahcalisir12@gmail.com
+              {{ client.email }}
             </h4>
           </div>
         </div>
@@ -99,6 +100,7 @@ export default {
   },
   data() {
     return {
+      lastCharacter: null,
       client: false,
       logoUrl:
         'https://s3-alpha-sig.figma.com/img/9ae4/25d3/f4970958de9560957aa38fb9ad00c57d?Expires=1595808000&Signature=A3fe-i50L5faBbq5FjyHWWP~jHFKj9pJmJIca~vuFOSxRYKt3wY-6loRE6cmS9O4M8pTZQoymgQNY4xIMtEWUyAxn9Fw3OpLevQCnOa4krCkXszvG6j7ls~-9qrW-V5sSu0kmwNfZi1X0OR~Rnl3SYPT9Gravc6VSIMRg1iPdAULpEzuKomWkY2ODhj-jzxPcyjZTtZUNbCe~wJaZN32ho~0oNnyAv5U5ECy9T60qqW0W9ONrrtmkuhQ8EY5J306x~3sJpI9zLbogOfDSZufMXc5ecN4ws7icerZyd4VODUweXQGTR8uet8nt2Vo381Gi17eGfnc1klUnpIPmRxKUw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA'
