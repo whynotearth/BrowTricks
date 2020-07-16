@@ -44,13 +44,13 @@ const routes = [
     component: () => import('@/views/ClientList.vue')
   },
   {
-    path: '/tenant/:tenantSlug/clients/add',
+    path: '/tenant/:tenantSlug/clients/add/:step',
     name: 'AddClient',
     props: true,
     component: () => import('@/views/AddEditClient.vue')
   },
   {
-    path: '/tenant/:tenantSlug/clients/edit/:clientId',
+    path: '/tenant/:tenantSlug/clients/edit/:clientId/:step',
     name: 'EditClient',
     props: true,
     component: () => import('@/views/AddEditClient.vue')
