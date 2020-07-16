@@ -15,10 +15,11 @@
           class="p-3 tg-caption-mobile text-on-background text-opacity-high"
         >
           {{ client.firstName[0].toUpperCase() }}
+          <div class="hidden">
+            {{ (lastCharacter = client.firstName[0].toUpperCase()) }}
+          </div>
         </h6>
-        <div class="hidden">
-          {{ (lastCharacter = client.firstName[0].toUpperCase()) }}
-        </div>
+        
         <div class="px-4 pb-4 flex items-center">
           <img
             class="w-10 h-10 rounded-full"
