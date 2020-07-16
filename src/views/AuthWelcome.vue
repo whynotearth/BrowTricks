@@ -1,4 +1,5 @@
 <template>
+  <!-- TODO: use layouts/LayoutSplash.vue -->
   <div
     class="layout-splash min-h-screen w-full flex flex-col justify-between sm:justify-center items-center py-20"
   >
