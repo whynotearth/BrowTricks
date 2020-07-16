@@ -47,16 +47,21 @@ const actions = {
       phoneNumber: state.clientInfo.phoneNumber,
       email: state.clientInfo.email,
       notificationTypes: state.clientInfo.notificationTypes
-    }
+    };
     return new Promise((resolve, reject) => {
-      ajax.post(`/${clientData.companySlug}/tenant/${clientData.tenantSlug}/clients`, clientData).then(
-        response => {
-          resolve(response.data);
-        },
-        error => {
-          reject(error);
-        }
-      );
+      ajax
+        .post(
+          `/${clientData.companySlug}/tenant/${clientData.tenantSlug}/clients`,
+          clientData
+        )
+        .then(
+          response => {
+            resolve(response.data);
+          },
+          error => {
+            reject(error);
+          }
+        );
     });
   }
 };

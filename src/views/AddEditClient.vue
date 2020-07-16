@@ -84,10 +84,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('client', [
-      'pageChange',
-      'resetCreateClientForm'
-    ]),
+    ...mapMutations('client', ['pageChange', 'resetCreateClientForm']),
     ...mapActions('client', ['createClient']),
     ...mapActions('auth', ['ping']),
     previousStep() {
@@ -115,8 +112,8 @@ export default {
     },
     register() {
       this.createClient({
-            tenantSlug: this.tenantSlug
-          })
+        tenantSlug: this.tenantSlug
+      })
         .then(() => {
           this.goClientList();
         })
@@ -126,24 +123,41 @@ export default {
               nav => nav.step === 'link-account'
             );
             if (isLinkAccountAvailabble !== -1) {
-              this.navigation.push(
-                {
-                  step: 'link-account',
-                  name: 'Link Account'
-                }
-              );
+              this.navigation.push({
+                step: 'link-account',
+                name: 'Link Account'
+              });
             }
           }
           this.errors = error.response.data.errors;
         });
     },
     goClientList() {
-      this.$router.push({ name: 'ClientList', params: { tenantSlug: this.tenantSlug } });
+      this.$router.push({
+        name: 'ClientList',
+        params: { tenantSlug: this.tenantSlug }
+      });
     }
   },
   watch: {
     component(step) {
-      this.$router.push(this.$route.params.clientId ? { name: 'EditClient', params: { step, tenantSlug: this.tenantSlug, clientId: this.$route.params.clientId } } : { name: 'AddClient', params: { step, tenantSlug: this.tenantSlug } }).catch(() => {});
+      this.$router
+        .push(
+          this.$route.params.clientId
+            ? {
+                name: 'EditClient',
+                params: {
+                  step,
+                  tenantSlug: this.tenantSlug,
+                  clientId: this.$route.params.clientId
+                }
+              }
+            : {
+                name: 'AddClient',
+                params: { step, tenantSlug: this.tenantSlug }
+              }
+        )
+        .catch(() => {});
     },
     '$route.params.step': {
       immediate: true,

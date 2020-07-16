@@ -157,12 +157,10 @@ export default {
               nav => nav.step === 'link-account'
             );
             if (isLinkAccountAvailabble !== -1) {
-              this.navigation.push(
-                {
-                  step: 'link-account',
-                  name: 'Link Account'
-                }
-              );
+              this.navigation.push({
+                step: 'link-account',
+                name: 'Link Account'
+              });
             }
           }
           this.errors = error.response.data.errors;

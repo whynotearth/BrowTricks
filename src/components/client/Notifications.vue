@@ -59,9 +59,7 @@ export default {
   },
   computed: {
     ...mapState('tenant', ['notificationTypes']),
-    ...mapState('client', [
-      'clientInfo'
-    ]),
+    ...mapState('client', ['clientInfo']),
     selectedNotificationTypes: {
       get() {
         return this.clientInfo.notificationTypes;
