@@ -3,7 +3,9 @@
     <BaseHeader
       slot="header"
       class="bg-footer text-white"
-      @iconClicked="goBack"
+      @iconClicked="
+        $router.push({ name: 'ClientList', params: { tenantSlug } })
+      "
     >
       <ArrowBack slot="icon" class="h-6 w-6 fill-current" />
       <span slot="content" class="pl-5">Add Client</span>
@@ -133,6 +135,12 @@ import Notification from '@/assets/icons/notification.svg';
 
 export default {
   name: 'AddEditClient',
+  props: {
+    tenantSlug: {
+      type: String,
+      required: true
+    }
+  },
   components: {
     BaseHeader,
     ArrowBack,
@@ -171,9 +179,6 @@ export default {
     }
   },
   methods: {
-    goBack() {
-      this.$router.push({ name: 'CustomerHome' });
-    },
     save() {}
   }
 };
