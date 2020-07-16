@@ -43,19 +43,28 @@ const routes = [
     path: '/tenant/:tenantSlug/clients',
     name: 'ClientList',
     props: true,
-    component: () => import('@/views/ClientList.vue')
+    component: () => import('@/views/ClientList.vue'),
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/tenant/:tenantSlug/clients/add/:step',
     name: 'AddClient',
     props: true,
-    component: () => import('@/views/AddEditClient.vue')
+    component: () => import('@/views/AddEditClient.vue'),
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/tenant/:tenantSlug/clients/edit/:clientId/:step',
     name: 'EditClient',
     props: true,
-    component: () => import('@/views/AddEditClient.vue')
+    component: () => import('@/views/AddEditClient.vue'),
+    meta: {
+      requiresAuth: true
+    }
   },
   ...authRoutes,
   {
