@@ -16,7 +16,10 @@
         </div>
         <div slot="primaryCTA">
           <Button
-            :to="{ name: 'PMUFlowQuestionsSteps' }"
+            :to="{
+              name: 'PMUFlowQuestions',
+              params: { step: 'create-signature' }
+            }"
             class="mb-4"
             title="Get Started"
             :isRounded="true"
@@ -35,7 +38,7 @@ import LayoutSplash from '@/layouts/LayoutSplash.vue';
 import Button from '@/components/Button.vue';
 
 export default {
-  name: 'PMUFlowQuestionsStart',
+  name: 'PMUFlowStart',
   components: {
     LayoutFixedScrollable,
     LayoutSplash,

@@ -8,7 +8,7 @@
       :isRipple="false"
     />
     <Button
-      :to="{ name: 'PMUFlowQuestionsStart' }"
+      :to="{ name: 'PMUFlowStart' }"
       class="mb-4"
       title="Complete in Person"
       :isRounded="true"
@@ -20,7 +20,7 @@
 <script>
 import Button from '@/components/Button.vue';
 export default {
-  name: 'PMUFlowOptions',
+  name: 'PMUFlowMethods',
   components: { Button },
   beforeCreate() {
     this.$parent.$emit('layoutTitle', 'Paul - PMU Form');
