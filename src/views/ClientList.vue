@@ -8,7 +8,7 @@
       <ArrowBack slot="icon" class="h-6 w-6 fill-current" />
       <span slot="content" class="pl-5">Clients</span>
     </BaseHeader>
-    <div v-if="clients">
+    <div v-if="clients.length > 0">
       <div class="border-b" v-for="n in 4" :key="n">
         <h6 class="p-3 tg-caption-mobile text-on-background text-opacity-high">
           A
@@ -76,6 +76,8 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex';
+
 import BaseHeader from '@/components/BaseHeader.vue';
 import Button from '@/components/Button.vue';
 import ArrowBack from '@/assets/icons/arrow_back.svg';
@@ -91,10 +93,19 @@ export default {
   },
   data() {
     return {
-      clients: true,
+      client: false,
       logoUrl:
         'https://s3-alpha-sig.figma.com/img/9ae4/25d3/f4970958de9560957aa38fb9ad00c57d?Expires=1595808000&Signature=A3fe-i50L5faBbq5FjyHWWP~jHFKj9pJmJIca~vuFOSxRYKt3wY-6loRE6cmS9O4M8pTZQoymgQNY4xIMtEWUyAxn9Fw3OpLevQCnOa4krCkXszvG6j7ls~-9qrW-V5sSu0kmwNfZi1X0OR~Rnl3SYPT9Gravc6VSIMRg1iPdAULpEzuKomWkY2ODhj-jzxPcyjZTtZUNbCe~wJaZN32ho~0oNnyAv5U5ECy9T60qqW0W9ONrrtmkuhQ8EY5J306x~3sJpI9zLbogOfDSZufMXc5ecN4ws7icerZyd4VODUweXQGTR8uet8nt2Vo381Gi17eGfnc1klUnpIPmRxKUw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA'
     };
+  },
+  created() {
+    this.fetchClients('baribar-67');
+  },
+  methods: {
+    ...mapActions('client', ['fetchClients'])
+  },
+  computed: {
+    ...mapState('client', ['clients'])
   }
 };
 </script>
