@@ -8,7 +8,7 @@
       <ArrowBack slot="icon" class="h-6 w-6 fill-current" />
       <span slot="content" class="pl-5">Clients</span>
     </BaseHeader>
-    <div v-if="clients.length > 0">
+    <div v-if="clients.length < 0">
       <div class="border-b" v-for="(client, key) in clients" :key="key">
         <h6
           v-if="
@@ -23,11 +23,15 @@
         </h6>
 
         <div class="px-4 pb-4 flex items-center">
-          <img
-            class="w-10 h-10 rounded-full"
-            src="https://s3-alpha-sig.figma.com/img/d070/3253/4a949f321c0c57ce561f6b64e3aefaa6?Expires=1595808000&Signature=EOxOhD2BpqVyUnltYtStBbtxwQZ2WpLSNGG13u6EO5ngMG7Fv1wM1huk-vePD2YXJGWgJPl3OVnPTRnIyT31QZtu~MVzE-oK8dP6eHc9jXYZNkPSquCiTpOqIa4e9pHGGWP9peUKA9iOykdnHjiHPOHJvpeHoT3n03ff0rlr05EaWGx7EcKvhJv1Tpj2KacVWtwG8DWmsgTbz6o9384X-7HTGy5FK5rDA4FwT5DxqEZfNcX34xSZIDfygIQclkzNgIUs-98hwbE9YJA9oAOilWaoacqvdXvV~YKCQPCwfgpMH0M18BFN2wo6v1eYzJ3m6yO7azW1sw5sXcd7QDEGOw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
-            alt="user-logo"
-          />
+          <div>
+            <img
+              v-if="client.avatarUrl"
+              class="w-10 h-10 rounded-full"
+              :src="client.avatarUrl"
+              alt="user-logo"
+            />
+            <UserIcon v-else />
+          </div>
           <div class="ml-2">
             <h3 class="tg-body-mobile text-on-background text-opacity-high">
               {{ client.firstName }} {{ client.lastName }}
@@ -50,9 +54,9 @@
       <div
         class="layout-splash absolute inset-0 min-h-screen w-full flex flex-col justify-end sm:justify-center items-center py-20"
       >
-        <div class="sm:py-16 flex flex-col items-center">
+        <div class="pb-20 sm:py-16 flex flex-col items-center">
           <div class="py-3">
-            <img height="450" width="225" :src="logoUrl" alt="clients-logo" />
+            <UsersGroupIcon />
           </div>
         </div>
         <div class="sm:py-10 w-full md:w-auto px-5">
@@ -91,6 +95,8 @@ import BaseHeader from '@/components/BaseHeader.vue';
 import Button from '@/components/Button.vue';
 import ArrowBack from '@/assets/icons/arrow-back.svg';
 import AddIcon from '@/assets/icons/new_item.svg';
+import UserIcon from '@/assets/icons/user.svg';
+import UsersGroupIcon from '@/assets/icons/users-group.svg';
 
 export default {
   name: 'ClientList',
@@ -98,7 +104,9 @@ export default {
     BaseHeader,
     ArrowBack,
     Button,
-    AddIcon
+    AddIcon,
+    UserIcon,
+    UsersGroupIcon
   },
   props: {
     tenantSlug: {
