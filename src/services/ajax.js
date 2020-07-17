@@ -2,6 +2,11 @@ import axios from 'axios';
 import store from '@/store';
 
 const ajax = axios.create({
+  baseURL: `${process.env.VUE_APP_API_URL}/api/v0/`,
+  withCredentials: true
+});
+
+const ajaxMeredith = axios.create({
   baseURL: process.env.VUE_APP_API_URL,
   withCredentials: true
 });
@@ -26,4 +31,4 @@ ajax.interceptors.response.use(
   }
 );
 
-export { ajax };
+export { ajax, ajaxMeredith };

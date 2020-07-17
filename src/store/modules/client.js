@@ -1,4 +1,4 @@
-import { ajax } from '@/services/ajax.js';
+import { ClientService } from '@whynotearth/meredith-axios';
 
 const state = {
   clients: [],
@@ -24,45 +24,30 @@ const getters = {
 
 const actions = {
   fetchClients({ commit }, tenantSlug) {
-    let companySlug = process.env.VUE_APP_COMPANY_SLUG;
-    return new Promise((resolve, reject) => {
-      ajax.get(`/${companySlug}/tenant/${tenantSlug}/clients`).then(
-        response => {
-          commit('updateClients', response.data);
-          resolve(response.data);
-        },
-        error => {
-          commit('updateClients', []);
-          reject(error);
-        }
-      );
-    });
+    return ClientService.clients1({
+      companySlug: process.env.VUE_APP_COMPANY_SLUG,
+      tenantSlug
+    })
+      .then(response => {
+        commit('updateClients', response);
+      })
+      .catch(() => {
+        commit('updateClients', []);
+      });
   },
   async createClient({ state }, payload) {
     const clientData = await {
       tenantSlug: payload.tenantSlug,
       companySlug: process.env.VUE_APP_COMPANY_SLUG,
-      firstName: state.clientInfo.firstName,
-      lastName: state.clientInfo.lastName,
-      phoneNumber: state.clientInfo.phoneNumber,
-      email: state.clientInfo.email,
-      notificationTypes: state.clientInfo.notificationTypes
+      body: {
+        firstName: state.clientInfo.firstName,
+        lastName: state.clientInfo.lastName,
+        phoneNumber: state.clientInfo.phoneNumber,
+        email: state.clientInfo.email,
+        notificationTypes: state.clientInfo.notificationTypes
+      }
     };
-    return new Promise((resolve, reject) => {
-      ajax
-        .post(
-          `/${clientData.companySlug}/tenant/${clientData.tenantSlug}/clients`,
-          clientData
-        )
-        .then(
-          response => {
-            resolve(response.data);
-          },
-          error => {
-            reject(error);
-          }
-        );
-    });
+    return ClientService.clients(clientData);
   }
 };
 
