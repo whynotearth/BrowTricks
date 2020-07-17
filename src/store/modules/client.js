@@ -7,7 +7,7 @@ const state = {
     lastName: '',
     phoneNumber: '',
     email: '',
-    notificationTypes: [],
+    notificationTypes: ['email'],
     images: [],
     files: [],
     pmu: [],
@@ -35,8 +35,8 @@ const actions = {
         commit('updateClients', []);
       });
   },
-  async createClient({ state }, payload) {
-    const clientData = await {
+  createClient({ state, commit }, payload) {
+    const clientData = {
       tenantSlug: payload.tenantSlug,
       companySlug: process.env.VUE_APP_COMPANY_SLUG,
       body: {
@@ -47,7 +47,9 @@ const actions = {
         notificationTypes: state.clientInfo.notificationTypes
       }
     };
-    return ClientService.clients(clientData);
+    return ClientService.clients(clientData).then(() => {
+      commit('resetClientInfo');
+    });
   }
 };
 
@@ -72,6 +74,25 @@ const mutations = {
   },
   updateSelectedNotificationTypes(state, payload) {
     state.clientInfo.notificationTypes = payload;
+  },
+  setClientInfo(state, payload) {
+    state.clientInfo = {
+      ...state.clientInfo,
+      ...payload
+    };
+  },
+  resetClientInfo(state) {
+    state.clientInfo = {
+      firstName: '',
+      lastName: '',
+      phoneNumber: '',
+      email: '',
+      notificationTypes: ['email'],
+      images: [],
+      files: [],
+      pmu: [],
+      notes: []
+    };
   }
 };
 
