@@ -8,7 +8,7 @@
       <ArrowBack slot="icon" class="h-6 w-6 fill-current" />
       <span slot="content" class="pl-5">Clients</span>
     </BaseHeader>
-    <div v-if="clients.length < 0">
+    <div v-if="clients.length > 0">
       <div class="border-b" v-for="(client, key) in clients" :key="key">
         <h6
           v-if="
