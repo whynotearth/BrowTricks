@@ -29,6 +29,17 @@ const actions = {
       tenantSlug
     })
       .then(response => {
+        response.sort((a, b) => {
+          const nameA = `${a.firstName} ${a.lastName}`.toUpperCase();
+          const nameB = `${b.firstName} ${b.lastName}`.toUpperCase();
+          if (nameA < nameB) {
+            return -1;
+          }
+          if (nameA > nameB) {
+            return 1;
+          }
+          return 0;
+        });
         commit('updateClients', response);
       })
       .catch(() => {
