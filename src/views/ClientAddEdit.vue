@@ -45,7 +45,6 @@ import StepperTop from '@/components/BaseStepperTopBar';
 import StepperBottom from '@/components/BaseStepperBottomBar';
 import BasicInfo from '@/components/client/BasicInfo';
 import Notifications from '@/components/client/Notifications';
-import LinkAccount from '@/components/tenant/LinkAccount';
 
 export default {
   name: 'ClientAddEdit',
@@ -53,8 +52,7 @@ export default {
     StepperTop,
     StepperBottom,
     BasicInfo,
-    Notifications,
-    LinkAccount
+    Notifications
   },
   props: {
     tenantSlug: {
@@ -118,17 +116,6 @@ export default {
           this.goClientList();
         })
         .catch(error => {
-          if (error.response.status === 401) {
-            const isLinkAccountAvailabble = this.navigation.findIndex(
-              nav => nav.step === 'link-account'
-            );
-            if (isLinkAccountAvailabble !== -1) {
-              this.navigation.push({
-                step: 'link-account',
-                name: 'Link Account'
-              });
-            }
-          }
           this.errors = error.response.data.errors;
         });
     },
