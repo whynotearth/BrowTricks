@@ -82,13 +82,14 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('client', ['pageChange', 'resetCreateClientForm']),
+    ...mapMutations('client', ['pageChange', 'resetClientInfo']),
     ...mapActions('client', ['createClient']),
     ...mapActions('auth', ['ping']),
     previousStep() {
       if (this.page > 1) {
         this.pageChange(this.page - 1);
       } else if (this.page === 1) {
+        this.resetClientInfo();
         this.goClientList();
       }
     },
