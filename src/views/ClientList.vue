@@ -11,12 +11,17 @@
     <div v-if="clients.length > 0">
       <div class="border-b" v-for="(client, key) in clients" :key="key">
         <h6
-          v-if="key === 0 ? true : client.firstName[0].toUpperCase() != clients[key - 1].firstName[0].toUpperCase()"
+          v-if="
+            key === 0
+              ? true
+              : client.firstName[0].toUpperCase() !=
+                clients[key - 1].firstName[0].toUpperCase()
+          "
           class="p-3 tg-caption-mobile text-on-background text-opacity-high"
         >
           {{ client.firstName[0].toUpperCase() }}
         </h6>
-        
+
         <div class="px-4 pb-4 flex items-center">
           <img
             class="w-10 h-10 rounded-full"

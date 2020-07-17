@@ -52,7 +52,7 @@ const routes = [
     path: '/tenant/:tenantSlug/clients/add/:step',
     name: 'AddClient',
     props: true,
-    component: () => import('@/views/AddEditClient.vue'),
+    component: () => import('@/views/ClientAddEdit.vue'),
     meta: {
       requiresAuth: true
     }
@@ -61,7 +61,7 @@ const routes = [
     path: '/tenant/:tenantSlug/clients/edit/:clientId/:step',
     name: 'EditClient',
     props: true,
-    component: () => import('@/views/AddEditClient.vue'),
+    component: () => import('@/views/ClientAddEdit.vue'),
     meta: {
       requiresAuth: true
     }

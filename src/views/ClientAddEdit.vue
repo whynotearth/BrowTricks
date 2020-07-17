@@ -48,7 +48,7 @@ import Notifications from '@/components/client/Notifications';
 import LinkAccount from '@/components/tenant/LinkAccount';
 
 export default {
-  name: 'AddEditClient',
+  name: 'ClientAddEdit',
   components: {
     StepperTop,
     StepperBottom,
