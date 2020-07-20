@@ -54,7 +54,7 @@ export function getAPIURL(path) {
 }
 
 export function isPhoneNumberValid(phone) {
-  return /^[+]?(1-|1\s|1|\d{3}-|\d{3}\s|)?((\(\d{3}\))|\d{3})(-|\s)?(\d{3})(-|\s)?(\d{4})$/g.test(
+  return /^((\+1|1)?( |-)?)?(\([2-9][0-9]{2}\)|[2-9][0-9]{2})( |-)?([2-9][0-9]{2}( |-)?[0-9]{4})$/.test(
     phone
   );
 }

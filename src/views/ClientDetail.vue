@@ -91,7 +91,7 @@
         <div class="tg-body-mobile ">
           <span class="text-on-background text-opacity-high"> Image </span>
           <span class="text-on-background text-opacity-medium">
-            ( 500 x 599 pixels JPEG / PNG )
+            ( 500 x 600 pixels JPEG / PNG )
           </span>
         </div>
       </template>
