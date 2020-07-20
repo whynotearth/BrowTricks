@@ -36,8 +36,8 @@
       <div class="">
         <Button
           :to="{
-            name: 'MenuCategoryList',
-            params: { tenantSlug: $route.params.slug }
+            name: 'AddClient',
+            params: { tenantSlug: $route.params.slug, step: 'basic-info' }
           }"
           title="ADD NEW CLIENTS"
           class="tg-color-label-mobile text-white text-opacity-high rounded-full py-3 px-10"

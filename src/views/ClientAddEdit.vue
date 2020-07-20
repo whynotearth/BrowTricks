@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="text-left">
     <div
       class="min-h-screen bg-background w-full flex flex-col justify-between"
     >
@@ -40,91 +40,57 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations, mapActions } from 'vuex';
+import { mapMutations, mapActions, mapState } from 'vuex';
 import StepperTop from '@/components/BaseStepperTopBar';
 import StepperBottom from '@/components/BaseStepperBottomBar';
-import BusinessInfo from '@/components/tenant/BusinessInfo';
-import LinkAccount from '@/components/tenant/LinkAccount';
-import Notifications from '@/components/tenant/Notifications';
-import BusinessHours from '@/components/tenant/BusinessHours';
-import PaymentMethods from '@/components/tenant/PaymentMethods';
+import BasicInfo from '@/components/client/BasicInfo';
+import Notifications from '@/components/client/Notifications';
 
 export default {
-  name: 'SignUpForm',
+  name: 'ClientAddEdit',
   components: {
     StepperTop,
     StepperBottom,
-    BusinessInfo,
-    LinkAccount,
-    Notifications,
-    BusinessHours,
-    PaymentMethods
+    BasicInfo,
+    Notifications
+  },
+  props: {
+    tenantSlug: {
+      type: String,
+      required: true
+    }
   },
   data() {
     return {
       navigation: [
         {
-          step: 'business-info',
-          name: 'Business Info'
-        },
-        {
-          step: 'link-account',
-          name: 'Link Account'
+          step: 'basic-info',
+          name: 'Basic Info'
         },
         {
           step: 'notifications',
           name: 'Notifications'
-        },
-        {
-          step: 'business-hours',
-          name: 'Business Hours'
-        },
-        {
-          step: 'payment-methods',
-          name: 'Payment Methods'
         }
       ],
       errors: null
     };
   },
   computed: {
-    ...mapGetters('tenant', ['page']),
+    ...mapState('client', ['page']),
     component() {
       return this.navigation[this.page - 1].step;
     }
   },
-  created() {
-    if (!this.$route.query.signUpStarted && this.navigation.length > 0) {
-      this.ping().then(response => {
-        if (response.isAuthenticated) {
-          this.navigation.splice(
-            this.navigation.findIndex(nav => nav.step === 'link-account'),
-            1
-          );
-          this.updateEmail(response.userName);
-        }
-      });
-    }
-    if (
-      !this.$route.query.signUpStarted &&
-      this.$route.params.step !== 'business-info'
-    ) {
-      this.$router.replace({ params: { step: 'business-info' } });
-    }
-  },
   methods: {
-    ...mapMutations('tenant', [
-      'pageChange',
-      'resetCreateTenantForm',
-      'updateEmail'
-    ]),
-    ...mapActions('tenant', ['createTenant']),
+    ...mapMutations('client', ['pageChange', 'resetClientInfo']),
+    ...mapActions('client', ['createClient']),
     ...mapActions('auth', ['ping']),
     previousStep() {
       if (this.page > 1) {
         this.pageChange(this.page - 1);
       } else if (this.page === 1) {
-        this.$router.push({ name: 'Welcome' });
+        this.resetClientInfo();
+        this.goClientList();
       }
     },
     nextStep() {
@@ -144,32 +110,42 @@ export default {
       }
     },
     register() {
-      this.createTenant()
-        .then(res => {
-          this.$router.push({
-            name: 'SignUpSuccess',
-            params: { slug: res }
-          });
+      this.createClient({
+        tenantSlug: this.tenantSlug
+      })
+        .then(() => {
+          this.goClientList();
         })
         .catch(error => {
-          if (error.response.status === 401) {
-            const isLinkAccountAvailabble = this.navigation.findIndex(
-              nav => nav.step === 'link-account'
-            );
-            if (isLinkAccountAvailabble !== -1) {
-              this.navigation.push({
-                step: 'link-account',
-                name: 'Link Account'
-              });
-            }
-          }
           this.errors = error.response.data.errors;
         });
+    },
+    goClientList() {
+      this.$router.push({
+        name: 'ClientList',
+        params: { tenantSlug: this.tenantSlug }
+      });
     }
   },
   watch: {
     component(step) {
-      this.$router.push({ name: 'SignUp', params: { step } }).catch(() => {});
+      this.$router
+        .push(
+          this.$route.params.clientId
+            ? {
+                name: 'EditClient',
+                params: {
+                  step,
+                  tenantSlug: this.tenantSlug,
+                  clientId: this.$route.params.clientId
+                }
+              }
+            : {
+                name: 'AddClient',
+                params: { step, tenantSlug: this.tenantSlug }
+              }
+        )
+        .catch(() => {});
     },
     '$route.params.step': {
       immediate: true,
@@ -182,7 +158,7 @@ export default {
         if (index >= 0) {
           this.pageChange(index + 1);
         } else if (index < 0) {
-          this.$router.push({ name: 'Welcome' });
+          this.goClientList();
         }
       }
     }

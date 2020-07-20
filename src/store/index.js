@@ -2,12 +2,14 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import auth from './modules/auth';
 import tenant from './modules/tenant';
+import client from './modules/client';
+
 import PMU from './modules/PMU';
 import VuexPersistence from 'vuex-persist';
 
 const vuexSession = new VuexPersistence({
   storage: window.sessionStorage,
-  modules: ['auth', 'tenant'],
+  modules: ['auth', 'tenant', 'client'],
   key: 'vuexSessionStore'
 });
 
@@ -37,6 +39,7 @@ export default new Vuex.Store({
   modules: {
     auth,
     tenant,
+    client,
     PMU
   }
 });

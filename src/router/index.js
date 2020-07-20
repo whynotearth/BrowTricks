@@ -9,6 +9,7 @@ Vue.use(VueRouter);
 
 const routes = [
   ...PMURoutes,
+  // test routes
   {
     path: '/test-layout-splash',
     name: 'TestLayoutSplash',
@@ -38,6 +39,34 @@ const routes = [
     path: '/shop/test-tenant-slug/categories',
     name: 'CustomerCategories',
     component: () => import('@/views/CustomerCategories.vue')
+  },
+  // clients
+  {
+    path: '/tenant/:tenantSlug/clients',
+    name: 'ClientList',
+    props: true,
+    component: () => import('@/views/ClientList.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/tenant/:tenantSlug/clients/add/:step',
+    name: 'AddClient',
+    props: true,
+    component: () => import('@/views/ClientAddEdit.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/tenant/:tenantSlug/clients/edit/:clientId/:step',
+    name: 'EditClient',
+    props: true,
+    component: () => import('@/views/ClientAddEdit.vue'),
+    meta: {
+      requiresAuth: true
+    }
   },
   ...authRoutes,
   {

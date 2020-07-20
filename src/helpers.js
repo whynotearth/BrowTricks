@@ -48,3 +48,7 @@ export async function sleep(time) {
     }, time);
   });
 }
+
+export function getAPIURL(path) {
+  return process.env.VUE_APP_API_URL + path;
+}
