@@ -36,7 +36,10 @@
         Phone number is required
       </span>
       <span
-        v-if="$v.phone.$dirty && !$v.phone.minLength"
+        v-if="
+          $v.phone.$dirty &&
+            (!$v.phone.minLength || !$v.phone.isPhoneNumberValid)
+        "
         class="text-red-600 text-xs"
       >
         Please enter a valid phone number
@@ -67,6 +70,7 @@
 import { required, minLength, email } from 'vuelidate/lib/validators';
 import MaterialInput from '@/components/inputs/MaterialInput';
 import { mapState, mapMutations } from 'vuex';
+import { isPhoneNumberValid } from '@/helpers';
 
 export default {
   name: 'BasicInfo',
@@ -85,7 +89,8 @@ export default {
     },
     phone: {
       required,
-      minLength: minLength(7)
+      minLength: minLength(10),
+      isPhoneNumberValid
     },
     email: {
       required,
