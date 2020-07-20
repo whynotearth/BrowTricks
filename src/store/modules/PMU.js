@@ -1,10 +1,20 @@
-const state = {};
+const state = {
+  page: 1
+};
 
-const getters = {};
+const getters = {
+  page(state) {
+    return state.page;
+  }
+};
 
 const actions = {};
 
-const mutations = {};
+const mutations = {
+  pageChange(state, payload) {
+    state.page = payload;
+  }
+};
 
 export default {
   namespaced: true,

@@ -31,7 +31,7 @@
 
 <script>
 import LayoutFixedScrollable from '@/components/LayoutFixedScrollable.vue';
-import LayoutSplash from '@/components/LayoutSplash.vue';
+import LayoutSplash from '@/layouts/LayoutSplash.vue';
 import BaseButton from '@/components/BaseButton.vue';
 
 export default {

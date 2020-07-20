@@ -1,8 +1,14 @@
 <template>
   <component
     :is="type"
-    class="cursor-pointer text-white text-sm font-semibold uppercase inline-block"
-    :class="[isRipple ? 'ripple' : '', width, background, padding]"
+    class="tg-color-label-mobile font-semibold uppercase cursor-pointer text-white text-sm inline-block"
+    :class="[
+      isRipple ? 'ripple' : '',
+      isRounded ? 'rounded-full' : '',
+      width,
+      background,
+      padding
+    ]"
     @click="$emit('clicked')"
     :href="href"
     :to="to"
@@ -66,7 +72,11 @@ export default {
     },
     padding: {
       type: String,
-      default: 'p-4'
+      default: 'px-4 py-2'
+    },
+    isRounded: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {

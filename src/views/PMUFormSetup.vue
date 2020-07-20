@@ -48,7 +48,11 @@
       >
     </div>
 
-    <Button @clicked="submit" title="save PMU form"></Button>
+    <Button
+      class="rounded-full"
+      @clicked="submit"
+      title="save PMU form"
+    ></Button>
   </div>
 </template>
 

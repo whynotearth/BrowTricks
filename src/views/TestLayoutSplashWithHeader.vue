@@ -36,7 +36,7 @@
 <script>
 import LayoutFixedScrollable from '@/components/LayoutFixedScrollable.vue';
 import BaseHeader from '@/components/BaseHeader.vue';
-import LayoutSplash from '@/components/LayoutSplash.vue';
+import LayoutSplash from '@/layouts/LayoutSplash.vue';
 import BaseButton from '@/components/BaseButton.vue';
 import IconMenu from '@/assets/icons/menu.svg';
 
