@@ -52,3 +52,9 @@ export async function sleep(time) {
 export function getAPIURL(path) {
   return process.env.VUE_APP_API_URL + path;
 }
+
+export function isPhoneNumberValid(phone) {
+  return /^[+]?(1-|1\s|1|\d{3}-|\d{3}\s|)?((\(\d{3}\))|\d{3})(-|\s)?(\d{3})(-|\s)?(\d{4})$/g.test(
+    phone
+  );
+}
