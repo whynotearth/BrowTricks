@@ -9,6 +9,7 @@ Vue.use(VueRouter);
 
 const routes = [
   ...PMURoutes,
+  // test routes
   {
     path: '/test-layout-splash',
     name: 'TestLayoutSplash',
@@ -39,6 +40,7 @@ const routes = [
     name: 'CustomerCategories',
     component: () => import('@/views/CustomerCategories.vue')
   },
+  // clients
   {
     path: '/tenant/:tenantSlug/clients',
     name: 'ClientList',

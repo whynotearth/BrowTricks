@@ -25,12 +25,13 @@
         <div class="px-4 pb-4 flex items-center">
           <div>
             <img
-              v-if="client.avatarUrl"
               class="w-10 h-10 rounded-full"
-              :src="client.avatarUrl"
+              :src="
+                client.avatarUrl ||
+                  'https://res.cloudinary.com/whynotearth/image/upload/v1595228411/BrowTricks/avatar-placeholder_dphhvx.png'
+              "
               alt="user-logo"
             />
-            <UserIcon v-else />
           </div>
           <div class="ml-2">
             <h3 class="tg-body-mobile text-on-background text-opacity-high">
@@ -95,7 +96,6 @@ import BaseHeader from '@/components/BaseHeader.vue';
 import Button from '@/components/Button.vue';
 import ArrowBack from '@/assets/icons/arrow-back.svg';
 import AddIcon from '@/assets/icons/new_item.svg';
-import UserIcon from '@/assets/icons/user.svg';
 import UsersGroupIcon from '@/assets/icons/users-group.svg';
 
 export default {
@@ -105,7 +105,6 @@ export default {
     ArrowBack,
     Button,
     AddIcon,
-    UserIcon,
     UsersGroupIcon
   },
   props: {
@@ -118,7 +117,7 @@ export default {
     return {
       client: false,
       logoUrl:
-        'https://s3-alpha-sig.figma.com/img/9ae4/25d3/f4970958de9560957aa38fb9ad00c57d?Expires=1595808000&Signature=A3fe-i50L5faBbq5FjyHWWP~jHFKj9pJmJIca~vuFOSxRYKt3wY-6loRE6cmS9O4M8pTZQoymgQNY4xIMtEWUyAxn9Fw3OpLevQCnOa4krCkXszvG6j7ls~-9qrW-V5sSu0kmwNfZi1X0OR~Rnl3SYPT9Gravc6VSIMRg1iPdAULpEzuKomWkY2ODhj-jzxPcyjZTtZUNbCe~wJaZN32ho~0oNnyAv5U5ECy9T60qqW0W9ONrrtmkuhQ8EY5J306x~3sJpI9zLbogOfDSZufMXc5ecN4ws7icerZyd4VODUweXQGTR8uet8nt2Vo381Gi17eGfnc1klUnpIPmRxKUw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA'
+        'https://res.cloudinary.com/whynotearth/image/upload/v1585738963/BrowTricks/_0003_MANAGE-CLIENTS_hl5cux.png'
     };
   },
   created() {

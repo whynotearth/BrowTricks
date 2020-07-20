@@ -111,8 +111,12 @@ const actions = {
     };
 
     return new Promise((resolve, reject) => {
+      // TODO: use meredith-axios
       ajax
-        .post(`/companies/${registerData.companySlug}/tenants`, registerData)
+        .post(
+          `/api/v0/companies/${registerData.companySlug}/tenants`,
+          registerData
+        )
         .then(
           response => {
             resolve(response.data);
@@ -126,7 +130,8 @@ const actions = {
   fetchUserTenants() {
     let companySlug = process.env.VUE_APP_COMPANY_SLUG;
     return new Promise((resolve, reject) => {
-      ajax.get(`/companies/${companySlug}/tenants/mytenants`).then(
+      // TODO: use meredith-axios
+      ajax.get(`/api/v0/companies/${companySlug}/tenants/mytenants`).then(
         response => {
           resolve(response.data);
         },

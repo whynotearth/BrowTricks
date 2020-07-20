@@ -1,4 +1,5 @@
 import { ajax } from '@/services/ajax.js';
+import { getAPIURL } from '../../helpers';
 
 const state = {
   provider: '',
@@ -7,15 +8,18 @@ const state = {
 
 const getters = {
   oauth(state) {
-    return `${process.env.VUE_APP_API_URL}/api/v0/authentication/provider/login?provider=${state.provider}&returnUrl=${state.returnURL}`;
+    return getAPIURL(
+      `/api/v0/authentication/provider/login?provider=${state.provider}&returnUrl=${state.returnURL}`
+    );
   }
 };
 
 const actions = {
   ping({ commit }) {
     return new Promise((resolve, reject) => {
+      // TODO: use meredith-axios
       ajax
-        .get('authentication/ping')
+        .get('/api/v0/authentication/ping')
         .then(response => {
           commit('updateProvider', response.data.loginProviders[0]);
           resolve(response.data);
@@ -28,8 +32,11 @@ const actions = {
   },
   logout({ commit, state, dispatch }) {
     return new Promise((resolve, reject) => {
+      // TODO: use meredith-axios
       ajax
-        .post(`authentication/provider/logout?provider=${state.provider}`)
+        .post(
+          `/api/v0/authentication/provider/logout?provider=${state.provider}`
+        )
         .then(
           () => {
             commit('updateProvider', '');
