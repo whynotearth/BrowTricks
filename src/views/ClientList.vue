@@ -50,6 +50,7 @@
           </div>
         </div>
       </div>
+      <NavigationBottom />
     </div>
     <div v-else>
       <div
@@ -97,6 +98,7 @@ import Button from '@/components/Button.vue';
 import ArrowBack from '@/assets/icons/arrow-back.svg';
 import AddIcon from '@/assets/icons/new_item.svg';
 import UsersGroupIcon from '@/assets/icons/users-group.svg';
+import NavigationBottom from '@/components/BaseNavigationBottom.vue';
 
 export default {
   name: 'ClientList',
@@ -105,7 +107,8 @@ export default {
     ArrowBack,
     Button,
     AddIcon,
-    UsersGroupIcon
+    UsersGroupIcon,
+    NavigationBottom
   },
   props: {
     tenantSlug: {
