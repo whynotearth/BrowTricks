@@ -23,7 +23,13 @@
       >
         Phone number is required
       </span>
-      <span v-if="!$v.phone.minLength" class="text-red-600 text-xs">
+      <span
+        v-if="
+          $v.phone.$dirty &&
+            (!$v.phone.minLength || !$v.phone.isPhoneNumberValid)
+        "
+        class="text-red-600 text-xs"
+      >
         Please enter a valid phone number
       </span>
     </material-input>
@@ -34,7 +40,7 @@
         <div class="tg-body-mobile ">
           <span class="text-on-background text-opacity-high"> Logo </span>
           <span class="text-on-background text-opacity-medium">
-            ( 500 x 599 pixels JPEG / PNG )
+            ( 500 x 600 pixels JPEG / PNG )
           </span>
         </div>
       </template>
@@ -51,6 +57,7 @@ import { required, minLength } from 'vuelidate/lib/validators';
 import MaterialInput from '@/components/inputs/MaterialInput';
 import TextArea from '@/components/inputs/TextArea.vue';
 import ImageUpload from '@/components/imageUpload/ImageUpload.vue';
+import { isPhoneNumberValid } from '@/helpers';
 
 export default {
   name: 'BusinessInfo',
@@ -68,7 +75,8 @@ export default {
     },
     phone: {
       required,
-      minLength: minLength(7)
+      minLength: minLength(10),
+      isPhoneNumberValid
     },
     description: {},
     logo: {
