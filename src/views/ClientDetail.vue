@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-surface text-left min-h-screen">
+  <div class="bg-background text-left min-h-screen" v-if="client">
     <BaseHeader
       slot="header"
       class="bg-footer text-white"
@@ -8,51 +8,80 @@
       "
     >
       <ArrowBack slot="icon" class="h-6 w-6 fill-current" />
-      <span slot="content" class="pl-5">Add Client</span>
+      <span slot="content" class="pl-5">Client Profile</span>
     </BaseHeader>
-    <div class="m-4 bg-white shadow-1dp py-4 px-2 rounded-lg">
+    <div class="bg-on-background bg-opacity-high py-8 px-4 text-white h-auto flex flex-col items-center">
+      <img
+        class="w-16 h-16 rounded-full"
+        :src="
+          client.avatarUrl ||
+            'https://res.cloudinary.com/whynotearth/image/upload/v1595228411/BrowTricks/avatar-placeholder_dphhvx.png'
+        "
+        alt="user-logo"
+      />
+      <h3 class="py-4 tg-h1-mobile">{{ client.firstName }} {{ client.lastName }}</h3>
+      <div class="flex justify-between tg-caption-mobile pb-16 w-full sm:w-auto">
+        <div class="flex flex-col items-center px-4 sm:px-8">
+          <BookIcon class="fill-current" />
+          <span>Book</span>
+        </div>
+        <div class="flex flex-col items-center px-4 sm:px-8">
+          <MailIcon class="fill-current" />
+          <span>Email</span>
+        </div>
+        <div class="flex flex-col items-center px-4 sm:px-8">
+          <PhoneAndroidIcon class="fill-current" />
+          <span>Text</span>
+        </div>
+        <div class="flex flex-col items-center px-4 sm:px-8">
+          <PhoneIcon class="fill-current" />
+          <span>Call</span>
+        </div>
+      </div>
+    </div>
+    <div class="m-4 -mt-10 bg-white shadow-1dp py-4 px-2 rounded-lg">
       <material-input
-        v-model="$v.firstName.$model"
+        v-model="$v.client.firstName.$model"
         label="First Name"
         labelBg="bg-white"
-        :error="$v.firstName.$dirty && !$v.firstName.required"
+        :error="$v.client.firstName.$dirty && !$v.client.firstName.required"
       >
         <span
-          v-if="$v.firstName.$dirty && !$v.firstName.required"
+          v-if="$v.client.firstName.$dirty && !$v.client.firstName.required"
           class="text-red-600 text-xs"
         >
           First Name is required
         </span>
       </material-input>
       <material-input
-        v-model="$v.lastName.$model"
+        v-model="$v.client.lastName.$model"
         label="Last Name"
         labelBg="bg-white"
-        :error="$v.lastName.$dirty && !$v.lastName.required"
+        :error="$v.client.lastName.$dirty && !$v.client.lastName.required"
       >
         <span
-          v-if="$v.lastName.$dirty && !$v.lastName.required"
+          v-if="$v.client.lastName.$dirty && !$v.client.lastName.required"
           class="text-red-600 text-xs"
         >
           Last Name is required
         </span>
       </material-input>
       <material-input
-        v-model="$v.phone.$model"
-        label="Phone Number"
+        v-model="$v.client.phoneNumber.$model"
+        label="PhoneNumber Number"
         labelBg="bg-white"
-        :error="$v.phone.$dirty && (!$v.phone.required || !$v.phone.minLength)"
+        :error="$v.client.phoneNumber.$dirty && (!$v.client.phoneNumber.required || !$v.client.phoneNumber.minLength)"
       >
         <span
-          v-if="$v.phone.$dirty && !$v.phone.required"
+          v-if="$v.client.phoneNumber.$dirty && !$v.client.phoneNumber.required"
           class="text-red-600 text-xs"
         >
           Phone number is required
         </span>
         <span
           v-if="
-            $v.phone.$dirty &&
-              (!$v.phone.minLength || !$v.phone.isPhoneNumberValid)
+            $v.client.phoneNumber.$dirty &&
+              (!$v.client.phoneNumber.minLength || !$v.client.phoneNumber.isPhoneNumberValid)
           "
           class="text-red-600 text-xs"
         >
@@ -60,19 +89,19 @@
         </span>
       </material-input>
       <material-input
-        v-model="$v.email.$model"
+        v-model="$v.client.email.$model"
         label="Email"
         labelBg="bg-white"
-        :error="$v.email.$dirty && (!$v.email.required || !$v.email.minLength)"
+        :error="$v.client.email.$dirty && (!$v.client.email.required || !$v.client.email.email)"
       >
         <span
-          v-if="$v.email.$dirty && !$v.email.required"
+          v-if="$v.client.email.$dirty && !$v.client.email.required"
           class="text-red-600 text-xs"
         >
           Email is required
         </span>
         <span
-          v-if="$v.email.$dirty && !$v.email.email"
+          v-if="$v.client.email.$dirty && !$v.client.email.email"
           class="text-red-600 text-xs"
         >
           Please enter a email address
@@ -85,26 +114,13 @@
     >
       <Notification slot="preIcon" class="h-6 w-6 fill-current" />
     </ExpansionPanel>
-    <hr class="mt-12 mb-8" />
-    <ImageUpload v-model="images" :defaultImages="[]">
-      <template #title>
-        <div class="tg-body-mobile ">
-          <span class="text-on-background text-opacity-high"> Image </span>
-          <span class="text-on-background text-opacity-medium">
-            ( 500 x 600 pixels JPEG / PNG )
-          </span>
-        </div>
-      </template>
-    </ImageUpload>
-    <hr class="my-4" />
-    <ImageUpload id="files" v-model="files" :defaultImages="[]">
-      <template #title>
-        <div class="tg-body-mobile ">
-          <span class="text-on-background text-opacity-high"> Files </span>
-        </div>
-      </template>
-    </ImageUpload>
-    <hr class="mt-12 mb-8" />
+    <ExpansionPanel
+      @click="$router.push({ name: 'ImageUpload' })"
+      title="Images"
+      middleText="Incomplete"
+    >
+      <ImagesIcon slot="preIcon" class="h-6 w-6 fill-current" />
+    </ExpansionPanel>
     <ExpansionPanel
       @click="$router.push({ name: 'PMU' })"
       title="PMU"
@@ -122,6 +138,13 @@
         :isRipple="false"
         @clicked="save"
       />
+      <Button
+        class="mt-8 tg-body-mobile text-error text-opacity-medium pb-4"
+        title="Archive Client"
+        background="bg-transparent"
+        :isRipple="false"
+        @clicked="archive"
+      />
     </div>
   </div>
 </template>
@@ -130,15 +153,22 @@
 import { required, minLength, email } from 'vuelidate/lib/validators';
 import BaseHeader from '@/components/BaseHeader.vue';
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
-import ImageUpload from '@/components/imageUpload/ImageUpload.vue';
 import Button from '@/components/Button.vue';
 import ExpansionPanel from '@/components/ExpansionPanel.vue';
 
-import ArrowBack from '@/assets/icons/arrow_back.svg';
+import ArrowBack from '@/assets/icons/arrow-back.svg';
 import Document from '@/assets/icons/document.svg';
 import Notes from '@/assets/icons/notes.svg';
 import Notification from '@/assets/icons/notification.svg';
+import ImagesIcon from '@/assets/icons/images.svg';
+
+import BookIcon from '@/assets/icons/calendar_today.svg';
+import MailIcon from '@/assets/icons/mail.svg';
+import PhoneIcon from '@/assets/icons/phone.svg';
+import PhoneAndroidIcon from '@/assets/icons/phone_android.svg';
+
 import { isPhoneNumberValid } from '@/helpers';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'AddEditClient',
@@ -146,48 +176,63 @@ export default {
     tenantSlug: {
       type: String,
       required: true
+    },
+    clientId: {
+      type: [String, Number],
+      required: true
     }
   },
   components: {
     BaseHeader,
     ArrowBack,
     MaterialInput,
-    ImageUpload,
     Button,
     Document,
     Notes,
     Notification,
-    ExpansionPanel
+    ImagesIcon,
+    ExpansionPanel,
+    BookIcon,
+    MailIcon,
+    PhoneIcon,
+    PhoneAndroidIcon
   },
   data() {
     return {
-      firstName: '',
-      lastName: '',
-      phone: '',
-      email: '',
-      images: [],
-      files: []
+      client: null
     };
   },
   validations: {
-    firstName: {
-      required
-    },
-    lastName: {
-      required
-    },
-    phone: {
-      required,
-      minLength: minLength(10),
-      isPhoneNumberValid
-    },
-    email: {
-      required,
-      email
+    client: {
+      firstName: {
+        required
+      },
+      lastName: {
+        required
+      },
+      phoneNumber: {
+        required,
+        minLength: minLength(10),
+        isPhoneNumberValid
+      },
+      email: {
+        required,
+        email
+      }
     }
   },
+  async created() {
+    this.client = await this.getClientById(this.clientId);
+    if (!this.client) {
+      this.$router.push({ name: 'ClientList', params: { slug: this.tenantSlug}})
+    }
+  },
+  computed: {
+    ...mapGetters('client', ['getClientById'])
+  },
   methods: {
-    save() {}
+    save() {},
+    archive() {}
   }
 };
 </script>

@@ -19,6 +19,9 @@ const state = {
 const getters = {
   page(state) {
     return state.page;
+  },
+  getClientById: state => id => {
+    return state.clients.find(client => client.id == id);
   }
 };
 
