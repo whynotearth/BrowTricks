@@ -12,6 +12,7 @@
                 :is="componentName"
                 :ref="componentName"
                 @nextStep="nextStep"
+                @updateAnswer="updateAnswer"
               ></component>
             </keep-alive>
           </transition>
@@ -43,6 +44,8 @@ import StepperTop from '@/components/BaseStepperTopBar';
 import StepperBottom from '@/components/BaseStepperBottomBar';
 import BusinessInfo from '@/components/tenant/BusinessInfo';
 import StepCreateSignature from '@/components/PMU/StepCreateSignature';
+// import StepQuestion from '@/components/PMU/StepQuestion';
+// import StepContentHTML from '@/components/PMU/StepContentHTML';
 
 export default {
   name: 'PMUFlowQuestions',
@@ -54,11 +57,54 @@ export default {
   },
   data() {
     return {
+      result: {
+        signature: '',
+        initials: '',
+        allowPhoto: false,
+        isUnderCareOfPhysician: false,
+        conditions: '',
+        isTakingBloodThinner: false,
+        physicianName: '',
+        physicianPhoneNumber: '',
+        answers: [
+          {
+            questionId: 0,
+            answer: ''
+          }
+        ]
+      },
       navigation: [
         {
           step: 'create-signature',
           name: 'Create Signature',
           componentName: 'StepCreateSignature'
+        },
+        {
+          step: 'disclosures',
+          name: 'Disclosures',
+          componentName: 'StepContentHTML'
+        },
+        {
+          step: 'release',
+          name: 'Release',
+          componentName: 'StepQuestion',
+          props: {
+            text:
+              'Do you authorize to have photographs taken both before and after treatment, and that photographs taken may be used for advertising/training purposes?',
+            type: 'radio',
+            radioOptions: ['Yes', 'No']
+          }
+        },
+        // todo: medical disclaimer 1
+        {
+          step: 'medical-disclaimer-2',
+          name: 'Medical Disclaimer',
+          componentName: 'StepQuestion',
+          props: {
+            text:
+              'Do you authorize to have photographs taken both before and after treatment, and that photographs taken may be used for advertising/training purposes?',
+            type: 'textarea'
+          }
         }
       ],
       errors: null
@@ -73,6 +119,9 @@ export default {
   methods: {
     ...mapMutations('PMU', ['pageChange']),
     ...mapActions('PMU', []),
+    updateAnswer({ field, value }) {
+      this.result[field] = value;
+    },
     previousStep() {
       if (this.page > 1) {
         this.pageChange(this.page - 1);
