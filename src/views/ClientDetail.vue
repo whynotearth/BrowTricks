@@ -164,7 +164,7 @@
       @click="isArchiveModalOpen = false"
     >
       <div class="h-full w-screen flex justify-center items-center">
-        <div @click.stop class="bg-white rounded-lg w-full mx-4 p-8">
+        <div @click.stop class="bg-white rounded-lg w-full mx-4 p-8 sm:w-128">
           <h6 class="text-on-background text-opacity-medium">
             Archive Client?
           </h6>
