@@ -7,7 +7,7 @@
       <div class="flex">
         <slot name="preIcon"></slot>
         <slot
-          ><h4 class="ml-4 text-on-surface text-opacity-high">
+          ><h4 class="ml-4 text-on-surface text-opacity-high min-w-expansion-panel">
             {{ title }}
           </h4></slot
         >
@@ -46,4 +46,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.min-w-expansion-panel {
+  min-width: 80px;
+}
+</style>
