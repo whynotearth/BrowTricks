@@ -7,7 +7,9 @@
       <div class="flex">
         <slot name="preIcon"></slot>
         <slot
-          ><h4 class="ml-4 text-on-surface text-opacity-high min-w-expansion-panel">
+          ><h4
+            class="ml-4 text-on-surface text-opacity-high min-w-expansion-panel"
+          >
             {{ title }}
           </h4></slot
         >
