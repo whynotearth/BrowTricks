@@ -15,6 +15,7 @@ ajax.interceptors.response.use(
   error => {
     // TODO: handle no connection
     if (error.response.status === 401) {
+      // FIXME: don't run on public pages
       store.dispatch('auth/logout');
     }
     if (error.response.status === 403) {
