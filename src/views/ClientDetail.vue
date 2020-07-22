@@ -3,14 +3,14 @@
     <BaseHeader
       slot="header"
       class="bg-footer text-white"
-      @iconClicked="
-        $router.push({ name: 'ClientList', params: { tenantSlug } })
-      "
+      @iconClicked="goBack"
     >
       <ArrowBack slot="icon" class="h-6 w-6 fill-current" />
       <span slot="content" class="pl-5">Client Profile</span>
     </BaseHeader>
-    <div class="bg-on-background bg-opacity-high py-8 px-4 text-white h-auto flex flex-col items-center">
+    <div
+      class="bg-on-background bg-opacity-high py-8 px-4 text-white h-auto flex flex-col items-center"
+    >
       <img
         class="w-16 h-16 rounded-full"
         :src="
@@ -19,8 +19,12 @@
         "
         alt="user-logo"
       />
-      <h3 class="py-4 tg-h1-mobile">{{ client.firstName }} {{ client.lastName }}</h3>
-      <div class="flex justify-between tg-caption-mobile pb-16 w-full sm:w-auto">
+      <h3 class="py-4 tg-h1-mobile">
+        {{ client.firstName }} {{ client.lastName }}
+      </h3>
+      <div
+        class="flex justify-between tg-caption-mobile pb-16 w-full sm:w-auto"
+      >
         <div class="flex flex-col items-center px-4 sm:px-8">
           <BookIcon class="fill-current" />
           <span>Book</span>
@@ -70,7 +74,11 @@
         v-model="$v.client.phoneNumber.$model"
         label="PhoneNumber Number"
         labelBg="bg-white"
-        :error="$v.client.phoneNumber.$dirty && (!$v.client.phoneNumber.required || !$v.client.phoneNumber.minLength)"
+        :error="
+          $v.client.phoneNumber.$dirty &&
+            (!$v.client.phoneNumber.required ||
+              !$v.client.phoneNumber.minLength)
+        "
       >
         <span
           v-if="$v.client.phoneNumber.$dirty && !$v.client.phoneNumber.required"
@@ -81,7 +89,8 @@
         <span
           v-if="
             $v.client.phoneNumber.$dirty &&
-              (!$v.client.phoneNumber.minLength || !$v.client.phoneNumber.isPhoneNumberValid)
+              (!$v.client.phoneNumber.minLength ||
+                !$v.client.phoneNumber.isPhoneNumberValid)
           "
           class="text-red-600 text-xs"
         >
@@ -92,7 +101,10 @@
         v-model="$v.client.email.$model"
         label="Email"
         labelBg="bg-white"
-        :error="$v.client.email.$dirty && (!$v.client.email.required || !$v.client.email.email)"
+        :error="
+          $v.client.email.$dirty &&
+            (!$v.client.email.required || !$v.client.email.email)
+        "
       >
         <span
           v-if="$v.client.email.$dirty && !$v.client.email.required"
@@ -143,8 +155,37 @@
         title="Archive Client"
         background="bg-transparent"
         :isRipple="false"
-        @clicked="archive"
+        @clicked="isArchiveModalOpen = true"
       />
+    </div>
+    <div
+      v-if="isArchiveModalOpen"
+      class="z-50 fixed inset-0 bg-on-background bg-opacity-25"
+      @click="isArchiveModalOpen = false"
+    >
+      <div class="h-full w-screen flex justify-center items-center">
+        <div @click.stop class="bg-white rounded-lg w-full mx-4 p-8">
+          <h6>Archive Client?</h6>
+          <div class="flex justify-end">
+            <Button
+              class="mt-8 tg-body-mobile text-error"
+              title="Cancel"
+              background="bg-transparent"
+              :isRipple="false"
+              @clicked="isArchiveModalOpen = false"
+              width="w-auto"
+            />
+            <Button
+              class="mt-8 tg-body-mobile text-secondary"
+              title="Archive"
+              background="bg-transparent"
+              :isRipple="false"
+              @clicked="archive"
+              width="w-auto"
+            />
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -168,7 +209,7 @@ import PhoneIcon from '@/assets/icons/phone.svg';
 import PhoneAndroidIcon from '@/assets/icons/phone_android.svg';
 
 import { isPhoneNumberValid } from '@/helpers';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'AddEditClient',
@@ -199,7 +240,8 @@ export default {
   },
   data() {
     return {
-      client: null
+      client: null,
+      isArchiveModalOpen: false
     };
   },
   validations: {
@@ -224,15 +266,35 @@ export default {
   async created() {
     this.client = await this.getClientById(this.clientId);
     if (!this.client) {
-      this.$router.push({ name: 'ClientList', params: { slug: this.tenantSlug}})
+      this.goBack();
     }
   },
   computed: {
     ...mapGetters('client', ['getClientById'])
   },
   methods: {
-    save() {},
-    archive() {}
+    ...mapActions('client', ['updateClient', 'archiveClient']),
+    save() {
+      this.updateClient({
+        tenantSlug: this.tenantSlug,
+        clientId: this.clientId,
+        body: this.client
+      });
+    },
+    archive() {
+      this.archiveClient({
+        tenantSlug: this.tenantSlug,
+        clientId: this.clientId
+      }).then(() => {
+        this.goBack();
+      });
+    },
+    goBack() {
+      this.$router.push({
+        name: 'ClientList',
+        params: { slug: this.tenantSlug }
+      });
+    }
   }
 };
 </script>
