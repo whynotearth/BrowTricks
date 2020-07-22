@@ -1,3 +1,4 @@
+// Default config https://github.com/tailwindcss/tailwindcss/blob/master/stubs/defaultConfig.stub.js
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 const boxShadow = require('./src/assets/styles/shadows');
@@ -11,6 +12,9 @@ module.exports = {
       boxShadow,
       colors,
       opacity,
+      borderRadius: {
+        xl: '1rem'
+      },
       screens: {
         xl: '1280px',
         xxl: '1920px'

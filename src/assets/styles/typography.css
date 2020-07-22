@@ -76,4 +76,12 @@
         letter-spacing: 0.02em;
         text-transform: uppercase;
     }
+
+    .tg-dancing {
+        font-family: 'Dancing Script', sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 36px;
+        line-height: 44px;
+    }
 }

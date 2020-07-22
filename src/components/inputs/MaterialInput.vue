@@ -1,5 +1,6 @@
 <template>
   <div class="relative">
+    <!-- TODO: add v-on="inputListeners" like Volkswagen BaseInputText.vue to handle all events -->
     <input
       class="input text-on-background text-opacity-high appearance-none outline-none relative bg-transparent rounded w-full px-4 py-3 border focus:border-2 active:border-2 focus:border-opacity-medium active:border-opacity-medium"
       :class="[
