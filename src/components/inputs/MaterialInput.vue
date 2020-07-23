@@ -4,6 +4,7 @@
     <input
       class="input text-on-background text-opacity-high appearance-none outline-none relative bg-transparent rounded w-full px-4 py-3 border focus:border-2 active:border-2 focus:border-opacity-medium active:border-opacity-medium"
       :class="[
+        margin,
         { filled: value && value.length > 0 },
         error
           ? 'border-red-600 placeholder-red-600'
@@ -66,6 +67,10 @@ export default {
     labelBg: {
       type: String,
       default: 'bg-background'
+    },
+    margin: {
+      type: String,
+      default: 'mb-4'
     }
   }
 };

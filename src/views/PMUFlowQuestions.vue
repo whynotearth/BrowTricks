@@ -9,7 +9,7 @@
     >
       <div>
         <StepperTop :navigation="navigation" :page="step + 1" />
-        <div class="my-4">
+        <div class="my-4 max-w-md mx-auto pt-4">
           <transition name="fade" mode="out-in">
             <keep-alive>
               <component
@@ -85,7 +85,7 @@ export default {
   created() {
     // NOTE: for development, you can set this to every step you need to debug
     // FIXME: SET 0
-    this.stepUpdate(1);
+    this.stepUpdate(0);
   },
   computed: {
     componentName() {
