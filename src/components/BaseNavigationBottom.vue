@@ -114,14 +114,11 @@ export default {
 }
 
 .toggle-button:hover {
-  background: #03b3f9;
-  transition: background ease-in 0.6s;
+  @apply bg-button transition ease-in delay-75;
 }
 
 .toggle-button:active {
-  background: #fff;
-  transition: background ease-in 0.6s;
-  transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  @apply bg-white transition ease-in delay-75;
 }
 
 .toggle-menu {
@@ -130,17 +127,19 @@ export default {
 }
 
 .ease-in-out {
-  transition: all ease-in 0.2s;
+  @apply transition-all ease-in delay-75;
 }
 
 ul.toggle-menu > li {
-  transition: all 0.2s ease;
-  color: transparent;
+  @apply text-transparent transition-all ease-linear;
+
+  transition: 0.2s;
 }
 
 ul.toggle-menu.opened > li:nth-child(1) {
+  @apply text-white;
+
   transition-duration: 450ms;
-  color: #fff;
   top: -70px;
 }
 
