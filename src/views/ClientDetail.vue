@@ -282,21 +282,23 @@ export default {
   methods: {
     ...mapActions('client', ['updateClient', 'archiveClient']),
     save() {
-      this.updateClient({
-        tenantSlug: this.tenantSlug,
-        clientId: this.clientId,
-        body: this.client
-      }).then(async () => {
-        this.$store.commit('overlay/updateModel', {
-          title: 'Success!',
-          message: 'Client updated successfully!'
+      if (!this.$v.$invalid) {
+        this.updateClient({
+          tenantSlug: this.tenantSlug,
+          clientId: this.clientId,
+          body: this.client
+        }).then(async () => {
+          this.$store.commit('overlay/updateModel', {
+            title: 'Success!',
+            message: 'Client updated successfully!'
+          });
+          await sleep(1500);
+          this.$store.commit('overlay/updateModel', {
+            title: '',
+            message: ''
+          });
         });
-        await sleep(1500);
-        this.$store.commit('overlay/updateModel', {
-          title: '',
-          message: ''
-        });
-      });
+      }
     },
     archive() {
       this.archiveClient({
