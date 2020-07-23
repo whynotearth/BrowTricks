@@ -4,7 +4,7 @@
       <!-- background circle -->
       <circle
         :stroke-width="strokeWidth"
-        class="text-inactive stroke-current"
+        class="text-white stroke-current"
         :cx="centerX"
         :cy="centerY"
         :r="radius"
@@ -14,7 +14,7 @@
       <circle
         :stroke-width="strokeWidth"
         :class="progressClasses"
-        class="text-button stroke-current"
+        class="text-footer stroke-current"
         :cx="centerX"
         :cy="centerY"
         :r="radius"
