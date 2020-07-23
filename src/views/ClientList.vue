@@ -8,84 +8,52 @@
       <ArrowBack slot="icon" class="h-6 w-6 fill-current" />
       <span slot="content" class="pl-5">Clients</span>
     </BaseHeader>
-    <div v-if="clients.length > 0">
-      <div class="border-b" v-for="(client, key) in clients" :key="key">
+    <div class="mb-20" v-if="clients.length > 0">
+      <div class="" v-for="(client, key) in clients" :key="key">
         <h6
-          v-if="
-            key === 0
-              ? true
-              : client.firstName[0].toUpperCase() !=
-                clients[key - 1].firstName[0].toUpperCase()
-          "
-          class="p-3 tg-caption-mobile text-on-background text-opacity-high"
+          v-if="showLetter(clients[key - 1], client)"
+          class="p-3 tg-caption-mobile text-on-background text-opacity-high border-t"
         >
-          {{ client.firstName[0].toUpperCase() }}
+          {{ client.firstName && client.firstName[0].toUpperCase() }}
         </h6>
 
-        <div class="px-4 pb-4 flex items-center">
-          <div>
-            <img
-              class="w-10 h-10 rounded-full"
-              :src="
-                client.avatarUrl ||
-                  'https://res.cloudinary.com/whynotearth/image/upload/v1595228411/BrowTricks/avatar-placeholder_dphhvx.png'
-              "
-              alt="user-logo"
-            />
+        <router-link
+          :to="{
+            name: 'ClientDetail',
+            params: { slug: tenantSlug, clientId: client.id }
+          }"
+        >
+          <div class="px-4 pb-4 flex items-center">
+            <div>
+              <img
+                class="w-10 h-10 rounded-full"
+                :src="
+                  client.avatarUrl ||
+                    'https://res.cloudinary.com/whynotearth/image/upload/v1595228411/BrowTricks/avatar-placeholder_dphhvx.png'
+                "
+                alt="user-logo"
+              />
+            </div>
+            <div class="ml-2">
+              <h3 class="tg-body-mobile text-on-background text-opacity-high">
+                {{ client.firstName }} {{ client.lastName }}
+              </h3>
+              <h4
+                class="tg-caption-mobile text-on-background text-opacity-medium"
+              >
+                {{ client.phoneNumber }}
+              </h4>
+              <h4
+                class="tg-caption-mobile text-on-background text-opacity-medium"
+              >
+                {{ client.email }}
+              </h4>
+            </div>
           </div>
-          <div class="ml-2">
-            <h3 class="tg-body-mobile text-on-background text-opacity-high">
-              {{ client.firstName }} {{ client.lastName }}
-            </h3>
-            <h4
-              class="tg-caption-mobile text-on-background text-opacity-medium"
-            >
-              {{ client.phoneNumber }}
-            </h4>
-            <h4
-              class="tg-caption-mobile text-on-background text-opacity-medium"
-            >
-              {{ client.email }}
-            </h4>
-          </div>
-        </div>
+        </router-link>
       </div>
     </div>
-    <div v-else>
-      <div
-        class="layout-splash absolute inset-0 min-h-screen w-full flex flex-col justify-end sm:justify-center items-center py-20"
-      >
-        <div class="pb-20 sm:py-16 flex flex-col items-center">
-          <div class="py-3">
-            <UsersGroupIcon />
-          </div>
-        </div>
-        <div class="sm:py-10 w-full md:w-auto px-5">
-          <h1
-            class="py-3 tg-h1-mobile text-white text-opacity-high text-center"
-          >
-            Manage Your Clients
-          </h1>
-          <h4
-            class="py-6 tg-body-mobile text-white text-opacity-high text-center"
-          >
-            Access your client’s information, photos, and agreements here.
-          </h4>
-          <Button
-            :to="{
-              name: 'AddClient',
-              params: { tenantSlug, step: 'basic-info' }
-            }"
-            title="ADD NEW CLIENTS"
-            class="tg-color-label-mobile text-white text-opacity-high rounded-full py-3 px-10"
-          >
-            <template #icon>
-              <AddIcon class="md:mr-5" />
-            </template>
-          </Button>
-        </div>
-      </div>
-    </div>
+    <NavigationBottom />
   </div>
 </template>
 
@@ -93,19 +61,15 @@
 import { mapActions, mapState } from 'vuex';
 
 import BaseHeader from '@/components/BaseHeader.vue';
-import Button from '@/components/Button.vue';
 import ArrowBack from '@/assets/icons/arrow-back.svg';
-import AddIcon from '@/assets/icons/new_item.svg';
-import UsersGroupIcon from '@/assets/icons/users-group.svg';
+import NavigationBottom from '@/components/BaseNavigationBottom.vue';
 
 export default {
   name: 'ClientList',
   components: {
     BaseHeader,
     ArrowBack,
-    Button,
-    AddIcon,
-    UsersGroupIcon
+    NavigationBottom
   },
   props: {
     tenantSlug: {
@@ -124,10 +88,22 @@ export default {
     this.fetchClients(this.tenantSlug);
   },
   methods: {
-    ...mapActions('client', ['fetchClients'])
+    ...mapActions('client', ['fetchClients']),
+    showLetter(prev, current) {
+      if (!prev) return true;
+
+      const getPrevFirstCharacter =
+        prev && prev.firstName && prev.firstName[0].toUpperCase();
+      const getCurrentFirstCharacter =
+        current && current.firstName && current.firstName[0].toUpperCase();
+
+      return getPrevFirstCharacter !== getCurrentFirstCharacter;
+    }
   },
   computed: {
     ...mapState('client', ['clients'])
   }
 };
 </script>
+
+<style scoped></style>

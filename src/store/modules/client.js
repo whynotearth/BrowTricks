@@ -19,6 +19,9 @@ const state = {
 const getters = {
   page(state) {
     return state.page;
+  },
+  getClientById: state => id => {
+    return state.clients.find(client => client.id == id);
   }
 };
 
@@ -61,6 +64,23 @@ const actions = {
     return ClientService.clients(clientData).then(() => {
       commit('resetClientInfo');
     });
+  },
+  updateClient(context, payload) {
+    const clientData = {
+      tenantSlug: payload.tenantSlug,
+      companySlug: process.env.VUE_APP_COMPANY_SLUG,
+      clientId: payload.clientId,
+      body: { ...payload.body }
+    };
+    return ClientService.clients2(clientData);
+  },
+  archiveClient(context, payload) {
+    const clientData = {
+      tenantSlug: payload.tenantSlug,
+      companySlug: process.env.VUE_APP_COMPANY_SLUG,
+      clientId: payload.clientId
+    };
+    return ClientService.archive(clientData);
   }
 };
 

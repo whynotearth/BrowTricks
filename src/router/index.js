@@ -60,10 +60,10 @@ const routes = [
     }
   },
   {
-    path: '/tenant/:tenantSlug/clients/edit/:clientId/:step',
-    name: 'EditClient',
+    path: '/tenant/:tenantSlug/clients/edit/:clientId',
+    name: 'ClientDetail',
     props: true,
-    component: () => import('@/views/ClientAddEdit.vue'),
+    component: () => import('@/views/ClientDetail.vue'),
     meta: {
       requiresAuth: true
     }

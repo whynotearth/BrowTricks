@@ -11,26 +11,40 @@
         v-if="isMenuDrawerOpen"
       >
         <div class="flex flex-col tg-h3-mobile text-left">
-          <div class="pb-8">
+          <div class="pb-8 cursor-pointer">
             Home
           </div>
-          <div class="pb-8">
+          <div class="pb-8 cursor-pointer">
             About
           </div>
-          <div class="pb-8">
+          <div class="pb-8 cursor-pointer">
             Services
           </div>
-          <div class="pb-8">
+          <div class="pb-8 cursor-pointer">
             Contact
           </div>
-          <div class="pb-8">
+          <div class="pb-8 cursor-pointer">
             Book Now
           </div>
-          <div class="pb-8 text-on-background text-opacity-disabled">
+          <div
+            class="pb-8 cursor-pointer text-on-background text-opacity-disabled"
+          >
             Terms of Use
           </div>
-          <div class="text-on-background text-opacity-disabled">
+          <div
+            class="pb-8 cursor-pointer text-on-background text-opacity-disabled"
+          >
             Privacy Policy
+          </div>
+          <router-link
+            class="pb-8 cursor-pointer"
+            v-if="!isAuthenticated"
+            :to="{ name: 'LogIn' }"
+          >
+            Log In
+          </router-link>
+          <div class="pb-8 cursor-pointer" v-else @click="onLogout">
+            Logout
           </div>
         </div>
       </div>
@@ -39,17 +53,33 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 
 export default {
   name: 'MenuDrawer',
+  data() {
+    return {
+      isAuthenticated: false
+    };
+  },
   computed: {
     ...mapGetters({
       isMenuDrawerOpen: 'getIsMenuDrawerOpen'
     })
   },
+  created() {
+    this.ping().then(response => {
+      this.isAuthenticated = response.isAuthenticated;
+    });
+  },
   methods: {
-    ...mapMutations(['toggleMenuDrawer'])
+    ...mapMutations(['toggleMenuDrawer']),
+    ...mapActions('auth', ['ping', 'logout']),
+    onLogout() {
+      this.logout().then(() => {
+        this.isAuthenticated = false;
+      });
+    }
   }
 };
 </script>
