@@ -21,22 +21,22 @@ const routes = [
     component: () => import('@/views/TestLayoutSplashWithHeader.vue')
   },
   {
-    path: '/shop/test-tenant-slug',
+    path: '/shop/test-tenant-94',
     name: 'CustomerHome',
     component: () => import('@/views/CustomerHome.vue')
   },
   {
-    path: '/shop/test-tenant-slug/business-hours',
+    path: '/shop/test-tenant-94/business-hours',
     name: 'CustomerBusinessHours',
     component: () => import('@/views/CustomerBusinessHours.vue')
   },
   {
-    path: '/shop/test-tenant-slug/contact',
+    path: '/shop/test-tenant-94/contact',
     name: 'CustomerContact',
     component: () => import('@/views/CustomerContact.vue')
   },
   {
-    path: '/shop/test-tenant-slug/categories',
+    path: '/shop/test-tenant-94/categories',
     name: 'CustomerCategories',
     component: () => import('@/views/CustomerCategories.vue')
   },
