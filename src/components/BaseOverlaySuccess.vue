@@ -57,7 +57,7 @@ export default {
   data() {
     return {
       progress: 0,
-      logoUrl: process.env.VUE_APP_LOGO_URL,
+      logoUrl: process.env.VUE_APP_LOGO_URL
     };
   },
   props: {

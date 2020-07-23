@@ -216,6 +216,7 @@ import PhoneAndroidIcon from '@/assets/icons/phone_android.svg';
 
 import { isPhoneNumberValid } from '@/helpers';
 import { mapGetters, mapActions } from 'vuex';
+import { sleep } from '@/helpers.js';
 
 export default {
   name: 'AddEditClient',
@@ -285,14 +286,34 @@ export default {
         tenantSlug: this.tenantSlug,
         clientId: this.clientId,
         body: this.client
+      }).then(async () => {
+        this.$store.commit('overlay/updateModel', {
+          title: 'Success!',
+          message: 'Client updated successfully!'
+        });
+        await sleep(1500);
+        this.$store.commit('overlay/updateModel', {
+          title: '',
+          message: ''
+        });
       });
     },
     archive() {
       this.archiveClient({
         tenantSlug: this.tenantSlug,
         clientId: this.clientId
-      }).then(() => {
+      }).then(async () => {
+        this.isArchiveModalOpen = false;
+        this.$store.commit('overlay/updateModel', {
+          title: 'Success!',
+          message: 'Client archived successfully!'
+        });
         this.goBack();
+        await sleep(1500);
+        this.$store.commit('overlay/updateModel', {
+          title: '',
+          message: ''
+        });
       });
     },
     goBack() {
