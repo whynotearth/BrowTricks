@@ -3,8 +3,9 @@ import Vuex from 'vuex';
 import auth from './modules/auth';
 import tenant from './modules/tenant';
 import client from './modules/client';
-
 import PMU from './modules/PMU';
+import overlay from './modules/overlay';
+
 import VuexPersistence from 'vuex-persist';
 
 const vuexSession = new VuexPersistence({
@@ -40,6 +41,7 @@ export default new Vuex.Store({
     auth,
     tenant,
     client,
-    PMU
+    PMU,
+    overlay
   }
 });

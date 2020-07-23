@@ -17,33 +17,40 @@
           {{ client.firstName && client.firstName[0].toUpperCase() }}
         </h6>
 
-        <div class="px-4 pb-4 flex items-center">
-          <div>
-            <img
-              class="w-10 h-10 rounded-full"
-              :src="
-                client.avatarUrl ||
-                  'https://res.cloudinary.com/whynotearth/image/upload/v1595228411/BrowTricks/avatar-placeholder_dphhvx.png'
-              "
-              alt="user-logo"
-            />
+        <router-link
+          :to="{
+            name: 'ClientDetail',
+            params: { slug: tenantSlug, clientId: client.id }
+          }"
+        >
+          <div class="px-4 pb-4 flex items-center">
+            <div>
+              <img
+                class="w-10 h-10 rounded-full"
+                :src="
+                  client.avatarUrl ||
+                    'https://res.cloudinary.com/whynotearth/image/upload/v1595228411/BrowTricks/avatar-placeholder_dphhvx.png'
+                "
+                alt="user-logo"
+              />
+            </div>
+            <div class="ml-2">
+              <h3 class="tg-body-mobile text-on-background text-opacity-high">
+                {{ client.firstName }} {{ client.lastName }}
+              </h3>
+              <h4
+                class="tg-caption-mobile text-on-background text-opacity-medium"
+              >
+                {{ client.phoneNumber }}
+              </h4>
+              <h4
+                class="tg-caption-mobile text-on-background text-opacity-medium"
+              >
+                {{ client.email }}
+              </h4>
+            </div>
           </div>
-          <div class="ml-2">
-            <h3 class="tg-body-mobile text-on-background text-opacity-high">
-              {{ client.firstName }} {{ client.lastName }}
-            </h3>
-            <h4
-              class="tg-caption-mobile text-on-background text-opacity-medium"
-            >
-              {{ client.phoneNumber }}
-            </h4>
-            <h4
-              class="tg-caption-mobile text-on-background text-opacity-medium"
-            >
-              {{ client.email }}
-            </h4>
-          </div>
-        </div>
+        </router-link>
       </div>
     </div>
     <NavigationBottom />
@@ -85,8 +92,10 @@ export default {
     showLetter(prev, current) {
       if (!prev) return true;
 
-      const getPrevFirstCharacter = prev && prev.firstName && prev.firstName[0].toUpperCase();
-      const getCurrentFirstCharacter = current && current.firstName && current.firstName[0].toUpperCase();
+      const getPrevFirstCharacter =
+        prev && prev.firstName && prev.firstName[0].toUpperCase();
+      const getCurrentFirstCharacter =
+        current && current.firstName && current.firstName[0].toUpperCase();
 
       return getPrevFirstCharacter !== getCurrentFirstCharacter;
     }
