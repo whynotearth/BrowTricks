@@ -43,148 +43,152 @@
         </div>
       </div>
     </div>
-    <div class="m-4 -mt-10 bg-white shadow-1dp py-4 px-2 rounded-lg">
-      <material-input
-        v-model="$v.client.firstName.$model"
-        label="First Name"
-        labelBg="bg-white"
-        :error="$v.client.firstName.$dirty && !$v.client.firstName.required"
-      >
-        <span
-          v-if="$v.client.firstName.$dirty && !$v.client.firstName.required"
-          class="text-red-600 text-xs"
+    <div class="max-w-md mx-auto">
+      <div class="m-4 -mt-10 bg-white shadow-1dp py-4 px-2 rounded-lg">
+        <material-input
+          v-model="$v.client.firstName.$model"
+          label="First Name"
+          labelBg="bg-white"
+          :error="$v.client.firstName.$dirty && !$v.client.firstName.required"
         >
-          First Name is required
-        </span>
-      </material-input>
-      <material-input
-        v-model="$v.client.lastName.$model"
-        label="Last Name"
-        labelBg="bg-white"
-        :error="$v.client.lastName.$dirty && !$v.client.lastName.required"
-      >
-        <span
-          v-if="$v.client.lastName.$dirty && !$v.client.lastName.required"
-          class="text-red-600 text-xs"
+          <span
+            v-if="$v.client.firstName.$dirty && !$v.client.firstName.required"
+            class="text-red-600 text-xs"
+          >
+            First Name is required
+          </span>
+        </material-input>
+        <material-input
+          v-model="$v.client.lastName.$model"
+          label="Last Name"
+          labelBg="bg-white"
+          :error="$v.client.lastName.$dirty && !$v.client.lastName.required"
         >
-          Last Name is required
-        </span>
-      </material-input>
-      <material-input
-        v-model="$v.client.phoneNumber.$model"
-        label="PhoneNumber Number"
-        labelBg="bg-white"
-        :error="
-          $v.client.phoneNumber.$dirty &&
-            (!$v.client.phoneNumber.required ||
-              !$v.client.phoneNumber.minLength)
-        "
-      >
-        <span
-          v-if="$v.client.phoneNumber.$dirty && !$v.client.phoneNumber.required"
-          class="text-red-600 text-xs"
-        >
-          Phone number is required
-        </span>
-        <span
-          v-if="
+          <span
+            v-if="$v.client.lastName.$dirty && !$v.client.lastName.required"
+            class="text-red-600 text-xs"
+          >
+            Last Name is required
+          </span>
+        </material-input>
+        <material-input
+          v-model="$v.client.phoneNumber.$model"
+          label="PhoneNumber Number"
+          labelBg="bg-white"
+          :error="
             $v.client.phoneNumber.$dirty &&
-              (!$v.client.phoneNumber.minLength ||
-                !$v.client.phoneNumber.isPhoneNumberValid)
+              (!$v.client.phoneNumber.required ||
+                !$v.client.phoneNumber.minLength)
           "
-          class="text-red-600 text-xs"
         >
-          Please enter a valid phone number
-        </span>
-      </material-input>
-      <material-input
-        v-model="$v.client.email.$model"
-        label="Email"
-        labelBg="bg-white"
-        :error="
-          $v.client.email.$dirty &&
-            (!$v.client.email.required || !$v.client.email.email)
-        "
+          <span
+            v-if="
+              $v.client.phoneNumber.$dirty && !$v.client.phoneNumber.required
+            "
+            class="text-red-600 text-xs"
+          >
+            Phone number is required
+          </span>
+          <span
+            v-if="
+              $v.client.phoneNumber.$dirty &&
+                (!$v.client.phoneNumber.minLength ||
+                  !$v.client.phoneNumber.isPhoneNumberValid)
+            "
+            class="text-red-600 text-xs"
+          >
+            Please enter a valid phone number
+          </span>
+        </material-input>
+        <material-input
+          v-model="$v.client.email.$model"
+          label="Email"
+          labelBg="bg-white"
+          :error="
+            $v.client.email.$dirty &&
+              (!$v.client.email.required || !$v.client.email.email)
+          "
+        >
+          <span
+            v-if="$v.client.email.$dirty && !$v.client.email.required"
+            class="text-red-600 text-xs"
+          >
+            Email is required
+          </span>
+          <span
+            v-if="$v.client.email.$dirty && !$v.client.email.email"
+            class="text-red-600 text-xs"
+          >
+            Please enter a email address
+          </span>
+        </material-input>
+      </div>
+      <ExpansionPanel
+        title="Notification Settings"
+        @click="$router.push({ name: 'Notifications' })"
       >
-        <span
-          v-if="$v.client.email.$dirty && !$v.client.email.required"
-          class="text-red-600 text-xs"
-        >
-          Email is required
-        </span>
-        <span
-          v-if="$v.client.email.$dirty && !$v.client.email.email"
-          class="text-red-600 text-xs"
-        >
-          Please enter a email address
-        </span>
-      </material-input>
-    </div>
-    <ExpansionPanel
-      title="Notification Settings"
-      @click="$router.push({ name: 'Notifications' })"
-    >
-      <Notification slot="preIcon" class="h-6 w-6 fill-current" />
-    </ExpansionPanel>
-    <ExpansionPanel
-      @click="$router.push({ name: 'ImageUpload' })"
-      title="Images"
-      middleText="Incomplete"
-    >
-      <ImagesIcon slot="preIcon" class="h-6 w-6 fill-current" />
-    </ExpansionPanel>
-    <ExpansionPanel
-      @click="$router.push({ name: 'PMU' })"
-      title="PMU"
-      middleText="Incomplete"
-    >
-      <Document slot="preIcon" class="h-6 w-6 fill-current" />
-    </ExpansionPanel>
-    <ExpansionPanel @click="$router.push({ name: 'Notes' })" title="Notes">
-      <Notes slot="preIcon" class="h-6 w-6 fill-current" />
-    </ExpansionPanel>
-    <div class="mt-4 mx-4 py-6 px-2">
-      <Button
-        class="rounded-full"
-        title="Save"
-        :isRipple="false"
-        @clicked="save"
-      />
-      <Button
-        class="mt-8 tg-body-mobile text-error text-opacity-medium pb-4"
-        title="Archive Client"
-        background="bg-transparent"
-        :isRipple="false"
-        @clicked="isArchiveModalOpen = true"
-      />
-    </div>
-    <div
-      v-if="isArchiveModalOpen"
-      class="z-50 fixed inset-0 bg-on-background bg-opacity-25"
-      @click="isArchiveModalOpen = false"
-    >
-      <div class="h-full w-screen flex justify-center items-center">
-        <div @click.stop class="bg-white rounded-lg w-full mx-4 p-8 sm:w-128">
-          <h6 class="text-on-background text-opacity-medium">
-            Archive Client?
-          </h6>
-          <div class="flex justify-end">
-            <Button
-              class="mt-8 tg-body-mobile text-error"
-              title="Cancel"
-              background="bg-transparent"
-              :isRipple="false"
-              @clicked="isArchiveModalOpen = false"
-              width="w-auto"
-            />
-            <Button
-              class="mt-8 tg-body-mobile text-secondary"
-              title="Archive"
-              background="bg-transparent"
-              :isRipple="false"
-              @clicked="archive"
-              width="w-auto"
-            />
+        <Notification slot="preIcon" class="h-6 w-6 fill-current" />
+      </ExpansionPanel>
+      <ExpansionPanel
+        @click="$router.push({ name: 'ImageUpload' })"
+        title="Images"
+        middleText="Incomplete"
+      >
+        <ImagesIcon slot="preIcon" class="h-6 w-6 fill-current" />
+      </ExpansionPanel>
+      <ExpansionPanel
+        @click="$router.push({ name: 'PMU' })"
+        title="PMU"
+        middleText="Incomplete"
+      >
+        <Document slot="preIcon" class="h-6 w-6 fill-current" />
+      </ExpansionPanel>
+      <ExpansionPanel @click="$router.push({ name: 'Notes' })" title="Notes">
+        <Notes slot="preIcon" class="h-6 w-6 fill-current" />
+      </ExpansionPanel>
+      <div class="mt-4 mx-4 py-6 px-2">
+        <Button
+          class="rounded-full"
+          title="Save"
+          :isRipple="false"
+          @clicked="save"
+        />
+        <Button
+          class="mt-8 tg-body-mobile text-error text-opacity-medium pb-4"
+          title="Archive Client"
+          background="bg-transparent"
+          :isRipple="false"
+          @clicked="isArchiveModalOpen = true"
+        />
+      </div>
+      <div
+        v-if="isArchiveModalOpen"
+        class="z-50 fixed inset-0 bg-on-background bg-opacity-25"
+        @click="isArchiveModalOpen = false"
+      >
+        <div class="h-full w-screen flex justify-center items-center">
+          <div @click.stop class="bg-white rounded-lg w-full mx-4 p-8 sm:w-128">
+            <h6 class="text-on-background text-opacity-medium">
+              Archive Client?
+            </h6>
+            <div class="flex justify-end">
+              <Button
+                class="mt-8 tg-body-mobile text-error"
+                title="Cancel"
+                background="bg-transparent"
+                :isRipple="false"
+                @clicked="isArchiveModalOpen = false"
+                width="w-auto"
+              />
+              <Button
+                class="mt-8 tg-body-mobile text-secondary"
+                title="Archive"
+                background="bg-transparent"
+                :isRipple="false"
+                @clicked="archive"
+                width="w-auto"
+              />
+            </div>
           </div>
         </div>
       </div>
