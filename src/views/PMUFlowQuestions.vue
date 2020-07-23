@@ -1,14 +1,19 @@
 <template>
   <div class="">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap"
+      rel="stylesheet"
+    />
     <div
       class="min-h-screen bg-background w-full flex flex-col justify-between"
     >
       <div>
-        <StepperTop :navigation="navigation" :page="page" />
+        <StepperTop :navigation="navigation" :page="step + 1" />
         <div class="my-4">
           <transition name="fade" mode="out-in">
             <keep-alive>
               <component
+                v-bind="componentProps"
                 :is="componentName"
                 :ref="componentName"
                 @nextStep="nextStep"
@@ -24,10 +29,10 @@
         </div>
       </div>
       <StepperBottom
-        :page="page"
+        :page="step + 1"
         :nextStepText="
           `${
-            navigation[page] && page < navigation.length ? 'CONTINUE' : 'FINISH'
+            navigation[step] && step < navigation.length ? 'CONTINUE' : 'FINISH'
           } ►`
         "
         @previousStep="previousStep"
@@ -39,13 +44,12 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations, mapActions } from 'vuex';
 import StepperTop from '@/components/BaseStepperTopBar';
 import StepperBottom from '@/components/BaseStepperBottomBar';
 import BusinessInfo from '@/components/tenant/BusinessInfo';
 import StepCreateSignature from '@/components/PMU/StepCreateSignature';
+import StepContentHTML from '@/components/PMU/StepContentHTML';
 // import StepQuestion from '@/components/PMU/StepQuestion';
-// import StepContentHTML from '@/components/PMU/StepContentHTML';
 
 export default {
   name: 'PMUFlowQuestions',
@@ -53,10 +57,12 @@ export default {
     StepperTop,
     StepperBottom,
     BusinessInfo,
-    StepCreateSignature
+    StepCreateSignature,
+    StepContentHTML
   },
   data() {
     return {
+      step: null,
       result: {
         signature: '',
         initials: '',
@@ -73,23 +79,43 @@ export default {
           }
         ]
       },
-      navigation: [
+      errors: null
+    };
+  },
+  created() {
+    // NOTE: for development, you can set this to every step you need to debug
+    // FIXME: SET 0
+    this.stepUpdate(1);
+  },
+  computed: {
+    componentName() {
+      return this.navigation[this.step].componentName;
+    },
+    componentProps() {
+      return this.navigation[this.step].componentProps;
+    },
+    navigation() {
+      return [
         {
-          step: 'create-signature',
+          slug: 'create-signature',
           name: 'Create Signature',
           componentName: 'StepCreateSignature'
         },
         {
-          step: 'disclosures',
+          slug: 'disclosures',
           name: 'Disclosures',
-          componentName: 'StepContentHTML'
+          componentName: 'StepContentHTML',
+          componentProps: {
+            content: `<p>I, <span class="tg-dancing-mobile">${this.result.signature}</span>, have requested information relating to the procedure of Intradermal Cosmetics so that I may make an informed decision as to whether or not to undergo the procedure.</p>
+<p>The type of Intradermal Procedure used will be Micro Pigment Implantation, aka, Microblading. It is defined as the process of implanting micro pockets of pigment into the dermal layer of the skin. This is a form of tattooing used for permanent cosmetics and semi permanent eyebrow filling.</p>`
+          }
         },
         {
-          step: 'release',
+          slug: 'release',
           name: 'Release',
           componentName: 'StepQuestion',
-          props: {
-            text:
+          componentProps: {
+            content:
               'Do you authorize to have photographs taken both before and after treatment, and that photographs taken may be used for advertising/training purposes?',
             type: 'radio',
             radioOptions: ['Yes', 'No']
@@ -97,78 +123,71 @@ export default {
         },
         // todo: medical disclaimer 1
         {
-          step: 'medical-disclaimer-2',
+          onNext: this.submit,
+          slug: 'medical-disclaimer-2',
           name: 'Medical Disclaimer',
           componentName: 'StepQuestion',
-          props: {
+          componentProps: {
             text:
               'Do you authorize to have photographs taken both before and after treatment, and that photographs taken may be used for advertising/training purposes?',
             type: 'textarea'
           }
         }
-      ],
-      errors: null
-    };
-  },
-  computed: {
-    ...mapGetters('PMU', ['page']),
-    componentName() {
-      return this.navigation[this.page - 1].componentName;
+      ];
     }
   },
   methods: {
-    ...mapMutations('PMU', ['pageChange']),
-    ...mapActions('PMU', []),
+    stepUpdate(step) {
+      this.step = step;
+      const newRoute = this.navigation[step];
+      if (this.$route.params.stepSlug === newRoute.slug) {
+        // current route is correct
+        return;
+      }
+
+      this.$router.push({
+        name: 'PMUFlowQuestions',
+        params: { stepSlug: newRoute.slug }
+      });
+    },
     updateAnswer({ field, value }) {
       this.result[field] = value;
     },
     previousStep() {
-      if (this.page > 1) {
-        this.pageChange(this.page - 1);
-      } else if (this.page === 1) {
-        this.$router.push({ name: 'PMUFlowStart' });
+      if (this.step > 0) {
+        this.stepUpdate(this.step - 1);
+        return;
       }
+      this.$router.push({ name: 'PMUFlowStart' });
     },
-    nextStep() {
+    async nextStep() {
+      const valid = this.validateStep(this.step);
+      if (!valid) {
+        return;
+      }
+
+      const onNext = this.navigation[this.step].onSubmit;
+      if (onNext) {
+        await onNext();
+      }
+
+      const isLastStep = this.step === this.navigation.length - 1;
+      if (isLastStep) return;
+      this.stepUpdate(this.step + 1);
+    },
+    validateStep(step) {
       let valid = true;
-      const isThereValidationAtComponent = !!this.$refs[this.componentName].$v;
-      if (isThereValidationAtComponent) {
-        this.$refs[this.componentName].$v.$touch();
-        valid = !this.$refs[this.componentName].$v.$invalid;
+      const stepComponentRef = this.$refs[this.navigation[step].componentName];
+      const hasComponentValidation = !!stepComponentRef.$v;
+      if (hasComponentValidation) {
+        // trigger validation touch
+        stepComponentRef.$v.$touch();
+        valid = !stepComponentRef.$v.$invalid;
       }
-
-      if (valid) {
-        if (this.page < this.navigation.length) {
-          this.pageChange(this.page + 1);
-        } else {
-          this.submit();
-        }
-      }
+      return valid;
     },
-    submit() {
+    async submit() {
       console.log('submit');
-    }
-  },
-  watch: {
-    componentName(step) {
-      this.$router
-        .push({ name: 'PMUFlowQuestions', params: { step } })
-        .catch(() => {});
-    },
-    '$route.params.step': {
-      immediate: true,
-      handler() {
-        const stepFromUrl = this.$route.params.step;
-        const index = this.navigation.findIndex(
-          nav => nav.step === stepFromUrl
-        );
-
-        if (index >= 0) {
-          this.pageChange(index + 1);
-        } else if (index < 0) {
-          this.$router.push({ name: 'PMUFlowStart' });
-        }
-      }
     }
   }
 };

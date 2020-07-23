@@ -1,9 +1,5 @@
 <template>
   <div class="px-4 text-left">
-    <link
-      href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap"
-      rel="stylesheet"
-    />
     <MaterialInput
       class="flex-grow"
       v-model.trim="signature"
@@ -37,14 +33,14 @@
       <p class="tg-h3-mobile mb-4">
         Signed by: <span>{{ signature }}</span>
       </p>
-      <p class="tg-dancing">{{ signature }}</p>
+      <p class="tg-dancing-desktop">{{ signature }}</p>
     </div>
 
     <div class="shadow-1dp p-4 bg-surface mb-4 rounded-xl">
       <p class="tg-h3-mobile mb-4">
         Initials: <span>{{ initials }}</span>
       </p>
-      <p class="tg-dancing">{{ initials }}</p>
+      <p class="tg-dancing-desktop">{{ initials }}</p>
     </div>
   </div>
 </template>

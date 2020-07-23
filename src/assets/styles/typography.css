@@ -77,11 +77,18 @@
         text-transform: uppercase;
     }
 
-    .tg-dancing {
+    .tg-dancing-desktop {
         font-family: 'Dancing Script', sans-serif;
         font-style: normal;
         font-weight: normal;
         font-size: 36px;
         line-height: 44px;
+    }
+    .tg-dancing-mobile {
+        font-family: 'Dancing Script', sans-serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 20px;
+        line-height: 16px;
     }
 }
