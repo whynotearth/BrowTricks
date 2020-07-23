@@ -18,7 +18,7 @@
           <Button
             :to="{
               name: 'PMUFlowQuestions',
-              params: { step: 'create-signature' }
+              params: { stepSlug: 'create-signature' }
             }"
             class="mb-4"
             title="Get Started"

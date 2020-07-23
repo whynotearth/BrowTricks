@@ -146,7 +146,12 @@
         <ImagesIcon slot="preIcon" class="h-6 w-6 fill-current" />
       </ExpansionPanel>
       <ExpansionPanel
-        @click="$router.push({ name: 'PMU' })"
+        @click="
+          $router.push({
+            name: 'PMUFlowStart',
+            params: { clientId, tenantSlug }
+          })
+        "
         title="PMU"
         middleText="Incomplete"
       >
