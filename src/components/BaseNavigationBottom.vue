@@ -144,7 +144,8 @@ ul.toggle-menu.opened > li:nth-child(1) {
 }
 
 ul.toggle-menu.opened > li:nth-child(2) {
-  color: #fff;
+  @apply text-white;
+
   transition-duration: 450ms;
   top: -130px;
 }
