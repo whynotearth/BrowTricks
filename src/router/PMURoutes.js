@@ -12,7 +12,7 @@ export const PMURoutes = [
     meta: { layout: () => import('@/layouts/WithTitleBarLayout.vue') }
   },
   {
-    path: '/tenant/:tenantSlug/pmu/questions-intro',
+    path: '/tenant/:tenantSlug/client/:clientId/pmu/questions-intro',
     name: 'PMUFlowStart',
     component: () => import('@/views/PMUFlowStart.vue')
   },

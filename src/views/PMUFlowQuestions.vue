@@ -85,8 +85,7 @@ export default {
   },
   created() {
     // NOTE: for development, you can set this to every step you need to debug
-    // FIXME: SET 0
-    this.stepUpdate(7);
+    this.stepUpdate(0);
   },
   computed: {
     componentName() {
