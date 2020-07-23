@@ -25,22 +25,22 @@
       <div
         class="flex justify-between tg-caption-mobile pb-16 w-full sm:w-auto"
       >
-        <div class="flex flex-col items-center px-4 sm:px-8">
+        <div class="hidden flex flex-col items-center px-4 sm:px-8">
           <BookIcon class="fill-current" />
           <span>Book</span>
         </div>
-        <div class="flex flex-col items-center px-4 sm:px-8">
+        <a class="flex flex-col items-center px-4 sm:px-8" :href="`mailto:${client.email}`">
           <MailIcon class="fill-current" />
           <span>Email</span>
-        </div>
-        <div class="flex flex-col items-center px-4 sm:px-8">
+        </a>
+        <a class="flex flex-col items-center px-4 sm:px-8" :href="`sms:${client.phoneNumber}`">
           <PhoneAndroidIcon class="fill-current" />
           <span>Text</span>
-        </div>
-        <div class="flex flex-col items-center px-4 sm:px-8">
+        </a>
+        <a class="flex flex-col items-center px-4 sm:px-8" :href="`tel:${client.phoneNumber}`">
           <PhoneIcon class="fill-current" />
           <span>Call</span>
-        </div>
+        </a>
       </div>
     </div>
     <div class="max-w-md mx-auto">
@@ -73,7 +73,7 @@
         </material-input>
         <material-input
           v-model="$v.client.phoneNumber.$model"
-          label="PhoneNumber Number"
+          label="Phone Number"
           labelBg="bg-white"
           :error="
             $v.client.phoneNumber.$dirty &&
