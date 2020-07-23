@@ -38,6 +38,15 @@
           </div>
           <router-link
             class="pb-8 cursor-pointer"
+            :to="{
+              name: 'ClientList',
+              params: { tenantSlug: 'test-tenant-94' }
+            }"
+          >
+            Clients
+          </router-link>
+          <router-link
+            class="pb-8 cursor-pointer"
             v-if="!isAuthenticated"
             :to="{ name: 'LogIn' }"
           >
