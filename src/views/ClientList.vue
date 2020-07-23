@@ -11,15 +11,7 @@
     <div class="mb-20" v-if="clients.length > 0">
       <div class="" v-for="(client, key) in clients" :key="key">
         <h6
-          v-if="
-            key === 0
-              ? true
-              : client.firstName &&
-                clients[key - 1] &&
-                clients[key - 1].firstName &&
-                client.firstName[0].toUpperCase() !==
-                  clients[key - 1].firstName[0].toUpperCase()
-          "
+          v-if="showLetter(clients[key - 1], client)"
           class="p-3 tg-caption-mobile text-on-background text-opacity-high border-t"
         >
           {{ client.firstName && client.firstName[0].toUpperCase() }}
@@ -89,7 +81,15 @@ export default {
     this.fetchClients(this.tenantSlug);
   },
   methods: {
-    ...mapActions('client', ['fetchClients'])
+    ...mapActions('client', ['fetchClients']),
+    showLetter(prev, current) {
+      if (!prev) return true;
+
+      const getPrevFirstCharacter = prev && prev.firstName && prev.firstName[0].toUpperCase();
+      const getCurrentFirstCharacter = current && current.firstName && current.firstName[0].toUpperCase();
+
+      return getPrevFirstCharacter !== getCurrentFirstCharacter;
+    }
   },
   computed: {
     ...mapState('client', ['clients'])
