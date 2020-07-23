@@ -118,7 +118,7 @@ export default {
 }
 
 .toggle-button:active {
-  @apply bg-white transition ease-in delay-75;
+  @apply bg-button transition ease-in delay-75;
 }
 
 .toggle-menu {
