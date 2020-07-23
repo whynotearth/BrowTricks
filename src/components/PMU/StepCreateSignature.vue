@@ -3,7 +3,7 @@
     <MaterialInput
       class="flex-grow"
       v-model.trim="signature"
-      @input="updateAnswer({ field: 'signature', value: signature })"
+      @input="answerUpdate({ field: 'signature', value: signature })"
       label="Signature"
       labelBg="bg-surface"
     >
@@ -17,7 +17,7 @@
     <MaterialInput
       class="flex-grow"
       v-model.trim="initials"
-      @input="updateAnswer({ field: 'initials', value: initials })"
+      @input="answerUpdate({ field: 'initials', value: initials })"
       label="Initials"
       labelBg="bg-surface"
     >
@@ -65,8 +65,8 @@ export default {
     initials: ''
   }),
   methods: {
-    updateAnswer(data) {
-      this.$emit('updateAnswer', data);
+    answerUpdate(data) {
+      this.$emit('answerUpdate', data);
     }
   }
 };
