@@ -29,15 +29,24 @@
           <BookIcon class="fill-current" />
           <span>Book</span>
         </div>
-        <a class="flex flex-col items-center px-4 sm:px-8" :href="`mailto:${client.email}`">
+        <a
+          class="flex flex-col items-center px-4 sm:px-8"
+          :href="`mailto:${client.email}`"
+        >
           <MailIcon class="fill-current" />
           <span>Email</span>
         </a>
-        <a class="flex flex-col items-center px-4 sm:px-8" :href="`sms:${client.phoneNumber}`">
+        <a
+          class="flex flex-col items-center px-4 sm:px-8"
+          :href="`sms:${client.phoneNumber}`"
+        >
           <PhoneAndroidIcon class="fill-current" />
           <span>Text</span>
         </a>
-        <a class="flex flex-col items-center px-4 sm:px-8" :href="`tel:${client.phoneNumber}`">
+        <a
+          class="flex flex-col items-center px-4 sm:px-8"
+          :href="`tel:${client.phoneNumber}`"
+        >
           <PhoneIcon class="fill-current" />
           <span>Call</span>
         </a>

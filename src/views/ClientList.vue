@@ -92,8 +92,10 @@ export default {
     showLetter(prev, current) {
       if (!prev) return true;
 
-      const getPrevFirstCharacter = prev && prev.firstName && prev.firstName[0].toUpperCase();
-      const getCurrentFirstCharacter = current && current.firstName && current.firstName[0].toUpperCase();
+      const getPrevFirstCharacter =
+        prev && prev.firstName && prev.firstName[0].toUpperCase();
+      const getCurrentFirstCharacter =
+        current && current.firstName && current.firstName[0].toUpperCase();
 
       return getPrevFirstCharacter !== getCurrentFirstCharacter;
     }

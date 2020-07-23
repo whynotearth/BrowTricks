@@ -49,14 +49,24 @@ export default {
       await this.updateToken(this.$route.query.token);
     }
 
-    this.ping().then(response => {
-      if (response.isAuthenticated) {
-        this.$router.push({ name: 'CustomerHome' });
+    Promise.all([this.ping(), this.fetchUserTenants()]).then(
+      ([pingResponse, tenantResponse]) => {
+        if (pingResponse.isAuthenticated) {
+          this.$router.push(
+            tenantResponse.length > 0
+              ? {
+                  name: 'ClientList',
+                  params: { tenantSlug: tenantResponse[0].slug }
+                }
+              : { name: 'SignUp', params: { step: 'business-info' } }
+          );
+        }
       }
-    });
+    );
   },
   methods: {
-    ...mapActions('auth', ['ping', 'updateToken'])
+    ...mapActions('auth', ['ping', 'updateToken']),
+    ...mapActions('tenant', ['fetchUserTenants'])
   }
 };
 </script>
