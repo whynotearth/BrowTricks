@@ -49,7 +49,7 @@ import StepperBottom from '@/components/BaseStepperBottomBar';
 import BusinessInfo from '@/components/tenant/BusinessInfo';
 import StepCreateSignature from '@/components/PMU/StepCreateSignature';
 import StepContentHTML from '@/components/PMU/StepContentHTML';
-// import StepQuestion from '@/components/PMU/StepQuestion';
+import StepQuestion from '@/components/PMU/StepQuestion';
 
 export default {
   name: 'PMUFlowQuestions',
@@ -58,7 +58,8 @@ export default {
     StepperBottom,
     BusinessInfo,
     StepCreateSignature,
-    StepContentHTML
+    StepContentHTML,
+    StepQuestion
   },
   data() {
     return {
