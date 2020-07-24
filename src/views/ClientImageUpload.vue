@@ -9,7 +9,10 @@
       <span slot="content" class="pl-5">Images</span>
     </BaseHeader>
     <div class="mt-8">
-      <ImageUpload v-model="images" :defaultImages="clientInfo.images ? clientInfo.images : []">
+      <ImageUpload
+        v-model="images"
+        :defaultImages="clientInfo.images ? clientInfo.images : []"
+      >
         <template #title>
           <div class="tg-body-mobile ">
             <span class="text-on-background text-opacity-high"> Images </span>
@@ -82,11 +85,11 @@ export default {
         return {
           href: `mailto:${this.clientInfo.email}`,
           title: `Request by email ${this.clientInfo.email}`
-        }
+        };
       } else {
         return null;
       }
-  }
+    }
   },
   methods: {
     ...mapMutations('client', ['setClientInfo', 'resetClientInfo']),
