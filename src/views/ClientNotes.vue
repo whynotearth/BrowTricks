@@ -77,7 +77,7 @@ export default {
   methods: {
     ...mapActions('client', ['createClientNote', 'deleteClientNote', 'fetchClientNotes']),
     goBack() {
-      if (isAddEditActive) {
+      if (this.isAddEditActive) {
         this.isAddEditActive = false;
       } else {
         this.$router.go(-1);
