@@ -19,7 +19,7 @@
         @clicked="isAddEditActive = true"
       />
 
-      <div class="mt-8 px-6" v-if="clientNotes.length > 0">
+      <div class="mt-8 px-2" v-if="clientNotes.length > 0">
         <div @click="selectNote(note)" class="bg-white rounded-lg shadow-8dp p-4 my-4" v-for="note in clientNotes" :key="note.id">
           {{note.note}}
         </div>
