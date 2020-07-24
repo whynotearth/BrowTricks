@@ -43,5 +43,14 @@ export const clientRoutes = [
     meta: {
       requiresAuth: true
     }
+  },
+  {
+    path: '/tenant/:tenantSlug/clients/edit/:clientId/notes',
+    name: 'ClientNotes',
+    props: true,
+    component: () => import('@/views/ClientNotes.vue'),
+    meta: {
+      requiresAuth: true
+    }
   }
 ];
