@@ -68,6 +68,15 @@ const routes = [
       requiresAuth: true
     }
   },
+  {
+    path: '/tenant/:tenantSlug/clients/edit/:clientId/image-upload',
+    name: 'ClientImageUpload',
+    props: true,
+    component: () => import('@/views/ClientImageUpload.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
   ...authRoutes,
   {
     path: '/',
