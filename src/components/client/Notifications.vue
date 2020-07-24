@@ -2,7 +2,7 @@
   <div class="px-6">
     <div class="my-4">
       <h6 class="tg-body-mobile text-on-background text-opacity-high">
-        Select your preferred notification method:
+        Select client's preferred notification method:
       </h6>
     </div>
     <div>
