@@ -77,7 +77,11 @@ export default {
   methods: {
     ...mapActions('client', ['createClientNote', 'deleteClientNote', 'fetchClientNotes']),
     goBack() {
-      this.$router.go(-1);
+      if (isAddEditActive) {
+        this.isAddEditActive = false;
+      } else {
+        this.$router.go(-1);
+      }
     },
     async fetchNotes() {
       const notes = await this.fetchClientNotes({
