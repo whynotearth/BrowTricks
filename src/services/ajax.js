@@ -1,5 +1,5 @@
 import axios from 'axios';
-import store from '@/store';
+// import store from '@/store';
 
 const ajax = axios.create({
   baseURL: process.env.VUE_APP_API_URL,
@@ -15,8 +15,8 @@ ajax.interceptors.response.use(
   error => {
     // TODO: handle no connection
     if (error.response.status === 401) {
-      // FIXME: don't run on public pages
-      store.dispatch('auth/logout');
+      // TODO: handle 401 errors
+      // store.dispatch('auth/logout');
     }
     if (error.response.status === 403) {
       alert(
