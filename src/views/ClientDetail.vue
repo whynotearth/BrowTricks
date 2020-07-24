@@ -167,7 +167,14 @@
       >
         <Document slot="preIcon" class="h-6 w-6 fill-current" />
       </ExpansionPanel>
-      <ExpansionPanel @click="$router.push({ name: 'Notes' })" title="Notes">
+      <ExpansionPanel
+        @click="
+          $router.push({
+            name: 'ClientNotes',
+            params: { clientId, tenantSlug }
+          })
+        "
+        title="Notes">
         <Notes slot="preIcon" class="h-6 w-6 fill-current" />
       </ExpansionPanel>
       <div class="mt-4 mx-4 py-6 px-2">
