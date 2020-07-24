@@ -30,7 +30,7 @@
 import AuthButtons from '@/components/auth/AuthButtons';
 import Button from '@/components/Button.vue';
 
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'LogIn',
@@ -44,16 +44,13 @@ export default {
       appName: process.env.VUE_APP_NAME
     };
   },
-  async created() {
-    this.setTokenFromUrl();
-    if (!this.isAuthenticated) {
+  created() {
+    const gotToken = this.setTokenFromUrl();
+    if (!gotToken) {
       return;
     }
 
     this.handleRedirect();
-  },
-  computed: {
-    ...mapGetters('auth', ['isAuthenticated'])
   },
   methods: {
     ...mapActions('auth', ['updateToken']),
@@ -76,7 +73,9 @@ export default {
     setTokenFromUrl() {
       if (this.$route.query.token) {
         this.updateToken(this.$route.query.token);
+        return true;
       }
+      return false;
     },
     goToSignUp() {
       this.$router.push({ name: 'SignUp', params: { step: 'business-info' } });

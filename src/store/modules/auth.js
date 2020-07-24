@@ -23,7 +23,7 @@ const getters = {
 };
 
 const actions = {
-  ping({ commit, dispatch }) {
+  ping({ commit, dispatch, state }) {
     return new Promise((resolve, reject) => {
       // TODO: use meredith-axios
       ajax
@@ -31,6 +31,7 @@ const actions = {
         .then(response => {
           commit('updateProvider', response.data.loginProviders[0]);
           commit('updateUserName', response.data.userName);
+          dispatch('updateToken', state.token);
           resolve(response.data);
         })
         .catch(error => {
