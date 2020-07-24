@@ -3,25 +3,27 @@ export const authRoutes = [
     path: '/welcome',
     name: 'Welcome',
     component: () => import('@/views/AuthWelcome.vue'),
-    meta: { layout: () => import('@/layouts/TenantLayout.vue') }
+    meta: { layout: () => import('@/layouts/TenantLayout.vue'), isPublic: true, needsUserInfo: true }
   },
+  // TODO: add a redirect for /sign-up and /register
   {
-    path: '/auth/sign-up/:step',
+    // first step: /sign-up/business-info
+    path: '/sign-up/:step',
     name: 'SignUp',
     props: true,
     component: () => import('@/views/AuthSignUp.vue'),
-    meta: { layout: () => import('@/layouts/TenantLayout.vue') }
+    meta: { layout: () => import('@/layouts/TenantLayout.vue'), isPublic: true, needsUserInfo: true }
   },
   {
-    path: '/auth/login',
+    path: '/login',
     name: 'LogIn',
     component: () => import('@/views/AuthLogIn.vue'),
-    meta: { layout: () => import('@/layouts/TenantLayout.vue') }
+    meta: { layout: () => import('@/layouts/TenantLayout.vue'), isPublic: true }
   },
   {
-    path: '/auth/sign-up/success/:slug',
+    path: '/sign-up/success/:slug',
     name: 'SignUpSuccess',
     component: () => import('@/components/auth/SignUpSuccess.vue'),
-    meta: { layout: () => import('@/layouts/TenantLayout.vue') }
+    meta: { layout: () => import('@/layouts/TenantLayout.vue'), isPublic: true }
   }
 ];

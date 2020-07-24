@@ -36,27 +36,21 @@
 
 <script>
 import Button from '@/components/Button.vue';
-import { mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'Welcome',
   data() {
     return {
       logoUrl: process.env.VUE_APP_LOGO_URL,
-      appName: process.env.VUE_APP_NAME,
-      isAuthenticated: false
+      appName: process.env.VUE_APP_NAME
     };
   },
   components: {
     Button
   },
   methods: {
-    ...mapActions('auth', ['ping'])
-  },
-  created() {
-    this.ping().then(result => {
-      this.isAuthenticated = !!result.isAuthenticated;
-    });
+    ...mapGetters('auth', ['isAuthenticated'])
   }
 };
 </script>

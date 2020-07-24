@@ -30,7 +30,7 @@
 import AuthButtons from '@/components/auth/AuthButtons';
 import Button from '@/components/Button.vue';
 
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'LogIn',
@@ -45,28 +45,48 @@ export default {
     };
   },
   async created() {
-    if (this.$route.query.token) {
-      await this.updateToken(this.$route.query.token);
+    this.setTokenFromUrl();
+    if (!this.isAuthenticated) {
+      return;
     }
 
-    Promise.all([this.ping(), this.fetchUserTenants()]).then(
-      ([pingResponse, tenantResponse]) => {
-        if (pingResponse.isAuthenticated) {
-          this.$router.push(
-            tenantResponse.length > 0
-              ? {
-                  name: 'ClientList',
-                  params: { tenantSlug: tenantResponse[0].slug }
-                }
-              : { name: 'SignUp', params: { step: 'business-info' } }
-          );
-        }
-      }
-    );
+    this.handleRedirect();
+  },
+  computed: {
+    ...mapGetters('auth', ['isAuthenticated'])
   },
   methods: {
-    ...mapActions('auth', ['ping', 'updateToken']),
-    ...mapActions('tenant', ['fetchUserTenants'])
+    ...mapActions('auth', ['updateToken']),
+    ...mapActions('tenant', ['fetchUserTenants']),
+    handleRedirect() {
+      this.fetchUserTenants()
+        .then(tenants => {
+          if (tenants.length > 0) {
+            this.goToFirstTenantClientList(tenants);
+          } else {
+            this.goToSignUp();
+          }
+        })
+        .catch(() => {
+          alert(
+            `Login failed! If the problem persisted, please contact ${process.env.VUE_APP_ADMINISTRATOR_CONTACT_EMAIL}`
+          );
+        });
+    },
+    setTokenFromUrl() {
+      if (this.$route.query.token) {
+        this.updateToken(this.$route.query.token);
+      }
+    },
+    goToSignUp() {
+      this.$router.push({ name: 'SignUp', params: { step: 'business-info' } });
+    },
+    goToFirstTenantClientList(tenants) {
+      this.$router.push({
+        name: 'ClientList',
+        params: { tenantSlug: tenants[0].slug }
+      });
+    }
   }
 };
 </script>

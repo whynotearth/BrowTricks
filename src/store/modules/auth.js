@@ -3,7 +3,9 @@ import { getAPIURL } from '../../helpers';
 
 const state = {
   provider: '',
-  returnURL: ''
+  returnURL: '',
+  token: '',
+  userName: ''
 };
 
 const getters = {
@@ -11,59 +13,76 @@ const getters = {
     return getAPIURL(
       `/api/v0/authentication/provider/login?provider=${state.provider}&returnUrl=${state.returnURL}`
     );
+  },
+  isAuthenticated(state) {
+    return Boolean(state.userName);
+  },
+  userName(state) {
+    return state.userName;
   }
 };
 
 const actions = {
-  ping({ commit }) {
+  ping({ commit, dispatch }) {
     return new Promise((resolve, reject) => {
       // TODO: use meredith-axios
       ajax
         .get('/api/v0/authentication/ping')
         .then(response => {
           commit('updateProvider', response.data.loginProviders[0]);
+          commit('updateUserName', response.data.userName);
           resolve(response.data);
         })
         .catch(error => {
-          commit('updateProvider', '');
+          dispatch('clear');
           reject(error);
         });
     });
   },
-  logout({ commit, state, dispatch }) {
+  logout({ state, dispatch }) {
     return new Promise((resolve, reject) => {
       // TODO: use meredith-axios
       ajax
         .post(
           `/api/v0/authentication/provider/logout?provider=${state.provider}`
         )
-        .then(
-          () => {
-            commit('updateProvider', '');
-            dispatch('updateToken', null);
-            resolve('Log Out Successful');
-          },
-          error => {
-            reject(error);
-          }
-        );
+        .then(() => {
+          dispatch('clear');
+          dispatch('updateToken', undefined);
+          resolve();
+        })
+        .catch(error => {
+          reject(error);
+        });
     });
   },
-  updateToken(store, payload) {
+  updateToken({ commit }, payload = '') {
+    commit('updateToken', payload);
     if (payload) {
       ajax.defaults.headers.common['Authorization'] = `Bearer ${payload}`;
     } else {
       delete ajax.defaults.headers.common['Authorization'];
     }
+  },
+  clear({ commit }) {
+    commit('updateReturnUrl', '');
+    commit('updateProvider', '');
+    commit('updateUserName', '');
   }
 };
 
 const mutations = {
+  updateToken(state, payload) {
+    state.token = payload;
+  },
+  updateUserName(state, payload) {
+    state.userName = payload;
+  },
   updateProvider(state, payload) {
     state.provider = payload;
   },
   updateReturnUrl(state, payload) {
-    state.returnURL = `${payload}?signUpStarted=true`;
+    state.returnURL = payload;
   }
 };
 
