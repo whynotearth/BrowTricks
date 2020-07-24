@@ -174,7 +174,8 @@
             params: { clientId, tenantSlug }
           })
         "
-        title="Notes">
+        title="Notes"
+      >
         <Notes slot="preIcon" class="h-6 w-6 fill-current" />
       </ExpansionPanel>
       <div class="mt-4 mx-4 py-6 px-2">

@@ -18,13 +18,6 @@
         :isRipple="false"
         @clicked="$emit('onDelete', note)"
       />
-      <Button
-        class="tg-body-mobile text-secondary text-opacity-medium pb-4"
-        title="Cancel"
-        background="bg-transparent"
-        :isRipple="false"
-        @clicked="$emit('onCancel')"
-      />
     </div>
   </div>
 </template>
@@ -53,7 +46,7 @@ export default {
     save() {
       const note = {
         note: this.newNote
-      }
+      };
       if (this.note) {
         note.id = this.note.id;
       }

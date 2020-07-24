@@ -9,7 +9,12 @@
       <span slot="content" class="pl-5">Notes</span>
     </BaseHeader>
     <div class="mt-4 mx-4 px-2" v-if="isAddEditActive">
-      <AddEditNote :note="selectedNote" @onSave="createOrUpdateNote" @onCancel="cancel" @onDelete="deleteNote" />
+      <AddEditNote
+        :note="selectedNote"
+        @onSave="createOrUpdateNote"
+        @onCancel="cancel"
+        @onDelete="deleteNote"
+      />
     </div>
     <div class="mt-4 mx-4 px-2" v-else>
       <Button
@@ -20,8 +25,13 @@
       />
 
       <div class="mt-8 px-2" v-if="clientNotes.length > 0">
-        <div @click="selectNote(note)" class="bg-white rounded-lg shadow-8dp p-4 my-4" v-for="note in clientNotes" :key="note.id">
-          {{note.note}}
+        <div
+          @click="selectNote(note)"
+          class="bg-white rounded-lg shadow-8dp p-4 my-4"
+          v-for="note in clientNotes"
+          :key="note.id"
+        >
+          {{ note.note }}
         </div>
       </div>
     </div>
@@ -68,16 +78,23 @@ export default {
   computed: {
     ...mapGetters('client', ['getClientById']),
     client() {
-      return this.getClientById(this.clientId)
+      return this.getClientById(this.clientId);
     }
   },
   created() {
     this.fetchNotes();
   },
   methods: {
-    ...mapActions('client', ['createClientNote', 'deleteClientNote', 'fetchClientNotes']),
+    ...mapActions('client', [
+      'createClientNote',
+      'deleteClientNote',
+      'fetchClientNotes'
+    ]),
     goBack() {
       if (this.isAddEditActive) {
+        if (this.selectedNote) {
+          this.selectedNote = null;
+        }
         this.isAddEditActive = false;
       } else {
         this.$router.go(-1);
@@ -131,18 +148,12 @@ export default {
         });
         this.fetchNotes();
         this.isAddEditActive = false;
-      })
+      });
     },
     selectNote(note) {
       this.selectedNote = note;
       this.isAddEditActive = true;
-    },
-    cancel() {
-      if (this.selectedNote) {
-        this.selectedNote = null;
-      }
-      this.isAddEditActive = false;
     }
-  },
+  }
 };
 </script>
