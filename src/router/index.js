@@ -77,6 +77,15 @@ const routes = [
       requiresAuth: true
     }
   },
+  {
+    path: '/tenant/:tenantSlug/clients/edit/:clientId/notifications',
+    name: 'ClientNotifications',
+    props: true,
+    component: () => import('@/views/ClientNotifications.vue'),
+    meta: {
+      requiresAuth: true
+    }
+  },
   ...authRoutes,
   {
     path: '/',

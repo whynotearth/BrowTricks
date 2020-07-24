@@ -10,14 +10,20 @@ import VuexPersistence from 'vuex-persist';
 
 const vuexSession = new VuexPersistence({
   storage: window.sessionStorage,
-  modules: ['auth', 'tenant', 'client'],
+  modules: ['auth', 'tenant'],
   key: 'vuexSessionStore'
+});
+
+const vuexLocal = new VuexPersistence({
+  storage: window.localStorage,
+  modules: ['client'],
+  key: 'vuexLocalStore'
 });
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  plugins: [vuexSession.plugin],
+  plugins: [vuexSession.plugin, vuexLocal.plugin],
   state: {
     isMenuDrawerOpen: false,
     // FIXME : temporary hardcoded tenantName for testing purposes

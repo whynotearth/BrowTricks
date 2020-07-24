@@ -134,7 +134,12 @@
       </div>
       <ExpansionPanel
         title="Notification Settings"
-        @click="$router.push({ name: 'Notifications' })"
+        @click="
+          $router.push({
+            name: 'ClientNotifications',
+            params: { ...$route.params }
+          })
+        "
       >
         <Notification slot="preIcon" class="h-6 w-6 fill-current" />
       </ExpansionPanel>
