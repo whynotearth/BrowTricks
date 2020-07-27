@@ -4,6 +4,7 @@ import store from '../store';
 
 import { authRoutes } from './authRoutes';
 import { PMURoutes } from './PMURoutes';
+import { clientRoutes } from './clientRoutes';
 
 Vue.use(VueRouter);
 
@@ -58,31 +59,7 @@ const routes = [
       isPublic: true
     }
   },
-  // clients
-  {
-    path: '/tenant/:tenantSlug/clients',
-    name: 'ClientList',
-    props: true,
-    component: () => import('@/views/ClientList.vue')
-  },
-  {
-    path: '/tenant/:tenantSlug/clients/add/:step',
-    name: 'AddClient',
-    props: true,
-    component: () => import('@/views/ClientAddEdit.vue')
-  },
-  {
-    path: '/tenant/:tenantSlug/clients/edit/:clientId',
-    name: 'ClientDetail',
-    props: true,
-    component: () => import('@/views/ClientDetail.vue')
-  },
-  {
-    path: '/tenant/:tenantSlug/clients/edit/:clientId/notifications',
-    name: 'ClientNotifications',
-    props: true,
-    component: () => import('@/views/ClientNotifications.vue')
-  },
+  ...clientRoutes,
   ...authRoutes,
   {
     path: '/',
