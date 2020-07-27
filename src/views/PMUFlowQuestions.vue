@@ -30,11 +30,7 @@
       </div>
       <StepperBottom
         :page="step + 1"
-        :nextStepText="
-          `${
-            navigation[step] && step < navigation.length ? 'CONTINUE' : 'FINISH'
-          } ►`
-        "
+        :nextStepText="step === navigation.length - 1 ? 'Finish' : 'Continue'"
         @previousStep="previousStep"
         @nextStep="nextStep"
         :firstPageStepBack="true"

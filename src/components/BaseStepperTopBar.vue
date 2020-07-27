@@ -30,10 +30,10 @@
       </div>
     </div>
     <div class="flex-grow text-right leading-tight p-4">
-      <h3 class="text-xl text-white font-bold">
+      <h3 class="tg-h2-mobile text-white font-bold">
         {{ pageHeader(page) }}
       </h3>
-      <h4 class="text-base text-white text-opacity-medium">
+      <h4 v-if="pageSubheader(page)" class="tg-body-mobile text-white text-opacity-medium mt-2">
         {{ pageSubheader(page) | formatPageSubHeader }}
       </h4>
     </div>

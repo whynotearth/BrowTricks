@@ -32,6 +32,7 @@
       >
         {{ titleRight }}
       </div>
+      <slot name="iconEnd"></slot>
     </div>
   </component>
 </template>
