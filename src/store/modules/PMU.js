@@ -8,23 +8,19 @@ const state = {
 };
 
 const getters = {
-  page(state) {
-    return state.page;
+  tenantQuestions: state => tenantSlug => {
+    return state.questions[tenantSlug] || [];
   }
 };
 
 const actions = {
   addQuestions(context, payload) {
-    return PmuQuestionService.questions(payload).then(response => {
-      console.log('response', response);
-    });
+    return PmuQuestionService.questions(payload);
   },
   fetchQuestions(context, payload) {
-    console.log('payload', payload);
     const tenantSlug = payload.params.tenantSlug;
     return PmuQuestionService.questions1(payload.params).then(response => {
       context.commit('updateQuestions', { tenantSlug, questions: response });
-      console.log('response', response);
     });
   }
 };

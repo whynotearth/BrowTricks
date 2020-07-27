@@ -50,7 +50,7 @@ import BusinessInfo from '@/components/tenant/BusinessInfo';
 import StepCreateSignature from '@/components/PMU/StepCreateSignature';
 import StepContentHTML from '@/components/PMU/StepContentHTML';
 import StepQuestion from '@/components/PMU/StepQuestion';
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'PMUFlowQuestions',
@@ -66,6 +66,7 @@ export default {
   data() {
     return {
       step: null,
+      navigationPart2: [],
       result: {
         signature: '',
         initials: '',
@@ -76,10 +77,10 @@ export default {
         physicianName: '',
         physicianPhoneNumber: '',
         answers: [
-          {
-            questionId: 0,
-            answer: ''
-          }
+          // {
+          //   questionId: 0,
+          //   answer: ''
+          // }
         ]
       },
       errors: null
@@ -87,14 +88,11 @@ export default {
   },
   created() {
     // NOTE: for development, you can set this to every step you need to debug
-    this.stepUpdate(0);
-    this.fetchQuestions({
-      params: {
-        tenantSlug: this.tenantSlug
-      }
-    });
+    this.stepUpdate(15);
+    this.prepareTenantQuestions();
   },
   computed: {
+    ...mapGetters('PMU', ['tenantQuestions']),
     componentName() {
       return this.navigation[this.step].componentName;
     },
@@ -102,6 +100,13 @@ export default {
       return this.navigation[this.step].componentProps;
     },
     navigation() {
+      return [
+        ...this.navigationPart1,
+        ...this.navigationPart2,
+        ...this.navigationPart3
+      ];
+    },
+    navigationPart1() {
       return [
         {
           slug: 'create-signature',
@@ -122,7 +127,8 @@ export default {
           name: 'Disclosures',
           componentName: 'StepContentHTML',
           componentProps: {
-            content: `<p class="mb-4">I voluntarily request as my intradermal technician, <span class="tg-dancing-mobile text-secondary">Brow Tricks Beauty</span>, and such association and technical assistance as she may deem necessary to perform the following procedures on my body:</p><p>Eyebrow Microblading</p>`
+            content:
+              '<p class="mb-4">I voluntarily request as my intradermal technician, <span class="tg-dancing-mobile text-secondary">Brow Tricks Beauty</span>, and such association and technical assistance as she may deem necessary to perform the following procedures on my body:</p><p>Eyebrow Microblading</p>'
           }
         },
         {
@@ -377,10 +383,11 @@ export default {
               }
             ]
           }
-        },
-
-        // TODO: Custom questions here...
-
+        }
+      ];
+    },
+    navigationPart3() {
+      return [
         {
           onNext: this.submit,
           slug: 'review-sign-submit',
@@ -396,6 +403,36 @@ export default {
   },
   methods: {
     ...mapActions('PMU', ['fetchQuestions']),
+    prepareTenantQuestions() {
+      this.fetchQuestions({
+        params: {
+          tenantSlug: this.tenantSlug
+        }
+      }).then(() => {
+        const tenantQuestions = this.tenantQuestions(this.tenantSlug);
+        this.navigationPart2 = tenantQuestions.map((item, index) =>
+          this.createTextAreaQuestion(item, index)
+        );
+      });
+    },
+    createTextAreaQuestion({ question, id }, index) {
+      return {
+        slug: `tenant-question-${index + 1}`,
+        name: 'Tenant Question',
+        componentName: 'StepQuestion',
+        componentProps: {
+          question,
+          fields: [
+            {
+              type: 'textarea',
+              name: `tenantQuestion${index + 1}`,
+              label: 'Answer',
+              data: { isTenantQuestion: true, questionId: id }
+            }
+          ]
+        }
+      };
+    },
     stepUpdate(step) {
       this.step = step;
       const newRoute = this.navigation[step];
@@ -411,7 +448,25 @@ export default {
     },
     answerUpdate({ field, value }) {
       console.log('{ field, value }', { field, value });
-      this.result[field] = value;
+      // handle tenant questions
+      if (field.data && field.data.isTenantQuestion) {
+        const questionId = field.data.questionId;
+        const currentAnswerIndex = this.result.answers.findIndex(
+          item => item.questionId === questionId
+        );
+        if (currentAnswerIndex > -1) {
+          this.result.answers.splice(currentAnswerIndex, 1);
+        }
+        this.result.answers.push({
+          questionId,
+          answer: value
+        });
+      }
+      // handle others
+      else {
+        this.result[field.name] = value;
+      }
+      console.log('result', this.result);
     },
     previousStep() {
       if (this.step > 0) {

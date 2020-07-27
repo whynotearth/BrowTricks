@@ -4,7 +4,7 @@
     <div v-for="(field, fieldIndex) in fields" :key="fieldIndex">
       <div v-if="field.type === 'radio'">
         <RadioInput
-          @updateSelectedOption="answerUpdate(field.name, model[field.name])"
+          @updateSelectedOption="answerUpdate(field, model[field.name])"
           class="mb-2"
           v-for="(option, radioIndex) in field.options"
           :key="radioIndex"
@@ -16,7 +16,7 @@
       <div v-if="field.type === 'textarea'">
         <TextArea
           :label="field.label"
-          @input="answerUpdate(field.name, model[field.name])"
+          @input="answerUpdate(field, model[field.name])"
           class="mb-2"
           v-model="model[field.name]"
         />
@@ -25,7 +25,7 @@
       <div v-if="field.type === 'input'">
         <MaterialInput
           :label="field.label"
-          @input="answerUpdate(field.name, model[field.name])"
+          @input="answerUpdate(field, model[field.name])"
           class="mb-2"
           v-model="model[field.name]"
         />
