@@ -144,9 +144,14 @@
         <Notification slot="preIcon" class="h-6 w-6 fill-current" />
       </ExpansionPanel>
       <ExpansionPanel
-        @click="$router.push({ name: 'ImageUpload' })"
         title="Images"
         middleText="Incomplete"
+        @click="
+          $router.push({
+            name: 'ClientImageUpload',
+            params: { ...$route.params }
+          })
+        "
       >
         <ImagesIcon slot="preIcon" class="h-6 w-6 fill-current" />
       </ExpansionPanel>
@@ -290,6 +295,7 @@ export default {
     }
   },
   async created() {
+    this.fetchClients(this.tenantSlug);
     this.client = await this.getClientById(this.clientId);
     if (!this.client) {
       this.goBack();
@@ -299,7 +305,7 @@ export default {
     ...mapGetters('client', ['getClientById'])
   },
   methods: {
-    ...mapActions('client', ['updateClient', 'archiveClient']),
+    ...mapActions('client', ['updateClient', 'archiveClient', 'fetchClients']),
     save() {
       if (!this.$v.$invalid) {
         this.updateClient({
