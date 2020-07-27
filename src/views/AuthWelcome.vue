@@ -49,7 +49,7 @@ export default {
   components: {
     Button
   },
-  methods: {
+  computed: {
     ...mapGetters('auth', ['isAuthenticated'])
   }
 };
