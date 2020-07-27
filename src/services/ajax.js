@@ -14,13 +14,9 @@ ajax.interceptors.response.use(
   },
   error => {
     // TODO: handle no connection
-    if (error.response.status === 401) {
-      // TODO: handle 401 errors
-      // store.dispatch('auth/logout');
-    }
     if (error.response.status === 403) {
       alert(
-        'Incorrect permissions, please contact your account owner chris@whynot.earth'
+        `Incorrect permissions! If you think something is wrong, please contact ${process.env.VUE_APP_ADMINISTRATOR_CONTACT_EMAIL}`
       );
     }
     return Promise.reject(error);

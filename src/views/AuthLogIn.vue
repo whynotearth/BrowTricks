@@ -44,29 +44,48 @@ export default {
       appName: process.env.VUE_APP_NAME
     };
   },
-  async created() {
-    if (this.$route.query.token) {
-      await this.updateToken(this.$route.query.token);
+  created() {
+    const gotToken = this.setTokenFromUrl();
+    if (!gotToken) {
+      return;
     }
 
-    Promise.all([this.ping(), this.fetchUserTenants()]).then(
-      ([pingResponse, tenantResponse]) => {
-        if (pingResponse.isAuthenticated) {
-          this.$router.push(
-            tenantResponse.length > 0
-              ? {
-                  name: 'ClientList',
-                  params: { tenantSlug: tenantResponse[0].slug }
-                }
-              : { name: 'SignUp', params: { step: 'business-info' } }
-          );
-        }
-      }
-    );
+    this.handleRedirect();
   },
   methods: {
-    ...mapActions('auth', ['ping', 'updateToken']),
-    ...mapActions('tenant', ['fetchUserTenants'])
+    ...mapActions('auth', ['updateToken']),
+    ...mapActions('tenant', ['fetchUserTenants']),
+    handleRedirect() {
+      this.fetchUserTenants()
+        .then(tenants => {
+          if (tenants.length > 0) {
+            this.goToFirstTenantClientList(tenants);
+          } else {
+            this.goToSignUp();
+          }
+        })
+        .catch(() => {
+          alert(
+            `Login failed! If the problem persisted, please contact ${process.env.VUE_APP_ADMINISTRATOR_CONTACT_EMAIL}`
+          );
+        });
+    },
+    setTokenFromUrl() {
+      if (this.$route.query.token) {
+        this.updateToken(this.$route.query.token);
+        return true;
+      }
+      return false;
+    },
+    goToSignUp() {
+      this.$router.push({ name: 'SignUp', params: { step: 'business-info' } });
+    },
+    goToFirstTenantClientList(tenants) {
+      this.$router.push({
+        name: 'ClientList',
+        params: { tenantSlug: tenants[0].slug }
+      });
+    }
   }
 };
 </script>

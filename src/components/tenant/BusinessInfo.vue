@@ -15,7 +15,12 @@
     <material-input
       v-model="$v.phone.$model"
       label="Phone number"
-      :error="$v.phone.$dirty && (!$v.phone.required || !$v.phone.minLength)"
+      :error="
+        $v.phone.$dirty &&
+          (!$v.phone.required ||
+            !$v.phone.minLength ||
+            !$v.phone.isPhoneNumberValid)
+      "
     >
       <span
         v-if="$v.phone.$dirty && !$v.phone.required"

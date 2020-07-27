@@ -89,21 +89,19 @@ export default {
   },
   computed: {
     ...mapGetters('tenant', ['page']),
+    ...mapGetters('auth', ['isAuthenticated', 'userName']),
     component() {
       return this.navigation[this.page - 1].step;
     }
   },
   created() {
-    if (!this.$route.query.signUpStarted && this.navigation.length > 0) {
-      this.ping().then(response => {
-        if (response.isAuthenticated) {
-          this.navigation.splice(
-            this.navigation.findIndex(nav => nav.step === 'link-account'),
-            1
-          );
-          this.updateEmail(response.userName);
-        }
-      });
+    if (
+      this.isAuthenticated &&
+      !this.$route.query.signUpStarted &&
+      this.navigation.length > 0
+    ) {
+      this.removeLinkAccountStep();
+      this.updateEmail(this.userName);
     }
     if (
       !this.$route.query.signUpStarted &&
@@ -119,7 +117,12 @@ export default {
       'updateEmail'
     ]),
     ...mapActions('tenant', ['createTenant']),
-    ...mapActions('auth', ['ping']),
+    removeLinkAccountStep() {
+      this.navigation.splice(
+        this.navigation.findIndex(item => item.step === 'link-account'),
+        1
+      );
+    },
     previousStep() {
       if (this.page > 1) {
         this.pageChange(this.page - 1);
