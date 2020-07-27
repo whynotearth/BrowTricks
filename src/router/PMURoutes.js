@@ -3,6 +3,7 @@ export const PMURoutes = [
     path: '/tenant/:tenantSlug/pmu/form-setup',
     name: 'PMUFormSetup',
     component: () => import('@/views/PMUFormSetup.vue'),
+    props: true,
     meta: { layout: () => import('@/layouts/WithTitleBarLayout.vue') }
   },
   {
@@ -19,6 +20,7 @@ export const PMURoutes = [
   {
     path: '/tenant/:tenantSlug/pmu/flow-questions/:stepSlug',
     name: 'PMUFlowQuestions',
-    component: () => import('@/views/PMUFlowQuestions.vue')
+    component: () => import('@/views/PMUFlowQuestions.vue'),
+    props: true
   }
 ];

@@ -57,7 +57,7 @@
 </template>
 
 <script>
-// import { mapMutations } from 'vuex';
+import { mapActions } from 'vuex';
 import BaseSlider from '@/components/BaseSlider.vue';
 import Button from '@/components/Button.vue';
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
@@ -67,11 +67,13 @@ import { randomId } from '@/helpers';
 export default {
   name: 'PMUFormSetup',
   components: { BaseSlider, Button, MaterialInput, IconDelete },
+  props: ['tenantSlug'],
   data: () => ({
     questions: []
   }),
   methods: {
     // ...mapMutations('PMU', [''])
+    ...mapActions('PMU', ['addQuestions']),
     questionAdd() {
       const question = {
         id: randomId(),
@@ -93,7 +95,12 @@ export default {
       const result = this.questions
         .filter(q => q.value.length > 0)
         .map(q => q.value);
-      console.log('result', result);
+      this.addQuestions({
+        tenantSlug: this.tenantSlug,
+        body: {
+          questions: result
+        }
+      });
     }
   }
 };

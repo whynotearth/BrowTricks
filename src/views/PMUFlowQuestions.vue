@@ -50,6 +50,7 @@ import BusinessInfo from '@/components/tenant/BusinessInfo';
 import StepCreateSignature from '@/components/PMU/StepCreateSignature';
 import StepContentHTML from '@/components/PMU/StepContentHTML';
 import StepQuestion from '@/components/PMU/StepQuestion';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'PMUFlowQuestions',
@@ -61,6 +62,7 @@ export default {
     StepContentHTML,
     StepQuestion
   },
+  props: ['tenantSlug'],
   data() {
     return {
       step: null,
@@ -86,6 +88,11 @@ export default {
   created() {
     // NOTE: for development, you can set this to every step you need to debug
     this.stepUpdate(0);
+    this.fetchQuestions({
+      params: {
+        tenantSlug: this.tenantSlug
+      }
+    });
   },
   computed: {
     componentName() {
@@ -388,6 +395,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions('PMU', ['fetchQuestions']),
     stepUpdate(step) {
       this.step = step;
       const newRoute = this.navigation[step];
