@@ -1,7 +1,7 @@
 <template>
   <component
     :is="type"
-    class="tg-color-label-mobile font-semibold uppercase cursor-pointer text-white text-sm inline-block"
+    class="tg-color-label-mobile font-semibold uppercase cursor-pointer text-white inline-block"
     :class="[
       isRipple ? 'ripple' : '',
       isRounded ? 'rounded-full' : '',

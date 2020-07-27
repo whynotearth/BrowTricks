@@ -4,11 +4,11 @@
     <div v-for="(field, fieldIndex) in fields" :key="fieldIndex">
       <div v-if="field.type === 'radio'">
         <RadioInput
-          @updateSelectedOption="answerUpdate(field.name, model[fieldIndex])"
+          @updateSelectedOption="answerUpdate(field.name, model[field.name])"
           class="mb-2"
           v-for="(option, radioIndex) in field.options"
           :key="radioIndex"
-          v-model="model[fieldIndex]"
+          v-model="model[field.name]"
           :value="option"
         />
       </div>
@@ -16,18 +16,18 @@
       <div v-if="field.type === 'textarea'">
         <TextArea
           :label="field.label"
-          @input="answerUpdate(field.name, model[fieldIndex])"
+          @input="answerUpdate(field.name, model[field.name])"
           class="mb-2"
-          v-model="model[fieldIndex]"
+          v-model="model[field.name]"
         />
       </div>
 
       <div v-if="field.type === 'input'">
         <MaterialInput
           :label="field.label"
-          @input="answerUpdate(field.name, model[fieldIndex])"
+          @input="answerUpdate(field.name, model[field.name])"
           class="mb-2"
-          v-model="model[fieldIndex]"
+          v-model="model[field.name]"
         />
       </div>
     </div>
