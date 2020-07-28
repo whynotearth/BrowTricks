@@ -1,6 +1,6 @@
 <template>
   <div class="text-left p-2">
-    <h2 class="tg-body-mobile text-black text-opacity-medium mb-6 py-2">
+    <!-- <h2 class="tg-body-mobile text-black text-opacity-medium mb-6 py-2">
       Here is your pre-set PMU form:
     </h2>
     <div class="max-w-md mx-auto mb-6">
@@ -16,7 +16,7 @@
       </BaseSlider>
     </div>
 
-    <hr class="mb-6" />
+    <hr class="mb-6" /> -->
 
     <h2 class="tg-h2-mobile text-black text-opacity-high mb-6">
       Add Custom Questions

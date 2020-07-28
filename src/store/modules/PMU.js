@@ -29,6 +29,11 @@ const actions = {
     return ClientService.pmu(params).then(response => {
       context.commit('updateQuestions', { tenantSlug, questions: response });
     });
+  },
+  getSignUrl(context, { params }) {
+    return ClientService.sign(params).then(response => {
+      return response;
+    });
   }
 };
 

@@ -138,7 +138,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('PMU', ['fetchQuestions', 'submitAnswers']),
+    ...mapActions('PMU', ['fetchQuestions', 'submitAnswers', 'getSignUrl']),
     prepareTenantQuestions() {
       this.fetchQuestions({
         params: {
@@ -253,7 +253,18 @@ export default {
           tenantSlug: this.tenantSlug,
           body: this.result
         }
-      });
+      })
+        .then(() => {
+          return this.getSignUrl({
+            params: {
+              clientId: this.clientId,
+              tenantSlug: this.tenantSlug
+            }
+          });
+        })
+        .then(signUrl => {
+          console.log('signurl', signUrl);
+        });
     }
   }
 };
