@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import { PmuQuestionService, ClientService } from '@whynotearth/meredith-axios';
+import HelloSign from 'hellosign-embedded';
 
 const state = {
   questions: {
@@ -34,6 +35,12 @@ const actions = {
     return ClientService.sign(params).then(response => {
       return response;
     });
+  },
+  submitSign(context, editUrl) {
+    const client = new HelloSign({
+      clientId: process.env.VUE_APP_HELLO_SIGN_API_KEY
+    });
+    client.open(editUrl);
   }
 };
 
