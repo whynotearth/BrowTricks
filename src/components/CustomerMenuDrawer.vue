@@ -40,7 +40,7 @@
             class="pb-8 cursor-pointer"
             :to="{
               name: 'ClientList',
-              params: { tenantSlug: 'test-tenant-94' }
+              params: { tenantSlug }
             }"
           >
             Clients
@@ -70,7 +70,10 @@ export default {
     ...mapGetters({
       isMenuDrawerOpen: 'getIsMenuDrawerOpen'
     }),
-    ...mapGetters('auth', ['isAuthenticated'])
+    ...mapGetters('auth', ['isAuthenticated']),
+    tenantSlug() {
+      return this.$route.params.tenantSlug;
+    }
   },
   methods: {
     ...mapMutations(['toggleMenuDrawer']),
