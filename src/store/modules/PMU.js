@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { PmuQuestionService } from '@whynotearth/meredith-axios';
+import { PmuQuestionService, ClientService } from '@whynotearth/meredith-axios';
 
 const state = {
   questions: {
@@ -14,12 +14,19 @@ const getters = {
 };
 
 const actions = {
-  addQuestions(context, payload) {
-    return PmuQuestionService.questions(payload);
+  addQuestions(context, { params }) {
+    return PmuQuestionService.questions(params);
   },
   fetchQuestions(context, payload) {
     const tenantSlug = payload.params.tenantSlug;
     return PmuQuestionService.questions1(payload.params).then(response => {
+      context.commit('updateQuestions', { tenantSlug, questions: response });
+    });
+  },
+  submitAnswers(context, { params }) {
+    // params: clientId, tenantSlug, body
+    const { tenantSlug } = params;
+    return ClientService.pmu(params).then(response => {
       context.commit('updateQuestions', { tenantSlug, questions: response });
     });
   }

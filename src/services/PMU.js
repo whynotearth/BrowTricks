@@ -32,9 +32,9 @@ export const defaultNavigationSteps = result => {
           'Do you authorize to have photographs taken both before and after treatment, and that photographs taken may be used for advertising/training purposes?',
         fields: [
           {
-            type: 'radio',
+            type: 'checkbox',
             name: 'allowPhoto',
-            options: ['Yes', 'No']
+            options: [{ label: 'Yes', value: true }]
           }
         ]
       }
@@ -51,7 +51,10 @@ export const defaultNavigationSteps = result => {
           {
             type: 'radio',
             name: 'isUnderCareOfPhysician',
-            options: ['Yes', 'No']
+            options: [
+              { label: 'Yes', value: true },
+              { label: 'No', value: false }
+            ]
           }
         ]
       }
@@ -82,7 +85,10 @@ export const defaultNavigationSteps = result => {
           {
             type: 'radio',
             name: 'isTakingBloodThinner',
-            options: ['Yes', 'No']
+            options: [
+              { label: 'Yes', value: true },
+              { label: 'No', value: false }
+            ]
           }
         ]
       }
@@ -118,9 +124,10 @@ export const defaultNavigationSteps = result => {
           'I have been told that there may be known and unknown risks and hazards related to the performance of the planned procedure and I understand that no warranty or guarantees have been made as to the results.',
         fields: [
           {
-            type: 'radio',
-            name: 'unknownField1',
-            options: ['Yes', 'No']
+            type: 'checkbox',
+            name: 'noSave1',
+            options: [{ label: 'Yes', value: true }],
+            noSave: true
           }
         ]
       }
@@ -135,9 +142,10 @@ export const defaultNavigationSteps = result => {
           'I acknowledge the manufacturer of the pigment and numbing agents requires spot testing and specifically disclaims any responsibility for adverse reaction to applied products. I understand spot testing may identify individuals who develop an immediate allergic reactions, however spot testing does not identify individuals who may have a delayed allergic reaction to pigment.',
         fields: [
           {
-            type: 'radio',
-            name: 'unknownField2',
-            options: ['Yes', 'No']
+            type: 'checkbox',
+            name: 'noSave2',
+            options: [{ label: 'Yes', value: true }],
+            noSave: true
           }
         ]
       }
@@ -151,9 +159,10 @@ export const defaultNavigationSteps = result => {
           'I have been told that this procedure may involve discomfort. I also understand that I can ask for additional numbing as needed, but that the more numbing that is applied, the higher the risk of having an adverse reaction.',
         fields: [
           {
-            type: 'radio',
-            name: 'unknownField3',
-            options: ['Yes', 'No']
+            type: 'checkbox',
+            name: 'noSave3',
+            options: [{ label: 'Yes', value: true }],
+            noSave: true
           }
         ]
       }
@@ -168,9 +177,10 @@ export const defaultNavigationSteps = result => {
           'I understand the markings are permanent and that there is the possibility of hyperpigmentation resulting from a procedure, especially to individuals prone to hyperpigmentation from scars or other injuries.',
         fields: [
           {
-            type: 'radio',
-            name: 'unknownField4',
-            options: ['Yes', 'No']
+            type: 'checkbox',
+            name: 'noSave4',
+            options: [{ label: 'Yes', value: true }],
+            noSave: true
           }
         ]
       }
@@ -184,9 +194,10 @@ export const defaultNavigationSteps = result => {
         question: 'I understand that a follow up procedure likely be needed.',
         fields: [
           {
-            type: 'radio',
-            name: 'unknownField5',
-            options: ['Yes', 'No']
+            type: 'checkbox',
+            name: 'noSave5',
+            options: [{ label: 'Yes', value: true }],
+            noSave: true
           }
         ]
       }
@@ -200,9 +211,10 @@ export const defaultNavigationSteps = result => {
           'I understand other risks involved may include, but are not limited to, allergic and other reactions to applied pigments, allergic and other reactions to products applied during and after the procedure, fanning or spreading of pigments (pigment migration) fading of color.',
         fields: [
           {
-            type: 'radio',
-            name: 'unknownField6',
-            options: ['Yes', 'No']
+            type: 'checkbox',
+            name: 'noSave6',
+            options: [{ label: 'Yes', value: true }],
+            noSave: true
           }
         ]
       }
@@ -217,9 +229,10 @@ export const defaultNavigationSteps = result => {
           'I accept full responsibility for any and all, present and future, medical treatments and expenses I may incur in the event I need to seek treatments for any known or unknown reason associated with this procedure.',
         fields: [
           {
-            type: 'radio',
-            name: 'unknownField7',
-            options: ['Yes', 'No']
+            type: 'checkbox',
+            name: 'noSave7',
+            options: [{ label: 'Yes', value: true }],
+            noSave: true
           }
         ]
       }
@@ -234,9 +247,10 @@ export const defaultNavigationSteps = result => {
           'I have been given an opportunity to ask questions about the procedures to be done and the risks and hazards involved, and I believe that I have sufficient information to give informed consent.',
         fields: [
           {
-            type: 'radio',
-            name: 'unknownField8',
-            options: ['Yes', 'No']
+            type: 'checkbox',
+            name: 'noSave8',
+            options: [{ label: 'Yes', value: true }],
+            noSave: true
           }
         ]
       }
@@ -251,9 +265,10 @@ export const defaultNavigationSteps = result => {
           'I certify that I have read, or had read to me, the content of this consent, and I fully understand its contents.',
         fields: [
           {
-            type: 'radio',
-            name: 'unknownField9',
-            options: ['Yes', 'No']
+            type: 'checkbox',
+            name: 'noSave9',
+            options: [{ label: 'Yes', value: true }],
+            noSave: true
           }
         ]
       }
@@ -267,9 +282,10 @@ export const defaultNavigationSteps = result => {
           'I have read, or have had read to me, and have received a copy of the Post Procedure Instructions and I understand its content.',
         fields: [
           {
-            type: 'radio',
-            name: 'unknownField10',
-            options: ['Yes', 'No']
+            type: 'checkbox',
+            name: 'noSave10',
+            options: [{ label: 'Yes', value: true }],
+            noSave: true
           }
         ]
       }

@@ -96,9 +96,11 @@ export default {
         .filter(q => q.value.length > 0)
         .map(q => q.value);
       this.addQuestions({
-        tenantSlug: this.tenantSlug,
-        body: {
-          questions: result
+        params: {
+          tenantSlug: this.tenantSlug,
+          body: {
+            questions: result
+          }
         }
       });
     }

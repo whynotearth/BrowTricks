@@ -59,7 +59,7 @@ export default {
     StepContentHTML,
     StepQuestion
   },
-  props: ['tenantSlug'],
+  props: ['tenantSlug', 'clientId'],
   data() {
     return {
       step: null,
@@ -131,14 +131,14 @@ export default {
           name: 'Review & Sign',
           componentName: 'StepContentHTML',
           componentProps: {
-            content: 'Preview PDF [not ready yet].'
+            content: 'Submit and sign answers?'
           }
         }
       ];
     }
   },
   methods: {
-    ...mapActions('PMU', ['fetchQuestions']),
+    ...mapActions('PMU', ['fetchQuestions', 'submitAnswers']),
     prepareTenantQuestions() {
       this.fetchQuestions({
         params: {
@@ -185,8 +185,12 @@ export default {
         .catch(() => {});
     },
     answerUpdate({ field, value }) {
-      console.log('{ field, value }', { field, value });
+      console.log({ field, value });
+      if (field.noSave) {
+        return;
+      }
       // handle tenant questions
+      // -----------------------
       if (field.data && field.data.isTenantQuestion) {
         const questionId = field.data.questionId;
         const currentAnswerIndex = this.result.answers.findIndex(
@@ -201,6 +205,7 @@ export default {
         });
       }
       // handle others
+      // -------------
       else {
         this.result[field.name] = value;
       }
@@ -219,7 +224,8 @@ export default {
         return;
       }
 
-      const onNext = this.navigation[this.step].onSubmit;
+      const onNext = this.navigation[this.step].onNext;
+      console.log(onNext);
       if (onNext) {
         await onNext();
       }
@@ -241,6 +247,13 @@ export default {
     },
     async submit() {
       console.log('submit');
+      this.submitAnswers({
+        params: {
+          clientId: this.clientId,
+          tenantSlug: this.tenantSlug,
+          body: this.result
+        }
+      });
     }
   }
 };

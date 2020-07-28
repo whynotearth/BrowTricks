@@ -7,6 +7,7 @@ export const PMURoutes = [
     meta: { layout: () => import('@/layouts/WithTitleBarLayout.vue') }
   },
   {
+    // needs clientId?
     path: '/tenant/:tenantSlug/pmu/flow-methods',
     name: 'PMUFlowMethods',
     component: () => import('@/views/PMUFlowMethods.vue'),
@@ -18,7 +19,7 @@ export const PMURoutes = [
     component: () => import('@/views/PMUFlowStart.vue')
   },
   {
-    path: '/tenant/:tenantSlug/pmu/flow-questions/:stepSlug',
+    path: '/tenant/:tenantSlug/client/:clientId/pmu/flow-questions/:stepSlug',
     name: 'PMUFlowQuestions',
     component: () => import('@/views/PMUFlowQuestions.vue'),
     props: true
