@@ -5,60 +5,15 @@ import store from '../store';
 import { authRoutes } from './authRoutes';
 import { PMURoutes } from './PMURoutes';
 import { clientRoutes } from './clientRoutes';
+import { TestingRoutes } from './TestingRoutes';
+import { TenantPublicRoutes } from './TenantPublicRoutes';
 
 Vue.use(VueRouter);
 
 const routes = [
   ...PMURoutes,
-  // test routes
-  {
-    path: '/test-layout-splash',
-    name: 'TestLayoutSplash',
-    component: () => import('@/views/TestLayoutSplash.vue'),
-    meta: {
-      isPublic: true
-    }
-  },
-  {
-    path: '/test-layout-splash-with-header',
-    name: 'TestLayoutSplashWithHeader',
-    component: () => import('@/views/TestLayoutSplashWithHeader.vue'),
-    meta: {
-      isPublic: true
-    }
-  },
-  {
-    path: '/shop/test-tenant-94',
-    name: 'CustomerHome',
-    component: () => import('@/views/CustomerHome.vue'),
-    meta: {
-      isPublic: true
-    }
-  },
-  {
-    path: '/shop/test-tenant-94/business-hours',
-    name: 'CustomerBusinessHours',
-    component: () => import('@/views/CustomerBusinessHours.vue'),
-    meta: {
-      isPublic: true
-    }
-  },
-  {
-    path: '/shop/test-tenant-94/contact',
-    name: 'CustomerContact',
-    component: () => import('@/views/CustomerContact.vue'),
-    meta: {
-      isPublic: true
-    }
-  },
-  {
-    path: '/shop/test-tenant-94/categories',
-    name: 'CustomerCategories',
-    component: () => import('@/views/CustomerCategories.vue'),
-    meta: {
-      isPublic: true
-    }
-  },
+  ...TestingRoutes,
+  ...TenantPublicRoutes,
   ...clientRoutes,
   ...authRoutes,
   {
