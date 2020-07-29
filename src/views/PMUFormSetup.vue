@@ -34,10 +34,13 @@
           v-model.trim="question.value"
           label="Question"
           labelBg="bg-surface"
-        />
-        <a @click.prevent.stop="questionRemove" href="#" class="ml-4">
-          <IconDelete class="text-black text-opacity-disabled" />
-        </a>
+        >
+          <template #end>
+            <a @click.prevent.stop="questionRemove" href="#" class="ml-4">
+              <IconDelete class="text-black text-opacity-disabled" />
+            </a>
+          </template>
+        </MaterialInput>
       </div>
 
       <hr v-if="questions.length > 0" class="mb-2" />

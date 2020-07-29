@@ -37,6 +37,7 @@ const actions = {
     });
   },
   submitSign(context, editUrl) {
+    // doc: https://app.hellosign.com/api/embeddedTemplatesWalkthrough
     const client = new HelloSign({
       clientId: process.env.VUE_APP_HELLO_SIGN_API_KEY
     });

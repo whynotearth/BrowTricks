@@ -1,3 +1,7 @@
+import { required } from 'vuelidate/lib/validators';
+import { isPhoneNumberValid } from '@/helpers';
+const shouldBeTrue = value => value === true;
+
 export const defaultNavigationSteps = result => {
   return [
     {
@@ -34,7 +38,13 @@ export const defaultNavigationSteps = result => {
           {
             type: 'checkbox',
             name: 'allowPhoto',
-            options: [{ label: 'Yes', value: true }]
+            options: [{ label: 'Yes' }],
+            validations: {
+              shouldBeTrue
+            },
+            errorMessages: {
+              shouldBeTrue: 'This is required'
+            }
           }
         ]
       }
@@ -54,7 +64,13 @@ export const defaultNavigationSteps = result => {
             options: [
               { label: 'Yes', value: true },
               { label: 'No', value: false }
-            ]
+            ],
+            validations: {
+              required
+            },
+            errorMessages: {
+              required: 'Please choose one'
+            }
           }
         ]
       }
@@ -70,7 +86,13 @@ export const defaultNavigationSteps = result => {
           {
             type: 'textarea',
             name: 'conditions',
-            label: 'Conditions'
+            label: 'Conditions',
+            validations: {
+              required
+            },
+            errorMessages: {
+              required: 'This field is required'
+            }
           }
         ]
       }
@@ -88,7 +110,13 @@ export const defaultNavigationSteps = result => {
             options: [
               { label: 'Yes', value: true },
               { label: 'No', value: false }
-            ]
+            ],
+            validations: {
+              required
+            },
+            errorMessages: {
+              required: 'Please choose one'
+            }
           }
         ]
       }
@@ -104,12 +132,26 @@ export const defaultNavigationSteps = result => {
           {
             type: 'input',
             name: 'physicianName',
-            label: 'Name'
+            label: 'Name',
+            validations: {
+              required
+            },
+            errorMessages: {
+              required: 'This field is required'
+            }
           },
           {
             type: 'input',
             name: 'physicianPhoneNumber',
-            label: 'Phone Number'
+            label: 'Phone Number',
+            validations: {
+              required,
+              isPhoneNumberValid
+            },
+            errorMessages: {
+              required: 'This field is required',
+              isPhoneNumberValid: 'Please enter a valid phone number'
+            }
           }
         ]
       }
@@ -126,8 +168,14 @@ export const defaultNavigationSteps = result => {
           {
             type: 'checkbox',
             name: 'noSave1',
-            options: [{ label: 'Yes', value: true }],
-            noSave: true
+            options: [{ label: 'Yes' }],
+            noSave: true,
+            validations: {
+              shouldBeTrue
+            },
+            errorMessages: {
+              shouldBeTrue: 'This is required'
+            }
           }
         ]
       }
@@ -144,8 +192,14 @@ export const defaultNavigationSteps = result => {
           {
             type: 'checkbox',
             name: 'noSave2',
-            options: [{ label: 'Yes', value: true }],
-            noSave: true
+            options: [{ label: 'Yes' }],
+            noSave: true,
+            validations: {
+              shouldBeTrue
+            },
+            errorMessages: {
+              shouldBeTrue: 'This is required'
+            }
           }
         ]
       }
@@ -161,8 +215,14 @@ export const defaultNavigationSteps = result => {
           {
             type: 'checkbox',
             name: 'noSave3',
-            options: [{ label: 'Yes', value: true }],
-            noSave: true
+            options: [{ label: 'Yes' }],
+            noSave: true,
+            validations: {
+              shouldBeTrue
+            },
+            errorMessages: {
+              shouldBeTrue: 'This is required'
+            }
           }
         ]
       }
@@ -179,8 +239,14 @@ export const defaultNavigationSteps = result => {
           {
             type: 'checkbox',
             name: 'noSave4',
-            options: [{ label: 'Yes', value: true }],
-            noSave: true
+            options: [{ label: 'Yes' }],
+            noSave: true,
+            validations: {
+              shouldBeTrue
+            },
+            errorMessages: {
+              shouldBeTrue: 'This is required'
+            }
           }
         ]
       }
@@ -196,8 +262,14 @@ export const defaultNavigationSteps = result => {
           {
             type: 'checkbox',
             name: 'noSave5',
-            options: [{ label: 'Yes', value: true }],
-            noSave: true
+            options: [{ label: 'Yes' }],
+            noSave: true,
+            validations: {
+              shouldBeTrue
+            },
+            errorMessages: {
+              shouldBeTrue: 'This is required'
+            }
           }
         ]
       }
@@ -213,8 +285,14 @@ export const defaultNavigationSteps = result => {
           {
             type: 'checkbox',
             name: 'noSave6',
-            options: [{ label: 'Yes', value: true }],
-            noSave: true
+            options: [{ label: 'Yes' }],
+            noSave: true,
+            validations: {
+              shouldBeTrue
+            },
+            errorMessages: {
+              shouldBeTrue: 'This is required'
+            }
           }
         ]
       }
@@ -231,8 +309,14 @@ export const defaultNavigationSteps = result => {
           {
             type: 'checkbox',
             name: 'noSave7',
-            options: [{ label: 'Yes', value: true }],
-            noSave: true
+            options: [{ label: 'Yes' }],
+            noSave: true,
+            validations: {
+              shouldBeTrue
+            },
+            errorMessages: {
+              shouldBeTrue: 'This is required'
+            }
           }
         ]
       }
@@ -249,8 +333,14 @@ export const defaultNavigationSteps = result => {
           {
             type: 'checkbox',
             name: 'noSave8',
-            options: [{ label: 'Yes', value: true }],
-            noSave: true
+            options: [{ label: 'Yes' }],
+            noSave: true,
+            validations: {
+              shouldBeTrue
+            },
+            errorMessages: {
+              shouldBeTrue: 'This is required'
+            }
           }
         ]
       }
@@ -267,8 +357,14 @@ export const defaultNavigationSteps = result => {
           {
             type: 'checkbox',
             name: 'noSave9',
-            options: [{ label: 'Yes', value: true }],
-            noSave: true
+            options: [{ label: 'Yes' }],
+            noSave: true,
+            validations: {
+              shouldBeTrue
+            },
+            errorMessages: {
+              shouldBeTrue: 'This is required'
+            }
           }
         ]
       }
@@ -284,8 +380,14 @@ export const defaultNavigationSteps = result => {
           {
             type: 'checkbox',
             name: 'noSave10',
-            options: [{ label: 'Yes', value: true }],
-            noSave: true
+            options: [{ label: 'Yes' }],
+            noSave: true,
+            validations: {
+              shouldBeTrue
+            },
+            errorMessages: {
+              shouldBeTrue: 'This is required'
+            }
           }
         ]
       }

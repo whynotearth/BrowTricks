@@ -3,6 +3,7 @@
     <input
       class="hidden"
       type="checkbox"
+      :checked="checked"
       v-bind="$attrs"
       :value="value"
       v-on="$listeners"
@@ -56,6 +57,10 @@ export default {
   props: {
     value: {
       type: [String, Number, Boolean]
+    },
+    checked: {
+      type: Boolean,
+      default: false
     },
     inputModel: {
       type: [Array, Boolean]

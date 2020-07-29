@@ -225,7 +225,6 @@ export default {
       }
 
       const onNext = this.navigation[this.step].onNext;
-      console.log(onNext);
       if (onNext) {
         await onNext();
       }
@@ -241,6 +240,7 @@ export default {
       if (hasComponentValidation) {
         // trigger validation touch
         stepComponentRef.$v.$touch();
+        console.log('stepComponentRef.$v.$invalid', stepComponentRef.$v);
         valid = !stepComponentRef.$v.$invalid;
       }
       return valid;
