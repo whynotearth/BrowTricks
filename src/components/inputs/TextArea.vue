@@ -5,7 +5,7 @@
       :class="[
         { filled: value && value.length > 0 },
         error
-          ? 'border-red-600 placeholder-red-600'
+          ? 'border-error placeholder-error'
           : 'border-on-background border-opacity-disabled'
       ]"
       :id="idName"
@@ -17,7 +17,7 @@
       :for="idName"
       class="label absolute mb-0 top-0 left-0 mt-3 ml-3 cursor-text"
       :class="[
-        error ? 'text-red-600' : 'text-on-background text-opacity-medium',
+        error ? 'text-error' : 'text-on-background text-opacity-medium',
         labelBg
       ]"
     >

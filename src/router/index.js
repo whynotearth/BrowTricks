@@ -5,42 +5,15 @@ import store from '../store';
 import { authRoutes } from './authRoutes';
 import { PMURoutes } from './PMURoutes';
 import { clientRoutes } from './clientRoutes';
+import { TestingRoutes } from './TestingRoutes';
+import { TenantPublicRoutes } from './TenantPublicRoutes';
 
 Vue.use(VueRouter);
 
 const routes = [
   ...PMURoutes,
-  // test routes
-  {
-    path: '/test-layout-splash',
-    name: 'TestLayoutSplash',
-    component: () => import('@/views/TestLayoutSplash.vue')
-  },
-  {
-    path: '/test-layout-splash-with-header',
-    name: 'TestLayoutSplashWithHeader',
-    component: () => import('@/views/TestLayoutSplashWithHeader.vue')
-  },
-  {
-    path: '/shop/test-tenant-94',
-    name: 'CustomerHome',
-    component: () => import('@/views/CustomerHome.vue')
-  },
-  {
-    path: '/shop/test-tenant-94/business-hours',
-    name: 'CustomerBusinessHours',
-    component: () => import('@/views/CustomerBusinessHours.vue')
-  },
-  {
-    path: '/shop/test-tenant-94/contact',
-    name: 'CustomerContact',
-    component: () => import('@/views/CustomerContact.vue')
-  },
-  {
-    path: '/shop/test-tenant-94/categories',
-    name: 'CustomerCategories',
-    component: () => import('@/views/CustomerCategories.vue')
-  },
+  ...TestingRoutes,
+  ...TenantPublicRoutes,
   ...clientRoutes,
   ...authRoutes,
   {
@@ -56,22 +29,29 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  store
-    .dispatch('auth/ping')
-    .then(response => {
-      if (response && response.isAuthenticated) {
-        next();
-      } else {
-        throw new Error();
-      }
-    })
-    .catch(() => {
-      if (!to.meta.requiresAuth) {
-        return next();
-      } else {
+  if (to.meta.isPublic) {
+    if (to.meta.needsUserInfo) {
+      store.dispatch('auth/ping').catch(() => {
+        console.log('Not authenticated');
+      });
+    }
+    next();
+  } else {
+    store
+      .dispatch('auth/ping')
+      .then(response => {
+        const isAuthenticated = response && response.isAuthenticated;
+        if (isAuthenticated) {
+          next();
+        } else {
+          next({ name: 'Welcome' });
+        }
+      })
+      .catch(() => {
+        console.log('Not authenticated');
         next({ name: 'Welcome' });
-      }
-    });
+      });
+  }
 });
 
 export default router;

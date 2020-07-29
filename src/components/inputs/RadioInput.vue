@@ -15,7 +15,7 @@
     </div>
     <span class="inline-block">
       <slot name="title">
-        {{ value }}
+        {{ label || value }}
       </slot>
     </span>
   </div>
@@ -30,10 +30,14 @@ export default {
   },
   props: {
     selectedOption: {
-      type: [String, Number]
+      type: [String, Number, Boolean]
+    },
+    label: {
+      type: [String, Number],
+      default: 'Option'
     },
     value: {
-      type: [String, Number],
+      type: [String, Number, Boolean],
       default: 'Option'
     },
     disabled: {

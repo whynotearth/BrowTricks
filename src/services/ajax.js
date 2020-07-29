@@ -1,5 +1,5 @@
 import axios from 'axios';
-import store from '@/store';
+// import store from '@/store';
 
 const ajax = axios.create({
   baseURL: process.env.VUE_APP_API_URL,
@@ -14,13 +14,9 @@ ajax.interceptors.response.use(
   },
   error => {
     // TODO: handle no connection
-    if (error.response.status === 401) {
-      // FIXME: don't run on public pages
-      store.dispatch('auth/logout');
-    }
     if (error.response.status === 403) {
       alert(
-        'Incorrect permissions, please contact your account owner chris@whynot.earth'
+        `Incorrect permissions! If you think something is wrong, please contact ${process.env.VUE_APP_ADMINISTRATOR_CONTACT_EMAIL}`
       );
     }
     return Promise.reject(error);

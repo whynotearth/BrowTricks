@@ -1,6 +1,6 @@
 <template>
   <div class="text-left p-2">
-    <h2 class="tg-body-mobile text-black text-opacity-medium mb-6 py-2">
+    <!-- <h2 class="tg-body-mobile text-black text-opacity-medium mb-6 py-2">
       Here is your pre-set PMU form:
     </h2>
     <div class="max-w-md mx-auto mb-6">
@@ -16,7 +16,7 @@
       </BaseSlider>
     </div>
 
-    <hr class="mb-6" />
+    <hr class="mb-6" /> -->
 
     <h2 class="tg-h2-mobile text-black text-opacity-high mb-6">
       Add Custom Questions
@@ -34,10 +34,13 @@
           v-model.trim="question.value"
           label="Question"
           labelBg="bg-surface"
-        />
-        <a @click.prevent.stop="questionRemove" href="#" class="ml-4">
-          <IconDelete class="text-black text-opacity-disabled" />
-        </a>
+        >
+          <template #end>
+            <a @click.prevent.stop="questionRemove" href="#" class="ml-4">
+              <IconDelete class="text-black text-opacity-disabled" />
+            </a>
+          </template>
+        </MaterialInput>
       </div>
 
       <hr v-if="questions.length > 0" class="mb-2" />
@@ -57,7 +60,7 @@
 </template>
 
 <script>
-// import { mapMutations } from 'vuex';
+import { mapActions } from 'vuex';
 import BaseSlider from '@/components/BaseSlider.vue';
 import Button from '@/components/Button.vue';
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
@@ -67,11 +70,13 @@ import { randomId } from '@/helpers';
 export default {
   name: 'PMUFormSetup',
   components: { BaseSlider, Button, MaterialInput, IconDelete },
+  props: ['tenantSlug'],
   data: () => ({
     questions: []
   }),
   methods: {
     // ...mapMutations('PMU', [''])
+    ...mapActions('PMU', ['addQuestions']),
     questionAdd() {
       const question = {
         id: randomId(),
@@ -93,7 +98,14 @@ export default {
       const result = this.questions
         .filter(q => q.value.length > 0)
         .map(q => q.value);
-      console.log('result', result);
+      this.addQuestions({
+        params: {
+          tenantSlug: this.tenantSlug,
+          body: {
+            questions: result
+          }
+        }
+      });
     }
   }
 };

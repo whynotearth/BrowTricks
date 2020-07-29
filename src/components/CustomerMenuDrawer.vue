@@ -40,7 +40,7 @@
             class="pb-8 cursor-pointer"
             :to="{
               name: 'ClientList',
-              params: { tenantSlug: 'test-tenant-94' }
+              params: { tenantSlug }
             }"
           >
             Clients
@@ -66,27 +66,23 @@ import { mapGetters, mapMutations, mapActions } from 'vuex';
 
 export default {
   name: 'MenuDrawer',
-  data() {
-    return {
-      isAuthenticated: false
-    };
-  },
   computed: {
     ...mapGetters({
       isMenuDrawerOpen: 'getIsMenuDrawerOpen'
-    })
-  },
-  created() {
-    this.ping().then(response => {
-      this.isAuthenticated = response.isAuthenticated;
-    });
+    }),
+    ...mapGetters('auth', ['isAuthenticated']),
+    tenantSlug() {
+      return this.$route.params.tenantSlug;
+    }
   },
   methods: {
     ...mapMutations(['toggleMenuDrawer']),
-    ...mapActions('auth', ['ping', 'logout']),
+    ...mapActions('auth', ['logout']),
     onLogout() {
-      this.logout().then(() => {
-        this.isAuthenticated = false;
+      this.logout().catch(() => {
+        alert(
+          `Logout failed! If the problem persisted, please contact ${process.env.VUE_APP_ADMINISTRATOR_CONTACT_EMAIL}`
+        );
       });
     }
   }

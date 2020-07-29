@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex';
+import { mapActions, mapMutations, mapGetters } from 'vuex';
 import AuthButtons from '@/components/auth/AuthButtons';
 import { required } from 'vuelidate/lib/validators';
 
@@ -25,10 +25,8 @@ export default {
   components: {
     AuthButtons
   },
-  data() {
-    return {
-      isAuthenticated: null
-    };
+  computed: {
+    ...mapGetters('auth', ['isAuthenticated', 'userName'])
   },
   validations: {
     isAuthenticated: {
@@ -41,22 +39,15 @@ export default {
       await this.updateToken(this.$route.query.token);
     }
 
-    this.ping()
-      .then(result => {
-        if (result && result.isAuthenticated) {
-          this.isAuthenticated = true;
-          this.updateEmail(result.userName);
-        }
-        if (this.$route.query.signUpStarted) {
-          this.$emit('nextStep');
-        }
-      })
-      .catch(() => {
-        this.isAuthenticated = false;
-      });
+    if (this.isAuthenticated) {
+      this.updateEmail(this.userName);
+    }
+    if (this.$route.query.signUpStarted) {
+      this.$emit('nextStep');
+    }
   },
   methods: {
-    ...mapActions('auth', ['ping', 'updateToken']),
+    ...mapActions('auth', ['updateToken']),
     ...mapMutations('tenant', ['updateEmail'])
   }
 };

@@ -54,7 +54,8 @@ export default {
     ...mapMutations('auth', ['updateProvider', 'updateReturnUrl']),
     async oauth(provider) {
       await this.updateProvider(provider);
-      await this.updateReturnUrl(window.location.href);
+      const returnURL = `${window.location.href}?signUpStarted=true`;
+      await this.updateReturnUrl(returnURL);
       const redirectUrl = await this.oauthLink;
       window.location.assign(redirectUrl);
     }

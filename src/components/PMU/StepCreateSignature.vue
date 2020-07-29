@@ -3,7 +3,7 @@
     <MaterialInput
       class="flex-grow"
       v-model.trim="signature"
-      @input="answerUpdate({ field: 'signature', value: signature })"
+      @input="answerUpdate({ field: { name: 'signature' }, value: signature })"
       label="Signature"
       labelBg="bg-surface"
     >
@@ -17,7 +17,7 @@
     <MaterialInput
       class="flex-grow"
       v-model.trim="initials"
-      @input="answerUpdate({ field: 'initials', value: initials })"
+      @input="answerUpdate({ field: { name: 'initials' }, value: initials })"
       label="Initials"
       labelBg="bg-surface"
     >
