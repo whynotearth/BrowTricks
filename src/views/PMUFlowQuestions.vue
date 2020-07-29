@@ -138,7 +138,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions('PMU', ['fetchQuestions', 'submitAnswers', 'getSignUrl']),
+    ...mapActions('PMU', [
+      'fetchQuestions',
+      'submitAnswers',
+      'getSignUrl',
+      'submitSign'
+    ]),
     prepareTenantQuestions() {
       this.fetchQuestions({
         params: {
@@ -185,7 +190,6 @@ export default {
         .catch(() => {});
     },
     answerUpdate({ field, value }) {
-      console.log({ field, value });
       if (field.noSave) {
         return;
       }
@@ -209,7 +213,6 @@ export default {
       else {
         this.result[field.name] = value;
       }
-      console.log('result', this.result);
     },
     previousStep() {
       if (this.step > 0) {
@@ -240,13 +243,11 @@ export default {
       if (hasComponentValidation) {
         // trigger validation touch
         stepComponentRef.$v.$touch();
-        console.log('stepComponentRef.$v.$invalid', stepComponentRef.$v);
         valid = !stepComponentRef.$v.$invalid;
       }
       return valid;
     },
     async submit() {
-      console.log('submit');
       this.submitAnswers({
         params: {
           clientId: this.clientId,
@@ -263,7 +264,7 @@ export default {
           });
         })
         .then(signUrl => {
-          console.log('signurl', signUrl);
+          this.submitSign(signUrl);
         });
     }
   }
