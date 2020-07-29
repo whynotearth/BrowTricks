@@ -3,6 +3,7 @@
     <input
       class="hidden"
       type="checkbox"
+      :checked="checked"
       v-bind="$attrs"
       :value="value"
       v-on="$listeners"
@@ -27,7 +28,7 @@
         </div>
         <div class="mx-4 tg-body-mobile">
           <slot name="label">
-            <span class="mx-1 text-on-background text-opacity-high">
+            <span class="mx-1 text-on-background text-opacity-high select-none">
               {{ label }}
             </span>
           </slot>
@@ -56,6 +57,10 @@ export default {
   props: {
     value: {
       type: [String, Number, Boolean]
+    },
+    checked: {
+      type: Boolean,
+      default: false
     },
     inputModel: {
       type: [Array, Boolean]
