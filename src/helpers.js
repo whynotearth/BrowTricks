@@ -1,3 +1,6 @@
+import router from '@/router';
+import store from '@/store';
+
 export function randomId() {
   return Math.random()
     .toString()
@@ -57,4 +60,20 @@ export function isPhoneNumberValid(phone) {
   return /^((\+1|1)?( |-)?)?(\([2-9][0-9]{2}\)|[2-9][0-9]{2})( |-)?([2-9][0-9]{2}( |-)?[0-9]{4})$/.test(
     phone
   );
+}
+
+export async function showOverlayAndRedirect({ title = '', message = '', route, timeout = 1500 }) {
+  store.commit('overlay/updateModel', {
+    title,
+    message
+  });
+
+  await sleep(timeout);
+
+  await router.push(route);
+
+  store.commit('overlay/updateModel', {
+    title: '',
+    message: ''
+  });
 }

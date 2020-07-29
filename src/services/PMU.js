@@ -2,6 +2,31 @@ import { required } from 'vuelidate/lib/validators';
 import { isPhoneNumberValid } from '@/helpers';
 const shouldBeTrue = value => value === true;
 
+export const tenantQuestionsNavigationSteps = (tenantQuestion, index) => {
+  return {
+    slug: `tenant-question-${index + 1}`,
+    name: 'Tenant Question',
+    componentName: 'StepQuestion',
+    componentProps: {
+      question: tenantQuestion.question,
+      fields: [
+        {
+          type: 'textarea',
+          name: `tenantQuestion${index + 1}`,
+          label: 'Answer',
+          data: { isTenantQuestion: true, questionId: tenantQuestion.id },
+          validations: {
+            required
+          },
+          errorMessages: {
+            required: 'This field is required'
+          }
+        }
+      ]
+    }
+  };
+};
+
 export const defaultNavigationSteps = result => {
   return [
     {

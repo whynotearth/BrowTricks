@@ -8,7 +8,7 @@ export const PMURoutes = [
   },
   {
     // needs clientId?
-    path: '/tenant/:tenantSlug/pmu/flow-methods',
+    path: '/tenant/:tenantSlug/client/:clientId/pmu/flow-methods',
     name: 'PMUFlowMethods',
     component: () => import('@/views/PMUFlowMethods.vue'),
     meta: { layout: () => import('@/layouts/WithTitleBarLayout.vue') }
