@@ -46,9 +46,12 @@ import BusinessInfo from '@/components/tenant/BusinessInfo';
 import StepCreateSignature from '@/components/PMU/StepCreateSignature';
 import StepContentHTML from '@/components/PMU/StepContentHTML';
 import StepQuestion from '@/components/PMU/StepQuestion';
-import { defaultNavigationSteps, tenantQuestionsNavigationSteps } from '@/services/PMU.js';
+import {
+  defaultNavigationSteps,
+  tenantQuestionsNavigationSteps
+} from '@/services/PMU.js';
 import { mapActions, mapGetters } from 'vuex';
-import { sleep } from '@/helpers.js';
+import { showOverlayAndRedirect } from '@/helpers.js';
 
 export default {
   name: 'PMUFlowQuestions',
@@ -250,21 +253,14 @@ export default {
           return this.submitSign(signUrl);
         })
         .then(async () => {
-          this.$store.commit('overlay/updateModel', {
+          showOverlayAndRedirect({
             title: 'Success!',
-            message: 'Signed successfully!'
-          });
-          this.$route.push({
-            name: 'PMUFlowMethods',
+            message: 'Signed successfully!',
+            route: { name: 'PMUFlowMethods' },
             params: {
               clientId: this.clientId,
               tenantSlug: this.tenantSlug
             }
-          });
-          await sleep(1500);
-          this.$store.commit('overlay/updateModel', {
-            title: '',
-            message: ''
           });
         })
         .catch(error => {

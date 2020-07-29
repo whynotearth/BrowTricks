@@ -163,7 +163,7 @@
           })
         "
         title="PMU"
-        middleText="Incomplete"
+        :middleText="client.isPmuCompleted ? 'Completed' : 'Incomplete'"
       >
         <Document slot="preIcon" class="h-6 w-6 fill-current" />
       </ExpansionPanel>
