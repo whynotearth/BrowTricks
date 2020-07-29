@@ -37,11 +37,18 @@ const actions = {
     });
   },
   submitSign(context, editUrl) {
-    // doc: https://app.hellosign.com/api/embeddedTemplatesWalkthrough
-    const client = new HelloSign({
-      clientId: process.env.VUE_APP_HELLO_SIGN_API_KEY
+    return new Promise(resolve => {
+      // doc: https://app.hellosign.com/api/embeddedTemplatesWalkthrough
+      const client = new HelloSign({
+        clientId: process.env.VUE_APP_HELLO_SIGN_API_KEY
+      });
+      client.open(editUrl);
+      client.on('sign', data => {
+        console.log('The document has been signed!');
+        console.log('Signature ID: ' + data.signatureId);
+        resolve(data);
+      });
     });
-    client.open(editUrl);
   }
 };
 

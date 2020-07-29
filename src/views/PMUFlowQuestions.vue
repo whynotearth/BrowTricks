@@ -48,6 +48,7 @@ import StepContentHTML from '@/components/PMU/StepContentHTML';
 import StepQuestion from '@/components/PMU/StepQuestion';
 import { defaultNavigationSteps } from '@/services/PMU.js';
 import { mapActions, mapGetters } from 'vuex';
+import { sleep } from '@/helpers.js';
 
 export default {
   name: 'PMUFlowQuestions',
@@ -264,7 +265,28 @@ export default {
           });
         })
         .then(signUrl => {
-          this.submitSign(signUrl);
+          return this.submitSign(signUrl);
+        })
+        .then(async () => {
+          this.$store.commit('overlay/updateModel', {
+            title: 'Success!',
+            message: 'Signed successfully!'
+          });
+          this.$route.push({
+            name: 'PMUFlowMethods',
+            params: {
+              clientId: this.clientId,
+              tenantSlug: this.tenantSlug
+            }
+          });
+          await sleep(1500);
+          this.$store.commit('overlay/updateModel', {
+            title: '',
+            message: ''
+          });
+        }).catch(error => {
+          alert('Something went wrong in sign process.');
+          console.log(error);
         });
     }
   }
