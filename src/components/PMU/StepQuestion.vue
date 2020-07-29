@@ -12,6 +12,7 @@
           v-model="model[field.name]"
           :label="option.label"
           :value="option.value"
+          :error="$v.model[field.name].$error"
         />
         <p
           v-if="$v.model[field.name].$error && !$v.model[field.name].required"
@@ -47,6 +48,7 @@
           @input="answerUpdate(field, model[field.name])"
           class="mb-2"
           v-model="model[field.name]"
+          :error="$v.model[field.name].$error"
         />
         <p
           v-if="$v.model[field.name].$error && !$v.model[field.name].required"

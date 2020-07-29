@@ -46,7 +46,7 @@ import BusinessInfo from '@/components/tenant/BusinessInfo';
 import StepCreateSignature from '@/components/PMU/StepCreateSignature';
 import StepContentHTML from '@/components/PMU/StepContentHTML';
 import StepQuestion from '@/components/PMU/StepQuestion';
-import { defaultNavigationSteps } from '@/services/PMU.js';
+import { defaultNavigationSteps, tenantQuestionsNavigationSteps } from '@/services/PMU.js';
 import { mapActions, mapGetters } from 'vuex';
 import { sleep } from '@/helpers.js';
 
@@ -153,27 +153,9 @@ export default {
       }).then(() => {
         const tenantQuestions = this.tenantQuestions(this.tenantSlug);
         this.navigationPart3 = tenantQuestions.map((item, index) =>
-          this.createTenantQuestionStep(item, index)
+          tenantQuestionsNavigationSteps(item, index)
         );
       });
-    },
-    createTenantQuestionStep({ question, id }, index) {
-      return {
-        slug: `tenant-question-${index + 1}`,
-        name: 'Tenant Question',
-        componentName: 'StepQuestion',
-        componentProps: {
-          question,
-          fields: [
-            {
-              type: 'textarea',
-              name: `tenantQuestion${index + 1}`,
-              label: 'Answer',
-              data: { isTenantQuestion: true, questionId: id }
-            }
-          ]
-        }
-      };
     },
     stepUpdate(step) {
       this.step = step;
@@ -284,7 +266,8 @@ export default {
             title: '',
             message: ''
           });
-        }).catch(error => {
+        })
+        .catch(error => {
           alert('Something went wrong in sign process.');
           console.log(error);
         });
