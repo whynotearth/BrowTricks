@@ -10,7 +10,7 @@
       ]"
       :id="idName"
       :value="value"
-      @blur="$emit('input', $event.target.value)"
+      v-on="inputListeners"
       :placeholder="placeholder || label"
     ></textarea>
     <label
@@ -53,6 +53,22 @@ export default {
     labelBg: {
       type: String,
       default: 'bg-background'
+    }
+  },
+  computed: {
+    inputListeners: function() {
+      return Object.assign({}, this.$listeners, {
+        blur: this.onBlur,
+        input: this.onInput
+      });
+    }
+  },
+  methods: {
+    onBlur($event) {
+      this.$emit('input', $event.target.value);
+    },
+    onInput($event) {
+      this.$emit('input', $event.target.value);
     }
   }
 };

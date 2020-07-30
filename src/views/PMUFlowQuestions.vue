@@ -109,7 +109,7 @@ export default {
       ];
     },
     navigationPart1() {
-      return defaultNavigationSteps(this.result);
+      return defaultNavigationSteps({ signature: this.result.signature });
     },
     navigationPart2() {
       if (this.navigationPart3.length > 0) {

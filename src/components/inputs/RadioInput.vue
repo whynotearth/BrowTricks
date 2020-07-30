@@ -1,11 +1,14 @@
 <template>
   <div
-    class="w-full cursor-pointer text-lg"
+    class="w-full cursor-pointer tg-body-mobile flex items-center focus:shadow-outline outline-none"
+    tabindex="0"
     :class="{ 'opacity-50 cursor-not-allowed': disabled }"
     @click="selectOption"
+    @keyup.enter="selectOption"
+    @keyup.space="selectOption"
   >
     <div
-      class="rounded-full h-5 w-5 p-1 border-2 border-gray-500 inline-block align-baseline mr-4 -mb-0.5"
+      class="rounded-full h-5 w-5 p-1 border-2 border-gray-500 mr-4"
       :class="{ 'border-button': selectedOption === value }"
     >
       <div
@@ -13,11 +16,11 @@
         :class="{ 'bg-button': selectedOption === value }"
       ></div>
     </div>
-    <span class="inline-block">
+    <div>
       <slot name="title">
         {{ label || value }}
       </slot>
-    </span>
+    </div>
   </div>
 </template>
 
@@ -52,5 +55,3 @@ export default {
   }
 };
 </script>
-
-<style></style>

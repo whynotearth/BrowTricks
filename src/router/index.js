@@ -47,8 +47,8 @@ router.beforeEach((to, from, next) => {
           next({ name: 'Welcome' });
         }
       })
-      .catch(() => {
-        console.log('Not authenticated');
+      .catch(error => {
+        console.log('Not authenticated', error);
         next({ name: 'Welcome' });
       });
   }
