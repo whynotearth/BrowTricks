@@ -1,6 +1,10 @@
 import { required } from 'vuelidate/lib/validators';
 import { isPhoneNumberValid } from '@/helpers';
 const shouldBeTrue = value => value === true;
+const onSelectGoNextStep = (emit, vm) => {
+  const $emit = emit.bind(vm);
+  $emit('nextStep');
+};
 
 export const tenantQuestionsNavigationSteps = (tenantQuestion, index) => {
   return {
@@ -27,7 +31,7 @@ export const tenantQuestionsNavigationSteps = (tenantQuestion, index) => {
   };
 };
 
-export const defaultNavigationSteps = result => {
+export const defaultNavigationSteps = ({ signature }) => {
   return [
     {
       slug: 'create-signature',
@@ -39,7 +43,7 @@ export const defaultNavigationSteps = result => {
       name: 'Disclosures',
       componentName: 'StepContentHTML',
       componentProps: {
-        content: `<p>I, <span class="tg-dancing-mobile text-secondary">${result.signature}</span>, have requested information relating to the procedure of Intradermal Cosmetics so that I may make an informed decision as to whether or not to undergo the procedure.</p>
+        content: `<p>I, <span class="tg-dancing-mobile text-secondary">${signature}</span>, have requested information relating to the procedure of Intradermal Cosmetics so that I may make an informed decision as to whether or not to undergo the procedure.</p>
 <p>The type of Intradermal Procedure used will be Micro Pigment Implantation, aka, Microblading. It is defined as the process of implanting micro pockets of pigment into the dermal layer of the skin. This is a form of tattooing used for permanent cosmetics and semi permanent eyebrow filling.</p>`
       }
     },
@@ -64,6 +68,7 @@ export const defaultNavigationSteps = result => {
             type: 'checkbox',
             name: 'allowPhoto',
             options: [{ label: 'Yes' }],
+            onSelect: onSelectGoNextStep,
             validations: {
               shouldBeTrue
             },
@@ -90,6 +95,7 @@ export const defaultNavigationSteps = result => {
               { label: 'Yes', value: true },
               { label: 'No', value: false }
             ],
+            onSelect: onSelectGoNextStep,
             validations: {
               required
             },
@@ -136,6 +142,7 @@ export const defaultNavigationSteps = result => {
               { label: 'Yes', value: true },
               { label: 'No', value: false }
             ],
+            onSelect: onSelectGoNextStep,
             validations: {
               required
             },
@@ -195,6 +202,7 @@ export const defaultNavigationSteps = result => {
             name: 'noSave1',
             options: [{ label: 'Yes' }],
             noSave: true,
+            onSelect: onSelectGoNextStep,
             validations: {
               shouldBeTrue
             },
@@ -219,6 +227,7 @@ export const defaultNavigationSteps = result => {
             name: 'noSave2',
             options: [{ label: 'Yes' }],
             noSave: true,
+            onSelect: onSelectGoNextStep,
             validations: {
               shouldBeTrue
             },
@@ -242,6 +251,7 @@ export const defaultNavigationSteps = result => {
             name: 'noSave3',
             options: [{ label: 'Yes' }],
             noSave: true,
+            onSelect: onSelectGoNextStep,
             validations: {
               shouldBeTrue
             },
@@ -266,6 +276,7 @@ export const defaultNavigationSteps = result => {
             name: 'noSave4',
             options: [{ label: 'Yes' }],
             noSave: true,
+            onSelect: onSelectGoNextStep,
             validations: {
               shouldBeTrue
             },
@@ -289,6 +300,7 @@ export const defaultNavigationSteps = result => {
             name: 'noSave5',
             options: [{ label: 'Yes' }],
             noSave: true,
+            onSelect: onSelectGoNextStep,
             validations: {
               shouldBeTrue
             },
@@ -312,6 +324,7 @@ export const defaultNavigationSteps = result => {
             name: 'noSave6',
             options: [{ label: 'Yes' }],
             noSave: true,
+            onSelect: onSelectGoNextStep,
             validations: {
               shouldBeTrue
             },
@@ -336,6 +349,7 @@ export const defaultNavigationSteps = result => {
             name: 'noSave7',
             options: [{ label: 'Yes' }],
             noSave: true,
+            onSelect: onSelectGoNextStep,
             validations: {
               shouldBeTrue
             },
@@ -360,6 +374,7 @@ export const defaultNavigationSteps = result => {
             name: 'noSave8',
             options: [{ label: 'Yes' }],
             noSave: true,
+            onSelect: onSelectGoNextStep,
             validations: {
               shouldBeTrue
             },
@@ -377,36 +392,14 @@ export const defaultNavigationSteps = result => {
       componentName: 'StepQuestion',
       componentProps: {
         question:
-          'I certify that I have read, or had read to me, the content of this consent, and I fully understand its contents.',
+          'I have read, or have had read to me, and have received a copy of the Post Procedure Instructions and I understand its content.',
         fields: [
           {
             type: 'checkbox',
             name: 'noSave9',
             options: [{ label: 'Yes' }],
             noSave: true,
-            validations: {
-              shouldBeTrue
-            },
-            errorMessages: {
-              shouldBeTrue: 'This is required'
-            }
-          }
-        ]
-      }
-    },
-    {
-      slug: 'review-sign-2',
-      name: 'Review & Sign',
-      componentName: 'StepQuestion',
-      componentProps: {
-        question:
-          'I have read, or have had read to me, and have received a copy of the Post Procedure Instructions and I understand its content.',
-        fields: [
-          {
-            type: 'checkbox',
-            name: 'noSave10',
-            options: [{ label: 'Yes' }],
-            noSave: true,
+            onSelect: onSelectGoNextStep,
             validations: {
               shouldBeTrue
             },

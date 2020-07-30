@@ -1,6 +1,5 @@
 <template>
   <div class="relative" :class="[margin]">
-    <!-- TODO: add v-on="inputListeners" like Volkswagen BaseInputText.vue to handle all events -->
     <input
       class="input text-on-background text-opacity-high appearance-none outline-none relative bg-transparent rounded w-full px-4 py-3 border focus:border-2 active:border-2 focus:border-opacity-medium active:border-opacity-medium"
       :class="[
@@ -11,10 +10,10 @@
       ]"
       :id="idName"
       :type="type"
-      min="0"
+      :min="min"
       :step="step"
       :value="value"
-      @blur="$emit('input', $event.target.value)"
+      v-on="inputListeners"
       :placeholder="placeholder || label"
     />
     <label
@@ -55,6 +54,10 @@ export default {
       type: String,
       default: 'text'
     },
+    min: {
+      type: [String, Number],
+      default: 0
+    },
     step: {
       type: String,
       default: '1'
@@ -73,6 +76,22 @@ export default {
     margin: {
       type: String,
       default: 'mb-4'
+    }
+  },
+  computed: {
+    inputListeners: function() {
+      return Object.assign({}, this.$listeners, {
+        blur: this.onBlur,
+        input: this.onInput
+      });
+    }
+  },
+  methods: {
+    onBlur($event) {
+      this.$emit('input', $event.target.value);
+    },
+    onInput($event) {
+      this.$emit('input', $event.target.value);
     }
   }
 };

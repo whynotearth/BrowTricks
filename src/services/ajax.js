@@ -13,8 +13,10 @@ ajax.interceptors.response.use(
     return response;
   },
   error => {
-    // TODO: handle no connection
-    if (error.response.status === 403) {
+    if (!error.response) {
+      // We can handle no connection here, e.g. show a toast message
+    }
+    if (error.response && error.response.status === 403) {
       alert(
         `Incorrect permissions! If you think something is wrong, please contact ${process.env.VUE_APP_ADMINISTRATOR_CONTACT_EMAIL}`
       );
