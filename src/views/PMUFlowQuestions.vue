@@ -9,7 +9,7 @@
     >
       <div>
         <StepperTop :navigation="navigation" :page="step + 1" />
-        <div class="my-4 max-w-md mx-auto pt-4">
+        <div class="my-4 max-w-md mx-auto px-4 pt-4">
           <transition name="fade" mode="out-in">
             <keep-alive>
               <component

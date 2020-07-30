@@ -1,5 +1,5 @@
 <template>
-  <form class="px-4 text-left" @submit.prevent="submit">
+  <form class="text-left" @submit.prevent="submit">
     <MaterialInput
       class="flex-grow"
       v-model.trim="signature"

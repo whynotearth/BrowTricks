@@ -392,35 +392,11 @@ export const defaultNavigationSteps = ({ signature }) => {
       componentName: 'StepQuestion',
       componentProps: {
         question:
-          'I certify that I have read, or had read to me, the content of this consent, and I fully understand its contents.',
-        fields: [
-          {
-            type: 'checkbox',
-            name: 'noSave9',
-            options: [{ label: 'Yes' }],
-            noSave: true,
-            onSelect: onSelectGoNextStep,
-            validations: {
-              shouldBeTrue
-            },
-            errorMessages: {
-              shouldBeTrue: 'This is required'
-            }
-          }
-        ]
-      }
-    },
-    {
-      slug: 'review-sign-2',
-      name: 'Review & Sign',
-      componentName: 'StepQuestion',
-      componentProps: {
-        question:
           'I have read, or have had read to me, and have received a copy of the Post Procedure Instructions and I understand its content.',
         fields: [
           {
             type: 'checkbox',
-            name: 'noSave10',
+            name: 'noSave9',
             options: [{ label: 'Yes' }],
             noSave: true,
             onSelect: onSelectGoNextStep,
