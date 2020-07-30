@@ -7,7 +7,7 @@
     />
     <transition name="slide">
       <div
-        class="bg-white fixed inset-x-0 top-0 min-h-screen w-4/5 z-20 py-8 px-4"
+        class="bg-white fixed inset-x-0 top-0 min-h-screen z-20 py-8 px-4 max-w-sm"
         v-if="isMenuDrawerOpen"
       >
         <div class="flex flex-col tg-h3-mobile text-left">
@@ -48,7 +48,7 @@
           <router-link
             class="pb-8 cursor-pointer"
             v-if="!isAuthenticated"
-            :to="{ name: 'LogIn' }"
+            :to="{ name: 'Login' }"
           >
             Log In
           </router-link>

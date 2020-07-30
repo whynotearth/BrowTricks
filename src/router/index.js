@@ -5,21 +5,19 @@ import store from '../store';
 import { authRoutes } from './authRoutes';
 import { PMURoutes } from './PMURoutes';
 import { clientRoutes } from './clientRoutes';
-import { TestingRoutes } from './TestingRoutes';
+import { generalRoutes } from './generalRoutes';
+// import { TestingRoutes } from './TestingRoutes';
 import { TenantPublicRoutes } from './TenantPublicRoutes';
 
 Vue.use(VueRouter);
 
 const routes = [
   ...PMURoutes,
-  ...TestingRoutes,
+  // ...TestingRoutes,
   ...TenantPublicRoutes,
   ...clientRoutes,
-  ...authRoutes,
-  {
-    path: '/',
-    redirect: { name: 'CustomerHome' }
-  }
+  ...generalRoutes,
+  ...authRoutes
 ];
 
 const router = new VueRouter({

@@ -1,15 +1,27 @@
 <template>
-  <div class="customer-view">
-    <LayoutFixedScrollable>
-      <BaseHeader
-        slot="header"
-        class="text-on-background-image"
-        @iconClicked="toggleMenuDrawer"
-      >
-        <IconMenu slot="icon" class="h-6 w-6 fill-current" />
-        <CustomerMenuDrawer slot="menu-drawer" />
+  <ClassicLayout class="bg-newbackground text-white">
+    <template #header>
+      <BaseHeader>
+        <template #end>
+          <div class="flex w-full justify-end">
+            <router-link
+              :to="{ name: 'Login' }"
+              class="uppercase text-newsecondary"
+            >
+              Log In
+            </router-link>
+          </div>
+        </template>
       </BaseHeader>
-      <div slot="content" class="p-6 pb-20 mt-auto text-on-background-image">
+    </template>
+    <template #content>
+      <div class="p-6 pb-20">
+        <img
+          class="mx-auto block"
+          src="https://res.cloudinary.com/whynotearth/image/upload/v1596130890/BrowTricks/static_v2/logo-light_yioxuj.png"
+          alt=""
+        />
+
         <div class="tg-h2-mobile mb-4">{{ tenantName }}</div>
         <div class="tg-body-mobile mb-4">
           {{ promoText }}
@@ -25,28 +37,28 @@
             Paul Chris Luke
           </template>
           <template #subtitle>
-            <span class="text-on-background-image text-opacity-medium">
+            <span class="text-opacity-medium">
               Microblading
             </span>
           </template>
           <template #description>
-            <span class="text-on-background-image text-opacity-medium">
+            <span class="text-opacity-medium">
               Feb 12, 2020 - 5:00PM
             </span>
           </template>
           <template #detail>
-            <span class="text-on-background-image text-opacity-medium">
+            <span class="text-opacity-medium">
               $100
             </span>
           </template>
         </BaseLineItem>
       </div>
-    </LayoutFixedScrollable>
-  </div>
+    </template>
+  </ClassicLayout>
 </template>
 
 <script>
-import LayoutFixedScrollable from '@/components/LayoutFixedScrollable.vue';
+import ClassicLayout from '@/layouts/ClassicLayout.vue';
 import BaseHeader from '@/components/BaseHeader.vue';
 import IconMenu from '@/assets/icons/menu.svg';
 import CustomerMenuDrawer from '@/components/CustomerMenuDrawer.vue';
@@ -56,9 +68,9 @@ import BaseLineItem from '@/components/BaseLineItem.vue';
 import { mapGetters, mapMutations } from 'vuex';
 
 export default {
-  name: 'CustomerHome',
+  name: 'Home',
   components: {
-    LayoutFixedScrollable,
+    ClassicLayout,
     BaseHeader,
     IconMenu,
     CustomerMenuDrawer,

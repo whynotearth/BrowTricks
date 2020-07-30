@@ -1,4 +1,12 @@
 const colors = {
+  // TODO: remove 'new'
+  newprimary: '#081131',
+  newsecondary: '#FFAFCC',
+  newbackground: '#081131',
+  'on-newprimary': '#0C6986',
+  'on-newsecondary': '#404E87',
+  'on-newbackground': '#fff',
+
   primary: '#067BC2',
   secondary: '#33658A',
   background: '#F4F1F1',

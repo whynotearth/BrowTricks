@@ -23,7 +23,7 @@
       </div>
       <div class="py-3 text-center" v-if="!isAuthenticated">
         <Button
-          :to="{ name: 'LogIn' }"
+          :to="{ name: 'Login' }"
           class="tg-body-hyperlink-mobile text-on-background-image text-opacity-medium pb-4 normal-case font-normal"
           title="Already have an account? Log in!"
           background="bg-transparent"
