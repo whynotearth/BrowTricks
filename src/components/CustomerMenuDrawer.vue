@@ -4,26 +4,31 @@
       class="bg-on-background bg-opacity-medium fixed inset-x-0 top-0 min-h-screen w-full z-10"
       @click="toggleMenuDrawer"
       v-if="isMenuDrawerOpen"
-    />
+    ></div>
     <transition name="slide">
       <div
-        class="bg-white fixed inset-x-0 top-0 min-h-screen z-20 py-8 px-4 max-w-sm"
+        class="bg-white fixed overflow-auto inset-y-0 left-0 z-20 w-full max-w-sm tg-h3-mobile text-left py-8 narrow-scrollbar has-light-bg overscroll-none"
         v-if="isMenuDrawerOpen"
       >
-        <div class="flex flex-col tg-h3-mobile text-left">
-          <div class="pb-8 cursor-pointer">
+        <div class="px-4">
+          <router-link
+            class="pb-8 cursor-pointer block"
+            :to="{
+              name: 'Home'
+            }"
+          >
             Home
-          </div>
-          <div class="pb-8 cursor-pointer">
+          </router-link>
+          <div class="pb-8 cursor-pointer text-on-background text-opacity-disabled">
             About
           </div>
-          <div class="pb-8 cursor-pointer">
+          <div class="pb-8 cursor-pointer text-on-background text-opacity-disabled">
             Services
           </div>
-          <div class="pb-8 cursor-pointer">
+          <div class="pb-8 cursor-pointer text-on-background text-opacity-disabled">
             Contact
           </div>
-          <div class="pb-8 cursor-pointer">
+          <div class="pb-8 cursor-pointer text-on-background text-opacity-disabled">
             Book Now
           </div>
           <div
@@ -37,7 +42,7 @@
             Privacy Policy
           </div>
           <router-link
-            class="pb-8 cursor-pointer"
+            class="pb-8 cursor-pointer block"
             :to="{
               name: 'ClientList',
               params: { tenantSlug }
@@ -52,7 +57,7 @@
           >
             Log In
           </router-link>
-          <div class="pb-8 cursor-pointer" v-else @click="onLogout">
+          <div class="cursor-pointer" v-else @click="onLogout">
             Logout
           </div>
         </div>
@@ -84,6 +89,18 @@ export default {
           `Logout failed! If the problem persisted, please contact ${process.env.VUE_APP_ADMINISTRATOR_CONTACT_EMAIL}`
         );
       });
+    }
+  },
+  watch: {
+    isMenuDrawerOpen: {
+      immediate: true,
+      handler(newValue) {
+        if (newValue) {
+          document.body.classList.add('overflow-hidden');
+        } else {
+          document.body.classList.remove('overflow-hidden');
+        }
+      }
     }
   }
 };

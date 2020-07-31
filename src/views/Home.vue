@@ -1,10 +1,20 @@
 <template>
   <ClassicLayout class="bg-newbackground">
     <template #header>
-      <BaseHeader>
+      <BaseHeader @iconClicked="toggleMenuDrawer">
+        <template #icon>
+          <IconMenu class="h-6 w-6 fill-current text-white text-opacity-high" />
+        </template>
+        <template #menu-drawer>
+          <CustomerMenuDrawer />
+        </template>
         <template #end>
           <div class="flex w-full justify-end">
+            <router-link v-if="isAuthenticated" :to="{name: 'MyAccount'}">
+              <BaseAvatar width="w-10" height="h-10" />
+            </router-link>
             <router-link
+              v-if="!isAuthenticated"
               :to="{ name: 'Login' }"
               class="uppercase text-newsecondary"
             >
@@ -17,7 +27,7 @@
     <template #content>
       <div class="mx-auto max-w-sm lg:max-w-lg">
         <img
-          class="mx-auto block"
+          class="mx-auto block mt-6"
           src="https://res.cloudinary.com/whynotearth/image/upload/v1596130890/BrowTricks/static_v2/logo-light_yioxuj.png"
           alt=""
         />
@@ -102,6 +112,9 @@ import ClassicLayout from '@/layouts/ClassicLayout.vue';
 import BaseHeader from '@/components/BaseHeader.vue';
 import ArticleMini from '@/components/ArticleMini.vue';
 import Button from '@/components/inputs/Button.vue';
+import CustomerMenuDrawer from '@/components/CustomerMenuDrawer.vue';
+import BaseAvatar from '@/components/BaseAvatar.vue';
+import IconMenu from '@/assets/icons/menu.svg';
 import { mapGetters, mapMutations } from 'vuex';
 
 export default {
@@ -110,12 +123,13 @@ export default {
     ClassicLayout,
     BaseHeader,
     ArticleMini,
-    Button
+    Button,
+    CustomerMenuDrawer,
+    BaseAvatar,
+    IconMenu
   },
   computed: {
-    ...mapGetters({
-      tenantName: 'getTenantName'
-    })
+    ...mapGetters('auth', ['isAuthenticated'])
   },
   methods: {
     ...mapMutations(['toggleMenuDrawer'])
