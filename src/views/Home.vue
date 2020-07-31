@@ -1,5 +1,5 @@
 <template>
-  <ClassicLayout class="bg-newbackground text-white">
+  <ClassicLayout class="bg-newbackground">
     <template #header>
       <BaseHeader>
         <template #end>
@@ -15,43 +15,83 @@
       </BaseHeader>
     </template>
     <template #content>
-      <div class="p-6 pb-20">
+      <div class="mx-auto max-w-sm lg:max-w-lg">
         <img
           class="mx-auto block"
           src="https://res.cloudinary.com/whynotearth/image/upload/v1596130890/BrowTricks/static_v2/logo-light_yioxuj.png"
           alt=""
         />
 
-        <div class="tg-h2-mobile mb-4">{{ tenantName }}</div>
-        <div class="tg-body-mobile mb-4">
-          {{ promoText }}
-        </div>
-        <div class="w-full px-3">
-          <BaseButton class="border border-solid">
-            <IconCalendar slot="icon" class="fill-current h-6 w-6" />
-            <span slot="cta-text">Book Now</span>
-          </BaseButton>
-        </div>
-        <BaseLineItem class="my-4">
-          <template #title>
-            Paul Chris Luke
+        <header>
+          <h1 class="tg-h1-mobile mb-4 text-newsecondary">
+            Brow Tricks Beauty
+          </h1>
+          <h2 class="tg-h2-mobile mb-4 text-white text-opacity-medium">
+            PMU, Simplified.
+          </h2>
+        </header>
+
+        <img
+          src="https://res.cloudinary.com/whynotearth/image/upload/v1596140165/BrowTricks/static_v2/Rectangle_11_fr7lxx.png"
+          alt=""
+          class="mx-auto block mb-10"
+        />
+
+        <Button
+          :to="{ name: 'Welcome' }"
+          :isRounded="true"
+          textColor="text-on-newsecondary"
+          background="bg-newsecondary"
+          title="Sign Up"
+          class="mb-10"
+        />
+
+        <ArticleMini class="mb-10">
+          <template #title>Custom PMU forms with eSignatures</template>
+          <template #content>
+            <p>
+              Get PMU forms done faster with legally binding eSignatures. Send,
+              sign and collect signatures in an instant. Compliant with all
+              major eSignature laws including ESIGN Act, UETA, and European
+              eIDAS.
+            </p>
           </template>
-          <template #subtitle>
-            <span class="text-opacity-medium">
-              Microblading
-            </span>
+        </ArticleMini>
+
+        <ArticleMini class="mb-10">
+          <template #title>Manage client video and photos</template>
+          <template #content>
+            <p>
+              Brow Tricks Beauty lets you snap, store, and see client photos and
+              vidoes easily. This is great for remembering every single detail
+              with a visual history of client's styles and progress. We
+              recommend using this feature to deepen relationships with clients
+              and connect with them like never before.
+            </p>
           </template>
-          <template #description>
-            <span class="text-opacity-medium">
-              Feb 12, 2020 - 5:00PM
-            </span>
+        </ArticleMini>
+
+        <ArticleMini class="mb-10">
+          <template #title>Rock your relationships</template>
+          <template #content>
+            <p>
+              We know your clients are everything to you. AND that you can’t
+              always stay on top of them. Do they have a favorite product? Do
+              they have a birthday coming up? Brow Tricks Beauty lets you save
+              unlimited client notes giving you a way to keep relationships
+              personal… and clients coming back.
+            </p>
           </template>
-          <template #detail>
-            <span class="text-opacity-medium">
-              $100
-            </span>
-          </template>
-        </BaseLineItem>
+        </ArticleMini>
+
+        <Button
+          :to="{ name: 'Welcome' }"
+          :isRounded="true"
+          textColor="text-on-newsecondary"
+          background="bg-newsecondary"
+          title="Sign Up"
+          class="mb-10"
+        />
       </div>
     </template>
   </ClassicLayout>
@@ -60,11 +100,8 @@
 <script>
 import ClassicLayout from '@/layouts/ClassicLayout.vue';
 import BaseHeader from '@/components/BaseHeader.vue';
-import IconMenu from '@/assets/icons/menu.svg';
-import CustomerMenuDrawer from '@/components/CustomerMenuDrawer.vue';
-import BaseButton from '@/components/BaseButton.vue';
-import IconCalendar from '@/assets/icons/calendar_today.svg';
-import BaseLineItem from '@/components/BaseLineItem.vue';
+import ArticleMini from '@/components/ArticleMini.vue';
+import Button from '@/components/inputs/Button.vue';
 import { mapGetters, mapMutations } from 'vuex';
 
 export default {
@@ -72,17 +109,8 @@ export default {
   components: {
     ClassicLayout,
     BaseHeader,
-    IconMenu,
-    CustomerMenuDrawer,
-    BaseButton,
-    IconCalendar,
-    BaseLineItem
-  },
-  props: {
-    promoText: {
-      type: String,
-      default: 'Lucky you! Our promo has 12 spots left! Book now for 20% off!'
-    }
+    ArticleMini,
+    Button
   },
   computed: {
     ...mapGetters({

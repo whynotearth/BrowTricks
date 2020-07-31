@@ -1,6 +1,12 @@
 <template>
-  <div class="h-14 w-full p-5 sticky top-0 z-10 flex justify-between items-center">
-    <a v-if="$slots.icon" @click.prevent="$emit('iconClicked')" class="cursor-pointer">
+  <div
+    class="h-14 w-full p-5 sticky top-0 z-10 flex justify-between items-center bg-newbackground"
+  >
+    <a
+      v-if="$slots.icon"
+      @click.prevent="$emit('iconClicked')"
+      class="cursor-pointer"
+    >
       <slot name="icon" />
     </a>
     <div v-if="$slots.content" class="tg-h2-mobile">
