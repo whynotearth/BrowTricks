@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="h-full text-center font-sans">
-    <component :is="this.$route.meta.layout || 'div'">
+    <component :is="this.$route.meta.layout || 'div'" class="h-full">
       <router-view />
     </component>
     <transition name="fade">

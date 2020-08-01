@@ -1,4 +1,5 @@
 <template>
+  <!-- TODO: move to layouts/ -->
   <vue100vh class="flex flex-col">
     <slot name="header" />
     <div class="flex-grow overflow-auto flex flex-col disable-scrollbars">
