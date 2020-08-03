@@ -40,7 +40,7 @@
     </material-input>
     <text-area v-model="$v.description.$model" label="Description" />
     <hr class="border-on-background border-opacity-divider my-8" />
-    <ImageUpload v-model="logo" :defaultImages="logo">
+    <ImageUpload :maxFiles="1" :files="currentImages" @change="_updateLogo">
       <template #title>
         <div class="tg-body-mobile ">
           <span class="text-on-background text-opacity-high"> Logo </span>
@@ -123,13 +123,11 @@ export default {
         this.updateDescription(value);
       }
     },
-    logo: {
-      get() {
-        return [{ url: this.getLogo }];
-      },
-      set(value) {
-        this.updateLogo(value[0] ? value[0].url : '');
+    currentImages() {
+      if (!this.getLogo) {
+        return [];
       }
+      return [{ url: this.getLogo }];
     }
   },
   methods: {
@@ -138,7 +136,12 @@ export default {
       'updatePhone',
       'updateDescription',
       'updateLogo'
-    ])
+    ]),
+    _updateLogo(images) {
+      const lastIndex = images.length - 1;
+      const logo = images[lastIndex] ? images[lastIndex].url : '';
+      this.updateLogo(logo);
+    }
   }
 };
 </script>
