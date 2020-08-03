@@ -40,17 +40,17 @@
         :key="index"
       >
         <BaseImagePreview
-          v-if="image.secure_url"
+          v-if="image.url"
           :selectImage="selectImage"
           :key="index"
-          :image="image.secure_url"
+          :image="image.url"
           :index="index"
         />
       </div>
       <ImagePreviewModal
         v-if="
           selectedImageInfo &&
-            selectedImageInfo.secure_url &&
+            selectedImageInfo.url &&
             selectedImageInfo.index >= 0
         "
         @deleteImage="deleteImage"
@@ -95,7 +95,7 @@ export default {
       images: [],
       imagesToPreview: [],
       selectedImageInfo: {
-        secure_url: '',
+        url: '',
         index: null
       }
     };
@@ -117,13 +117,13 @@ export default {
       this.images.splice(index, 1);
       this.$emit('change', [...this.images]);
     },
-    selectImage([secure_url, index]) {
-      this.selectedImageInfo.secure_url = secure_url;
+    selectImage([url, index]) {
+      this.selectedImageInfo.url = url;
       this.selectedImageInfo.index = index;
     },
     resetSelectedImage() {
       this.selectedImageInfo = {
-        secure_url: '',
+        url: '',
         index: null
       };
     },
@@ -140,10 +140,10 @@ export default {
     getCloudinaryImageAdaptedObject(cloudinaryImageInfo) {
       const { secure_url, height, width, public_id } = cloudinaryImageInfo;
       return {
-        secure_url,
         height,
         width,
-        public_id
+        publicId: public_id,
+        url: secure_url
       };
     }
   },

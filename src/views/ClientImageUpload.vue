@@ -55,7 +55,7 @@ import { mapGetters, mapMutations, mapState, mapActions } from 'vuex';
 import { sleep } from '@/helpers.js';
 
 export default {
-  name: 'ClientNotifications',
+  name: 'ClientImageUpload',
   props: {
     tenantSlug: {
       type: String,
@@ -129,7 +129,22 @@ export default {
       console.log('TODO: send request', notificationType);
     },
     updateImages(images) {
-      console.log('got images:', images);
+      console.log('images', images);
+      const imagesAdapted = images.map(item => ({
+        url: item.url,
+        publicId: item.publicId
+      }))
+      const clientInfo = {
+        email: this.clientInfo.email,
+        images: imagesAdapted
+      };
+      this.updateClient({
+        tenantSlug: this.tenantSlug,
+        clientId: this.clientId,
+        body: clientInfo
+      }).catch(error => {
+        console.log('Update client error', error.response);
+      });
     }
   },
   destroyed() {

@@ -25,29 +25,25 @@
       <div
         class="flex justify-between tg-caption-mobile pb-16 w-full sm:w-auto"
       >
-        <!-- <div class="hidden flex flex-col items-center px-4 sm:px-8">
-          <BookIcon class="fill-current" />
-          <span>Book</span>
-        </div> -->
         <a
           class="flex flex-col items-center px-4 sm:px-8"
           :href="`mailto:${client.email}`"
         >
-          <MailIcon class="fill-current" />
+          <MailIcon class="fill-current mb-2" />
           <span>Email</span>
         </a>
         <a
           class="flex flex-col items-center px-4 sm:px-8"
           :href="`sms:${client.phoneNumber}`"
         >
-          <PhoneAndroidIcon class="fill-current" />
+          <PhoneAndroidIcon class="fill-current mb-2" />
           <span>Text</span>
         </a>
         <a
           class="flex flex-col items-center px-4 sm:px-8"
           :href="`tel:${client.phoneNumber}`"
         >
-          <PhoneIcon class="fill-current" />
+          <PhoneIcon class="fill-current mb-2" />
           <span>Call</span>
         </a>
       </div>
@@ -207,7 +203,6 @@ import Notes from '@/assets/icons/notes.svg';
 import Notification from '@/assets/icons/notification.svg';
 import ImagesIcon from '@/assets/icons/images.svg';
 
-// import BookIcon from '@/assets/icons/calendar_today.svg';
 import MailIcon from '@/assets/icons/mail.svg';
 import PhoneIcon from '@/assets/icons/phone.svg';
 import PhoneAndroidIcon from '@/assets/icons/phone_android.svg';
@@ -217,7 +212,7 @@ import { mapGetters, mapActions } from 'vuex';
 import { sleep } from '@/helpers.js';
 
 export default {
-  name: 'AddEditClient',
+  name: 'ClientDetail',
   props: {
     tenantSlug: {
       type: String,
@@ -238,14 +233,13 @@ export default {
     Notification,
     ImagesIcon,
     ExpansionPanel,
-    // BookIcon,
     MailIcon,
     PhoneIcon,
     PhoneAndroidIcon
   },
   data() {
     return {
-      client: null,
+      client: {},
       isArchiveModalOpen: false
     };
   },
@@ -269,17 +263,25 @@ export default {
     }
   },
   async created() {
-    this.fetchClients(this.tenantSlug);
-    this.client = await this.getClientById(this.clientId);
-    if (!this.client) {
-      this.goBack();
-    }
+    this._fetchClient();
   },
   computed: {
     ...mapGetters('client', ['getClientById'])
   },
   methods: {
-    ...mapActions('client', ['updateClient', 'archiveClient', 'fetchClients']),
+    ...mapActions('client', ['updateClient', 'archiveClient', 'fetchClient']),
+    async _fetchClient() {
+      this.client = await this.fetchClient({
+        params: {
+          clientId: this.clientId,
+          tenantSlug: this.tenantSlug
+        }
+      }).catch(() => {
+        console.log('error in getting client');
+        this.goBack();
+      });
+    },
+
     save() {
       this.$v.$touch();
       if (this.$v.$invalid) {
@@ -302,6 +304,7 @@ export default {
         });
       });
     },
+
     archive() {
       this.archiveClient({
         tenantSlug: this.tenantSlug,
@@ -320,6 +323,7 @@ export default {
         });
       });
     },
+
     goBack() {
       this.$router.push({
         name: 'ClientList',
