@@ -11,7 +11,7 @@
               <router-link
                 :active-class="'router-active-link'"
                 class="router-normal-link"
-                :to="{ name: 'CustomerHome' }"
+                :to="{ name: 'ShopeHome' }"
                 exact
               >
                 <HomeIcon class="m-auto" />

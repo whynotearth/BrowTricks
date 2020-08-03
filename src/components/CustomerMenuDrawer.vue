@@ -19,16 +19,24 @@
           >
             Home
           </router-link>
-          <div class="pb-8 cursor-pointer text-on-background text-opacity-disabled">
+          <div
+            class="pb-8 cursor-pointer text-on-background text-opacity-disabled"
+          >
             About
           </div>
-          <div class="pb-8 cursor-pointer text-on-background text-opacity-disabled">
+          <div
+            class="pb-8 cursor-pointer text-on-background text-opacity-disabled"
+          >
             Services
           </div>
-          <div class="pb-8 cursor-pointer text-on-background text-opacity-disabled">
+          <div
+            class="pb-8 cursor-pointer text-on-background text-opacity-disabled"
+          >
             Contact
           </div>
-          <div class="pb-8 cursor-pointer text-on-background text-opacity-disabled">
+          <div
+            class="pb-8 cursor-pointer text-on-background text-opacity-disabled"
+          >
             Book Now
           </div>
           <div
@@ -89,16 +97,25 @@ export default {
           `Logout failed! If the problem persisted, please contact ${process.env.VUE_APP_ADMINISTRATOR_CONTACT_EMAIL}`
         );
       });
+    },
+    disableScrollbars() {
+      document.body.classList.add('overflow-hidden');
+    },
+    enableScrollbars() {
+      document.body.classList.remove('overflow-hidden');
     }
+  },
+  beforeDestroy() {
+    this.enableScrollbars();
   },
   watch: {
     isMenuDrawerOpen: {
       immediate: true,
       handler(newValue) {
         if (newValue) {
-          document.body.classList.add('overflow-hidden');
+          this.disableScrollbars();
         } else {
-          document.body.classList.remove('overflow-hidden');
+          this.enableScrollbars();
         }
       }
     }
