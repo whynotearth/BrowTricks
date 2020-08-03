@@ -47,11 +47,17 @@ export default {
           ...this.uploaderOptions
         },
         (error, result) => {
-          if (!error && result && result.event === 'success') {
-            this.$emit('uploaded', result);
-          }
           if (error) {
             this.$emit('error', error);
+            return;
+          }
+          if (result) {
+            if (result.event === 'queues-start') {
+              myWidget.minimize();
+            }
+            if (result.event === 'success') {
+              this.$emit('uploaded', result);
+            }
           }
         }
       );

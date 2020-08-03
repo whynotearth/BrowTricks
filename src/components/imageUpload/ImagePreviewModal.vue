@@ -5,19 +5,19 @@
   >
     <div class="flex flex-col items-center text-left w-full h-full relative">
       <button
-        class="p-4 absolute left-0 top-0"
+        class="p-4 absolute right-0 top-0"
         @click.prevent="closeModal"
         title="Close"
       >
-        <Close />
+        <Close class="text-white" />
       </button>
-      <img class="my-auto" :src="image.secure_url" alt="image" />
+      <img class="preview-image my-auto" :src="image.secure_url" alt="image" />
       <button
         class="p-4 absolute right-0 bottom-0"
         @click.prevent="deleteImage"
         title="Delete"
       >
-        <Delete />
+        <Delete class="text-white" />
       </button>
     </div>
   </div>
@@ -42,3 +42,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.preview-image {
+  max-height: calc(100vh - 112px);
+}
+</style>

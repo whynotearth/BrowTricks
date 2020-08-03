@@ -9,39 +9,43 @@
         </span>
       </slot>
     </div>
-    <div class="flex flex-wrap -mx-1">
+    <div class="flex flex-wrap">
       <CloudinaryWidget
         @uploaded="onUpload"
         @opened="onUploaderOpened"
         :uploaderOptions="{
-          maxFiles: 1,
-          maxImageWidth: 560
+          maxFiles,
+          maxImageWidth
         }"
         :id="id ? id : 'upload_widget'"
       >
         <label
-          class="bg-background m-1 block cursor-pointer"
+          class="bg-background block cursor-pointer"
           for="add-post-image-upload"
         >
           <div class="upload-icon">
             <div
               class="upload-icon--dimension border border-on-background border-dashed border-opacity-divider flex justify-center items-center"
             >
-              <ImageUploadPlus />
+              <IconPlus
+                class="fill-current text-newprimary text-opacity-medium"
+              />
             </div>
           </div>
         </label>
       </CloudinaryWidget>
-      <div class="upload-previews-wrapper flex flex-wrap">
-        <template v-for="(image, index) in imagesToPreview">
-          <BaseImagePreview
-            v-if="image.secure_url"
-            :selectImage="selectImage"
-            :key="index"
-            :image="image.secure_url"
-            :index="index"
-          />
-        </template>
+      <div
+        class="upload-previews-wrapper"
+        v-for="(image, index) in imagesToPreview"
+        :key="index"
+      >
+        <BaseImagePreview
+          v-if="image.secure_url"
+          :selectImage="selectImage"
+          :key="index"
+          :image="image.secure_url"
+          :index="index"
+        />
       </div>
       <ImagePreviewModal
         v-if="
@@ -58,7 +62,7 @@
 </template>
 
 <script>
-import ImageUploadPlus from '@/assets/icons/image_upload_plus.svg';
+import IconPlus from '@/assets/icons/plus.svg';
 
 export default {
   name: 'ImageUpload',
@@ -67,6 +71,14 @@ export default {
     event: 'change'
   },
   props: {
+    maxImageWidth: {
+      type: Number,
+      default: parseInt(process.env.VUE_APP_UPLOADER_MAX_IMAGE_WIDTH)
+    },
+    maxFiles: {
+      type: Number,
+      default: parseInt(process.env.VUE_APP_UPLOADER_MAX_FILES)
+    },
     defaultImages: {
       type: Array
     },
@@ -89,7 +101,7 @@ export default {
     };
   },
   components: {
-    ImageUploadPlus,
+    IconPlus,
     BaseImagePreview: () => import('./BaseImagePreview'),
     ImagePreviewModal: () => import('./ImagePreviewModal'),
     CloudinaryWidget: () => import('./CloudinaryWidget')
@@ -121,7 +133,7 @@ export default {
     onUpload(result) {
       if (result.event === 'success') {
         const images = [this.getCloudinaryImageAdaptedObject(result.info)];
-        this.images = images;
+        this.images = [...this.images, ...images];
         this.$emit('change', [...this.images]);
       }
     },
@@ -148,11 +160,12 @@ export default {
 <style scoped>
 .upload-icon--dimension,
 .upload-img--dimension {
-  width: 76px;
-  height: 108px;
+  width: 120px;
+  height: 168px;
 }
 
 .upload-previews-wrapper {
-  height: 108px;
+  width: 120px;
+  height: 168px;
 }
 </style>

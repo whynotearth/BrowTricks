@@ -5,32 +5,43 @@
       class="bg-footer text-white"
       @iconClicked="goBack"
     >
-      <ArrowBack slot="icon" class="h-6 w-6 fill-current" />
-      <span slot="content" class="pl-5">Images</span>
+      <template #icon>
+        <ArrowBack class="h-6 w-6 fill-current" />
+      </template>
+      <template #content>
+        <span class="pl-5">Images</span>
+      </template>
     </BaseHeader>
-    <div class="mt-8">
+    <div class="mt-8 max-w-6xl mx-auto">
+      <!-- request by text -->
+      <div class="py-6 px-2 max-w-sm mx-auto">
+        <Button
+          v-if="this.clientInfo.notificationTypes.includes('email')"
+          class="rounded-full"
+          :href="`mailto:${this.clientInfo.email}`"
+          :title="`Request by email ${this.clientInfo.email}`"
+        />
+        <Button
+          v-else-if="this.clientInfo.notificationTypes.includes('phone')"
+          class="rounded-full"
+          @clicked="sendRequest('SMS')"
+          :title="`Request by text ${this.clientInfo.phoneNumber}`"
+        />
+      </div>
+
+      <!-- uploader -->
       <ImageUpload
         v-model="images"
         :defaultImages="clientInfo.images ? clientInfo.images : []"
+        @change="updateImages"
+        class="mb-4"
       >
         <template #title>
           <div class="tg-body-mobile ">
-            <span class="text-on-background text-opacity-high"> Images </span>
-            <span class="text-on-background text-opacity-medium">
-              ( 500 x 600 pixels JPEG / PNG )
-            </span>
+            <span class="text-on-background text-opacity-high">Images</span>
           </div>
         </template>
       </ImageUpload>
-    </div>
-    <div class="mt-4 mx-4 py-6 px-2">
-      <Button
-        v-if="getButtonInfo"
-        class="rounded-full"
-        :href="getButtonInfo.href"
-        :title="getButtonInfo.title"
-        :isRipple="false"
-      />
     </div>
   </div>
 </template>
@@ -84,7 +95,7 @@ export default {
       if (this.clientInfo.notificationTypes.includes('email')) {
         return {
           href: `mailto:${this.clientInfo.email}`,
-          title: `Request by email ${this.clientInfo.email}`
+          title: `Request by text ${this.clientInfo.email}`
         };
       } else {
         return null;
@@ -113,6 +124,12 @@ export default {
           message: ''
         });
       });
+    },
+    sendRequest(notificationType) {
+      console.log('TODO: send request', notificationType);
+    },
+    updateImages(images) {
+      console.log('got images:', images);
     }
   },
   destroyed() {
