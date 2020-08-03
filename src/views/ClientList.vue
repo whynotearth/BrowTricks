@@ -1,9 +1,10 @@
 <template>
   <div class="bg-surface text-left min-h-screen">
+    <!-- TODO: back should go to tenant-home, not main Home -->
     <BaseHeader
       slot="header"
       class="bg-footer text-white"
-      @iconClicked="$router.push({ name: 'CustomerHome' })"
+      @iconClicked="$router.push({ name: 'ShopeHome' })"
     >
       <ArrowBack slot="icon" class="h-6 w-6 fill-current" />
       <span slot="content" class="pl-5">Clients</span>
