@@ -138,11 +138,12 @@ export default {
       }
     },
     getCloudinaryImageAdaptedObject(cloudinaryImageInfo) {
-      const { secure_url, height, width } = cloudinaryImageInfo;
+      const { secure_url, height, width, public_id } = cloudinaryImageInfo;
       return {
         secure_url,
         height,
-        width
+        width,
+        public_id
       };
     }
   },
