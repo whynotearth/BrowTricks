@@ -112,8 +112,7 @@
         title="Notification Settings"
         @click="
           $router.push({
-            name: 'ClientNotifications',
-            params: { ...$route.params }
+            name: 'ClientNotifications'
           })
         "
       >
@@ -124,8 +123,7 @@
         middleText="Incomplete"
         @click="
           $router.push({
-            name: 'ClientFileUpload',
-            params: { ...$route.params }
+            name: 'ClientImageUpload'
           })
         "
       >
