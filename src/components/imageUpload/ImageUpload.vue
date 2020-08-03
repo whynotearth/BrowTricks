@@ -12,7 +12,6 @@
     <div class="flex flex-wrap">
       <CloudinaryWidget
         @uploaded="onUpload"
-        @opened="onUploaderOpened"
         :uploaderOptions="{
           maxFiles,
           maxImageWidth
@@ -66,11 +65,11 @@ import IconPlus from '@/assets/icons/plus.svg';
 
 export default {
   name: 'ImageUpload',
-  model: {
-    prop: 'value',
-    event: 'change'
-  },
   props: {
+    files: {
+      type: Array,
+      default: () => []
+    },
     maxImageWidth: {
       type: Number,
       default: parseInt(process.env.VUE_APP_UPLOADER_MAX_IMAGE_WIDTH)
@@ -79,13 +78,6 @@ export default {
       type: Number,
       default: parseInt(process.env.VUE_APP_UPLOADER_MAX_FILES)
     },
-    defaultImages: {
-      type: Array
-    },
-    value: {
-      type: Array,
-      required: true
-    },
     id: {
       type: String
     }
@@ -93,7 +85,6 @@ export default {
   data() {
     return {
       images: [],
-      imagesToPreview: [],
       selectedImageInfo: {
         url: '',
         index: null
@@ -106,16 +97,16 @@ export default {
     ImagePreviewModal: () => import('./ImagePreviewModal'),
     CloudinaryWidget: () => import('./CloudinaryWidget')
   },
-  mounted() {
-    if (this.defaultImages && this.defaultImages.length > 0) {
-      this.images = [...this.defaultImages];
-      this.imagesToPreview = [...this.defaultImages];
+  computed: {
+    imagesToPreview() {
+      return [...this.files];
     }
   },
   methods: {
     deleteImage(index) {
-      this.images.splice(index, 1);
-      this.$emit('change', [...this.images]);
+      let updatedFiles = this.files.slice();
+      updatedFiles.splice(index, 1)
+      this.updateFiles(updatedFiles);
     },
     selectImage([url, index]) {
       this.selectedImageInfo.url = url;
@@ -127,17 +118,16 @@ export default {
         index: null
       };
     },
-    onUploaderOpened() {
-      //
-    },
     onUpload(result) {
       if (result.event === 'success') {
-        const images = [this.getCloudinaryImageAdaptedObject(result.info)];
-        this.images = [...this.images, ...images];
-        this.$emit('change', [...this.images]);
+        let updatedFiles = [this.cloudinaryImageToMeredithImage(result.info)];
+        this.updateFiles([...this.files, ...updatedFiles]);
       }
     },
-    getCloudinaryImageAdaptedObject(cloudinaryImageInfo) {
+    updateFiles(files) {
+      this.$emit('change', files);
+    },
+    cloudinaryImageToMeredithImage(cloudinaryImageInfo) {
       const { secure_url, height, width, public_id } = cloudinaryImageInfo;
       return {
         height,
@@ -145,14 +135,6 @@ export default {
         publicId: public_id,
         url: secure_url
       };
-    }
-  },
-  watch: {
-    value: {
-      immediate: true,
-      handler(val) {
-        this.imagesToPreview = [...val];
-      }
     }
   }
 };

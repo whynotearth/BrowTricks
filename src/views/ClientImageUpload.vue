@@ -3,7 +3,7 @@
     <BaseHeader
       slot="header"
       class="bg-footer text-white"
-      @iconClicked="goBack"
+      @iconClicked="goToDetailPage"
     >
       <template #icon>
         <ArrowBack class="h-6 w-6 fill-current" />
@@ -16,26 +16,21 @@
       <!-- request by text -->
       <div class="py-6 px-2 max-w-sm mx-auto">
         <Button
-          v-if="this.clientInfo.notificationTypes.includes('email')"
+          v-if="hasNotificationEmail"
           class="rounded-full"
-          :href="`mailto:${this.clientInfo.email}`"
-          :title="`Request by email ${this.clientInfo.email}`"
+          :href="`mailto:${this.client.email}`"
+          :title="`Request by email ${this.client.email}`"
         />
         <Button
-          v-else-if="this.clientInfo.notificationTypes.includes('phone')"
+          v-else-if="hasNotificationPhone"
           class="rounded-full"
           @clicked="sendRequest('SMS')"
-          :title="`Request by text ${this.clientInfo.phoneNumber}`"
+          :title="`Request by text ${this.client.phoneNumber}`"
         />
       </div>
 
       <!-- uploader -->
-      <ImageUpload
-        v-model="images"
-        :defaultImages="clientInfo.images ? clientInfo.images : []"
-        @change="updateImages"
-        class="mb-4"
-      >
+      <ImageUpload :files="currentImages" @change="updateImages" class="mb-4">
         <template #title>
           <div class="tg-body-mobile ">
             <span class="text-on-background text-opacity-high">Images</span>
@@ -51,8 +46,9 @@ import BaseHeader from '@/components/BaseHeader.vue';
 import ArrowBack from '@/assets/icons/arrow-back.svg';
 import Button from '@/components/Button.vue';
 import ImageUpload from '@/components/imageUpload/ImageUpload.vue';
-import { mapGetters, mapMutations, mapState, mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import { sleep } from '@/helpers.js';
+import { get } from 'lodash-es';
 
 export default {
   name: 'ClientImageUpload',
@@ -74,45 +70,48 @@ export default {
   },
   data() {
     return {
+      client: null,
       images: []
     };
   },
   async created() {
-    const client = await this.getClientById(this.clientId);
-    if (client) {
-      this.setClientInfo(client);
-    } else {
-      this.$router.push({
-        name: 'ClientList',
-        params: { ...this.$route.params }
-      });
-    }
+    this._fetchClient();
   },
   computed: {
     ...mapGetters('client', ['getClientById']),
-    ...mapState('client', ['clientInfo']),
-    getButtonInfo() {
-      if (this.clientInfo.notificationTypes.includes('email')) {
-        return {
-          href: `mailto:${this.clientInfo.email}`,
-          title: `Request by text ${this.clientInfo.email}`
-        };
-      } else {
-        return null;
-      }
+    hasNotificationEmail() {
+      const notificationTypes = get(this.client, 'notificationTypes', []);
+      return notificationTypes.includes('email');
+    },
+    hasNotificationPhone() {
+      const notificationTypes = get(this.client, 'notificationTypes', []);
+      return notificationTypes.includes('phone');
+    },
+    currentImages() {
+      return get(this.client, 'images', []);
     }
   },
   methods: {
-    ...mapMutations('client', ['setClientInfo', 'resetClientInfo']),
-    ...mapActions('client', ['updateClient']),
-    goBack() {
-      this.$router.go(-1);
+    ...mapActions('client', ['updateClient', 'fetchClient']),
+    async _fetchClient() {
+      this.client = await this.fetchClient({
+        params: {
+          clientId: this.clientId,
+          tenantSlug: this.tenantSlug
+        }
+      }).catch(() => {
+        console.log('error in getting client');
+        this.goToDetailPage();
+      });
+    },
+    goToDetailPage() {
+      this.$router.push({ name: 'ClientDetail' });
     },
     updateClientNotification() {
       this.updateClient({
         tenantSlug: this.tenantSlug,
         clientId: this.clientId,
-        body: this.clientInfo
+        body: this.client
       }).then(async () => {
         this.$store.commit('overlay/updateModel', {
           title: 'Success!',
@@ -129,26 +128,26 @@ export default {
       console.log('TODO: send request', notificationType);
     },
     updateImages(images) {
-      console.log('images', images);
       const imagesAdapted = images.map(item => ({
         url: item.url,
         publicId: item.publicId
-      }))
-      const clientInfo = {
-        email: this.clientInfo.email,
+      }));
+      const updatedInfo = {
+        email: this.client.email,
         images: imagesAdapted
       };
       this.updateClient({
         tenantSlug: this.tenantSlug,
         clientId: this.clientId,
-        body: clientInfo
-      }).catch(error => {
-        console.log('Update client error', error.response);
-      });
+        body: updatedInfo
+      })
+        .then(() => {
+          this._fetchClient();
+        })
+        .catch(error => {
+          console.log('Update client error', error.response);
+        });
     }
-  },
-  destroyed() {
-    this.resetClientInfo();
   }
 };
 </script>

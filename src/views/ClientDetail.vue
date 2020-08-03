@@ -3,7 +3,7 @@
     <BaseHeader
       slot="header"
       class="bg-footer text-white"
-      @iconClicked="goBack"
+      @iconClicked="goListPage"
     >
       <ArrowBack slot="icon" class="h-6 w-6 fill-current" />
       <span slot="content" class="pl-5">Client Profile</span>
@@ -239,7 +239,7 @@ export default {
   },
   data() {
     return {
-      client: {},
+      client: null,
       isArchiveModalOpen: false
     };
   },
@@ -278,7 +278,7 @@ export default {
         }
       }).catch(() => {
         console.log('error in getting client');
-        this.goBack();
+        this.goListPage();
       });
     },
 
@@ -315,7 +315,7 @@ export default {
           title: 'Success!',
           message: 'Client archived successfully!'
         });
-        this.goBack();
+        this.goListPage();
         await sleep(1500);
         this.$store.commit('overlay/updateModel', {
           title: '',
@@ -324,10 +324,9 @@ export default {
       });
     },
 
-    goBack() {
+    goListPage() {
       this.$router.push({
-        name: 'ClientList',
-        params: { slug: this.tenantSlug }
+        name: 'ClientList'
       });
     }
   }
