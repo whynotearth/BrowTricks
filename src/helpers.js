@@ -62,7 +62,12 @@ export function isPhoneNumberValid(phone) {
   );
 }
 
-export async function showOverlayAndRedirect({ title = '', message = '', route, timeout = 1500 }) {
+export async function showOverlayAndRedirect({
+  title = '',
+  message = '',
+  route,
+  timeout = 1500
+}) {
   store.commit('overlay/updateModel', {
     title,
     message

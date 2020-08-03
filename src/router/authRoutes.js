@@ -16,7 +16,7 @@ export const authRoutes = [
   },
   {
     path: '/login',
-    name: 'LogIn',
+    name: 'Login',
     component: () => import('@/views/AuthLogIn.vue'),
     meta: { layout: () => import('@/layouts/TenantLayout.vue'), isPublic: true }
   },

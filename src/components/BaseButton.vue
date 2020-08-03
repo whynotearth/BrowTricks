@@ -1,6 +1,6 @@
 <template>
   <!-- =============================== DEPRECATED ================================= -->
-  <!-- Use Button.vue instead -->
+  <!-- Use inputs/Button.vue instead -->
   <component
     :is="tag"
     class="w-full rounded-full tg-color-label-mobile px-4 py-2 flex items-center justify-center"

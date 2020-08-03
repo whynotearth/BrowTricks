@@ -33,7 +33,7 @@ import Button from '@/components/Button.vue';
 import { mapActions } from 'vuex';
 
 export default {
-  name: 'LogIn',
+  name: 'Login',
   components: {
     AuthButtons,
     Button
