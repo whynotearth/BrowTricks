@@ -1,6 +1,7 @@
 <template>
   <div
-    class="cursor-pointer m-4 bg-white shadow-1dp py-6 px-4 rounded-lg"
+    class="cursor-pointer bg-white shadow-1dp py-6 px-4 rounded-lg"
+    :class="[margin]"
     @click="$emit('click')"
   >
     <div class="flex justify-between">
@@ -43,6 +44,10 @@ export default {
     },
     middleText: {
       type: String
+    },
+    margin: {
+      type: String,
+      default: 'mb-4'
     }
   }
 };

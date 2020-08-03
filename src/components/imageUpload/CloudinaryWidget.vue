@@ -44,6 +44,7 @@ export default {
           cloudName: 'whynotearth',
           uploadPreset: 'browtricks_tenant_CMS',
           theme: 'minimal',
+          autoMinimize: true,
           ...this.uploaderOptions
         },
         (error, result) => {
@@ -52,9 +53,6 @@ export default {
             return;
           }
           if (result) {
-            if (result.event === 'queues-start') {
-              myWidget.minimize();
-            }
             if (result.event === 'success') {
               console.log('result', result);
               this.$emit('uploaded', result);
