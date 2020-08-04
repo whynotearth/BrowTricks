@@ -8,6 +8,7 @@
           ? 'border-error placeholder-error'
           : 'border-on-background border-opacity-disabled'
       ]"
+      v-bind="attrs"
       :id="idName"
       :type="type"
       :min="min"
@@ -39,6 +40,10 @@ import { randomId } from '@/helpers.js';
 export default {
   name: 'TextInput',
   props: {
+    attrs: {
+      type: Object,
+      default: () => {}
+    },
     value: {
       type: [String, Number],
       default: null
@@ -101,6 +106,9 @@ export default {
 .input {
   transition: border 0.2s ease-in-out;
   z-index: 2;
+}
+.input[readonly] {
+  @apply text-opacity-medium;
 }
 
 .label {
