@@ -126,6 +126,17 @@
         <ImagesIcon slot="preIcon" class="h-6 w-6 fill-current" />
       </ExpansionPanel>
       <ExpansionPanel
+        title="Videos"
+        middleText="Incomplete"
+        @click="
+          $router.push({
+            name: 'ClientVideoUpload'
+          })
+        "
+      >
+        <VideosIcon slot="preIcon" class="h-6 w-6 fill-current" />
+      </ExpansionPanel>
+      <ExpansionPanel
         @click="
           $router.push({
             name: 'PMUFlowStart',
@@ -201,8 +212,9 @@ import ArrowBack from '@/assets/icons/arrow-back.svg';
 import Document from '@/assets/icons/document.svg';
 import Notes from '@/assets/icons/notes.svg';
 import Notification from '@/assets/icons/notification.svg';
-import ImagesIcon from '@/assets/icons/images.svg';
 
+import ImagesIcon from '@/assets/icons/images.svg';
+import VideosIcon from '@/assets/icons/videos.svg';
 import MailIcon from '@/assets/icons/mail.svg';
 import PhoneIcon from '@/assets/icons/phone.svg';
 import PhoneAndroidIcon from '@/assets/icons/phone_android.svg';
@@ -232,6 +244,7 @@ export default {
     Notes,
     Notification,
     ImagesIcon,
+    VideosIcon,
     ExpansionPanel,
     MailIcon,
     PhoneIcon,

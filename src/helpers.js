@@ -82,3 +82,19 @@ export async function showOverlayAndRedirect({
     message: ''
   });
 }
+
+// @inputs: string, string
+export function transformCloudinaryUrl(resourceUrl, transformations) {
+  if (
+    !resourceUrl ||
+    !transformations ||
+    resourceUrl.indexOf('cloudinary') < 0
+  ) {
+    return resourceUrl;
+  }
+  const urlParts = resourceUrl.split('/');
+
+  const indexOfUpload = urlParts.indexOf('upload');
+  urlParts.splice(indexOfUpload + 1, 0, transformations);
+  return urlParts.join('/');
+}

@@ -5,7 +5,7 @@
         <span
           class="tg-h3-mobile text-white text-opacity-medium mt-8 inline-block"
         >
-          Image
+          Video
         </span>
       </slot>
     </div>
@@ -13,8 +13,7 @@
       <CloudinaryWidget
         @uploaded="onUpload"
         :uploaderOptions="{
-          maxFiles,
-          maxImageWidth
+          maxFiles
         }"
         :id="id ? id : 'upload_widget'"
       >
@@ -32,36 +31,27 @@
       </CloudinaryWidget>
       <div
         class="upload-previews-wrapper"
-        v-for="(image, index) in imagesToPreview"
+        v-for="(video, index) in videosToPreview"
         :key="index"
       >
-        <BaseImagePreview
-          v-if="image.url"
-          :selectImage="selectImage"
+        <BaseVideoPreview
+          v-if="video.url"
           :key="index"
-          :image="image.url"
+          :file="video.url"
           :index="index"
+          :image="getThumbnail(video.url)"
         />
       </div>
-      <ImagePreviewModal
-        v-if="
-          selectedImageInfo &&
-            selectedImageInfo.url &&
-            selectedImageInfo.index >= 0
-        "
-        @deleteImage="deleteImage"
-        @resetSelectedImage="resetSelectedImage"
-        :image.sync="selectedImageInfo"
-      />
     </div>
   </div>
 </template>
 
 <script>
+import { transformCloudinaryUrl } from '@/helpers.js';
 import IconPlus from '@/assets/icons/plus.svg';
 
 export default {
-  name: 'ImageUpload',
+  name: 'VideoUpload',
   props: {
     files: {
       type: Array,
@@ -81,51 +71,57 @@ export default {
   },
   data() {
     return {
-      images: [],
-      selectedImageInfo: {
-        url: '',
-        index: null
-      }
+      // selectedVideoInfo: {
+      //   url: '',
+      //   index: null
+      // }
     };
   },
   components: {
     IconPlus,
-    BaseImagePreview: () => import('./BaseImagePreview'),
-    ImagePreviewModal: () => import('./ImagePreviewModal'),
+    BaseVideoPreview: () => import('./BaseVideoPreview'),
     CloudinaryWidget: () => import('./CloudinaryWidget')
   },
   computed: {
-    imagesToPreview() {
+    videosToPreview() {
       return [...this.files];
     }
   },
   methods: {
+    transformCloudinaryUrl,
+    getThumbnail(url) {
+      const transformedUrl = transformCloudinaryUrl(
+        url,
+        'f_auto,h_300,c_limit'
+      );
+      return transformedUrl.replace('.mp4', '.jpg');
+    },
     deleteImage(index) {
       let updatedFiles = this.files.slice();
       updatedFiles.splice(index, 1);
       this.updateFiles(updatedFiles);
     },
-    selectImage([url, index]) {
-      this.selectedImageInfo.url = url;
-      this.selectedImageInfo.index = index;
-    },
-    resetSelectedImage() {
-      this.selectedImageInfo = {
-        url: '',
-        index: null
-      };
-    },
+    // selectFile([url, index]) {
+    //   this.selectedVideoInfo.url = url;
+    //   this.selectedVideoInfo.index = index;
+    // },
+    // resetSelectedImage() {
+    //   this.selectedVideoInfo = {
+    //     url: '',
+    //     index: null
+    //   };
+    // },
     onUpload(result) {
       if (result.event === 'success') {
-        let updatedFiles = [this.cloudinaryImageToMeredithImage(result.info)];
+        let updatedFiles = [this.cloudinaryVideoToMeredithVideo(result.info)];
         this.updateFiles([...this.files, ...updatedFiles]);
       }
     },
     updateFiles(files) {
       this.$emit('change', files);
     },
-    cloudinaryImageToMeredithImage(cloudinaryImageInfo) {
-      const { secure_url, height, width, public_id } = cloudinaryImageInfo;
+    cloudinaryVideoToMeredithVideo(cloudinaryVideoInfo) {
+      const { secure_url, height, width, public_id } = cloudinaryVideoInfo;
       return {
         height,
         width,
