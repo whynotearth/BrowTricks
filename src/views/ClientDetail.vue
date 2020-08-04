@@ -98,7 +98,8 @@
           label="Email"
           labelBg="bg-white"
           :error="$v.client.email.$error"
-          margin=" "
+          :margin="null"
+          :attrs="{ readonly: true }"
         >
           <p v-if="!$v.client.email.required" class="text-error text-xs">
             Email is required
