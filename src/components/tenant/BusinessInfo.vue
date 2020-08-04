@@ -61,7 +61,7 @@ import { mapMutations, mapGetters } from 'vuex';
 import { required, minLength } from 'vuelidate/lib/validators';
 import MaterialInput from '@/components/inputs/MaterialInput';
 import TextArea from '@/components/inputs/TextArea.vue';
-import ImageUpload from '@/components/imageUpload/ImageUpload.vue';
+import ImageUpload from '@/components/uploader/ImageUpload.vue';
 import { isPhoneNumberValid } from '@/helpers';
 
 export default {

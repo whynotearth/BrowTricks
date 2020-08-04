@@ -45,7 +45,7 @@
 import BaseHeader from '@/components/BaseHeader.vue';
 import ArrowBack from '@/assets/icons/arrow-back.svg';
 import Button from '@/components/Button.vue';
-import ImageUpload from '@/components/imageUpload/ImageUpload.vue';
+import ImageUpload from '@/components/uploader/ImageUpload.vue';
 import { mapGetters, mapActions } from 'vuex';
 import { sleep } from '@/helpers.js';
 import { get } from 'lodash-es';
