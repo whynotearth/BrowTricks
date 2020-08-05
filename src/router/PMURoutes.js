@@ -1,8 +1,8 @@
-export const PMURoutes = [
+export const PmuRoutes = [
   {
-    path: '/tenant/:tenantSlug/pmu/form-setup',
-    name: 'PMUFormSetup',
-    component: () => import('@/views/PMUFormSetup.vue'),
+    path: '/tenant/:tenantSlug/client/:clientId/pmu-sign',
+    name: 'PmuSign',
+    component: () => import('@/views/PmuSign.vue'),
     props: true,
     meta: { layout: () => import('@/layouts/WithTitleBarLayout.vue') }
   }

@@ -1,3 +1,9 @@
+[context.staging.environment]
+  VUE_APP_HELLO_SIGN_API_KEY="502edd50a401b15f8f548ddcea56a77d"
+
+[context.master.environment]
+  VUE_APP_HELLO_SIGN_API_KEY="28cc77a1d6ff153aef0b648184964873"
+
 [[redirects]]
   from = "/*"
   to = "/"

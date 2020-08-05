@@ -30,7 +30,6 @@
     <div class="ml-4 mt-2" v-if="error">
       <slot />
     </div>
-    <slot name="end" />
   </div>
 </template>
 

@@ -140,7 +140,7 @@
       <ExpansionPanel
         @click="
           $router.push({
-            name: 'PMUFlowStart',
+            name: 'PmuSign',
             params: { clientId, tenantSlug }
           })
         "
