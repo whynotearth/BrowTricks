@@ -1,22 +1,26 @@
 <template>
   <div class="text-left p-2">
-    <!-- <h2 class="tg-body-mobile text-black text-opacity-medium mb-6 py-2">
+    <h2 class="tg-body-mobile text-black text-opacity-medium mb-6 py-2">
       Here is your pre-set PMU form:
     </h2>
     <div class="max-w-md mx-auto mb-6">
       <BaseSlider>
-        <div class="slide keen-slider__slide">1</div>
         <div class="slide keen-slider__slide">
-          <img src="http://placehold.it/500x100" alt="" />
+          <img
+            src="https://res.cloudinary.com/whynotearth/image/upload/v1596652148/BrowTricks/static_v2/pmu-default-form-p1_yuk6bh.jpg"
+            alt=""
+          />
         </div>
         <div class="slide keen-slider__slide">
-          <img src="http://placehold.it/500x100" alt="" />
+          <img
+            src="https://res.cloudinary.com/whynotearth/image/upload/v1596652147/BrowTricks/static_v2/pmu-default-form-p2_r8a4yj.jpg"
+            alt=""
+          />
         </div>
-        <div class="slide keen-slider__slide">4</div>
       </BaseSlider>
     </div>
 
-    <hr /> -->
+    <hr />
 
     <h2 class="tg-h2-mobile text-black text-opacity-high my-6">
       Add Custom Questions
@@ -50,14 +54,14 @@
       >
     </div>
 
-    <Button class="rounded-full" @clicked="submit" title="Get Started"></Button>
+    <Button class="rounded-full mb-6" @clicked="submit" title="Get Started"></Button>
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
-// import BaseSlider from '@/components/BaseSlider.vue';
-import Button from '@/components/Button.vue';
+import BaseSlider from '@/components/BaseSlider.vue';
+import Button from '@/components/inputs/Button.vue';
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
 import IconDelete from '@/assets/icons/delete.svg';
 import { randomId } from '@/helpers';
@@ -65,7 +69,7 @@ import { randomId } from '@/helpers';
 export default {
   name: 'PmuSign',
   components: {
-    // BaseSlider,
+    BaseSlider,
     Button,
     MaterialInput,
     IconDelete

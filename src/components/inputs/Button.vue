@@ -1,8 +1,11 @@
 <template>
   <component
     :is="type"
-    class="button tg-color-label-mobile font-semibold uppercase cursor-pointer inline-block transition-all duration-75"
+    class="button tg-color-label-mobile font-semibold uppercase cursor-pointer transition-all duration-75"
     :class="[
+      margin,
+      display,
+      maxWidth,
       isRounded ? 'rounded-full' : '',
       width,
       background,
@@ -47,11 +50,15 @@ export default {
     },
     background: {
       type: String,
-      default: 'bg-button'
+      default: 'bg-newsecondary'
     },
     textColor: {
       type: String,
       default: 'text-newprimary'
+    },
+    maxWidth: {
+      type: String,
+      default: 'max-w-md'
     },
     padding: {
       type: String,
@@ -60,6 +67,14 @@ export default {
     isRounded: {
       type: Boolean,
       default: false
+    },
+    display: {
+      type: String,
+      default: 'block'
+    },
+    margin: {
+      type: String,
+      default: 'mx-auto'
     }
   },
   computed: {
