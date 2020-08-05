@@ -3,7 +3,7 @@
     <BaseHeader
       slot="header"
       class="bg-footer text-white"
-      @iconClicked="goBack"
+      @iconClicked="goListPage"
     >
       <ArrowBack slot="icon" class="h-6 w-6 fill-current" />
       <span slot="content" class="pl-5">Client Profile</span>
@@ -25,29 +25,25 @@
       <div
         class="flex justify-between tg-caption-mobile pb-16 w-full sm:w-auto"
       >
-        <!-- <div class="hidden flex flex-col items-center px-4 sm:px-8">
-          <BookIcon class="fill-current" />
-          <span>Book</span>
-        </div> -->
         <a
           class="flex flex-col items-center px-4 sm:px-8"
           :href="`mailto:${client.email}`"
         >
-          <MailIcon class="fill-current" />
+          <MailIcon class="fill-current mb-2" />
           <span>Email</span>
         </a>
         <a
           class="flex flex-col items-center px-4 sm:px-8"
           :href="`sms:${client.phoneNumber}`"
         >
-          <PhoneAndroidIcon class="fill-current" />
+          <PhoneAndroidIcon class="fill-current mb-2" />
           <span>Text</span>
         </a>
         <a
           class="flex flex-col items-center px-4 sm:px-8"
           :href="`tel:${client.phoneNumber}`"
         >
-          <PhoneIcon class="fill-current" />
+          <PhoneIcon class="fill-current mb-2" />
           <span>Call</span>
         </a>
       </div>
@@ -113,8 +109,7 @@
         title="Notification Settings"
         @click="
           $router.push({
-            name: 'ClientNotifications',
-            params: { ...$route.params }
+            name: 'ClientNotifications'
           })
         "
       >
@@ -125,12 +120,22 @@
         middleText="Incomplete"
         @click="
           $router.push({
-            name: 'ClientImageUpload',
-            params: { ...$route.params }
+            name: 'ClientImageUpload'
           })
         "
       >
         <ImagesIcon slot="preIcon" class="h-6 w-6 fill-current" />
+      </ExpansionPanel>
+      <ExpansionPanel
+        title="Videos"
+        middleText="Incomplete"
+        @click="
+          $router.push({
+            name: 'ClientVideoUpload'
+          })
+        "
+      >
+        <VideosIcon slot="preIcon" class="h-6 w-6 fill-current" />
       </ExpansionPanel>
       <ExpansionPanel
         @click="
@@ -208,9 +213,9 @@ import ArrowBack from '@/assets/icons/arrow-back.svg';
 import Document from '@/assets/icons/document.svg';
 import Notes from '@/assets/icons/notes.svg';
 import Notification from '@/assets/icons/notification.svg';
-import ImagesIcon from '@/assets/icons/images.svg';
 
-// import BookIcon from '@/assets/icons/calendar_today.svg';
+import ImagesIcon from '@/assets/icons/images.svg';
+import VideosIcon from '@/assets/icons/videos.svg';
 import MailIcon from '@/assets/icons/mail.svg';
 import PhoneIcon from '@/assets/icons/phone.svg';
 import PhoneAndroidIcon from '@/assets/icons/phone_android.svg';
@@ -220,7 +225,7 @@ import { mapGetters, mapActions } from 'vuex';
 import { sleep } from '@/helpers.js';
 
 export default {
-  name: 'AddEditClient',
+  name: 'ClientDetail',
   props: {
     tenantSlug: {
       type: String,
@@ -240,8 +245,8 @@ export default {
     Notes,
     Notification,
     ImagesIcon,
+    VideosIcon,
     ExpansionPanel,
-    // BookIcon,
     MailIcon,
     PhoneIcon,
     PhoneAndroidIcon
@@ -272,20 +277,27 @@ export default {
     }
   },
   async created() {
-    this.fetchClients(this.tenantSlug);
-    this.client = await this.getClientById(this.clientId);
-    if (!this.client) {
-      this.goBack();
-    }
+    this._fetchClient();
   },
   computed: {
     ...mapGetters('client', ['getClientById'])
   },
   methods: {
-    ...mapActions('client', ['updateClient', 'archiveClient', 'fetchClients']),
+    ...mapActions('client', ['updateClient', 'archiveClient', 'fetchClient']),
+    async _fetchClient() {
+      this.client = await this.fetchClient({
+        params: {
+          clientId: this.clientId,
+          tenantSlug: this.tenantSlug
+        }
+      }).catch(() => {
+        console.log('error in getting client');
+        this.goListPage();
+      });
+    },
+
     save() {
       this.$v.$touch();
-      console.log('$invalid:', this.$v.$invalid);
       if (this.$v.$invalid) {
         return;
       }
@@ -306,6 +318,7 @@ export default {
         });
       });
     },
+
     archive() {
       this.archiveClient({
         tenantSlug: this.tenantSlug,
@@ -316,7 +329,7 @@ export default {
           title: 'Success!',
           message: 'Client archived successfully!'
         });
-        this.goBack();
+        this.goListPage();
         await sleep(1500);
         this.$store.commit('overlay/updateModel', {
           title: '',
@@ -324,10 +337,10 @@ export default {
         });
       });
     },
-    goBack() {
+
+    goListPage() {
       this.$router.push({
-        name: 'ClientList',
-        params: { slug: this.tenantSlug }
+        name: 'ClientList'
       });
     }
   }

@@ -25,6 +25,12 @@ export const clientRoutes = [
     component: () => import('@/views/ClientImageUpload.vue'),
   },
   {
+    path: '/tenant/:tenantSlug/clients/edit/:clientId/video-upload',
+    name: 'ClientVideoUpload',
+    props: true,
+    component: () => import('@/views/ClientVideoUpload.vue'),
+  },
+  {
     path: '/tenant/:tenantSlug/clients/edit/:clientId/notifications',
     name: 'ClientNotifications',
     props: true,
