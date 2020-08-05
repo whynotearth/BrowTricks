@@ -1,6 +1,6 @@
 <template>
   <div class="text-left p-2">
-    <h2 class="tg-body-mobile text-black text-opacity-medium mb-6 py-2">
+    <h2 class="tg-body-mobile mb-6 py-2">
       Here is your pre-set PMU form:
     </h2>
     <div class="max-w-md mx-auto mb-6">
@@ -20,13 +20,13 @@
       </BaseSlider>
     </div>
 
-    <hr />
+    <hr class="border-white border-opacity-divider" />
 
-    <h2 class="tg-h2-mobile text-black text-opacity-high my-6">
+    <h2 class="tg-h2-mobile text-white text-opacity-high my-6">
       Add Custom Questions
     </h2>
 
-    <div class="bg-surface shadow-1dp py-4 mb-4 rounded-lg px-4">
+    <div class="surface-dm shadow-1dp py-4 mb-4 rounded-lg px-4">
       <div
         class="flex items-center pb-4 w-full"
         v-for="question in questions"
@@ -34,6 +34,7 @@
         ref="questions"
       >
         <MaterialInput
+          theme="dark"
           class="flex-grow"
           v-model.trim="question.value"
           label="Question"
@@ -42,19 +43,19 @@
         >
         </MaterialInput>
         <a @click.prevent.stop="questionRemove" href="#" class="ml-4">
-          <IconDelete class="text-black text-opacity-disabled w-6 h-6" />
+          <IconDelete class="text-white text-opacity-disabled w-6 h-6" />
         </a>
       </div>
 
-      <hr v-if="questions.length > 0" class="mb-2" />
+      <hr v-if="questions.length > 0" class="mb-2 border-white border-opacity-divider" />
       <a
         @click="questionAdd"
-        class="text-secondary tg-color-label-mobile text-center py-2 w-full block cursor-pointer"
+        class="text-newsecondary tg-color-label-mobile text-center py-2 w-full block cursor-pointer"
         >Add Question</a
       >
     </div>
 
-    <Button class="rounded-full mb-6" @clicked="submit" title="Get Started"></Button>
+    <Button class="rounded-full mb-6 " @clicked="submit" title="Get Started"></Button>
   </div>
 </template>
 
