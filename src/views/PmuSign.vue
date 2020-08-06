@@ -47,7 +47,10 @@
         </a>
       </div>
 
-      <hr v-if="questions.length > 0" class="mb-2 border-white border-opacity-divider" />
+      <hr
+        v-if="questions.length > 0"
+        class="mb-2 border-white border-opacity-divider"
+      />
       <a
         @click="questionAdd"
         class="text-newsecondary tg-color-label-mobile text-center py-2 w-full block cursor-pointer"
@@ -55,7 +58,11 @@
       >
     </div>
 
-    <Button class="rounded-full mb-6 " @clicked="submit" title="Get Started"></Button>
+    <Button
+      class="rounded-full mb-6 "
+      @clicked="submit"
+      title="Get Started"
+    ></Button>
   </div>
 </template>
 

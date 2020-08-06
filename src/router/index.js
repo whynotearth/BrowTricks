@@ -6,14 +6,12 @@ import { authRoutes } from './authRoutes';
 import { PmuRoutes } from './PmuRoutes';
 import { clientRoutes } from './clientRoutes';
 import { generalRoutes } from './generalRoutes';
-// import { TestingRoutes } from './TestingRoutes';
 import { TenantPublicRoutes } from './TenantPublicRoutes';
 
 Vue.use(VueRouter);
 
 const routes = [
   ...PmuRoutes,
-  // ...TestingRoutes,
   ...TenantPublicRoutes,
   ...clientRoutes,
   ...generalRoutes,
