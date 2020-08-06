@@ -4,8 +4,8 @@
     :class="[margin]"
     @click="$emit('click')"
   >
-    <div class="flex justify-between">
-      <div class="flex">
+    <div class="flex">
+      <div class="flex w-1/2">
         <slot name="preIcon"></slot>
         <slot
           ><h4
@@ -15,15 +15,19 @@
           </h4></slot
         >
       </div>
-      <div
-        v-if="middleText || $slots.middleText"
-        class="text-on-surface text-opacity-medium"
-      >
-        <slot name="middleText">{{ middleText }}</slot>
-      </div>
-      <div>
+      <div class="flex w-1/2">
+        <div class="flex-grow">
+          <!-- middle text -->
+          <div
+            v-if="middleText || $slots.middleText"
+            class="text-on-surface text-opacity-medium text-left"
+          >
+            <slot name="middleText">{{ middleText }}</slot>
+          </div>
+        </div>
+        <!-- end icon -->
         <slot name="afterIcon">
-          <ArrowRight class="fill-current" />
+          <ArrowRight class="fill-current ml-12" />
         </slot>
       </div>
     </div>
@@ -43,7 +47,7 @@ export default {
       type: String
     },
     middleText: {
-      type: String
+      type: [String, Number]
     },
     margin: {
       type: String,
