@@ -7,7 +7,7 @@
     >
       <span
         v-if="$v.firstName.$dirty && !$v.firstName.required"
-        class="text-red-600 text-xs"
+        class="text-error text-xs"
       >
         First Name is required
       </span>
@@ -19,32 +19,29 @@
     >
       <span
         v-if="$v.lastName.$dirty && !$v.lastName.required"
-        class="text-red-600 text-xs"
+        class="text-error text-xs"
       >
         Last Name is required
       </span>
     </material-input>
-    <material-input
+    <MaterialInput
       v-model="$v.phone.$model"
-      label="Phone Number"
-      :error="$v.phone.$dirty && (!$v.phone.required || !$v.phone.minLength)"
+      label="Phone number"
+      :error="$v.phone.$error"
     >
-      <span
-        v-if="$v.phone.$dirty && !$v.phone.required"
-        class="text-red-600 text-xs"
+      <p
+        v-if="!$v.phone.required"
+        class="text-error tg-body-mobile"
       >
-        Phone number is required
-      </span>
-      <span
-        v-if="
-          $v.phone.$dirty &&
-            (!$v.phone.minLength || !$v.phone.isPhoneNumberValid)
-        "
-        class="text-red-600 text-xs"
+        This field is required
+      </p>
+      <p
+        v-else-if="!$v.phone.isPhoneNumberValid"
+        class="text-error tg-body-mobile"
       >
-        Please enter a valid phone number
-      </span>
-    </material-input>
+        Phone number is not valid, it should be a US phone number
+      </p>
+    </MaterialInput>
     <material-input
       v-model="$v.email.$model"
       label="Email"
@@ -52,13 +49,13 @@
     >
       <span
         v-if="$v.email.$dirty && !$v.email.required"
-        class="text-red-600 text-xs"
+        class="text-error text-xs"
       >
         Email is required
       </span>
       <span
         v-if="$v.email.$dirty && !$v.email.email"
-        class="text-red-600 text-xs"
+        class="text-error text-xs"
       >
         Please enter a email address
       </span>
