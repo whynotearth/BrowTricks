@@ -1,43 +1,35 @@
 <template>
   <div class="px-6">
-    <material-input
+    <MaterialInput
       v-model="$v.name.$model"
       label="Name"
       :error="$v.name.$dirty && !$v.name.required"
     >
       <span
         v-if="$v.name.$dirty && !$v.name.required"
-        class="text-red-600 text-xs"
+        class="text-error text-xs"
       >
         Name is required
       </span>
-    </material-input>
-    <material-input
+    </MaterialInput>
+    <MaterialInput
       v-model="$v.phone.$model"
       label="Phone number"
-      :error="
-        $v.phone.$dirty &&
-          (!$v.phone.required ||
-            !$v.phone.minLength ||
-            !$v.phone.isPhoneNumberValid)
-      "
+      :error="$v.phone.$error"
     >
-      <span
-        v-if="$v.phone.$dirty && !$v.phone.required"
-        class="text-red-600 text-xs"
+      <p
+        v-if="!$v.phone.required"
+        class="text-error tg-body-mobile"
       >
-        Phone number is required
-      </span>
-      <span
-        v-if="
-          $v.phone.$dirty &&
-            (!$v.phone.minLength || !$v.phone.isPhoneNumberValid)
-        "
-        class="text-red-600 text-xs"
+        This field is required
+      </p>
+      <p
+        v-else-if="!$v.phone.isPhoneNumberValid"
+        class="text-error tg-body-mobile"
       >
-        Please enter a valid phone number
-      </span>
-    </material-input>
+        Phone number is not valid, it should be a US phone number
+      </p>
+    </MaterialInput>
     <text-area v-model="$v.description.$model" label="Description" />
     <hr class="border-on-background border-opacity-divider my-8" />
     <ImageUpload :maxFiles="1" :files="currentImages" @change="_updateLogo">
@@ -50,7 +42,7 @@
         </div>
       </template>
     </ImageUpload>
-    <span v-if="$v.logo.$dirty && $v.logo.$error" class="text-red-600 text-xs">
+    <span v-if="$v.logo.$dirty && $v.logo.$error" class="text-error text-xs">
       Logo is required
     </span>
   </div>
