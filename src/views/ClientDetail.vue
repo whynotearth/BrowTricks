@@ -1,5 +1,6 @@
 <template>
   <div class="bg-background text-left min-h-screen" v-if="client">
+    <!-- TODO: use WithTitleBarLayout -->
     <BaseHeader
       slot="header"
       class="bg-footer text-white"
@@ -53,7 +54,6 @@
         <MaterialInput
           v-model="$v.client.firstName.$model"
           label="First Name"
-          labelBg="bg-white"
           :error="$v.client.firstName.$error"
         >
           <p v-if="!$v.client.firstName.required" class="text-error text-xs">
@@ -63,7 +63,6 @@
         <MaterialInput
           v-model="$v.client.lastName.$model"
           label="Last Name"
-          labelBg="bg-white"
           :error="$v.client.lastName.$error"
         >
           <p v-if="!$v.client.lastName.required" class="text-error text-xs">
@@ -73,7 +72,6 @@
         <MaterialInput
           v-model="$v.client.phoneNumber.$model"
           label="Phone Number"
-          labelBg="bg-white"
           :error="$v.client.phoneNumber.$error"
         >
           <p v-if="!$v.client.phoneNumber.required" class="text-error text-xs">
@@ -92,7 +90,6 @@
         <MaterialInput
           v-model="$v.client.email.$model"
           label="Email"
-          labelBg="bg-white"
           :error="$v.client.email.$error"
           :margin="null"
           :attrs="{ readonly: true }"
@@ -138,12 +135,12 @@
       <ExpansionPanel
         @click="
           $router.push({
-            name: 'PMUFlowStart',
+            name: 'PmuSign',
             params: { clientId, tenantSlug }
           })
         "
         title="PMU"
-        :middleText="client.isPmuCompleted ? 'Completed' : 'Incomplete'"
+        :middleText="client.pmuStatus"
       >
         <Document slot="preIcon" class="h-6 w-6 fill-current" />
       </ExpansionPanel>
@@ -151,6 +148,9 @@
         <Notes slot="preIcon" class="h-6 w-6 fill-current" />
       </ExpansionPanel>
       <div class="py-6">
+
+        <a v-if="client.pmuPdfUrl" class="mb-4 block text-center text-primary" target="_blank" :href="client.pmuPdfUrl">Download Signed PMU</a>
+
         <Button
           class="rounded-full"
           title="Save"

@@ -16,3 +16,13 @@
   background-image: url('https://res.cloudinary.com/whynotearth/image/upload/v1590460151/BrowTricks/Action_page_background_zlpen3.png');
   @apply bg-cover bg-no-repeat;
 }
+
+.surface-dm {
+  background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.05),
+      rgba(255, 255, 255, 0.05)
+    ),
+    /* newbackground */
+    #081131;
+}
