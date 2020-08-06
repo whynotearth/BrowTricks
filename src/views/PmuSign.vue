@@ -123,12 +123,19 @@ export default {
         const result = await this.submitSign(signUrl);
         console.log('submitSign result', result);
 
+        await this.signed({
+          params: {
+            tenantSlug: this.tenantSlug,
+            clientId: this.clientId
+          }
+        });
+
         showOverlayAndRedirect({
           title: 'Signed Successfully!',
           route: { name: 'ClientDetail' }
         });
       } catch (error) {
-        alert("Something went wrong, Signing failed");
+        alert('Something went wrong, Signing failed');
         console.log('error in sign flow', error);
       }
     },
