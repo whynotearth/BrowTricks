@@ -72,7 +72,7 @@ import BaseSlider from '@/components/BaseSlider.vue';
 import Button from '@/components/inputs/Button.vue';
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
 import IconDelete from '@/assets/icons/delete.svg';
-import { randomId } from '@/helpers';
+import { randomId, showOverlayAndRedirect } from '@/helpers';
 
 export default {
   name: 'PmuSign',
@@ -107,19 +107,30 @@ export default {
       this.questions.splice(index - 1, 1);
     },
     async submit() {
-      const questions = this.prepareQuestions();
-      const signUrl = await this.setCustomQuestions({
-        params: {
-          tenantSlug: this.tenantSlug,
-          clientId: this.clientId,
-          body: {
-            disclosures: questions
+      try {
+        const questions = this.prepareQuestions();
+        const signUrl = await this.setCustomQuestions({
+          params: {
+            tenantSlug: this.tenantSlug,
+            clientId: this.clientId,
+            body: {
+              disclosures: questions
+            }
           }
-        }
-      });
+        });
 
-      console.log('signUrl', signUrl);
-      this.submitSign(signUrl);
+        console.log('signUrl', signUrl);
+        const result = await this.submitSign(signUrl);
+        console.log('submitSign result', result);
+
+        showOverlayAndRedirect({
+          title: 'Signed Successfully!',
+          route: { name: 'ClientDetail' }
+        });
+      } catch (error) {
+        alert("Something went wrong, Signing failed");
+        console.log('error in sign flow', error);
+      }
     },
     prepareQuestions() {
       return this.questions.filter(q => q.value.length > 0).map(q => q.value);

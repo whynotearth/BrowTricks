@@ -142,7 +142,7 @@
           })
         "
         title="PMU"
-        :middleText="client.isPmuCompleted ? 'Completed' : 'Incomplete'"
+        :middleText="client.pmuStatus"
       >
         <Document slot="preIcon" class="h-6 w-6 fill-current" />
       </ExpansionPanel>
@@ -150,6 +150,9 @@
         <Notes slot="preIcon" class="h-6 w-6 fill-current" />
       </ExpansionPanel>
       <div class="py-6">
+
+        <a v-if="client.pmuPdfUrl" class="mb-4 block text-center text-primary" target="_blank" :href="client.pmuPdfUrl">Download Signed PMU</a>
+
         <Button
           class="rounded-full"
           title="Save"
