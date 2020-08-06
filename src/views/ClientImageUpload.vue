@@ -14,7 +14,7 @@
     </BaseHeader>
     <div class="mt-8 max-w-6xl mx-auto">
       <!-- request by text -->
-      <div class="py-6 px-2 max-w-sm mx-auto">
+      <!-- <div class="py-6 px-2 max-w-sm mx-auto">
         <Button
           v-if="hasNotificationEmail"
           class="rounded-full"
@@ -27,10 +27,15 @@
           @clicked="sendRequest('SMS')"
           :title="`Request by text ${this.client.phoneNumber}`"
         />
-      </div>
+      </div> -->
 
       <!-- uploader -->
-      <ImageUpload :files="currentImages" @change="updateImages" class="mb-4">
+      <ImageUpload
+        :files="currentImages"
+        @change="updateImages"
+        class="mb-4"
+        :uploadPreset="uploadPreset"
+      >
         <template #title>
           <div class="tg-body-mobile ">
             <span class="text-on-background text-opacity-high">Images</span>
@@ -69,6 +74,7 @@ export default {
   },
   data() {
     return {
+      uploadPreset: process.env.VUE_APP_UPLOADER_IMAGE_PRESET,
       client: null,
       images: []
     };
@@ -116,7 +122,8 @@ export default {
       }));
       const updatedInfo = {
         email: this.client.email,
-        images: imagesAdapted
+        images: imagesAdapted,
+        videos: this.client.videos
       };
       this.updateClient({
         tenantSlug: this.tenantSlug,

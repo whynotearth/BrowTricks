@@ -12,11 +12,13 @@
     <div class="flex flex-wrap">
       <CloudinaryWidget
         @uploaded="onUpload"
+        :uploadPreset="uploadPreset"
         :uploaderOptions="{
           maxFiles,
           maxImageWidth
         }"
         :id="id ? id : 'upload_widget'"
+        class="upload-add w-1/3"
       >
         <label class="bg-background block cursor-pointer">
           <div class="upload-icon">
@@ -31,7 +33,7 @@
         </label>
       </CloudinaryWidget>
       <div
-        class="upload-previews-wrapper"
+        class="upload-previews-wrapper w-1/3"
         v-for="(image, index) in imagesToPreview"
         :key="index"
       >
@@ -63,6 +65,10 @@ import IconPlus from '@/assets/icons/plus.svg';
 export default {
   name: 'ImageUpload',
   props: {
+    uploadPreset: {
+      type: String,
+      required: true
+    },
     files: {
       type: Array,
       default: () => []
@@ -140,12 +146,18 @@ export default {
 <style scoped>
 .upload-icon--dimension,
 .upload-img--dimension {
-  width: 120px;
   height: 168px;
 }
 
-.upload-previews-wrapper {
-  width: 120px;
+.upload-previews-wrapper,
+.upload-add {
   height: 168px;
+}
+
+@screen sm {
+  .upload-previews-wrapper,
+  .upload-add {
+    width: 120px;
+  }
 }
 </style>

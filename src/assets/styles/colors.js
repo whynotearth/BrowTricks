@@ -13,7 +13,7 @@ const colors = {
   background: '#F4F1F1',
   surface: '#FFFFFF',
   action: '#0C6986',
-  error: '#C04545',
+  error: '#ED4A2B',
   'on-primary': '#0C6986',
   'on-primary-white': '#FFFFFF',
   'on-secondary': '#0C6986',

@@ -114,7 +114,6 @@
       </ExpansionPanel>
       <ExpansionPanel
         title="Images"
-        middleText="Incomplete"
         @click="
           $router.push({
             name: 'ClientImageUpload'
@@ -125,7 +124,6 @@
       </ExpansionPanel>
       <ExpansionPanel
         title="Videos"
-        middleText="Incomplete"
         @click="
           $router.push({
             name: 'ClientVideoUpload'
@@ -160,8 +158,8 @@
           @clicked="save"
         />
         <Button
-          class="mt-8 tg-body-mobile text-error text-opacity-medium"
-          title="Archive Client"
+          class="mt-8 tg-body-mobile text-error pb-4"
+          title="Delete Client"
           background="bg-transparent"
           :isRipple="false"
           @clicked="isArchiveModalOpen = true"

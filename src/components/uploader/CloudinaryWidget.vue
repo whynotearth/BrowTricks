@@ -10,6 +10,10 @@ const scriptId = 'cloudinary-widget-script';
 export default {
   name: 'CloudinaryWidget',
   props: {
+    uploadPreset: {
+      type: String,
+      required: true
+    },
     uploaderOptions: {
       default: () => {}
     },
@@ -18,6 +22,7 @@ export default {
     }
   },
   mounted() {
+    console.log('uploadPreset', this.uploadPreset);
     this.loadWidgetScript();
   },
   methods: {
@@ -42,7 +47,7 @@ export default {
       var myWidget = window.cloudinary.createUploadWidget(
         {
           cloudName: 'whynotearth',
-          uploadPreset: 'browtricks_tenant_CMS',
+          uploadPreset: this.uploadPreset,
           theme: 'minimal',
           autoMinimize: true,
           ...this.uploaderOptions

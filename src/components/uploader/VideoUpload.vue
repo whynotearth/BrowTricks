@@ -11,6 +11,7 @@
     </div>
     <div class="flex flex-wrap">
       <CloudinaryWidget
+        :uploadPreset="uploadPreset"
         @uploaded="onUpload"
         :uploaderOptions="{
           maxFiles
@@ -53,6 +54,10 @@ import IconPlus from '@/assets/icons/plus.svg';
 export default {
   name: 'VideoUpload',
   props: {
+    uploadPreset: {
+      type: String,
+      required: true
+    },
     files: {
       type: Array,
       default: () => []
