@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { PmuQuestionService, ClientService } from '@whynotearth/meredith-axios';
+import { ClientService } from '@whynotearth/meredith-axios';
 import HelloSign from 'hellosign-embedded';
 
 const state = {
@@ -15,40 +15,26 @@ const getters = {
 };
 
 const actions = {
-  addQuestions(context, { params }) {
-    return PmuQuestionService.questions(params);
+  // Set custom questions and get signUrl in response
+  setCustomQuestions(context, { params }) {
+    return ClientService.pmu(params);
   },
-  fetchQuestions(context, payload) {
-    const tenantSlug = payload.params.tenantSlug;
-    return PmuQuestionService.questions1(payload.params).then(response => {
-      context.commit('updateQuestions', { tenantSlug, questions: response });
-    });
-  },
-  submitAnswers(context, { params }) {
-    // params: clientId, tenantSlug, body
-    const { tenantSlug } = params;
-    return ClientService.pmu(params).then(response => {
-      context.commit('updateQuestions', { tenantSlug, questions: response });
-    });
-  },
-  getSignUrl(context, { params }) {
-    return ClientService.sign(params).then(response => {
-      return response;
-    });
-  },
-  submitSign(context, editUrl) {
+  submitSign(context, signUrl) {
     return new Promise(resolve => {
       // doc: https://app.hellosign.com/api/embeddedTemplatesWalkthrough
       const client = new HelloSign({
         clientId: process.env.VUE_APP_HELLO_SIGN_API_KEY
       });
-      client.open(editUrl);
+      client.open(signUrl);
       client.on('sign', data => {
         console.log('The document has been signed!');
         console.log('Signature ID: ' + data.signatureId);
         resolve(data);
       });
     });
+  },
+  signed(context, payload) {
+    return ClientService.signed(payload.params);
   }
 };
 

@@ -3,17 +3,15 @@ import VueRouter from 'vue-router';
 import store from '../store';
 
 import { authRoutes } from './authRoutes';
-import { PMURoutes } from './PMURoutes';
+import { PmuRoutes } from './PmuRoutes';
 import { clientRoutes } from './clientRoutes';
 import { generalRoutes } from './generalRoutes';
-// import { TestingRoutes } from './TestingRoutes';
 import { TenantPublicRoutes } from './TenantPublicRoutes';
 
 Vue.use(VueRouter);
 
 const routes = [
-  ...PMURoutes,
-  // ...TestingRoutes,
+  ...PmuRoutes,
   ...TenantPublicRoutes,
   ...clientRoutes,
   ...generalRoutes,
