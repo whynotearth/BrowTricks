@@ -88,7 +88,7 @@ export default {
   }),
   methods: {
     // ...mapMutations('PMU', [''])
-    ...mapActions('PMU', ['setCustomQuestions', 'submitSign']),
+    ...mapActions('PMU', ['setCustomQuestions', 'submitSign', 'signed']),
     questionAdd() {
       const question = {
         id: randomId(),
