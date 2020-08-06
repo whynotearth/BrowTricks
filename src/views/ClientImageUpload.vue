@@ -14,7 +14,7 @@
     </BaseHeader>
     <div class="mt-8 max-w-6xl mx-auto">
       <!-- request by text -->
-      <div class="py-6 px-2 max-w-sm mx-auto">
+      <!-- <div class="py-6 px-2 max-w-sm mx-auto">
         <Button
           v-if="hasNotificationEmail"
           class="rounded-full"
@@ -27,7 +27,7 @@
           @clicked="sendRequest('SMS')"
           :title="`Request by text ${this.client.phoneNumber}`"
         />
-      </div>
+      </div> -->
 
       <!-- uploader -->
       <ImageUpload
