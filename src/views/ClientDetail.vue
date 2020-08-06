@@ -117,7 +117,6 @@
       </ExpansionPanel>
       <ExpansionPanel
         title="Images"
-        :middleText="String((client.images || []).length)"
         @click="
           $router.push({
             name: 'ClientImageUpload'
@@ -128,7 +127,6 @@
       </ExpansionPanel>
       <ExpansionPanel
         title="Videos"
-        :middleText="String((client.videos || []).length)"
         @click="
           $router.push({
             name: 'ClientVideoUpload'

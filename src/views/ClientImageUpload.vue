@@ -30,7 +30,12 @@
       </div>
 
       <!-- uploader -->
-      <ImageUpload :files="currentImages" @change="updateImages" class="mb-4">
+      <ImageUpload
+        :files="currentImages"
+        @change="updateImages"
+        class="mb-4"
+        :uploadPreset="uploadPreset"
+      >
         <template #title>
           <div class="tg-body-mobile ">
             <span class="text-on-background text-opacity-high">Images</span>
@@ -69,6 +74,7 @@ export default {
   },
   data() {
     return {
+      uploadPreset: process.env.VUE_APP_UPLOADER_IMAGE_PRESET,
       client: null,
       images: []
     };
@@ -116,7 +122,8 @@ export default {
       }));
       const updatedInfo = {
         email: this.client.email,
-        images: imagesAdapted
+        images: imagesAdapted,
+        videos: this.client.videos
       };
       this.updateClient({
         tenantSlug: this.tenantSlug,
