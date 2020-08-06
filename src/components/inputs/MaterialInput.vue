@@ -96,7 +96,7 @@ export default {
         : 'text-on-background';
     },
     labelBg() {
-      return this.theme === 'dark' ? 'bg-newsurface' : 'bg-background';
+      return this.theme === 'dark' ? 'bg-newsurface' : 'bg-white';
     },
     textColor() {
       return this.theme === 'dark'
