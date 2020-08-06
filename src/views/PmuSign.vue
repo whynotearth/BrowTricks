@@ -113,7 +113,7 @@ export default {
           tenantSlug: this.tenantSlug,
           clientId: this.clientId,
           body: {
-            questions
+            disclosures: questions
           }
         }
       });
