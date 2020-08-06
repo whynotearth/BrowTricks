@@ -33,8 +33,8 @@ const actions = {
       });
     });
   },
-  signed(context, payload) {
-    return ClientService.signed(payload.params);
+  signed(context, { params }) {
+    return ClientService.signed(params);
   }
 };
 
