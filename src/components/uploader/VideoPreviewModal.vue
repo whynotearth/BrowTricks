@@ -1,9 +1,11 @@
 <template>
   <vue100vh
     class="bg-black bg-opacity-high z-50 fixed w-screen inset-0 flex justify-center items-center"
-    @click="closeModal"
   >
-    <div class="flex flex-col items-center text-left w-full h-full relative">
+    <div
+      class="flex flex-col items-center text-left w-full h-full relative"
+      @click="closeModal"
+    >
       <!-- top toolbar -->
       <div class="flex justify-end w-full">
         <button class="p-3" @click.prevent="closeModal" title="Close">
