@@ -19,9 +19,6 @@ const state = {
 const getters = {
   page(state) {
     return state.page;
-  },
-  getClientById: state => id => {
-    return state.clients.find(client => client.id == id);
   }
 };
 
@@ -48,6 +45,10 @@ const actions = {
       .catch(() => {
         commit('updateClients', []);
       });
+  },
+  fetchClient(context, { params }) {
+    // params = { tenantSlug, clientId }
+    return ClientService.clients3(params);
   },
   createClient({ state, commit }, payload) {
     const clientData = {

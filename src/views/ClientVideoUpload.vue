@@ -9,7 +9,7 @@
         <ArrowBack class="h-6 w-6 fill-current" />
       </template>
       <template #content>
-        <span class="pl-5">Images</span>
+        <span class="pl-5">Videos</span>
       </template>
     </BaseHeader>
     <div class="mt-8 max-w-6xl mx-auto">
@@ -30,13 +30,13 @@
       </div>
 
       <!-- uploader -->
-      <ImageUpload :files="currentImages" @change="updateImages" class="mb-4">
+      <VideoUpload :files="currentFiles" @change="updateFiles" class="mb-4">
         <template #title>
           <div class="tg-body-mobile ">
-            <span class="text-on-background text-opacity-high">Images</span>
+            <span class="text-on-background text-opacity-high">Videos</span>
           </div>
         </template>
-      </ImageUpload>
+      </VideoUpload>
     </div>
   </div>
 </template>
@@ -45,12 +45,12 @@
 import BaseHeader from '@/components/BaseHeader.vue';
 import ArrowBack from '@/assets/icons/arrow-back.svg';
 import Button from '@/components/Button.vue';
-import ImageUpload from '@/components/uploader/ImageUpload.vue';
+import VideoUpload from '@/components/uploader/VideoUpload.vue';
 import { mapActions } from 'vuex';
 import { get } from 'lodash-es';
 
 export default {
-  name: 'ClientImageUpload',
+  name: 'ClientVideoUpload',
   props: {
     tenantSlug: {
       type: String,
@@ -64,13 +64,12 @@ export default {
   components: {
     BaseHeader,
     ArrowBack,
-    ImageUpload,
+    VideoUpload,
     Button
   },
   data() {
     return {
-      client: null,
-      images: []
+      client: null
     };
   },
   async created() {
@@ -85,8 +84,8 @@ export default {
       const notificationTypes = get(this.client, 'notificationTypes', []);
       return notificationTypes.includes('phone');
     },
-    currentImages() {
-      return get(this.client, 'images', []);
+    currentFiles() {
+      return get(this.client, 'videos', []);
     }
   },
   methods: {
@@ -108,14 +107,14 @@ export default {
     sendRequest(notificationType) {
       console.log('TODO: send request', notificationType);
     },
-    updateImages(images) {
-      const imagesAdapted = images.map(item => ({
+    updateFiles(files) {
+      const videosAdapted = files.map(item => ({
         url: item.url,
         publicId: item.publicId
       }));
       const updatedInfo = {
         email: this.client.email,
-        images: imagesAdapted
+        videos: videosAdapted
       };
       this.updateClient({
         tenantSlug: this.tenantSlug,

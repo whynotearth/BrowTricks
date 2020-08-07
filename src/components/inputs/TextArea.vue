@@ -5,19 +5,19 @@
       :class="[
         { filled: value && value.length > 0 },
         error
-          ? 'border-red-600 placeholder-red-600'
+          ? 'border-error placeholder-error'
           : 'border-on-background border-opacity-disabled'
       ]"
       :id="idName"
       :value="value"
-      @blur="$emit('input', $event.target.value)"
+      v-on="inputListeners"
       :placeholder="placeholder || label"
     ></textarea>
     <label
       :for="idName"
       class="label absolute mb-0 top-0 left-0 mt-3 ml-3 cursor-text"
       :class="[
-        error ? 'text-red-600' : 'text-on-background text-opacity-medium',
+        error ? 'text-error' : 'text-on-background text-opacity-medium',
         labelBg
       ]"
     >
@@ -53,6 +53,22 @@ export default {
     labelBg: {
       type: String,
       default: 'bg-background'
+    }
+  },
+  computed: {
+    inputListeners: function() {
+      return Object.assign({}, this.$listeners, {
+        blur: this.onBlur,
+        input: this.onInput
+      });
+    }
+  },
+  methods: {
+    onBlur($event) {
+      this.$emit('input', $event.target.value);
+    },
+    onInput($event) {
+      this.$emit('input', $event.target.value);
     }
   }
 };

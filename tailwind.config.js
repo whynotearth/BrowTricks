@@ -3,7 +3,6 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 
 const boxShadow = require('./src/assets/styles/shadows');
 const colors = require('./src/assets/styles/colors');
-const opacity = require('./src/assets/styles/opacities');
 
 module.exports = {
   purge: ['./public/**/*.html', './src/**/*.vue'],
@@ -11,7 +10,12 @@ module.exports = {
     extend: {
       boxShadow,
       colors,
-      opacity,
+      opacity: {
+        high: '0.84',
+        medium: '0.54',
+        disabled: '0.38',
+        divider: '0.12'
+      },
       borderRadius: {
         xl: '1rem'
       },
@@ -39,21 +43,5 @@ module.exports = {
       }
     }
   },
-  // FIXME: optimise, ISSUE #123
-  // variants: [
-  //   'responsive',
-  //   'group-hover',
-  //   'group-focus',
-  //   'focus-within',
-  //   'first',
-  //   'last',
-  //   'odd',
-  //   'even',
-  //   'hover',
-  //   'focus',
-  //   'active',
-  //   'visited',
-  //   'disabled'
-  // ],
   plugins: []
 };

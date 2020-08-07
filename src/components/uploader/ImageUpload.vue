@@ -9,44 +9,44 @@
         </span>
       </slot>
     </div>
-    <div class="flex flex-wrap -mx-1">
+    <div class="flex flex-wrap">
       <CloudinaryWidget
         @uploaded="onUpload"
-        @opened="onUploaderOpened"
         :uploaderOptions="{
-          maxFiles: 1,
-          maxImageWidth: 560
+          maxFiles,
+          maxImageWidth
         }"
         :id="id ? id : 'upload_widget'"
       >
-        <label
-          class="bg-background m-1 block cursor-pointer"
-          for="add-post-image-upload"
-        >
+        <label class="bg-background block cursor-pointer">
           <div class="upload-icon">
             <div
               class="upload-icon--dimension border border-on-background border-dashed border-opacity-divider flex justify-center items-center"
             >
-              <ImageUploadPlus />
+              <IconPlus
+                class="fill-current text-newprimary text-opacity-medium"
+              />
             </div>
           </div>
         </label>
       </CloudinaryWidget>
-      <div class="upload-previews-wrapper flex flex-wrap">
-        <template v-for="(image, index) in imagesToPreview">
-          <BaseImagePreview
-            v-if="image.secure_url"
-            :selectImage="selectImage"
-            :key="index"
-            :image="image.secure_url"
-            :index="index"
-          />
-        </template>
+      <div
+        class="upload-previews-wrapper"
+        v-for="(image, index) in imagesToPreview"
+        :key="index"
+      >
+        <BaseImagePreview
+          v-if="image.url"
+          :selectImage="selectImage"
+          :key="index"
+          :image="image.url"
+          :index="index"
+        />
       </div>
       <ImagePreviewModal
         v-if="
           selectedImageInfo &&
-            selectedImageInfo.secure_url &&
+            selectedImageInfo.url &&
             selectedImageInfo.index >= 0
         "
         @deleteImage="deleteImage"
@@ -58,21 +58,22 @@
 </template>
 
 <script>
-import ImageUploadPlus from '@/assets/icons/image_upload_plus.svg';
+import IconPlus from '@/assets/icons/plus.svg';
 
 export default {
   name: 'ImageUpload',
-  model: {
-    prop: 'value',
-    event: 'change'
-  },
   props: {
-    defaultImages: {
-      type: Array
-    },
-    value: {
+    files: {
       type: Array,
-      required: true
+      default: () => []
+    },
+    maxImageWidth: {
+      type: Number,
+      default: parseInt(process.env.VUE_APP_UPLOADER_MAX_IMAGE_WIDTH)
+    },
+    maxFiles: {
+      type: Number,
+      default: parseInt(process.env.VUE_APP_UPLOADER_MAX_FILES)
     },
     id: {
       type: String
@@ -81,65 +82,56 @@ export default {
   data() {
     return {
       images: [],
-      imagesToPreview: [],
       selectedImageInfo: {
-        secure_url: '',
+        url: '',
         index: null
       }
     };
   },
   components: {
-    ImageUploadPlus,
+    IconPlus,
     BaseImagePreview: () => import('./BaseImagePreview'),
     ImagePreviewModal: () => import('./ImagePreviewModal'),
     CloudinaryWidget: () => import('./CloudinaryWidget')
   },
-  mounted() {
-    if (this.defaultImages && this.defaultImages.length > 0) {
-      this.images = [...this.defaultImages];
-      this.imagesToPreview = [...this.defaultImages];
+  computed: {
+    imagesToPreview() {
+      return [...this.files];
     }
   },
   methods: {
     deleteImage(index) {
-      this.images.splice(index, 1);
-      this.$emit('change', [...this.images]);
+      let updatedFiles = this.files.slice();
+      updatedFiles.splice(index, 1);
+      this.updateFiles(updatedFiles);
     },
-    selectImage([secure_url, index]) {
-      this.selectedImageInfo.secure_url = secure_url;
+    selectImage([url, index]) {
+      this.selectedImageInfo.url = url;
       this.selectedImageInfo.index = index;
     },
     resetSelectedImage() {
       this.selectedImageInfo = {
-        secure_url: '',
+        url: '',
         index: null
       };
     },
-    onUploaderOpened() {
-      //
-    },
     onUpload(result) {
       if (result.event === 'success') {
-        const images = [this.getCloudinaryImageAdaptedObject(result.info)];
-        this.images = images;
-        this.$emit('change', [...this.images]);
+        let updatedFiles = [this.cloudinaryImageToMeredithImage(result.info)];
+        this.updateFiles([...this.files, ...updatedFiles]);
       }
     },
-    getCloudinaryImageAdaptedObject(cloudinaryImageInfo) {
-      const { secure_url, height, width } = cloudinaryImageInfo;
+    updateFiles(files) {
+      this.$emit('change', files);
+    },
+    cloudinaryImageToMeredithImage(cloudinaryImageInfo) {
+      const { secure_url, height, width, public_id } = cloudinaryImageInfo;
       return {
-        secure_url,
         height,
-        width
+        width,
+        publicId: public_id,
+        url: secure_url
       };
-    }
-  },
-  watch: {
-    value: {
-      immediate: true,
-      handler(val) {
-        this.imagesToPreview = [...val];
-      }
     }
   }
 };
@@ -148,11 +140,12 @@ export default {
 <style scoped>
 .upload-icon--dimension,
 .upload-img--dimension {
-  width: 76px;
-  height: 108px;
+  width: 120px;
+  height: 168px;
 }
 
 .upload-previews-wrapper {
-  height: 108px;
+  width: 120px;
+  height: 168px;
 }
 </style>

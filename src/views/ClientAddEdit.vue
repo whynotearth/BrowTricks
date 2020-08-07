@@ -84,7 +84,6 @@ export default {
   methods: {
     ...mapMutations('client', ['pageChange', 'resetClientInfo']),
     ...mapActions('client', ['createClient']),
-    ...mapActions('auth', ['ping']),
     previousStep() {
       if (this.page > 1) {
         this.pageChange(this.page - 1);

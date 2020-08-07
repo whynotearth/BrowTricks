@@ -4,26 +4,39 @@
       class="bg-on-background bg-opacity-medium fixed inset-x-0 top-0 min-h-screen w-full z-10"
       @click="toggleMenuDrawer"
       v-if="isMenuDrawerOpen"
-    />
+    ></div>
     <transition name="slide">
       <div
-        class="bg-white fixed inset-x-0 top-0 min-h-screen w-4/5 z-20 py-8 px-4"
+        class="bg-white fixed overflow-auto inset-y-0 left-0 z-20 w-full max-w-sm tg-h3-mobile text-left py-8 narrow-scrollbar has-light-bg overscroll-none"
         v-if="isMenuDrawerOpen"
       >
-        <div class="flex flex-col tg-h3-mobile text-left">
-          <div class="pb-8 cursor-pointer">
+        <div class="px-4">
+          <router-link
+            class="pb-8 cursor-pointer block"
+            :to="{
+              name: 'Home'
+            }"
+          >
             Home
-          </div>
-          <div class="pb-8 cursor-pointer">
+          </router-link>
+          <div
+            class="pb-8 cursor-pointer text-on-background text-opacity-disabled"
+          >
             About
           </div>
-          <div class="pb-8 cursor-pointer">
+          <div
+            class="pb-8 cursor-pointer text-on-background text-opacity-disabled"
+          >
             Services
           </div>
-          <div class="pb-8 cursor-pointer">
+          <div
+            class="pb-8 cursor-pointer text-on-background text-opacity-disabled"
+          >
             Contact
           </div>
-          <div class="pb-8 cursor-pointer">
+          <div
+            class="pb-8 cursor-pointer text-on-background text-opacity-disabled"
+          >
             Book Now
           </div>
           <div
@@ -37,10 +50,10 @@
             Privacy Policy
           </div>
           <router-link
-            class="pb-8 cursor-pointer"
+            class="pb-8 cursor-pointer block"
             :to="{
               name: 'ClientList',
-              params: { tenantSlug: 'test-tenant-94' }
+              params: { tenantSlug }
             }"
           >
             Clients
@@ -48,11 +61,11 @@
           <router-link
             class="pb-8 cursor-pointer"
             v-if="!isAuthenticated"
-            :to="{ name: 'LogIn' }"
+            :to="{ name: 'Login' }"
           >
             Log In
           </router-link>
-          <div class="pb-8 cursor-pointer" v-else @click="onLogout">
+          <div class="cursor-pointer" v-else @click="onLogout">
             Logout
           </div>
         </div>
@@ -66,28 +79,45 @@ import { mapGetters, mapMutations, mapActions } from 'vuex';
 
 export default {
   name: 'MenuDrawer',
-  data() {
-    return {
-      isAuthenticated: false
-    };
-  },
   computed: {
     ...mapGetters({
       isMenuDrawerOpen: 'getIsMenuDrawerOpen'
-    })
-  },
-  created() {
-    this.ping().then(response => {
-      this.isAuthenticated = response.isAuthenticated;
-    });
+    }),
+    ...mapGetters('auth', ['isAuthenticated']),
+    tenantSlug() {
+      return this.$route.params.tenantSlug;
+    }
   },
   methods: {
     ...mapMutations(['toggleMenuDrawer']),
-    ...mapActions('auth', ['ping', 'logout']),
+    ...mapActions('auth', ['logout']),
     onLogout() {
-      this.logout().then(() => {
-        this.isAuthenticated = false;
+      this.logout().catch(() => {
+        alert(
+          `Logout failed! If the problem persisted, please contact ${process.env.VUE_APP_ADMINISTRATOR_CONTACT_EMAIL}`
+        );
       });
+    },
+    disableScrollbars() {
+      document.body.classList.add('overflow-hidden');
+    },
+    enableScrollbars() {
+      document.body.classList.remove('overflow-hidden');
+    }
+  },
+  beforeDestroy() {
+    this.enableScrollbars();
+  },
+  watch: {
+    isMenuDrawerOpen: {
+      immediate: true,
+      handler(newValue) {
+        if (newValue) {
+          this.disableScrollbars();
+        } else {
+          this.enableScrollbars();
+        }
+      }
     }
   }
 };

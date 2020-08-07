@@ -1,39 +1,20 @@
 <template>
-  <!-- =============================== DEPRECATED ================================= -->
-  <!-- Use inputs/Button.vue instead -->
   <component
     :is="type"
-    class="tg-color-label-mobile font-semibold uppercase cursor-pointer text-white inline-block"
+    class="button tg-color-label-mobile font-semibold uppercase cursor-pointer inline-block transition-all duration-75"
     :class="[
-      isRipple ? 'ripple' : '',
       isRounded ? 'rounded-full' : '',
       width,
       background,
+      textColor,
       padding
     ]"
-    @click="$emit('clicked')"
+    v-on="eventListeners"
     :href="href"
     :to="to"
   >
-    <div class="flex flex-row items-center">
-      <div class="text-left">
-        <slot name="icon"></slot>
-      </div>
-      <div
-        class="text-left"
-        :class="[titleLeft || title ? 'flex-1' : 'hidden']"
-      >
-        {{ titleLeft }}
-      </div>
-      <div class="flex-grow text-center" v-if="title">
-        {{ title }}
-      </div>
-      <div
-        class="text-right"
-        :class="[titleRight || title ? 'flex-1' : 'hidden']"
-      >
-        {{ titleRight }}
-      </div>
+    <div class="flex items-center justify-center">
+      {{ title }}
     </div>
   </component>
 </template>
@@ -68,9 +49,9 @@ export default {
       type: String,
       default: 'bg-button'
     },
-    isRipple: {
-      type: Boolean,
-      default: true
+    textColor: {
+      type: String,
+      default: 'text-newprimary'
     },
     padding: {
       type: String,
@@ -82,6 +63,13 @@ export default {
     }
   },
   computed: {
+    eventListeners: function() {
+      return Object.assign({}, this.$listeners, {
+        click: () => {
+          this.$emit('clicked');
+        }
+      });
+    },
     type() {
       if (this.href) {
         return 'a';
@@ -96,13 +84,8 @@ export default {
 </script>
 
 <style scoped>
-.ripple {
-  background-position: center;
-  transition: background 0.4s;
-}
-
-.ripple:hover,
-.ripple:active {
-  @apply bg-button bg-opacity-high;
+.button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px white;
 }
 </style>

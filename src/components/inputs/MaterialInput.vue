@@ -1,34 +1,36 @@
 <template>
-  <div class="relative">
-    <!-- TODO: add v-on="inputListeners" like Volkswagen BaseInputText.vue to handle all events -->
+  <div class="relative" :class="[margin]">
     <input
       class="input text-on-background text-opacity-high appearance-none outline-none relative bg-transparent rounded w-full px-4 py-3 border focus:border-2 active:border-2 focus:border-opacity-medium active:border-opacity-medium"
       :class="[
-        margin,
         { filled: value && value.length > 0 },
         error
-          ? 'border-red-600 placeholder-red-600'
+          ? 'border-error placeholder-error'
           : 'border-on-background border-opacity-disabled'
       ]"
+      v-bind="attrs"
       :id="idName"
       :type="type"
-      min="0"
+      :min="min"
       :step="step"
       :value="value"
-      @blur="$emit('input', $event.target.value)"
+      v-on="inputListeners"
       :placeholder="placeholder || label"
     />
     <label
       :for="idName"
       class="label absolute mb-0 top-0 left-0 mt-3 ml-3 cursor-text"
       :class="[
-        error ? 'text-red-600' : 'text-on-background text-opacity-medium',
+        error ? 'text-error' : 'text-on-background text-opacity-medium',
         labelBg
       ]"
     >
       {{ label }}
     </label>
-    <slot></slot>
+    <div class="ml-4 mt-2" v-if="error">
+      <slot />
+    </div>
+    <slot name="end" />
   </div>
 </template>
 
@@ -38,6 +40,10 @@ import { randomId } from '@/helpers.js';
 export default {
   name: 'TextInput',
   props: {
+    attrs: {
+      type: Object,
+      default: () => {}
+    },
     value: {
       type: [String, Number],
       default: null
@@ -52,6 +58,10 @@ export default {
     type: {
       type: String,
       default: 'text'
+    },
+    min: {
+      type: [String, Number],
+      default: 0
     },
     step: {
       type: String,
@@ -72,6 +82,22 @@ export default {
       type: String,
       default: 'mb-4'
     }
+  },
+  computed: {
+    inputListeners: function() {
+      return Object.assign({}, this.$listeners, {
+        blur: this.onBlur,
+        input: this.onInput
+      });
+    }
+  },
+  methods: {
+    onBlur($event) {
+      this.$emit('input', $event.target.value);
+    },
+    onInput($event) {
+      this.$emit('input', $event.target.value);
+    }
   }
 };
 </script>
@@ -80,6 +106,9 @@ export default {
 .input {
   transition: border 0.2s ease-in-out;
   z-index: 2;
+}
+.input[readonly] {
+  @apply text-opacity-medium;
 }
 
 .label {

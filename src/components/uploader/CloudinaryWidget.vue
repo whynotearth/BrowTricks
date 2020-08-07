@@ -44,14 +44,19 @@ export default {
           cloudName: 'whynotearth',
           uploadPreset: 'browtricks_tenant_CMS',
           theme: 'minimal',
+          autoMinimize: true,
           ...this.uploaderOptions
         },
         (error, result) => {
-          if (!error && result && result.event === 'success') {
-            this.$emit('uploaded', result);
-          }
           if (error) {
             this.$emit('error', error);
+            return;
+          }
+          if (result) {
+            if (result.event === 'success') {
+              console.log('result', result);
+              this.$emit('uploaded', result);
+            }
           }
         }
       );

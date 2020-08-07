@@ -23,7 +23,7 @@
       </div>
       <div class="py-3 text-center" v-if="!isAuthenticated">
         <Button
-          :to="{ name: 'LogIn' }"
+          :to="{ name: 'Login' }"
           class="tg-body-hyperlink-mobile text-on-background-image text-opacity-medium pb-4 normal-case font-normal"
           title="Already have an account? Log in!"
           background="bg-transparent"
@@ -36,27 +36,21 @@
 
 <script>
 import Button from '@/components/Button.vue';
-import { mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'Welcome',
   data() {
     return {
       logoUrl: process.env.VUE_APP_LOGO_URL,
-      appName: process.env.VUE_APP_NAME,
-      isAuthenticated: false
+      appName: process.env.VUE_APP_NAME
     };
   },
   components: {
     Button
   },
-  methods: {
-    ...mapActions('auth', ['ping'])
-  },
-  created() {
-    this.ping().then(result => {
-      this.isAuthenticated = !!result.isAuthenticated;
-    });
+  computed: {
+    ...mapGetters('auth', ['isAuthenticated'])
   }
 };
 </script>

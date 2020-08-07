@@ -3,7 +3,7 @@
     <BaseHeader
       slot="header"
       class="bg-footer text-white"
-      @iconClicked="goBack"
+      @iconClicked="goListPage"
     >
       <ArrowBack slot="icon" class="h-6 w-6 fill-current" />
       <span slot="content" class="pl-5">Client Profile</span>
@@ -25,119 +25,91 @@
       <div
         class="flex justify-between tg-caption-mobile pb-16 w-full sm:w-auto"
       >
-        <div class="hidden flex flex-col items-center px-4 sm:px-8">
-          <BookIcon class="fill-current" />
-          <span>Book</span>
-        </div>
         <a
           class="flex flex-col items-center px-4 sm:px-8"
           :href="`mailto:${client.email}`"
         >
-          <MailIcon class="fill-current" />
+          <MailIcon class="fill-current mb-2" />
           <span>Email</span>
         </a>
         <a
           class="flex flex-col items-center px-4 sm:px-8"
           :href="`sms:${client.phoneNumber}`"
         >
-          <PhoneAndroidIcon class="fill-current" />
+          <PhoneAndroidIcon class="fill-current mb-2" />
           <span>Text</span>
         </a>
         <a
           class="flex flex-col items-center px-4 sm:px-8"
           :href="`tel:${client.phoneNumber}`"
         >
-          <PhoneIcon class="fill-current" />
+          <PhoneIcon class="fill-current mb-2" />
           <span>Call</span>
         </a>
       </div>
     </div>
-    <div class="max-w-md mx-auto">
-      <div class="m-4 -mt-10 bg-white shadow-1dp py-4 px-2 rounded-lg">
-        <material-input
+    <div class="max-w-md mx-auto px-4">
+      <div class="-mt-10 bg-white shadow-1dp px-4 pt-4 rounded-lg pb-4 mb-4">
+        <MaterialInput
           v-model="$v.client.firstName.$model"
           label="First Name"
           labelBg="bg-white"
-          :error="$v.client.firstName.$dirty && !$v.client.firstName.required"
+          :error="$v.client.firstName.$error"
         >
-          <span
-            v-if="$v.client.firstName.$dirty && !$v.client.firstName.required"
-            class="text-red-600 text-xs"
-          >
+          <p v-if="!$v.client.firstName.required" class="text-error text-xs">
             First Name is required
-          </span>
-        </material-input>
-        <material-input
+          </p>
+        </MaterialInput>
+        <MaterialInput
           v-model="$v.client.lastName.$model"
           label="Last Name"
           labelBg="bg-white"
-          :error="$v.client.lastName.$dirty && !$v.client.lastName.required"
+          :error="$v.client.lastName.$error"
         >
-          <span
-            v-if="$v.client.lastName.$dirty && !$v.client.lastName.required"
-            class="text-red-600 text-xs"
-          >
+          <p v-if="!$v.client.lastName.required" class="text-error text-xs">
             Last Name is required
-          </span>
-        </material-input>
-        <material-input
+          </p>
+        </MaterialInput>
+        <MaterialInput
           v-model="$v.client.phoneNumber.$model"
           label="Phone Number"
           labelBg="bg-white"
-          :error="
-            $v.client.phoneNumber.$dirty &&
-              (!$v.client.phoneNumber.required ||
-                !$v.client.phoneNumber.minLength)
-          "
+          :error="$v.client.phoneNumber.$error"
         >
-          <span
-            v-if="
-              $v.client.phoneNumber.$dirty && !$v.client.phoneNumber.required
-            "
-            class="text-red-600 text-xs"
-          >
+          <p v-if="!$v.client.phoneNumber.required" class="text-error text-xs">
             Phone number is required
-          </span>
-          <span
-            v-if="
-              $v.client.phoneNumber.$dirty &&
-                (!$v.client.phoneNumber.minLength ||
-                  !$v.client.phoneNumber.isPhoneNumberValid)
+          </p>
+          <p
+            v-else-if="
+              !$v.client.phoneNumber.minLength ||
+                !$v.client.phoneNumber.isPhoneNumberValid
             "
-            class="text-red-600 text-xs"
+            class="text-error text-xs"
           >
             Please enter a valid phone number
-          </span>
-        </material-input>
-        <material-input
+          </p>
+        </MaterialInput>
+        <MaterialInput
           v-model="$v.client.email.$model"
           label="Email"
           labelBg="bg-white"
-          :error="
-            $v.client.email.$dirty &&
-              (!$v.client.email.required || !$v.client.email.email)
-          "
+          :error="$v.client.email.$error"
+          :margin="null"
+          :attrs="{ readonly: true }"
         >
-          <span
-            v-if="$v.client.email.$dirty && !$v.client.email.required"
-            class="text-red-600 text-xs"
-          >
+          <p v-if="!$v.client.email.required" class="text-error text-xs">
             Email is required
-          </span>
-          <span
-            v-if="$v.client.email.$dirty && !$v.client.email.email"
-            class="text-red-600 text-xs"
-          >
+          </p>
+          <p v-else-if="!$v.client.email.email" class="text-error text-xs">
             Please enter a email address
-          </span>
-        </material-input>
+          </p>
+        </MaterialInput>
       </div>
       <ExpansionPanel
         title="Notification Settings"
         @click="
           $router.push({
-            name: 'ClientNotifications',
-            params: { ...$route.params }
+            name: 'ClientNotifications'
           })
         "
       >
@@ -148,12 +120,22 @@
         middleText="Incomplete"
         @click="
           $router.push({
-            name: 'ClientImageUpload',
-            params: { ...$route.params }
+            name: 'ClientImageUpload'
           })
         "
       >
         <ImagesIcon slot="preIcon" class="h-6 w-6 fill-current" />
+      </ExpansionPanel>
+      <ExpansionPanel
+        title="Videos"
+        middleText="Incomplete"
+        @click="
+          $router.push({
+            name: 'ClientVideoUpload'
+          })
+        "
+      >
+        <VideosIcon slot="preIcon" class="h-6 w-6 fill-current" />
       </ExpansionPanel>
       <ExpansionPanel
         @click="
@@ -163,7 +145,7 @@
           })
         "
         title="PMU"
-        middleText="Incomplete"
+        :middleText="client.isPmuCompleted ? 'Completed' : 'Incomplete'"
       >
         <Document slot="preIcon" class="h-6 w-6 fill-current" />
       </ExpansionPanel>
@@ -178,7 +160,7 @@
       >
         <Notes slot="preIcon" class="h-6 w-6 fill-current" />
       </ExpansionPanel>
-      <div class="mt-4 mx-4 py-6 px-2">
+      <div class="py-6">
         <Button
           class="rounded-full"
           title="Save"
@@ -239,19 +221,19 @@ import ArrowBack from '@/assets/icons/arrow-back.svg';
 import Document from '@/assets/icons/document.svg';
 import Notes from '@/assets/icons/notes.svg';
 import Notification from '@/assets/icons/notification.svg';
-import ImagesIcon from '@/assets/icons/images.svg';
 
-import BookIcon from '@/assets/icons/calendar_today.svg';
+import ImagesIcon from '@/assets/icons/images.svg';
+import VideosIcon from '@/assets/icons/videos.svg';
 import MailIcon from '@/assets/icons/mail.svg';
 import PhoneIcon from '@/assets/icons/phone.svg';
 import PhoneAndroidIcon from '@/assets/icons/phone_android.svg';
 
 import { isPhoneNumberValid } from '@/helpers';
-import { mapGetters, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 import { sleep } from '@/helpers.js';
 
 export default {
-  name: 'AddEditClient',
+  name: 'ClientDetail',
   props: {
     tenantSlug: {
       type: String,
@@ -271,8 +253,8 @@ export default {
     Notes,
     Notification,
     ImagesIcon,
+    VideosIcon,
     ExpansionPanel,
-    BookIcon,
     MailIcon,
     PhoneIcon,
     PhoneAndroidIcon
@@ -303,36 +285,45 @@ export default {
     }
   },
   async created() {
-    this.fetchClients(this.tenantSlug);
-    this.client = await this.getClientById(this.clientId);
-    if (!this.client) {
-      this.goBack();
-    }
-  },
-  computed: {
-    ...mapGetters('client', ['getClientById'])
+    this._fetchClient();
   },
   methods: {
-    ...mapActions('client', ['updateClient', 'archiveClient', 'fetchClients']),
-    save() {
-      if (!this.$v.$invalid) {
-        this.updateClient({
-          tenantSlug: this.tenantSlug,
+    ...mapActions('client', ['updateClient', 'archiveClient', 'fetchClient']),
+    async _fetchClient() {
+      this.client = await this.fetchClient({
+        params: {
           clientId: this.clientId,
-          body: this.client
-        }).then(async () => {
-          this.$store.commit('overlay/updateModel', {
-            title: 'Success!',
-            message: 'Client updated successfully!'
-          });
-          await sleep(1500);
-          this.$store.commit('overlay/updateModel', {
-            title: '',
-            message: ''
-          });
-        });
-      }
+          tenantSlug: this.tenantSlug
+        }
+      }).catch(() => {
+        console.log('error in getting client');
+        this.goListPage();
+      });
     },
+
+    save() {
+      this.$v.$touch();
+      if (this.$v.$invalid) {
+        return;
+      }
+
+      this.updateClient({
+        tenantSlug: this.tenantSlug,
+        clientId: this.clientId,
+        body: this.client
+      }).then(async () => {
+        this.$store.commit('overlay/updateModel', {
+          title: 'Success!',
+          message: 'Client updated successfully!'
+        });
+        await sleep(1500);
+        this.$store.commit('overlay/updateModel', {
+          title: '',
+          message: ''
+        });
+      });
+    },
+
     archive() {
       this.archiveClient({
         tenantSlug: this.tenantSlug,
@@ -343,7 +334,7 @@ export default {
           title: 'Success!',
           message: 'Client archived successfully!'
         });
-        this.goBack();
+        this.goListPage();
         await sleep(1500);
         this.$store.commit('overlay/updateModel', {
           title: '',
@@ -351,10 +342,10 @@ export default {
         });
       });
     },
-    goBack() {
+
+    goListPage() {
       this.$router.push({
-        name: 'ClientList',
-        params: { slug: this.tenantSlug }
+        name: 'ClientList'
       });
     }
   }

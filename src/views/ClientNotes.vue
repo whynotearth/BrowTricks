@@ -12,7 +12,6 @@
       <AddEditNote
         :note="selectedNote"
         @onSave="createOrUpdateNote"
-        @onCancel="cancel"
         @onDelete="deleteNote"
       />
     </div>
@@ -31,7 +30,14 @@
           v-for="note in clientNotes"
           :key="note.id"
         >
-          {{ note.note }}
+          <div
+            class="text-on-background text-opacity-medium tg-caption-mobile mb-4"
+          >
+            {{ format(new Date(note.createdAt), 'dd MMM, yyyy') }}
+          </div>
+          <div>
+            {{ note.note }}
+          </div>
         </div>
       </div>
     </div>
@@ -42,10 +48,10 @@
 import BaseHeader from '@/components/BaseHeader.vue';
 import ArrowBack from '@/assets/icons/arrow-back.svg';
 import Button from '@/components/Button.vue';
-import TextArea from '@/components/inputs/TextArea.vue';
 import AddEditNote from '@/components/client/AddEditNote.vue';
+import { format } from 'date-fns';
 
-import { mapGetters, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 import { sleep } from '@/helpers.js';
 
 export default {
@@ -64,7 +70,6 @@ export default {
     BaseHeader,
     ArrowBack,
     Button,
-    TextArea,
     AddEditNote
   },
   data() {
@@ -74,12 +79,6 @@ export default {
       clientNotes: [],
       selectedNote: null
     };
-  },
-  computed: {
-    ...mapGetters('client', ['getClientById']),
-    client() {
-      return this.getClientById(this.clientId);
-    }
   },
   created() {
     this.fetchNotes();
@@ -153,7 +152,8 @@ export default {
     selectNote(note) {
       this.selectedNote = note;
       this.isAddEditActive = true;
-    }
+    },
+    format
   }
 };
 </script>

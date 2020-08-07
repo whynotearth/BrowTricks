@@ -1,34 +1,29 @@
 <template>
-  <div class="px-4 text-left">
+  <form class="text-left" @submit.prevent="submit">
     <MaterialInput
       class="flex-grow"
       v-model.trim="signature"
-      @input="answerUpdate({ field: 'signature', value: signature })"
+      @input="answerUpdate({ field: { name: 'signature' }, value: signature })"
       label="Signature"
-      labelBg="bg-surface"
+      :error="$v.signature.$error"
     >
-      <span
-        v-if="$v.signature.$dirty && !$v.signature.required"
-        class="text-red-600 text-xs"
-      >
+      <p v-if="!$v.signature.required" class="text-error tg-body-mobile">
         Signature is required
-      </span>
+      </p>
     </MaterialInput>
     <MaterialInput
       class="flex-grow"
       v-model.trim="initials"
-      @input="answerUpdate({ field: 'initials', value: initials })"
+      @input="answerUpdate({ field: { name: 'initials' }, value: initials })"
       label="Initials"
-      labelBg="bg-surface"
+      :error="$v.initials.$error"
     >
-      <span
-        v-if="$v.initials.$dirty && !$v.initials.required"
-        class="text-red-600 text-xs"
-      >
+      <p v-if="!$v.initials.required" class="text-error tg-body-mobile">
         Initials is required
-      </span>
+      </p>
     </MaterialInput>
 
+    <!-- preview -->
     <div class="shadow-1dp p-4 bg-surface mb-4 rounded-xl">
       <p class="tg-h3-mobile mb-4">
         Signed by: <span>{{ signature }}</span>
@@ -42,7 +37,10 @@
       </p>
       <p class="tg-dancing-desktop">{{ initials }}</p>
     </div>
-  </div>
+
+    <!-- for submiting by keyboard -->
+    <button class="hidden">submit</button>
+  </form>
 </template>
 
 <script>
@@ -67,6 +65,9 @@ export default {
   methods: {
     answerUpdate(data) {
       this.$emit('answerUpdate', data);
+    },
+    submit() {
+      this.$emit('nextStep');
     }
   }
 };
