@@ -1,16 +1,12 @@
 <template>
-  <div
-    class="bg-black bg-opacity-high z-50 fixed h-screen w-screen inset-0 flex justify-center items-center"
+  <vue100vh
+    class="bg-black bg-opacity-high z-50 fixed w-screen inset-0 flex justify-center items-center"
     @click="closeModal"
   >
     <div class="flex flex-col items-center text-left w-full h-full relative">
       <!-- top toolbar -->
       <div class="flex justify-end w-full">
-        <button
-          class="p-3"
-          @click.prevent="closeModal"
-          title="Close"
-        >
+        <button class="p-3" @click.prevent="closeModal" title="Close">
           <Close class="text-white" />
         </button>
       </div>
@@ -40,7 +36,7 @@
         </a>
       </div>
     </div>
-  </div>
+  </vue100vh>
 </template>
 
 <script>
@@ -48,11 +44,12 @@ import Close from '@/assets/icons/close.svg';
 import DeleteIcon from '@/assets/icons/delete.svg';
 import DownloadIcon from '@/assets/icons/download.svg';
 import { transformCloudinaryUrl } from '@/helpers.js';
+import vue100vh from 'vue-100vh';
 
 export default {
   name: 'VideoPreviewModal',
   props: ['video'],
-  components: { Close, DeleteIcon, DownloadIcon },
+  components: { vue100vh, Close, DeleteIcon, DownloadIcon },
   methods: {
     transformCloudinaryUrl,
     closeModal() {
