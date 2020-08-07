@@ -4,31 +4,35 @@
     @click="closeModal"
   >
     <div class="flex flex-col items-center text-left w-full h-full relative">
-      <button
-        class="p-4 absolute right-0 top-0"
-        @click.prevent="closeModal"
-        title="Close"
-      >
-        <Close class="text-white" />
-      </button>
-      <div @click.stop="" class="my-auto">
+      <!-- top toolbar -->
+      <div class="flex justify-end w-full">
+        <button
+          class="p-3"
+          @click.prevent="closeModal"
+          title="Close"
+        >
+          <Close class="text-white" />
+        </button>
+      </div>
+
+      <!-- content -->
+      <div class="w-full my-auto">
         <video
           controls="true"
-          class="preview-video max-w-full"
+          class="preview-video mx-auto max-w-full"
           :src="video.url"
         />
       </div>
 
-      <!-- toolbar -->
+      <!-- bottom toolbar -->
       <div class="flex justify-end w-full">
         <a class="cursor-pointer p-4" @click.stop="deleteVideo" title="Delete">
           <DeleteIcon class="text-white w-6 h-6" />
         </a>
 
         <a
-          target="_blank"
           @click.stop=""
-          :href="video.url"
+          :href="transformCloudinaryUrl(video.url, 'fl_attachment')"
           class="cursor-pointer p-4"
           title="Download (Save the file in new tab)"
         >
@@ -43,12 +47,14 @@
 import Close from '@/assets/icons/close.svg';
 import DeleteIcon from '@/assets/icons/delete.svg';
 import DownloadIcon from '@/assets/icons/download.svg';
+import { transformCloudinaryUrl } from '@/helpers.js';
 
 export default {
   name: 'VideoPreviewModal',
   props: ['video'],
   components: { Close, DeleteIcon, DownloadIcon },
   methods: {
+    transformCloudinaryUrl,
     closeModal() {
       this.$emit('resetSelectedVideo');
     },

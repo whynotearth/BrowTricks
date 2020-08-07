@@ -1,28 +1,39 @@
 <template>
   <div
-    class="bg-black bg-opacity-medium z-50 fixed h-screen w-screen inset-0 flex justify-center items-center"
+    class="bg-black bg-opacity-high z-50 fixed h-screen w-screen inset-0 flex justify-center items-center"
     @click="closeModal"
   >
     <div class="flex flex-col items-center text-left w-full h-full relative">
-      <button
-        class="p-4 absolute right-0 top-0"
-        @click.prevent="closeModal"
-        title="Close"
-      >
-        <Close class="text-white" />
-      </button>
-      <img @click.stop="" class="preview-image my-auto" :src="image.url" alt="" />
-      
-      <!-- toolbar -->
+      <!-- top toolbar -->
+      <div class="flex justify-end w-full">
+        <button
+          class="p-3"
+          @click.prevent="closeModal"
+          title="Close"
+        >
+          <Close class="text-white" />
+        </button>
+      </div>
+
+      <!-- content -->
+      <div class="w-full my-auto">
+        <img
+          @click.stop=""
+          class="preview-image mx-auto block max-w-full"
+          :src="image.url"
+          alt=""
+        />
+      </div>
+
+      <!-- bottom toolbar -->
       <div class="flex justify-end w-full">
         <a class="cursor-pointer p-4" @click.stop="deleteImage" title="Delete">
           <DeleteIcon class="text-white w-6 h-6" />
         </a>
 
         <a
-          target="_blank"
           @click.stop=""
-          :href="image.url"
+          :href="transformCloudinaryUrl(image.url, 'fl_attachment')"
           class="cursor-pointer  p-4"
           title="Download (Save the file in new tab)"
         >
@@ -37,12 +48,14 @@
 import Close from '@/assets/icons/close.svg';
 import DeleteIcon from '@/assets/icons/delete.svg';
 import DownloadIcon from '@/assets/icons/download.svg';
+import { transformCloudinaryUrl } from '@/helpers.js';
 
 export default {
   name: 'ImagePreviewModal',
   props: ['image'],
   components: { Close, DeleteIcon, DownloadIcon },
   methods: {
+    transformCloudinaryUrl,
     closeModal() {
       this.$emit('resetSelectedImage');
     },
