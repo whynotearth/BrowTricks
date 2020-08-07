@@ -115,7 +115,7 @@ export default {
         url,
         'f_auto,h_300,c_limit'
       );
-      return transformedUrl.replace('.mp4', '.jpg');
+      return transformedUrl.replace(/\.(mp4|mov)/, '.jpg');
     },
     deleteVideo(index) {
       let updatedFiles = this.files.slice();
