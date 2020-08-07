@@ -13,6 +13,7 @@
       <CloudinaryWidget
         :uploadPreset="uploadPreset"
         @uploaded="onUpload"
+        @error="onUploadError"
         :uploaderOptions="{
           maxFiles
         }"
@@ -127,6 +128,9 @@ export default {
     },
     resetSelectedVideo() {
       this.selectedVideoInfo = { ...defaultVideoInfo };
+    },
+    onUploadError(error) {
+      alert(error.status);
     },
     onUpload(result) {
       if (result.event === 'success') {
