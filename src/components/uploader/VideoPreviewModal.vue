@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-black bg-opacity-medium z-50 fixed h-screen w-screen inset-0 flex justify-center items-center"
+    class="bg-black bg-opacity-high z-50 fixed h-screen w-screen inset-0 flex justify-center items-center"
     @click="closeModal"
   >
     <div class="flex flex-col items-center text-left w-full h-full relative">
@@ -11,19 +11,25 @@
       >
         <Close class="text-white" />
       </button>
-      <img @click.stop="" class="preview-image my-auto" :src="image.url" alt="" />
-      
+      <div @click.stop="" class="my-auto">
+        <video
+          controls="true"
+          class="preview-video max-w-full"
+          :src="video.url"
+        />
+      </div>
+
       <!-- toolbar -->
       <div class="flex justify-end w-full">
-        <a class="cursor-pointer p-4" @click.stop="deleteImage" title="Delete">
+        <a class="cursor-pointer p-4" @click.stop="deleteVideo" title="Delete">
           <DeleteIcon class="text-white w-6 h-6" />
         </a>
 
         <a
           target="_blank"
           @click.stop=""
-          :href="image.url"
-          class="cursor-pointer  p-4"
+          :href="video.url"
+          class="cursor-pointer p-4"
           title="Download (Save the file in new tab)"
         >
           <DownloadIcon class="text-white w-6 h-6" />
@@ -39,15 +45,15 @@ import DeleteIcon from '@/assets/icons/delete.svg';
 import DownloadIcon from '@/assets/icons/download.svg';
 
 export default {
-  name: 'ImagePreviewModal',
-  props: ['image'],
+  name: 'VideoPreviewModal',
+  props: ['video'],
   components: { Close, DeleteIcon, DownloadIcon },
   methods: {
     closeModal() {
-      this.$emit('resetSelectedImage');
+      this.$emit('resetSelectedVideo');
     },
-    deleteImage() {
-      this.$emit('deleteImage', this.image.index);
+    deleteVideo() {
+      this.$emit('deleteVideo', this.video.index);
       this.closeModal();
     }
   }
@@ -55,7 +61,9 @@ export default {
 </script>
 
 <style scoped>
-.preview-image {
+.preview-video {
   max-height: calc(100vh - 112px);
+
+  @apply bg-gray-200;
 }
 </style>

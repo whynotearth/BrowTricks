@@ -38,18 +38,33 @@
         <BaseVideoPreview
           v-if="video.url"
           :key="index"
-          :file="video.url"
+          :selectVideo="selectVideo"
+          :file="video"
           :index="index"
           :image="getThumbnail(video.url)"
         />
       </div>
+
+      <VideoPreviewModal
+        v-if="showModal"
+        @deleteVideo="deleteVideo"
+        @resetSelectedVideo="resetSelectedVideo"
+        :video="selectedVideoInfo"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import { transformCloudinaryUrl } from '@/helpers.js';
+import VideoPreviewModal from '@/components/uploader/VideoPreviewModal.vue';
 import IconPlus from '@/assets/icons/plus.svg';
+
+const defaultVideoInfo = {
+  publicId: null,
+  url: '',
+  index: null
+};
 
 export default {
   name: 'VideoUpload',
@@ -62,10 +77,6 @@ export default {
       type: Array,
       default: () => []
     },
-    maxImageWidth: {
-      type: Number,
-      default: parseInt(process.env.VUE_APP_UPLOADER_MAX_IMAGE_WIDTH)
-    },
     maxFiles: {
       type: Number,
       default: parseInt(process.env.VUE_APP_UPLOADER_MAX_FILES)
@@ -76,13 +87,11 @@ export default {
   },
   data() {
     return {
-      // selectedVideoInfo: {
-      //   url: '',
-      //   index: null
-      // }
+      selectedVideoInfo: { ...defaultVideoInfo }
     };
   },
   components: {
+    VideoPreviewModal,
     IconPlus,
     BaseVideoPreview: () => import('./BaseVideoPreview'),
     CloudinaryWidget: () => import('./CloudinaryWidget')
@@ -90,6 +99,13 @@ export default {
   computed: {
     videosToPreview() {
       return [...this.files];
+    },
+    showModal() {
+      return (
+        this.selectedVideoInfo &&
+        this.selectedVideoInfo.url &&
+        this.selectedVideoInfo.index >= 0
+      );
     }
   },
   methods: {
@@ -101,21 +117,17 @@ export default {
       );
       return transformedUrl.replace('.mp4', '.jpg');
     },
-    deleteImage(index) {
+    deleteVideo(index) {
       let updatedFiles = this.files.slice();
       updatedFiles.splice(index, 1);
       this.updateFiles(updatedFiles);
     },
-    // selectFile([url, index]) {
-    //   this.selectedVideoInfo.url = url;
-    //   this.selectedVideoInfo.index = index;
-    // },
-    // resetSelectedImage() {
-    //   this.selectedVideoInfo = {
-    //     url: '',
-    //     index: null
-    //   };
-    // },
+    selectVideo([file, index]) {
+      this.selectedVideoInfo = { ...file, index };
+    },
+    resetSelectedVideo() {
+      this.selectedVideoInfo = { ...defaultVideoInfo };
+    },
     onUpload(result) {
       if (result.event === 'success') {
         let updatedFiles = [this.cloudinaryVideoToMeredithVideo(result.info)];
