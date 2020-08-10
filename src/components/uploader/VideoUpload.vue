@@ -11,13 +11,14 @@
     </div>
     <div class="flex flex-wrap">
       <CloudinaryWidget
-        :uploadPreset="uploadPreset"
         @uploaded="onUpload"
+        :uploadPreset="uploadPreset"
         @error="onUploadError"
         :uploaderOptions="{
           maxFiles
         }"
         :id="id ? id : 'upload_widget'"
+        class="upload-add w-1/3"
       >
         <label class="bg-background block cursor-pointer">
           <div class="upload-icon">
@@ -32,7 +33,7 @@
         </label>
       </CloudinaryWidget>
       <div
-        class="upload-previews-wrapper"
+        class="upload-previews-wrapper w-1/3"
         v-for="(video, index) in videosToPreview"
         :key="index"
       >
@@ -161,8 +162,10 @@ export default {
   height: 168px;
 }
 
-.upload-previews-wrapper {
-  width: 120px;
-  height: 168px;
+@screen sm {
+  .upload-previews-wrapper,
+  .upload-add {
+    width: 120px;
+  }
 }
 </style>
