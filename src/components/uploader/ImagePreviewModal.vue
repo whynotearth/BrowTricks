@@ -1,6 +1,6 @@
 <template>
-  <vue100vh
-    class="bg-black bg-opacity-high z-50 fixed w-screen top-0 left-0 flex justify-center items-center"
+  <div
+    class="wrapper bg-black bg-opacity-high z-50 fixed w-screen top-0 left-0 flex justify-center items-center"
   >
     <div
       class="flex flex-col items-center text-left w-full h-full relative"
@@ -39,7 +39,7 @@
         </a>
       </div>
     </div>
-  </vue100vh>
+  </div>
 </template>
 
 <script>
@@ -47,12 +47,13 @@ import Close from '@/assets/icons/close.svg';
 import DeleteIcon from '@/assets/icons/delete.svg';
 import DownloadIcon from '@/assets/icons/download.svg';
 import { transformCloudinaryUrl } from '@/helpers.js';
-import vue100vh from 'vue-100vh';
+import vhFix from '@/mixins/vhFix.js';
 
 export default {
   name: 'ImagePreviewModal',
   props: ['image'],
-  components: { vue100vh, Close, DeleteIcon, DownloadIcon },
+  components: { Close, DeleteIcon, DownloadIcon },
+  mixins: [vhFix],
   methods: {
     transformCloudinaryUrl,
     closeModal() {
@@ -67,7 +68,12 @@ export default {
 </script>
 
 <style scoped>
+.wrapper {
+  height: 100vh;
+  height: calc(100 * var(--vh));
+}
 .preview-image {
   max-height: calc(100vh - 112px);
+  max-height: calc(100 * var(--vh) - 112px);
 }
 </style>
