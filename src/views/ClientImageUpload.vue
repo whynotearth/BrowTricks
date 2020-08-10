@@ -93,7 +93,29 @@ export default {
       return notificationTypes.includes('phone');
     },
     currentImages() {
-      return get(this.client, 'images', []);
+      // FIXME: REMOVE
+      return [
+        {
+          publicId: 'BrowTricks/tenant_upload_dev/xvcygvhl2ofyy0pszqvy',
+          url:
+            'https://res.cloudinary.com/whynotearth/image/upload/v1596700278/BrowTricks/tenant_upload_dev/xvcygvhl2ofyy0pszqvy.jpg',
+          order: 0
+        },
+        {
+          publicId: 'BrowTricks/tenant_upload_dev/ft6egswpzqqaywoinewe',
+          url:
+            'https://res.cloudinary.com/whynotearth/image/upload/v1596700385/BrowTricks/tenant_upload_dev/ft6egswpzqqaywoinewe.jpg',
+          order: 0
+        },
+        {
+          publicId: 'BrowTricks/tenant_upload_dev/aeikkei69tumrolomp9i',
+          url:
+            'https://res.cloudinary.com/whynotearth/image/upload/v1596805609/BrowTricks/tenant_upload_dev/aeikkei69tumrolomp9i.jpg',
+          order: 0
+        }
+      ];
+      // FIXME: ENALBE
+      // return get(this.client, 'images', []);
     }
   },
   methods: {
@@ -106,7 +128,8 @@ export default {
         }
       }).catch(() => {
         console.log('error in getting client');
-        this.goToDetailPage();
+        // FIXME: enable
+        // this.goToDetailPage();
       });
     },
     goToDetailPage() {

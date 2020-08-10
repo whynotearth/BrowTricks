@@ -1,4 +1,9 @@
 module.exports = {
+  devServer: {
+    // for local browserstack
+    disableHostCheck: true
+  },
+
   chainWebpack: config => {
     const svgRule = config.module.rule('svg');
 

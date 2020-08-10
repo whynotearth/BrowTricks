@@ -25,6 +25,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  console.log('to.meta.isPublic', to.meta.isPublic);
   if (to.meta.isPublic) {
     if (to.meta.needsUserInfo) {
       store.dispatch('auth/ping').catch(() => {

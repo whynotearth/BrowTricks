@@ -1,13 +1,13 @@
 <template>
   <vue100vh
-    class="bg-black bg-opacity-high z-50 fixed w-screen inset-0 flex justify-center items-center"
+    class="bg-black bg-opacity-high z-50 fixed w-screen top-0 left-0 flex justify-center items-center"
   >
     <div
       class="flex flex-col items-center text-left w-full h-full relative"
       @click="closeModal"
     >
       <!-- top toolbar -->
-      <div class="flex justify-end w-full">
+      <div class="flex justify-end w-full flex-shrink-0">
         <button class="p-3" @click.prevent="closeModal" title="Close">
           <Close class="text-white" />
         </button>
@@ -24,7 +24,7 @@
       </div>
 
       <!-- bottom toolbar -->
-      <div class="flex justify-end w-full">
+      <div class="flex justify-end w-full flex-shrink-0">
         <a class="cursor-pointer p-4" @click.stop="deleteImage" title="Delete">
           <DeleteIcon class="text-white w-6 h-6" />
         </a>
