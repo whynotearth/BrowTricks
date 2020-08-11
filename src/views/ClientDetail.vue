@@ -1,16 +1,7 @@
 <template>
-  <div class="bg-background text-left min-h-screen" v-if="client">
-    <!-- TODO: use WithTitleBarLayout -->
-    <BaseHeader
-      slot="header"
-      class="bg-footer text-white"
-      @iconClicked="goListPage"
-    >
-      <ArrowBack slot="icon" class="h-6 w-6 fill-current" />
-      <span slot="content" class="pl-5">Client Profile</span>
-    </BaseHeader>
+  <div class="bg-newbackground text-left" v-if="client">
     <div
-      class="bg-on-background bg-opacity-high py-8 px-4 text-white h-auto flex flex-col items-center"
+      class="bg-opacity-high pt-8 px-4 text-white h-auto flex flex-col items-center"
     >
       <img
         class="w-16 h-16 rounded-full"
@@ -27,21 +18,21 @@
         class="flex justify-between tg-caption-mobile pb-16 w-full sm:w-auto"
       >
         <a
-          class="flex flex-col items-center px-4 sm:px-8"
+          class="flex flex-col items-center px-4 sm:px-8 text-newsecondary"
           :href="`mailto:${client.email}`"
         >
           <MailIcon class="fill-current mb-2" />
           <span>Email</span>
         </a>
         <a
-          class="flex flex-col items-center px-4 sm:px-8"
+          class="flex flex-col items-center px-4 sm:px-8 text-newsecondary"
           :href="`sms:${client.phoneNumber}`"
         >
           <PhoneAndroidIcon class="fill-current mb-2" />
           <span>Text</span>
         </a>
         <a
-          class="flex flex-col items-center px-4 sm:px-8"
+          class="flex flex-col items-center px-4 sm:px-8 text-newsecondary"
           :href="`tel:${client.phoneNumber}`"
         >
           <PhoneIcon class="fill-current mb-2" />
@@ -50,9 +41,10 @@
       </div>
     </div>
     <div class="max-w-md mx-auto px-4">
-      <div class="-mt-10 bg-white shadow-1dp px-4 pt-4 rounded-lg pb-4 mb-4">
+      <div class="shadow-1dp px-2 py-6 rounded-lg mb-4 bg-newsurface">
         <MaterialInput
-          labelBackground="bg-white"
+          margin="mb-6"
+          theme="dark"
           v-model="$v.client.firstName.$model"
           label="First Name"
           :error="$v.client.firstName.$error"
@@ -62,7 +54,8 @@
           </p>
         </MaterialInput>
         <MaterialInput
-          labelBackground="bg-white"
+          margin="mb-6"
+          theme="dark"
           v-model="$v.client.lastName.$model"
           label="Last Name"
           :error="$v.client.lastName.$error"
@@ -72,7 +65,8 @@
           </p>
         </MaterialInput>
         <MaterialInput
-          labelBackground="bg-white"
+          margin="mb-6"
+          theme="dark"
           v-model="$v.client.phoneNumber.$model"
           label="Phone Number"
           :error="$v.client.phoneNumber.$error"
@@ -91,11 +85,11 @@
           </p>
         </MaterialInput>
         <MaterialInput
-          labelBackground="bg-white"
+          :margin="null"
+          theme="dark"
           v-model="$v.client.email.$model"
           label="Email"
           :error="$v.client.email.$error"
-          :margin="null"
           :attrs="{ readonly: true }"
         >
           <p v-if="!$v.client.email.required" class="text-error text-xs">
@@ -172,7 +166,7 @@
         @click="isArchiveModalOpen = false"
       >
         <div class="h-full w-screen flex justify-center items-center">
-          <div @click.stop class="bg-white rounded-lg w-full mx-4 p-8 sm:w-128">
+          <div @click.stop class="rounded-lg w-full mx-4 p-8 sm:w-128">
             <h6 class="text-on-background text-opacity-medium">
               Archive Client?
             </h6>
@@ -205,7 +199,7 @@
 import { required, minLength, email } from 'vuelidate/lib/validators';
 import BaseHeader from '@/components/BaseHeader.vue';
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
-import Button from '@/components/Button.vue';
+import Button from '@/components/inputs/Button.vue';
 import ExpansionPanel from '@/components/ExpansionPanel.vue';
 
 import ArrowBack from '@/assets/icons/arrow-back.svg';
@@ -224,7 +218,7 @@ import { mapActions } from 'vuex';
 import { sleep } from '@/helpers.js';
 
 export default {
-  name: 'ClientDetail',
+  name: 'ClientEdit',
   props: {
     tenantSlug: {
       type: String,

@@ -1,7 +1,7 @@
 <template>
   <div class="relative" :class="[margin]">
     <input
-      class="input text-opacity-high appearance-none outline-none relative bg-transparent rounded w-full px-4 py-3 border border-opacity-medium focus:border-opacity-high"
+      class="input appearance-none outline-none relative bg-transparent rounded w-full px-4 py-3 border text-opacity-medium focus:text-opacity-high border-opacity-medium focus:border-opacity-high"
       :class="[
         textColor,
         borderColor,
@@ -102,7 +102,7 @@ export default {
         return 'text-error';
       }
       return this.theme === 'dark'
-        ? 'text-on-newbackground'
+        ? 'text-on-newsurface text-opacity-medium'
         : 'text-on-background';
     },
     labelBg() {
@@ -113,7 +113,7 @@ export default {
     },
     textColor() {
       return this.theme === 'dark'
-        ? 'text-on-newbackground'
+        ? 'text-on-newsurface'
         : 'text-on-background';
     },
     placeholderColor() {
@@ -147,10 +147,11 @@ export default {
 
 <style scoped>
 .input {
-  transition: border 0.2s ease-in-out;
+  transition: border 0.2s ease-in-out, color 0.2s ease-in-out;
   z-index: 2;
 }
 .input[readonly] {
+  cursor: not-allowed;
   @apply text-opacity-medium;
 }
 

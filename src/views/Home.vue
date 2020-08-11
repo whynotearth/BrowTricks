@@ -1,4 +1,5 @@
 <template>
+  <!-- TODO: move layout to route meta -->
   <ClassicLayout class="bg-newbackground">
     <template #header>
       <BaseHeader @iconClicked="isDrawerOpenUpdate(true)">
