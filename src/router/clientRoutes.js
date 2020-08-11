@@ -33,7 +33,7 @@ export const clientRoutes = [
           layout: WithTitleBarLayout,
           title: 'Client Profile',
           backRoute: { name: 'ClientList' }
-        },
+        }
       },
       {
         path: 'image-upload',
@@ -44,7 +44,7 @@ export const clientRoutes = [
           layout: WithTitleBarLayout,
           title: 'Images',
           backRoute: { name: 'ClientEdit' }
-        },
+        }
       },
       {
         path: 'video-upload',
@@ -55,7 +55,7 @@ export const clientRoutes = [
           layout: WithTitleBarLayout,
           title: 'Videos',
           backRoute: { name: 'ClientEdit' }
-        },
+        }
       },
       {
         path: 'notifications',
@@ -66,7 +66,43 @@ export const clientRoutes = [
           layout: WithTitleBarLayout,
           title: 'Notifications',
           backRoute: { name: 'ClientEdit' }
-        },
+        }
+      },
+
+      // PMU
+      {
+        path: 'pmu-sign-methods',
+        name: 'PmuSignMethods',
+        props: true,
+        component: () => import('@/views/PmuSignMethods.vue'),
+        meta: {
+          layout: WithTitleBarLayout,
+          title: 'PMU Form Sign',
+          backRoute: { name: 'ClientEdit' }
+        }
+      },
+      {
+        path: 'pmu-sign',
+        name: 'PmuSign',
+        component: () => import('@/views/PmuSign.vue'),
+        props: true,
+        meta: {
+          layout: WithTitleBarLayout,
+          title: 'PMU Form Sign',
+          backRoute: { name: 'ClientEdit' }
+        }
+      },
+      {
+        path: 'pmu-sign-from-notify',
+        name: 'PmuSignFromNotify',
+        component: () => import('@/views/PmuSign.vue'),
+        props: true,
+        meta: {
+          isPublic: true,
+          layout: WithTitleBarLayout,
+          title: 'PMU Form Sign',
+          backRoute: { name: 'ClientEdit' }
+        }
       }
     ]
   }

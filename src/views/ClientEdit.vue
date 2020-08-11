@@ -130,7 +130,25 @@
       >
         <VideosIcon slot="preIcon" class="h-6 w-6 fill-current" />
       </ExpansionPanel>
+
+      <!-- incompleted PMU -->
       <ExpansionPanel
+        v-if="isPmuIncomplete"
+        @click="
+          $router.push({
+            name: 'PmuSignMethods',
+            params: { clientId, tenantSlug }
+          })
+        "
+        title="PMU"
+        :middleText="client.pmuStatus"
+      >
+        <Document slot="preIcon" class="h-6 w-6 fill-current" />
+      </ExpansionPanel>
+
+      <!-- completed PMU -->
+      <ExpansionPanel
+        v-else
         @click="
           $router.push({
             name: 'PmuSign',
@@ -142,21 +160,16 @@
       >
         <Document slot="preIcon" class="h-6 w-6 fill-current" />
       </ExpansionPanel>
+
       <ExpansionPanel @click="$router.push({ name: 'Notes' })" title="Notes">
         <Notes slot="preIcon" class="h-6 w-6 fill-current" />
       </ExpansionPanel>
       <div class="py-6">
-        <Button
-          class="rounded-full"
-          title="Save"
-          :isRipple="false"
-          @clicked="save"
-        />
+        <Button class="rounded-full" title="Save" @clicked="save" />
         <Button
           class="mt-8 tg-body-mobile text-error pb-4"
           title="Delete Client"
           background="bg-transparent"
-          :isRipple="false"
           @clicked="isArchiveModalOpen = true"
         />
       </div>
@@ -175,7 +188,6 @@
                 class="mt-8 tg-body-mobile text-error"
                 title="Cancel"
                 background="bg-transparent"
-                :isRipple="false"
                 @clicked="isArchiveModalOpen = false"
                 width="w-auto"
               />
@@ -183,7 +195,6 @@
                 class="mt-8 tg-body-mobile text-secondary"
                 title="Archive"
                 background="bg-transparent"
-                :isRipple="false"
                 @clicked="archive"
                 width="w-auto"
               />
@@ -271,6 +282,14 @@ export default {
   },
   async created() {
     this._fetchClient();
+  },
+  computed: {
+    isPmuIncomplete() {
+      if (!this.client) {
+        return false;
+      }
+      return this.client.pmuStatus === 'incomplete';
+    }
   },
   methods: {
     ...mapActions('client', ['updateClient', 'archiveClient', 'fetchClient']),

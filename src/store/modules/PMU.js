@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { ClientService } from '@whynotearth/meredith-axios';
+import { PmuService } from '@whynotearth/meredith-axios';
 import HelloSign from 'hellosign-embedded';
 
 const state = {
@@ -17,7 +17,7 @@ const getters = {
 const actions = {
   // Set custom questions and get signUrl in response
   setCustomQuestions(context, { params }) {
-    return ClientService.pmu(params);
+    return PmuService.pmu(params);
   },
   submitSign(context, signUrl) {
     return new Promise(resolve => {
@@ -34,8 +34,12 @@ const actions = {
     });
   },
   signed(context, { params }) {
-    return ClientService.signed(params);
-  }
+    return PmuService.signed(params);
+  },
+  notify(context, { params }) {
+    console.log('params', params);
+    return PmuService.notify(params);
+  },
 };
 
 const mutations = {
