@@ -2,13 +2,13 @@
   <div class="text-on-surface">
     <div
       class="bg-on-background bg-opacity-medium fixed inset-x-0 top-0 min-h-screen w-full z-10"
-      @click="toggleMenuDrawer"
-      v-if="isMenuDrawerOpen"
+      @click="toggleDrawer"
+      v-if="isDrawerOpen"
     ></div>
     <transition name="slide">
       <div
         class="bg-white fixed overflow-auto inset-y-0 left-0 z-20 w-full max-w-sm tg-h3-mobile text-left py-8 narrow-scrollbar has-light-bg overscroll-none"
-        v-if="isMenuDrawerOpen"
+        v-if="isDrawerOpen"
       >
         <div class="px-4">
           <router-link
@@ -50,6 +50,7 @@
             Privacy Policy
           </div>
           <router-link
+            v-if="tenantSlug"
             class="pb-8 cursor-pointer block"
             :to="{
               name: 'ClientList',
@@ -78,19 +79,20 @@
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 
 export default {
-  name: 'MenuDrawer',
+  name: 'CustomerMenuDrawer',
   computed: {
-    ...mapGetters({
-      isMenuDrawerOpen: 'getIsMenuDrawerOpen'
-    }),
+    ...mapGetters('global', ['isDrawerOpen']),
     ...mapGetters('auth', ['isAuthenticated']),
     tenantSlug() {
       return this.$route.params.tenantSlug;
     }
   },
   methods: {
-    ...mapMutations(['toggleMenuDrawer']),
+    ...mapMutations('global', ['isDrawerOpenUpdate']),
     ...mapActions('auth', ['logout']),
+    toggleDrawer() {
+      this.isDrawerOpenUpdate(!this.isDrawerOpen);
+    },
     onLogout() {
       this.logout().catch(() => {
         alert(
@@ -109,7 +111,7 @@ export default {
     this.enableScrollbars();
   },
   watch: {
-    isMenuDrawerOpen: {
+    isDrawerOpen: {
       immediate: true,
       handler(newValue) {
         if (newValue) {

@@ -3,7 +3,7 @@
     <BaseHeader
       slot="header"
       class="text-on-background-image"
-      @iconClicked="toggleMenuDrawer"
+      @iconClicked="isDrawerOpenUpdate(true)"
     >
       <IconMenu slot="icon" class="h-6 w-6 fill-current" />
       <span slot="content" class="pl-5">{{ tenantName }}</span>
@@ -67,7 +67,7 @@ export default {
     })
   },
   methods: {
-    ...mapMutations(['toggleMenuDrawer'])
+    ...mapMutations('global', ['isDrawerOpenUpdate'])
   }
 };
 </script>

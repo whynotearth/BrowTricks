@@ -1,7 +1,7 @@
 <template>
   <ClassicLayout class="bg-newbackground">
     <template #header>
-      <BaseHeader @iconClicked="toggleMenuDrawer">
+      <BaseHeader @iconClicked="isDrawerOpenUpdate(true)">
         <template #icon>
           <IconMenu class="h-6 w-6 fill-current text-white text-opacity-high" />
         </template>
@@ -10,7 +10,7 @@
         </template>
         <template #end>
           <div class="flex w-full justify-end">
-            <router-link v-if="isAuthenticated" :to="{name: 'MyAccount'}">
+            <router-link v-if="isAuthenticated" :to="{ name: 'MyAccount' }">
               <BaseAvatar width="w-10" height="h-10" />
             </router-link>
             <router-link
@@ -132,7 +132,7 @@ export default {
     ...mapGetters('auth', ['isAuthenticated'])
   },
   methods: {
-    ...mapMutations(['toggleMenuDrawer'])
+    ...mapMutations('global', ['isDrawerOpenUpdate'])
   }
 };
 </script>
