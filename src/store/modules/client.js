@@ -7,7 +7,7 @@ const state = {
     lastName: '',
     phoneNumber: '',
     email: '',
-    notificationTypes: ['email'],
+    notificationTypes: ['email', 'phone'],
     images: [],
     files: [],
     pmu: [],

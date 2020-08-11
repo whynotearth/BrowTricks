@@ -28,7 +28,7 @@ export default {
     this._fetchClient();
   },
   methods: {
-    ...mapActions('client', ['updateClient', 'archiveClient', 'fetchClient']),
+    ...mapActions('client', ['fetchClient']),
     async _fetchClient() {
       this.client = await this.fetchClient({
         params: {

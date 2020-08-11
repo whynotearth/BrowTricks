@@ -121,7 +121,7 @@ export default {
         publicId: item.publicId
       }));
       const updatedInfo = {
-        email: this.client.email,
+        ...this.client,
         images: imagesAdapted,
         videos: this.client.videos
       };
