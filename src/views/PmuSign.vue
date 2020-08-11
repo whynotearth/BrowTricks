@@ -1,68 +1,82 @@
 <template>
   <div class="text-left p-2">
-    <h2 class="tg-body-mobile mb-6 py-2">
-      Here is your pre-set PMU form:
-    </h2>
-    <div class="max-w-md mx-auto mb-6">
-      <BaseSlider>
-        <div class="slide keen-slider__slide">
-          <img
-            src="https://res.cloudinary.com/whynotearth/image/upload/v1596652148/BrowTricks/static_v2/pmu-default-form-p1_yuk6bh.jpg"
-            alt=""
-          />
-        </div>
-        <div class="slide keen-slider__slide">
-          <img
-            src="https://res.cloudinary.com/whynotearth/image/upload/v1596652147/BrowTricks/static_v2/pmu-default-form-p2_r8a4yj.jpg"
-            alt=""
-          />
-        </div>
-      </BaseSlider>
-    </div>
-
-    <hr class="border-white border-opacity-divider" />
-
-    <h2 class="tg-h2-mobile text-white text-opacity-high my-6">
-      Add Custom Questions
-    </h2>
-
-    <div class="surface-dm shadow-1dp py-4 mb-4 rounded-lg px-4">
-      <div
-        class="flex items-center pb-4 w-full"
-        v-for="question in questions"
-        :key="question.id"
-        ref="questions"
-      >
-        <MaterialInput
-          theme="dark"
-          class="flex-grow"
-          v-model.trim="question.value"
-          label="Question"
-          labelBg="bg-surface"
-          :margin="null"
-        >
-        </MaterialInput>
-        <a @click.prevent.stop="questionRemove" href="#" class="ml-4">
-          <IconDelete class="text-white text-opacity-disabled w-6 h-6" />
-        </a>
+    <template v-if="isPmuIncomplete">
+      <h2 class="tg-body-mobile mb-6 py-2">
+        Here is your pre-set PMU form:
+      </h2>
+      <div class="max-w-md mx-auto mb-6">
+        <BaseSlider>
+          <div class="slide keen-slider__slide">
+            <img
+              src="https://res.cloudinary.com/whynotearth/image/upload/v1596652148/BrowTricks/static_v2/pmu-default-form-p1_yuk6bh.jpg"
+              alt=""
+            />
+          </div>
+          <div class="slide keen-slider__slide">
+            <img
+              src="https://res.cloudinary.com/whynotearth/image/upload/v1596652147/BrowTricks/static_v2/pmu-default-form-p2_r8a4yj.jpg"
+              alt=""
+            />
+          </div>
+        </BaseSlider>
       </div>
 
-      <hr
-        v-if="questions.length > 0"
-        class="mb-2 border-white border-opacity-divider"
-      />
-      <a
-        @click="questionAdd"
-        class="text-newsecondary tg-color-label-mobile text-center py-2 w-full block cursor-pointer"
-        >Add Question</a
-      >
-    </div>
+      <hr class="border-white border-opacity-divider mb-6" />
 
-    <Button
-      class="rounded-full mb-6 "
-      @clicked="submit"
-      title="Get Started"
-    ></Button>
+      <h2 class="tg-h2-mobile text-white text-opacity-high mb-6">
+        Add Custom Questions
+      </h2>
+
+      <div class="surface-dm shadow-1dp py-4 mb-4 rounded-lg px-4">
+        <div
+          class="flex items-center pb-4 w-full"
+          v-for="question in questions"
+          :key="question.id"
+          ref="questions"
+        >
+          <MaterialInput
+            theme="dark"
+            class="flex-grow"
+            v-model.trim="question.value"
+            label="Question"
+            labelBg="bg-surface"
+            :margin="null"
+          >
+          </MaterialInput>
+          <a @click.prevent.stop="questionRemove" href="#" class="ml-4">
+            <IconDelete class="text-white text-opacity-disabled w-6 h-6" />
+          </a>
+        </div>
+
+        <hr
+          v-if="questions.length > 0"
+          class="mb-2 border-white border-opacity-divider"
+        />
+        <a
+          @click="questionAdd"
+          class="text-newsecondary tg-color-label-mobile text-center py-2 w-full block cursor-pointer"
+          >Add Question</a
+        >
+      </div>
+
+      <Button
+        class="rounded-full mb-6 "
+        @clicked="submit"
+        title="Get Started"
+      ></Button>
+    </template>
+
+    <template v-else-if="pmuPdfUrl">
+      <h2 class="tg-body-mobile py-2 text-center my-6">
+        You have already signed the PMU
+      </h2>
+      <Button
+        :href="pmuPdfUrl"
+        class="rounded-full mb-6 "
+        @clicked="submit"
+        title="Download Signed PMU"
+      ></Button>
+    </template>
   </div>
 </template>
 
@@ -83,12 +97,40 @@ export default {
     IconDelete
   },
   props: ['tenantSlug', 'clientId'],
+  async created() {
+    this._fetchClient();
+  },
   data: () => ({
-    questions: []
+    questions: [],
+    client: null
   }),
+  computed: {
+    pmuPdfUrl() {
+      if (!this.client) {
+        return null;
+      }
+      return this.client.pmuPdfUrl;
+    },
+    isPmuIncomplete() {
+      if (!this.client) {
+        return false;
+      }
+      return this.client.pmuStatus === 'incomplete';
+    }
+  },
   methods: {
-    // ...mapMutations('PMU', [''])
+    ...mapActions('client', ['fetchClient']),
     ...mapActions('PMU', ['setCustomQuestions', 'submitSign', 'signed']),
+    async _fetchClient() {
+      this.client = await this.fetchClient({
+        params: {
+          clientId: this.clientId,
+          tenantSlug: this.tenantSlug
+        }
+      }).catch(() => {
+        console.log('error in getting client');
+      });
+    },
     questionAdd() {
       const question = {
         id: randomId(),

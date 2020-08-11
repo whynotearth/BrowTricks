@@ -52,6 +52,7 @@
     <div class="max-w-md mx-auto px-4">
       <div class="-mt-10 bg-white shadow-1dp px-4 pt-4 rounded-lg pb-4 mb-4">
         <MaterialInput
+          labelBackground="bg-white"
           v-model="$v.client.firstName.$model"
           label="First Name"
           :error="$v.client.firstName.$error"
@@ -61,6 +62,7 @@
           </p>
         </MaterialInput>
         <MaterialInput
+          labelBackground="bg-white"
           v-model="$v.client.lastName.$model"
           label="Last Name"
           :error="$v.client.lastName.$error"
@@ -70,6 +72,7 @@
           </p>
         </MaterialInput>
         <MaterialInput
+          labelBackground="bg-white"
           v-model="$v.client.phoneNumber.$model"
           label="Phone Number"
           :error="$v.client.phoneNumber.$error"
@@ -88,6 +91,7 @@
           </p>
         </MaterialInput>
         <MaterialInput
+          labelBackground="bg-white"
           v-model="$v.client.email.$model"
           label="Email"
           :error="$v.client.email.$error"
@@ -148,9 +152,6 @@
         <Notes slot="preIcon" class="h-6 w-6 fill-current" />
       </ExpansionPanel>
       <div class="py-6">
-
-        <a v-if="client.pmuPdfUrl" class="mb-4 block text-center text-primary" target="_blank" :href="client.pmuPdfUrl">Download Signed PMU</a>
-
         <Button
           class="rounded-full"
           title="Save"
@@ -219,7 +220,7 @@ import PhoneIcon from '@/assets/icons/phone.svg';
 import PhoneAndroidIcon from '@/assets/icons/phone_android.svg';
 
 import { isPhoneNumberValid } from '@/helpers';
-import { mapGetters, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 import { sleep } from '@/helpers.js';
 
 export default {
@@ -276,9 +277,6 @@ export default {
   },
   async created() {
     this._fetchClient();
-  },
-  computed: {
-    ...mapGetters('client', ['getClientById'])
   },
   methods: {
     ...mapActions('client', ['updateClient', 'archiveClient', 'fetchClient']),
