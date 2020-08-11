@@ -1,20 +1,7 @@
 <template>
-  <div class="bg-background text-left min-h-screen">
-    <BaseHeader
-      slot="header"
-      class="bg-footer text-white"
-      @iconClicked="goToDetailPage"
-    >
-      <template #icon>
-        <ArrowBack class="h-6 w-6 fill-current" />
-      </template>
-      <template #content>
-        <span class="pl-5">Videos</span>
-      </template>
-    </BaseHeader>
-    <div class="mt-8 max-w-6xl mx-auto">
-      <!-- request by text -->
-      <!-- <div class="py-6 px-2 max-w-sm mx-auto">
+  <div class="mt-8 max-w-6xl mx-auto">
+    <!-- request by text -->
+    <!-- <div class="py-6 px-2 max-w-sm mx-auto">
         <Button
           v-if="hasNotificationEmail"
           class="rounded-full"
@@ -29,20 +16,19 @@
         />
       </div> -->
 
-      <!-- uploader -->
-      <VideoUpload
-        :files="currentFiles"
-        @change="updateFiles"
-        class="mb-4"
-        :uploadPreset="uploadPreset"
-      >
-        <template #title>
-          <div class="tg-body-mobile ">
-            <span class="text-on-background text-opacity-high">Videos</span>
-          </div>
-        </template>
-      </VideoUpload>
-    </div>
+    <!-- uploader -->
+    <VideoUpload
+      :files="currentFiles"
+      @change="updateFiles"
+      class="mb-4"
+      :uploadPreset="uploadPreset"
+    >
+      <template #title>
+        <div class="tg-body-mobile ">
+          <span class="text-on-newbackground text-opacity-high">Videos</span>
+        </div>
+      </template>
+    </VideoUpload>
   </div>
 </template>
 

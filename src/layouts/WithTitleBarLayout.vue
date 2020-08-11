@@ -13,7 +13,7 @@
         {{ currentTitle }}
       </h1>
     </div>
-    <div class="z-10 relative flex-grow max-w-6xl mx-auto w-full">
+    <div class="relative flex-grow max-w-6xl mx-auto w-full">
       <transition name="fadeslow" mode="out-in">
         <slot v-if="isVisible" />
       </transition>

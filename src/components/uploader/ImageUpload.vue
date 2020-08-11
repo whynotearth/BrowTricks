@@ -3,7 +3,7 @@
     <div class="mb-2">
       <slot name="title">
         <span
-          class="tg-h3-mobile text-white text-opacity-medium mt-8 inline-block"
+          class="tg-h3-mobile text-on-newbackground text-opacity-medium mt-8 inline-block"
         >
           Image
         </span>
@@ -21,13 +21,13 @@
         :id="id ? id : 'upload_widget'"
         class="upload-add w-1/3"
       >
-        <label class="bg-background block cursor-pointer">
+        <label class="block cursor-pointer">
           <div class="upload-icon">
             <div
-              class="upload-icon--dimension border border-on-background border-dashed border-opacity-divider flex justify-center items-center"
+              class="upload-icon--dimension border border-on-newbackground border-dashed border-opacity-divider flex justify-center items-center"
             >
               <IconPlus
-                class="fill-current text-newprimary text-opacity-medium"
+                class="fill-current text-white text-opacity-medium"
               />
             </div>
           </div>
