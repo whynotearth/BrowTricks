@@ -19,7 +19,7 @@
     />
     <label
       :for="idName"
-      class="label absolute mb-0 top-0 left-0 mt-3 ml-3 cursor-text text-opacity-medium"
+      class="label absolute mb-0 top-0 left-0 mt-3 ml-3 cursor-text"
       :class="[labelColor, labelBg]"
     >
       {{ label }}
@@ -64,7 +64,8 @@ export default {
       default: '1'
     },
     error: {
-      default: Boolean
+      type: Boolean,
+      default: false
     },
     idName: {
       type: String,
@@ -78,6 +79,11 @@ export default {
     margin: {
       type: String,
       default: 'mb-4'
+    },
+    // update value on input event
+    immediateInput: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -96,7 +102,7 @@ export default {
         : 'text-on-background';
     },
     labelBg() {
-      return this.theme === 'dark' ? 'bg-newsurface' : 'bg-white';
+      return this.theme === 'dark' ? 'bg-newsurface' : 'bg-background';
     },
     textColor() {
       return this.theme === 'dark'
@@ -118,10 +124,15 @@ export default {
   },
   methods: {
     onBlur($event) {
+      if (!this.value && !$event.target.value) {
+        return;
+      }
       this.$emit('input', $event.target.value);
     },
     onInput($event) {
-      this.$emit('input', $event.target.value);
+      if (this.immediateInput) {
+        this.$emit('input', $event.target.value);
+      }
     }
   }
 };

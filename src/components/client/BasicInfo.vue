@@ -1,38 +1,32 @@
 <template>
   <div class="px-6">
-    <material-input
+    <MaterialInput
       v-model="$v.firstName.$model"
       label="First Name"
-      :error="$v.firstName.$dirty && !$v.firstName.required"
+      :error="$v.firstName.$error"
+      theme="light"
     >
-      <span
-        v-if="$v.firstName.$dirty && !$v.firstName.required"
-        class="text-error text-xs"
-      >
+      <p v-if="!$v.firstName.required" class="text-error tg-body-mobile">
         First Name is required
-      </span>
-    </material-input>
-    <material-input
+      </p>
+    </MaterialInput>
+    <MaterialInput
       v-model="$v.lastName.$model"
       label="Last Name"
-      :error="$v.lastName.$dirty && !$v.lastName.required"
+      :error="$v.lastName.$error"
+      theme="light"
     >
-      <span
-        v-if="$v.lastName.$dirty && !$v.lastName.required"
-        class="text-error text-xs"
-      >
+      <p v-if="!$v.lastName.required" class="text-error tg-body-mobile">
         Last Name is required
-      </span>
-    </material-input>
+      </p>
+    </MaterialInput>
     <MaterialInput
       v-model="$v.phone.$model"
       label="Phone number"
       :error="$v.phone.$error"
+      theme="light"
     >
-      <p
-        v-if="!$v.phone.required"
-        class="text-error tg-body-mobile"
-      >
+      <p v-if="!$v.phone.required" class="text-error tg-body-mobile">
         This field is required
       </p>
       <p
@@ -42,24 +36,19 @@
         Phone number is not valid, it should be a US phone number
       </p>
     </MaterialInput>
-    <material-input
+    <MaterialInput
       v-model="$v.email.$model"
       label="Email"
-      :error="$v.email.$dirty && (!$v.email.required || !$v.email.email)"
+      :error="$v.email.$error"
+      theme="light"
     >
-      <span
-        v-if="$v.email.$dirty && !$v.email.required"
-        class="text-error text-xs"
-      >
+      <p v-if="!$v.email.required" class="text-error tg-body-mobile">
         Email is required
-      </span>
-      <span
-        v-if="$v.email.$dirty && !$v.email.email"
-        class="text-error text-xs"
-      >
-        Please enter a email address
-      </span>
-    </material-input>
+      </p>
+      <p v-else-if="!$v.email.email" class="text-error tg-body-mobile">
+        Please enter an email address
+      </p>
+    </MaterialInput>
   </div>
 </template>
 

@@ -5,7 +5,7 @@
     >
       <div>
         <StepperTop :navigation="navigation" :page="page" />
-        <div class="my-4">
+        <div class="my-4 relative z-0">
           <transition name="fade" mode="out-in">
             <keep-alive>
               <component
@@ -29,7 +29,7 @@
             navigation[page] && page < navigation.length
               ? 'NEXT STEP'
               : 'FINISH'
-          } ►`
+          }`
         "
         @previousStep="previousStep"
         @nextStep="nextStep"

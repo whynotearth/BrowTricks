@@ -16,8 +16,12 @@
     :href="href"
     :to="to"
   >
-    <div class="flex items-center justify-center">
-      {{ title }}
+    <div class="flex content-between w-full" :class="textJustify">
+      <slot name="start" />
+      <div class="flex items-center flex-grow-0">
+        {{ title }}
+      </div>
+      <slot name="end" />
     </div>
   </component>
 </template>
@@ -36,14 +40,6 @@ export default {
       type: String,
       default: ''
     },
-    titleLeft: {
-      type: String,
-      default: ''
-    },
-    titleRight: {
-      type: String,
-      default: ''
-    },
     width: {
       type: String,
       default: 'w-full'
@@ -55,6 +51,10 @@ export default {
     textColor: {
       type: String,
       default: 'text-newprimary'
+    },
+    textJustify: {
+      type: String,
+      default: 'justify-center'
     },
     maxWidth: {
       type: String,
