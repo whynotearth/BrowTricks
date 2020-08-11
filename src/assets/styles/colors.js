@@ -1,4 +1,5 @@
 const colors = {
+  inherit: 'inherit',
   // TODO: remove 'new'
   newprimary: '#081131',
   newsecondary: '#FFAFCC',

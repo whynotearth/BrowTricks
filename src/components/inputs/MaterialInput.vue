@@ -48,6 +48,10 @@ export default {
       type: String,
       default: 'Label'
     },
+    labelBackground: {
+      type: String,
+      default: null
+    },
     placeholder: {
       type: String
     },
@@ -102,6 +106,9 @@ export default {
         : 'text-on-background';
     },
     labelBg() {
+      if (this.labelBackground) {
+        return this.labelBackground;
+      }
       return this.theme === 'dark' ? 'bg-newsurface' : 'bg-background';
     },
     textColor() {
