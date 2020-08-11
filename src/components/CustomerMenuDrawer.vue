@@ -93,6 +93,9 @@ export default {
     toggleDrawer() {
       this.isDrawerOpenUpdate(!this.isDrawerOpen);
     },
+    closeDrawer() {
+      this.isDrawerOpenUpdate(false);
+    },
     onLogout() {
       this.logout().catch(() => {
         alert(
@@ -105,12 +108,19 @@ export default {
     },
     enableScrollbars() {
       document.body.classList.remove('overflow-hidden');
+    },
+    cleanup() {
+      this.enableScrollbars();
+      this.closeDrawer();
     }
   },
   beforeDestroy() {
-    this.enableScrollbars();
+    this.cleanup();
   },
   watch: {
+    $route() {
+      this.cleanup();
+    },
     isDrawerOpen: {
       immediate: true,
       handler(newValue) {
