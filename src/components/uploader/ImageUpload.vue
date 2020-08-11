@@ -13,6 +13,7 @@
       <CloudinaryWidget
         @uploaded="onUpload"
         :uploadPreset="uploadPreset"
+        @error="onUploadError"
         :uploaderOptions="{
           maxFiles,
           maxImageWidth
@@ -120,6 +121,9 @@ export default {
         url: '',
         index: null
       };
+    },
+    onUploadError(error) {
+      alert(error.status);
     },
     onUpload(result) {
       if (result.event === 'success') {

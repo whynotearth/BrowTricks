@@ -22,7 +22,6 @@ export default {
     }
   },
   mounted() {
-    console.log('uploadPreset', this.uploadPreset);
     this.loadWidgetScript();
   },
   methods: {

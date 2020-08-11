@@ -11,12 +11,14 @@
     </div>
     <div class="flex flex-wrap">
       <CloudinaryWidget
-        :uploadPreset="uploadPreset"
         @uploaded="onUpload"
+        :uploadPreset="uploadPreset"
+        @error="onUploadError"
         :uploaderOptions="{
           maxFiles
         }"
         :id="id ? id : 'upload_widget'"
+        class="upload-add w-1/3"
       >
         <label class="bg-background block cursor-pointer">
           <div class="upload-icon">
@@ -31,25 +33,40 @@
         </label>
       </CloudinaryWidget>
       <div
-        class="upload-previews-wrapper"
+        class="upload-previews-wrapper w-1/3"
         v-for="(video, index) in videosToPreview"
         :key="index"
       >
         <BaseVideoPreview
           v-if="video.url"
           :key="index"
-          :file="video.url"
+          :selectVideo="selectVideo"
+          :file="video"
           :index="index"
           :image="getThumbnail(video.url)"
         />
       </div>
+
+      <VideoPreviewModal
+        v-if="showModal"
+        @deleteVideo="deleteVideo"
+        @resetSelectedVideo="resetSelectedVideo"
+        :video="selectedVideoInfo"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import { transformCloudinaryUrl } from '@/helpers.js';
+import VideoPreviewModal from '@/components/uploader/VideoPreviewModal.vue';
 import IconPlus from '@/assets/icons/plus.svg';
+
+const defaultVideoInfo = {
+  publicId: null,
+  url: '',
+  index: null
+};
 
 export default {
   name: 'VideoUpload',
@@ -62,10 +79,6 @@ export default {
       type: Array,
       default: () => []
     },
-    maxImageWidth: {
-      type: Number,
-      default: parseInt(process.env.VUE_APP_UPLOADER_MAX_IMAGE_WIDTH)
-    },
     maxFiles: {
       type: Number,
       default: parseInt(process.env.VUE_APP_UPLOADER_MAX_FILES)
@@ -76,13 +89,11 @@ export default {
   },
   data() {
     return {
-      // selectedVideoInfo: {
-      //   url: '',
-      //   index: null
-      // }
+      selectedVideoInfo: { ...defaultVideoInfo }
     };
   },
   components: {
+    VideoPreviewModal,
     IconPlus,
     BaseVideoPreview: () => import('./BaseVideoPreview'),
     CloudinaryWidget: () => import('./CloudinaryWidget')
@@ -90,6 +101,13 @@ export default {
   computed: {
     videosToPreview() {
       return [...this.files];
+    },
+    showModal() {
+      return (
+        this.selectedVideoInfo &&
+        this.selectedVideoInfo.url &&
+        this.selectedVideoInfo.index >= 0
+      );
     }
   },
   methods: {
@@ -99,23 +117,22 @@ export default {
         url,
         'f_auto,h_300,c_limit'
       );
-      return transformedUrl.replace('.mp4', '.jpg');
+      return transformedUrl.replace(/\.(mp4|mov)/, '.jpg');
     },
-    deleteImage(index) {
+    deleteVideo(index) {
       let updatedFiles = this.files.slice();
       updatedFiles.splice(index, 1);
       this.updateFiles(updatedFiles);
     },
-    // selectFile([url, index]) {
-    //   this.selectedVideoInfo.url = url;
-    //   this.selectedVideoInfo.index = index;
-    // },
-    // resetSelectedImage() {
-    //   this.selectedVideoInfo = {
-    //     url: '',
-    //     index: null
-    //   };
-    // },
+    selectVideo([file, index]) {
+      this.selectedVideoInfo = { ...file, index };
+    },
+    resetSelectedVideo() {
+      this.selectedVideoInfo = { ...defaultVideoInfo };
+    },
+    onUploadError(error) {
+      alert(error.status);
+    },
     onUpload(result) {
       if (result.event === 'success') {
         let updatedFiles = [this.cloudinaryVideoToMeredithVideo(result.info)];
@@ -145,8 +162,10 @@ export default {
   height: 168px;
 }
 
-.upload-previews-wrapper {
-  width: 120px;
-  height: 168px;
+@screen sm {
+  .upload-previews-wrapper,
+  .upload-add {
+    width: 120px;
+  }
 }
 </style>

@@ -49,7 +49,7 @@
 <script>
 import BaseHeader from '@/components/BaseHeader.vue';
 import ArrowBack from '@/assets/icons/arrow-back.svg';
-import Button from '@/components/Button.vue';
+// import Button from '@/components/Button.vue';
 import ImageUpload from '@/components/uploader/ImageUpload.vue';
 import { mapGetters, mapActions } from 'vuex';
 import { get } from 'lodash-es';
@@ -69,8 +69,8 @@ export default {
   components: {
     BaseHeader,
     ArrowBack,
-    ImageUpload,
-    Button
+    ImageUpload
+    // Button
   },
   data() {
     return {

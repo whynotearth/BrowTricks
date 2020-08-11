@@ -1,8 +1,7 @@
 <template functional>
   <a
     class="block bg-black bg-opacity-disabled relative w-full h-full"
-    :href="props.file"
-    target="_blank"
+    @click.prevent="props.selectVideo([props.file, props.index])"
   >
     <img
       v-if="props.file"

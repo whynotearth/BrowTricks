@@ -30,7 +30,12 @@
       </div> -->
 
       <!-- uploader -->
-      <VideoUpload :files="currentFiles" @change="updateFiles" class="mb-4" :uploadPreset="uploadPreset">
+      <VideoUpload
+        :files="currentFiles"
+        @change="updateFiles"
+        class="mb-4"
+        :uploadPreset="uploadPreset"
+      >
         <template #title>
           <div class="tg-body-mobile ">
             <span class="text-on-background text-opacity-high">Videos</span>
