@@ -20,7 +20,7 @@
 
         <router-link
           :to="{
-            name: 'ClientDetail',
+            name: 'ClientEdit',
             params: { slug: tenantSlug, clientId: client.id }
           }"
         >

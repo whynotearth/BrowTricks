@@ -110,7 +110,7 @@ export default {
       });
     },
     goToDetailPage() {
-      this.$router.push({ name: 'ClientDetail' });
+      this.$router.push({ name: 'ClientEdit' });
     },
     sendRequest(notificationType) {
       console.log('TODO: send request', notificationType);

@@ -17,6 +17,9 @@ const state = {
 };
 
 const getters = {
+  clientInfo(state) {
+    return state.clientInfo;
+  },
   page(state) {
     return state.page;
   }

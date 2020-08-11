@@ -34,10 +34,13 @@ export default {
   }),
   mounted() {
     this.isVisible = true;
-    this.handleBackRoute();
-    this.handleTitle();
+    this.init();
   },
   methods: {
+    init() {
+      this.handleBackRoute();
+      this.handleTitle();
+    },
     iconClick() {
       this.$router.push(this.backRoute);
     },
@@ -54,6 +57,11 @@ export default {
       this.$on('layoutBackRoute', data => {
         this.backRoute = data;
       });
+    }
+  },
+  watch: {
+    $route() {
+      this.init();
     }
   }
 };

@@ -2,15 +2,15 @@ import { ajax } from '@/services/ajax.js';
 
 const notificationTypes = [
   // {
-  //   name: 'Text',
-  //   key: 'phone',
-  //   id: 'text'
-  // },
-  // {
   //   name: 'Whatsapp',
   //   key: 'phone',
   //   id: 'whatsapp'
   // },
+  {
+    name: 'Text',
+    key: 'phone',
+    id: 'text'
+  },
   {
     name: 'Email',
     key: 'email',
@@ -39,7 +39,7 @@ const days = [
   'Saturday'
 ];
 
-const defaultNotificationTypes = ['email'];
+const defaultNotificationTypes = ['email', 'phone'];
 const defaultPaymentMethods = ['cash'];
 const defaultBusinessHours = days.map(day => {
   return {
@@ -93,6 +93,9 @@ const getters = {
   },
   getBusinessHours(state) {
     return state.businessHours;
+  },
+  notificationTypes(state) {
+    return state.notificationTypes;
   }
 };
 
