@@ -174,7 +174,7 @@ export default {
 
         showOverlayAndRedirect({
           title: 'Signed Successfully!',
-          route: { name: 'ClientDetail' }
+          route: { name: 'ClientEdit' }
         });
       } catch (error) {
         alert('Something went wrong, Signing failed');

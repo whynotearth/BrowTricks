@@ -7,7 +7,7 @@ export const PmuRoutes = [
     props: true,
     meta: {
       layout: () => import('@/layouts/WithTitleBarLayout.vue'),
-      backRoute: { name: 'ClientDetail' },
+      backRoute: { name: 'ClientEdit' },
       title: 'PMU Form Sign'
     }
   }

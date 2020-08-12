@@ -8,6 +8,7 @@ const colors = {
   'on-newprimary': '#0C6986',
   'on-newsecondary': '#404E87',
   'on-newbackground': '#fff',
+  'on-newsurface': '#fff',
 
   primary: '#067BC2',
   secondary: '#33658A',
