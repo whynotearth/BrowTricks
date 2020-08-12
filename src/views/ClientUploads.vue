@@ -25,7 +25,7 @@
     >
       <template #title>
         <div class="tg-body-mobile ">
-          <span class="text-on-newbackground text-opacity-high">Images</span>
+          <span class="text-on-newbackground text-opacity-high">Uploads</span>
         </div>
       </template>
     </ImageUpload>
