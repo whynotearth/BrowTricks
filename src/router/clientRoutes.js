@@ -16,6 +16,7 @@ export const clientRoutes = [
   {
     path: '/tenant/:tenantSlug/clients/:clientId',
     name: 'Client',
+    redirect: { name: 'ClientEdit' },
     props: true,
     component: () => import('@/views/Client.vue'),
     meta: {
@@ -33,7 +34,7 @@ export const clientRoutes = [
           layout: WithTitleBarLayout,
           title: 'Client Profile',
           backRoute: { name: 'ClientList' }
-        },
+        }
       },
       {
         path: 'image-upload',
@@ -44,7 +45,7 @@ export const clientRoutes = [
           layout: WithTitleBarLayout,
           title: 'Images',
           backRoute: { name: 'ClientEdit' }
-        },
+        }
       },
       {
         path: 'video-upload',
@@ -55,7 +56,7 @@ export const clientRoutes = [
           layout: WithTitleBarLayout,
           title: 'Videos',
           backRoute: { name: 'ClientEdit' }
-        },
+        }
       },
       {
         path: 'notifications',
@@ -66,7 +67,7 @@ export const clientRoutes = [
           layout: WithTitleBarLayout,
           title: 'Notifications',
           backRoute: { name: 'ClientEdit' }
-        },
+        }
       }
     ]
   }
