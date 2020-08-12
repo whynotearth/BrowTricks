@@ -33,11 +33,8 @@
 </template>
 
 <script>
-import BaseHeader from '@/components/BaseHeader.vue';
-import ArrowBack from '@/assets/icons/arrow-back.svg';
-// import Button from '@/components/Button.vue';
 import ImageUpload from '@/components/uploader/ImageUpload.vue';
-import { mapGetters, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 import { get } from 'lodash-es';
 
 export default {
@@ -53,10 +50,7 @@ export default {
     }
   },
   components: {
-    BaseHeader,
-    ArrowBack,
     ImageUpload
-    // Button
   },
   data() {
     return {
@@ -69,7 +63,6 @@ export default {
     this._fetchClient();
   },
   computed: {
-    ...mapGetters('client', ['getClientById']),
     hasNotificationEmail() {
       const notificationTypes = get(this.client, 'notificationTypes', []);
       return notificationTypes.includes('email');
