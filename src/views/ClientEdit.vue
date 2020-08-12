@@ -132,7 +132,8 @@
       </ExpansionPanel>
 
       <!-- incompleted PMU -->
-      <ExpansionPanel
+      <!-- TODO: enable -->
+      <!-- <ExpansionPanel
         v-if="isPmuIncomplete"
         @click="
           $router.push({
@@ -144,11 +145,11 @@
         :middleText="client.pmuStatus"
       >
         <Document slot="preIcon" class="h-6 w-6 fill-current" />
-      </ExpansionPanel>
+      </ExpansionPanel> -->
 
       <!-- completed PMU -->
+      <!-- v-else -->
       <ExpansionPanel
-        v-else
         @click="
           $router.push({
             name: 'PmuSign',

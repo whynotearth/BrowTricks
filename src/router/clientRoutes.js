@@ -16,6 +16,7 @@ export const clientRoutes = [
   {
     path: '/tenant/:tenantSlug/clients/:clientId',
     name: 'Client',
+    redirect: { name: 'ClientEdit' },
     props: true,
     component: () => import('@/views/Client.vue'),
     meta: {
