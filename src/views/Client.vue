@@ -25,10 +25,22 @@ export default {
     };
   },
   async created() {
+    this.handleLoginByToken();
     this._fetchClient();
   },
   methods: {
+    ...mapActions('auth', ['updateToken']),
     ...mapActions('client', ['fetchClient']),
+    handleLoginByToken() {
+      this.setTokenFromUrl();
+    },
+    setTokenFromUrl() {
+      if (this.$route.query.token) {
+        this.updateToken(this.$route.query.token);
+        return true;
+      }
+      return false;
+    },
     async _fetchClient() {
       this.client = await this.fetchClient({
         params: {

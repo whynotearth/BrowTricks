@@ -68,6 +68,42 @@ export const clientRoutes = [
           title: 'Notifications',
           backRoute: { name: 'ClientEdit' }
         }
+      },
+
+      // PMU
+      {
+        path: 'pmu-sign-methods',
+        name: 'PmuSignMethods',
+        props: true,
+        component: () => import('@/views/PmuSignMethods.vue'),
+        meta: {
+          layout: WithTitleBarLayout,
+          title: 'PMU Form Sign',
+          backRoute: { name: 'ClientEdit' }
+        }
+      },
+      {
+        path: 'pmu-sign',
+        name: 'PmuSign',
+        component: () => import('@/views/PmuSign.vue'),
+        props: true,
+        meta: {
+          layout: WithTitleBarLayout,
+          title: 'PMU Form Sign',
+          backRoute: { name: 'ClientEdit' }
+        }
+      },
+      {
+        path: 'pmu-sign-from-notify',
+        name: 'PmuSignFromNotify',
+        component: () => import('@/views/PmuSign.vue'),
+        props: true,
+        meta: {
+          isPublic: true,
+          layout: WithTitleBarLayout,
+          title: 'PMU Form Sign',
+          backRoute: { name: 'ClientEdit' }
+        }
       }
     ]
   }

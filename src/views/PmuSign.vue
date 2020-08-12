@@ -97,7 +97,7 @@ export default {
     IconDelete
   },
   props: ['tenantSlug', 'clientId'],
-  async created() {
+  created() {
     this._fetchClient();
   },
   data: () => ({
@@ -121,6 +121,7 @@ export default {
   methods: {
     ...mapActions('client', ['fetchClient']),
     ...mapActions('PMU', ['setCustomQuestions', 'submitSign', 'signed']),
+
     async _fetchClient() {
       this.client = await this.fetchClient({
         params: {
