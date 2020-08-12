@@ -25,17 +25,31 @@
 
       <!-- bottom toolbar -->
       <div class="flex justify-end w-full flex-shrink-0">
-        <a class="cursor-pointer p-4" @click.stop="deleteImage" title="Delete">
-          <DeleteIcon class="text-white w-6 h-6" />
+        isShareApiSupported: {{isShareApiSupported}}
+        <!-- share -->
+        <a
+          v-if="isShareApiSupported"
+          @click.stop="share(image)"
+          class="cursor-pointer p-4"
+          title="Share"
+        >
+          <ShareIcon class="text-white w-6 h-6" />
         </a>
 
+        <!-- download -->
         <a
+          v-else
           @click.stop=""
           :href="transformCloudinaryUrl(image.url, 'fl_attachment')"
-          class="cursor-pointer  p-4"
+          class="cursor-pointer p-4"
           title="Download (Save the file in new tab)"
         >
           <DownloadIcon class="text-white w-6 h-6" />
+        </a>
+
+        <!-- delete -->
+        <a class="cursor-pointer p-4" @click.stop="remove" title="Delete">
+          <DeleteIcon class="text-white w-6 h-6" />
         </a>
       </div>
     </div>
@@ -46,22 +60,40 @@
 import Close from '@/assets/icons/close.svg';
 import DeleteIcon from '@/assets/icons/delete.svg';
 import DownloadIcon from '@/assets/icons/download.svg';
+import ShareIcon from '@/assets/icons/share.svg';
 import { transformCloudinaryUrl } from '@/helpers.js';
 import vhFix from '@/mixins/vhFix.js';
 
 export default {
   name: 'ImagePreviewModal',
   props: ['image'],
-  components: { Close, DeleteIcon, DownloadIcon },
+  components: { Close, DeleteIcon, DownloadIcon, ShareIcon },
   mixins: [vhFix],
+  computed: {
+    isShareApiSupported() {
+      return !!window.navigator.share;
+    }
+  },
   methods: {
     transformCloudinaryUrl,
     closeModal() {
       this.$emit('resetSelectedImage');
     },
-    deleteImage() {
-      this.$emit('deleteImage', this.image.index);
+    remove() {
+      this.$emit('remove', this.image.index);
       this.closeModal();
+    },
+    share(file) {
+      console.log('share', file.url);
+      window.navigator
+        .share({
+          // title: '',
+          url: file.url
+        })
+        .then(() => {
+          console.log('Shared');
+        })
+        .catch(console.error);
     }
   }
 };
