@@ -103,7 +103,7 @@ export function transformCloudinaryUrl(resourceUrl, transformations) {
 export function urlToFile(jsonfile) {
   const urlParts = jsonfile.url.split('/');
   const filename = urlParts[urlParts.length - 1];
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     window.fetch(jsonfile.url).then(res => {
       res
         .blob()
@@ -111,13 +111,21 @@ export function urlToFile(jsonfile) {
           const file = new File([blob], filename, { type: blob.type });
           resolve(file);
         })
-        .catch(reject);
+        .catch(err => {
+          console.log(err);
+        });
     });
   });
 }
 
 // @input jsonfile: {url}
 export function share(jsonfile) {
+  const isFileSharingSupported = !!navigator.canShare;
+  if (!isFileSharingSupported) {
+    _shareOld(jsonfile);
+    return;
+  }
+
   this.urlToFile(jsonfile).then(file => {
     // https://web.dev/web-share/#sharing-files
     window.navigator
@@ -125,6 +133,19 @@ export function share(jsonfile) {
         // url: jsonfile.url
         files: [file]
       })
-      .catch(console.error);
+      .catch(err => {
+        console.log('fallback to share api level 1', err);
+        _shareOld(jsonfile);
+      });
   });
+}
+
+function _shareOld(jsonfile) {
+  window.navigator
+    .share({
+      url: jsonfile.url
+    })
+    .catch(err => {
+      console.log(err);
+    });
 }
