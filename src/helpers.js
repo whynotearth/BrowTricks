@@ -120,6 +120,13 @@ export function urlToFile(jsonfile) {
 
 // @input jsonfile: {url}
 export function share(jsonfile) {
+  const isFileSharingSupported = !!navigator.canShare;
+  console.log('isFileSharingSupported', isFileSharingSupported);
+  if (!isFileSharingSupported) {
+    _shareOld(jsonfile);
+    return;
+  }
+
   this.urlToFile(jsonfile).then(file => {
     // https://web.dev/web-share/#sharing-files
     window.navigator
@@ -129,13 +136,17 @@ export function share(jsonfile) {
       })
       .catch(err => {
         console.log('fallback to share api level 1', err);
-        window.navigator
-          .share({
-            url: jsonfile.url
-          })
-          .catch(err => {
-            console.log(err);
-          });
+        _shareOld(jsonfile);
       });
   });
+}
+
+function _shareOld(jsonfile) {
+  window.navigator
+    .share({
+      url: jsonfile.url
+    })
+    .catch(err => {
+      console.log(err);
+    });
 }
