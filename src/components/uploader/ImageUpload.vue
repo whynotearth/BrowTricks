@@ -52,7 +52,7 @@
             selectedImageInfo.url &&
             selectedImageInfo.index >= 0
         "
-        @deleteImage="deleteImage"
+        @remove="remove"
         @resetSelectedImage="resetSelectedImage"
         :image.sync="selectedImageInfo"
       />
@@ -107,7 +107,7 @@ export default {
     }
   },
   methods: {
-    deleteImage(index) {
+    remove(index) {
       let updatedFiles = this.files.slice();
       updatedFiles.splice(index, 1);
       this.updateFiles(updatedFiles);

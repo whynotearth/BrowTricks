@@ -24,17 +24,28 @@
 
       <!-- bottom toolbar -->
       <div class="flex justify-end w-full flex-shrink-0">
-        <a class="cursor-pointer p-4" @click.stop="deleteVideo" title="Delete">
-          <DeleteIcon class="text-white w-6 h-6" />
+        <!-- share -->
+        <a
+          v-if="isShareApiSupported"
+          @click.stop="share(video)"
+          class="cursor-pointer p-4"
+          title="Share"
+        >
+          <ShareIcon class="text-white w-6 h-6" />
         </a>
 
         <a
+          v-else
           @click.stop=""
           :href="transformCloudinaryUrl(video.url, 'fl_attachment')"
           class="cursor-pointer p-4"
           title="Download (Save the file in new tab)"
         >
           <DownloadIcon class="text-white w-6 h-6" />
+        </a>
+
+        <a class="cursor-pointer p-4" @click.stop="deleteVideo" title="Delete">
+          <DeleteIcon class="text-white w-6 h-6" />
         </a>
       </div>
     </div>
@@ -45,16 +56,24 @@
 import Close from '@/assets/icons/close.svg';
 import DeleteIcon from '@/assets/icons/delete.svg';
 import DownloadIcon from '@/assets/icons/download.svg';
-import { transformCloudinaryUrl } from '@/helpers.js';
+import ShareIcon from '@/assets/icons/share.svg';
+import { transformCloudinaryUrl, urlToFile, share } from '@/helpers.js';
 import vhFix from '@/mixins/vhFix.js';
 
 export default {
   name: 'VideoPreviewModal',
   props: ['video'],
-  components: { Close, DeleteIcon, DownloadIcon },
+  components: { Close, DeleteIcon, DownloadIcon, ShareIcon },
   mixins: [vhFix],
+  computed: {
+    isShareApiSupported() {
+      return !!window.navigator.share;
+    }
+  },
   methods: {
     transformCloudinaryUrl,
+    urlToFile,
+    share,
     closeModal() {
       this.$emit('resetSelectedVideo');
     },
