@@ -98,3 +98,44 @@ export function transformCloudinaryUrl(resourceUrl, transformations) {
   urlParts.splice(indexOfUpload + 1, 0, transformations);
   return urlParts.join('/');
 }
+
+// @input jsonfile: {url}
+export function urlToFile(jsonfile) {
+  const urlParts = jsonfile.url.split('/');
+  const filename = urlParts[urlParts.length - 1];
+  return new Promise(resolve => {
+    window.fetch(jsonfile.url).then(res => {
+      res
+        .blob()
+        .then(blob => {
+          const file = new File([blob], filename, { type: blob.type });
+          resolve(file);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    });
+  });
+}
+
+// @input jsonfile: {url}
+export function share(jsonfile) {
+  this.urlToFile(jsonfile).then(file => {
+    // https://web.dev/web-share/#sharing-files
+    window.navigator
+      .share({
+        // url: jsonfile.url
+        files: [file]
+      })
+      .catch(err => {
+        console.log('fallback to share api level 1', err);
+        window.navigator
+          .share({
+            url: jsonfile.url
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      });
+  });
+}

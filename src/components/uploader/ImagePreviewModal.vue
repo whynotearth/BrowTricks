@@ -25,7 +25,6 @@
 
       <!-- bottom toolbar -->
       <div class="flex justify-end w-full flex-shrink-0">
-        isShareApiSupported: {{isShareApiSupported}}
         <!-- share -->
         <a
           v-if="isShareApiSupported"
@@ -61,7 +60,7 @@ import Close from '@/assets/icons/close.svg';
 import DeleteIcon from '@/assets/icons/delete.svg';
 import DownloadIcon from '@/assets/icons/download.svg';
 import ShareIcon from '@/assets/icons/share.svg';
-import { transformCloudinaryUrl } from '@/helpers.js';
+import { transformCloudinaryUrl, urlToFile, share } from '@/helpers.js';
 import vhFix from '@/mixins/vhFix.js';
 
 export default {
@@ -76,24 +75,14 @@ export default {
   },
   methods: {
     transformCloudinaryUrl,
+    urlToFile,
+    share,
     closeModal() {
       this.$emit('resetSelectedImage');
     },
     remove() {
       this.$emit('remove', this.image.index);
       this.closeModal();
-    },
-    share(file) {
-      console.log('share', file.url);
-      window.navigator
-        .share({
-          // title: '',
-          url: file.url
-        })
-        .then(() => {
-          console.log('Shared');
-        })
-        .catch(console.error);
     }
   }
 };
