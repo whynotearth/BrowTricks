@@ -19,7 +19,11 @@
     <!-- uploader -->
     <MediaManager :files="currentFiles" @change="updateFiles" class="mb-4">
       <template #uploadButton>
-        <MediaUploader :files="currentFiles" @change="updateFiles" :uploadPreset="uploadPreset" />
+        <MediaUploader
+          :files="currentFiles"
+          @change="updateFiles"
+          :uploadPreset="uploadPreset"
+        />
       </template>
       <template #title>
         <div class="tg-body-mobile ">
@@ -55,8 +59,7 @@ export default {
   data() {
     return {
       uploadPreset: process.env.VUE_APP_UPLOADER_MEDIA_PRESET,
-      client: null,
-      images: []
+      client: null
     };
   },
   async created() {
@@ -72,7 +75,10 @@ export default {
       return notificationTypes.includes('phone');
     },
     currentFiles() {
-      return get(this.client, 'images', []);
+      return [
+        ...get(this.client, 'images', []),
+        ...get(this.client, 'videos', [])
+      ];
     }
   },
   methods: {
@@ -85,15 +91,9 @@ export default {
         }
       }).catch(() => {
         console.log('error in getting client');
-        this.goToDetailPage();
       });
     },
-    goToDetailPage() {
-      this.$router.push({ name: 'ClientEdit' });
-    },
-    sendRequest(notificationType) {
-      console.log('TODO: send request', notificationType);
-    },
+
     updateFiles(images) {
       const imagesAdapted = images.map(item => ({
         url: item.url,

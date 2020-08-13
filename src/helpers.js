@@ -149,3 +149,13 @@ function _shareOld(jsonfile) {
       console.log(err);
     });
 }
+
+export function cloudinaryImageToMeredithImage(cloudinaryImageInfo) {
+  const { secure_url, height, width, public_id } = cloudinaryImageInfo;
+  return {
+    height,
+    width,
+    publicId: public_id,
+    url: secure_url
+  };
+}

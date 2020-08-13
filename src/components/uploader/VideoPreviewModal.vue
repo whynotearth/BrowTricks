@@ -7,19 +7,21 @@
       @click="closeModal"
     >
       <!-- top toolbar -->
-      <div class="flex justify-end w-full flex-shrink-0">
+      <div class="flex justify-start w-full flex-shrink-0">
         <button class="p-3" @click.prevent="closeModal" title="Close">
           <Close class="text-white" />
         </button>
       </div>
 
       <!-- content -->
-      <div class="w-full my-auto" @click.stop="">
-        <video
-          controls="true"
-          class="preview-video mx-auto max-w-full"
-          :src="video.url"
-        />
+      <div class="m-auto">
+        <div @click.stop="">
+          <video
+            controls="true"
+            class="preview-video"
+            :src="file.url"
+          />
+        </div>
       </div>
 
       <!-- bottom toolbar -->
@@ -27,7 +29,7 @@
         <!-- share -->
         <a
           v-if="isShareApiSupported"
-          @click.stop="share(video)"
+          @click.stop="share(file)"
           class="cursor-pointer p-4"
           title="Share"
         >
@@ -37,7 +39,7 @@
         <a
           v-else
           @click.stop=""
-          :href="transformCloudinaryUrl(video.url, 'fl_attachment')"
+          :href="transformCloudinaryUrl(file.url, 'fl_attachment')"
           class="cursor-pointer p-4"
           title="Download (Save the file in new tab)"
         >
@@ -62,7 +64,7 @@ import vhFix from '@/mixins/vhFix.js';
 
 export default {
   name: 'VideoPreviewModal',
-  props: ['video'],
+  props: ['file'],
   components: { Close, DeleteIcon, DownloadIcon, ShareIcon },
   mixins: [vhFix],
   computed: {
@@ -75,10 +77,10 @@ export default {
     urlToFile,
     share,
     closeModal() {
-      this.$emit('resetSelectedVideo');
+      this.$emit('resetSelectedFile');
     },
     deleteVideo() {
-      this.$emit('deleteVideo', this.video.index);
+      this.$emit('deleteVideo', this.file.index);
       this.closeModal();
     }
   }

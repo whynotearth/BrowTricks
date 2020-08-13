@@ -62,6 +62,9 @@ export default {
               this.$emit('uploaded', result);
             }
           }
+          if (result.event === 'queues-end') {
+            myWidget.close();
+          }
         }
       );
 

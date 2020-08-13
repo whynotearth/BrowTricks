@@ -13,26 +13,33 @@
       <slot name="uploadButton" />
       <div
         class="upload-previews-wrapper w-1/3"
-        v-for="(image, index) in imagesToPreview"
+        v-for="(file, index) in filesToPreview"
         :key="index"
       >
         <BaseImagePreview
-          v-if="image.url"
-          :selectImage="selectImage"
+          v-if="file.resourceType === 'image'"
+          :selectFile="selectFile"
           :key="index"
-          :image="image.url"
-          :index="index"
+          :file="{ ...file, index }"
+        />
+        <BaseVideoPreview
+          v-if="file.resourceType === 'video'"
+          :selectFile="selectFile"
+          :key="index"
+          :file="{ ...file, index, thumbnail: getThumbnail(file) }"
         />
       </div>
       <ImagePreviewModal
-        v-if="
-          selectedImageInfo &&
-            selectedImageInfo.url &&
-            selectedImageInfo.index >= 0
-        "
+        v-if="selectedFileInfo.resourceType === 'image'"
         @remove="remove"
-        @resetSelectedImage="resetSelectedImage"
-        :image.sync="selectedImageInfo"
+        @resetSelectedFile="resetSelectedFile"
+        :file="selectedFileInfo"
+      />
+      <VideoPreviewModal
+        v-if="selectedFileInfo.resourceType === 'video'"
+        @remove="remove"
+        @resetSelectedFile="resetSelectedFile"
+        :file="selectedFileInfo"
       />
     </div>
   </div>
@@ -49,8 +56,7 @@ export default {
   },
   data() {
     return {
-      images: [],
-      selectedImageInfo: {
+      selectedFileInfo: {
         url: '',
         index: null
       }
@@ -58,25 +64,52 @@ export default {
   },
   components: {
     BaseImagePreview: () => import('./BaseImagePreview'),
-    ImagePreviewModal: () => import('./ImagePreviewModal')
+    BaseVideoPreview: () => import('./BaseVideoPreview'),
+    ImagePreviewModal: () => import('./ImagePreviewModal'),
+    VideoPreviewModal: () => import('./VideoPreviewModal')
   },
   computed: {
-    imagesToPreview() {
-      return [...this.files];
+    filesToPreview() {
+      return [...this.files].map(this.addResourceType);
     }
   },
   methods: {
+    addResourceType(file) {
+      const resourceType = this.isImage(file)
+        ? 'image'
+        : this.isVideo(file)
+        ? 'video'
+        : 'unknown';
+      return { ...file, resourceType };
+    },
+    isImage(file) {
+      // TODO: use file.resourceType
+      const urlSegments = file.url.split('.');
+      const extension = urlSegments[urlSegments.length - 1];
+      return ['jpg', 'jpeg', 'gif', 'png'].includes(extension.toLowerCase());
+    },
+    isVideo(file) {
+      // TODO: use file.resourceType
+      const urlSegments = file.url.split('.');
+      const extension = urlSegments[urlSegments.length - 1];
+      return ['mp4', 'webm', 'vob'].includes(extension.toLowerCase());
+    },
+    getThumbnail(file) {
+      const urlSegments = file.url.split('.');
+      const extension = urlSegments[urlSegments.length - 1];
+      const thumbnail = file.url.replace(new RegExp(extension + '$'), 'jpg');
+      return thumbnail;
+    },
     remove(index) {
       let updatedFiles = this.files.slice();
       updatedFiles.splice(index, 1);
       this.updateFiles(updatedFiles);
     },
-    selectImage([url, index]) {
-      this.selectedImageInfo.url = url;
-      this.selectedImageInfo.index = index;
+    selectFile(file) {
+      this.selectedFileInfo = { ...file };
     },
-    resetSelectedImage() {
-      this.selectedImageInfo = {
+    resetSelectedFile() {
+      this.selectedFileInfo = {
         url: '',
         index: null
       };
