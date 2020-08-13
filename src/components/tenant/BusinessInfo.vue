@@ -17,10 +17,7 @@
       label="Phone number"
       :error="$v.phone.$error"
     >
-      <p
-        v-if="!$v.phone.required"
-        class="text-error tg-body-mobile"
-      >
+      <p v-if="!$v.phone.required" class="text-error tg-body-mobile">
         This field is required
       </p>
       <p
@@ -32,7 +29,12 @@
     </MaterialInput>
     <text-area v-model="$v.description.$model" label="Description" />
     <hr class="border-on-background border-opacity-divider my-8" />
-    <ImageUpload :maxFiles="1" :files="currentImages" @change="_updateLogo">
+    <MediaManager
+      :maxFiles="1"
+      :files="currentImages"
+      @change="_updateLogo"
+      :uploadPreset="process.env.VUE_APP_UPLOADER_IMAGE_PRESET"
+    >
       <template #title>
         <div class="tg-body-mobile ">
           <span class="text-on-background text-opacity-high"> Logo </span>
@@ -41,7 +43,7 @@
           </span>
         </div>
       </template>
-    </ImageUpload>
+    </MediaManager>
     <span v-if="$v.logo.$dirty && $v.logo.$error" class="text-error text-xs">
       Logo is required
     </span>
@@ -53,7 +55,7 @@ import { mapMutations, mapGetters } from 'vuex';
 import { required, minLength } from 'vuelidate/lib/validators';
 import MaterialInput from '@/components/inputs/MaterialInput';
 import TextArea from '@/components/inputs/TextArea.vue';
-import ImageUpload from '@/components/uploader/ImageUpload.vue';
+import MediaManager from '@/components/uploader/MediaManager.vue';
 import { isPhoneNumberValid } from '@/helpers';
 
 export default {
@@ -61,7 +63,7 @@ export default {
   components: {
     MaterialInput,
     TextArea,
-    ImageUpload
+    MediaManager
   },
   data() {
     return {};

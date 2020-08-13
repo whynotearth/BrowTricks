@@ -10,29 +10,7 @@
       </slot>
     </div>
     <div class="flex flex-wrap">
-      <CloudinaryWidget
-        @uploaded="onUpload"
-        :uploadPreset="uploadPreset"
-        @error="onUploadError"
-        :uploaderOptions="{
-          maxFiles,
-          maxImageWidth
-        }"
-        :id="id ? id : 'upload_widget'"
-        class="upload-add w-1/3"
-      >
-        <label class="block cursor-pointer">
-          <div class="upload-icon">
-            <div
-              class="upload-icon--dimension border border-on-newbackground border-dashed border-opacity-divider flex justify-center items-center"
-            >
-              <IconPlus
-                class="fill-current text-white text-opacity-medium"
-              />
-            </div>
-          </div>
-        </label>
-      </CloudinaryWidget>
+      <slot name="uploadButton" />
       <div
         class="upload-previews-wrapper w-1/3"
         v-for="(image, index) in imagesToPreview"
@@ -61,29 +39,12 @@
 </template>
 
 <script>
-import IconPlus from '@/assets/icons/plus.svg';
-
 export default {
-  name: 'ImageUpload',
+  name: 'MediaManager',
   props: {
-    uploadPreset: {
-      type: String,
-      required: true
-    },
     files: {
       type: Array,
       default: () => []
-    },
-    maxImageWidth: {
-      type: Number,
-      default: parseInt(process.env.VUE_APP_UPLOADER_MAX_IMAGE_WIDTH)
-    },
-    maxFiles: {
-      type: Number,
-      default: parseInt(process.env.VUE_APP_UPLOADER_MAX_FILES)
-    },
-    id: {
-      type: String
     }
   },
   data() {
@@ -96,10 +57,8 @@ export default {
     };
   },
   components: {
-    IconPlus,
     BaseImagePreview: () => import('./BaseImagePreview'),
-    ImagePreviewModal: () => import('./ImagePreviewModal'),
-    CloudinaryWidget: () => import('./CloudinaryWidget')
+    ImagePreviewModal: () => import('./ImagePreviewModal')
   },
   computed: {
     imagesToPreview() {
@@ -122,26 +81,8 @@ export default {
         index: null
       };
     },
-    onUploadError(error) {
-      alert(error.status);
-    },
-    onUpload(result) {
-      if (result.event === 'success') {
-        let updatedFiles = [this.cloudinaryImageToMeredithImage(result.info)];
-        this.updateFiles([...this.files, ...updatedFiles]);
-      }
-    },
     updateFiles(files) {
       this.$emit('change', files);
-    },
-    cloudinaryImageToMeredithImage(cloudinaryImageInfo) {
-      const { secure_url, height, width, public_id } = cloudinaryImageInfo;
-      return {
-        height,
-        width,
-        publicId: public_id,
-        url: secure_url
-      };
     }
   }
 };
@@ -153,14 +94,12 @@ export default {
   height: 168px;
 }
 
-.upload-previews-wrapper,
-.upload-add {
+.upload-previews-wrapper {
   height: 168px;
 }
 
 @screen sm {
-  .upload-previews-wrapper,
-  .upload-add {
+  .upload-previews-wrapper {
     width: 120px;
   }
 }
