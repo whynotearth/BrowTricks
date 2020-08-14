@@ -25,9 +25,7 @@
             <div
               class="upload-icon--dimension border border-on-newbackground border-dashed border-opacity-divider flex justify-center items-center"
             >
-              <IconPlus
-                class="fill-current text-white text-opacity-medium"
-              />
+              <IconPlus class="fill-current text-white text-opacity-medium" />
             </div>
           </div>
         </label>

@@ -1,8 +1,6 @@
 <template>
   <div class="text-left">
-    <div
-      class="bg-newbackground w-full flex flex-col justify-between"
-    >
+    <div class="bg-newbackground w-full flex flex-col justify-between">
       <div>
         <StepperTop :navigation="navigation" :page="page" />
         <div class="my-4 relative z-0">
@@ -128,22 +126,20 @@ export default {
   },
   watch: {
     component(step) {
+      const editRoute = {
+        name: 'EditClient',
+        params: {
+          step,
+          tenantSlug: this.tenantSlug,
+          clientId: this.$route.params.clientId
+        }
+      };
+      const addRoute = {
+        name: 'AddClient',
+        params: { step, tenantSlug: this.tenantSlug }
+      };
       this.$router
-        .push(
-          this.$route.params.clientId
-            ? {
-                name: 'EditClient',
-                params: {
-                  step,
-                  tenantSlug: this.tenantSlug,
-                  clientId: this.$route.params.clientId
-                }
-              }
-            : {
-                name: 'AddClient',
-                params: { step, tenantSlug: this.tenantSlug }
-              }
-        )
+        .push(this.$route.params.clientId ? editRoute : addRoute)
         .catch(() => {});
     },
     '$route.params.step': {

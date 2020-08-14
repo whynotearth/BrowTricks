@@ -16,11 +16,7 @@
       <!-- content -->
       <div class="m-auto">
         <div @click.stop="">
-          <video
-            controls="true"
-            class="preview-video"
-            :src="file.url"
-          />
+          <video controls="true" class="preview-video" :src="file.url" />
         </div>
       </div>
 

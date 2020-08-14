@@ -1,7 +1,7 @@
 module.exports = {
   devServer: {
     // for local browserstack
-    disableHostCheck: true,
+    disableHostCheck: true
     // enable localhost https
     // https: true
   },
