@@ -38,8 +38,6 @@
 </template>
 
 <script>
-import BaseHeader from '@/components/BaseHeader.vue';
-import ArrowBack from '@/assets/icons/arrow-back.svg';
 import Button from '@/components/inputs/Button.vue';
 import AddEditNote from '@/components/client/AddEditNote.vue';
 import { format } from 'date-fns';
@@ -50,8 +48,6 @@ export default {
   name: 'ClientNotifications',
   props: ['tenantSlug', 'clientId'],
   components: {
-    BaseHeader,
-    ArrowBack,
     Button,
     AddEditNote
   },

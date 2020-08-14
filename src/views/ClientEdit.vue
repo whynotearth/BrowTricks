@@ -152,7 +152,10 @@
         <Document slot="preIcon" class="h-6 w-6 fill-current" />
       </ExpansionPanel>
 
-      <ExpansionPanel @click="$router.push({ name: 'ClientNotes' })" title="Notes">
+      <ExpansionPanel
+        @click="$router.push({ name: 'ClientNotes' })"
+        title="Notes"
+      >
         <Notes slot="preIcon" class="h-6 w-6 fill-current" />
       </ExpansionPanel>
       <div class="py-6">
@@ -199,18 +202,15 @@
 
 <script>
 import { required, minLength, email } from 'vuelidate/lib/validators';
-import BaseHeader from '@/components/BaseHeader.vue';
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
 import Button from '@/components/inputs/Button.vue';
 import ExpansionPanel from '@/components/ExpansionPanel.vue';
 
-import ArrowBack from '@/assets/icons/arrow-back.svg';
 import Document from '@/assets/icons/document.svg';
 import Notes from '@/assets/icons/notes.svg';
 import Notification from '@/assets/icons/notification.svg';
 
 import ImagesIcon from '@/assets/icons/images.svg';
-import VideosIcon from '@/assets/icons/videos.svg';
 import MailIcon from '@/assets/icons/mail.svg';
 import PhoneIcon from '@/assets/icons/phone.svg';
 import PhoneAndroidIcon from '@/assets/icons/phone_android.svg';
@@ -232,15 +232,12 @@ export default {
     }
   },
   components: {
-    BaseHeader,
-    ArrowBack,
     MaterialInput,
     Button,
     Document,
     Notes,
     Notification,
     ImagesIcon,
-    VideosIcon,
     ExpansionPanel,
     MailIcon,
     PhoneIcon,
