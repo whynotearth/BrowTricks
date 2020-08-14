@@ -114,7 +114,7 @@
         title="Uploads"
         @click="
           $router.push({
-            name: 'ClientImageUpload'
+            name: 'ClientUploads'
           })
         "
       >

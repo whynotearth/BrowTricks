@@ -32,13 +32,13 @@
       <ImagePreviewModal
         v-if="selectedFileInfo.resourceType === 'image'"
         @remove="remove"
-        @resetSelectedFile="resetSelectedFile"
+        @close="closeModal"
         :file="selectedFileInfo"
       />
       <VideoPreviewModal
         v-if="selectedFileInfo.resourceType === 'video'"
         @remove="remove"
-        @resetSelectedFile="resetSelectedFile"
+        @close="closeModal"
         :file="selectedFileInfo"
       />
     </div>
@@ -46,6 +46,8 @@
 </template>
 
 <script>
+const doNothing = () => {};
+
 export default {
   name: 'MediaManager',
   props: {
@@ -106,7 +108,17 @@ export default {
       this.updateFiles(updatedFiles);
     },
     selectFile(file) {
+      this.$router
+        .push({
+          name: 'ClientUploadsItem',
+          params: { mediaIndex: file.index }
+        })
+        .catch(() => {});
       this.selectedFileInfo = { ...file };
+    },
+    closeModal() {
+      this.resetSelectedFile();
+      this.goToList();
     },
     resetSelectedFile() {
       this.selectedFileInfo = {
@@ -114,8 +126,20 @@ export default {
         index: null
       };
     },
+    goToList() {
+      if (this.$route.name === 'ClientUploadsItem') {
+        this.$router.go(-1).catch(doNothing);
+      }
+    },
     updateFiles(files) {
       this.$emit('change', files);
+    }
+  },
+  watch: {
+    $route(to) {
+      if (to.name === 'ClientUploads') {
+        this.resetSelectedFile();
+      }
     }
   }
 };

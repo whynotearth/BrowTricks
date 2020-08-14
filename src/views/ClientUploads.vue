@@ -41,7 +41,7 @@ import { mapActions } from 'vuex';
 import { get } from 'lodash-es';
 
 export default {
-  name: 'ClientImageUpload',
+  name: 'ClientUploads',
   props: {
     tenantSlug: {
       type: String,

@@ -38,13 +38,24 @@ export const clientRoutes = [
       },
       {
         path: 'uploads',
-        name: 'ClientImageUpload',
+        name: 'ClientUploads',
         props: true,
         component: () => import('@/views/ClientUploads.vue'),
         meta: {
           layout: WithTitleBarLayout,
           title: 'Uploads',
           backRoute: { name: 'ClientEdit' }
+        }
+      },
+      {
+        path: 'uploads/:mediaIndex',
+        name: 'ClientUploadsItem',
+        props: true,
+        component: () => import('@/views/ClientUploads.vue'),
+        meta: {
+          layout: WithTitleBarLayout,
+          title: 'Uploads',
+          backRoute: { name: 'ClientUploads' }
         }
       },
       {

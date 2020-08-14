@@ -77,7 +77,7 @@ export default {
     urlToFile,
     share,
     closeModal() {
-      this.$emit('resetSelectedFile');
+      this.$emit('close');
     },
     deleteVideo() {
       this.$emit('deleteVideo', this.file.index);

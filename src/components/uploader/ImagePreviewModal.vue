@@ -78,7 +78,7 @@ export default {
     urlToFile,
     share,
     closeModal() {
-      this.$emit('resetSelectedFile');
+      this.$emit('close');
     },
     remove() {
       this.$emit('remove', this.file.index);
