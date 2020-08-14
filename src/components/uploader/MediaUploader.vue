@@ -22,7 +22,7 @@
 
 <script>
 import IconPlus from '@/assets/icons/plus.svg';
-import { cloudinaryImageToMeredithImage } from '@/helpers.js';
+import { cloudinaryFileToMeredithFileAdapter } from '@/helpers.js';
 
 export default {
   name: 'MediaUploader',
@@ -57,8 +57,7 @@ export default {
     },
     onUpload(result) {
       if (result.event === 'success') {
-        let updatedFiles = [cloudinaryImageToMeredithImage(result.info)];
-        console.log('new updatedFiles', [...this.files, ...updatedFiles]);
+        let updatedFiles = [cloudinaryFileToMeredithFileAdapter(result.info)];
         this.updateFiles([...this.files, ...updatedFiles]);
       }
     },

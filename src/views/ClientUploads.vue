@@ -76,8 +76,14 @@ export default {
     },
     currentFiles() {
       return [
-        ...get(this.client, 'images', []),
-        ...get(this.client, 'videos', [])
+        ...get(this.client, 'images', []).map(item => ({
+          ...item,
+          resourceType: 'image'
+        })),
+        ...get(this.client, 'videos', []).map(item => ({
+          ...item,
+          resourceType: 'video'
+        }))
       ];
     }
   },
@@ -94,15 +100,20 @@ export default {
       });
     },
 
-    updateFiles(images) {
-      const imagesAdapted = images.map(item => ({
+    updateFiles(files) {
+      console.log('files before updatefiles', files);
+      const filesAdapted = files.map(item => ({
+        ...item,
         url: item.url,
         publicId: item.publicId
       }));
+      console.log('files after', filesAdapted);
+      const images = filesAdapted.filter(item => item.resourceType === 'image');
+      const videos = filesAdapted.filter(item => item.resourceType === 'video');
       const updatedInfo = {
         ...this.client,
-        images: imagesAdapted,
-        videos: this.client.videos
+        images,
+        videos
       };
       this.updateClient({
         tenantSlug: this.tenantSlug,
