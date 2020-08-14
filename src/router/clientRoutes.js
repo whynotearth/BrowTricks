@@ -37,25 +37,25 @@ export const clientRoutes = [
         }
       },
       {
-        path: 'image-upload',
-        name: 'ClientImageUpload',
+        path: 'uploads',
+        name: 'ClientUploads',
         props: true,
-        component: () => import('@/views/ClientImageUpload.vue'),
+        component: () => import('@/views/ClientUploads.vue'),
         meta: {
           layout: WithTitleBarLayout,
-          title: 'Images',
+          title: 'Uploads',
           backRoute: { name: 'ClientEdit' }
         }
       },
       {
-        path: 'video-upload',
-        name: 'ClientVideoUpload',
+        path: 'uploads/:mediaIndex',
+        name: 'ClientUploadsItem',
         props: true,
-        component: () => import('@/views/ClientVideoUpload.vue'),
+        component: () => import('@/views/ClientUploads.vue'),
         meta: {
           layout: WithTitleBarLayout,
-          title: 'Videos',
-          backRoute: { name: 'ClientEdit' }
+          title: 'Uploads',
+          backRoute: { name: 'ClientUploads' }
         }
       },
       {

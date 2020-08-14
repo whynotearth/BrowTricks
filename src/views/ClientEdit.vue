@@ -111,24 +111,14 @@
         <Notification slot="preIcon" class="h-6 w-6 fill-current" />
       </ExpansionPanel>
       <ExpansionPanel
-        title="Images"
+        title="Uploads"
         @click="
           $router.push({
-            name: 'ClientImageUpload'
+            name: 'ClientUploads'
           })
         "
       >
         <ImagesIcon slot="preIcon" class="h-6 w-6 fill-current" />
-      </ExpansionPanel>
-      <ExpansionPanel
-        title="Videos"
-        @click="
-          $router.push({
-            name: 'ClientVideoUpload'
-          })
-        "
-      >
-        <VideosIcon slot="preIcon" class="h-6 w-6 fill-current" />
       </ExpansionPanel>
 
       <!-- incompleted PMU -->

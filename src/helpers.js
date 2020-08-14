@@ -121,7 +121,6 @@ export function urlToFile(jsonfile) {
 // @input jsonfile: {url}
 export function share(jsonfile) {
   const isFileSharingSupported = !!navigator.canShare;
-  console.log('isFileSharingSupported', isFileSharingSupported);
   if (!isFileSharingSupported) {
     _shareOld(jsonfile);
     return;
@@ -149,4 +148,14 @@ function _shareOld(jsonfile) {
     .catch(err => {
       console.log(err);
     });
+}
+
+export function cloudinaryImageToMeredithImage(cloudinaryImageInfo) {
+  const { secure_url, height, width, public_id } = cloudinaryImageInfo;
+  return {
+    height,
+    width,
+    publicId: public_id,
+    url: secure_url
+  };
 }

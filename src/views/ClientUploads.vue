@@ -17,28 +17,31 @@
       </div> -->
 
     <!-- uploader -->
-    <ImageUpload
-      :files="currentImages"
-      @change="updateImages"
-      class="mb-4"
-      :uploadPreset="uploadPreset"
-    >
+    <MediaManager :files="currentFiles" @change="updateFiles" class="mb-4">
+      <template #uploadButton>
+        <MediaUploader
+          :files="currentFiles"
+          @change="updateFiles"
+          :uploadPreset="uploadPreset"
+        />
+      </template>
       <template #title>
         <div class="tg-body-mobile ">
-          <span class="text-on-newbackground text-opacity-high">Images</span>
+          <span class="text-on-newbackground text-opacity-high">Uploads</span>
         </div>
       </template>
-    </ImageUpload>
+    </MediaManager>
   </div>
 </template>
 
 <script>
-import ImageUpload from '@/components/uploader/ImageUpload.vue';
+import MediaManager from '@/components/uploader/MediaManager.vue';
+import MediaUploader from '@/components/uploader/MediaUploader.vue';
 import { mapActions } from 'vuex';
 import { get } from 'lodash-es';
 
 export default {
-  name: 'ClientImageUpload',
+  name: 'ClientUploads',
   props: {
     tenantSlug: {
       type: String,
@@ -50,13 +53,13 @@ export default {
     }
   },
   components: {
-    ImageUpload
+    MediaManager,
+    MediaUploader
   },
   data() {
     return {
-      uploadPreset: process.env.VUE_APP_UPLOADER_IMAGE_PRESET,
-      client: null,
-      images: []
+      uploadPreset: process.env.VUE_APP_UPLOADER_MEDIA_PRESET,
+      client: null
     };
   },
   async created() {
@@ -71,8 +74,11 @@ export default {
       const notificationTypes = get(this.client, 'notificationTypes', []);
       return notificationTypes.includes('phone');
     },
-    currentImages() {
-      return get(this.client, 'images', []);
+    currentFiles() {
+      return [
+        ...get(this.client, 'images', []),
+        ...get(this.client, 'videos', [])
+      ];
     }
   },
   methods: {
@@ -85,16 +91,10 @@ export default {
         }
       }).catch(() => {
         console.log('error in getting client');
-        this.goToDetailPage();
       });
     },
-    goToDetailPage() {
-      this.$router.push({ name: 'ClientEdit' });
-    },
-    sendRequest(notificationType) {
-      console.log('TODO: send request', notificationType);
-    },
-    updateImages(images) {
+
+    updateFiles(images) {
       const imagesAdapted = images.map(item => ({
         url: item.url,
         publicId: item.publicId

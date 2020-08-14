@@ -7,7 +7,7 @@
       @click="closeModal"
     >
       <!-- top toolbar -->
-      <div class="flex justify-end w-full flex-shrink-0">
+      <div class="flex justify-start w-full flex-shrink-0">
         <button class="p-3" @click.prevent="closeModal" title="Close">
           <Close class="text-white" />
         </button>
@@ -18,7 +18,7 @@
         <img
           @click.stop=""
           class="preview-image mx-auto block max-w-full"
-          :src="image.url"
+          :src="file.url"
           alt=""
         />
       </div>
@@ -28,7 +28,7 @@
         <!-- share -->
         <a
           v-if="isShareApiSupported"
-          @click.stop="share(image)"
+          @click.stop="share(file)"
           class="cursor-pointer p-4"
           title="Share"
         >
@@ -39,7 +39,7 @@
         <a
           v-else
           @click.stop=""
-          :href="transformCloudinaryUrl(image.url, 'fl_attachment')"
+          :href="transformCloudinaryUrl(file.url, 'fl_attachment')"
           class="cursor-pointer p-4"
           title="Download (Save the file in new tab)"
         >
@@ -65,7 +65,7 @@ import vhFix from '@/mixins/vhFix.js';
 
 export default {
   name: 'ImagePreviewModal',
-  props: ['image'],
+  props: ['file'],
   components: { Close, DeleteIcon, DownloadIcon, ShareIcon },
   mixins: [vhFix],
   computed: {
@@ -78,10 +78,10 @@ export default {
     urlToFile,
     share,
     closeModal() {
-      this.$emit('resetSelectedImage');
+      this.$emit('close');
     },
     remove() {
-      this.$emit('remove', this.image.index);
+      this.$emit('remove', this.file.index);
       this.closeModal();
     }
   }
