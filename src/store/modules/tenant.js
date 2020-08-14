@@ -4,17 +4,17 @@ const notificationTypes = [
   // {
   //   name: 'Whatsapp',
   //   key: 'phone',
-  //   id: 'whatsapp'
+  //   value: 'whatsapp'
   // },
   {
     name: 'Text',
     key: 'phone',
-    id: 'text'
+    value: 'text'
   },
   {
     name: 'Email',
     key: 'email',
-    id: 'email'
+    value: 'email'
   }
 ];
 
@@ -39,7 +39,7 @@ const days = [
   'Saturday'
 ];
 
-const defaultNotificationTypes = ['email', 'phone'];
+const defaultNotificationTypes = ['email', 'phone']; // notificationType keys here
 const defaultPaymentMethods = ['cash'];
 const defaultBusinessHours = days.map(day => {
   return {
@@ -62,6 +62,7 @@ const state = {
   selectedPaymentMethods: [...defaultPaymentMethods],
   businessHours: [...defaultBusinessHours],
   page: 1,
+  // NOTE: this is available notificationTypes
   notificationTypes,
   paymentMethods
 };

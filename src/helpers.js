@@ -150,12 +150,41 @@ function _shareOld(jsonfile) {
     });
 }
 
-export function cloudinaryImageToMeredithImage(cloudinaryImageInfo) {
-  const { secure_url, height, width, public_id } = cloudinaryImageInfo;
-  return {
-    height,
-    width,
-    publicId: public_id,
-    url: secure_url
-  };
+export function cloudinaryFileToMeredithFileAdapter(cloudinaryFileInfo) {
+  const resourceType = cloudinaryFileInfo.resource_type;
+
+  // image type
+  if (resourceType === 'image') {
+    const { secure_url, height, width, public_id } = cloudinaryFileInfo;
+    return {
+      resourceType: 'image',
+      height,
+      width,
+      publicId: public_id,
+      url: secure_url
+    };
+  }
+
+  // video type
+  if (resourceType === 'video') {
+    const {
+      secure_url,
+      height,
+      width,
+      public_id,
+      thumbnail_url,
+      format,
+      duration
+    } = cloudinaryFileInfo;
+    return {
+      resourceType: 'video',
+      height,
+      width,
+      publicId: public_id,
+      url: secure_url,
+      thumbnailUrl: thumbnail_url,
+      format,
+      duration
+    };
+  }
 }

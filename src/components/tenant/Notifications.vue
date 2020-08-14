@@ -13,7 +13,7 @@
       >
         <CheckBox
           v-model="selectedNotificationTypes"
-          :value="notificationType.id"
+          :value="notificationType.value"
         >
           <template #label>
             <div class="tg-body-mobile flex flex-wrap">
