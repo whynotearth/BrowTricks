@@ -18,7 +18,7 @@
           <template #label>
             <div class="tg-body-mobile flex flex-wrap">
               <span class="mx-1 text-on-background text-opacity-high">{{
-                notificationType.name 
+                notificationType.name
               }}</span>
               <span
                 class="mx-1 text-on-background text-opacity-medium break-all"
