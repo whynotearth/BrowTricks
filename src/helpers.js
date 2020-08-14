@@ -75,7 +75,9 @@ export async function showOverlayAndRedirect({
 
   await sleep(timeout);
 
-  await router.push(route);
+  if (route) {
+    await router.push(route);
+  }
 
   store.commit('overlay/updateModel', {
     title: '',

@@ -1,7 +1,7 @@
 <template>
   <div class="text-left">
     <div
-      class="min-h-screen bg-background w-full flex flex-col justify-between"
+      class="bg-newbackground w-full flex flex-col justify-between"
     >
       <div>
         <StepperTop :navigation="navigation" :page="page" />

@@ -1,21 +1,14 @@
 <template>
-  <div class="bg-background text-left min-h-screen">
-    <BaseHeader
-      slot="header"
-      class="bg-footer text-white"
-      @iconClicked="goBack"
-    >
-      <ArrowBack slot="icon" class="h-6 w-6 fill-current" />
-      <span slot="content" class="pl-5">Notes</span>
-    </BaseHeader>
-    <div class="mt-4 mx-4 px-2" v-if="isAddEditActive">
+  <div class="max-w-xl mx-auto pt-4">
+    <div class="mb-4 mx-4 " v-if="isAddEditActive">
       <AddEditNote
         :note="selectedNote"
-        @onSave="createOrUpdateNote"
-        @onDelete="deleteNote"
+        @save="createOrUpdateNote"
+        @delete="deleteNote"
+        @cancel="goBack"
       />
     </div>
-    <div class="mt-4 mx-4 px-2" v-else>
+    <div class="mb-4 mx-4 " v-else>
       <Button
         class="rounded-full"
         title="Tap For New Note"
@@ -23,19 +16,19 @@
         @clicked="isAddEditActive = true"
       />
 
-      <div class="mt-8 px-2" v-if="clientNotes.length > 0">
+      <div class="mt-8 " v-if="clientNotes.length > 0">
         <div
           @click="selectNote(note)"
-          class="bg-white rounded-lg shadow-8dp p-4 my-4"
+          class="bg-newsurface rounded-lg shadow-8dp p-4 my-4"
           v-for="note in clientNotes"
           :key="note.id"
         >
           <div
-            class="text-on-background text-opacity-medium tg-caption-mobile mb-4"
+            class="text-on-newsurface text-opacity-medium tg-caption-mobile mb-4"
           >
             {{ format(new Date(note.createdAt), 'dd MMM, yyyy') }}
           </div>
-          <div>
+          <div class="text-on-newsurface">
             {{ note.note }}
           </div>
         </div>
@@ -47,25 +40,15 @@
 <script>
 import BaseHeader from '@/components/BaseHeader.vue';
 import ArrowBack from '@/assets/icons/arrow-back.svg';
-import Button from '@/components/Button.vue';
+import Button from '@/components/inputs/Button.vue';
 import AddEditNote from '@/components/client/AddEditNote.vue';
 import { format } from 'date-fns';
-
 import { mapActions } from 'vuex';
-import { sleep } from '@/helpers.js';
+import { sleep, showOverlayAndRedirect } from '@/helpers.js';
 
 export default {
   name: 'ClientNotifications',
-  props: {
-    tenantSlug: {
-      type: String,
-      required: true
-    },
-    clientId: {
-      type: [String, Number],
-      required: true
-    }
-  },
+  props: ['tenantSlug', 'clientId'],
   components: {
     BaseHeader,
     ArrowBack,
@@ -131,19 +114,17 @@ export default {
       }
     },
     deleteNote(note) {
+      if (!confirm('Are you sure?')) {
+        return;
+      }
       this.deleteClientNote({
         clientId: this.clientId,
         tenantSlug: this.tenantSlug,
         noteId: note.id
       }).then(async () => {
-        this.$store.commit('overlay/updateModel', {
+        showOverlayAndRedirect({
           title: 'Success!',
           message: 'Client note deleted!'
-        });
-        await sleep(1500);
-        this.$store.commit('overlay/updateModel', {
-          title: '',
-          message: ''
         });
         this.fetchNotes();
         this.isAddEditActive = false;

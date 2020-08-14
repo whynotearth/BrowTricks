@@ -1,29 +1,36 @@
 <template>
   <div>
-    <div class="py-6 px-2 bg-white rounded-lg shadow-8dp">
-      <text-area v-model="newNote" label="Note" labelBg="bg-white" />
+    <div class="py-6 px-2 bg-newsurface rounded-lg shadow-8dp">
+      <TextArea
+        class="text-on-newsurface"
+        v-model="newNote"
+        label="Note"
+        labelBg="bg-newsurface"
+      />
     </div>
     <div class="py-8">
+      <Button class="rounded-full mb-4" title="Save" @clicked="save" />
       <Button
-        class="rounded-full"
-        title="Save"
-        :isRipple="false"
-        @clicked="save"
+        class="mb-2"
+        textColor="text-on-newbackground text-opacity-medium"
+        title="Cancel"
+        background="bg-transparent"
+        @clicked="$emit('cancel', note)"
       />
       <Button
         v-if="note && note.id"
-        class="mt-2 tg-body-mobile text-error text-opacity-medium pb-4"
+        class="mb-2"
+        textColor="text-error text-opacity-medium"
         title="Delete"
         background="bg-transparent"
-        :isRipple="false"
-        @clicked="$emit('onDelete', note)"
+        @clicked="$emit('delete', note)"
       />
     </div>
   </div>
 </template>
 
 <script>
-import Button from '@/components/Button.vue';
+import Button from '@/components/inputs/Button.vue';
 import TextArea from '@/components/inputs/TextArea.vue';
 
 export default {
@@ -50,7 +57,7 @@ export default {
       if (this.note) {
         note.id = this.note.id;
       }
-      this.$emit('onSave', note);
+      this.$emit('save', note);
     }
   }
 };

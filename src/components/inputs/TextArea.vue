@@ -1,12 +1,12 @@
 <template>
   <div class="relative">
     <textarea
-      class="input text-on-background text-opacity-high disable-scrollbars appearance-none resize-none outline-none relative bg-transparent rounded h-32 w-full px-4 py-3 border focus:border-2 active:border-2 focus:border-opacity-medium active:border-opacity-medium"
+      class="input text-on-newbackground text-opacity-high disable-scrollbars appearance-none resize-none outline-none relative bg-transparent rounded h-32 w-full px-4 py-3 border focus:border-2 active:border-2 focus:border-opacity-medium active:border-opacity-medium"
       :class="[
         { filled: value && value.length > 0 },
         error
           ? 'border-error placeholder-error'
-          : 'border-on-background border-opacity-disabled'
+          : 'border-on-newbackground border-opacity-disabled'
       ]"
       :id="idName"
       :value="value"
@@ -17,7 +17,7 @@
       :for="idName"
       class="label absolute mb-0 top-0 left-0 mt-3 ml-3 cursor-text"
       :class="[
-        error ? 'text-error' : 'text-on-background text-opacity-medium',
+        error ? 'text-error' : 'text-on-newbackground text-opacity-medium',
         labelBg
       ]"
     >
@@ -52,7 +52,7 @@ export default {
     },
     labelBg: {
       type: String,
-      default: 'bg-background'
+      default: 'bg-newbackground'
     }
   },
   computed: {
