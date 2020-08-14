@@ -44,8 +44,6 @@
 </template>
 
 <script>
-import BaseHeader from '@/components/BaseHeader.vue';
-import ArrowBack from '@/assets/icons/arrow-back.svg';
 import Button from '@/components/inputs/Button.vue';
 import { mapGetters, mapActions } from 'vuex';
 import CheckBox from '@/components/inputs/CheckBox';
@@ -75,9 +73,6 @@ export default {
   },
   components: {
     CheckBox,
-    BaseHeader,
-    ArrowBack,
-    // Notifications,
     Button
   },
   data() {
