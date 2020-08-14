@@ -1,8 +1,11 @@
 <template>
   <component
     :is="type"
-    class="button tg-color-label-mobile font-semibold uppercase cursor-pointer inline-block transition-all duration-75"
+    class="button tg-color-label-mobile font-semibold uppercase cursor-pointer transition-all duration-75"
     :class="[
+      margin,
+      display,
+      maxWidth,
       isRounded ? 'rounded-full' : '',
       width,
       background,
@@ -13,8 +16,12 @@
     :href="href"
     :to="to"
   >
-    <div class="flex items-center justify-center">
-      {{ title }}
+    <div class="flex content-between w-full" :class="textJustify">
+      <slot name="start" />
+      <div class="flex items-center flex-grow-0">
+        {{ title }}
+      </div>
+      <slot name="end" />
     </div>
   </component>
 </template>
@@ -33,25 +40,25 @@ export default {
       type: String,
       default: ''
     },
-    titleLeft: {
-      type: String,
-      default: ''
-    },
-    titleRight: {
-      type: String,
-      default: ''
-    },
     width: {
       type: String,
       default: 'w-full'
     },
     background: {
       type: String,
-      default: 'bg-button'
+      default: 'bg-newsecondary'
     },
     textColor: {
       type: String,
       default: 'text-newprimary'
+    },
+    textJustify: {
+      type: String,
+      default: 'justify-center'
+    },
+    maxWidth: {
+      type: String,
+      default: 'max-w-md'
     },
     padding: {
       type: String,
@@ -60,6 +67,14 @@ export default {
     isRounded: {
       type: Boolean,
       default: false
+    },
+    display: {
+      type: String,
+      default: 'block'
+    },
+    margin: {
+      type: String,
+      default: 'mx-auto'
     }
   },
   computed: {

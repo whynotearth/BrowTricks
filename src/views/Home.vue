@@ -1,7 +1,8 @@
 <template>
+  <!-- TODO: move layout to route meta -->
   <ClassicLayout class="bg-newbackground">
     <template #header>
-      <BaseHeader @iconClicked="toggleMenuDrawer">
+      <BaseHeader @iconClicked="isDrawerOpenUpdate(true)">
         <template #icon>
           <IconMenu class="h-6 w-6 fill-current text-white text-opacity-high" />
         </template>
@@ -132,7 +133,7 @@ export default {
     ...mapGetters('auth', ['isAuthenticated'])
   },
   methods: {
-    ...mapMutations(['toggleMenuDrawer'])
+    ...mapMutations('global', ['isDrawerOpenUpdate'])
   }
 };
 </script>

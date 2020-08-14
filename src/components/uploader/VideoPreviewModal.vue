@@ -14,13 +14,14 @@
       </div>
 
       <!-- content -->
-      <div class="w-full my-auto">
-        <img
-          @click.stop=""
-          class="preview-image mx-auto block max-w-full"
-          :src="file.url"
-          alt=""
-        />
+      <div class="m-auto">
+        <div @click.stop="">
+          <video
+            controls="true"
+            class="preview-video"
+            :src="file.url"
+          />
+        </div>
       </div>
 
       <!-- bottom toolbar -->
@@ -35,7 +36,6 @@
           <ShareIcon class="text-white w-6 h-6" />
         </a>
 
-        <!-- download -->
         <a
           v-else
           @click.stop=""
@@ -46,8 +46,7 @@
           <DownloadIcon class="text-white w-6 h-6" />
         </a>
 
-        <!-- delete -->
-        <a class="cursor-pointer p-4" @click.stop="remove" title="Delete">
+        <a class="cursor-pointer p-4" @click.stop="deleteVideo" title="Delete">
           <DeleteIcon class="text-white w-6 h-6" />
         </a>
       </div>
@@ -64,7 +63,7 @@ import { transformCloudinaryUrl, urlToFile, share } from '@/helpers.js';
 import vhFix from '@/mixins/vhFix.js';
 
 export default {
-  name: 'ImagePreviewModal',
+  name: 'VideoPreviewModal',
   props: ['file'],
   components: { Close, DeleteIcon, DownloadIcon, ShareIcon },
   mixins: [vhFix],
@@ -80,8 +79,8 @@ export default {
     closeModal() {
       this.$emit('close');
     },
-    remove() {
-      this.$emit('remove', this.file.index);
+    deleteVideo() {
+      this.$emit('deleteVideo', this.file.index);
       this.closeModal();
     }
   }
@@ -93,8 +92,10 @@ export default {
   height: 100vh;
   height: calc(100 * var(--vh));
 }
-.preview-image {
+.preview-video {
   max-height: calc(100vh - 112px);
   max-height: calc(100 * var(--vh) - 112px);
+
+  @apply bg-gray-200;
 }
 </style>

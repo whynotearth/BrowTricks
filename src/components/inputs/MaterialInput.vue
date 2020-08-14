@@ -1,12 +1,12 @@
 <template>
   <div class="relative" :class="[margin]">
     <input
-      class="input text-on-background text-opacity-high appearance-none outline-none relative bg-transparent rounded w-full px-4 py-3 border focus:border-2 active:border-2 focus:border-opacity-medium active:border-opacity-medium"
+      class="input appearance-none outline-none relative bg-transparent rounded w-full px-4 py-3 border text-opacity-medium focus:text-opacity-high border-opacity-medium focus:border-opacity-high"
       :class="[
-        { filled: value && value.length > 0 },
-        error
-          ? 'border-error placeholder-error'
-          : 'border-on-background border-opacity-disabled'
+        textColor,
+        borderColor,
+        placeholderColor,
+        { filled: value && value.length > 0 }
       ]"
       v-bind="attrs"
       :id="idName"
@@ -20,17 +20,13 @@
     <label
       :for="idName"
       class="label absolute mb-0 top-0 left-0 mt-3 ml-3 cursor-text"
-      :class="[
-        error ? 'text-error' : 'text-on-background text-opacity-medium',
-        labelBg
-      ]"
+      :class="[labelColor, labelBg]"
     >
       {{ label }}
     </label>
     <div class="ml-4 mt-2" v-if="error">
       <slot />
     </div>
-    <slot name="end" />
   </div>
 </template>
 
@@ -52,6 +48,10 @@ export default {
       type: String,
       default: 'Label'
     },
+    labelBackground: {
+      type: String,
+      default: null
+    },
     placeholder: {
       type: String
     },
@@ -68,19 +68,26 @@ export default {
       default: '1'
     },
     error: {
-      default: Boolean
+      type: Boolean,
+      default: false
     },
     idName: {
       type: String,
       default: randomId
     },
-    labelBg: {
+    theme: {
       type: String,
-      default: 'bg-background'
+      // TODO: dark
+      default: 'light'
     },
     margin: {
       type: String,
       default: 'mb-4'
+    },
+    // update value on input event
+    immediateInput: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -89,14 +96,50 @@ export default {
         blur: this.onBlur,
         input: this.onInput
       });
+    },
+    labelColor() {
+      if (this.error) {
+        return 'text-error';
+      }
+      return this.theme === 'dark'
+        ? 'text-on-newsurface text-opacity-medium'
+        : 'text-on-background';
+    },
+    labelBg() {
+      if (this.labelBackground) {
+        return this.labelBackground;
+      }
+      return this.theme === 'dark' ? 'bg-newsurface' : 'bg-background';
+    },
+    textColor() {
+      return this.theme === 'dark'
+        ? 'text-on-newsurface'
+        : 'text-on-background';
+    },
+    placeholderColor() {
+      if (this.error) {
+        return 'placeholder-error';
+      }
+      return '';
+    },
+    borderColor() {
+      if (this.error) {
+        return 'border-error';
+      }
+      return this.theme === 'dark' ? 'border-white' : 'border-black';
     }
   },
   methods: {
     onBlur($event) {
+      if (!this.value && !$event.target.value) {
+        return;
+      }
       this.$emit('input', $event.target.value);
     },
     onInput($event) {
-      this.$emit('input', $event.target.value);
+      if (this.immediateInput) {
+        this.$emit('input', $event.target.value);
+      }
     }
   }
 };
@@ -104,10 +147,11 @@ export default {
 
 <style scoped>
 .input {
-  transition: border 0.2s ease-in-out;
+  transition: border 0.2s ease-in-out, color 0.2s ease-in-out;
   z-index: 2;
 }
 .input[readonly] {
+  cursor: not-allowed;
   @apply text-opacity-medium;
 }
 

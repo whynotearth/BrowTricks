@@ -1,15 +1,7 @@
 <template>
-  <div class="bg-background text-left min-h-screen" v-if="client">
-    <BaseHeader
-      slot="header"
-      class="bg-footer text-white"
-      @iconClicked="goListPage"
-    >
-      <ArrowBack slot="icon" class="h-6 w-6 fill-current" />
-      <span slot="content" class="pl-5">Client Profile</span>
-    </BaseHeader>
+  <div class="bg-newbackground text-left" v-if="client">
     <div
-      class="bg-on-background bg-opacity-high py-8 px-4 text-white h-auto flex flex-col items-center"
+      class="bg-opacity-high pt-8 px-4 text-white h-auto flex flex-col items-center"
     >
       <img
         class="w-16 h-16 rounded-full"
@@ -26,21 +18,21 @@
         class="flex justify-between tg-caption-mobile pb-16 w-full sm:w-auto"
       >
         <a
-          class="flex flex-col items-center px-4 sm:px-8"
+          class="flex flex-col items-center px-4 sm:px-8 text-newsecondary"
           :href="`mailto:${client.email}`"
         >
           <MailIcon class="fill-current mb-2" />
           <span>Email</span>
         </a>
         <a
-          class="flex flex-col items-center px-4 sm:px-8"
+          class="flex flex-col items-center px-4 sm:px-8 text-newsecondary"
           :href="`sms:${client.phoneNumber}`"
         >
           <PhoneAndroidIcon class="fill-current mb-2" />
           <span>Text</span>
         </a>
         <a
-          class="flex flex-col items-center px-4 sm:px-8"
+          class="flex flex-col items-center px-4 sm:px-8 text-newsecondary"
           :href="`tel:${client.phoneNumber}`"
         >
           <PhoneIcon class="fill-current mb-2" />
@@ -49,11 +41,12 @@
       </div>
     </div>
     <div class="max-w-md mx-auto px-4">
-      <div class="-mt-10 bg-white shadow-1dp px-4 pt-4 rounded-lg pb-4 mb-4">
+      <div class="shadow-1dp px-2 py-6 rounded-lg mb-4 bg-newsurface">
         <MaterialInput
+          margin="mb-6"
+          theme="dark"
           v-model="$v.client.firstName.$model"
           label="First Name"
-          labelBg="bg-white"
           :error="$v.client.firstName.$error"
         >
           <p v-if="!$v.client.firstName.required" class="text-error text-xs">
@@ -61,9 +54,10 @@
           </p>
         </MaterialInput>
         <MaterialInput
+          margin="mb-6"
+          theme="dark"
           v-model="$v.client.lastName.$model"
           label="Last Name"
-          labelBg="bg-white"
           :error="$v.client.lastName.$error"
         >
           <p v-if="!$v.client.lastName.required" class="text-error text-xs">
@@ -71,9 +65,10 @@
           </p>
         </MaterialInput>
         <MaterialInput
+          margin="mb-6"
+          theme="dark"
           v-model="$v.client.phoneNumber.$model"
           label="Phone Number"
-          labelBg="bg-white"
           :error="$v.client.phoneNumber.$error"
         >
           <p v-if="!$v.client.phoneNumber.required" class="text-error text-xs">
@@ -90,11 +85,11 @@
           </p>
         </MaterialInput>
         <MaterialInput
+          :margin="null"
+          theme="dark"
           v-model="$v.client.email.$model"
           label="Email"
-          labelBg="bg-white"
           :error="$v.client.email.$error"
-          :margin="null"
           :attrs="{ readonly: true }"
         >
           <p v-if="!$v.client.email.required" class="text-error text-xs">
@@ -116,62 +111,56 @@
         <Notification slot="preIcon" class="h-6 w-6 fill-current" />
       </ExpansionPanel>
       <ExpansionPanel
-        title="Images"
-        middleText="Incomplete"
+        title="Uploads"
         @click="
           $router.push({
-            name: 'ClientImageUpload'
+            name: 'ClientUploads'
           })
         "
       >
         <ImagesIcon slot="preIcon" class="h-6 w-6 fill-current" />
       </ExpansionPanel>
-      <ExpansionPanel
-        title="Videos"
-        middleText="Incomplete"
+
+      <!-- incompleted PMU -->
+      <!-- TODO: enable -->
+      <!-- <ExpansionPanel
+        v-if="isPmuIncomplete"
         @click="
           $router.push({
-            name: 'ClientVideoUpload'
-          })
-        "
-      >
-        <VideosIcon slot="preIcon" class="h-6 w-6 fill-current" />
-      </ExpansionPanel>
-      <ExpansionPanel
-        @click="
-          $router.push({
-            name: 'PMUFlowStart',
+            name: 'PmuSignMethods',
             params: { clientId, tenantSlug }
           })
         "
         title="PMU"
-        :middleText="client.isPmuCompleted ? 'Completed' : 'Incomplete'"
+        :middleText="client.pmuStatus"
       >
         <Document slot="preIcon" class="h-6 w-6 fill-current" />
-      </ExpansionPanel>
+      </ExpansionPanel> -->
+
+      <!-- completed PMU -->
+      <!-- v-else -->
       <ExpansionPanel
         @click="
           $router.push({
-            name: 'ClientNotes',
+            name: 'PmuSign',
             params: { clientId, tenantSlug }
           })
         "
-        title="Notes"
+        title="PMU"
+        :middleText="client.pmuStatus"
       >
+        <Document slot="preIcon" class="h-6 w-6 fill-current" />
+      </ExpansionPanel>
+
+      <ExpansionPanel @click="$router.push({ name: 'ClientNotes' })" title="Notes">
         <Notes slot="preIcon" class="h-6 w-6 fill-current" />
       </ExpansionPanel>
       <div class="py-6">
+        <Button class="rounded-full" title="Save" @clicked="save" />
         <Button
-          class="rounded-full"
-          title="Save"
-          :isRipple="false"
-          @clicked="save"
-        />
-        <Button
-          class="mt-8 tg-body-mobile text-error text-opacity-medium pb-4"
-          title="Archive Client"
+          class="mt-8 tg-body-mobile text-error pb-4"
+          title="Delete Client"
           background="bg-transparent"
-          :isRipple="false"
           @clicked="isArchiveModalOpen = true"
         />
       </div>
@@ -181,7 +170,7 @@
         @click="isArchiveModalOpen = false"
       >
         <div class="h-full w-screen flex justify-center items-center">
-          <div @click.stop class="bg-white rounded-lg w-full mx-4 p-8 sm:w-128">
+          <div @click.stop class="rounded-lg w-full mx-4 p-8 sm:w-128">
             <h6 class="text-on-background text-opacity-medium">
               Archive Client?
             </h6>
@@ -190,7 +179,6 @@
                 class="mt-8 tg-body-mobile text-error"
                 title="Cancel"
                 background="bg-transparent"
-                :isRipple="false"
                 @clicked="isArchiveModalOpen = false"
                 width="w-auto"
               />
@@ -198,7 +186,6 @@
                 class="mt-8 tg-body-mobile text-secondary"
                 title="Archive"
                 background="bg-transparent"
-                :isRipple="false"
                 @clicked="archive"
                 width="w-auto"
               />
@@ -214,7 +201,7 @@
 import { required, minLength, email } from 'vuelidate/lib/validators';
 import BaseHeader from '@/components/BaseHeader.vue';
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
-import Button from '@/components/Button.vue';
+import Button from '@/components/inputs/Button.vue';
 import ExpansionPanel from '@/components/ExpansionPanel.vue';
 
 import ArrowBack from '@/assets/icons/arrow-back.svg';
@@ -233,7 +220,7 @@ import { mapActions } from 'vuex';
 import { sleep } from '@/helpers.js';
 
 export default {
-  name: 'ClientDetail',
+  name: 'ClientEdit',
   props: {
     tenantSlug: {
       type: String,
@@ -286,6 +273,14 @@ export default {
   },
   async created() {
     this._fetchClient();
+  },
+  computed: {
+    isPmuIncomplete() {
+      if (!this.client) {
+        return false;
+      }
+      return this.client.pmuStatus === 'incomplete';
+    }
   },
   methods: {
     ...mapActions('client', ['updateClient', 'archiveClient', 'fetchClient']),

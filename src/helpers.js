@@ -98,3 +98,93 @@ export function transformCloudinaryUrl(resourceUrl, transformations) {
   urlParts.splice(indexOfUpload + 1, 0, transformations);
   return urlParts.join('/');
 }
+
+// @input jsonfile: {url}
+export function urlToFile(jsonfile) {
+  const urlParts = jsonfile.url.split('/');
+  const filename = urlParts[urlParts.length - 1];
+  return new Promise(resolve => {
+    window.fetch(jsonfile.url).then(res => {
+      res
+        .blob()
+        .then(blob => {
+          const file = new File([blob], filename, { type: blob.type });
+          resolve(file);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    });
+  });
+}
+
+// @input jsonfile: {url}
+export function share(jsonfile) {
+  const isFileSharingSupported = !!navigator.canShare;
+  if (!isFileSharingSupported) {
+    _shareOld(jsonfile);
+    return;
+  }
+
+  this.urlToFile(jsonfile).then(file => {
+    // https://web.dev/web-share/#sharing-files
+    window.navigator
+      .share({
+        // url: jsonfile.url
+        files: [file]
+      })
+      .catch(err => {
+        console.log('fallback to share api level 1', err);
+        _shareOld(jsonfile);
+      });
+  });
+}
+
+function _shareOld(jsonfile) {
+  window.navigator
+    .share({
+      url: jsonfile.url
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}
+
+export function cloudinaryFileToMeredithFileAdapter(cloudinaryFileInfo) {
+  const resourceType = cloudinaryFileInfo.resource_type;
+
+  // image type
+  if (resourceType === 'image') {
+    const { secure_url, height, width, public_id } = cloudinaryFileInfo;
+    return {
+      resourceType: 'image',
+      height,
+      width,
+      publicId: public_id,
+      url: secure_url
+    };
+  }
+
+  // video type
+  if (resourceType === 'video') {
+    const {
+      secure_url,
+      height,
+      width,
+      public_id,
+      thumbnail_url,
+      format,
+      duration
+    } = cloudinaryFileInfo;
+    return {
+      resourceType: 'video',
+      height,
+      width,
+      publicId: public_id,
+      url: secure_url,
+      thumbnailUrl: thumbnail_url,
+      format,
+      duration
+    };
+  }
+}

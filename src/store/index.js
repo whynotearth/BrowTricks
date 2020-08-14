@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import global from './modules/global';
 import auth from './modules/auth';
 import tenant from './modules/tenant';
 import client from './modules/client';
@@ -25,25 +26,16 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   plugins: [vuexSession.plugin, vuexLocal.plugin],
   state: {
-    isMenuDrawerOpen: false,
-    // FIXME : temporary hardcoded tenantName for testing purposes
+    // FIXME: temporary hardcoded tenantName for testing purposes
     tenantName: 'Boise Brow Queen'
   },
   getters: {
     getTenantName(state) {
       return state.tenantName;
-    },
-    getIsMenuDrawerOpen(state) {
-      return state.isMenuDrawerOpen;
     }
   },
-  mutations: {
-    toggleMenuDrawer(store) {
-      store.isMenuDrawerOpen = !store.isMenuDrawerOpen;
-    }
-  },
-  actions: {},
   modules: {
+    global,
     auth,
     tenant,
     client,

@@ -1,3 +1,5 @@
+import WithTitleBarLayout from '@/layouts/WithTitleBarLayout.vue';
+
 export const clientRoutes = [
   {
     path: '/tenant/:tenantSlug/clients',
@@ -12,39 +14,108 @@ export const clientRoutes = [
     component: () => import('@/views/ClientAddEdit.vue')
   },
   {
-    path: '/tenant/:tenantSlug/clients/edit/:clientId',
-    name: 'ClientDetail',
+    path: '/tenant/:tenantSlug/clients/:clientId',
+    name: 'Client',
+    redirect: { name: 'ClientEdit' },
     props: true,
-    component: () => import('@/views/ClientDetail.vue')
-  },
-  {
-    path: '/tenant/:tenantSlug/clients/edit/:clientId/image-upload',
-    name: 'ClientImageUpload',
-    props: true,
-    component: () => import('@/views/ClientImageUpload.vue')
-  },
-  {
-    path: '/tenant/:tenantSlug/clients/edit/:clientId/video-upload',
-    name: 'ClientVideoUpload',
-    props: true,
-    component: () => import('@/views/ClientVideoUpload.vue')
-  },
-  {
-    path: '/tenant/:tenantSlug/clients/edit/:clientId/notifications',
-    name: 'ClientNotifications',
-    props: true,
-    component: () => import('@/views/ClientNotifications.vue'),
+    component: () => import('@/views/Client.vue'),
     meta: {
-      requiresAuth: true
-    }
-  },
-  {
-    path: '/tenant/:tenantSlug/clients/edit/:clientId/notes',
-    name: 'ClientNotes',
-    props: true,
-    component: () => import('@/views/ClientNotes.vue'),
-    meta: {
-      requiresAuth: true
-    }
+      layout: WithTitleBarLayout,
+      title: 'Client Profile',
+      backRoute: { name: 'ClientList' }
+    },
+    children: [
+      {
+        path: 'edit',
+        name: 'ClientEdit',
+        props: true,
+        component: () => import('@/views/ClientEdit.vue'),
+        meta: {
+          layout: WithTitleBarLayout,
+          title: 'Client Profile',
+          backRoute: { name: 'ClientList' }
+        }
+      },
+      {
+        path: 'uploads',
+        name: 'ClientUploads',
+        props: true,
+        component: () => import('@/views/ClientUploads.vue'),
+        meta: {
+          layout: WithTitleBarLayout,
+          title: 'Uploads',
+          backRoute: { name: 'ClientEdit' }
+        }
+      },
+      {
+        path: 'uploads/:mediaIndex',
+        name: 'ClientUploadsItem',
+        props: true,
+        component: () => import('@/views/ClientUploads.vue'),
+        meta: {
+          layout: WithTitleBarLayout,
+          title: 'Uploads',
+          backRoute: { name: 'ClientUploads' }
+        }
+      },
+      {
+        path: 'notifications',
+        name: 'ClientNotifications',
+        props: true,
+        component: () => import('@/views/ClientNotifications.vue'),
+        meta: {
+          layout: WithTitleBarLayout,
+          title: 'Notifications',
+          backRoute: { name: 'ClientEdit' }
+        }
+      },
+
+      // PMU
+      {
+        path: 'pmu-sign-methods',
+        name: 'PmuSignMethods',
+        props: true,
+        component: () => import('@/views/PmuSignMethods.vue'),
+        meta: {
+          layout: WithTitleBarLayout,
+          title: 'PMU Form Sign',
+          backRoute: { name: 'ClientEdit' }
+        }
+      },
+      {
+        path: 'pmu-sign',
+        name: 'PmuSign',
+        component: () => import('@/views/PmuSign.vue'),
+        props: true,
+        meta: {
+          layout: WithTitleBarLayout,
+          title: 'PMU Form Sign',
+          backRoute: { name: 'ClientEdit' }
+        }
+      },
+      {
+        path: 'pmu-sign-from-notify',
+        name: 'PmuSignFromNotify',
+        component: () => import('@/views/PmuSign.vue'),
+        props: true,
+        meta: {
+          isPublic: true,
+          layout: WithTitleBarLayout,
+          title: 'PMU Form Sign',
+          backRoute: { name: 'ClientEdit' }
+        }
+      },
+      {
+        path: 'notes',
+        name: 'ClientNotes',
+        component: () => import('@/views/ClientNotes.vue'),
+        props: true,
+        meta: {
+          layout: WithTitleBarLayout,
+          title: 'Notes',
+          backRoute: { name: 'ClientEdit' }
+        }
+      }
+    ]
   }
 ];
