@@ -2,19 +2,19 @@ import { ajax } from '@/services/ajax.js';
 
 const notificationTypes = [
   // {
-  //   name: 'Text',
-  //   key: 'phone',
-  //   id: 'text'
-  // },
-  // {
   //   name: 'Whatsapp',
   //   key: 'phone',
-  //   id: 'whatsapp'
+  //   value: 'whatsapp'
   // },
+  {
+    name: 'Text',
+    key: 'phone',
+    value: 'text'
+  },
   {
     name: 'Email',
     key: 'email',
-    id: 'email'
+    value: 'email'
   }
 ];
 
@@ -39,7 +39,7 @@ const days = [
   'Saturday'
 ];
 
-const defaultNotificationTypes = ['email'];
+const defaultNotificationTypes = ['email', 'phone']; // notificationType keys here
 const defaultPaymentMethods = ['cash'];
 const defaultBusinessHours = days.map(day => {
   return {
@@ -62,6 +62,7 @@ const state = {
   selectedPaymentMethods: [...defaultPaymentMethods],
   businessHours: [...defaultBusinessHours],
   page: 1,
+  // NOTE: this is available notificationTypes
   notificationTypes,
   paymentMethods
 };
@@ -93,6 +94,9 @@ const getters = {
   },
   getBusinessHours(state) {
     return state.businessHours;
+  },
+  notificationTypes(state) {
+    return state.notificationTypes;
   }
 };
 

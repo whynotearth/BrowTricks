@@ -7,7 +7,7 @@ const state = {
     lastName: '',
     phoneNumber: '',
     email: '',
-    notificationTypes: ['email'],
+    notificationTypes: ['email', 'text'], // values here [email, text, whatsapp]
     images: [],
     files: [],
     pmu: [],
@@ -17,6 +17,9 @@ const state = {
 };
 
 const getters = {
+  clientInfo(state) {
+    return state.clientInfo;
+  },
   page(state) {
     return state.page;
   }

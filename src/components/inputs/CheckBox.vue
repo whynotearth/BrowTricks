@@ -12,7 +12,7 @@
     <div class="w-auto inline-block">
       <div class="flex items-center">
         <div
-          class="h-5 w-5 border-2 border-on-background rounded"
+          class="h-5 w-5 border-2 border-on-newbackground rounded"
           :class="[
             isChecked
               ? 'bg-on-background'

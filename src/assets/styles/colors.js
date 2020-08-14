@@ -1,18 +1,21 @@
 const colors = {
+  inherit: 'inherit',
   // TODO: remove 'new'
   newprimary: '#081131',
   newsecondary: '#FFAFCC',
   newbackground: '#081131',
+  newsurface: '#151D3C',
   'on-newprimary': '#0C6986',
   'on-newsecondary': '#404E87',
   'on-newbackground': '#fff',
+  'on-newsurface': '#fff',
 
   primary: '#067BC2',
   secondary: '#33658A',
   background: '#F4F1F1',
   surface: '#FFFFFF',
   action: '#0C6986',
-  error: '#C04545',
+  error: '#ED4A2B',
   'on-primary': '#0C6986',
   'on-primary-white': '#FFFFFF',
   'on-secondary': '#0C6986',

@@ -1,5 +1,5 @@
 <template>
-  <div :id="id">
+  <div :id="id" @click="openWidget(widget)">
     <slot />
   </div>
 </template>
@@ -9,7 +9,14 @@ const scriptUrl = 'https://widget.cloudinary.com/v2.0/global/all.js';
 const scriptId = 'cloudinary-widget-script';
 export default {
   name: 'CloudinaryWidget',
+  data: () => ({
+    widget: null
+  }),
   props: {
+    uploadPreset: {
+      type: String,
+      required: true
+    },
     uploaderOptions: {
       default: () => {}
     },
@@ -39,10 +46,10 @@ export default {
     init() {
       // unsigned upload doccument https://cloudinary.com/documentation/upload_widget#unsigned_uploads
       // available options https://cloudinary.com/documentation/upload_widget#upload_widget_options
-      var myWidget = window.cloudinary.createUploadWidget(
+      this.widget = window.cloudinary.createUploadWidget(
         {
           cloudName: 'whynotearth',
-          uploadPreset: 'browtricks_tenant_CMS',
+          uploadPreset: this.uploadPreset,
           theme: 'minimal',
           autoMinimize: true,
           ...this.uploaderOptions
@@ -58,17 +65,19 @@ export default {
               this.$emit('uploaded', result);
             }
           }
+          if (result.event === 'queues-end') {
+            this.widget.close();
+            this.$emit('closed');
+          }
         }
       );
-
-      document.getElementById(this.id).addEventListener(
-        'click',
-        () => {
-          this.$emit('opened');
-          myWidget.open();
-        },
-        false
-      );
+    },
+    openWidget(widget) {
+      if (!widget) {
+        return;
+      }
+      widget.open();
+      this.$emit('opened');
     }
   }
 };

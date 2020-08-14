@@ -1,10 +1,11 @@
 <template functional>
-  <div class="bg-black bg-opacity-disabled relative w-full h-full">
+  <a
+    class="bg-black bg-opacity-disabled relative w-full h-full"
+    @click.prevent="props.selectFile(props.file)"
+  >
     <img
-      v-if="props.image"
-      @click="props.selectImage([props.image, props.index])"
       class="upload-img--dimension object-cover object-center w-full h-full cursor-pointer"
-      :src="props.image"
+      :src="props.file.url"
     />
-  </div>
+  </a>
 </template>
