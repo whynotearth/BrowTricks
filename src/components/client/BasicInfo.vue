@@ -4,7 +4,7 @@
       v-model="$v.firstName.$model"
       label="First Name"
       :error="$v.firstName.$error"
-      theme="light"
+      theme="dark"
     >
       <p v-if="!$v.firstName.required" class="text-error tg-body-mobile">
         First Name is required
@@ -14,7 +14,7 @@
       v-model="$v.lastName.$model"
       label="Last Name"
       :error="$v.lastName.$error"
-      theme="light"
+      theme="dark"
     >
       <p v-if="!$v.lastName.required" class="text-error tg-body-mobile">
         Last Name is required
@@ -24,7 +24,7 @@
       v-model="$v.phone.$model"
       label="Phone number"
       :error="$v.phone.$error"
-      theme="light"
+      theme="dark"
     >
       <p v-if="!$v.phone.required" class="text-error tg-body-mobile">
         This field is required
@@ -40,7 +40,7 @@
       v-model="$v.email.$model"
       label="Email"
       :error="$v.email.$error"
-      theme="light"
+      theme="dark"
     >
       <p v-if="!$v.email.required" class="text-error tg-body-mobile">
         Email is required

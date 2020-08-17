@@ -56,13 +56,11 @@ import DeleteIcon from '@/assets/icons/delete.svg';
 import DownloadIcon from '@/assets/icons/download.svg';
 import ShareIcon from '@/assets/icons/share.svg';
 import { transformCloudinaryUrl, urlToFile, share } from '@/helpers.js';
-import vhFix from '@/mixins/vhFix.js';
 
 export default {
   name: 'VideoPreviewModal',
   props: ['file'],
   components: { Close, DeleteIcon, DownloadIcon, ShareIcon },
-  mixins: [vhFix],
   computed: {
     isShareApiSupported() {
       return !!window.navigator.share;

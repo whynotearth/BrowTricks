@@ -1,6 +1,6 @@
 <template>
-  <div class="text-left">
-    <div class="bg-newbackground w-full flex flex-col justify-between">
+  <div class="text-left vh100">
+    <div class="vh100 bg-newbackground w-full flex flex-col justify-between">
       <div>
         <StepperTop :navigation="navigation" :page="page" />
         <div class="my-4 relative z-0">
