@@ -26,7 +26,11 @@
     /* newbackground */ #081131;
 }
 
-.vh100 {
+.min-h-vh100 {
   min-height: 100vh;
   min-height: calc(100 * var(--vh));
+}
+.h-vh100 {
+  height: 100vh;
+  height: calc(100 * var(--vh));
 }

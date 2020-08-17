@@ -1,6 +1,6 @@
 <template>
   <div
-    class="wrapper bg-black bg-opacity-high z-50 fixed w-screen top-0 left-0 flex justify-center items-center"
+    class="h-vh100 bg-black bg-opacity-high z-50 fixed w-screen top-0 left-0 flex justify-center items-center"
   >
     <div
       class="flex flex-col items-center text-left w-full h-full relative"
@@ -87,10 +87,6 @@ export default {
 </script>
 
 <style scoped>
-.wrapper {
-  height: 100vh;
-  height: calc(100 * var(--vh));
-}
 .preview-image {
   max-height: calc(100vh - 112px);
   max-height: calc(100 * var(--vh) - 112px);
