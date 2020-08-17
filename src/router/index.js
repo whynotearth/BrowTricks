@@ -22,7 +22,14 @@ const router = new VueRouter({
   routes
 });
 
+function isRouteChangingUpdate(value) {
+  store.dispatch('global/isRouteChangingUpdate', value);
+}
+
 router.beforeEach((to, from, next) => {
+  isRouteChangingUpdate(true);
+
+  // is public
   if (to.meta.isPublic) {
     if (to.meta.needsUserInfo) {
       store.dispatch('auth/ping').catch(() => {
@@ -30,12 +37,24 @@ router.beforeEach((to, from, next) => {
       });
     }
     next();
-  } else {
+    isRouteChangingUpdate(false);
+  }
+
+  // is not public
+  else {
+    const hasBeenAuthenticated = store.getters['auth/isAuthenticated'];
+    if (hasBeenAuthenticated) {
+      // don't wait for ping
+      next();
+      isRouteChangingUpdate(false);
+    }
+
     store
       .dispatch('auth/ping')
       .then(response => {
         const isAuthenticated = response && response.isAuthenticated;
         if (isAuthenticated) {
+          // only runs if isAuthenticated is changed right now
           next();
         } else {
           next({ name: 'Welcome' });
@@ -43,6 +62,7 @@ router.beforeEach((to, from, next) => {
       })
       .catch(error => {
         console.log('Not authenticated', error);
+        // TODO: check if error status was 401, redirect to welcome
         next({ name: 'Welcome' });
       });
   }

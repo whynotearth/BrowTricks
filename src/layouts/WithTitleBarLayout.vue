@@ -23,6 +23,7 @@
 
 <script>
 import IconBack from '@/assets/icons/arrow-back.svg';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'WithTitleBarLayout',
@@ -35,6 +36,9 @@ export default {
   mounted() {
     this.isVisible = true;
     this.init();
+  },
+  computed: {
+    ...mapGetters('global', ['isRouteChanging'])
   },
   methods: {
     init() {
