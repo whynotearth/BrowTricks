@@ -23,3 +23,36 @@
     transform: rotate(360deg);
   }
 }
+
+/* fade */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 300ms ease;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/* fade fast */
+.fadeslow-enter-active,
+.fadeslow-leave-active {
+  transition: opacity 400ms ease;
+}
+
+.fadeslow-enter,
+.fadeslow-leave-to {
+  opacity: 0;
+}
+
+/* fade faster */
+.fadefast-enter-active,
+.fadefast-leave-active {
+  transition: opacity 150ms ease;
+}
+
+.fadefast-enter,
+.fadefast-leave-to {
+  opacity: 0;
+}

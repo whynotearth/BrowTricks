@@ -6,6 +6,7 @@ import tenant from './modules/tenant';
 import client from './modules/client';
 import PMU from './modules/PMU';
 import overlay from './modules/overlay';
+import loading from './modules/loading';
 
 import VuexPersistence from 'vuex-persist';
 
@@ -40,6 +41,7 @@ export default new Vuex.Store({
     tenant,
     client,
     PMU,
-    overlay
+    overlay,
+    loading
   }
 });

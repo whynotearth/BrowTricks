@@ -1,29 +1,18 @@
 import { cloneDeep } from 'lodash-es';
 
 const defaultState = {
-  isDrawerOpen: false,
-  isRouteChanging: false
+  isDrawerOpen: false
 };
 
 const mutations = {
   isDrawerOpenUpdate(state, payload) {
     state.isDrawerOpen = payload;
-  },
-  isRouteChangingUpdate(state, payload) {
-    state.isRouteChanging = payload;
   }
 };
-const actions = {
-  isRouteChangingUpdate({ commit }, payload) {
-    commit('isRouteChangingUpdate', payload);
-  }
-};
+const actions = {};
 const getters = {
   isDrawerOpen(state) {
     return state.isDrawerOpen;
-  },
-  isRouteChanging(state) {
-    return state.isRouteChanging;
   }
 };
 
