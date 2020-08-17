@@ -1,6 +1,6 @@
 <template>
   <div
-    class="wrapper bg-black bg-opacity-high z-50 fixed w-screen top-0 left-0 flex justify-center items-center"
+    class="h-vh100 bg-black bg-opacity-high z-50 fixed w-screen top-0 left-0 flex justify-center items-center"
   >
     <div
       class="flex flex-col items-center text-left w-full h-full relative"
@@ -56,13 +56,11 @@ import DeleteIcon from '@/assets/icons/delete.svg';
 import DownloadIcon from '@/assets/icons/download.svg';
 import ShareIcon from '@/assets/icons/share.svg';
 import { transformCloudinaryUrl, urlToFile, share } from '@/helpers.js';
-import vhFix from '@/mixins/vhFix.js';
 
 export default {
   name: 'VideoPreviewModal',
   props: ['file'],
   components: { Close, DeleteIcon, DownloadIcon, ShareIcon },
-  mixins: [vhFix],
   computed: {
     isShareApiSupported() {
       return !!window.navigator.share;
@@ -84,10 +82,6 @@ export default {
 </script>
 
 <style scoped>
-.wrapper {
-  height: 100vh;
-  height: calc(100 * var(--vh));
-}
 .preview-video {
   max-height: calc(100vh - 112px);
   max-height: calc(100 * var(--vh) - 112px);

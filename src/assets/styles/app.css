@@ -23,6 +23,14 @@
       rgba(255, 255, 255, 0.05),
       rgba(255, 255, 255, 0.05)
     ),
-    /* newbackground */
-    #081131;
+    /* newbackground */ #081131;
+}
+
+.min-h-vh100 {
+  min-height: 100vh;
+  min-height: calc(100 * var(--vh));
+}
+.h-vh100 {
+  height: 100vh;
+  height: calc(100 * var(--vh));
 }
