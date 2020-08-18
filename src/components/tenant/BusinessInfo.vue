@@ -3,12 +3,9 @@
     <MaterialInput
       v-model="$v.name.$model"
       label="Name"
-      :error="$v.name.$dirty && !$v.name.required"
+      :error="$v.name.$error"
     >
-      <span
-        v-if="$v.name.$dirty && !$v.name.required"
-        class="text-error text-xs"
-      >
+      <span v-if="!$v.name.required">
         Name is required
       </span>
     </MaterialInput>
@@ -17,17 +14,14 @@
       label="Phone number"
       :error="$v.phone.$error"
     >
-      <p v-if="!$v.phone.required" class="text-error tg-body-mobile">
+      <p v-if="!$v.phone.required">
         This field is required
       </p>
-      <p
-        v-else-if="!$v.phone.isPhoneNumberValid"
-        class="text-error tg-body-mobile"
-      >
+      <p v-else-if="!$v.phone.isPhoneNumberValid">
         Phone number is not valid, it should be a US phone number
       </p>
     </MaterialInput>
-    <text-area v-model="$v.description.$model" label="Description" />
+    <TextArea v-model="$v.description.$model" label="Description" />
     <hr class="border-on-background border-opacity-divider my-8" />
     <MediaManager
       :maxFiles="1"
@@ -35,6 +29,14 @@
       @change="_updateLogo"
       :uploadPreset="uploadPreset"
     >
+      <template #uploadButton>
+        <MediaUploader
+          :files="currentImages"
+          @change="_updateLogo"
+          :uploadPreset="uploadPreset"
+        />
+      </template>
+
       <template #title>
         <div class="tg-body-mobile ">
           <span class="text-on-background text-opacity-high"> Logo </span>
@@ -56,6 +58,7 @@ import { required, minLength } from 'vuelidate/lib/validators';
 import MaterialInput from '@/components/inputs/MaterialInput';
 import TextArea from '@/components/inputs/TextArea.vue';
 import MediaManager from '@/components/uploader/MediaManager.vue';
+import MediaUploader from '@/components/uploader/MediaUploader.vue';
 import { isPhoneNumberValid } from '@/helpers';
 
 export default {
@@ -63,7 +66,8 @@ export default {
   components: {
     MaterialInput,
     TextArea,
-    MediaManager
+    MediaManager,
+    MediaUploader
   },
   data() {
     return {
@@ -123,7 +127,7 @@ export default {
       if (!this.getLogo) {
         return [];
       }
-      return [{ url: this.getLogo }];
+      return [{ url: this.getLogo, resourceType: 'image' }];
     }
   },
   methods: {

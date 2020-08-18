@@ -13,7 +13,7 @@
     <label class="block cursor-pointer">
       <div class="upload-icon">
         <div class="upload-icon--dimension flex justify-center items-center">
-          <IconPlus class="fill-current text-white text-opacity-medium" />
+          <IconPlus class="fill-current text-on-background text-opacity-medium" />
         </div>
       </div>
     </label>

@@ -69,6 +69,7 @@ export default {
         return this.getSelectedNotificationTypes;
       },
       set(value) {
+        console.log('value', value);
         this.updateSelectedNotificationTypes(value);
       }
     },
