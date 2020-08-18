@@ -24,7 +24,6 @@ const router = new VueRouter({
 });
 
 function isRouteChangingUpdate(value) {
-  console.log('add loading', value);
   store.commit('loading/loading', value);
 }
 
@@ -39,7 +38,6 @@ router.beforeEach((to, from, next) => {
       });
     }
     next();
-    isRouteChangingUpdate(false);
   }
 
   // is not public
@@ -48,7 +46,6 @@ router.beforeEach((to, from, next) => {
     if (hasBeenAuthenticated) {
       // don't wait for ping
       next();
-      isRouteChangingUpdate(false);
     }
 
     store
@@ -70,6 +67,8 @@ router.beforeEach((to, from, next) => {
         }
       });
   }
+
+  isRouteChangingUpdate(false);
 });
 
 export default router;
