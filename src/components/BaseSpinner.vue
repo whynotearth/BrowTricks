@@ -1,9 +1,5 @@
 <template>
-  <img
-    class="spinner-image w-20 h-20"
-    src="https://res.cloudinary.com/whynotearth/image/upload/v1597646048/BrowTricks/static_v2/crown_zp6ziq.png"
-    alt=""
-  />
+  <div class="loading"></div>
 </template>
 
 <script>
@@ -15,5 +11,21 @@ export default {
 <style scoped>
 .spinner-image {
   animation: spin 1.2s infinite ease-in-out;
+}
+
+.loading {
+  @apply border-secondary border-4 rounded-full w-10 h-10;
+  animation: spin 500ms linear infinite;
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>
