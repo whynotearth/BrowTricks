@@ -1,12 +1,12 @@
 <template>
   <div
-    class="layout-splash h-full flex flex-col justify-end items-center py-5 text-on-background-image bg-cover bg-no-repeat"
+    class="layout-splash min-h-vh100 flex flex-col justify-end items-center py-5 text-on-background-image bg-cover bg-no-repeat"
   >
     <div class="flex flex-col max-w-sm mx-auto overflow-auto p-4">
       <div class="mx-auto"><slot name="image" /></div>
-      <div class="tg-h1-mobile  mb-4">
+      <h1 class="tg-h1-mobile  mb-4">
         <slot name="title" />
-      </div>
+      </h1>
       <div v-if="$slots.subtitle" class="tg-body-mobile mb-4">
         <slot name="subtitle" />
       </div>
@@ -40,7 +40,7 @@
 
 <script>
 export default {
-  name: 'LayoutSplash'
+  name: 'SplashLayout'
 };
 </script>
 
