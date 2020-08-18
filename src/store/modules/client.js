@@ -1,4 +1,4 @@
-import { ClientService } from '@whynotearth/meredith-axios';
+import { ClientService, ClientNoteService } from '@whynotearth/meredith-axios';
 
 const state = {
   clients: [],
@@ -85,6 +85,19 @@ const actions = {
       clientId: payload.clientId
     };
     return ClientService.archive(clientData);
+  },
+  fetchClientNotes(context, payload) {
+    return ClientNoteService.notes1(payload);
+  },
+  createClientNote(context, payload) {
+    return ClientNoteService.notes(payload);
+  },
+  updateClientNote(context, payload) {
+    // No update endpoint is available
+    return ClientNoteService.notes(payload);
+  },
+  deleteClientNote(context, payload) {
+    return ClientNoteService.notes2(payload);
   }
 };
 

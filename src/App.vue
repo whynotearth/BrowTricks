@@ -1,6 +1,6 @@
 <template>
-  <div id="app" class="h-full text-center font-sans">
-    <component :is="this.$route.meta.layout || 'div'" class="h-full">
+  <div id="app" class="min-h-vh100 h-full text-center font-sans">
+    <component :is="this.$route.meta.layout || 'div'" class="h-full min-h-vh100">
       <router-view />
     </component>
     <transition name="fade">
@@ -20,9 +20,11 @@
 <script>
 import BaseOverlaySuccess from '@/components/BaseOverlaySuccess.vue';
 import { mapGetters } from 'vuex';
+import vhFix from '@/mixins/vhFix.js';
 
 export default {
   name: 'App',
+  mixins: [vhFix],
   components: { BaseOverlaySuccess },
   computed: {
     ...mapGetters('overlay', {

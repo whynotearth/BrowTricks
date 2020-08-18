@@ -1,40 +1,38 @@
 <template>
-  <!-- TODO: use layouts/LayoutSplash.vue -->
-  <div
-    class="layout-splash min-h-screen w-full flex flex-col justify-between md:justify-center items-center py-20"
-  >
-    <div class="py-10 flex flex-col items-center">
-      <div class="py-3">
-        <img height="450" width="225" :src="logoUrl" alt="browtricks-logo" />
-      </div>
-    </div>
-    <div class="py-10 w-full md:w-auto px-5">
-      <div class="py-3">
-        <h1 class="tg-h1-mobile text-white text-opacity-high">
-          {{ appName }}
-        </h1>
-      </div>
+  <SplashLayout>
+    <template #title>
+      <h1 class="tg-h1-mobile text-white text-opacity-high">
+        {{ appName }}
+      </h1>
+    </template>
+    <template #image>
+      <img height="450" width="225" :src="logoUrl" alt="browtricks-logo" />
+    </template>
+    <template #primaryCTA>
       <AuthButtons />
+    </template>
+    <template #tertiaryCTA>
       <Button
         :to="{ name: 'SignUp', params: { step: 'business-info' } }"
-        class="tg-body-hyperlink-mobile text-on-background-image text-opacity-medium pb-4 normal-case font-normal"
+        class="text-on-background-image text-opacity-medium normal-case"
         title="No account? Sign Up For Brow Tricks Beauty!"
         background="bg-transparent"
-        :isRipple="false"
       />
-    </div>
-  </div>
+    </template>
+  </SplashLayout>
 </template>
 
 <script>
 import AuthButtons from '@/components/auth/AuthButtons';
-import Button from '@/components/Button.vue';
+import Button from '@/components/inputs/Button.vue';
+import SplashLayout from '@/layouts/SplashLayout.vue';
 
-import { mapActions } from 'vuex';
+import { mapActions, mapMutations } from 'vuex';
 
 export default {
   name: 'Login',
   components: {
+    SplashLayout,
     AuthButtons,
     Button
   },
@@ -50,11 +48,16 @@ export default {
       return;
     }
 
+    this.loading(true);
     this.handleRedirect();
+  },
+  beforeDestroy() {
+    this.loading(false);
   },
   methods: {
     ...mapActions('auth', ['updateToken']),
     ...mapActions('tenant', ['fetchUserTenants']),
+    ...mapMutations('loading', ['loading']),
     handleRedirect() {
       this.fetchUserTenants()
         .then(tenants => {
@@ -65,6 +68,7 @@ export default {
           }
         })
         .catch(() => {
+          this.loading(false);
           alert(
             `Login failed! If the problem persisted, please contact ${process.env.VUE_APP_ADMINISTRATOR_CONTACT_EMAIL}`
           );

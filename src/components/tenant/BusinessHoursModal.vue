@@ -170,9 +170,7 @@ export default {
       this.isClosingBeforeOpening =
         closingHour - openingHour < 1
           ? true
-          : closingHour - openingHour === 1 && openingMinute > closingMinute
-          ? true
-          : false;
+          : closingHour - openingHour === 1 && openingMinute > closingMinute;
     }
   },
   computed: {

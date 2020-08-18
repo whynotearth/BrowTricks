@@ -39,7 +39,7 @@ const actions = {
   notify(context, { params }) {
     console.log('params', params);
     return PmuService.notify(params);
-  },
+  }
 };
 
 const mutations = {

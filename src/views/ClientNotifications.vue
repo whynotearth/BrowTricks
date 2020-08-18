@@ -25,10 +25,7 @@
           </template>
         </CheckBox>
       </div>
-      <div
-        v-if="$v.selectedNotificationTypes.$error"
-        class="text-error tg-body-mobile"
-      >
+      <div v-if="$v.selectedNotificationTypes.$error">
         You should provide at least one notification method.
       </div>
     </div>
@@ -44,8 +41,6 @@
 </template>
 
 <script>
-import BaseHeader from '@/components/BaseHeader.vue';
-import ArrowBack from '@/assets/icons/arrow-back.svg';
 import Button from '@/components/inputs/Button.vue';
 import { mapGetters, mapActions } from 'vuex';
 import CheckBox from '@/components/inputs/CheckBox';
@@ -75,9 +70,6 @@ export default {
   },
   components: {
     CheckBox,
-    BaseHeader,
-    ArrowBack,
-    // Notifications,
     Button
   },
   data() {

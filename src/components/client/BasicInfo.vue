@@ -4,9 +4,9 @@
       v-model="$v.firstName.$model"
       label="First Name"
       :error="$v.firstName.$error"
-      theme="light"
+      theme="dark"
     >
-      <p v-if="!$v.firstName.required" class="text-error tg-body-mobile">
+      <p v-if="!$v.firstName.required">
         First Name is required
       </p>
     </MaterialInput>
@@ -14,9 +14,9 @@
       v-model="$v.lastName.$model"
       label="Last Name"
       :error="$v.lastName.$error"
-      theme="light"
+      theme="dark"
     >
-      <p v-if="!$v.lastName.required" class="text-error tg-body-mobile">
+      <p v-if="!$v.lastName.required">
         Last Name is required
       </p>
     </MaterialInput>
@@ -24,15 +24,12 @@
       v-model="$v.phone.$model"
       label="Phone number"
       :error="$v.phone.$error"
-      theme="light"
+      theme="dark"
     >
-      <p v-if="!$v.phone.required" class="text-error tg-body-mobile">
+      <p v-if="!$v.phone.required">
         This field is required
       </p>
-      <p
-        v-else-if="!$v.phone.isPhoneNumberValid"
-        class="text-error tg-body-mobile"
-      >
+      <p v-else-if="!$v.phone.isPhoneNumberValid">
         Phone number is not valid, it should be a US phone number
       </p>
     </MaterialInput>
@@ -40,12 +37,12 @@
       v-model="$v.email.$model"
       label="Email"
       :error="$v.email.$error"
-      theme="light"
+      theme="dark"
     >
-      <p v-if="!$v.email.required" class="text-error tg-body-mobile">
+      <p v-if="!$v.email.required">
         Email is required
       </p>
-      <p v-else-if="!$v.email.email" class="text-error tg-body-mobile">
+      <p v-else-if="!$v.email.email">
         Please enter an email address
       </p>
     </MaterialInput>

@@ -104,6 +104,17 @@ export const clientRoutes = [
           title: 'PMU Form Sign',
           backRoute: { name: 'ClientEdit' }
         }
+      },
+      {
+        path: 'notes',
+        name: 'ClientNotes',
+        component: () => import('@/views/ClientNotes.vue'),
+        props: true,
+        meta: {
+          layout: WithTitleBarLayout,
+          title: 'Notes',
+          backRoute: { name: 'ClientEdit' }
+        }
       }
     ]
   }
