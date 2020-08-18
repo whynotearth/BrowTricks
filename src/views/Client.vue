@@ -1,11 +1,13 @@
 <template>
   <div class="bg-newbackground text-left" v-if="client">
-    <router-view :client="client" />
+    <transition name="fadeslow">
+      <router-view v-show="!isLoading" :client="client" />
+    </transition>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 
 export default {
   name: 'Client',
@@ -24,12 +26,16 @@ export default {
       client: null
     };
   },
+  computed: {
+    ...mapGetters('loading', ['isLoading'])
+  },
   async created() {
     this.handleLoginByToken();
     this._fetchClient();
   },
   methods: {
     ...mapActions('auth', ['updateToken']),
+    ...mapMutations('loading', ['loading']),
     ...mapActions('client', ['fetchClient']),
     handleLoginByToken() {
       this.setTokenFromUrl();
@@ -42,14 +48,22 @@ export default {
       return false;
     },
     async _fetchClient() {
-      this.client = await this.fetchClient({
+      this.loading(true);
+      this.fetchClient({
         params: {
           clientId: this.clientId,
           tenantSlug: this.tenantSlug
         }
-      }).catch(() => {
-        console.log('error in getting client');
-      });
+      })
+        .then(data => {
+          this.client = data;
+        })
+        .catch(() => {
+          console.log('Error in getting client');
+        })
+        .finally(() => {
+          this.loading(false);
+        });
     }
   },
   watch: {
