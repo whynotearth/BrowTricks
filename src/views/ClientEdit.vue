@@ -14,30 +14,32 @@
       <h3 class="py-4 tg-h1-mobile">
         {{ client.firstName }} {{ client.lastName }}
       </h3>
-      <div
-        class="flex justify-between tg-caption-mobile pb-16 w-full sm:w-auto"
-      >
-        <a
-          class="flex flex-col items-center px-4 sm:px-8 text-newsecondary"
-          :href="`mailto:${client.email}`"
+      <div class="max-w-md mx-auto px-4 w-full">
+        <div
+          class="flex justify-between tg-caption-mobile pb-16 w-full sm:w-auto"
         >
-          <MailIcon class="fill-current mb-2" />
-          <span>Email</span>
-        </a>
-        <a
-          class="flex flex-col items-center px-4 sm:px-8 text-newsecondary"
-          :href="`sms:${client.phoneNumber}`"
-        >
-          <PhoneAndroidIcon class="fill-current mb-2" />
-          <span>Text</span>
-        </a>
-        <a
-          class="flex flex-col items-center px-4 sm:px-8 text-newsecondary"
-          :href="`tel:${client.phoneNumber}`"
-        >
-          <PhoneIcon class="fill-current mb-2" />
-          <span>Call</span>
-        </a>
+          <a
+            class="flex flex-col items-center px-4 sm:px-8 text-newsecondary"
+            :href="`mailto:${client.email}`"
+          >
+            <MailIcon class="fill-current mb-2" />
+            <span>Email</span>
+          </a>
+          <a
+            class="flex flex-col items-center px-4 sm:px-8 text-newsecondary"
+            :href="`sms:${client.phoneNumber}`"
+          >
+            <PhoneAndroidIcon class="fill-current mb-2" />
+            <span>Text</span>
+          </a>
+          <a
+            class="flex flex-col items-center px-4 sm:px-8 text-newsecondary"
+            :href="`tel:${client.phoneNumber}`"
+          >
+            <PhoneIcon class="fill-current mb-2" />
+            <span>Call</span>
+          </a>
+        </div>
       </div>
     </div>
     <div class="max-w-md mx-auto px-4">

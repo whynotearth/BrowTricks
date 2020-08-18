@@ -29,11 +29,8 @@
         </CheckBox>
       </div>
       <div
-        v-if="
-          $v.selectedNotificationTypes.$dirty &&
-            $v.selectedNotificationTypes.$invalid
-        "
-        class="text-red-600 text-xs"
+        v-if="$v.selectedNotificationTypes.$error"
+        class="text-error text-xs"
       >
         You should provide at least one notification method.
       </div>
