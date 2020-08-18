@@ -2,7 +2,7 @@
   <div
     class="page bg-newbackground min-h-screen flex flex-col text-white text-opacity-medium"
   >
-    <div
+    <header
       class="bg-newsurface z-20 shadow-4dp flex items-center p-4 sticky top-0"
     >
       <!-- icon -->
@@ -12,21 +12,33 @@
       <h1 class="tg-h2-mobile text-opacity-high text-white ml-2">
         {{ currentTitle }}
       </h1>
+    </header>
+
+    <!-- loading -->
+    <div
+      v-show="isLoading"
+      class="relative flex-grow max-w-6xl mx-auto w-full flex justify-around items-center"
+    >
+      <BaseSpinner />
     </div>
-    <div class="relative flex-grow max-w-6xl mx-auto w-full">
-      <transition name="fadeslow" mode="out-in">
-        <slot v-if="isVisible" />
-      </transition>
+    <!-- content -->
+    <div
+      class="relative flex-grow max-w-6xl mx-auto w-full"
+      v-show="!isLoading"
+    >
+      <slot v-if="isVisible" />
     </div>
   </div>
 </template>
 
 <script>
 import IconBack from '@/assets/icons/arrow-back.svg';
+import { mapGetters } from 'vuex';
+import BaseSpinner from '@/components/BaseSpinner';
 
 export default {
   name: 'WithTitleBarLayout',
-  components: { IconBack },
+  components: { IconBack, BaseSpinner },
   data: () => ({
     isVisible: false,
     currentTitle: '',
@@ -35,6 +47,9 @@ export default {
   mounted() {
     this.isVisible = true;
     this.init();
+  },
+  computed: {
+    ...mapGetters('loading', ['isLoading'])
   },
   methods: {
     init() {

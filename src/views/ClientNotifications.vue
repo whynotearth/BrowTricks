@@ -25,10 +25,7 @@
           </template>
         </CheckBox>
       </div>
-      <div
-        v-if="$v.selectedNotificationTypes.$error"
-        class="text-error tg-body-mobile"
-      >
+      <div v-if="$v.selectedNotificationTypes.$error">
         You should provide at least one notification method.
       </div>
     </div>

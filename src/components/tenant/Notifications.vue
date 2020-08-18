@@ -29,11 +29,8 @@
         </CheckBox>
       </div>
       <div
-        v-if="
-          $v.selectedNotificationTypes.$dirty &&
-            $v.selectedNotificationTypes.$invalid
-        "
-        class="text-red-600 text-xs"
+        v-if="$v.selectedNotificationTypes.$error"
+        class="text-error tg-body-mobile"
       >
         You should provide at least one notification method.
       </div>
@@ -69,6 +66,7 @@ export default {
         return this.getSelectedNotificationTypes;
       },
       set(value) {
+        console.log('value', value);
         this.updateSelectedNotificationTypes(value);
       }
     },
