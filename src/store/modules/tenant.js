@@ -39,7 +39,7 @@ const days = [
   'Saturday'
 ];
 
-const defaultNotificationTypes = ['email', 'phone']; // notificationType keys here
+const defaultNotificationTypes = ['email', 'text']; // notificationType values here
 const defaultPaymentMethods = ['cash'];
 const defaultBusinessHours = days.map(day => {
   return {

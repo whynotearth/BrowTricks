@@ -29,7 +29,7 @@
             navigation[page] && page < navigation.length
               ? 'NEXT STEP'
               : 'FINISH'
-          } ►`
+          }`
         "
         @previousStep="previousStep"
         @nextStep="nextStep"
