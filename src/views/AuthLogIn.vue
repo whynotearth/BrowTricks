@@ -14,7 +14,7 @@
     <template #tertiaryCTA>
       <Button
         :to="{ name: 'SignUp', params: { step: 'business-info' } }"
-        class="tg-body-hyperlink-mobile text-on-background-image text-opacity-medium pb-4 normal-case font-normal"
+        class="text-on-background-image text-opacity-medium normal-case"
         title="No account? Sign Up For Brow Tricks Beauty!"
         background="bg-transparent"
       />
@@ -27,7 +27,7 @@ import AuthButtons from '@/components/auth/AuthButtons';
 import Button from '@/components/inputs/Button.vue';
 import SplashLayout from '@/layouts/SplashLayout.vue';
 
-import { mapActions } from 'vuex';
+import { mapActions, mapMutations } from 'vuex';
 
 export default {
   name: 'Login',
@@ -48,11 +48,13 @@ export default {
       return;
     }
 
+    this.loading(true);
     this.handleRedirect();
   },
   methods: {
     ...mapActions('auth', ['updateToken']),
     ...mapActions('tenant', ['fetchUserTenants']),
+    ...mapMutations('loading', ['loading']),
     handleRedirect() {
       this.fetchUserTenants()
         .then(tenants => {
@@ -66,6 +68,9 @@ export default {
           alert(
             `Login failed! If the problem persisted, please contact ${process.env.VUE_APP_ADMINISTRATOR_CONTACT_EMAIL}`
           );
+        })
+        .finally(() => {
+          this.loading(false);
         });
     },
     setTokenFromUrl() {
