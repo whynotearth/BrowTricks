@@ -1,9 +1,20 @@
 <template>
   <div id="app" class="min-h-vh100 h-full text-center font-sans">
-    <transition :name="transitionName">
+    <SlideBack>
       <component
         :is="this.$route.meta.layout || 'div'"
         class="h-full min-h-vh100"
+      >
+        <SlideBack>
+          <router-view />
+        </SlideBack>
+      </component>
+    </SlideBack>
+    <transition name="fade">
+      <div
+        v-if="overlayModel.title || overlayModel.message"
+        class="w-full h-full fixed block top-0
+        left-0 z-110"
       >
         <transition :name="transitionName">
           <router-view />
@@ -16,6 +27,7 @@
 import BaseOverlaySuccess from '@/components/BaseOverlaySuccess.vue';
 import { mapGetters } from 'vuex';
 import vhFix from '@/mixins/vhFix.js';
+import SlideBack from '@/components/animations/SlideBack.vue';
 
 export default {
   name: 'App',
@@ -25,7 +37,7 @@ export default {
     };
   },
   mixins: [vhFix],
-  components: { BaseOverlaySuccess },
+  components: { BaseOverlaySuccess, SlideBack },
   computed: {
     ...mapGetters('overlay', {
       overlayModel: 'model'
