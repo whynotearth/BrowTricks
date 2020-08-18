@@ -19,7 +19,7 @@
       v-show="isLoading"
       class="relative flex-grow max-w-6xl mx-auto w-full flex justify-around items-center"
     >
-      <Loading />
+      <BaseSpinner />
     </div>
     <!-- content -->
     <div
@@ -34,11 +34,11 @@
 <script>
 import IconBack from '@/assets/icons/arrow-back.svg';
 import { mapGetters } from 'vuex';
-import Loading from '@/components/Loading';
+import BaseSpinner from '@/components/BaseSpinner';
 
 export default {
   name: 'WithTitleBarLayout',
-  components: { IconBack, Loading },
+  components: { IconBack, BaseSpinner },
   data: () => ({
     isVisible: false,
     currentTitle: '',
