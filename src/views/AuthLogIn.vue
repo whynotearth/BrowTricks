@@ -51,6 +51,9 @@ export default {
     this.loading(true);
     this.handleRedirect();
   },
+  beforeDestroy() {
+    this.loading(false);
+  },
   methods: {
     ...mapActions('auth', ['updateToken']),
     ...mapActions('tenant', ['fetchUserTenants']),
@@ -65,12 +68,10 @@ export default {
           }
         })
         .catch(() => {
+          this.loading(false);
           alert(
             `Login failed! If the problem persisted, please contact ${process.env.VUE_APP_ADMINISTRATOR_CONTACT_EMAIL}`
           );
-        })
-        .finally(() => {
-          this.loading(false);
         });
     },
     setTokenFromUrl() {
