@@ -33,7 +33,7 @@
       :maxFiles="1"
       :files="currentImages"
       @change="_updateLogo"
-      :uploadPreset="process.env.VUE_APP_UPLOADER_IMAGE_PRESET"
+      :uploadPreset="uploadPreset"
     >
       <template #title>
         <div class="tg-body-mobile ">
@@ -66,7 +66,9 @@ export default {
     MediaManager
   },
   data() {
-    return {};
+    return {
+      uploadPreset: process.env.VUE_APP_UPLOADER_IMAGE_PRESET
+    };
   },
   validations: {
     name: {

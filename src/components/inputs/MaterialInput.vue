@@ -77,7 +77,6 @@ export default {
     },
     theme: {
       type: String,
-      // TODO: dark
       default: 'light'
     },
     margin: {
