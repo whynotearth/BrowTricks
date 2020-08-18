@@ -6,6 +6,7 @@ import { authRoutes } from './authRoutes';
 import { clientRoutes } from './clientRoutes';
 import { generalRoutes } from './generalRoutes';
 import { TenantPublicRoutes } from './TenantPublicRoutes';
+import { get } from 'lodash-es';
 
 Vue.use(VueRouter);
 
@@ -62,9 +63,11 @@ router.beforeEach((to, from, next) => {
         }
       })
       .catch(error => {
-        console.log('Not authenticated', error);
-        // TODO: check if error status was 401, redirect to welcome
-        next({ name: 'Welcome' });
+        console.log('Not authenticated');
+        const isError401 = get(error, 'response.status', null) === 401;
+        if (isError401) {
+          next({ name: 'Welcome' });
+        }
       });
   }
 });
