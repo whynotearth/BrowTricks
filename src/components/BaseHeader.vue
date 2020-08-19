@@ -1,6 +1,6 @@
 <template>
   <div
-    class="h-14 w-full px-2 py-5 sticky top-0 z-40 flex justify-between items-center bg-newbackground"
+    class="h-14 w-full px-2 py-5 sticky top-0 z-40 flex justify-between items-center bg-primary"
   >
     <a
       v-if="$slots.icon"

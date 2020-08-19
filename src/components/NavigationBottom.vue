@@ -27,7 +27,10 @@
               </router-link>
             </li>
           </ul>
-          <img class="h-14 m-auto" :src="BottomNavFrame" />
+          <img
+            class="h-14 m-auto"
+            src="https://res.cloudinary.com/whynotearth/image/upload/v1597842033/BrowTricks/static_v2/bottom-nav-frame_atpsau.png"
+          />
           <ul
             :class="{ opened: isOpen }"
             class="absolute fab-menu list-none z-50"
@@ -41,7 +44,7 @@
               >
                 Add Client
                 <div
-                  class="rounded-full h-10 w-10 flex items-center justify-center bg-button ml-2
+                  class="rounded-full h-10 w-10 flex items-center justify-center bg-secondary ml-2
                 shadow-6dp"
                 >
                   <UserIcon class="m-auto fill-current" />
@@ -50,11 +53,11 @@
             </li>
           </ul>
           <div
-            class="absolute flex content-center w-14 h-14 opacity-100 rounded-full cursor-pointer navigation--fab-button bg-button shadow-6dp z-50"
+            class="absolute flex content-center w-14 h-14 opacity-100 rounded-full cursor-pointer navigation--fab-button bg-secondary shadow-6dp z-50"
             @click="toggleMenu()"
           >
             <AddIcon
-              class="m-auto ease-in-out"
+              class="m-auto ease-in-out text-on-secondary text-opacity-high fill-current"
               :class="{ 'transform rotate-45': isOpen }"
             />
           </div>
@@ -70,11 +73,10 @@
 </template>
 
 <script>
-import AddIcon from '@/assets/icons/actions.svg';
+import AddIcon from '@/assets/icons/add.svg';
 import HomeIcon from '@/assets/icons/home.svg';
 import UserIcon from '@/assets/icons/person.svg';
 
-import BottomNavFrame from '@/assets/icons/bottom-nav-frame.png';
 export default {
   name: 'NavigationBottom',
   components: {
@@ -93,8 +95,7 @@ export default {
         stats: 'opacity-100',
         blue: 'opacity-100',
         archive: 'opacity-100'
-      },
-      BottomNavFrame
+      }
     };
   },
   methods: {
@@ -112,11 +113,11 @@ export default {
 }
 
 .navigation--fab-button:hover {
-  @apply bg-button transition ease-in delay-75;
+  @apply bg-secondary transition ease-in delay-75;
 }
 
 .navigation--fab-button:active {
-  @apply bg-button transition ease-in delay-75;
+  @apply bg-secondary transition ease-in delay-75;
 }
 
 .fab-menu {

@@ -11,7 +11,6 @@ const mutations = {
 };
 const actions = {
   isDrawerOpenUpdate({ commit }, payload) {
-    console.log('isDrawerOpenUpdate.............', payload);
     if (payload) {
       _disableScrollbars();
     } else {

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-surface text-left min-h-screen">
+  <div class="text-left">
     <div class="mb-20" v-if="clients.length > 0">
       <div class="" v-for="(client, key) in clients" :key="key">
         <h6
@@ -45,23 +45,19 @@
         </router-link>
       </div>
     </div>
-    <NavigationBottom />
   </div>
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
-
+import { mapActions, mapGetters } from 'vuex';
 import BaseHeader from '@/components/BaseHeader.vue';
 import ArrowBack from '@/assets/icons/arrow-back.svg';
-import NavigationBottom from '@/components/NavigationBottom.vue';
 
 export default {
   name: 'ClientList',
   components: {
     BaseHeader,
-    ArrowBack,
-    NavigationBottom
+    ArrowBack
   },
   props: {
     tenantSlug: {
@@ -93,7 +89,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('client', ['clients'])
+    ...mapGetters('client', ['clients'])
   }
 };
 </script>
