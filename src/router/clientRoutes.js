@@ -10,7 +10,7 @@ export const clientRoutes = [
       layout: WithTitleBarLayout,
       title: 'Clients',
       backRoute: { name: 'TenantHome' }
-    },
+    }
   },
   {
     path: '/tenant/:tenantSlug/clients/add/:step',

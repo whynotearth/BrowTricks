@@ -50,14 +50,12 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import BaseHeader from '@/components/BaseHeader.vue';
-import ArrowBack from '@/assets/icons/arrow-back.svg';
+// import ArrowBack from '@/assets/icons/arrow-back.svg';
 
 export default {
   name: 'ClientList',
   components: {
-    BaseHeader,
-    ArrowBack
+    // ArrowBack
   },
   props: {
     tenantSlug: {

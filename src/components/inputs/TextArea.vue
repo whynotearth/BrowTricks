@@ -101,9 +101,7 @@ export default {
       return this.theme === 'dark' ? 'bg-surface' : 'bg-background';
     },
     textColor() {
-      return this.theme === 'dark'
-        ? 'text-on-surface'
-        : 'text-on-background';
+      return this.theme === 'dark' ? 'text-on-surface' : 'text-on-background';
     },
     placeholderColor() {
       if (this.error) {

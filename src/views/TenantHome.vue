@@ -146,8 +146,8 @@
 <script>
 import ClassicLayout from '@/layouts/ClassicLayout.vue';
 import BaseHeader from '@/components/BaseHeader.vue';
-import ArticleMini from '@/components/ArticleMini.vue';
-import Button from '@/components/inputs/Button.vue';
+// // import ArticleMini from '@/components/ArticleMini.vue';
+// import Button from '@/components/inputs/Button.vue';
 import MenuDrawerPanel from '@/components/MenuDrawerPanel.vue';
 import BaseAvatar from '@/components/BaseAvatar.vue';
 import NavigationBottom from '@/components/NavigationBottom.vue';
@@ -160,8 +160,8 @@ export default {
   components: {
     ClassicLayout,
     BaseHeader,
-    ArticleMini,
-    Button,
+    // ArticleMini,
+    // Button,
     MenuDrawerPanel,
     BaseAvatar,
     IconMenu,
