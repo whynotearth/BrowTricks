@@ -35,7 +35,7 @@
           ref="questions"
         >
           <MaterialInput
-            theme="dark"
+            theme="light"
             class="flex-grow"
             v-model.trim="question.value"
             label="Question"

@@ -30,7 +30,7 @@
       <slot v-if="isVisible" />
     </div>
 
-    <NavigationBottom />
+    <NavigationBottom v-if="!noNavigation" />
   </div>
 </template>
 
@@ -53,7 +53,10 @@ export default {
     this.init();
   },
   computed: {
-    ...mapGetters('loading', ['isLoading'])
+    ...mapGetters('loading', ['isLoading']),
+    noNavigation() {
+      return this.$route.matched.some(route => route.meta.noNavigation);
+    }
   },
   methods: {
     init() {

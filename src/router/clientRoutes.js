@@ -26,6 +26,7 @@ export const clientRoutes = [
     component: () => import('@/views/Client.vue'),
     meta: {
       layout: WithTitleBarLayout,
+      noNavigation: true,
       title: 'Client Profile',
       backRoute: { name: 'ClientList' }
     },
