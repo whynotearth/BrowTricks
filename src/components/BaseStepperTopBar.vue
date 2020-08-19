@@ -13,7 +13,7 @@
           style="stroke-opacity: .38;"
         />
         <circle
-          class="text-button progress-bar"
+          class="text-secondary progress-bar"
           :cx="centerX"
           :cy="centerY"
           :r="radius"

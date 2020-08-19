@@ -46,11 +46,11 @@ export default {
     },
     background: {
       type: String,
-      default: 'bg-newsecondary'
+      default: 'bg-secondary'
     },
     textColor: {
       type: String,
-      default: 'text-newprimary'
+      default: 'text-primary'
     },
     textJustify: {
       type: String,

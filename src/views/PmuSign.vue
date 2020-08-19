@@ -35,7 +35,7 @@
           ref="questions"
         >
           <MaterialInput
-            theme="dark"
+            theme="light"
             class="flex-grow"
             v-model.trim="question.value"
             label="Question"
@@ -54,7 +54,7 @@
         />
         <a
           @click="questionAdd"
-          class="text-newsecondary tg-color-label-mobile text-center py-2 w-full block cursor-pointer"
+          class="text-secondary tg-color-label-mobile text-center py-2 w-full block cursor-pointer"
           >Add Question</a
         >
       </div>

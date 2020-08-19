@@ -3,7 +3,7 @@
     <div class="mb-2">
       <slot name="title">
         <span
-          class="tg-h3-mobile text-on-newbackground text-opacity-medium mt-8 inline-block"
+          class="tg-h3-mobile text-on-background text-opacity-medium mt-8 inline-block"
         >
           Image
         </span>

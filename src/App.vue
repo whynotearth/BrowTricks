@@ -10,6 +10,12 @@
         </SlideBack>
       </component>
     </SlideBack>
+    <component
+      :is="this.$route.meta.layout || 'div'"
+      class="h-full min-h-vh100"
+    >
+      <router-view />
+    </component>
     <transition name="fade">
       <div
         v-if="overlayModel.title || overlayModel.message"

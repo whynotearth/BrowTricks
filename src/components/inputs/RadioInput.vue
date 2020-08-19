@@ -9,11 +9,11 @@
   >
     <div
       class="rounded-full h-5 w-5 p-1 border-2 border-gray-500 mr-4"
-      :class="{ 'border-button': selectedOption === value }"
+      :class="{ 'border-secondary': selectedOption === value }"
     >
       <div
         class="h-full w-full rounded-full"
-        :class="{ 'bg-button': selectedOption === value }"
+        :class="{ 'bg-secondary': selectedOption === value }"
       ></div>
     </div>
     <div>

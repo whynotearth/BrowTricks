@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-newbackground text-left" v-if="client">
+  <div class="bg-background text-left" v-if="client">
     <div
       class="bg-opacity-high pt-8 px-4 text-white h-auto flex flex-col items-center"
     >
@@ -11,42 +11,38 @@
         "
         alt="user-logo"
       />
-      <h3 class="py-4 tg-h1-mobile">
+      <h3 class="py-4 tg-h1-mobile text-black">
         {{ client.firstName }} {{ client.lastName }}
       </h3>
-      <div class="max-w-md mx-auto px-4 w-full">
-        <div
-          class="flex justify-between tg-caption-mobile pb-16 w-full sm:w-auto"
+      <div class="flex justify-around tg-caption-mobile pb-16 w-full sm:w-auto">
+        <a
+          class="flex flex-col items-center px-4 sm:px-8 text-secondary"
+          :href="`mailto:${client.email}`"
         >
-          <a
-            class="flex flex-col items-center px-4 sm:px-8 text-newsecondary"
-            :href="`mailto:${client.email}`"
-          >
-            <MailIcon class="fill-current mb-2" />
-            <span>Email</span>
-          </a>
-          <a
-            class="flex flex-col items-center px-4 sm:px-8 text-newsecondary"
-            :href="`sms:${client.phoneNumber}`"
-          >
-            <PhoneAndroidIcon class="fill-current mb-2" />
-            <span>Text</span>
-          </a>
-          <a
-            class="flex flex-col items-center px-4 sm:px-8 text-newsecondary"
-            :href="`tel:${client.phoneNumber}`"
-          >
-            <PhoneIcon class="fill-current mb-2" />
-            <span>Call</span>
-          </a>
-        </div>
+          <IconMail class="fill-current mb-2" />
+          <span>Email</span>
+        </a>
+        <a
+          class="flex flex-col items-center px-4 sm:px-8 text-secondary"
+          :href="`sms:${client.phoneNumber}`"
+        >
+          <IconPhoneAndroid class="fill-current mb-2" />
+          <span>Text</span>
+        </a>
+        <a
+          class="flex flex-col items-center px-4 sm:px-8 text-secondary"
+          :href="`tel:${client.phoneNumber}`"
+        >
+          <IconPhone class="fill-current mb-2" />
+          <span>Call</span>
+        </a>
       </div>
     </div>
     <div class="max-w-md mx-auto px-4">
-      <div class="shadow-1dp px-2 py-6 rounded-lg mb-4 bg-newsurface">
+      <div class="shadow-1dp px-2 py-6 rounded-lg mb-4 bg-surface">
         <MaterialInput
           margin="mb-6"
-          theme="dark"
+          theme="light"
           v-model="$v.client.firstName.$model"
           label="First Name"
           :error="$v.client.firstName.$error"
@@ -57,7 +53,7 @@
         </MaterialInput>
         <MaterialInput
           margin="mb-6"
-          theme="dark"
+          theme="light"
           v-model="$v.client.lastName.$model"
           label="Last Name"
           :error="$v.client.lastName.$error"
@@ -68,7 +64,7 @@
         </MaterialInput>
         <MaterialInput
           margin="mb-6"
-          theme="dark"
+          theme="light"
           v-model="$v.client.phoneNumber.$model"
           label="Phone Number"
           :error="$v.client.phoneNumber.$error"
@@ -88,7 +84,7 @@
         </MaterialInput>
         <MaterialInput
           :margin="null"
-          theme="dark"
+          theme="light"
           v-model="$v.client.email.$model"
           label="Email"
           :error="$v.client.email.$error"
@@ -110,7 +106,9 @@
           })
         "
       >
-        <Notification slot="preIcon" class="h-6 w-6 fill-current" />
+        <template #preIcon>
+          <IconNotification class="h-6 w-6 fill-current" />
+        </template>
       </ExpansionPanel>
       <ExpansionPanel
         title="Uploads"
@@ -120,7 +118,9 @@
           })
         "
       >
-        <ImagesIcon slot="preIcon" class="h-6 w-6 fill-current" />
+        <template #preIcon>
+          <IconImages slot="preIcon" class="h-6 w-6 fill-current" />
+        </template>
       </ExpansionPanel>
 
       <!-- incompleted PMU -->
@@ -151,14 +151,18 @@
         title="PMU"
         :middleText="client.pmuStatus"
       >
-        <Document slot="preIcon" class="h-6 w-6 fill-current" />
+        <template #preIcon>
+          <IconDocument slot="preIcon" class="h-6 w-6 fill-current" />
+        </template>
       </ExpansionPanel>
 
       <ExpansionPanel
         @click="$router.push({ name: 'ClientNotes' })"
         title="Notes"
       >
-        <Notes slot="preIcon" class="h-6 w-6 fill-current" />
+        <template #preIcon>
+          <IconNotes slot="preIcon" class="h-6 w-6 fill-current" />
+        </template>
       </ExpansionPanel>
       <div class="py-6">
         <Button class="rounded-full" title="Save" @clicked="save" />
@@ -208,14 +212,13 @@ import MaterialInput from '@/components/inputs/MaterialInput.vue';
 import Button from '@/components/inputs/Button.vue';
 import ExpansionPanel from '@/components/ExpansionPanel.vue';
 
-import Document from '@/assets/icons/document.svg';
-import Notes from '@/assets/icons/notes.svg';
-import Notification from '@/assets/icons/notification.svg';
-
-import ImagesIcon from '@/assets/icons/images.svg';
-import MailIcon from '@/assets/icons/mail.svg';
-import PhoneIcon from '@/assets/icons/phone.svg';
-import PhoneAndroidIcon from '@/assets/icons/phone_android.svg';
+import IconDocument from '@/assets/icons/document.svg';
+import IconNotes from '@/assets/icons/notes.svg';
+import IconNotification from '@/assets/icons/notification.svg';
+import IconImages from '@/assets/icons/images.svg';
+import IconMail from '@/assets/icons/mail.svg';
+import IconPhone from '@/assets/icons/phone.svg';
+import IconPhoneAndroid from '@/assets/icons/phone_android.svg';
 
 import { isPhoneNumberValid } from '@/helpers';
 import { mapActions } from 'vuex';
@@ -234,16 +237,16 @@ export default {
     }
   },
   components: {
+    IconDocument,
+    IconNotes,
+    IconNotification,
+    IconImages,
+    IconMail,
+    IconPhone,
+    IconPhoneAndroid,
     MaterialInput,
     Button,
-    Document,
-    Notes,
-    Notification,
-    ImagesIcon,
-    ExpansionPanel,
-    MailIcon,
-    PhoneIcon,
-    PhoneAndroidIcon
+    ExpansionPanel
   },
   data() {
     return {

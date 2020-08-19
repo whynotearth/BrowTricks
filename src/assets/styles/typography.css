@@ -1,94 +1,101 @@
 @responsive {
-    .tg-h1-mobile {
-        font-family: Caviar Dreams, sans-serif;
-        font-style: normal;
-        font-weight: 700;
-        font-size: 1.5rem;
-        line-height: 2.5rem;
-        letter-spacing: 0.15em;
-    }
+  .tg-h1-mobile {
+    font-family: ChampagneLimousines, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 48px;
+    line-height: 40px;
+  }
 
-    .tg-h2-mobile {
-        font-family: Caviar Dreams, sans-serif;
-        font-style: normal;
-        font-weight: 700;
-        font-size: 1.25rem;
-        line-height: 1.5rem;
-        letter-spacing: 0.15em;
-    }
+  .tg-h2-mobile {
+    font-family: ChampagneLimousines, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 28px;
+    letter-spacing: 0.15em;
+  }
 
-    .tg-h3-mobile {
-        font-family: Roboto, sans-serif;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 1rem;
-        line-height: 1.5rem;
-    }
+  .tg-h3-mobile {
+    font-family: ChampagneLimousines, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 24px;
+  }
 
-    .tg-body-mobile {
-        font-family: Roboto, sans-serif;
-        font-style: normal;
-        font-weight: normal;
-        font-size: .875rem;
-        line-height: 1.25rem;
-    }
+  .tg-body-mobile {
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+  }
 
-    .tg-body-hyperlink-mobile {
-        font-family: Roboto, sans-serif;
-        font-style: normal;
-        font-weight: normal;
-        font-size: .875rem;
-        line-height: 1.25rem;
-        text-decoration-line: underline;
-    }
+  .tg-body-bold-mobile {
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 20px;
+  }
 
-    .tg-caption-mobile {
-        font-family: Roboto, sans-serif;
-        font-style: normal;
-        font-weight: normal;
-        font-size: .75rem;
-        line-height: 1rem;
-    }
+  .tg-body-hyperlink-mobile {
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    text-decoration-line: underline;
+  }
 
-    .tg-caption-bold-mobile {
-        font-family: Roboto, sans-serif;
-        font-style: normal;
-        font-weight: 700;
-        font-size: .75rem;
-        line-height: 1rem;
-    }
+  .tg-caption-mobile {
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+  }
 
-    .tg-caption-strikethrough-mobile {
-        font-family: Roboto, sans-serif;
-        font-style: normal;
-        font-weight: normal;
-        font-size: .75rem;
-        line-height: 1rem;
-        text-decoration-line: line-through;
-    }
+  .tg-caption-bold-mobile {
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 16px;
+  }
 
-    .tg-color-label-mobile {
-        font-family: Roboto, sans-serif;
-        font-style: normal;
-        font-weight: 500;
-        font-size: .875rem;
-        line-height: 1.5rem;
-        letter-spacing: 0.02em;
-        text-transform: uppercase;
-    }
+  .tg-caption-strikethrough-mobile {
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+    text-decoration-line: line-through;
+  }
 
-    .tg-dancing-desktop {
-        font-family: 'Dancing Script', sans-serif;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 36px;
-        line-height: 44px;
-    }
-    .tg-dancing-mobile {
-        font-family: 'Dancing Script', sans-serif;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 20px;
-        line-height: 16px;
-    }
+  .tg-color-label-mobile {
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .tg-dancing-desktop {
+    font-family: 'Dancing Script', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 36px;
+    line-height: 44px;
+  }
+  .tg-dancing-mobile {
+    font-family: 'Dancing Script', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 16px;
+  }
 }
