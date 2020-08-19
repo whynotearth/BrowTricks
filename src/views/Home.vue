@@ -1,6 +1,6 @@
 <template>
   <!-- TODO: move layout to route meta -->
-  <ClassicLayout class="bg-newbackground">
+  <ClassicLayout class="bg-background">
     <template #header>
       <BaseHeader @iconClicked="isDrawerOpenUpdate(true)">
         <template #icon>
@@ -17,7 +17,7 @@
             <router-link
               v-if="!isAuthenticated"
               :to="{ name: 'Login' }"
-              class="uppercase text-newsecondary"
+              class="uppercase text-secondary"
             >
               Log In
             </router-link>
@@ -28,16 +28,16 @@
     <template #content>
       <div class="mx-auto max-w-sm lg:max-w-lg">
         <img
-          class="mx-auto block mt-6"
-          src="https://res.cloudinary.com/whynotearth/image/upload/v1596130890/BrowTricks/static_v2/logo-light_yioxuj.png"
+          class="mx-auto block mt-6 mb-14"
+          src="https://res.cloudinary.com/whynotearth/image/upload/v1597844859/BrowTricks/static_v2/logo-round_hpkxxz.png"
           alt=""
         />
 
         <header>
-          <h1 class="tg-h1-mobile mb-4 text-newsecondary">
+          <h1 class="tg-h1-mobile mb-4 text-primary">
             Brow Tricks Beauty
           </h1>
-          <h2 class="tg-h2-mobile mb-4 text-white text-opacity-medium">
+          <h2 class="tg-h2-mobile mb-4 text-on-background text-opacity-medium">
             PMU, Simplified.
           </h2>
         </header>
@@ -51,8 +51,8 @@
         <Button
           :to="{ name: 'Welcome' }"
           :isRounded="true"
-          textColor="text-on-newsecondary"
-          background="bg-newsecondary"
+          textColor="text-on-secondary"
+          background="bg-secondary"
           title="Sign Up"
           class="mb-10"
         />
@@ -98,8 +98,8 @@
         <Button
           :to="{ name: 'Welcome' }"
           :isRounded="true"
-          textColor="text-on-newsecondary"
-          background="bg-newsecondary"
+          textColor="text-on-secondary"
+          background="bg-secondary"
           title="Sign Up"
           class="mb-10"
         />

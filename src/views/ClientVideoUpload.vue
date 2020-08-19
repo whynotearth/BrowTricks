@@ -25,7 +25,7 @@
     >
       <template #title>
         <div class="tg-body-mobile ">
-          <span class="text-on-newbackground text-opacity-high">Videos</span>
+          <span class="text-on-background text-opacity-high">Videos</span>
         </div>
       </template>
     </VideoUpload>

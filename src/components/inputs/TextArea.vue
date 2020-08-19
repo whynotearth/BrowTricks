@@ -91,18 +91,18 @@ export default {
         return 'text-error';
       }
       return this.theme === 'dark'
-        ? 'text-on-newsurface text-opacity-medium'
+        ? 'text-on-surface text-opacity-medium'
         : 'text-on-background';
     },
     labelBg() {
       if (this.labelBackground) {
         return this.labelBackground;
       }
-      return this.theme === 'dark' ? 'bg-newsurface' : 'bg-background';
+      return this.theme === 'dark' ? 'bg-surface' : 'bg-background';
     },
     textColor() {
       return this.theme === 'dark'
-        ? 'text-on-newsurface'
+        ? 'text-on-surface'
         : 'text-on-background';
     },
     placeholderColor() {

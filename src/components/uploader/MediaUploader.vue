@@ -8,7 +8,7 @@
       maxImageWidth
     }"
     :id="id ? id : 'media_uploader_element'"
-    class="flex justify-center items-center upload-add w-1/3 border border-on-newbackground border-dashed border-opacity-divider cursor-pointer"
+    class="flex justify-center items-center upload-add w-1/3 border border-on-background border-dashed border-opacity-divider cursor-pointer"
   >
     <label class="block cursor-pointer">
       <div class="upload-icon">

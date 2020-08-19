@@ -63,6 +63,6 @@ export default {
 
 <style scoped>
 .layout-splash {
-  background-image: url('https://res.cloudinary.com/whynotearth/image/upload/v1590460151/BrowTricks/Action_page_background_zlpen3.png');
+  background-image: url('https://res.cloudinary.com/whynotearth/image/upload/v1597845106/BrowTricks/static_v2/background-full-page_gon3ol.png');
 }
 </style>

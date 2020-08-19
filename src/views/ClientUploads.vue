@@ -27,7 +27,7 @@
       </template>
       <template #title>
         <div class="tg-body-mobile ">
-          <span class="text-on-newbackground text-opacity-high">Uploads</span>
+          <span class="text-on-background text-opacity-high">Uploads</span>
         </div>
       </template>
     </MediaManager>

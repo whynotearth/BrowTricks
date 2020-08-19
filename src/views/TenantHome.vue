@@ -17,7 +17,7 @@
             <router-link
               v-if="!isAuthenticated"
               :to="{ name: 'Login' }"
-              class="uppercase text-newsecondary"
+              class="uppercase text-secondary"
             >
               Log In
             </router-link>

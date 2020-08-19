@@ -1,6 +1,6 @@
 <template>
   <div
-    class="page bg-newbackground min-h-screen flex flex-col text-white text-opacity-medium"
+    class="page bg-background min-h-screen flex flex-col text-white text-opacity-medium"
   >
     <header
       class="bg-primary z-20 shadow-4dp flex items-center p-4 sticky top-0"

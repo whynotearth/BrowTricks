@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-newbackground text-left" v-if="client">
+  <div class="bg-background text-left" v-if="client">
     <div
       class="bg-opacity-high pt-8 px-4 text-white h-auto flex flex-col items-center"
     >
@@ -15,24 +15,24 @@
         {{ client.firstName }} {{ client.lastName }}
       </h3>
       <div
-        class="flex justify-between tg-caption-mobile pb-16 w-full sm:w-auto"
+        class="flex justify-around tg-caption-mobile pb-16 w-full sm:w-auto"
       >
         <a
-          class="flex flex-col items-center px-4 sm:px-8 text-newsecondary"
+          class="flex flex-col items-center px-4 sm:px-8 text-secondary"
           :href="`mailto:${client.email}`"
         >
           <MailIcon class="fill-current mb-2" />
           <span>Email</span>
         </a>
         <a
-          class="flex flex-col items-center px-4 sm:px-8 text-newsecondary"
+          class="flex flex-col items-center px-4 sm:px-8 text-secondary"
           :href="`sms:${client.phoneNumber}`"
         >
           <PhoneAndroidIcon class="fill-current mb-2" />
           <span>Text</span>
         </a>
         <a
-          class="flex flex-col items-center px-4 sm:px-8 text-newsecondary"
+          class="flex flex-col items-center px-4 sm:px-8 text-secondary"
           :href="`tel:${client.phoneNumber}`"
         >
           <PhoneIcon class="fill-current mb-2" />
@@ -41,7 +41,7 @@
       </div>
     </div>
     <div class="max-w-md mx-auto px-4">
-      <div class="shadow-1dp px-2 py-6 rounded-lg mb-4 bg-newsurface">
+      <div class="shadow-1dp px-2 py-6 rounded-lg mb-4 bg-surface">
         <MaterialInput
           margin="mb-6"
           theme="dark"
