@@ -7,7 +7,7 @@
     >
       <IconMenu slot="icon" class="h-6 w-6 fill-current" />
       <span slot="content" class="pl-5">{{ tenantName }}</span>
-      <CustomerMenuDrawer slot="menu-drawer" />
+      <MenuDrawerCustomer slot="menu-drawer" />
     </BaseHeader>
     <div slot="content" class="p-6 m-auto text-on-background-image">
       <div class="tg-h1-mobile mb-5">Business Hours</div>
@@ -51,8 +51,8 @@
 import LayoutFixedScrollable from '@/components/LayoutFixedScrollable.vue';
 import BaseHeader from '@/components/BaseHeader.vue';
 import IconMenu from '@/assets/icons/menu.svg';
-import CustomerMenuDrawer from '@/components/CustomerMenuDrawer.vue';
-import { mapGetters, mapMutations } from 'vuex';
+import MenuDrawerCustomer from '@/components/MenuDrawerCustomer.vue';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'CustomerBusinessHours',
@@ -60,7 +60,7 @@ export default {
     LayoutFixedScrollable,
     BaseHeader,
     IconMenu,
-    CustomerMenuDrawer
+    MenuDrawerCustomer
   },
   computed: {
     ...mapGetters({
@@ -68,7 +68,7 @@ export default {
     })
   },
   methods: {
-    ...mapMutations('global', ['isDrawerOpenUpdate'])
+    ...mapActions('global', ['isDrawerOpenUpdate'])
   }
 };
 </script>

@@ -20,10 +20,10 @@
         :id="id ? id : 'upload_widget'"
         class="upload-add w-1/3"
       >
-        <label class="bg-newbackground block cursor-pointer">
+        <label class="bg-background block cursor-pointer">
           <div class="upload-icon">
             <div
-              class="upload-icon--dimension border border-on-newbackground border-dashed border-opacity-divider flex justify-center items-center"
+              class="upload-icon--dimension border border-on-background border-dashed border-opacity-divider flex justify-center items-center"
             >
               <IconPlus class="fill-current text-white text-opacity-medium" />
             </div>

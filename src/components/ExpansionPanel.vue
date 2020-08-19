@@ -1,15 +1,17 @@
 <template>
   <div
-    class="cursor-pointer bg-newsurface shadow-1dp py-6 px-4 rounded-lg"
+    class="cursor-pointer bg-surface shadow-1dp py-6 px-4 rounded-lg"
     :class="[margin]"
     @click="$emit('click')"
   >
     <div class="flex">
       <div class="flex">
-        <slot name="preIcon"></slot>
+        <div class="text-on-surface text-opacity-medium">
+          <slot name="preIcon"></slot>
+        </div>
         <slot
           ><h4
-            class="ml-4 text-on-newsurface text-opacity-high min-w-expansion-panel"
+            class="ml-4 text-on-surface text-opacity-high min-w-expansion-panel"
           >
             {{ title }}
           </h4></slot
@@ -18,9 +20,7 @@
       <div class="flex flex-grow justify-end">
         <div class="subtitle flex-grow" v-if="middleText || $slots.middleText">
           <!-- middle text -->
-          <div
-            class="text-on-newsurface text-opacity-medium text-left capitalize"
-          >
+          <div class="text-on-surface text-opacity-medium text-left capitalize">
             <slot name="middleText">{{ middleText }}</slot>
           </div>
         </div>

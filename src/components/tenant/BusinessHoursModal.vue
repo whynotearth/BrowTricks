@@ -48,7 +48,7 @@
                       class="cursor-pointer col-span-1 text-center py-4 text-on-background"
                       :class="
                         isActive === 'open'
-                          ? 'border-b-3 border-button text-opacity-high'
+                          ? 'border-b-3 border-secondary text-opacity-high'
                           : ' text-opacity-medium'
                       "
                       @click="changeIsActive('open')"
@@ -59,7 +59,7 @@
                       class="cursor-pointer col-span-1 text-center py-4 text-on-background"
                       :class="
                         isActive === 'close'
-                          ? 'border-b-3 border-button text-opacity-high'
+                          ? 'border-b-3 border-secondary text-opacity-high'
                           : ' text-opacity-medium'
                       "
                       @click="changeIsActive('close')"

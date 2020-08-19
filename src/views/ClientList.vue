@@ -1,14 +1,5 @@
 <template>
-  <div class="bg-surface text-left min-h-screen">
-    <!-- TODO: back should go to tenant-home, not main Home -->
-    <BaseHeader
-      slot="header"
-      class="bg-footer text-white"
-      @iconClicked="$router.push({ name: 'ShopeHome' })"
-    >
-      <ArrowBack slot="icon" class="h-6 w-6 fill-current" />
-      <span slot="content" class="pl-5">Clients</span>
-    </BaseHeader>
+  <div class="text-left">
     <div class="mb-20" v-if="clients.length > 0">
       <div class="" v-for="(client, key) in clients" :key="key">
         <h6
@@ -54,23 +45,17 @@
         </router-link>
       </div>
     </div>
-    <NavigationBottom />
   </div>
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
-
-import BaseHeader from '@/components/BaseHeader.vue';
-import ArrowBack from '@/assets/icons/arrow-back.svg';
-import NavigationBottom from '@/components/BaseNavigationBottom.vue';
+import { mapActions, mapGetters } from 'vuex';
+// import ArrowBack from '@/assets/icons/arrow-back.svg';
 
 export default {
   name: 'ClientList',
   components: {
-    BaseHeader,
-    ArrowBack,
-    NavigationBottom
+    // ArrowBack
   },
   props: {
     tenantSlug: {
@@ -102,7 +87,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('client', ['clients'])
+    ...mapGetters('client', ['clients'])
   }
 };
 </script>

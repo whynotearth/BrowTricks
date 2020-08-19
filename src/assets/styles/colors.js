@@ -1,29 +1,20 @@
 const colors = {
   inherit: 'inherit',
   // TODO: remove 'new'
-  newprimary: '#081131',
-  newsecondary: '#FFAFCC',
-  newbackground: '#081131',
-  newsurface: '#151D3C',
-  'on-newprimary': '#0C6986',
-  'on-newsecondary': '#404E87',
-  'on-newbackground': '#fff',
-  'on-newsurface': '#fff',
-
-  primary: '#067BC2',
-  secondary: '#33658A',
-  background: '#F4F1F1',
+  primary: '#141414',
+  secondary: '#B5E3D8',
+  background: '#FCF9F9',
   surface: '#FFFFFF',
+  'on-primary': '#FFFFFF',
+  'on-secondary': '#000000',
+  'on-surface': '#000000',
+
   action: '#0C6986',
   error: '#ED4A2B',
-  'on-primary': '#0C6986',
-  'on-primary-white': '#FFFFFF',
-  'on-secondary': '#0C6986',
   'on-background': '#000000',
+  // TODO: CHECK THIS
   'on-background-image': '#ffffff',
-  'on-surface': '#000000',
   // DEPRECATED | TODO: rename button and footer colors to figma colors
-  button: '#33658A',
   footer: '#067BC2'
 };
 

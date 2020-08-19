@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-newbackground text-left" v-if="client">
+  <div class="bg-background text-left" v-if="client">
     <transition name="fadeslow">
       <router-view v-show="!isLoading" :client="client" />
     </transition>

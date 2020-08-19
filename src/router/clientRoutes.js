@@ -5,7 +5,12 @@ export const clientRoutes = [
     path: '/tenant/:tenantSlug/clients',
     name: 'ClientList',
     props: true,
-    component: () => import('@/views/ClientList.vue')
+    component: () => import('@/views/ClientList.vue'),
+    meta: {
+      layout: WithTitleBarLayout,
+      title: 'Clients',
+      backRoute: { name: 'TenantHome' }
+    }
   },
   {
     path: '/tenant/:tenantSlug/clients/add/:step',
@@ -21,6 +26,7 @@ export const clientRoutes = [
     component: () => import('@/views/Client.vue'),
     meta: {
       layout: WithTitleBarLayout,
+      noNavigation: true,
       title: 'Client Profile',
       backRoute: { name: 'ClientList' }
     },

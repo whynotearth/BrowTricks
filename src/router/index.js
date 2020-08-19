@@ -4,6 +4,7 @@ import store from '../store';
 
 import { authRoutes } from './authRoutes';
 import { clientRoutes } from './clientRoutes';
+import { TenantPanelRoutes } from './TenantPanelRoutes';
 import { generalRoutes } from './generalRoutes';
 import { TenantPublicRoutes } from './TenantPublicRoutes';
 import { get } from 'lodash-es';
@@ -11,6 +12,7 @@ import { get } from 'lodash-es';
 Vue.use(VueRouter);
 
 const routes = [
+  ...TenantPanelRoutes,
   ...TenantPublicRoutes,
   ...clientRoutes,
   ...generalRoutes,
