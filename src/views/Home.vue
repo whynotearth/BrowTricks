@@ -7,7 +7,7 @@
           <IconMenu class="h-6 w-6 fill-current text-white text-opacity-high" />
         </template>
         <template #menu-drawer>
-          <CustomerMenuDrawer />
+          <MenuDrawerCustomer />
         </template>
         <template #end>
           <div class="flex w-full justify-end">
@@ -113,10 +113,10 @@ import ClassicLayout from '@/layouts/ClassicLayout.vue';
 import BaseHeader from '@/components/BaseHeader.vue';
 import ArticleMini from '@/components/ArticleMini.vue';
 import Button from '@/components/inputs/Button.vue';
-import CustomerMenuDrawer from '@/components/CustomerMenuDrawer.vue';
+import MenuDrawerCustomer from '@/components/MenuDrawerCustomer.vue';
 import BaseAvatar from '@/components/BaseAvatar.vue';
 import IconMenu from '@/assets/icons/menu.svg';
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'Home',
@@ -125,7 +125,7 @@ export default {
     BaseHeader,
     ArticleMini,
     Button,
-    CustomerMenuDrawer,
+    MenuDrawerCustomer,
     BaseAvatar,
     IconMenu
   },
@@ -133,7 +133,7 @@ export default {
     ...mapGetters('auth', ['isAuthenticated'])
   },
   methods: {
-    ...mapMutations('global', ['isDrawerOpenUpdate'])
+    ...mapActions('global', ['isDrawerOpenUpdate'])
   }
 };
 </script>

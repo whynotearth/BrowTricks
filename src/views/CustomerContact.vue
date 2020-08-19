@@ -7,7 +7,7 @@
     >
       <IconMenu slot="icon" class="h-6 w-6 fill-current" />
       <span slot="content" class="pl-5">{{ tenantName }}</span>
-      <CustomerMenuDrawer slot="menu-drawer" />
+      <MenuDrawerCustomer slot="menu-drawer" />
     </BaseHeader>
     <div slot="content" class="p-6 my-auto text-on-background-image">
       <div class="tg-h1-mobile mb-8">Ask us a question</div>
@@ -42,12 +42,12 @@
 import LayoutFixedScrollable from '@/components/LayoutFixedScrollable.vue';
 import BaseHeader from '@/components/BaseHeader.vue';
 import IconMenu from '@/assets/icons/menu.svg';
-import CustomerMenuDrawer from '@/components/CustomerMenuDrawer.vue';
+import MenuDrawerCustomer from '@/components/MenuDrawerCustomer.vue';
 import BaseInputText from '@/components/BaseInputText.vue';
 import BaseInputTextArea from '@/components/BaseInputTextArea.vue';
 import BaseButton from '@/components/BaseButton.vue';
 import IconSend from '@/assets/icons/send.svg';
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'CustomerContact',
@@ -55,7 +55,7 @@ export default {
     LayoutFixedScrollable,
     BaseHeader,
     IconMenu,
-    CustomerMenuDrawer,
+    MenuDrawerCustomer,
     BaseInputText,
     BaseInputTextArea,
     BaseButton,
@@ -67,7 +67,7 @@ export default {
     })
   },
   methods: {
-    ...mapMutations('global', ['isDrawerOpenUpdate'])
+    ...mapActions('global', ['isDrawerOpenUpdate'])
   }
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <nav class="flex w-full fixed bottom-0 bg-transparent z-100">
+  <nav class="flex w-full fixed bottom-0 bg-transparent z-30">
     <div class="flex flex-auto">
       <div class=" bg-primary flex-1"></div>
       <div class="container container--border px-0">
@@ -9,9 +9,8 @@
           >
             <li class="text-white inline-block m-2 mb-1 tg-caption-mobile">
               <router-link
-                :active-class="'router-active-link'"
-                class="router-normal-link"
-                :to="{ name: 'ShopeHome' }"
+                class="navigation--link"
+                :to="{ name: 'TenantHome' }"
                 exact
               >
                 <HomeIcon class="m-auto" />
@@ -20,8 +19,7 @@
             </li>
             <li class="text-white inline-block m-2 mb-1 tg-caption-mobile">
               <router-link
-                :active-class="'router-active-link'"
-                class="router-normal-link"
+                class="navigation--link"
                 :to="{ name: 'ClientList' }"
               >
                 <UserIcon class="m-auto" />
@@ -32,7 +30,7 @@
           <img class="h-14 m-auto" :src="BottomNavFrame" />
           <ul
             :class="{ opened: isOpen }"
-            class="absolute toggle-menu list-none z-50"
+            class="absolute fab-menu list-none z-50"
           >
             <li
               class="absolute top-0 right-0 flex whitespace-no-wrap text-white text-opacity-84 tg-caption-mobile justify-end my-3"
@@ -52,7 +50,7 @@
             </li>
           </ul>
           <div
-            class="absolute flex content-center w-14 h-14 opacity-100 rounded-full cursor-pointer toggle-button bg-button shadow-6dp z-50"
+            class="absolute flex content-center w-14 h-14 opacity-100 rounded-full cursor-pointer navigation--fab-button bg-button shadow-6dp z-50"
             @click="toggleMenu()"
           >
             <AddIcon
@@ -108,20 +106,20 @@ export default {
 </script>
 
 <style scoped>
-.toggle-button {
+.navigation--fab-button {
   top: -30px;
   right: 16px;
 }
 
-.toggle-button:hover {
+.navigation--fab-button:hover {
   @apply bg-button transition ease-in delay-75;
 }
 
-.toggle-button:active {
+.navigation--fab-button:active {
   @apply bg-button transition ease-in delay-75;
 }
 
-.toggle-menu {
+.fab-menu {
   top: -37px;
   right: 23px;
 }
@@ -130,40 +128,40 @@ export default {
   @apply transition-all ease-in delay-75;
 }
 
-ul.toggle-menu > li {
+ul.fab-menu > li {
   @apply text-transparent transition-all ease-linear;
 
   transition: 0.2s;
 }
 
-ul.toggle-menu.opened > li:nth-child(1) {
+ul.fab-menu.opened > li:nth-child(1) {
   @apply text-white;
 
   transition-duration: 450ms;
   top: -70px;
 }
 
-ul.toggle-menu.opened > li:nth-child(2) {
+ul.fab-menu.opened > li:nth-child(2) {
   @apply text-white;
 
   transition-duration: 450ms;
   top: -130px;
 }
 
-.router-normal-link {
+.navigation--link {
   @apply opacity-medium;
 }
 
-.router-normal-link svg path {
+.navigation--link svg path {
   fill: #fff;
   fill-opacity: 0.54;
 }
 
-.router-active-link {
+.router-link-active {
   @apply text-white opacity-100;
 }
 
-.router-active-link svg path {
+.router-link-active svg path {
   @apply opacity-100;
 
   fill: #fff;
