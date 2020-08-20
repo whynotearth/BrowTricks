@@ -1,6 +1,6 @@
 <template>
   <div class="text-left">
-    <div class="mb-20" v-if="clients.length > 0">
+    <div class="mb-1" v-if="clients.length > 0">
       <div class="" v-for="(client, key) in clients" :key="key">
         <h6
           v-if="showLetter(clients[key - 1], client)"

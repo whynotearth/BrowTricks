@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="min-h-vh100 h-full text-center font-sans">
-    <transition :name="transitionName">
+    <transition group :name="transitionName">
       <component
         :is="this.$route.meta.layout || 'div'"
         class="h-full min-h-vh100"
@@ -14,7 +14,6 @@
 import BaseOverlaySuccess from '@/components/BaseOverlaySuccess.vue';
 import { mapGetters } from 'vuex';
 import vhFix from '@/mixins/vhFix.js';
-import SlideBack from '@/components/animations/SlideBack.vue';
 
 export default {
   name: 'App',
@@ -24,7 +23,7 @@ export default {
     };
   },
   mixins: [vhFix],
-  components: { BaseOverlaySuccess, SlideBack },
+  components: { BaseOverlaySuccess },
   computed: {
     ...mapGetters('overlay', {
       overlayModel: 'model'

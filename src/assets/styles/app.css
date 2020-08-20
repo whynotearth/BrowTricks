@@ -12,18 +12,14 @@
 @import './inputs.css';
 @import './scrollbars.css';
 
-.layout-splash {
-  background-image: url('https://res.cloudinary.com/whynotearth/image/upload/v1590460151/BrowTricks/Action_page_background_zlpen3.png');
-  @apply bg-cover bg-no-repeat;
+.has-noise {
+  background-image: url(https://res.cloudinary.com/whynotearth/image/upload/v1597904330/BrowTricks/static_v2/noise_m7ti9c.png);
+  background-repeat: repeat;
 }
 
-.surface-dm {
-  background: linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 0.05),
-      rgba(255, 255, 255, 0.05)
-    ),
-    /* background */ #081131;
+.layout-splash {
+  background-image: url('https://res.cloudinary.com/whynotearth/image/upload/v1597845106/BrowTricks/static_v2/background-full-page_gon3ol.png');
+  @apply bg-cover bg-no-repeat;
 }
 
 .min-h-vh100 {

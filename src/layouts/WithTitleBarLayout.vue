@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="page bg-background min-h-screen flex flex-col text-white text-opacity-medium"
-  >
+  <div class="page min-h-screen flex flex-col text-white text-opacity-medium">
     <header
       class="bg-primary z-20 shadow-4dp flex items-center p-4 sticky top-0"
     >
@@ -23,10 +21,7 @@
     </div>
     <!-- content -->
     <!-- mb-14 for bottom navigation -->
-    <div
-      class="relative flex-grow max-w-6xl mx-auto w-full mb-14 pb-6"
-      v-show="!isLoading"
-    >
+    <div class="relative flex-grow w-full mb-14 pb-6" v-show="!isLoading">
       <slot v-if="isVisible" />
     </div>
 
