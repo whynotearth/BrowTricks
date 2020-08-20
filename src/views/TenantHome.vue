@@ -2,9 +2,9 @@
   <!-- TODO: move layout to route meta -->
   <ClassicLayout>
     <template #header>
-      <BaseHeader @iconClicked="isDrawerOpenUpdate(true)">
+      <BaseHeader @iconClicked="isDrawerOpenUpdate(true)" theme="light">
         <template #icon>
-          <IconMenu class="h-6 w-6 fill-current text-white text-opacity-high" />
+          <IconMenu class="h-6 w-6 fill-current" />
         </template>
         <template #menu-drawer>
           <MenuDrawerPanel :tenantSlug="tenantSlug" />

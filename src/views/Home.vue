@@ -4,7 +4,7 @@
     <template #header>
       <BaseHeader @iconClicked="isDrawerOpenUpdate(true)">
         <template #icon>
-          <IconMenu class="h-6 w-6 fill-current text-white text-opacity-high" />
+          <IconMenu class="h-6 w-6 fill-current" />
         </template>
         <template #menu-drawer>
           <MenuDrawerCustomer />

@@ -1,7 +1,9 @@
 <template>
-  <SplashLayout>
+  <SplashLayout
+    backgroundImage="https://res.cloudinary.com/whynotearth/image/upload/v1590460151/BrowTricks/Action_page_background_zlpen3.png"
+  >
     <template #title>
-      <h1 class="tg-h1-mobile text-white text-opacity-high">
+      <h1 class="tg-h1-mobile text-on-primary text-opacity-high">
         {{ appName }}
       </h1>
     </template>
@@ -14,7 +16,7 @@
     <template #tertiaryCTA>
       <Button
         :to="{ name: 'SignUp', params: { step: 'business-info' } }"
-        class="text-on-background-image text-opacity-medium normal-case"
+        class="text-on-background text-opacity-medium normal-case"
         title="No account? Sign Up For Brow Tricks Beauty!"
         background="bg-transparent"
       />

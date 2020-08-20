@@ -5,7 +5,7 @@
       textColor="text-white"
       :maxWidth="null"
       textJustify="justify-start"
-      class="bg-footer text-white text-opacity-medium py-3"
+      class="bg-primary text-white text-opacity-medium py-3"
       :width="hideNext ? 'flex-grow' : 'w-1/3'"
       @clicked="$emit('previousStep')"
       v-if="firstPageStepBack || page != 1"

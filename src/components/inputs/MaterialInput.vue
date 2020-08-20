@@ -108,7 +108,7 @@ export default {
       if (this.labelBackground) {
         return this.labelBackground;
       }
-      return this.theme === 'dark' ? 'bg-surface' : 'bg-background';
+      return this.theme === 'dark' ? 'bg-surface' : 'bg-surface';
     },
     textColor() {
       return this.theme === 'dark' ? 'text-on-surface' : 'text-on-background';

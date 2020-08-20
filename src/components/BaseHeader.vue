@@ -1,13 +1,14 @@
 <template>
   <div
-    class="h-14 w-full px-2 py-5 sticky top-0 z-40 flex justify-between items-center bg-primary"
+    class="h-14 w-full px-2 py-5 sticky top-0 z-40 flex justify-between items-center background-noise"
+    :class="[background, shadow]"
   >
     <a
       v-if="$slots.icon"
       @click.prevent="$emit('iconClicked')"
       class="cursor-pointer w-10 h-10 flex justify-center items-center"
     >
-      <slot name="icon" />
+      <span class="opacity-high" :class="[iconColor]"><slot name="icon"/></span>
     </a>
     <div v-if="$slots.content" class="tg-h2-mobile">
       <slot name="content" />
@@ -22,6 +23,23 @@
 
 <script>
 export default {
-  name: 'BaseHeader'
+  name: 'BaseHeader',
+  props: {
+    theme: {
+      type: String,
+      default: 'dark'
+    }
+  },
+  computed: {
+    background() {
+      return this.theme === 'dark' ? 'bg-primary' : 'bg-background';
+    },
+    shadow() {
+      return this.theme === 'dark' ? 'shadow-4dp' : '';
+    },
+    iconColor() {
+      return this.theme === 'dark' ? 'text-background' : 'text-primary';
+    }
+  }
 };
 </script>

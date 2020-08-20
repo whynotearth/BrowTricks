@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-footer shadow-md mb-4 py-1 flex items-center sticky inset-x-0 top-0 z-10"
+    class="bg-primary shadow-md mb-4 py-1 flex items-center sticky inset-x-0 top-0 z-10"
   >
     <div class="relative">
       <svg class="w-20 h-20 text-inactive">

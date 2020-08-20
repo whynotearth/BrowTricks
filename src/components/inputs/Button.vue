@@ -1,8 +1,9 @@
 <template>
   <component
     :is="type"
-    class="button tg-color-label-mobile font-semibold uppercase cursor-pointer transition-all duration-75"
+    class="button tg-color-label-mobile font-semibold uppercase cursor-pointer transition-all duration-75 text-opacity-high"
     :class="[
+      `theme-${theme}`,
       margin,
       display,
       maxWidth,
@@ -16,9 +17,12 @@
     :href="href"
     :to="to"
   >
-    <div class="flex content-between w-full" :class="textJustify">
+    <div
+      class="flex content-between w-full items-center"
+      :class="[textJustify]"
+    >
       <slot name="start" />
-      <div class="flex items-center flex-grow-0">
+      <div class="flex items-center flex-grow-0 mx-auto">
         {{ title }}
       </div>
       <slot name="end" />
@@ -48,10 +52,6 @@ export default {
       type: String,
       default: 'bg-secondary'
     },
-    textColor: {
-      type: String,
-      default: 'text-primary'
-    },
     textJustify: {
       type: String,
       default: 'justify-center'
@@ -75,6 +75,10 @@ export default {
     margin: {
       type: String,
       default: 'mx-auto'
+    },
+    theme: {
+      type: String,
+      default: 'softgradient'
     }
   },
   computed: {
@@ -93,6 +97,11 @@ export default {
       } else {
         return 'button';
       }
+    },
+    textColor() {
+      return this.theme === 'softgradient'
+        ? 'text-on-secondary'
+        : 'text-primary';
     }
   }
 };
@@ -102,5 +111,15 @@ export default {
 .button:focus {
   outline: none;
   box-shadow: 0 0 0 2px white;
+}
+.theme-softgradient {
+  @apply shadow-2dp;
+  background: linear-gradient(
+      308deg,
+      rgba(237, 187, 174, 0.14) 0%,
+      rgba(255, 255, 255, 0.42) 49.37%,
+      rgba(255, 255, 255, 0.42) 98.01%
+    ),
+    #edaeae;
 }
 </style>

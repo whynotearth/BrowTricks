@@ -1,48 +1,41 @@
 <template>
-  <div class="bg-background text-left" v-if="client">
-    <div
-      class="bg-opacity-high pt-8 px-4 text-white h-auto flex flex-col items-center"
-    >
-      <img
-        class="w-16 h-16 rounded-full"
-        :src="
-          client.avatarUrl ||
-            'https://res.cloudinary.com/whynotearth/image/upload/v1595228411/BrowTricks/avatar-placeholder_dphhvx.png'
-        "
-        alt="user-logo"
-      />
-      <h3 class="py-4 tg-h1-mobile text-black">
+  <div class="text-left text-on-background text-opacity-high" v-if="client">
+    <!-- header -->
+    <BaseHeroSection>
+      <img class="h-12 rounded-full" :src="logo" alt="user-logo" />
+      <h3 class="py-6 tg-h2-mobile text-on-background">
         {{ client.firstName }} {{ client.lastName }}
       </h3>
-      <div class="flex justify-around tg-caption-mobile pb-16 w-full sm:w-auto">
+      <div class="flex justify-around tg-caption-mobile w-full sm:w-auto">
         <a
           class="flex flex-col items-center px-4 sm:px-8 text-secondary"
           :href="`mailto:${client.email}`"
         >
           <IconMail class="fill-current mb-2" />
-          <span>Email</span>
+          <span class="text-on-background text-opacity-high">Email</span>
         </a>
         <a
           class="flex flex-col items-center px-4 sm:px-8 text-secondary"
           :href="`sms:${client.phoneNumber}`"
         >
           <IconPhoneAndroid class="fill-current mb-2" />
-          <span>Text</span>
+          <span class="text-on-background text-opacity-high">Text</span>
         </a>
         <a
           class="flex flex-col items-center px-4 sm:px-8 text-secondary"
           :href="`tel:${client.phoneNumber}`"
         >
           <IconPhone class="fill-current mb-2" />
-          <span>Call</span>
+          <span class="text-on-background text-opacity-high">Call</span>
         </a>
       </div>
-    </div>
-    <div class="max-w-md mx-auto px-4">
+    </BaseHeroSection>
+
+    <!-- content -->
+    <div class="max-w-md mx-auto px-4 -mt-16">
       <div class="shadow-1dp px-2 py-6 rounded-lg mb-4 bg-surface">
         <MaterialInput
           margin="mb-6"
-          theme="light"
           v-model="$v.client.firstName.$model"
           label="First Name"
           :error="$v.client.firstName.$error"
@@ -53,7 +46,6 @@
         </MaterialInput>
         <MaterialInput
           margin="mb-6"
-          theme="light"
           v-model="$v.client.lastName.$model"
           label="Last Name"
           :error="$v.client.lastName.$error"
@@ -64,7 +56,6 @@
         </MaterialInput>
         <MaterialInput
           margin="mb-6"
-          theme="light"
           v-model="$v.client.phoneNumber.$model"
           label="Phone Number"
           :error="$v.client.phoneNumber.$error"
@@ -84,7 +75,6 @@
         </MaterialInput>
         <MaterialInput
           :margin="null"
-          theme="light"
           v-model="$v.client.email.$model"
           label="Email"
           :error="$v.client.email.$error"
@@ -165,7 +155,11 @@
         </template>
       </ExpansionPanel>
       <div class="py-6">
-        <Button class="rounded-full" title="Save" @clicked="save" />
+        <Button
+          class="rounded-full"
+          title="Save"
+          @clicked="save"
+        />
         <Button
           class="mt-8 tg-body-mobile text-error pb-4"
           title="Delete Client"
@@ -211,6 +205,7 @@ import { required, minLength, email } from 'vuelidate/lib/validators';
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
 import Button from '@/components/inputs/Button.vue';
 import ExpansionPanel from '@/components/ExpansionPanel.vue';
+import BaseHeroSection from '@/components/BaseHeroSection.vue';
 
 import IconDocument from '@/assets/icons/document.svg';
 import IconNotes from '@/assets/icons/notes.svg';
@@ -237,6 +232,7 @@ export default {
     }
   },
   components: {
+    BaseHeroSection,
     IconDocument,
     IconNotes,
     IconNotification,
@@ -250,6 +246,7 @@ export default {
   },
   data() {
     return {
+      logo: process.env.VUE_APP_LOGO2_URL,
       client: null,
       isArchiveModalOpen: false
     };
