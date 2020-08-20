@@ -1,5 +1,8 @@
 <template>
-  <div class="layout-splash text-on-background-image bg-cover bg-no-repeat">
+  <div
+    class="layout--splash text-on-background-image bg-cover bg-no-repeat"
+    :style="{ 'background-image': `url(${backgroundImage})` }"
+  >
     <!-- loading -->
     <div
       v-show="isLoading"
@@ -57,12 +60,20 @@ export default {
   components: { BaseSpinner },
   computed: {
     ...mapGetters('loading', ['isLoading'])
+  },
+  props: {
+    backgroundImage: {
+      type: String,
+      default:
+        'https://res.cloudinary.com/whynotearth/image/upload/v1597845106/BrowTricks/static_v2/background-full-page_gon3ol.png'
+    }
   }
 };
 </script>
 
 <style scoped>
-.layout-splash {
-  background-image: url('https://res.cloudinary.com/whynotearth/image/upload/v1597845106/BrowTricks/static_v2/background-full-page_gon3ol.png');
+.layout--splash {
+  background-size: cover;
+  background-position: center;
 }
 </style>
