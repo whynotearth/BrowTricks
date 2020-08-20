@@ -26,7 +26,7 @@
       </BaseHeader>
     </template>
     <template #content>
-      <div class="mx-auto max-w-sm lg:max-w-lg">
+      <div class="px-4 mx-auto max-w-sm lg:max-w-lg">
         <img
           class="mx-auto block mt-6 mb-14"
           src="https://res.cloudinary.com/whynotearth/image/upload/v1597844859/BrowTricks/static_v2/logo-round_hpkxxz.png"
@@ -51,10 +51,9 @@
         <Button
           :to="{ name: 'Welcome' }"
           :isRounded="true"
-          textColor="text-on-secondary"
-          background="bg-secondary"
           title="Sign Up"
           class="mb-10"
+          theme="btnsecondary"
         />
 
         <ArticleMini class="mb-10">
@@ -98,10 +97,9 @@
         <Button
           :to="{ name: 'Welcome' }"
           :isRounded="true"
-          textColor="text-on-secondary"
-          background="bg-secondary"
           title="Sign Up"
           class="mb-10"
+          theme="btnsecondary"
         />
       </div>
     </template>

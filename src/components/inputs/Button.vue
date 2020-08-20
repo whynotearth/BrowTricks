@@ -4,6 +4,7 @@
     class="button tg-color-label-mobile font-semibold uppercase cursor-pointer transition-all duration-75 text-opacity-high"
     :class="[
       `theme-${theme}`,
+      shadow,
       margin,
       display,
       maxWidth,
@@ -52,6 +53,10 @@ export default {
       type: String,
       default: ''
     },
+    shadow: {
+      type: String,
+      default: ''
+    },
     textJustify: {
       type: String,
       default: 'justify-center'
@@ -78,7 +83,7 @@ export default {
     },
     theme: {
       type: String,
-      default: 'softgradient'
+      default: 'btnprimary' // ['btnprimary', 'btnsecondary']
     }
   },
   computed: {
@@ -99,9 +104,7 @@ export default {
       }
     },
     textColor() {
-      return this.theme === 'softgradient'
-        ? 'text-on-secondary'
-        : 'text-primary';
+      return this.theme === 'btnprimary' ? 'text-on-secondary' : 'text-primary';
     }
   }
 };
@@ -112,7 +115,7 @@ export default {
   outline: none;
   box-shadow: 0 0 0 2px white;
 }
-.theme-softgradient {
+.theme-btnprimary {
   @apply shadow-2dp;
   background: linear-gradient(
       308deg,
@@ -121,5 +124,8 @@ export default {
       rgba(255, 255, 255, 0.42) 98.01%
     ),
     #edaeae;
+}
+.theme-btnsecondary {
+  @apply shadow-2dp bg-secondary;
 }
 </style>

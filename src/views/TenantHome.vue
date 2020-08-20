@@ -2,7 +2,11 @@
   <!-- TODO: move layout to route meta -->
   <ClassicLayout>
     <template #header>
-      <BaseHeader @iconClicked="isDrawerOpenUpdate(true)" theme="light">
+      <BaseHeader
+        @iconClicked="isDrawerOpenUpdate(true)"
+        theme="light"
+        hasNoise="has-noise"
+      >
         <template #icon>
           <IconMenu class="h-6 w-6 fill-current" />
         </template>

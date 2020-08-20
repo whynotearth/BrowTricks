@@ -155,11 +155,7 @@
         </template>
       </ExpansionPanel>
       <div class="py-6">
-        <Button
-          class="rounded-full"
-          title="Save"
-          @clicked="save"
-        />
+        <Button class="rounded-full" title="Save" @clicked="save" />
         <Button
           class="mt-8 tg-body-mobile text-error pb-4"
           title="Delete Client"
@@ -173,27 +169,24 @@
         @click="isArchiveModalOpen = false"
       >
         <div class="h-full w-screen flex justify-center items-center">
-          <div @click.stop class="rounded-lg w-full mx-4 p-8 sm:w-128">
-            <h6 class="text-on-background text-opacity-medium">
-              Archive Client?
-            </h6>
-            <div class="flex justify-end">
-              <Button
-                class="mt-8 tg-body-mobile text-error"
-                title="Cancel"
-                theme="none"
-                @clicked="isArchiveModalOpen = false"
-                width="w-auto"
-              />
-              <Button
-                class="mt-8 tg-body-mobile text-secondary"
-                title="Archive"
-                theme="none"
-                @clicked="archive"
-                width="w-auto"
-              />
-            </div>
-          </div>
+          <BaseDialog title="Archive Client?">
+            <Button
+              class="text-error"
+              title="Cancel"
+              theme="none"
+              @clicked="isArchiveModalOpen = false"
+              width="w-auto"
+              :margin="null"
+            />
+            <Button
+              class="text-secondary"
+              title="Archive"
+              theme="none"
+              @clicked="archive"
+              width="w-auto"
+              :margin="null"
+            />
+          </BaseDialog>
         </div>
       </div>
     </div>
@@ -205,6 +198,7 @@ import { required, minLength, email } from 'vuelidate/lib/validators';
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
 import Button from '@/components/inputs/Button.vue';
 import ExpansionPanel from '@/components/ExpansionPanel.vue';
+import BaseDialog from '@/components/BaseDialog.vue';
 import BaseHeroSection from '@/components/BaseHeroSection.vue';
 
 import IconDocument from '@/assets/icons/document.svg';
@@ -232,6 +226,7 @@ export default {
     }
   },
   components: {
+    BaseDialog,
     BaseHeroSection,
     IconDocument,
     IconNotes,
