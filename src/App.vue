@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="min-h-vh100 h-full text-center font-sans">
-    <transition group :name="transitionName">
+    <transition :name="transitionName">
       <component
         :is="this.$route.meta.layout || 'div'"
         class="h-full min-h-vh100"
