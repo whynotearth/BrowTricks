@@ -3,14 +3,10 @@
   <div
     class="layout-splash min-h-screen w-full flex flex-col justify-between sm:justify-center items-center py-20"
   >
-    <div class="sm:py-16 flex flex-col items-center">
-      <div class="py-3">
-        <img height="450" width="225" :src="logoUrl" alt="browtricks-logo" />
-      </div>
-    </div>
+    <div></div>
     <div class="sm:py-10 w-full md:w-auto px-5">
       <div class="py-3">
-        <h1 class="tg-h1-mobile text-white text-opacity-high">
+        <h1 class="tg-h2-mobile text-white text-opacity-high">
           {{ appName }}
         </h1>
       </div>
@@ -24,10 +20,9 @@
       <div class="py-3 text-center" v-if="!isAuthenticated">
         <Button
           :to="{ name: 'Login' }"
-          class="tg-body-hyperlink-mobile text-on-background-image text-opacity-medium pb-4 normal-case font-normal"
+          class="tg-body-hyperlink-mobile text-on-background text-opacity-medium pb-4 normal-case font-normal"
           title="Already have an account? Log in!"
-          background="bg-transparent"
-          :isRipple="false"
+          theme="none"
         />
       </div>
     </div>
@@ -35,7 +30,7 @@
 </template>
 
 <script>
-import Button from '@/components/Button.vue';
+import Button from '@/components/inputs/Button.vue';
 import { mapGetters } from 'vuex';
 
 export default {

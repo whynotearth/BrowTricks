@@ -18,7 +18,7 @@
         :to="{ name: 'SignUp', params: { step: 'business-info' } }"
         class="text-on-background text-opacity-medium normal-case"
         title="No account? Sign Up For Brow Tricks Beauty!"
-        background="bg-transparent"
+        theme="none"
       />
     </template>
   </SplashLayout>

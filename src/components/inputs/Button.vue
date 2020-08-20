@@ -50,7 +50,7 @@ export default {
     },
     background: {
       type: String,
-      default: 'bg-secondary'
+      default: ''
     },
     textJustify: {
       type: String,

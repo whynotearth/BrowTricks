@@ -163,7 +163,7 @@
         <Button
           class="mt-8 tg-body-mobile text-error pb-4"
           title="Delete Client"
-          background="bg-transparent"
+          theme="none"
           @clicked="isArchiveModalOpen = true"
         />
       </div>
@@ -181,14 +181,14 @@
               <Button
                 class="mt-8 tg-body-mobile text-error"
                 title="Cancel"
-                background="bg-transparent"
+                theme="none"
                 @clicked="isArchiveModalOpen = false"
                 width="w-auto"
               />
               <Button
                 class="mt-8 tg-body-mobile text-secondary"
                 title="Archive"
-                background="bg-transparent"
+                theme="none"
                 @clicked="archive"
                 width="w-auto"
               />
