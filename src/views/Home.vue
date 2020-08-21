@@ -1,8 +1,12 @@
 <template>
   <!-- TODO: move layout to route meta -->
-  <ClassicLayout class="bg-background">
+  <ClassicLayout>
     <template #header>
-      <BaseHeader @iconClicked="isDrawerOpenUpdate(true)">
+      <BaseHeader
+        @iconClicked="isDrawerOpenUpdate(true)"
+        theme="light"
+        hasNoise="has-noise"
+      >
         <template #icon>
           <IconMenu class="h-6 w-6 fill-current" />
         </template>
@@ -17,7 +21,7 @@
             <router-link
               v-if="!isAuthenticated"
               :to="{ name: 'Login' }"
-              class="uppercase text-secondary"
+              class="uppercase text-on-background"
             >
               Log In
             </router-link>

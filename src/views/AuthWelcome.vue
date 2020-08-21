@@ -1,7 +1,7 @@
 <template>
   <!-- TODO: use layouts/LayoutSplash.vue -->
   <div
-    class="layout-splash min-h-screen w-full flex flex-col justify-between sm:justify-center items-center py-20"
+    class="layout-splash min-h-screen w-full flex flex-col justify-between sm:justify-center items-center py-14"
   >
     <div></div>
     <div class="sm:py-10 w-full md:w-auto px-5">
@@ -14,13 +14,14 @@
         <Button
           :to="{ name: 'SignUp', params: { step: 'business-info' } }"
           title="START SETTING UP YOUR BUSINESS"
-          class="tg-color-label-mobile text-white text-opacity-high rounded-full py-3 px-10"
+          class="tg-color-label-mobile text-white text-opacity-high rounded-full py-3"
         />
       </div>
       <div class="py-3 text-center" v-if="!isAuthenticated">
         <Button
           :to="{ name: 'Login' }"
-          class="tg-body-hyperlink-mobile text-on-background text-opacity-medium pb-4 normal-case font-normal"
+          class="normal-case"
+          textColor="text-on-background text-opacity-medium"
           title="Already have an account? Log in!"
           theme="none"
         />

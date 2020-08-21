@@ -16,7 +16,8 @@
     <template #tertiaryCTA>
       <Button
         :to="{ name: 'SignUp', params: { step: 'business-info' } }"
-        class="text-on-background text-opacity-medium normal-case"
+        class="normal-case"
+        textColor="text-on-background text-opacity-medium"
         title="No account? Sign Up For Brow Tricks Beauty!"
         theme="none"
       />

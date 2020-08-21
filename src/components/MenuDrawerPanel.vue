@@ -6,7 +6,7 @@
         class="pb-8 cursor-pointer block"
         @click.native="closeDrawer"
         :to="{
-          name: 'TenantHome'
+          name: 'ShopHome'
         }"
       >
         Home
@@ -57,7 +57,7 @@
 
 <script>
 import BaseDrawerMenu from '@/components/BaseDrawerMenu.vue';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import store from '@/store';
 
 export default {
@@ -68,6 +68,7 @@ export default {
     ...mapGetters('auth', ['isAuthenticated'])
   },
   methods: {
+    ...mapActions('auth', ['logout']),
     closeDrawer() {
       // native event has no access to 'this'
       store.dispatch('global/isDrawerOpenUpdate', false);

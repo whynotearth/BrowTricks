@@ -157,38 +157,36 @@
       <div class="py-6">
         <Button class="rounded-full" title="Save" @clicked="save" />
         <Button
-          class="mt-8 tg-body-mobile text-error pb-4"
+          class="mt-8"
+          textColor="text-error"
           title="Delete Client"
           theme="none"
-          @clicked="isArchiveModalOpen = true"
+          @clicked="isDeleteModalOpen = true"
         />
       </div>
-      <div
-        v-if="isArchiveModalOpen"
-        class="z-50 fixed inset-0 bg-on-background bg-opacity-25"
-        @click="isArchiveModalOpen = false"
+
+      <BaseDialog
+        v-if="isDeleteModalOpen"
+        @close="isDeleteModalOpen = false"
+        title="Delete Client?"
       >
-        <div class="h-full w-screen flex justify-center items-center">
-          <BaseDialog title="Archive Client?">
-            <Button
-              class="text-error"
-              title="Cancel"
-              theme="none"
-              @clicked="isArchiveModalOpen = false"
-              width="w-auto"
-              :margin="null"
-            />
-            <Button
-              class="text-secondary"
-              title="Archive"
-              theme="none"
-              @clicked="archive"
-              width="w-auto"
-              :margin="null"
-            />
-          </BaseDialog>
-        </div>
-      </div>
+        <Button
+          textColor="text-on-primary text-opacity-medium"
+          title="Cancel"
+          theme="none"
+          @clicked="isDeleteModalOpen = false"
+          width="w-auto"
+          :margin="null"
+        />
+        <Button
+          textColor="text-error"
+          title="Delete"
+          theme="none"
+          @clicked="archive"
+          width="w-auto"
+          :margin="null"
+        />
+      </BaseDialog>
     </div>
   </div>
 </template>
@@ -243,7 +241,7 @@ export default {
     return {
       logo: process.env.VUE_APP_LOGO2_URL,
       client: null,
-      isArchiveModalOpen: false
+      isDeleteModalOpen: false
     };
   },
   validations: {
@@ -318,7 +316,7 @@ export default {
         tenantSlug: this.tenantSlug,
         clientId: this.clientId
       }).then(async () => {
-        this.isArchiveModalOpen = false;
+        this.isDeleteModalOpen = false;
         this.$store.commit('overlay/updateModel', {
           title: 'Success!',
           message: 'Client archived successfully!'
