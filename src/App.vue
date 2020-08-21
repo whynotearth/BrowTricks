@@ -5,7 +5,9 @@
         :is="this.$route.meta.layout || 'div'"
         class="h-full min-h-vh100"
       >
-        <router-view />
+        <transition :name="transitionName">
+          <router-view />
+        </transition>
       </component>
     </transition>
   </div>
