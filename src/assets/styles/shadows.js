@@ -11,6 +11,8 @@ const boxShadow = {
     '0px 3px 5px rgba(0, 0, 0, 0.2), 0px 1px 18px rgba(0, 0, 0, 0.12), 0px 6px 10px rgba(0, 0, 0, 0.14)',
   '8dp':
     '0px 4px 5px rgba(0, 0, 0, 0.2), 0px 3px 14px rgba(0, 0, 0, 0.12), 0px 8px 10px rgba(0, 0, 0, 0.14)',
+  '-8dp':
+    '0px -8px 10px rgba(0, 0, 0, 0.14), 0px -3px 14px rgba(0, 0, 0, 0.12), 0px -4px 5px rgba(0, 0, 0, 0.2)',
   '9dp':
     '0px 5px 6px rgba(0, 0, 0, 0.2), 0px 3px 16px rgba(0, 0, 0, 0.12), 0px 9px 12px rgba(0, 0, 0, 0.14)',
   '12dp':

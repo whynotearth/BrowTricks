@@ -1,6 +1,7 @@
 <template>
   <div class="px-6">
     <MaterialInput
+      labelBackground="has-noise bg-background"
       v-model="$v.name.$model"
       label="Name"
       :error="$v.name.$error"
@@ -10,6 +11,7 @@
       </span>
     </MaterialInput>
     <MaterialInput
+      labelBackground="has-noise bg-background"
       v-model="$v.phone.$model"
       label="Phone number"
       :error="$v.phone.$error"
@@ -21,7 +23,11 @@
         Phone number is not valid, it should be a US phone number
       </p>
     </MaterialInput>
-    <TextArea v-model="$v.description.$model" label="Description" />
+    <TextArea
+      v-model="$v.description.$model"
+      label="Description"
+      labelBackground="has-noise bg-background"
+    />
     <hr class="border-on-background border-opacity-divider my-8" />
     <MediaManager
       :maxFiles="1"
