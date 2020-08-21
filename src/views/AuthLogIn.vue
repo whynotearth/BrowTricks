@@ -1,14 +1,9 @@
 <template>
-  <SplashLayout
-    backgroundImage="https://res.cloudinary.com/whynotearth/image/upload/v1590460151/BrowTricks/Action_page_background_zlpen3.png"
-  >
+  <SplashLayout>
     <template #title>
       <h1 class="tg-h1-mobile text-on-primary text-opacity-high">
         {{ appName }}
       </h1>
-    </template>
-    <template #image>
-      <img height="450" width="225" :src="logoUrl" alt="browtricks-logo" />
     </template>
     <template #primaryCTA>
       <AuthButtons />

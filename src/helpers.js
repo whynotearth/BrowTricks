@@ -191,9 +191,9 @@ export function cloudinaryFileToMeredithFileAdapter(cloudinaryFileInfo) {
   }
 }
 
-export function disableScrollbars() {
+export function disableScrollbar() {
   document.body.classList.add('overflow-hidden');
 }
-export function enableScrollbars() {
+export function enableScrollbar() {
   document.body.classList.remove('overflow-hidden');
 }

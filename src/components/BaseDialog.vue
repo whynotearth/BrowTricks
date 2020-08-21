@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { disableScrollbars, enableScrollbars } from '@/helpers.js';
+import { disableScrollbar, enableScrollbar } from '@/helpers.js';
 
 export default {
   name: 'BaseDialog',
@@ -33,10 +33,10 @@ export default {
     }
   },
   mounted() {
-    disableScrollbars();
+    disableScrollbar();
   },
   beforeDestroy() {
-    enableScrollbars();
+    enableScrollbar();
   }
 };
 </script>

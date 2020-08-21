@@ -24,7 +24,7 @@
       :class="[textJustify]"
     >
       <slot name="start" />
-      <div class="flex items-center flex-grow-0 mx-auto">
+      <div class="flex items-center flex-grow-0">
         {{ title }}
       </div>
       <slot name="end" />

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="-my-4">
+    <div class="-my-2 pb-12">
       <div
         class="cursor-pointer"
         v-for="(day, index) in businessHours"
@@ -65,9 +65,11 @@ export default {
     ...mapMutations('tenant', ['updateBusinessHours']),
     dayClicked(index) {
       this.selectedIndex = index;
+      this.$emit('modalToggled', true);
     },
     closeModal() {
       this.selectedIndex = null;
+      this.$emit('modalToggled', false);
     }
   },
   computed: {
