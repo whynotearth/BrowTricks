@@ -11,7 +11,8 @@ const colors = {
   'on-surface': '#000000',
   'on-background': '#000000',
   'on-error': '#FFFFFF',
-  'on-background-image': '#FFFFFF'
+  'on-background-image': '#FFFFFF',
+  brand1: '#EDAEAE'
 };
 
 module.exports = colors;

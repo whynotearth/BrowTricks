@@ -34,7 +34,6 @@ export default {
   },
   methods: {
     ...mapActions('global', ['isDrawerOpenUpdate']),
-    ...mapActions('auth', ['logout']),
     toggleDrawer() {
       this.isDrawerOpenUpdate(!this.isDrawerOpen);
     }
