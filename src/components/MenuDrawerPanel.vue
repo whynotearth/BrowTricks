@@ -6,7 +6,7 @@
         class="pb-8 cursor-pointer block"
         @click.native="closeDrawer"
         :to="{
-          name: 'ShopHome'
+          name: tenantSlug ? 'TenantHome' : 'Home'
         }"
       >
         Home
