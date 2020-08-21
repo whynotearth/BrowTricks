@@ -1,5 +1,5 @@
 import { cloneDeep } from 'lodash-es';
-import { disableScrollbars, enableScrollbars } from '@/helpers.js';
+import { disableScrollbar, enableScrollbar } from '@/helpers.js';
 
 const defaultState = {
   isDrawerOpen: false
@@ -13,9 +13,9 @@ const mutations = {
 const actions = {
   isDrawerOpenUpdate({ commit }, payload) {
     if (payload) {
-      disableScrollbars();
+      disableScrollbar();
     } else {
-      enableScrollbars();
+      enableScrollbar();
     }
 
     commit('isDrawerOpenUpdate', payload);

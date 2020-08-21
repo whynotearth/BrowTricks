@@ -1,5 +1,5 @@
 <template>
-  <div class="px-6">
+  <div class="px-6 pb-14">
     <MaterialInput
       labelBackground="has-noise bg-background"
       v-model="$v.name.$model"

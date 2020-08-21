@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full text-center mt-4 flex sticky inset-x-0 bottom-0 z-10 -shadow-8dp"
+    class="w-full text-center mt-4 flex fixed inset-x-0 bottom-0 z-40 -shadow-8dp"
   >
     <Button
       title="Back"
