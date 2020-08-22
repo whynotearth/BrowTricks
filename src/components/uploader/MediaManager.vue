@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-4">
+  <div>
     <div class="mb-2">
       <slot name="title">
         <span

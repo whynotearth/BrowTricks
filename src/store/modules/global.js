@@ -1,4 +1,5 @@
 import { cloneDeep } from 'lodash-es';
+import { disableScrollbar, enableScrollbar } from '@/helpers.js';
 
 const defaultState = {
   isDrawerOpen: false
@@ -12,9 +13,9 @@ const mutations = {
 const actions = {
   isDrawerOpenUpdate({ commit }, payload) {
     if (payload) {
-      _disableScrollbars();
+      disableScrollbar();
     } else {
-      _enableScrollbars();
+      enableScrollbar();
     }
 
     commit('isDrawerOpenUpdate', payload);
@@ -33,10 +34,3 @@ export default {
   actions,
   mutations
 };
-
-function _disableScrollbars() {
-  document.body.classList.add('overflow-hidden');
-}
-function _enableScrollbars() {
-  document.body.classList.remove('overflow-hidden');
-}

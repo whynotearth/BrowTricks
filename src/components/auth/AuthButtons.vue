@@ -18,6 +18,7 @@
             class="fill-current text-on-secondary text-opacity-high"
           />
         </template>
+        <template #end><i></i></template>
       </Button>
     </div>
   </div>

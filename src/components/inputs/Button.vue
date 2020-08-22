@@ -1,7 +1,7 @@
 <template>
   <component
     :is="type"
-    class="button tg-color-label-mobile font-semibold uppercase cursor-pointer transition-all duration-75 text-opacity-high"
+    class="button tg-color-label-mobile font-semibold uppercase cursor-pointer transition-all duration-75"
     :class="[
       `theme-${theme}`,
       shadow,
@@ -11,9 +11,10 @@
       isRounded ? 'rounded-full' : '',
       width,
       background,
-      textColor,
+      textColorComputed,
       padding
     ]"
+    v-bind="attrs"
     v-on="eventListeners"
     :href="href"
     :to="to"
@@ -23,7 +24,7 @@
       :class="[textJustify]"
     >
       <slot name="start" />
-      <div class="flex items-center flex-grow-0 mx-auto">
+      <div class="flex items-center flex-grow-0">
         {{ title }}
       </div>
       <slot name="end" />
@@ -35,6 +36,10 @@
 export default {
   name: 'Button',
   props: {
+    attrs: {
+      type: Object,
+      default: () => {}
+    },
     href: {
       type: String
     },
@@ -60,6 +65,10 @@ export default {
     textJustify: {
       type: String,
       default: 'justify-center'
+    },
+    textColor: {
+      type: String,
+      default: ''
     },
     maxWidth: {
       type: String,
@@ -103,8 +112,13 @@ export default {
         return 'button';
       }
     },
-    textColor() {
-      return this.theme === 'btnprimary' ? 'text-on-secondary' : 'text-primary';
+    textColorComputed() {
+      if (this.textColor) {
+        return this.textColor;
+      }
+      return this.theme === 'btnprimary'
+        ? 'text-on-secondary text-opacity-high'
+        : 'text-primary text-opacity-high';
     }
   }
 };
