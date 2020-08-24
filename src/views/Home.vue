@@ -169,7 +169,7 @@ export default {
     ...mapActions('global', ['isDrawerOpenUpdate']),
     setSnackBarCookie() {
       this.showPrivacySnackBar = false;
-      //set cookie with name 'snackbar'. Set value to 1 which means true. Set expiration to 7 days.
+      // set cookie with name 'snackbar'. Set value to 1 which means true. Set expiration to 7 days.
       cookie.setCookie('privacy-snackbar', 1, 7);
     }
   }
