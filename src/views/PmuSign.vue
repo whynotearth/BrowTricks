@@ -1,7 +1,8 @@
 <template>
-  <div class="text-left p-2">
+  <div class="text-left p-2 text-on-background">
+    <pre>{{ questions }}</pre>
     <template v-if="isPmuIncomplete">
-      <h2 class="tg-body-mobile mb-6 py-2 text-on-background text-opacity-high">
+      <h2 class="tg-body-mobile mb-2 py-2 text-on-background text-opacity-high">
         Here is your pre-set PMU form:
       </h2>
       <div class="max-w-md mx-auto mb-6">
@@ -29,22 +30,12 @@
 
       <div class="bg-surface shadow-1dp py-4 mb-4 rounded-lg px-4">
         <div
-          class="flex items-center pb-4 w-full"
+          class="flex flex-col items-center pb-4 w-full"
           v-for="question in questions"
           :key="question.id"
           ref="questions"
         >
-          <!-- <MaterialInput
-            theme="light"
-            class="flex-grow"
-            v-model.trim="question.value"
-            label="Question"
-            labelBg="bg-surface"
-            :margin="null"
-          >
-          </MaterialInput> -->
-
-          <!-- <BaseEditor v-model.trim="question.value" /> -->
+          <BaseEditor v-model.trim="question.value" />
 
           <a @click.prevent.stop="questionRemove" href="#" class="ml-4">
             <IconDelete
@@ -72,7 +63,7 @@
     </template>
 
     <template v-else-if="pmuPdfUrl">
-      <h2 class="tg-body-mobile py-2 text-center my-6">
+      <h2 class="tg-body-mobile py-2 text-center my-6 text-on-background">
         You have already signed the PMU
       </h2>
       <Button
@@ -90,14 +81,14 @@ import { mapActions } from 'vuex';
 import BaseSlider from '@/components/BaseSlider.vue';
 import Button from '@/components/inputs/Button.vue';
 // import MaterialInput from '@/components/inputs/MaterialInput.vue';
-// import BaseEditor from '@/components/inputs/BaseEditor.vue';
+import BaseEditor from '@/components/inputs/BaseEditor.vue';
 import IconDelete from '@/assets/icons/delete.svg';
 import { randomId, showOverlayAndRedirect } from '@/helpers';
 
 export default {
   name: 'PmuSign',
   components: {
-    // BaseEditor,
+    BaseEditor,
     BaseSlider,
     Button,
     // MaterialInput,
@@ -125,10 +116,6 @@ export default {
       return this.client.pmuStatus === 'incomplete';
     }
   },
-  mounted() {
-    console.log('mounted');
-    this.submit();
-  },
   methods: {
     ...mapActions('client', ['fetchClient']),
     ...mapActions('PMU', ['setCustomQuestions', 'submitSign', 'signed']),
@@ -150,11 +137,11 @@ export default {
       };
       this.questions.push(question);
 
-      this.$nextTick(() => {
-        this.$refs.questions[this.questions.length - 1]
-          .querySelector('input')
-          .focus();
-      });
+      // this.$nextTick(() => {
+      //   this.$refs.questions[this.questions.length - 1]
+      //     .querySelector('input')
+      //     .focus();
+      // });
     },
     questionRemove(id) {
       const index = this.questions.findIndex(q => q.id === id);
@@ -162,19 +149,17 @@ export default {
     },
     async submit() {
       try {
-        // const questions = this.prepareQuestions();
-        // const signUrl = await this.setCustomQuestions({
-        //   params: {
-        //     tenantSlug: this.tenantSlug,
-        //     clientId: this.clientId,
-        //     body: {
-        //       disclosures: questions
-        //     }
-        //   }
-        // });
+        const questions = this.prepareQuestions();
+        const signUrl = await this.setCustomQuestions({
+          params: {
+            tenantSlug: this.tenantSlug,
+            clientId: this.clientId,
+            body: {
+              disclosures: questions
+            }
+          }
+        });
 
-        const signUrl =
-          'https://app.hellosign.com/editor/embeddedSign?signature_id=3e16d0097b5047798a930c6e78f36389&token=b2073307e6a45d5a7f15c8df7725871f';
         console.log('signUrl', signUrl);
         const result = await this.submitSign(signUrl);
         console.log('submitSign result', result);
