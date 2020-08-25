@@ -8,11 +8,32 @@
         :is="this.$route.meta.layout || 'div'"
         class="h-full min-h-vh100"
       >
-        <transition :name="transitionName">
-          <router-view />
-        </transition>
+        <router-view />
       </component>
     </transition>
+    <SnackBar :showSnackBar="showPrivacySnackBar">
+      <div
+        class="flex items-center justify-between text-white w-full h-12 tg-caption-mobile leading-4 p-4 
+          bg-primary"
+      >
+        <p>
+          Gotta agree to
+          <a
+            class="underline cursor-pointer"
+            target="_blank"
+            href="https://hub.paulchrisluke.com/-temporary-slug-7a760197-2d5d-4314-876c-ade5923d6dd8"
+          >
+            terms and conditions
+          </a>
+        </p>
+        <p
+          class="text-button uppercase cursor-pointer"
+          @click="setSnackBarCookie"
+        >
+          Agree
+        </p>
+      </div>
+    </SnackBar>
 
     <!-- overlay message -->
     <transition name="fade">
@@ -31,18 +52,21 @@
 </template>
 <script>
 import BaseOverlaySuccess from '@/components/BaseOverlaySuccess.vue';
+import SnackBar from '@/components/SnackBar.vue';
 import { mapGetters } from 'vuex';
 import vhFix from '@/mixins/vhFix.js';
+import cookie from '@/utils/cookie';
 
 export default {
   name: 'App',
   data() {
     return {
-      transitionName: ''
+      transitionName: '',
+      showPrivacySnackBar: true
     };
   },
   mixins: [vhFix],
-  components: { BaseOverlaySuccess },
+  components: { BaseOverlaySuccess, SnackBar },
   computed: {
     ...mapGetters('overlay', {
       overlayModel: 'model'
@@ -53,6 +77,13 @@ export default {
       const toDepth = to.path.split('/').length;
       const fromDepth = from.path.split('/').length;
       this.transitionName = toDepth < fromDepth ? 'slide-left' : 'fade';
+    }
+  },
+  methods: {
+    setSnackBarCookie() {
+      this.showPrivacySnackBar = false;
+      // set cookie with name 'snackbar'. Set value to 1 which means true. Set expiration to 7 days.
+      cookie.setCookie('privacy-snackbar', 1, 365);
     }
   }
 };
