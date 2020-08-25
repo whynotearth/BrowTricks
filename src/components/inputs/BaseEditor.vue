@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative mb-4 max-w-full"
+    class="relative mb-4 max-w-full w-full"
     :class="[error ? 'markdown-error' : 'markdown-grey']"
   >
     <vue-simplemde

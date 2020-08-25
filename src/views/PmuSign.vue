@@ -1,78 +1,87 @@
 <template>
-  <div class="text-left p-2 text-on-background">
-    <pre>{{ questions }}</pre>
-    <template v-if="isPmuIncomplete">
-      <h2 class="tg-body-mobile mb-2 py-2 text-on-background text-opacity-high">
-        Here is your pre-set PMU form:
-      </h2>
-      <div class="max-w-md mx-auto mb-6">
-        <BaseSlider>
-          <div class="slide keen-slider__slide">
-            <img
-              src="https://res.cloudinary.com/whynotearth/image/upload/v1596652148/BrowTricks/static_v2/pmu-default-form-p1_yuk6bh.jpg"
-              alt=""
-            />
-          </div>
-          <div class="slide keen-slider__slide">
-            <img
-              src="https://res.cloudinary.com/whynotearth/image/upload/v1596652147/BrowTricks/static_v2/pmu-default-form-p2_r8a4yj.jpg"
-              alt=""
-            />
-          </div>
-        </BaseSlider>
-      </div>
-
-      <hr class="border-white border-opacity-divider mb-6" />
-
-      <h2 class="tg-h2-mobile text-on-background text-opacity-high mb-6">
-        Add Custom Questions
-      </h2>
-
-      <div class="bg-surface shadow-1dp py-4 mb-4 rounded-lg px-4">
-        <div
-          class="flex flex-col items-center pb-4 w-full"
-          v-for="question in questions"
-          :key="question.id"
-          ref="questions"
+  <!-- TODO rename questions to disclosures (or something meaningful and more general) everywhere -->
+  <div class="max-w-4xl mx-auto px-4">
+    <div class="text-left p-2 text-on-background">
+      <template v-if="isPmuIncomplete">
+        <h2
+          class="tg-body-mobile mb-2 py-2 text-on-background text-opacity-high"
         >
-          <BaseEditor v-model.trim="question.value" />
-
-          <a @click.prevent.stop="questionRemove" href="#" class="ml-4">
-            <IconDelete
-              class="text-on-background text-opacity-medium w-6 h-6"
-            />
-          </a>
+          Here is your pre-set PMU form:
+        </h2>
+        <div class="max-w-md mx-auto mb-6">
+          <BaseSlider>
+            <div class="slide keen-slider__slide">
+              <img
+                src="https://res.cloudinary.com/whynotearth/image/upload/v1596652148/BrowTricks/static_v2/pmu-default-form-p1_yuk6bh.jpg"
+                alt=""
+              />
+            </div>
+            <div class="slide keen-slider__slide">
+              <img
+                src="https://res.cloudinary.com/whynotearth/image/upload/v1596652147/BrowTricks/static_v2/pmu-default-form-p2_r8a4yj.jpg"
+                alt=""
+              />
+            </div>
+          </BaseSlider>
         </div>
 
-        <hr
-          v-if="questions.length > 0"
-          class="mb-2 border-white border-opacity-divider"
-        />
-        <a
-          @click="questionAdd"
-          class="text-primary tg-color-label-mobile text-center py-2 w-full block cursor-pointer"
-          >Add Question</a
-        >
-      </div>
+        <hr class="border-white border-opacity-divider mb-6" />
 
-      <Button
-        class="rounded-full mb-6 "
-        @clicked="submit"
-        title="Get Started"
-      ></Button>
-    </template>
+        <h2 class="tg-h2-mobile text-on-background text-opacity-high mb-6">
+          Add Custom Disclosures
+        </h2>
 
-    <template v-else-if="pmuPdfUrl">
-      <h2 class="tg-body-mobile py-2 text-center my-6 text-on-background">
-        You have already signed the PMU
-      </h2>
-      <Button
-        :href="pmuPdfUrl"
-        class="rounded-full mb-6 "
-        @clicked="submit"
-        title="Download Signed PMU"
-      ></Button>
-    </template>
+        <div class="bg-surface shadow-1dp py-4 mb-4 rounded-lg px-4">
+          <div
+            class="flex flex-col items-center pb-4 w-full"
+            v-for="question in questions"
+            :key="question.id"
+            ref="questions"
+          >
+            <BaseEditor v-model.trim="question.value" />
+
+            <a
+              @click.prevent.stop="questionRemove"
+              href="#"
+              class="flex justify-end w-full"
+              title="Delete the above disclosure"
+            >
+              <IconDelete
+                class="text-on-background text-opacity-medium w-6 h-6"
+              />
+            </a>
+          </div>
+
+          <hr
+            v-if="questions.length > 0"
+            class="mb-2 border-white border-opacity-divider"
+          />
+          <a
+            @click="questionAdd"
+            class="text-primary tg-color-label-mobile text-center py-2 w-full block cursor-pointer"
+            >Add Question</a
+          >
+        </div>
+
+        <Button
+          class="rounded-full mb-6 "
+          @clicked="submit"
+          title="Get Started"
+        ></Button>
+      </template>
+
+      <template v-else-if="pmuPdfUrl">
+        <h2 class="tg-body-mobile py-2 text-center my-6 text-on-background">
+          You have already signed the PMU
+        </h2>
+        <Button
+          :href="pmuPdfUrl"
+          class="rounded-full mb-6 "
+          @clicked="submit"
+          title="Download Signed PMU"
+        ></Button>
+      </template>
+    </div>
   </div>
 </template>
 
