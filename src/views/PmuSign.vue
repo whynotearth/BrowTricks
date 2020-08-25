@@ -34,7 +34,7 @@
           :key="question.id"
           ref="questions"
         >
-          <MaterialInput
+          <!-- <MaterialInput
             theme="light"
             class="flex-grow"
             v-model.trim="question.value"
@@ -42,7 +42,10 @@
             labelBg="bg-surface"
             :margin="null"
           >
-          </MaterialInput>
+          </MaterialInput> -->
+
+          <!-- <BaseEditor v-model.trim="question.value" /> -->
+
           <a @click.prevent.stop="questionRemove" href="#" class="ml-4">
             <IconDelete
               class="text-on-background text-opacity-medium w-6 h-6"
@@ -86,16 +89,18 @@
 import { mapActions } from 'vuex';
 import BaseSlider from '@/components/BaseSlider.vue';
 import Button from '@/components/inputs/Button.vue';
-import MaterialInput from '@/components/inputs/MaterialInput.vue';
+// import MaterialInput from '@/components/inputs/MaterialInput.vue';
+// import BaseEditor from '@/components/inputs/BaseEditor.vue';
 import IconDelete from '@/assets/icons/delete.svg';
 import { randomId, showOverlayAndRedirect } from '@/helpers';
 
 export default {
   name: 'PmuSign',
   components: {
+    // BaseEditor,
     BaseSlider,
     Button,
-    MaterialInput,
+    // MaterialInput,
     IconDelete
   },
   props: ['tenantSlug', 'clientId'],
@@ -119,6 +124,10 @@ export default {
       }
       return this.client.pmuStatus === 'incomplete';
     }
+  },
+  mounted() {
+    console.log('mounted');
+    this.submit();
   },
   methods: {
     ...mapActions('client', ['fetchClient']),
@@ -153,17 +162,19 @@ export default {
     },
     async submit() {
       try {
-        const questions = this.prepareQuestions();
-        const signUrl = await this.setCustomQuestions({
-          params: {
-            tenantSlug: this.tenantSlug,
-            clientId: this.clientId,
-            body: {
-              disclosures: questions
-            }
-          }
-        });
+        // const questions = this.prepareQuestions();
+        // const signUrl = await this.setCustomQuestions({
+        //   params: {
+        //     tenantSlug: this.tenantSlug,
+        //     clientId: this.clientId,
+        //     body: {
+        //       disclosures: questions
+        //     }
+        //   }
+        // });
 
+        const signUrl =
+          'https://app.hellosign.com/editor/embeddedSign?signature_id=3e16d0097b5047798a930c6e78f36389&token=b2073307e6a45d5a7f15c8df7725871f';
         console.log('signUrl', signUrl);
         const result = await this.submitSign(signUrl);
         console.log('submitSign result', result);
