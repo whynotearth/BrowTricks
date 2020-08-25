@@ -1,7 +1,7 @@
 <template>
   <div class="px-6">
     <div class="my-4">
-      <h6 class="tg-body-mobile text-on-newbackground text-opacity-high">
+      <h6 class="tg-body-mobile text-on-background text-opacity-high">
         Select client's preferred notification method:
       </h6>
     </div>
@@ -17,11 +17,11 @@
         >
           <template #label>
             <div class="tg-body-mobile flex flex-wrap">
-              <span class="mx-1 text-on-newbackground text-opacity-high">{{
+              <span class="mx-1 text-on-background text-opacity-high">{{
                 notificationType.name
               }}</span>
               <span
-                class="mx-1 text-on-newbackground text-opacity-medium break-all"
+                class="mx-1 text-on-background text-opacity-medium break-all"
                 >({{ clientDetail[notificationType.key] }})</span
               >
             </div>
@@ -29,11 +29,8 @@
         </CheckBox>
       </div>
       <div
-        v-if="
-          $v.selectedNotificationTypes.$dirty &&
-            $v.selectedNotificationTypes.$invalid
-        "
-        class="text-red-600 text-xs"
+        v-if="$v.selectedNotificationTypes.$error"
+        class="text-error text-xs"
       >
         You should provide at least one notification method.
       </div>

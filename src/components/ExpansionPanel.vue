@@ -1,15 +1,20 @@
 <template>
-  <div
-    class="cursor-pointer bg-newsurface shadow-1dp py-6 px-4 rounded-lg"
+  <component
+    :is="type"
+    :href="href"
+    class="block cursor-pointer bg-surface shadow-1dp py-6 px-4 rounded-lg"
     :class="[margin]"
     @click="$emit('click')"
+    v-bind="attrs"
   >
     <div class="flex">
       <div class="flex">
-        <slot name="preIcon"></slot>
+        <div class="text-on-surface text-opacity-medium flex items-center">
+          <slot name="preIcon"></slot>
+        </div>
         <slot
           ><h4
-            class="ml-4 text-on-newsurface text-opacity-high min-w-expansion-panel"
+            class="ml-4 text-on-surface text-opacity-high min-w-expansion-panel text-left"
           >
             {{ title }}
           </h4></slot
@@ -18,31 +23,36 @@
       <div class="flex flex-grow justify-end">
         <div class="subtitle flex-grow" v-if="middleText || $slots.middleText">
           <!-- middle text -->
-          <div
-            class="text-on-newsurface text-opacity-medium text-left capitalize"
-          >
+          <div class="text-on-surface text-opacity-medium text-left capitalize">
             <slot name="middleText">{{ middleText }}</slot>
           </div>
         </div>
         <!-- end icon -->
         <slot name="afterIcon">
-          <ArrowRight class="fill-current ml-4" />
+          <IconArrowRight class="fill-current ml-4" />
         </slot>
       </div>
     </div>
-  </div>
+  </component>
 </template>
 
 <script>
-import ArrowRight from '@/assets/icons/keyboard_arrow_right.svg';
+import IconArrowRight from '@/assets/icons/keyboard_arrow_right.svg';
 
 export default {
   name: 'ExpansionPanel',
   components: {
-    ArrowRight
+    IconArrowRight
   },
   props: {
+    attrs: {
+      type: Object,
+      default: () => {}
+    },
     title: {
+      type: String
+    },
+    href: {
       type: String
     },
     middleText: {
@@ -51,6 +61,14 @@ export default {
     margin: {
       type: String,
       default: 'mb-4'
+    }
+  },
+  computed: {
+    type() {
+      if (this.href) {
+        return 'a';
+      }
+      return 'div';
     }
   }
 };

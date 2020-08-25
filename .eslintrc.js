@@ -10,8 +10,6 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'vue/no-unused-components': 'warn',
     indent: ['warn', 2, { SwitchCase: 1 }],
     quotes: ['warn', 'single']

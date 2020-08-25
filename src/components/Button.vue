@@ -66,7 +66,7 @@ export default {
     },
     background: {
       type: String,
-      default: 'bg-button'
+      default: 'bg-secondary'
     },
     isRipple: {
       type: Boolean,
@@ -103,6 +103,6 @@ export default {
 
 .ripple:hover,
 .ripple:active {
-  @apply bg-button bg-opacity-high;
+  @apply bg-secondary bg-opacity-high;
 }
 </style>

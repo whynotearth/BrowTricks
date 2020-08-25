@@ -6,13 +6,19 @@
       :key="index"
     >
       <Button
+        textJustify="justify-between"
         :title="`Log In With ${name}`"
         class="tg-color-label-mobile text-white text-opacity-high rounded-full py-3 md:px-5"
         @clicked="oauth(name)"
       >
-        <template #icon>
-          <img class="md:mr-5" :src="logo" :alt="`${name}-icon`" />
+        <template #start>
+          <!-- icon -->
+          <component
+            :is="logo"
+            class="fill-current text-on-secondary text-opacity-high"
+          />
         </template>
+        <template #end><i></i></template>
       </Button>
     </div>
   </div>
@@ -20,9 +26,9 @@
 
 <script>
 import { mapMutations, mapGetters } from 'vuex';
-import Button from '@/components/Button.vue';
-// import facebookLogo from '@/assets/icons/facebook2.png';
-import googleLogo from '@/assets/icons/google.png';
+import Button from '@/components/inputs/Button.vue';
+import IconGoogle from '@/assets/icons/google.svg';
+// import IconFacebook from '@/assets/icons/facebook.svg';
 
 export default {
   name: 'LinkAccount',
@@ -40,7 +46,7 @@ export default {
         */
         {
           name: 'Google',
-          logo: googleLogo
+          logo: IconGoogle
         }
       ]
     };

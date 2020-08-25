@@ -1,9 +1,7 @@
 <template>
-  <div
-    class="page bg-newbackground min-h-screen flex flex-col text-white text-opacity-medium"
-  >
+  <div class="page min-h-screen flex flex-col text-white text-opacity-medium">
     <header
-      class="bg-newsurface z-20 shadow-4dp flex items-center p-4 sticky top-0"
+      class="bg-primary z-20 shadow-4dp flex items-center p-4 sticky top-0"
     >
       <!-- icon -->
       <a class="cursor-pointer" @click.prevent="iconClick">
@@ -22,12 +20,12 @@
       <BaseSpinner />
     </div>
     <!-- content -->
-    <div
-      class="relative flex-grow max-w-6xl mx-auto w-full"
-      v-show="!isLoading"
-    >
+    <!-- mb-14 for bottom navigation -->
+    <div class="relative flex-grow w-full mb-14 pb-6" v-show="!isLoading">
       <slot v-if="isVisible" />
     </div>
+
+    <NavigationBottom v-if="!noNavigation" />
   </div>
 </template>
 
@@ -35,10 +33,11 @@
 import IconBack from '@/assets/icons/arrow-back.svg';
 import { mapGetters } from 'vuex';
 import BaseSpinner from '@/components/BaseSpinner';
+import NavigationBottom from '@/components/NavigationBottom';
 
 export default {
   name: 'WithTitleBarLayout',
-  components: { IconBack, BaseSpinner },
+  components: { IconBack, BaseSpinner, NavigationBottom },
   data: () => ({
     isVisible: false,
     currentTitle: '',
@@ -49,7 +48,10 @@ export default {
     this.init();
   },
   computed: {
-    ...mapGetters('loading', ['isLoading'])
+    ...mapGetters('loading', ['isLoading']),
+    noNavigation() {
+      return this.$route.matched.some(route => route.meta.noNavigation);
+    }
   },
   methods: {
     init() {

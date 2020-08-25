@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-md mx-auto">
+  <div class="max-w-md mx-4">
     <div>
       <!-- loop over available notification types -->
 
@@ -10,15 +10,15 @@
       >
         <CheckBox
           v-model="$v.selectedNotificationTypes.$model"
-          :value="notificationType.id"
+          :value="notificationType.value"
         >
           <template #label>
             <div class="tg-body-mobile flex flex-wrap">
-              <span class="mx-1 text-on-newbackground text-opacity-high">{{
+              <span class="mx-1 text-on-background text-opacity-high">{{
                 notificationType.name
               }}</span>
               <span
-                class="mx-1 text-on-newbackground text-opacity-medium break-all"
+                class="mx-1 text-on-background text-opacity-medium break-all"
                 >({{ clientDetail[notificationType.key] }})</span
               >
             </div>

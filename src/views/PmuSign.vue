@@ -1,7 +1,7 @@
 <template>
   <div class="text-left p-2">
     <template v-if="isPmuIncomplete">
-      <h2 class="tg-body-mobile mb-6 py-2">
+      <h2 class="tg-body-mobile mb-6 py-2 text-on-background text-opacity-high">
         Here is your pre-set PMU form:
       </h2>
       <div class="max-w-md mx-auto mb-6">
@@ -23,11 +23,11 @@
 
       <hr class="border-white border-opacity-divider mb-6" />
 
-      <h2 class="tg-h2-mobile text-white text-opacity-high mb-6">
+      <h2 class="tg-h2-mobile text-on-background text-opacity-high mb-6">
         Add Custom Questions
       </h2>
 
-      <div class="surface-dm shadow-1dp py-4 mb-4 rounded-lg px-4">
+      <div class="bg-surface shadow-1dp py-4 mb-4 rounded-lg px-4">
         <div
           class="flex items-center pb-4 w-full"
           v-for="question in questions"
@@ -35,7 +35,7 @@
           ref="questions"
         >
           <MaterialInput
-            theme="dark"
+            theme="light"
             class="flex-grow"
             v-model.trim="question.value"
             label="Question"
@@ -44,7 +44,9 @@
           >
           </MaterialInput>
           <a @click.prevent.stop="questionRemove" href="#" class="ml-4">
-            <IconDelete class="text-white text-opacity-disabled w-6 h-6" />
+            <IconDelete
+              class="text-on-background text-opacity-medium w-6 h-6"
+            />
           </a>
         </div>
 
@@ -54,7 +56,7 @@
         />
         <a
           @click="questionAdd"
-          class="text-newsecondary tg-color-label-mobile text-center py-2 w-full block cursor-pointer"
+          class="text-primary tg-color-label-mobile text-center py-2 w-full block cursor-pointer"
           >Add Question</a
         >
       </div>

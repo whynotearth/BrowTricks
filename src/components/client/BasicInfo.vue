@@ -3,8 +3,9 @@
     <MaterialInput
       v-model="$v.firstName.$model"
       label="First Name"
+      labelBackground="has-noise bg-background"
       :error="$v.firstName.$error"
-      theme="dark"
+      theme="light"
     >
       <p v-if="!$v.firstName.required">
         First Name is required
@@ -13,8 +14,9 @@
     <MaterialInput
       v-model="$v.lastName.$model"
       label="Last Name"
+      labelBackground="has-noise bg-background"
       :error="$v.lastName.$error"
-      theme="dark"
+      theme="light"
     >
       <p v-if="!$v.lastName.required">
         Last Name is required
@@ -23,8 +25,9 @@
     <MaterialInput
       v-model="$v.phone.$model"
       label="Phone number"
+      labelBackground="has-noise bg-background"
       :error="$v.phone.$error"
-      theme="dark"
+      theme="light"
     >
       <p v-if="!$v.phone.required">
         This field is required
@@ -36,8 +39,9 @@
     <MaterialInput
       v-model="$v.email.$model"
       label="Email"
+      labelBackground="has-noise bg-background"
       :error="$v.email.$error"
-      theme="dark"
+      theme="light"
     >
       <p v-if="!$v.email.required">
         Email is required

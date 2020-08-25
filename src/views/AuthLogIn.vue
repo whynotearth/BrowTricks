@@ -1,12 +1,9 @@
 <template>
   <SplashLayout>
     <template #title>
-      <h1 class="tg-h1-mobile text-white text-opacity-high">
+      <h1 class="tg-h1-mobile text-on-primary text-opacity-high">
         {{ appName }}
       </h1>
-    </template>
-    <template #image>
-      <img height="450" width="225" :src="logoUrl" alt="browtricks-logo" />
     </template>
     <template #primaryCTA>
       <AuthButtons />
@@ -14,9 +11,10 @@
     <template #tertiaryCTA>
       <Button
         :to="{ name: 'SignUp', params: { step: 'business-info' } }"
-        class="text-on-background-image text-opacity-medium normal-case"
+        class="normal-case"
+        textColor="text-on-background text-opacity-medium"
         title="No account? Sign Up For Brow Tricks Beauty!"
-        background="bg-transparent"
+        theme="none"
       />
     </template>
   </SplashLayout>

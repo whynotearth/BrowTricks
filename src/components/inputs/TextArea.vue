@@ -18,7 +18,7 @@
     <label
       :for="idName"
       class="label absolute mb-0 top-0 left-0 mt-3 ml-3 cursor-text"
-      :class="[labelColor, labelBg]"
+      :class="[labelColor, labelBackground]"
     >
       {{ label }}
     </label>
@@ -52,7 +52,7 @@ export default {
     },
     labelBackground: {
       type: String,
-      default: null
+      default: 'bg-surface'
     },
     placeholder: {
       type: String
@@ -91,19 +91,11 @@ export default {
         return 'text-error';
       }
       return this.theme === 'dark'
-        ? 'text-on-newsurface text-opacity-medium'
+        ? 'text-on-surface text-opacity-medium'
         : 'text-on-background';
-    },
-    labelBg() {
-      if (this.labelBackground) {
-        return this.labelBackground;
-      }
-      return this.theme === 'dark' ? 'bg-newsurface' : 'bg-background';
     },
     textColor() {
-      return this.theme === 'dark'
-        ? 'text-on-newsurface'
-        : 'text-on-background';
+      return this.theme === 'dark' ? 'text-on-surface' : 'text-on-background';
     },
     placeholderColor() {
       if (this.error) {

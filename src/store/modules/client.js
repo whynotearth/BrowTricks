@@ -17,6 +17,9 @@ const state = {
 };
 
 const getters = {
+  clients(state) {
+    return state.clients;
+  },
   clientInfo(state) {
     return state.clientInfo;
   },

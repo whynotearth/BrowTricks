@@ -1,39 +1,27 @@
 <template>
-  <div class="bg-background flex items-center justify-center h-full">
+  <div class="bg-background has-noise flex items-center justify-center h-full">
     <div class="text-center">
-      <div class="progress-wrapper mb-4 md:mb-12 mx-auto">
-        <!-- desktop -->
-        <BaseProgressCircle
-          class="hidden md:block"
-          :centerX="164"
-          :centerY="164"
-          :radius="160"
-          :percentageProgress="progress"
-        >
-          <image
-            class="progress-circle--content block"
-            x="20"
-            y="20"
-            width="288"
-            height="288"
-            :xlink:href="logoUrl"
-          ></image>
-        </BaseProgressCircle>
-
+      <div
+        class="progress-wrapper mb-4 md:mb-12 mx-auto"
+        :style="{
+          width: `${metrics.totalWidth}px`,
+          height: `${metrics.totalWidth}px`
+        }"
+      >
         <!-- mobile -->
         <BaseProgressCircle
-          class="block md:hidden"
-          :centerX="82"
-          :centerY="82"
-          :radius="80"
+          class="block"
+          :centerX="metrics.centerX"
+          :centerY="metrics.centerY"
+          :radius="metrics.radius"
           :percentageProgress="progress"
         >
           <image
             class="progress-circle--content block"
-            x="10"
-            y="10"
-            width="144"
-            height="144"
+            :x="metrics.imageX"
+            :y="metrics.imageY"
+            :width="metrics.imageWidth"
+            :height="metrics.imageHeight"
             :xlink:href="logoUrl"
           ></image>
         </BaseProgressCircle>
@@ -50,6 +38,7 @@
 
 <script>
 import BaseProgressCircle from '@/components/BaseProgressCircle.vue';
+import { disableScrollbar, enableScrollbar } from '@/helpers.js';
 
 export default {
   name: 'OverlayBrand',
@@ -57,10 +46,14 @@ export default {
   data() {
     return {
       progress: 0,
-      logoUrl: process.env.VUE_APP_LOGO_URL
+      logoUrl: process.env.VUE_APP_LOGO2_URL
     };
   },
   props: {
+    width: {
+      type: Number,
+      default: 146
+    },
     title: {
       default: ''
     },
@@ -71,23 +64,32 @@ export default {
       default: false
     }
   },
+  computed: {
+    metrics() {
+      const totalWidth = this.width;
+      const borderWidth = 2;
+      const imageX = 10;
+      const imageY = 10;
+      return {
+        totalWidth,
+        centerX: totalWidth / 2,
+        centerY: totalWidth / 2,
+        radius: totalWidth / 2 - borderWidth,
+        imageX,
+        imageY,
+        imageWidth: totalWidth - 2 * imageX,
+        imageHeight: totalWidth - 2 * imageY
+      };
+    }
+  },
+  beforeDestroy() {
+    enableScrollbar();
+  },
   mounted() {
     setTimeout(() => {
       this.progress = 1;
     }, 300);
+    disableScrollbar();
   }
 };
 </script>
-
-<style scoped>
-.progress-wrapper {
-  width: 164px;
-  height: 164px;
-}
-@screen md {
-  .progress-wrapper {
-    width: 328px;
-    height: 328px;
-  }
-}
-</style>

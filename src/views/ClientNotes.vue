@@ -19,16 +19,16 @@
       <div class="mt-8 " v-if="clientNotes.length > 0">
         <div
           @click="selectNote(note)"
-          class="bg-newsurface rounded-lg shadow-8dp p-4 my-4"
+          class="bg-surface rounded-lg shadow-8dp p-4 my-4"
           v-for="note in clientNotes"
           :key="note.id"
         >
           <div
-            class="text-on-newsurface text-opacity-medium tg-caption-mobile mb-4"
+            class="text-on-surface text-opacity-medium tg-caption-mobile mb-4"
           >
             {{ format(new Date(note.createdAt), 'dd MMM, yyyy') }}
           </div>
-          <div class="text-on-newsurface">
+          <div class="text-on-surface">
             {{ note.note }}
           </div>
         </div>

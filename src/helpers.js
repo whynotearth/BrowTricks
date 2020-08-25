@@ -190,3 +190,10 @@ export function cloudinaryFileToMeredithFileAdapter(cloudinaryFileInfo) {
     };
   }
 }
+
+export function disableScrollbar() {
+  document.body.classList.add('overflow-hidden');
+}
+export function enableScrollbar() {
+  document.body.classList.remove('overflow-hidden');
+}

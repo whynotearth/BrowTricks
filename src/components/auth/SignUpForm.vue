@@ -1,17 +1,16 @@
 <template>
   <div class="">
-    <div
-      class="min-h-screen bg-background w-full flex flex-col justify-between"
-    >
-      <div>
+    <div class="min-h-vh100 w-full flex flex-col justify-between">
+      <div :class="[isModalOpen ? 'z-50' : 'z-30']">
         <StepperTop :navigation="navigation" :page="page" />
-        <div class="my-4">
+        <div>
           <transition name="fade" mode="out-in">
             <keep-alive>
               <component
                 :is="component"
                 :ref="component"
                 @nextStep="nextStep"
+                @modalToggled="onModalToggled"
               ></component>
             </keep-alive>
           </transition>
@@ -48,6 +47,7 @@ import LinkAccount from '@/components/tenant/LinkAccount';
 import Notifications from '@/components/tenant/Notifications';
 import BusinessHours from '@/components/tenant/BusinessHours';
 import PaymentMethods from '@/components/tenant/PaymentMethods';
+// import { disableScrollbar, enableScrollbar } from '@/helpers.js';
 
 export default {
   name: 'SignUpForm',
@@ -62,6 +62,7 @@ export default {
   },
   data() {
     return {
+      isModalOpen: false,
       navigation: [
         {
           step: 'business-info',
@@ -117,6 +118,15 @@ export default {
       'updateEmail'
     ]),
     ...mapActions('tenant', ['createTenant']),
+    onModalToggled(isModalOpen) {
+      console.log('isModalOpen', isModalOpen);
+      this.isModalOpen = isModalOpen;
+      // if (isModalOpen) {
+      //   disableScrollbar();
+      // } else {
+      //   enableScrollbar();
+      // }
+    },
     removeLinkAccountStep() {
       this.navigation.splice(
         this.navigation.findIndex(item => item.step === 'link-account'),

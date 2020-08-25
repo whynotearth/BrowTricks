@@ -1,28 +1,28 @@
 <template>
   <div>
-    <div class="py-6 px-2 bg-newsurface rounded-lg shadow-8dp">
+    <div class="py-6 px-2 bg-surface rounded-lg shadow-8dp">
       <TextArea
-        class="text-on-newsurface"
+        class="text-on-surface"
         v-model="newNote"
         label="Note"
-        labelBg="bg-newsurface"
+        labelBg="bg-surface"
       />
     </div>
     <div class="py-8">
       <Button class="rounded-full mb-4" title="Save" @clicked="save" />
       <Button
         class="mb-2"
-        textColor="text-on-newbackground text-opacity-medium"
+        textColor="text-on-background text-opacity-medium"
         title="Cancel"
-        background="bg-transparent"
         @clicked="$emit('cancel', note)"
+        theme="none"
       />
       <Button
         v-if="note && note.id"
         class="mb-2"
         textColor="text-error text-opacity-medium"
         title="Delete"
-        background="bg-transparent"
+        theme="none"
         @clicked="$emit('delete', note)"
       />
     </div>
