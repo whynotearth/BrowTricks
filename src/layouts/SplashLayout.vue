@@ -65,7 +65,7 @@ export default {
     backgroundImage: {
       type: String,
       default:
-        'https://res.cloudinary.com/whynotearth/image/upload/v1597845106/BrowTricks/static_v2/background-full-page_gon3ol.png'
+        'https://res.cloudinary.com/whynotearth/image/upload/v1598336510/BrowTricks/static_v2/brandcover_lo3i0l.jpg'
     }
   }
 };
