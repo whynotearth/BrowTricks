@@ -79,6 +79,15 @@ export default {
       this.transitionName = toDepth < fromDepth ? 'slide-left' : 'fade';
     }
   },
+  beforeMount() {
+    let showSnackBar = cookie.getCookie('privacy-snackbar');
+    //if bannerCookie === 1 that means user has seen the banner and dismissed it
+    if (showSnackBar == 1) {
+      this.showPrivacySnackBar = false;
+    } else {
+      this.showPrivacySnackBar = true;
+    }
+  },
   methods: {
     setSnackBarCookie() {
       this.showPrivacySnackBar = false;
