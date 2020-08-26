@@ -1,76 +1,82 @@
 <template>
-  <nav class="flex w-full fixed bottom-0 bg-transparent z-30">
-    <div class="flex flex-auto">
-      <div class=" bg-primary flex-1"></div>
-      <div class="container">
-        <div class="flex relative">
-          <ul
-            class="wrapper flex-auto flex text-left justify-around items-center menu list-none bg-primary tg-caption-mobile"
-          >
-            <li class="text-on-primary text-opacity-high link-item">
-              <router-link
-                class="navigation--link block"
-                :to="{ name: 'TenantHome' }"
-                exact
-              >
-                <IconHome class="m-auto mb-2 w-5 h-5" />
-                <span>Home</span>
-              </router-link>
-            </li>
-            <li class="text-on-primary text-opacity-high link-item">
-              <router-link
-                class="navigation--link block"
-                :to="{ name: 'ClientList' }"
-                exact
-              >
-                <IconUser class="m-auto mb-2 w-5 h-5" />
-                <span>Clients</span>
-              </router-link>
-            </li>
-
-            <li class="text-on-primary text-opacity-high">
-              <router-link
-                :to="{ name: 'AddClient', params: { step: 'basic-info' } }"
-                exact
-                class="flex items-center"
-              >
-                <div
-                  class="rounded-xl h-10 w-14 flex items-center justify-center bg-secondary
-                shadow-6dp mx-auto"
+  <div>
+    <nav class="flex w-full fixed bottom-0 bg-transparent z-30">
+      <div class="flex flex-auto">
+        <div class=" bg-primary flex-1"></div>
+        <div class="container">
+          <div class="flex relative">
+            <ul
+              class="wrapper flex-auto flex text-left justify-around items-center menu list-none bg-primary tg-caption-mobile"
+            >
+              <li class="text-on-primary text-opacity-high link-item">
+                <router-link
+                  class="navigation--link block"
+                  :to="{ name: 'TenantHome' }"
+                  exact
                 >
-                  <IconAdd class="m-auto fill-current text-on-secondary" />
-                </div>
-              </router-link>
-            </li>
+                  <IconHome class="m-auto mb-2 w-5 h-5" />
+                  <span>Home</span>
+                </router-link>
+              </li>
+              <li class="text-on-primary text-opacity-high link-item">
+                <router-link
+                  class="navigation--link block"
+                  :to="{ name: 'ClientList' }"
+                  exact
+                >
+                  <IconUser class="m-auto mb-2 w-5 h-5" />
+                  <span>Clients</span>
+                </router-link>
+              </li>
 
-            <!-- TODO: add real link -->
-            <li class="text-on-primary text-opacity-high link-item">
-              <router-link
-                class="navigation--link block"
-                :to="{ name: 'TenantHome' }"
-                exact
-              >
-                <IconDocument class="m-auto mb-2 w-5 h-5" />
-                <span>PMU Forms</span>
-              </router-link>
-            </li>
+              <li class="text-on-primary text-opacity-high">
+                <a
+                  tabindex="0"
+                  class="flex items-center cursor-pointer"
+                  @click="isOpenDrawerUpload = true"
+                >
+                  <div
+                    class="rounded-xl h-10 w-14 flex items-center justify-center bg-secondary
+                shadow-6dp mx-auto"
+                  >
+                    <IconAdd class="m-auto fill-current text-on-secondary" />
+                  </div>
+                </a>
+              </li>
 
-            <li class="text-on-primary text-opacity-high link-item">
-              <router-link
-                class="navigation--link block"
-                :to="{ name: 'TenantHome' }"
-                exact
-              >
-                <IconUserCircle class="m-auto mb-2 w-5 h-5" />
-                <span>Account</span>
-              </router-link>
-            </li>
-          </ul>
+              <!-- TODO: add real link -->
+              <li class="text-on-primary text-opacity-high link-item">
+                <router-link
+                  class="navigation--link block"
+                  :to="{ name: 'TenantHome' }"
+                  exact
+                >
+                  <IconDocument class="m-auto mb-2 w-5 h-5" />
+                  <span>PMU Forms</span>
+                </router-link>
+              </li>
+
+              <li class="text-on-primary text-opacity-high link-item">
+                <router-link
+                  class="navigation--link block"
+                  :to="{ name: 'TenantHome' }"
+                  exact
+                >
+                  <IconUserCircle class="m-auto mb-2 w-5 h-5" />
+                  <span>Account</span>
+                </router-link>
+              </li>
+            </ul>
+          </div>
         </div>
+        <div class=" bg-primary flex-1"></div>
       </div>
-      <div class=" bg-primary flex-1"></div>
-    </div>
-  </nav>
+    </nav>
+    <DrawerUpload
+      @close="isOpenDrawerUpload = false"
+      :isOpen="isOpenDrawerUpload"
+    ></DrawerUpload>
+  </div>
 </template>
 
 <script>
@@ -79,10 +85,15 @@ import IconHome from '@/assets/icons/home.svg';
 import IconUser from '@/assets/icons/person.svg';
 import IconUserCircle from '@/assets/icons/person-circle.svg';
 import IconDocument from '@/assets/icons/document.svg';
+import DrawerUpload from '@/components/DrawerUpload';
 
 export default {
   name: 'NavigationBottom',
+  data: () => ({
+    isOpenDrawerUpload: false
+  }),
   components: {
+    DrawerUpload,
     IconHome,
     IconAdd,
     IconUser,
