@@ -17,7 +17,7 @@ module.exports = {
         divider: '0.12'
       },
       borderRadius: {
-        xl: '1rem'
+        xl: '0.75rem'
       },
       screens: {
         xl: '1280px',
