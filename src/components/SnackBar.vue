@@ -1,10 +1,12 @@
 <template>
   <transition name="slide-down">
     <div
-      class="fixed rounded-md bottom-0 left-0 right-0 mx-4 bg-footer text-white"
+      class="fixed rounded-md bottom-0 left-0 right-0 mx-4 bg-footer text-on-primary z-50"
       v-if="showSnackBar"
     >
-      <slot></slot>
+      <div class="max-w-6xl mx-auto">
+        <slot></slot>
+      </div>
     </div>
   </transition>
 </template>
