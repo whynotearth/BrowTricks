@@ -21,7 +21,6 @@ export const clientRoutes = [
   {
     path: '/tenant/:tenantSlug/clients/:clientId',
     name: 'Client',
-    redirect: { name: 'ClientEdit' },
     props: true,
     component: () => import('@/views/Client.vue'),
     meta: {
@@ -118,6 +117,17 @@ export const clientRoutes = [
         meta: {
           layout: WithTitleBarLayout,
           title: 'Notes',
+          backRoute: { name: 'ClientEdit' }
+        }
+      },
+      {
+        path: 'edit-client-info',
+        name: 'EditClientInfo',
+        component: () => import('@/views/EditClientInfo.vue'),
+        props: true,
+        meta: {
+          layout: WithTitleBarLayout,
+          title: 'Edit Client Info',
           backRoute: { name: 'ClientEdit' }
         }
       }
