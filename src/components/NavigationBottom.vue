@@ -7,7 +7,7 @@
           <ul
             class="wrapper flex-auto flex text-left justify-around items-center menu list-none bg-primary tg-caption-mobile"
           >
-            <li class="text-on-primary text-opacity-high">
+            <li class="text-on-primary text-opacity-high link-item">
               <router-link
                 class="navigation--link block"
                 :to="{ name: 'TenantHome' }"
@@ -17,7 +17,7 @@
                 <span>Home</span>
               </router-link>
             </li>
-            <li class="text-on-primary text-opacity-high">
+            <li class="text-on-primary text-opacity-high link-item">
               <router-link
                 class="navigation--link block"
                 :to="{ name: 'ClientList' }"
@@ -36,7 +36,7 @@
               >
                 <div
                   class="rounded-xl h-10 w-14 flex items-center justify-center bg-secondary
-                shadow-6dp"
+                shadow-6dp mx-auto"
                 >
                   <IconAdd class="m-auto fill-current text-on-secondary" />
                 </div>
@@ -44,9 +44,7 @@
             </li>
 
             <!-- TODO: add real link -->
-            <li class="w-8"></li>
-            <li class="w-8"></li>
-            <!-- <li class="text-on-primary text-opacity-high">
+            <li class="text-on-primary text-opacity-high link-item">
               <router-link
                 class="navigation--link block"
                 :to="{ name: 'TenantHome' }"
@@ -55,9 +53,9 @@
                 <IconDocument class="m-auto mb-2 w-5 h-5" />
                 <span>PMU Forms</span>
               </router-link>
-            </li> -->
+            </li>
 
-            <!-- <li class="text-on-primary text-opacity-high">
+            <li class="text-on-primary text-opacity-high link-item">
               <router-link
                 class="navigation--link block"
                 :to="{ name: 'TenantHome' }"
@@ -66,7 +64,7 @@
                 <IconUserCircle class="m-auto mb-2 w-5 h-5" />
                 <span>Account</span>
               </router-link>
-            </li> -->
+            </li>
           </ul>
         </div>
       </div>
@@ -79,17 +77,17 @@
 import IconAdd from '@/assets/icons/add.svg';
 import IconHome from '@/assets/icons/home.svg';
 import IconUser from '@/assets/icons/person.svg';
-// import IconUserCircle from '@/assets/icons/person-circle.svg';
-// import IconDocument from '@/assets/icons/document.svg';
+import IconUserCircle from '@/assets/icons/person-circle.svg';
+import IconDocument from '@/assets/icons/document.svg';
 
 export default {
   name: 'NavigationBottom',
   components: {
     IconHome,
     IconAdd,
-    IconUser
-    // IconUserCircle,
-    // IconDocument
+    IconUser,
+    IconUserCircle,
+    IconDocument
   }
 };
 </script>
@@ -117,5 +115,9 @@ export default {
 
   fill: #fff;
   fill-opacity: 1;
+}
+.link-item {
+  min-width: 64px;
+  @apply text-center;
 }
 </style>
