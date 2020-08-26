@@ -1,5 +1,5 @@
 <template>
-  <BaseDrawerActions :isOpen="isOpen" @close="$emit('close')">
+  <BaseDrawerActions :isOpen="isOpen" @close="$emit('close')" title="Upload">
     this is upload actions...
   </BaseDrawerActions>
 </template>
