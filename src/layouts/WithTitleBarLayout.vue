@@ -19,7 +19,14 @@
       />
     </header>
 
-    <transition name="slide-in-rounded">
+    <transition
+      enter-active-class="transition duration-150 ease-out"
+      enter-class="translate-y-1 opacity-0"
+      enter-to-class="translate-y-0 opacity-100"
+      leave-active-class="transition duration-100 ease-in"
+      leave-class="translate-y-0 opacity-100"
+      leave-to-class="translate-y-1 opacity-0"
+    >
       <div
         class="absolute top-0 right-0 z-50 mr-4 mt-14 p-4 rounded-lg shadow-1dp bg-surface"
         v-if="showOverFlowMenu"
@@ -120,24 +127,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.slide-in-rounded-enter-active {
-  animation: slide-in-blurred-top 0.6s cubic-bezier(0.23, 1, 0.32, 1) both;
-}
-
-@keyframes slide-in-blurred-top {
-  0% {
-    transform: translateY(-1000px) scaleY(2.5) scaleX(0.2);
-    transform-origin: 50% 0%;
-    filter: blur(40px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0) scaleY(1) scaleX(1);
-    transform-origin: 50% 50%;
-    filter: blur(0);
-    opacity: 1;
-  }
-}
-</style>

@@ -146,16 +146,18 @@ export default {
 <style scoped>
 .upload-icon--dimension,
 .upload-img--dimension {
-  height: 168px;
+  width: 100px;
+  height: 100px;
 }
 
 .upload-previews-wrapper {
-  height: 168px;
+  width: 100px;
+  height: 100px;
 }
 
 @screen sm {
   .upload-previews-wrapper {
-    width: 120px;
+    width: 100px;
   }
 }
 </style>

@@ -37,7 +37,12 @@
         title="Edit Profile"
         @click="
           $router.push({
-            name: 'EditClientInfo'
+            name: 'EditClientInfo',
+            params: {
+              tenantSlug: tenantSlug,
+              clientId: clientId,
+              client: client
+            }
           })
         "
       >
@@ -45,6 +50,14 @@
           <IconNotification class="h-6 w-6 fill-current" />
         </template>
       </ExpansionPanel>
+
+      <MediaManager :files="currentFiles" @change="updateFiles" class="mb-4">
+        <template #title>
+          <div class="tg-body-mobile ">
+            <span class="text-on-background text-opacity-high"></span>
+          </div>
+        </template>
+      </MediaManager>
       <!-- <ExpansionPanel
         title="Uploads"
         @click="
@@ -104,10 +117,10 @@
 </template>
 
 <script>
-import { required, minLength, email } from 'vuelidate/lib/validators';
 // import MaterialInput from '@/components/inputs/MaterialInput.vue';
 import ExpansionPanel from '@/components/ExpansionPanel.vue';
 import BaseHeroSection from '@/components/BaseHeroSection.vue';
+import MediaManager from '@/components/uploader/MediaManager.vue';
 
 // import IconDocument from '@/assets/icons/document.svg';
 // import IconNotes from '@/assets/icons/notes.svg';
@@ -116,10 +129,8 @@ import IconNotification from '@/assets/icons/notification.svg';
 import IconMail from '@/assets/icons/mail.svg';
 import IconPhone from '@/assets/icons/phone.svg';
 import IconPhoneAndroid from '@/assets/icons/phone_android.svg';
-
-import { isPhoneNumberValid } from '@/helpers';
+import { get } from 'lodash-es';
 import { mapActions } from 'vuex';
-import { sleep } from '@/helpers.js';
 
 export default {
   name: 'ClientEdit',
@@ -145,33 +156,15 @@ export default {
     IconPhoneAndroid,
     // MaterialInput,
     // Button,
-    ExpansionPanel
+    ExpansionPanel,
+    MediaManager
   },
   data() {
     return {
       logo: process.env.VUE_APP_LOGO2_URL,
-      client: null,
-      isDeleteModalOpen: false
+      uploadPreset: process.env.VUE_APP_UPLOADER_MEDIA_PRESET,
+      client: null
     };
-  },
-  validations: {
-    client: {
-      firstName: {
-        required
-      },
-      lastName: {
-        required
-      },
-      phoneNumber: {
-        required,
-        minLength: minLength(10),
-        isPhoneNumberValid
-      },
-      email: {
-        required,
-        email
-      }
-    }
   },
   async created() {
     this._fetchClient();
@@ -182,6 +175,18 @@ export default {
         return false;
       }
       return this.client.pmuStatus === 'incomplete';
+    },
+    currentFiles() {
+      return [
+        ...get(this.client, 'images', []).map(item => ({
+          ...item,
+          resourceType: 'image'
+        })),
+        ...get(this.client, 'videos', []).map(item => ({
+          ...item,
+          resourceType: 'video'
+        }))
+      ];
     }
   },
   methods: {
@@ -197,53 +202,37 @@ export default {
         this.goListPage();
       });
     },
-
-    save() {
-      this.$v.$touch();
-      if (this.$v.$invalid) {
-        return;
-      }
-
-      this.updateClient({
-        tenantSlug: this.tenantSlug,
-        clientId: this.clientId,
-        body: this.client
-      }).then(async () => {
-        this.$store.commit('overlay/updateModel', {
-          title: 'Success!',
-          message: 'Client updated successfully!'
-        });
-        await sleep(1500);
-        this.$store.commit('overlay/updateModel', {
-          title: '',
-          message: ''
-        });
-      });
-    },
-
-    archive() {
-      this.archiveClient({
-        tenantSlug: this.tenantSlug,
-        clientId: this.clientId
-      }).then(async () => {
-        this.isDeleteModalOpen = false;
-        this.$store.commit('overlay/updateModel', {
-          title: 'Success!',
-          message: 'Client archived successfully!'
-        });
-        this.goListPage();
-        await sleep(1500);
-        this.$store.commit('overlay/updateModel', {
-          title: '',
-          message: ''
-        });
-      });
-    },
-
     goListPage() {
       this.$router.push({
         name: 'ClientList'
       });
+    },
+    updateFiles(files) {
+      console.log('files before updatefiles', files);
+      const filesAdapted = files.map(item => ({
+        ...item,
+        url: item.url,
+        publicId: item.publicId
+      }));
+      console.log('files after', filesAdapted);
+      const images = filesAdapted.filter(item => item.resourceType === 'image');
+      const videos = filesAdapted.filter(item => item.resourceType === 'video');
+      const updatedInfo = {
+        ...this.client,
+        images,
+        videos
+      };
+      this.updateClient({
+        tenantSlug: this.tenantSlug,
+        clientId: this.clientId,
+        body: updatedInfo
+      })
+        .then(() => {
+          this._fetchClient();
+        })
+        .catch(error => {
+          console.log('Update client error', error.response);
+        });
     }
   }
 };

@@ -95,12 +95,99 @@ import MaterialInput from '@/components/inputs/MaterialInput.vue';
 import BaseDialog from '@/components/BaseDialog.vue';
 import Button from '@/components/inputs/Button.vue';
 
+import { required, minLength, email } from 'vuelidate/lib/validators';
+import { isPhoneNumberValid } from '@/helpers';
+import { sleep } from '@/helpers.js';
+import { mapActions } from 'vuex';
+
 export default {
   name: 'EditClientInfo',
   components: {
     MaterialInput,
     BaseDialog,
     Button
+  },
+  props: {
+    client: {
+      type: Object,
+      required: true
+    },
+    tenantSlug: {
+      type: String,
+      required: true
+    },
+    clientId: {
+      type: [String, Number],
+      required: true
+    }
+  },
+  data() {
+    return {
+      isDeleteModalOpen: false
+    };
+  },
+  validations: {
+    client: {
+      firstName: {
+        required
+      },
+      lastName: {
+        required
+      },
+      phoneNumber: {
+        required,
+        minLength: minLength(10),
+        isPhoneNumberValid
+      },
+      email: {
+        required,
+        email
+      }
+    }
+  },
+  methods: {
+    ...mapActions('client', ['updateClient', 'archiveClient']),
+    save() {
+      this.$v.$touch();
+      if (this.$v.$invalid) {
+        return;
+      }
+
+      this.updateClient({
+        tenantSlug: this.tenantSlug,
+        clientId: this.clientId,
+        body: this.client
+      }).then(async () => {
+        this.$store.commit('overlay/updateModel', {
+          title: 'Success!',
+          message: 'Client updated successfully!'
+        });
+        await sleep(1500);
+        this.$store.commit('overlay/updateModel', {
+          title: '',
+          message: ''
+        });
+      });
+    },
+
+    archive() {
+      this.archiveClient({
+        tenantSlug: this.tenantSlug,
+        clientId: this.clientId
+      }).then(async () => {
+        this.isDeleteModalOpen = false;
+        this.$store.commit('overlay/updateModel', {
+          title: 'Success!',
+          message: 'Client archived successfully!'
+        });
+        this.goListPage();
+        await sleep(1500);
+        this.$store.commit('overlay/updateModel', {
+          title: '',
+          message: ''
+        });
+      });
+    }
   }
 };
 </script>
