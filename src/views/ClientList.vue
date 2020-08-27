@@ -15,33 +15,7 @@
             params: { slug: tenantSlug, clientId: client.id }
           }"
         >
-          <div class="px-4 pb-4 flex items-center">
-            <div>
-              <img
-                class="w-10 h-10 rounded-full"
-                :src="
-                  client.avatarUrl ||
-                    'https://res.cloudinary.com/whynotearth/image/upload/v1595228411/BrowTricks/avatar-placeholder_dphhvx.png'
-                "
-                alt="user-logo"
-              />
-            </div>
-            <div class="ml-2">
-              <h3 class="tg-body-mobile text-on-background text-opacity-high">
-                {{ client.firstName }} {{ client.lastName }}
-              </h3>
-              <h4
-                class="tg-caption-mobile text-on-background text-opacity-medium"
-              >
-                {{ client.phoneNumber }}
-              </h4>
-              <h4
-                class="tg-caption-mobile text-on-background text-opacity-medium"
-              >
-                {{ client.email }}
-              </h4>
-            </div>
-          </div>
+          <ClientListItem />
         </router-link>
       </div>
     </div>
@@ -50,12 +24,12 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-// import ArrowBack from '@/assets/icons/arrow-back.svg';
+import ClientListItem from '@/components/client/ClientListItem';
 
 export default {
   name: 'ClientList',
   components: {
-    // ArrowBack
+    ClientListItem
   },
   props: {
     tenantSlug: {

@@ -18,7 +18,11 @@
         </TextAreaInput>
 
         <!-- chips -->
-        <a @click.prevent="openClients" class="cursor-pointer" tabindex="0">
+        <a
+          @click.prevent="isOpenClientSelect = true"
+          class="cursor-pointer"
+          tabindex="0"
+        >
           <BaseChip>
             <template #icon>
               <IconUser class="fill-current text-primary w-3 h-3" />
@@ -60,11 +64,17 @@
         ></Button>
       </div>
     </div>
+
+    <ClientSelectOverlay
+      :isOpen="isOpenClientSelect"
+      @close="isOpenClientSelect = false"
+      @select="onSelectClient"
+    />
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import ClientSelectOverlay from '@/components/client/ClientSelectOverlay';
 import TextAreaInput from '@/components/inputs/TextAreaInput';
 import Button from '@/components/inputs/Button';
 import BaseImagePreview from '@/components/uploader/BaseImagePreview';
@@ -72,12 +82,15 @@ import BaseChip from '@/components/BaseChip';
 import { required } from 'vuelidate/lib/validators';
 import IconUser from '@/assets/icons/person.svg';
 import IconShare from '@/assets/icons/share.svg';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'ClientUpload',
   data: () => ({
+    isOpenClientSelect: false,
     description: '',
-    file: null
+    file: null,
+    selectedClient: null
   }),
   validations: {
     description: {
@@ -88,6 +101,7 @@ export default {
     ...mapGetters('uploader', ['uploadedFilesGet'])
   },
   components: {
+    ClientSelectOverlay,
     Button,
     TextAreaInput,
     IconUser,
@@ -100,8 +114,11 @@ export default {
     this.file = this.uploadedFilesGet[0];
   },
   methods: {
-    openClients() {
-      console.log('openClients...');
+    onSelectClient(client) {
+      this.selectedClient = client;
+
+      this.description =
+        this.description + client.firstName + ' ' + client.lastName;
     },
     submit() {
       console.log('submit...');
