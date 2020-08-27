@@ -12,8 +12,12 @@
       >
         {{ currentTitle }}
       </h1>
-      <a class="cursor-pointer self-center" @click.prevent="iconMoreClick">
-        <IconOverflowMenu @click="showOverFlowMenu = true" />
+      <a
+        class="cursor-pointer self-center"
+        v-if="$route.meta.menuItems"
+        @click.prevent="showOverFlowMenu = true"
+      >
+        <IconOverflowMenu />
       </a>
     </header>
 
@@ -114,8 +118,7 @@ export default {
         name: value,
         params: { clientId: params.clientId, tenantSlug: params.tenantSlug }
       });
-    },
-    iconMoreClick() {}
+    }
   },
   watch: {
     $route() {
