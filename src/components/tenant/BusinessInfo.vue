@@ -23,7 +23,7 @@
         Phone number is not valid, it should be a US phone number
       </p>
     </MaterialInput>
-    <TextArea
+    <TextAreaInput
       v-model="$v.description.$model"
       label="Description"
       labelBackground="has-noise bg-background"
@@ -75,7 +75,7 @@
 import { mapMutations, mapGetters } from 'vuex';
 import { required, minLength } from 'vuelidate/lib/validators';
 import MaterialInput from '@/components/inputs/MaterialInput';
-import TextArea from '@/components/inputs/TextArea.vue';
+import TextAreaInput from '@/components/inputs/TextAreaInput.vue';
 import MediaManager from '@/components/uploader/MediaManager.vue';
 import MediaUploader from '@/components/uploader/MediaUploader.vue';
 import { isPhoneNumberValid } from '@/helpers';
@@ -86,7 +86,7 @@ export default {
   components: {
     IconPlus,
     MaterialInput,
-    TextArea,
+    TextAreaInput,
     MediaManager,
     MediaUploader
   },

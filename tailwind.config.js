@@ -41,6 +41,9 @@ module.exports = {
         '-1': '-1',
         '100': '100',
         '110': '110'
+      },
+      wordBreak: {
+        'break-word': 'break-word'
       }
     }
   },

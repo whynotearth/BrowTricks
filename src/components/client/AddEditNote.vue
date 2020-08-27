@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="py-6 px-2 bg-surface rounded-lg shadow-8dp">
-      <TextArea
+      <TextAreaInput
         class="text-on-surface"
         v-model="newNote"
         label="Note"
@@ -31,12 +31,12 @@
 
 <script>
 import Button from '@/components/inputs/Button.vue';
-import TextArea from '@/components/inputs/TextArea.vue';
+import TextAreaInput from '@/components/inputs/TextAreaInput.vue';
 
 export default {
   components: {
     Button,
-    TextArea
+    TextAreaInput
   },
   props: {
     note: {
