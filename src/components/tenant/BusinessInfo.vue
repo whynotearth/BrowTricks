@@ -40,7 +40,20 @@
           :files="currentImages"
           @change="_updateLogo"
           :uploadPreset="uploadPreset"
-        />
+          class="flex justify-center items-center upload-add w-1/3 border border-on-background border-dashed border-opacity-divider cursor-pointer"
+        >
+          <label class="block cursor-pointer">
+            <div class="upload-icon">
+              <div
+                class="upload-icon--dimension flex justify-center items-center"
+              >
+                <IconPlus
+                  class="fill-current text-on-background text-opacity-medium"
+                />
+              </div>
+            </div>
+          </label>
+        </MediaUploader>
       </template>
 
       <template #title>
@@ -66,10 +79,12 @@ import TextArea from '@/components/inputs/TextArea.vue';
 import MediaManager from '@/components/uploader/MediaManager.vue';
 import MediaUploader from '@/components/uploader/MediaUploader.vue';
 import { isPhoneNumberValid } from '@/helpers';
+import IconPlus from '@/assets/icons/plus.svg';
 
 export default {
   name: 'BusinessInfo',
   components: {
+    IconPlus,
     MaterialInput,
     TextArea,
     MediaManager,
@@ -151,3 +166,14 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.upload-add {
+  height: 100px;
+}
+@screen sm {
+  .upload-add {
+    width: 100px;
+  }
+}
+</style>

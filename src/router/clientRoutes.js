@@ -19,6 +19,18 @@ export const clientRoutes = [
     component: () => import('@/views/ClientAddEdit.vue')
   },
   {
+    path: '/tenant/:tenantSlug/upload',
+    name: 'ClientUpload',
+    props: true,
+    component: () => import('@/views/ClientUpload.vue'),
+    meta: {
+      noNavigation: true,
+      layout: WithTitleBarLayout,
+      title: 'Upload',
+      backRoute: { name: 'TenantHome' }
+    }
+  },
+  {
     path: '/tenant/:tenantSlug/clients/:clientId',
     name: 'Client',
     redirect: { name: 'ClientEdit' },

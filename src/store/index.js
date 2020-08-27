@@ -7,17 +7,19 @@ import client from './modules/client';
 import PMU from './modules/PMU';
 import overlay from './modules/overlay';
 import loading from './modules/loading';
+import uploader from './modules/uploader';
 
 import VuexPersistence from 'vuex-persist';
 
 const vuexSession = new VuexPersistence({
   storage: window.sessionStorage,
-  modules: ['auth', 'tenant'],
+  modules: ['auth', 'tenant', 'uploader'],
   key: 'vuexSessionStore'
 });
 
 const vuexLocal = new VuexPersistence({
   storage: window.localStorage,
+  // TODO: move to sessionStorage
   modules: ['client'],
   key: 'vuexLocalStore'
 });
@@ -42,6 +44,7 @@ export default new Vuex.Store({
     client,
     PMU,
     overlay,
-    loading
+    loading,
+    uploader
   }
 });
