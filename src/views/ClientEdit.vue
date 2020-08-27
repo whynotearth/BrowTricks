@@ -37,7 +37,7 @@
         title="Edit Profile"
         @click="
           $router.push({
-            name: 'EditClientInfo',
+            name: 'ClientInfoEdit',
             params: {
               tenantSlug: tenantSlug,
               clientId: clientId,

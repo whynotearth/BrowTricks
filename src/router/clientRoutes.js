@@ -37,7 +37,11 @@ export const clientRoutes = [
         meta: {
           layout: WithTitleBarLayout,
           title: 'Client Profile',
-          backRoute: { name: 'ClientList' }
+          backRoute: { name: 'ClientList' },
+          menuItems: [
+            { itemName: 'Pmu', routeName: 'PmuSign' },
+            { itemName: 'Notes', routeName: 'ClientNotes' }
+          ]
         }
       },
       {
@@ -121,9 +125,9 @@ export const clientRoutes = [
         }
       },
       {
-        path: 'edit-client-info',
-        name: 'EditClientInfo',
-        component: () => import('@/views/EditClientInfo.vue'),
+        path: 'client-info-edit',
+        name: 'ClientInfoEdit',
+        component: () => import('@/views/ClientInfoEdit.vue'),
         props: true,
         meta: {
           layout: WithTitleBarLayout,

@@ -6,7 +6,7 @@
       label="First Name"
       :error="$v.client.firstName.$error"
     >
-      <p v-if="!$v.client.firstName.required" class="text-error text-xs">
+      <p v-if="!$v.client.firstName.required">
         First Name is required
       </p>
     </MaterialInput>
@@ -16,7 +16,7 @@
       label="Last Name"
       :error="$v.client.lastName.$error"
     >
-      <p v-if="!$v.client.lastName.required" class="text-error text-xs">
+      <p v-if="!$v.client.lastName.required">
         Last Name is required
       </p>
     </MaterialInput>
@@ -26,7 +26,7 @@
       label="Phone Number"
       :error="$v.client.phoneNumber.$error"
     >
-      <p v-if="!$v.client.phoneNumber.required" class="text-error text-xs">
+      <p v-if="!$v.client.phoneNumber.required">
         Phone number is required
       </p>
       <p
@@ -34,7 +34,6 @@
           !$v.client.phoneNumber.minLength ||
             !$v.client.phoneNumber.isPhoneNumberValid
         "
-        class="text-error text-xs"
       >
         Please enter a valid phone numb er
       </p>
@@ -46,10 +45,10 @@
       :error="$v.client.email.$error"
       :attrs="{ readonly: true }"
     >
-      <p v-if="!$v.client.email.required" class="text-error text-xs">
+      <p v-if="!$v.client.email.required">
         Email is required
       </p>
-      <p v-else-if="!$v.client.email.email" class="text-error text-xs">
+      <p v-else-if="!$v.client.email.email">
         Please enter a email address
       </p>
     </MaterialInput>
@@ -97,7 +96,7 @@ import Button from '@/components/inputs/Button.vue';
 
 import { required, minLength, email } from 'vuelidate/lib/validators';
 import { isPhoneNumberValid } from '@/helpers';
-import { sleep } from '@/helpers.js';
+import { showOverlayAndRedirect } from '@/helpers.js';
 import { mapActions } from 'vuex';
 
 export default {
@@ -158,14 +157,9 @@ export default {
         clientId: this.clientId,
         body: this.client
       }).then(async () => {
-        this.$store.commit('overlay/updateModel', {
+        showOverlayAndRedirect({
           title: 'Success!',
           message: 'Client updated successfully!'
-        });
-        await sleep(1500);
-        this.$store.commit('overlay/updateModel', {
-          title: '',
-          message: ''
         });
       });
     },
@@ -176,15 +170,9 @@ export default {
         clientId: this.clientId
       }).then(async () => {
         this.isDeleteModalOpen = false;
-        this.$store.commit('overlay/updateModel', {
+        showOverlayAndRedirect({
           title: 'Success!',
           message: 'Client archived successfully!'
-        });
-        this.goListPage();
-        await sleep(1500);
-        this.$store.commit('overlay/updateModel', {
-          title: '',
-          message: ''
         });
       });
     }

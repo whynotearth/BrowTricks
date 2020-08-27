@@ -12,11 +12,9 @@
       >
         {{ currentTitle }}
       </h1>
-      <IconOverflowMenu
-        v-if="$route.name === 'ClientEdit'"
-        class="cursor-pointer self-center"
-        @click="showOverFlowMenu = !showOverFlowMenu"
-      />
+      <a class="cursor-pointer self-center" @click.prevent="iconMoreClick">
+        <IconOverflowMenu @click="showOverFlowMenu = true" />
+      </a>
     </header>
 
     <transition
@@ -32,11 +30,13 @@
         v-if="showOverFlowMenu"
       >
         <ul class="text-primary text-left -my-2">
-          <li class="p-2 cursor-pointer" @click="navigateTo('pmu')">
-            PMU
-          </li>
-          <li class="p-2 cursor-pointer" @click="navigateTo('notes')">
-            Notes
+          <li
+            class="p-2 cursor-pointer"
+            v-for="item in $route.meta.menuItems"
+            :key="item.itemName"
+            @click="navigateTo(item.routeName)"
+          >
+            {{ item.itemName }}
           </li>
         </ul>
       </div>
@@ -109,16 +109,13 @@ export default {
     },
     navigateTo(value) {
       this.showOverFlowMenu = false;
-      if (value === 'notes') {
-        this.$router.push({ name: 'ClientNotes' });
-      } else if (value === 'pmu') {
-        let params = this.$route.params;
-        this.$router.push({
-          name: 'PmuSign',
-          params: { clientId: params.clientId, tenantSlug: params.tenantSlug }
-        });
-      }
-    }
+      let params = this.$route.params;
+      this.$router.push({
+        name: value,
+        params: { clientId: params.clientId, tenantSlug: params.tenantSlug }
+      });
+    },
+    iconMoreClick() {}
   },
   watch: {
     $route() {
