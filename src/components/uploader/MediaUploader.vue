@@ -72,11 +72,13 @@ export default {
 
 <style scoped>
 .upload-add {
-  height: 168px;
+  height: 100px;
+  width: 100px;
 }
 @screen sm {
   .upload-add {
-    width: 120px;
+    width: 100px;
+    width: 100px;
   }
 }
 </style>
