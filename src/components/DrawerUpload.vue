@@ -3,9 +3,11 @@
     <ul class="text-on-background text-opacity-high tg-body-mobile">
       <li>
         <MediaUploader
+          :maxFiles="1"
+          id="image_uploader"
           :files="currentFiles"
           @change="updateFiles"
-          :uploadPreset="uploadPreset"
+          :uploadPreset="uploadPresetImage"
         >
           <a
             tabindex="0"
@@ -26,22 +28,30 @@
         </MediaUploader>
       </li>
       <li>
-        <a
-          tabindex="0"
-          class="flex justify-between w-full p-4 cursor-pointer"
-          aria-labelledby="link-upload-video"
+        <MediaUploader
+          :maxFiles="1"
+          id="video_uploader"
+          :files="currentFiles"
+          @change="updateFiles"
+          :uploadPreset="uploadPresetVideo"
         >
-          <span class="flex items-center">
-            <IconVideos
-              class="h-6 w-6 fill-current mr-4 text-on-background text-opacity-medium"
-            />
-            <span
-              id="link-upload-video"
-              class="text-on-background text-opacity-high"
-              >Video</span
-            >
-          </span>
-        </a>
+          <a
+            tabindex="0"
+            class="flex justify-between w-full p-4 cursor-pointer"
+            aria-labelledby="link-upload-video"
+          >
+            <span class="flex items-center">
+              <IconVideos
+                class="h-6 w-6 fill-current mr-4 text-on-background text-opacity-medium"
+              />
+              <span
+                id="link-upload-video"
+                class="text-on-background text-opacity-high"
+                >Video</span
+              >
+            </span>
+          </a>
+        </MediaUploader>
       </li>
     </ul>
   </BaseDrawerActions>
@@ -60,7 +70,8 @@ export default {
   components: { MediaUploader, BaseDrawerActions, IconImages, IconVideos },
   data() {
     return {
-      uploadPreset: process.env.VUE_APP_UPLOADER_MEDIA_PRESET,
+      uploadPresetImage: process.env.VUE_APP_UPLOADER_IMAGE_PRESET,
+      uploadPresetVideo: process.env.VUE_APP_UPLOADER_VIDEO_PRESET,
       client: null
     };
   },

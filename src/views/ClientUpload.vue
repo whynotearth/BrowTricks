@@ -36,11 +36,16 @@
         </a>
       </div>
       <div class="px-2">
-        <div class="image-wrapper max-w-full">
+        <div class="image-wrapper max-w-full" v-if="file">
           <BaseImagePreview
-            v-if="file && file.resourceType === 'image'"
+            v-if="file.resourceType === 'image'"
             :selectFile="() => {}"
             :file="{ ...file }"
+          />
+          <BaseVideoPreview
+            v-if="file.resourceType === 'video'"
+            :selectFile="() => {}"
+            :file="{ ...file, thumbnail: getCloudinaryVideoThumbnail(file) }"
           />
         </div>
       </div>
@@ -87,6 +92,7 @@ import ClientSelectOverlay from '@/components/client/ClientSelectOverlay';
 import TextAreaInput from '@/components/inputs/TextAreaInput';
 import Button from '@/components/inputs/Button';
 import BaseImagePreview from '@/components/uploader/BaseImagePreview';
+import BaseVideoPreview from '@/components/uploader/BaseVideoPreview';
 import BaseChip from '@/components/BaseChip';
 import { required } from 'vuelidate/lib/validators';
 import IconUser from '@/assets/icons/person.svg';
@@ -95,7 +101,8 @@ import { mapGetters, mapActions } from 'vuex';
 import {
   share,
   isShareApiSupported,
-  showOverlayAndRedirect
+  showOverlayAndRedirect,
+  getCloudinaryVideoThumbnail
 } from '@/helpers.js';
 
 export default {
@@ -125,7 +132,12 @@ export default {
     IconUser,
     BaseChip,
     IconShare,
-    BaseImagePreview
+    BaseImagePreview,
+    BaseVideoPreview
+  },
+  beforeDestroy() {
+    console.log('clear uploadedFiles store state');
+    this.uploadedFilesUpdate([]);
   },
   beforeMount() {
     if (!this.uploadedFilesGet[0]) {
@@ -136,7 +148,9 @@ export default {
   },
   methods: {
     ...mapActions('client', ['updateClient']),
+    ...mapActions('uploader', ['uploadedFilesUpdate']),
     share,
+    getCloudinaryVideoThumbnail,
     onSelectClient(client) {
       this.selectedClient = client;
 

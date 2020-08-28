@@ -1,5 +1,5 @@
 <template>
-  <div :id="id" @click="openWidget(widget)">
+  <div :id="id" @click="openWidget()">
     <slot />
   </div>
 </template>
@@ -44,39 +44,48 @@ export default {
       document.head.appendChild(theScript);
     },
     init() {
-      // unsigned upload doccument https://cloudinary.com/documentation/upload_widget#unsigned_uploads
-      // available options https://cloudinary.com/documentation/upload_widget#upload_widget_options
-      this.widget = window.cloudinary.createUploadWidget(
-        {
-          cloudName: 'whynotearth',
-          uploadPreset: this.uploadPreset,
-          theme: 'minimal',
-          autoMinimize: true,
-          ...this.uploaderOptions
-        },
-        (error, result) => {
-          if (error) {
-            this.$emit('error', error);
-            return;
-          }
-          if (result) {
-            if (result.event === 'success') {
-              console.log('result', result);
-              this.$emit('uploaded', result);
-            }
-          }
-          if (result.event === 'queues-end') {
-            this.widget.close();
-            this.$emit('closed');
-          }
-        }
-      );
-    },
-    openWidget(widget) {
-      if (!widget) {
+      if (!window.cloudinary) {
+        console.log('Not loaded script yet');
         return;
       }
-      widget.open();
+      // unsigned upload doccument https://cloudinary.com/documentation/upload_widget#unsigned_uploads
+      // available options https://cloudinary.com/documentation/upload_widget#upload_widget_options
+      return new Promise(resolve => {
+        this.widget = window.cloudinary.createUploadWidget(
+          {
+            cloudName: 'whynotearth',
+            uploadPreset: this.uploadPreset,
+            theme: 'minimal',
+            autoMinimize: true,
+            ...this.uploaderOptions
+          },
+          (error, result) => {
+            if (error) {
+              this.$emit('error', error);
+              return;
+            }
+            if (result) {
+              if (result.event === 'source-changed') {
+                resolve('Widget Initialized');
+              }
+              if (result.event === 'success') {
+                console.log('result', result);
+                this.$emit('uploaded', result);
+              }
+            }
+            if (result.event === 'queues-end') {
+              this.widget.close();
+              this.$emit('closed');
+            }
+          }
+        );
+      });
+    },
+    async openWidget() {
+      if (!this.widget) {
+        await this.init();
+      }
+      this.widget.open();
       this.$emit('opened');
     }
   }
