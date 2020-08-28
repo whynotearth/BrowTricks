@@ -1,13 +1,22 @@
 <template>
   <div>
     <BaseOverlayPage :isOpen="isOpen" @close="close" title="Select Client">
-      <!-- TODO: show letter -->
-      <ClientListItem
-        v-for="client in clients"
-        :key="client.id"
-        :client="client"
-        @select="onSelectClient(client)"
-      />
+      <div class="mb-1" v-if="clients.length > 0">
+        <div class="" v-for="(client, key) in clients" :key="key">
+          <h6
+            v-if="showLetter(clients[key - 1], client)"
+            class="p-3 tg-caption-mobile text-on-background text-opacity-high border-t"
+          >
+            {{ client.firstName && client.firstName[0].toUpperCase() }}
+          </h6>
+
+          <ClientListItem
+            :key="client.id"
+            :client="client"
+            @select="onSelectClient(client)"
+          />
+        </div>
+      </div>
     </BaseOverlayPage>
   </div>
 </template>
@@ -23,6 +32,10 @@ export default {
     isOpen: {
       type: Boolean,
       default: false
+    },
+    tenantSlug: {
+      type: String,
+      required: true
     }
   },
   methods: {
@@ -33,6 +46,16 @@ export default {
     },
     close() {
       this.$emit('close');
+    },
+    showLetter(prev, current) {
+      if (!prev) return true;
+
+      const getPrevFirstCharacter =
+        prev && prev.firstName && prev.firstName[0].toUpperCase();
+      const getCurrentFirstCharacter =
+        current && current.firstName && current.firstName[0].toUpperCase();
+
+      return getPrevFirstCharacter !== getCurrentFirstCharacter;
     }
   },
   computed: {

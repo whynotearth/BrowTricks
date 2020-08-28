@@ -80,6 +80,7 @@
     </div>
 
     <ClientSelectOverlay
+      :tenantSlug="tenantSlug"
       :isOpen="isOpenClientSelect"
       @close="isOpenClientSelect = false"
       @select="onSelectClient"
@@ -123,7 +124,10 @@ export default {
   },
   computed: {
     ...mapGetters('uploader', ['uploadedFilesGet']),
-    isShareApiSupported
+    isShareApiSupported,
+    tenantSlug() {
+      return this.$route.params.tenantSlug;
+    }
   },
   components: {
     ClientSelectOverlay,
@@ -163,7 +167,6 @@ export default {
         return;
       }
 
-      const tenantSlug = this.$route.params.tenantSlug;
       const clientId = this.selectedClient.id;
       const client = this.selectedClient;
 
@@ -180,7 +183,7 @@ export default {
         videos
       };
       this.updateClient({
-        tenantSlug,
+        tenantSlug: this.tenantSlug,
         clientId,
         body: updatedInfo
       })

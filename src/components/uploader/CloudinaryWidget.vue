@@ -45,7 +45,6 @@ export default {
     },
     init() {
       if (!window.cloudinary) {
-        console.log('Not loaded script yet');
         return;
       }
       // unsigned upload doccument https://cloudinary.com/documentation/upload_widget#unsigned_uploads
