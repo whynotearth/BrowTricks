@@ -190,7 +190,7 @@ export default {
         .then(() => {
           showOverlayAndRedirect({
             title: 'Success!',
-            route: { name: 'TenantHome' }
+            route: { name: 'ClientEdit', params: { clientId } }
           });
         })
         .catch(error => {
