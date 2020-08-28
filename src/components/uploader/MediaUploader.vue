@@ -58,3 +58,16 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.upload-add {
+  height: 100px;
+  width: 100px;
+}
+@screen sm {
+  .upload-add {
+    width: 100px;
+    width: 100px;
+  }
+}
+</style>
