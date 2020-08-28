@@ -1,5 +1,6 @@
 <template>
   <CloudinaryWidget
+    @widget-ready="$emit('widget-ready')"
     @uploaded="onUpload"
     :uploadPreset="uploadPreset"
     @error="onUploadError"

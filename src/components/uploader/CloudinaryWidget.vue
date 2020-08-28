@@ -7,6 +7,7 @@
 <script>
 const scriptUrl = 'https://widget.cloudinary.com/v2.0/global/all.js';
 const scriptId = 'cloudinary-widget-script';
+const nothing = () => {};
 export default {
   name: 'CloudinaryWidget',
   data: () => ({
@@ -26,12 +27,31 @@ export default {
   },
   mounted() {
     this.loadWidgetScript();
+    this.initInterval();
+  },
+  computed: {
+    shouldInit() {
+      return !this.widget;
+    }
   },
   methods: {
+    initInterval() {
+      const interval = setInterval(() => {
+        this.init()
+          .then(() => {
+            clearInterval(interval);
+          })
+          .catch(nothing);
+      }, 500);
+
+      this.$on('hook:beforeDestroy', () => {
+        clearInterval(interval);
+      });
+    },
     loadWidgetScript() {
       const isScriptExist = document.getElementById(scriptId);
       if (isScriptExist) {
-        this.init();
+        this.init().catch(nothing);
         return;
       }
       let theScript = document.createElement('script');
@@ -39,17 +59,22 @@ export default {
       theScript.async = true;
       theScript.id = scriptId;
       theScript.onload = () => {
-        this.init();
+        this.init().catch(nothing);
       };
       document.head.appendChild(theScript);
     },
     init() {
-      if (!window.cloudinary) {
-        return;
-      }
       // unsigned upload doccument https://cloudinary.com/documentation/upload_widget#unsigned_uploads
       // available options https://cloudinary.com/documentation/upload_widget#upload_widget_options
-      return new Promise(resolve => {
+      return new Promise((resolve, reject) => {
+        if (!this.shouldInit) {
+          reject('Already initilized');
+          return;
+        }
+        if (!window.cloudinary) {
+          reject('Script is not loaded');
+          return;
+        }
         this.widget = window.cloudinary.createUploadWidget(
           {
             cloudName: 'whynotearth',
@@ -65,7 +90,8 @@ export default {
             }
             if (result) {
               if (result.event === 'source-changed') {
-                resolve('Widget Initialized');
+                this.$emit('widget-ready');
+                resolve();
               }
               if (result.event === 'success') {
                 console.log('result', result);
@@ -81,8 +107,8 @@ export default {
       });
     },
     async openWidget() {
-      if (!this.widget) {
-        await this.init();
+      if (this.shouldInit) {
+        return;
       }
       this.widget.open();
       this.$emit('opened');
