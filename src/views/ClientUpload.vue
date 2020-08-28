@@ -38,7 +38,7 @@
       <div class="px-2">
         <div class="image-wrapper max-w-full">
           <BaseImagePreview
-            v-if="file.resourceType === 'image'"
+            v-if="file && file.resourceType === 'image'"
             :selectFile="() => {}"
             :file="{ ...file }"
           />
@@ -52,7 +52,7 @@
     />
 
     <div class="px-4">
-      <div v-if="isShareApiSupported">
+      <div v-if="file && isShareApiSupported">
         <h2 class="mb-4 tg-body-mobile">Share:</h2>
         <a
           @click="share(file)"
@@ -91,8 +91,12 @@ import BaseChip from '@/components/BaseChip';
 import { required } from 'vuelidate/lib/validators';
 import IconUser from '@/assets/icons/person.svg';
 import IconShare from '@/assets/icons/share.svg';
-import { mapGetters } from 'vuex';
-import { share, isShareApiSupported } from '@/helpers.js';
+import { mapGetters, mapActions } from 'vuex';
+import {
+  share,
+  isShareApiSupported,
+  showOverlayAndRedirect
+} from '@/helpers.js';
 
 export default {
   name: 'ClientUpload',
@@ -124,9 +128,14 @@ export default {
     BaseImagePreview
   },
   beforeMount() {
+    if (!this.uploadedFilesGet[0]) {
+      alert('No uploaded file.');
+      this.$router.push({ name: 'TenantHome' });
+    }
     this.file = this.uploadedFilesGet[0];
   },
   methods: {
+    ...mapActions('client', ['updateClient']),
     share,
     onSelectClient(client) {
       this.selectedClient = client;
@@ -139,7 +148,37 @@ export default {
       if (this.$v.$invalid) {
         return;
       }
-      console.log('submit...');
+
+      const tenantSlug = this.$route.params.tenantSlug;
+      const clientId = this.selectedClient.id;
+      const client = this.selectedClient;
+
+      const filesAdapted = this.uploadedFilesGet.map(item => ({
+        ...item,
+        url: item.url,
+        publicId: item.publicId
+      }));
+      const images = filesAdapted.filter(item => item.resourceType === 'image');
+      const videos = filesAdapted.filter(item => item.resourceType === 'video');
+      const updatedInfo = {
+        ...client,
+        images,
+        videos
+      };
+      this.updateClient({
+        tenantSlug,
+        clientId,
+        body: updatedInfo
+      })
+        .then(() => {
+          showOverlayAndRedirect({
+            title: 'Success!',
+            route: { name: 'TenantHome' }
+          });
+        })
+        .catch(error => {
+          console.log('Update client error', error.response);
+        });
     }
   }
 };

@@ -107,24 +107,6 @@ export default {
       this.uploadedFilesUpdate(filesAdapted);
       console.log('files after', filesAdapted);
       this.$router.push({ name: 'ClientUpload' });
-      // const images = filesAdapted.filter(item => item.resourceType === 'image');
-      // const videos = filesAdapted.filter(item => item.resourceType === 'video');
-      // const updatedInfo = {
-      //   ...this.client,
-      //   images,
-      //   videos
-      // };
-      // this.updateClient({
-      //   tenantSlug: this.tenantSlug,
-      //   clientId: this.clientId,
-      //   body: updatedInfo
-      // })
-      //   .then(() => {
-      //     this._fetchClient();
-      //   })
-      //   .catch(error => {
-      //     console.log('Update client error', error.response);
-      //   });
     }
   }
 };
