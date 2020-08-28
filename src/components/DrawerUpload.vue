@@ -8,11 +8,13 @@
           :files="currentFiles"
           @change="updateFiles"
           :uploadPreset="uploadPresetImage"
+          @widget-ready="cloudinaryWidgetImageIsLoaded = true"
         >
           <a
             tabindex="0"
             class="flex justify-between w-full p-4 cursor-pointer"
             aria-labelledby="link-upload-image"
+            :class="[!cloudinaryWidgetImageIsLoaded ? 'opacity-disabled' : '']"
           >
             <span class="flex items-center">
               <IconImages
@@ -34,11 +36,13 @@
           :files="currentFiles"
           @change="updateFiles"
           :uploadPreset="uploadPresetVideo"
+          @widget-ready="cloudinaryWidgetVideoIsLoaded = true"
         >
           <a
             tabindex="0"
             class="flex justify-between w-full p-4 cursor-pointer"
             aria-labelledby="link-upload-video"
+            :class="[!cloudinaryWidgetVideoIsLoaded ? 'opacity-disabled' : '']"
           >
             <span class="flex items-center">
               <IconVideos
@@ -70,6 +74,8 @@ export default {
   components: { MediaUploader, BaseDrawerActions, IconImages, IconVideos },
   data() {
     return {
+      cloudinaryWidgetImageIsLoaded: false,
+      cloudinaryWidgetVideoIsLoaded: false,
       uploadPresetImage: process.env.VUE_APP_UPLOADER_IMAGE_PRESET,
       uploadPresetVideo: process.env.VUE_APP_UPLOADER_VIDEO_PRESET,
       client: null
