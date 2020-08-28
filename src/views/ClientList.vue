@@ -15,7 +15,7 @@
             params: { slug: tenantSlug, clientId: client.id }
           }"
         >
-          <ClientListItem />
+          <ClientListItem :client="client" />
         </router-link>
       </div>
     </div>

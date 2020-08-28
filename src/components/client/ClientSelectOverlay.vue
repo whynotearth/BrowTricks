@@ -1,6 +1,7 @@
 <template>
   <div>
     <BaseOverlayPage :isOpen="isOpen" @close="close" title="Select Client">
+      <!-- TODO: show letter -->
       <ClientListItem
         v-for="client in clients"
         :key="client.id"

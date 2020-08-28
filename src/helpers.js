@@ -120,6 +120,10 @@ export function urlToFile(jsonfile) {
   });
 }
 
+export function isShareApiSupported() {
+  return !!window.navigator.share;
+}
+
 // @input jsonfile: {url}
 export function share(jsonfile) {
   const isFileSharingSupported = !!navigator.canShare;

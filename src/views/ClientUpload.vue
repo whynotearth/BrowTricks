@@ -2,7 +2,7 @@
   <div
     class="container mx-auto pt-4 text-on-background text-opacity-high text-left"
   >
-    <div class="flex text-left px-2">
+    <div class="flex text-left px-2 mb-4">
       <div class="flex-grow px-2 break-word">
         <TextAreaInput
           class="mb-4"
@@ -12,7 +12,11 @@
           labelBackground="has-noise bg-background"
           rows="4"
         >
-          <p v-if="!$v.description.required">
+          <p v-if="!$v.selectedClient.required">
+            Select a client please
+          </p>
+
+          <p v-else-if="!$v.description.required">
             Description is required
           </p>
         </TextAreaInput>
@@ -42,12 +46,16 @@
       </div>
     </div>
 
-    <hr class="border-divider border-opacity-divider my-4" />
+    <hr
+      v-if="isShareApiSupported"
+      class="border-divider border-opacity-divider mb-4"
+    />
 
     <div class="px-4">
-      <div>
+      <div v-if="isShareApiSupported">
         <h2 class="mb-4 tg-body-mobile">Share:</h2>
         <a
+          @click="share(file)"
           tabindex="0"
           class="cursor-pointer block rounded-full w-10 h-10 bg-secondary flex justify-center items-center mb-6"
         >
@@ -55,7 +63,8 @@
             class="fill-current text-on-secondary text-opacity-medium"
           />
         </a>
-
+      </div>
+      <div>
         <Button
           :isRounded="true"
           title="Post"
@@ -83,6 +92,7 @@ import { required } from 'vuelidate/lib/validators';
 import IconUser from '@/assets/icons/person.svg';
 import IconShare from '@/assets/icons/share.svg';
 import { mapGetters } from 'vuex';
+import { share, isShareApiSupported } from '@/helpers.js';
 
 export default {
   name: 'ClientUpload',
@@ -93,12 +103,16 @@ export default {
     selectedClient: null
   }),
   validations: {
+    selectedClient: {
+      required
+    },
     description: {
       required
     }
   },
   computed: {
-    ...mapGetters('uploader', ['uploadedFilesGet'])
+    ...mapGetters('uploader', ['uploadedFilesGet']),
+    isShareApiSupported
   },
   components: {
     ClientSelectOverlay,
@@ -110,10 +124,10 @@ export default {
     BaseImagePreview
   },
   beforeMount() {
-    console.log('in client upload', this.uploadedFilesGet);
     this.file = this.uploadedFilesGet[0];
   },
   methods: {
+    share,
     onSelectClient(client) {
       this.selectedClient = client;
 
@@ -121,6 +135,10 @@ export default {
         this.description + client.firstName + ' ' + client.lastName;
     },
     submit() {
+      this.$v.$touch();
+      if (this.$v.$invalid) {
+        return;
+      }
       console.log('submit...');
     }
   }
