@@ -58,7 +58,7 @@
             <li class="text-on-primary text-opacity-high link-item">
               <router-link
                 class="navigation--link block"
-                :to="{ name: 'TenantHome' }"
+                :to="{ name: 'MyAccount' }"
                 exact
               >
                 <IconUserCircle class="m-auto mb-2 w-5 h-5" />

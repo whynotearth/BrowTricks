@@ -157,6 +157,19 @@ const actions = {
         }
       );
     });
+  },
+  fetchUserTenant(context, tenantSlug) {
+    return new Promise((resolve, reject) => {
+      // TODO: use meredith-axios
+      ajax.get(`/api/v0/browtricks/tenants/${tenantSlug}`).then(
+        response => {
+          resolve(response.data);
+        },
+        error => {
+          reject(error);
+        }
+      );
+    });
   }
 };
 
