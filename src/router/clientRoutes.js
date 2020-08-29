@@ -117,7 +117,7 @@ export const clientRoutes = [
       {
         // sign flow
         path: 'pmu-sign/flow/:stepSlug',
-        name: 'PMUFlowQuestions',
+        name: 'PmuSignFlow',
         component: () => import('@/views/PmuSignFlow.vue'),
         props: true
       },

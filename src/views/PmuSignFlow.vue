@@ -46,7 +46,7 @@ import BusinessInfo from '@/components/tenant/BusinessInfo';
 import StepContentHTML from '@/components/pmu/StepContentHtml';
 import StepQuestion from '@/components/pmu/StepQuestion';
 import {
-  defaultNavigationSteps,
+  // defaultNavigationSteps,
   tenantQuestionsNavigationSteps
 } from '@/services/pmu.js';
 import { mapActions, mapGetters } from 'vuex';
@@ -91,7 +91,7 @@ export default {
     this.prepareTenantQuestions();
   },
   computed: {
-    ...mapGetters('pmu', ['tenantQuestions']),
+    ...mapGetters('tenant', ['pmuDisclosuresGet']),
     componentName() {
       return this.navigation[this.step].componentName;
     },
@@ -100,31 +100,31 @@ export default {
     },
     navigation() {
       return [
-        ...this.navigationPart1,
-        ...this.navigationPart2,
+        // ...this.navigationPart1,
+        // ...this.navigationPart2,
         ...this.navigationPart3,
         ...this.navigationPart4
       ];
     },
-    navigationPart1() {
-      return defaultNavigationSteps({ signature: this.result.signature });
-    },
-    navigationPart2() {
-      if (this.navigationPart3.length > 0) {
-        return [
-          {
-            slug: 'tenant-questions',
-            name: 'Tenant Questions',
-            componentName: 'StepContentHTML',
-            componentProps: {
-              content:
-                'Boise Brow Queen has some additional questions for their services:'
-            }
-          }
-        ];
-      }
-      return [];
-    },
+    // navigationPart1() {
+    //   return defaultNavigationSteps({ signature: this.result.signature });
+    // },
+    // navigationPart2() {
+    //   if (this.navigationPart3.length > 0) {
+    //     return [
+    //       {
+    //         slug: 'tenant-questions',
+    //         name: 'Tenant Questions',
+    //         componentName: 'StepContentHTML',
+    //         componentProps: {
+    //           content:
+    //             'Boise Brow Queen has some additional questions for their services:'
+    //         }
+    //       }
+    //     ];
+    //   }
+    //   return [];
+    // },
     navigationPart4() {
       return [
         {
@@ -140,23 +140,21 @@ export default {
     }
   },
   methods: {
-    ...mapActions('pmu', [
-      'fetchQuestions',
-      'submitAnswers',
-      'getSignUrl',
-      'submitSign'
-    ]),
-    prepareTenantQuestions() {
-      this.fetchQuestions({
-        params: {
-          tenantSlug: this.tenantSlug
-        }
-      }).then(() => {
-        const tenantQuestions = this.tenantQuestions(this.tenantSlug);
-        this.navigationPart3 = tenantQuestions.map((item, index) =>
-          tenantQuestionsNavigationSteps(item, index)
-        );
+    // ...mapActions('pmu', [
+    //   'fetchQuestions',
+    //   'submitAnswers',
+    //   'getSignUrl',
+    //   'submitSign'
+    // ]),
+    ...mapActions('tenant', ['pmuDisclosuresFetch']),
+    async prepareTenantQuestions() {
+      const tenantDisclosures = await this.pmuDisclosuresFetch({
+        params: { tenantSlug: this.tenantSlug }
       });
+      console.log('tenantDisclosures', tenantDisclosures);
+      this.navigationPart3 = tenantDisclosures.map((item, index) =>
+        tenantQuestionsNavigationSteps(item, index)
+      );
     },
     stepUpdate(step) {
       this.step = step;
@@ -168,7 +166,7 @@ export default {
 
       this.$router
         .push({
-          name: 'PMUFlowQuestions',
+          name: 'PmuSignFlow',
           params: { stepSlug: newRoute.slug }
         })
         .catch(() => {});

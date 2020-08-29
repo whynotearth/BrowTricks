@@ -102,6 +102,7 @@ export default {
   computed: {
     ...mapGetters('tenant', ['pmuDisclosuresGet'])
   },
+  // TODO: fetch again after submit
   methods: {
     ...mapActions('tenant', ['pmuDisclosuresFetch', 'pmuDisclosuresUpdate']),
     async _pmuDisclosuresFetch() {

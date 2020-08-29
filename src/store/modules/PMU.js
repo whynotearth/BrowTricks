@@ -31,10 +31,6 @@ const actions = {
   },
   signed(context, { params }) {
     return PmuService.signed(params);
-  },
-  notify(context, { params }) {
-    console.log('params', params);
-    return PmuService.notify(params);
   }
 };
 
