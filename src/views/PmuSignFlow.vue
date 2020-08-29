@@ -48,7 +48,7 @@ import StepQuestion from '@/components/pmu/StepQuestion';
 import {
   defaultNavigationSteps,
   tenantQuestionsNavigationSteps
-} from '@/services/PMU.js';
+} from '@/services/pmu.js';
 import { mapActions, mapGetters } from 'vuex';
 import { showOverlayAndRedirect } from '@/helpers.js';
 
@@ -91,7 +91,7 @@ export default {
     this.prepareTenantQuestions();
   },
   computed: {
-    ...mapGetters('PMU', ['tenantQuestions']),
+    ...mapGetters('pmu', ['tenantQuestions']),
     componentName() {
       return this.navigation[this.step].componentName;
     },
@@ -140,7 +140,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('PMU', [
+    ...mapActions('pmu', [
       'fetchQuestions',
       'submitAnswers',
       'getSignUrl',

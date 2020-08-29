@@ -92,17 +92,6 @@ export const clientRoutes = [
 
       // PMU
       {
-        path: 'pmu-sign-methods',
-        name: 'PmuSignMethods',
-        props: true,
-        component: () => import('@/views/PmuSignMethods.vue'),
-        meta: {
-          layout: WithTitleBarLayout,
-          title: 'PMU Form Sign',
-          backRoute: { name: 'ClientEdit' }
-        }
-      },
-      {
         path: 'pmu-sign',
         name: 'PmuSign',
         component: () => import('@/views/PmuSign.vue'),

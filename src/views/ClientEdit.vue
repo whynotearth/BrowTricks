@@ -58,60 +58,6 @@
           </div>
         </template>
       </MediaManager>
-      <!-- <ExpansionPanel
-        title="Uploads"
-        @click="
-          $router.push({
-            name: 'ClientUploads'
-          })
-        "
-      >
-        <template #preIcon>
-          <IconImages slot="preIcon" class="h-6 w-6 fill-current" />
-        </template>
-      </ExpansionPanel> -->
-
-      <!-- incompleted PMU -->
-      <!-- TODO: enable -->
-      <!-- <ExpansionPanel
-        v-if="isPmuIncomplete"
-        @click="
-          $router.push({
-            name: 'PmuSignMethods',
-            params: { clientId, tenantSlug }
-          })
-        "
-        title="PMU"
-        :middleText="client.pmuStatus"
-      >
-        <Document slot="preIcon" class="h-6 w-6 fill-current" />
-      </ExpansionPanel> -->
-
-      <!-- completed PMU -->
-      <!-- v-else -->
-      <!-- <ExpansionPanel
-        @click="
-          $router.push({
-            name: 'PmuSign',
-            params: { clientId, tenantSlug }
-          })
-        "
-        title="PMU"
-        :middleText="client.pmuStatus"
-      >
-        <template #preIcon>
-          <IconDocument slot="preIcon" class="h-6 w-6 fill-current" />
-        </template>
-      </ExpansionPanel> -->
-
-      <!-- <ExpansionPanel
-        @click="$router.push({ name: 'ClientNotes' })"
-        title="Notes"
-      >
-        <template #preIcon>
-          <IconNotes slot="preIcon" class="h-6 w-6 fill-current" />
-        </template>
-      </ExpansionPanel> -->
     </div>
   </div>
 </template>

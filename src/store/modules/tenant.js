@@ -1,4 +1,5 @@
 import { ajax } from '@/services/ajax.js';
+import { DisclosuresService } from '@whynotearth/meredith-axios';
 
 const notificationTypes = [
   // {
@@ -51,6 +52,7 @@ const defaultBusinessHours = days.map(day => {
 });
 
 const state = {
+  pmuDisclosures: [], // [{id, value}, ...]
   businessInfo: {
     name: '',
     email: '',
@@ -97,10 +99,21 @@ const getters = {
   },
   notificationTypes(state) {
     return state.notificationTypes;
-  }
+  },
+  pmuDisclosuresGet: state => state.pmuDisclosures
 };
 
 const actions = {
+  pmuDisclosuresFetch(context, { params }) {
+    return DisclosuresService.disclosures1(params).then(res => {
+      console.log('res==========', res);
+      context.commit('pmuDisclosuresUpdate', res);
+    });
+  },
+  pmuDisclosuresUpdate(context, { params }) {
+    return DisclosuresService.disclosures(params);
+  },
+
   createTenant({ getters }) {
     const registerData = {
       name: getters.getName,
@@ -144,23 +157,13 @@ const actions = {
         }
       );
     });
-  },
-  userOwnsTenant(context, tenantSlug) {
-    let companySlug = process.env.VUE_APP_COMPANY_SLUG;
-    return new Promise((resolve, reject) => {
-      ajax.get(`/companies/${companySlug}/tenants/owns/${tenantSlug}`).then(
-        response => {
-          resolve(response.data);
-        },
-        error => {
-          reject(error);
-        }
-      );
-    });
   }
 };
 
 const mutations = {
+  pmuDisclosuresUpdate(state, payload) {
+    state.pmuDisclosures = payload;
+  },
   updateName(state, payload) {
     state.businessInfo.name = payload;
   },

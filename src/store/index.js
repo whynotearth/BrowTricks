@@ -4,7 +4,7 @@ import global from './modules/global';
 import auth from './modules/auth';
 import tenant from './modules/tenant';
 import client from './modules/client';
-import PMU from './modules/PMU';
+import pmu from './modules/pmu';
 import overlay from './modules/overlay';
 import loading from './modules/loading';
 import uploader from './modules/uploader';
@@ -42,7 +42,7 @@ export default new Vuex.Store({
     auth,
     tenant,
     client,
-    PMU,
+    pmu,
     overlay,
     loading,
     uploader

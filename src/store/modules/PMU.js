@@ -15,10 +15,6 @@ const getters = {
 };
 
 const actions = {
-  // Set custom questions and get signUrl in response
-  setCustomQuestions(context, { params }) {
-    return PmuService.pmu(params);
-  },
   submitSign(context, signUrl) {
     return new Promise(resolve => {
       // doc: https://app.hellosign.com/api/embeddedTemplatesWalkthrough

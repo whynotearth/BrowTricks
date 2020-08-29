@@ -1,5 +1,5 @@
 <template>
-  <!-- TODO rename questions to disclosures (or something meaningful and more general) everywhere -->
+  <!-- TODO rename sentences to disclosures (or something meaningful and more general) everywhere -->
   <div class="max-w-4xl mx-auto px-4">
     <div class="text-left p-2 text-on-background">
       <template>
@@ -34,14 +34,14 @@
         <div class="bg-surface shadow-1dp py-4 mb-4 rounded-lg px-4">
           <div
             class="flex flex-col items-center pb-4 w-full"
-            v-for="question in questions"
-            :key="question.id"
-            ref="questions"
+            v-for="sentence in sentences"
+            :key="sentence.key"
+            ref="sentences"
           >
-            <BaseEditor v-model.trim="question.value" />
+            <BaseEditor v-model.trim="sentence.value" />
 
             <a
-              @click.prevent.stop="questionRemove"
+              @click.prevent.stop="sentenceRemove(sentence.key)"
               href="#"
               class="flex justify-end w-full"
               title="Delete the above disclosure"
@@ -53,12 +53,12 @@
           </div>
 
           <hr
-            v-if="questions.length > 0"
+            v-if="sentences.length > 0"
             class="mb-2 border-white border-opacity-divider"
           />
           <a
             tabindex="0"
-            @click="questionAdd"
+            @click="sentenceAdd"
             class="text-primary tg-color-label-mobile text-center py-2 w-full block cursor-pointer"
             >Add Disclosure</a
           >
@@ -75,7 +75,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import BaseSlider from '@/components/BaseSlider.vue';
 import Button from '@/components/inputs/Button.vue';
 // import MaterialInput from '@/components/inputs/MaterialInput.vue';
@@ -92,80 +92,70 @@ export default {
     // MaterialInput,
     IconDelete
   },
-  props: ['tenantSlug', 'clientId'],
-
   data: () => ({
-    questions: [],
-    client: null
+    sentences: []
   }),
+  props: ['tenantSlug'],
+  created() {
+    this._pmuDisclosuresFetch();
+  },
   computed: {
-    pmuPdfUrl() {
-      if (!this.client) {
-        return null;
-      }
-      return this.client.pmuPdfUrl;
-    },
-    isPmuIncomplete() {
-      if (!this.client) {
-        return false;
-      }
-      return this.client.pmuStatus === 'incomplete';
-    }
+    ...mapGetters('tenant', ['pmuDisclosuresGet'])
   },
   methods: {
-    ...mapActions('PMU', ['setCustomQuestions']),
-
-    async _fetchClient() {
-      this.client = await this.fetchClient({
-        params: {
-          clientId: this.clientId,
-          tenantSlug: this.tenantSlug
-        }
-      }).catch(() => {
-        console.log('error in getting client');
+    ...mapActions('tenant', ['pmuDisclosuresFetch', 'pmuDisclosuresUpdate']),
+    async _pmuDisclosuresFetch() {
+      await this.pmuDisclosuresFetch({
+        params: { tenantSlug: this.tenantSlug }
       });
+      this.sentences = [...this.pmuDisclosuresGet].map(
+        this.adaptSentenceForPage
+      );
     },
-    questionAdd() {
-      const question = {
-        id: randomId(),
+    sentenceAdd() {
+      let sentence = {
         value: null
       };
-      this.questions.push(question);
-
-      // this.$nextTick(() => {
-      //   this.$refs.questions[this.questions.length - 1]
-      //     .querySelector('input')
-      //     .focus();
-      // });
+      sentence = this.adaptSentenceForPage(sentence);
+      this.sentences.push(sentence);
     },
-    questionRemove(id) {
-      const index = this.questions.findIndex(q => q.id === id);
-      this.questions.splice(index - 1, 1);
+    sentenceRemove(key) {
+      const index = this.sentences.findIndex(q => q.key === key);
+      this.sentences.splice(index - 1, 1);
+    },
+    adaptSentenceForPage(sentence) {
+      return {
+        ...sentence,
+        key: randomId()
+      };
+    },
+    adaptSentencesForApi(sentences) {
+      return sentences
+        .filter(q => q.value.length > 0)
+        .map(q => ({
+          value: q.value,
+          id: q.id
+        }));
     },
     async submit() {
       try {
-        const questions = this.prepareQuestions();
-        await this.setCustomQuestions({
+        const disclosures = this.adaptSentencesForApi(this.sentences);
+        await this.pmuDisclosuresUpdate({
           params: {
             tenantSlug: this.tenantSlug,
-            clientId: this.clientId,
             body: {
-              disclosures: questions
+              disclosures
             }
           }
         });
 
         showOverlayAndRedirect({
-          title: 'Signed Successfully!',
-          route: { name: 'ClientEdit' }
+          title: 'Saved Successfully!'
         });
       } catch (error) {
-        alert('Something went wrong, Signing failed');
-        console.log('error in sign flow', error);
+        alert('Something went wrong, Saving failed');
+        console.log('error in setup pmu', error);
       }
-    },
-    prepareQuestions() {
-      return this.questions.filter(q => q.value.length > 0).map(q => q.value);
     }
   }
 };

@@ -127,7 +127,7 @@ export default {
   },
   methods: {
     ...mapActions('client', ['fetchClient']),
-    ...mapActions('PMU', ['setCustomQuestions', 'submitSign', 'signed']),
+    ...mapActions('pmu', ['setCustomQuestions', 'submitSign', 'signed']),
 
     async _fetchClient() {
       this.client = await this.fetchClient({
