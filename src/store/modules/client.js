@@ -109,6 +109,9 @@ const actions = {
 
   pmuSignNotify(context, { params }) {
     return PmuService.notify(params);
+  },
+  pmuSignAnswers(context, { params }) {
+    return PmuService.pmu1(params);
   }
 };
 

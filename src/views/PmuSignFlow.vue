@@ -92,6 +92,7 @@ export default {
   },
   computed: {
     ...mapGetters('tenant', ['pmuDisclosuresGet']),
+    ...mapGetters('auth', ['isAuthenticated']),
     componentName() {
       return this.navigation[this.step].componentName;
     },
@@ -147,12 +148,13 @@ export default {
     //   'submitSign'
     // ]),
     ...mapActions('tenant', ['pmuDisclosuresFetch']),
+    ...mapActions('client', ['pmuSignAnswers']),
     async prepareTenantQuestions() {
-      const tenantDisclosures = await this.pmuDisclosuresFetch({
+      await this.pmuDisclosuresFetch({
         params: { tenantSlug: this.tenantSlug }
       });
-      console.log('tenantDisclosures', tenantDisclosures);
-      this.navigationPart3 = tenantDisclosures.map((item, index) =>
+      console.log('pmuDisclosuresGet', this.pmuDisclosuresGet);
+      this.navigationPart3 = this.pmuDisclosuresGet.map((item, index) =>
         tenantQuestionsNavigationSteps(item, index)
       );
     },
@@ -230,29 +232,21 @@ export default {
       return valid;
     },
     async submit() {
-      this.submitAnswers({
+      this.pmuSignAnswers({
         params: {
           clientId: this.clientId,
-          tenantSlug: this.tenantSlug,
-          body: this.result
+          tenantSlug: this.tenantSlug
         }
       })
-        .then(() => {
-          return this.getSignUrl({
-            params: {
-              clientId: this.clientId,
-              tenantSlug: this.tenantSlug
-            }
-          });
-        })
-        .then(signUrl => {
-          return this.submitSign(signUrl);
-        })
         .then(async () => {
+          const redirectRoute = this.isAuthenticated
+            ? { name: 'ClientEdit' }
+            : { name: 'Home' };
           showOverlayAndRedirect({
             title: 'Success!',
             message: 'Signed successfully!',
-            route: { name: 'PMUFlowMethods' },
+            // TODO: return to PmuSign if it was not comming from sms notify
+            route: redirectRoute,
             params: {
               clientId: this.clientId,
               tenantSlug: this.tenantSlug

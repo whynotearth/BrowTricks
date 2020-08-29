@@ -106,7 +106,6 @@ const getters = {
 const actions = {
   pmuDisclosuresFetch(context, { params }) {
     return DisclosuresService.disclosures1(params).then(res => {
-      console.log('res==========', res);
       context.commit('pmuDisclosuresUpdate', res);
     });
   },

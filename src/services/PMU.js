@@ -1,10 +1,10 @@
-import { required } from 'vuelidate/lib/validators';
+// import { required } from 'vuelidate/lib/validators';
 // import { isPhoneNumberValid } from '@/helpers';
-// const shouldBeTrue = value => value === true;
-// const onSelectGoNextStep = (emit, vm) => {
-//   const $emit = emit.bind(vm);
-//   $emit('nextStep');
-// };
+const shouldBeTrue = value => value === true;
+const onSelectGoNextStep = (emit, vm) => {
+  const $emit = emit.bind(vm);
+  $emit('nextStep');
+};
 
 export const tenantQuestionsNavigationSteps = (tenantQuestion, index) => {
   return {
@@ -12,19 +12,20 @@ export const tenantQuestionsNavigationSteps = (tenantQuestion, index) => {
     name: 'Tenant Question',
     componentName: 'StepQuestion',
     componentProps: {
-      question: tenantQuestion.question,
+      question: tenantQuestion.value,
       fields: [
         {
-          type: 'textarea',
+          type: 'checkbox',
           name: `tenantQuestion${index + 1}`,
-          label: 'Answer',
-          data: { isTenantQuestion: true, questionId: tenantQuestion.id },
+          options: [{ label: 'Yes' }],
+          onSelect: onSelectGoNextStep,
           validations: {
-            required
+            shouldBeTrue
           },
           errorMessages: {
-            required: 'This field is required'
-          }
+            shouldBeTrue: 'This is required'
+          },
+          data: { isTenantQuestion: true, questionId: tenantQuestion.id }
         }
       ]
     }
