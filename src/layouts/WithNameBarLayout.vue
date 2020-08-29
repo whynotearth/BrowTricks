@@ -2,6 +2,7 @@
   <div class="page min-h-screen flex flex-col text-white text-opacity-medium">
     <header
       class="bg-primary z-20 shadow-4dp flex flex-row justify-between items-center p-4 sticky top-0"
+      v-clickoutside="closeDropDownSheet"
     >
       <!-- icon -->
       <a class="cursor-pointer" @click.prevent="iconClick">
@@ -14,7 +15,6 @@
         <ArrowDropDown
           class="cursor-pointer"
           @click="showDropDownSheet = true"
-          v-clickoutside="closeDropDownSheet"
         />
       </div>
       <a class="cursor-pointer self-center">

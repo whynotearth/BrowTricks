@@ -55,15 +55,14 @@ export default {
     };
   },
   mounted() {
-    this.fetchUserTenants().then(tenants => {
-      if (tenants.length > 0) {
-        this.tenant = tenants[0];
-        this.$emit('name', this.tenant.name);
-      }
+    this.fetchUserTenant(this.$route.params.tenantSlug).then(tenant => {
+      console.log(tenant);
+      this.tenant = tenant;
+      this.$emit('name', this.tenant.name);
     });
   },
   methods: {
-    ...mapActions('tenant', ['fetchUserTenants'])
+    ...mapActions('tenant', ['fetchUserTenant'])
   }
 };
 </script>

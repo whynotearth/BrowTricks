@@ -1,4 +1,5 @@
 import { ajax } from '@/services/ajax.js';
+import { BrowtricksTenantService } from '@whynotearth/meredith-axios';
 
 const notificationTypes = [
   // {
@@ -160,10 +161,9 @@ const actions = {
   },
   fetchUserTenant(context, tenantSlug) {
     return new Promise((resolve, reject) => {
-      // TODO: use meredith-axios
-      ajax.get(`/api/v0/browtricks/tenants/${tenantSlug}`).then(
+      BrowtricksTenantService.tenants({ tenantSlug: tenantSlug }).then(
         response => {
-          resolve(response.data);
+          resolve(response);
         },
         error => {
           reject(error);
