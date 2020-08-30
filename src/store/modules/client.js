@@ -110,6 +110,9 @@ const actions = {
   pmuSignNotify(context, { params }) {
     return PmuService.notify(params);
   },
+  pmuPreSignPreview(context, { params }) {
+    return PmuService.pmu(params);
+  },
   pmuSignAnswers(context, { params }) {
     return PmuService.pmu1(params);
   }

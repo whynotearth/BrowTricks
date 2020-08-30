@@ -1,32 +1,8 @@
 <template>
   <!-- TODO rename questions to disclosures (or something meaningful and more general) everywhere -->
-  <div class="max-w-4xl mx-auto px-4">
+  <div class="max-w-4xl mx-auto px-4 pt-4">
     <div class="text-left p-2 text-on-background">
       <template v-if="isPmuIncomplete">
-        <h2
-          class="tg-body-mobile mb-2 py-2 text-on-background text-opacity-high"
-        >
-          Here is your pre-set PMU form:
-        </h2>
-        <div class="max-w-md mx-auto mb-6">
-          <BaseSlider>
-            <div class="slide keen-slider__slide">
-              <img
-                src="https://res.cloudinary.com/whynotearth/image/upload/v1596652148/BrowTricks/static_v2/pmu-default-form-p1_yuk6bh.jpg"
-                alt=""
-              />
-            </div>
-            <div class="slide keen-slider__slide">
-              <img
-                src="https://res.cloudinary.com/whynotearth/image/upload/v1596652147/BrowTricks/static_v2/pmu-default-form-p2_r8a4yj.jpg"
-                alt=""
-              />
-            </div>
-          </BaseSlider>
-        </div>
-
-        <hr class="border-white border-opacity-divider mb-6" />
-
         <Button
           v-if="shouldShowSms"
           class="rounded-full mb-6 "
@@ -39,6 +15,24 @@
           @clicked="submit"
           title="Get Started"
         ></Button>
+
+        <hr class="border-divider border-opacity-divider mb-6" />
+
+        <div v-if="imagePreview">
+          <h2
+            class="tg-body-mobile mb-2 py-2 text-on-background text-opacity-high"
+          >
+            Here is your pre-set PMU form:
+          </h2>
+          <div class="max-w-4xl mx-auto mb-6">
+            <img :src="imagePreview" alt="" />
+          </div>
+        </div>
+        <div v-else>
+          <p class="tg-body-mobile text-on-background text-opacity-medium">
+            Generating preview...
+          </p>
+        </div>
       </template>
 
       <template v-else-if="pmuPdfUrl">
@@ -58,21 +52,22 @@
 
 <script>
 import { mapActions } from 'vuex';
-import BaseSlider from '@/components/BaseSlider.vue';
+// // import BaseSlider from '@/components/BaseSlider.vue';
 import Button from '@/components/inputs/Button.vue';
 import { showOverlayAndRedirect } from '@/helpers';
 
 export default {
   name: 'PmuSign',
   components: {
-    BaseSlider,
+    // BaseSlider,
     Button
   },
   props: ['tenantSlug', 'clientId'],
   created() {
-    this._fetchClient();
+    this.init();
   },
   data: () => ({
+    imagePreview: '',
     client: null
   }),
   computed: {
@@ -96,8 +91,24 @@ export default {
     }
   },
   methods: {
-    ...mapActions('client', ['fetchClient', 'pmuSignNotify']),
+    ...mapActions('client', [
+      'fetchClient',
+      'pmuSignNotify',
+      'pmuPreSignPreview'
+    ]),
+    async init() {
+      await this._fetchClient();
+      this._pmuPreSignPreview();
+    },
 
+    async _pmuPreSignPreview() {
+      this.imagePreview = await this.pmuPreSignPreview({
+        params: {
+          clientId: this.clientId,
+          tenantSlug: this.tenantSlug
+        }
+      });
+    },
     async _fetchClient() {
       this.client = await this.fetchClient({
         params: {
@@ -136,6 +147,7 @@ export default {
 
 <style scoped>
 .slide {
+  align-items: flex-start;
   @apply bg-white;
 }
 </style>
