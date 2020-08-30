@@ -9,7 +9,7 @@
     >
       <div>
         <StepperTop :navigation="navigation" :page="step + 1" />
-        <div class="my-4 max-w-md mx-auto px-4 pt-4">
+        <div class="my-4 max-w-4xl mx-auto px-4 pt-4">
           <transition name="fade" mode="out-in">
             <keep-alive>
               <component
@@ -45,6 +45,7 @@ import StepperBottom from '@/components/BaseStepperBottomBar';
 import BusinessInfo from '@/components/tenant/BusinessInfo';
 import StepContentHTML from '@/components/pmu/StepContentHtml';
 import StepQuestion from '@/components/pmu/StepQuestion';
+import PmuPreSignPreview from '@/components/pmu/PmuPreSignPreview';
 import {
   // defaultNavigationSteps,
   tenantQuestionsNavigationSteps
@@ -59,7 +60,8 @@ export default {
     StepperBottom,
     BusinessInfo,
     StepContentHTML,
-    StepQuestion
+    StepQuestion,
+    PmuPreSignPreview
   },
   props: ['tenantSlug', 'clientId'],
   data() {
@@ -67,14 +69,6 @@ export default {
       step: null,
       navigationPart3: [],
       result: {
-        signature: '',
-        initials: '',
-        allowPhoto: '',
-        isUnderCareOfPhysician: '',
-        conditions: '',
-        isTakingBloodThinner: '',
-        physicianName: '',
-        physicianPhoneNumber: '',
         answers: [
           // {
           //   questionId: 0,
@@ -92,7 +86,6 @@ export default {
   },
   computed: {
     ...mapGetters('tenant', ['pmuDisclosuresGet']),
-    ...mapGetters('auth', ['isAuthenticated']),
     componentName() {
       return this.navigation[this.step].componentName;
     },
@@ -132,9 +125,11 @@ export default {
           onNext: this.submit,
           slug: 'review-sign-submit',
           name: 'Review & Sign',
-          componentName: 'StepContentHTML',
+          componentName: 'PmuPreSignPreview',
           componentProps: {
-            content: 'Submit and sign answers?'
+            title: 'Agree and Sign?',
+            clientId: this.clientId,
+            tenantSlug: this.tenantSlug
           }
         }
       ];
@@ -238,13 +233,10 @@ export default {
         }
       })
         .then(async () => {
-          const redirectRoute = this.isAuthenticated
-            ? { name: 'ClientEdit' }
-            : { name: 'Home' };
           showOverlayAndRedirect({
             title: 'Success!',
             message: 'Signed successfully!',
-            route: redirectRoute,
+            route: { name: 'PmuSign' },
             params: {
               clientId: this.clientId,
               tenantSlug: this.tenantSlug

@@ -18,20 +18,12 @@
 
         <hr class="border-divider border-opacity-divider mb-6" />
 
-        <div v-if="imagePreview">
-          <h2
-            class="tg-body-mobile mb-2 py-2 text-on-background text-opacity-high"
-          >
-            Here is your pre-set PMU form:
-          </h2>
-          <div class="max-w-4xl mx-auto mb-6">
-            <img :src="imagePreview" alt="" />
-          </div>
-        </div>
-        <div v-else>
-          <p class="tg-body-mobile text-on-background text-opacity-medium">
-            Generating preview...
-          </p>
+        <div>
+          <PmuPreSignPreview
+            title="Here is your pre-set PMU form:"
+            :clientId="clientId"
+            :tenantSlug="tenantSlug"
+          />
         </div>
       </template>
 
@@ -52,14 +44,14 @@
 
 <script>
 import { mapActions } from 'vuex';
-// // import BaseSlider from '@/components/BaseSlider.vue';
 import Button from '@/components/inputs/Button.vue';
+import PmuPreSignPreview from '@/components/pmu/PmuPreSignPreview.vue';
 import { showOverlayAndRedirect } from '@/helpers';
 
 export default {
   name: 'PmuSign',
   components: {
-    // BaseSlider,
+    PmuPreSignPreview,
     Button
   },
   props: ['tenantSlug', 'clientId'],
@@ -67,7 +59,6 @@ export default {
     this.init();
   },
   data: () => ({
-    imagePreview: '',
     client: null
   }),
   computed: {
@@ -97,17 +88,7 @@ export default {
       'pmuPreSignPreview'
     ]),
     async init() {
-      await this._fetchClient();
-      this._pmuPreSignPreview();
-    },
-
-    async _pmuPreSignPreview() {
-      this.imagePreview = await this.pmuPreSignPreview({
-        params: {
-          clientId: this.clientId,
-          tenantSlug: this.tenantSlug
-        }
-      });
+      this._fetchClient();
     },
     async _fetchClient() {
       this.client = await this.fetchClient({

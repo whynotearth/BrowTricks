@@ -105,7 +105,7 @@ export const clientRoutes = [
       {
         path: 'pmu-sign-from-notify',
         name: 'PmuSignFromNotify',
-        component: () => import('@/views/PmuSign.vue'),
+        component: () => import('@/views/PmuSignFlow.vue'),
         props: true,
         meta: {
           isPublic: true,
