@@ -1,4 +1,5 @@
 export const TenantPublicRoutes = [
+  // TODO: needs review
   {
     path: '/shop/:tenantSlug/business-hours',
     name: 'CustomerBusinessHours',
@@ -7,6 +8,7 @@ export const TenantPublicRoutes = [
       isPublic: true
     }
   },
+  // TODO: needs review
   {
     path: '/shop/:tenantSlug/contact',
     name: 'CustomerContact',
@@ -15,6 +17,7 @@ export const TenantPublicRoutes = [
       isPublic: true
     }
   },
+  // TODO: needs review
   {
     path: '/shop/:tenantSlug/categories',
     name: 'CustomerCategories',

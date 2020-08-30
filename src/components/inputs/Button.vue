@@ -1,7 +1,7 @@
 <template>
   <component
     :is="type"
-    class="button tg-color-label-mobile font-semibold uppercase cursor-pointer transition-all duration-75"
+    class="button tg-color-label-mobile font-semibold uppercase cursor-pointer transition-all duration-75 select-none"
     :class="[
       `theme-${theme}`,
       shadow,

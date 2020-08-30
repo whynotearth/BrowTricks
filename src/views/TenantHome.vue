@@ -26,8 +26,14 @@
           </template>
         </ExpansionPanel>
 
-        <!-- TODO: update link -->
-        <ExpansionPanel @click="() => {}" title="PMU Forms">
+        <ExpansionPanel
+          @click="
+            $router.push({
+              name: 'TenantPmuSetup'
+            })
+          "
+          title="PMU Forms"
+        >
           <template #preIcon>
             <IconDocument slot="preIcon" class="h-6 w-6 fill-current" />
           </template>

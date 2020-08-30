@@ -101,17 +101,6 @@ export const clientRoutes = [
 
       // PMU
       {
-        path: 'pmu-sign-methods',
-        name: 'PmuSignMethods',
-        props: true,
-        component: () => import('@/views/PmuSignMethods.vue'),
-        meta: {
-          layout: WithTitleBarLayout,
-          title: 'PMU Form Sign',
-          backRoute: { name: 'ClientEdit' }
-        }
-      },
-      {
         path: 'pmu-sign',
         name: 'PmuSign',
         component: () => import('@/views/PmuSign.vue'),
@@ -125,7 +114,7 @@ export const clientRoutes = [
       {
         path: 'pmu-sign-from-notify',
         name: 'PmuSignFromNotify',
-        component: () => import('@/views/PmuSign.vue'),
+        component: () => import('@/views/PmuSignFlow.vue'),
         props: true,
         meta: {
           isPublic: true,
@@ -133,6 +122,13 @@ export const clientRoutes = [
           title: 'PMU Form Sign',
           backRoute: { name: 'ClientEdit' }
         }
+      },
+      {
+        // sign flow
+        path: 'pmu-sign/flow/:stepSlug',
+        name: 'PmuSignFlow',
+        component: () => import('@/views/PmuSignFlow.vue'),
+        props: true
       },
       {
         path: 'notes',
