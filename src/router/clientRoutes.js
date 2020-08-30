@@ -1,4 +1,5 @@
 import WithTitleBarLayout from '@/layouts/WithTitleBarLayout.vue';
+import IconPlus from '@/assets/icons/plus.svg';
 
 export const clientRoutes = [
   {
@@ -8,6 +9,14 @@ export const clientRoutes = [
     component: () => import('@/views/ClientList.vue'),
     meta: {
       layout: WithTitleBarLayout,
+      layoutAction: {
+        title: 'Add Client',
+        icon: IconPlus,
+        route: {
+          name: 'AddClient',
+          params: { step: 'basic-info' }
+        }
+      },
       title: 'Clients',
       backRoute: { name: 'TenantHome' }
     }
