@@ -12,9 +12,22 @@
       >
         {{ currentTitle }}
       </h1>
+
+      <router-link
+        :aria-labelledby="$route.meta.layoutAction.title"
+        :title="$route.meta.layoutAction.title"
+        :to="$route.meta.layoutAction.route"
+        class="cursor-pointer self-center"
+        v-if="$route.meta.layoutAction"
+      >
+        <component
+          :is="$route.meta.layoutAction.icon"
+          class="fill-current text-on-primary text-opacity-high w-6 h-6"
+        />
+      </router-link>
       <a
         class="cursor-pointer self-center"
-        v-if="$route.meta.menuItems"
+        v-else-if="$route.meta.menuItems"
         @click.prevent="showOverFlowMenu = true"
       >
         <IconOverflowMenu />
