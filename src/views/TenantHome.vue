@@ -2,7 +2,7 @@
   <!-- TODO: move layout to route meta -->
   <ClassicLayout>
     <template #header>
-      <BaseHeader @iconClicked="isDrawerOpenUpdate(true)">
+      <!-- <BaseHeader @iconClicked="isDrawerOpenUpdate(true)">
         <template #icon>
           <IconMenu class="h-6 w-6 fill-current" />
         </template>
@@ -23,7 +23,7 @@
             </router-link>
           </div>
         </template>
-      </BaseHeader>
+      </BaseHeader> -->
     </template>
 
     <!-- content -->
@@ -133,15 +133,15 @@
 
 <script>
 import ClassicLayout from '@/layouts/ClassicLayout.vue';
-import BaseHeader from '@/components/BaseHeader.vue';
+// import BaseHeader from '@/components/BaseHeader.vue';
 import BaseHeroSection from '@/components/BaseHeroSection.vue';
 import Button from '@/components/inputs/Button.vue';
 import ExpansionPanel from '@/components/ExpansionPanel.vue';
-import MenuDrawerPanel from '@/components/MenuDrawerPanel.vue';
-import BaseAvatar from '@/components/BaseAvatar.vue';
+// import MenuDrawerPanel from '@/components/MenuDrawerPanel.vue';
+// import BaseAvatar from '@/components/BaseAvatar.vue';
 import BaseDialog from '@/components/BaseDialog.vue';
 import NavigationBottom from '@/components/NavigationBottom.vue';
-import IconMenu from '@/assets/icons/menu.svg';
+// import IconMenu from '@/assets/icons/menu.svg';
 import IconUser from '@/assets/icons/user-nocircle.svg';
 import IconDocument from '@/assets/icons/document.svg';
 import IconFacebook from '@/assets/icons/facebook.svg';
@@ -162,13 +162,13 @@ export default {
     ClassicLayout,
     Button,
     BaseHeroSection,
-    BaseHeader,
+    // BaseHeader,
     ExpansionPanel,
     NavigationBottom,
-    MenuDrawerPanel,
-    BaseAvatar,
+    // MenuDrawerPanel,
+    // BaseAvatar,
     BaseDialog,
-    IconMenu,
+    // IconMenu,
     IconUser,
     IconFacebook,
     IconShop,
