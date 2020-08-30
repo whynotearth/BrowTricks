@@ -7,6 +7,7 @@ import { clientRoutes } from './clientRoutes';
 import { TenantPanelRoutes } from './TenantPanelRoutes';
 import { generalRoutes } from './generalRoutes';
 import { TenantPublicRoutes } from './TenantPublicRoutes';
+import { SubscriptionRoutes } from './subscriptionRoutes';
 import { get } from 'lodash-es';
 
 Vue.use(VueRouter);
@@ -16,7 +17,8 @@ const routes = [
   ...TenantPublicRoutes,
   ...clientRoutes,
   ...generalRoutes,
-  ...authRoutes
+  ...authRoutes,
+  ...SubscriptionRoutes
 ];
 
 const router = new VueRouter({
