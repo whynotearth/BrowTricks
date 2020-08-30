@@ -153,7 +153,6 @@ export default {
       await this.pmuDisclosuresFetch({
         params: { tenantSlug: this.tenantSlug }
       });
-      console.log('pmuDisclosuresGet', this.pmuDisclosuresGet);
       this.navigationPart3 = this.pmuDisclosuresGet.map((item, index) =>
         tenantQuestionsNavigationSteps(item, index)
       );
@@ -245,7 +244,6 @@ export default {
           showOverlayAndRedirect({
             title: 'Success!',
             message: 'Signed successfully!',
-            // TODO: return to PmuSign if it was not comming from sms notify
             route: redirectRoute,
             params: {
               clientId: this.clientId,
