@@ -99,7 +99,7 @@ export default {
   }),
   props: ['tenantSlug'],
   created() {
-    this._pmuDisclosuresFetch();
+    this.init();
   },
   computed: {
     ...mapGetters('tenant', ['pmuDisclosuresGet'])
@@ -107,6 +107,9 @@ export default {
   // TODO: fetch again after submit
   methods: {
     ...mapActions('tenant', ['pmuDisclosuresFetch', 'pmuDisclosuresUpdate']),
+    init() {
+      this._pmuDisclosuresFetch();
+    },
     async _pmuDisclosuresFetch() {
       await this.pmuDisclosuresFetch({
         params: { tenantSlug: this.tenantSlug }
@@ -151,6 +154,8 @@ export default {
             }
           }
         });
+
+        this.init();
 
         showOverlayAndRedirect({
           title: 'Saved Successfully!'
