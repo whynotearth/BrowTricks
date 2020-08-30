@@ -11,9 +11,9 @@
         </template>
         <template #end>
           <div class="flex w-full justify-end">
-            <router-link v-if="isAuthenticated" :to="{ name: 'MyAccount' }">
+            <!-- <router-link v-if="isAuthenticated" :to="{ name: 'MyAccount' }">
               <BaseAvatar width="w-10" height="h-10" />
-            </router-link>
+            </router-link> -->
             <router-link
               v-if="!isAuthenticated"
               :to="{ name: 'Login' }"
@@ -138,7 +138,7 @@ import BaseHeroSection from '@/components/BaseHeroSection.vue';
 import Button from '@/components/inputs/Button.vue';
 import ExpansionPanel from '@/components/ExpansionPanel.vue';
 import MenuDrawerPanel from '@/components/MenuDrawerPanel.vue';
-import BaseAvatar from '@/components/BaseAvatar.vue';
+// import BaseAvatar from '@/components/BaseAvatar.vue';
 import BaseDialog from '@/components/BaseDialog.vue';
 import NavigationBottom from '@/components/NavigationBottom.vue';
 import IconMenu from '@/assets/icons/menu.svg';
@@ -166,7 +166,7 @@ export default {
     ExpansionPanel,
     NavigationBottom,
     MenuDrawerPanel,
-    BaseAvatar,
+    // BaseAvatar,
     BaseDialog,
     IconMenu,
     IconUser,
