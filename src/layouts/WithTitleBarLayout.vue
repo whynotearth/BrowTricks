@@ -4,9 +4,6 @@
       class="bg-primary z-20 shadow-4dp flex flex-row items-center p-4 sticky top-0"
     >
       <!-- icon -->
-      <!-- <a class="cursor-pointer" @click.prevent="iconClick">
-        <IconBack class="text-white mr-2" />
-      </a> -->
       <h1 class="tg-h2-mobile text-opacity-high flex-grow text-white ml-2">
         {{ currentTitle }}
       </h1>
@@ -79,7 +76,6 @@
 </template>
 
 <script>
-// import IconBack from '@/assets/icons/arrow-back.svg';
 import { mapGetters } from 'vuex';
 import BaseSpinner from '@/components/BaseSpinner';
 import NavigationBottom from '@/components/NavigationBottom';
@@ -114,9 +110,6 @@ export default {
       this.handleBackRoute();
       this.handleTitle();
     },
-    // iconClick() {
-    //   this.$router.push(this.backRoute);
-    // },
     handleTitle() {
       this.currentTitle = this.$route.meta.title;
       // listen for title updates
