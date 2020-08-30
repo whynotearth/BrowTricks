@@ -96,8 +96,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('client', ['fetchClient']),
-    ...mapActions('pmu', ['pmuSignNotify']),
+    ...mapActions('client', ['fetchClient', 'pmuSignNotify']),
 
     async _fetchClient() {
       this.client = await this.fetchClient({
