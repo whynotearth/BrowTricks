@@ -51,6 +51,49 @@
         </template>
       </ExpansionPanel>
 
+      <!-- incompleted PMU -->
+      <ExpansionPanel
+        v-if="isPmuIncomplete"
+        @click="
+          $router.push({
+            name: 'PmuSign',
+            params: { clientId, tenantSlug }
+          })
+        "
+        title="PMU"
+        :middleText="client.pmuStatus"
+      >
+        <template #preIcon>
+          <IconDocument class="h-6 w-6 fill-current" />
+        </template>
+      </ExpansionPanel>
+
+      <!-- completed PMU -->
+      <ExpansionPanel
+        v-else
+        @click="
+          $router.push({
+            name: 'PmuSign',
+            params: { clientId, tenantSlug }
+          })
+        "
+        title="PMU"
+        :middleText="client.pmuStatus"
+      >
+        <template #preIcon>
+          <IconDocument class="h-6 w-6 fill-current" />
+        </template>
+      </ExpansionPanel>
+
+      <ExpansionPanel
+        @click="$router.push({ name: 'ClientNotes' })"
+        title="Notes"
+      >
+        <template #preIcon>
+          <IconNotes class="h-6 w-6 fill-current" />
+        </template>
+      </ExpansionPanel>
+
       <MediaManager :files="currentFiles" @change="updateFiles" class="mb-4">
         <template #title>
           <div class="tg-body-mobile ">
@@ -68,8 +111,8 @@ import ExpansionPanel from '@/components/ExpansionPanel.vue';
 import BaseHeroSection from '@/components/BaseHeroSection.vue';
 import MediaManager from '@/components/uploader/MediaManager.vue';
 
-// import IconDocument from '@/assets/icons/document.svg';
-// import IconNotes from '@/assets/icons/notes.svg';
+import IconDocument from '@/assets/icons/document.svg';
+import IconNotes from '@/assets/icons/notes.svg';
 import IconNotification from '@/assets/icons/notification.svg';
 // import IconImages from '@/assets/icons/images.svg';
 import IconMail from '@/assets/icons/mail.svg';
@@ -93,8 +136,8 @@ export default {
   components: {
     // BaseDialog,
     BaseHeroSection,
-    // IconDocument,
-    // IconNotes,
+    IconDocument,
+    IconNotes,
     IconNotification,
     // IconImages,
     IconMail,
