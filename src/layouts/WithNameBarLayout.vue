@@ -15,10 +15,10 @@
         <h1 class="tg-h2-mobile text-opacity-high text-left text-white ml-4">
           {{ tenant.name }}
         </h1>
-        <ArrowDropDown
+        <!-- <ArrowDropDown
           class="cursor-pointer"
           @click="showDropDownSheet = true"
-        />
+        /> -->
       </div>
       <a class="cursor-pointer self-center">
         <!-- <IconOverflowMenu /> -->
@@ -57,7 +57,7 @@
 
 <script>
 import IconBack from '@/assets/icons/arrow-back.svg';
-import ArrowDropDown from '@/assets/icons/arrow-drop-down.svg';
+// import ArrowDropDown from '@/assets/icons/arrow-drop-down.svg';
 import { mapGetters } from 'vuex';
 import BaseSpinner from '@/components/BaseSpinner';
 import MyAccount from '@/views/MyAccount.vue';
@@ -74,7 +74,7 @@ export default {
     NavigationBottom,
     // IconOverflowMenu,
     MyAccount,
-    ArrowDropDown,
+    // ArrowDropDown,
     DropDownSheet
   },
   data: () => ({

@@ -9,8 +9,9 @@
     </BaseHeroSection>
 
     <!-- content -->
-    <div class="max-w-md mx-auto px-4 -mt-10">
-      <ExpansionPanel
+    <!-- it should be -mt-10 when expansion panel is going to uncommmented -->
+    <div class="max-w-md mx-auto px-4 mt-10">
+      <!-- <ExpansionPanel
         title="Edit Profile"
         @click="
           $router.push({
@@ -22,7 +23,7 @@
         <template #preIcon>
           <IconCreate class="h-6 w-6 fill-current" />
         </template>
-      </ExpansionPanel>
+      </ExpansionPanel> -->
 
       <MediaManager :files="currentFiles" class="mb-4">
         <template #title>
@@ -37,18 +38,18 @@
 
 <script>
 import BaseHeroSection from '@/components/BaseHeroSection.vue';
-import ExpansionPanel from '@/components/ExpansionPanel.vue';
+// import ExpansionPanel from '@/components/ExpansionPanel.vue';
 import MediaManager from '@/components/uploader/MediaManager.vue';
 import { mapActions } from 'vuex';
 import { get } from 'lodash-es';
-import IconCreate from '@/assets/icons/create.svg';
+// import IconCreate from '@/assets/icons/create.svg';
 
 export default {
   name: 'MyAccount',
   components: {
     BaseHeroSection,
-    IconCreate,
-    ExpansionPanel,
+    // IconCreate,
+    // ExpansionPanel,
     MediaManager
   },
   props: {
