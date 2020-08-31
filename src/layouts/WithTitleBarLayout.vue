@@ -21,6 +21,7 @@
         />
       </router-link>
       <a
+        v-click-outside="onClickOutside"
         class="cursor-pointer self-center"
         v-else-if="$route.meta.menuItems"
         @click.prevent="showOverFlowMenu = true"
@@ -109,6 +110,7 @@ export default {
     init() {
       this.handleBackRoute();
       this.handleTitle();
+      this.onClickOutside();
     },
     handleTitle() {
       this.currentTitle = this.$route.meta.title;
@@ -125,12 +127,15 @@ export default {
       });
     },
     navigateTo(value) {
-      this.showOverFlowMenu = false;
+      this.onClickOutside();
       let params = this.$route.params;
       this.$router.push({
         name: value,
         params: { clientId: params.clientId, tenantSlug: params.tenantSlug }
       });
+    },
+    onClickOutside() {
+      this.showOverFlowMenu = false;
     }
   },
   watch: {
