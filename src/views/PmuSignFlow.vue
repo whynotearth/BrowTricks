@@ -197,7 +197,7 @@ export default {
         this.stepUpdate(this.step - 1);
         return;
       }
-      this.$router.push({ name: 'PMUFlowStart' });
+      this.$router.push({ name: 'PmuSign' });
     },
     async nextStep() {
       const valid = this.validateStep(this.step);

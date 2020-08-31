@@ -1,36 +1,20 @@
 <template>
   <!-- TODO rename sentences to disclosures (or something meaningful and more general) everywhere -->
-  <div class="max-w-4xl mx-auto px-4">
+  <div class="max-w-4xl mx-auto px-4 pt-4">
     <div class="text-left p-2 text-on-background">
       <template>
-        <div class="preview">
-          <h2
-            class="tg-body-mobile mb-2 py-2 text-on-background text-opacity-high"
-          >
-            Here is your pre-set PMU form:
-          </h2>
-          <div class="max-w-md mx-auto mb-6">
-            <BaseSlider>
-              <div class="slide keen-slider__slide">
-                <img
-                  src="https://res.cloudinary.com/whynotearth/image/upload/v1596652148/BrowTricks/static_v2/pmu-default-form-p1_yuk6bh.jpg"
-                  alt=""
-                />
-              </div>
-              <div class="slide keen-slider__slide">
-                <img
-                  src="https://res.cloudinary.com/whynotearth/image/upload/v1596652147/BrowTricks/static_v2/pmu-default-form-p2_r8a4yj.jpg"
-                  alt=""
-                />
-              </div>
-            </BaseSlider>
-          </div>
+        <!-- <div class="preview" v-if="shouldShowPreview">
+          <PmuPreSignPreview
+            title="Here is your pre-set PMU form:"
+            :tenantSlug="tenantSlug"
+            :clientId="0"
+          />
         </div>
 
-        <hr class="border-white border-opacity-divider mb-6" />
+        <hr class="border-white border-opacity-divider mb-6" /> -->
 
         <h2 class="tg-h2-mobile text-on-background text-opacity-high mb-6">
-          Add Custom Disclosures
+          Add Your Disclosures
         </h2>
 
         <div class="bg-surface shadow-1dp py-4 mb-4 rounded-lg px-4">
@@ -67,9 +51,16 @@
         </div>
 
         <Button
-          class="rounded-full mb-6 "
+          class="rounded-full my-6"
           @clicked="submit"
           title="Save"
+        ></Button>
+
+        <Button
+          @clicked="cancel"
+          title="Cancel"
+          theme="none"
+          class="rounded-full mb-6 text-on-background text-opacity-medium"
         ></Button>
       </template>
     </div>
@@ -78,10 +69,9 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import BaseSlider from '@/components/BaseSlider.vue';
-import Button from '@/components/inputs/Button.vue';
-// import MaterialInput from '@/components/inputs/MaterialInput.vue';
 import BaseEditor from '@/components/inputs/BaseEditor.vue';
+import Button from '@/components/inputs/Button.vue';
+// // import PmuPreSignPreview from '@/components/pmu/PmuPreSignPreview.vue';
 import IconDelete from '@/assets/icons/delete.svg';
 import { randomId, showOverlayAndRedirect } from '@/helpers';
 
@@ -89,20 +79,23 @@ export default {
   name: 'TenantPmuSetup',
   components: {
     BaseEditor,
-    BaseSlider,
+    // PmuPreSignPreview,
     Button,
-    // MaterialInput,
     IconDelete
   },
   data: () => ({
-    sentences: []
+    sentences: [],
+    isLoading: false
   }),
   props: ['tenantSlug'],
   created() {
     this.init();
   },
   computed: {
-    ...mapGetters('tenant', ['pmuDisclosuresGet'])
+    ...mapGetters('tenant', ['pmuDisclosuresGet']),
+    shouldShowPreview() {
+      return this.sentences.length > 0 && !this.isLoading;
+    }
   },
   // TODO: fetch again after submit
   methods: {
@@ -145,6 +138,7 @@ export default {
     },
     async submit() {
       try {
+        this.isLoading = true;
         const disclosures = this.adaptSentencesForApi(this.sentences);
         await this.pmuDisclosuresUpdate({
           params: {
@@ -156,6 +150,7 @@ export default {
         });
 
         this.init();
+        this.isLoading = false;
 
         showOverlayAndRedirect({
           title: 'Saved Successfully!'
@@ -164,6 +159,9 @@ export default {
         alert('Something went wrong, Saving failed');
         console.log('error in setup pmu', error);
       }
+    },
+    cancel() {
+      this.$router.go(-1);
     }
   }
 };
