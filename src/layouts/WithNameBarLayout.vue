@@ -1,18 +1,22 @@
 <template>
-  <div class="page min-h-screen flex flex-col text-white text-opacity-medium">
+  <div
+    class="page min-h-screen flex flex-col text-on-primary text-opacity-medium"
+  >
     <header
       class="bg-primary z-20 shadow-4dp flex flex-row justify-between items-center p-4 sticky top-0"
     >
       <!-- icon -->
       <a class="cursor-pointer" @click.prevent="iconClick" v-if="backRoute">
-        <IconBack class="text-white mr-2" />
+        <IconBack class="text-on-primary mr-2" />
       </a>
       <div
         class="flex flex-grow justify-center items-center text-center"
         :class="{ 'ml-2': !backRoute }"
         v-click-outside="closeDropDownSheet"
       >
-        <h1 class="tg-h2-mobile text-opacity-high text-left text-white ml-4">
+        <h1
+          class="tg-h2-mobile text-opacity-high text-left text-on-primary ml-4"
+        >
           {{ tenant.name }}
         </h1>
         <!-- <ArrowDropDown

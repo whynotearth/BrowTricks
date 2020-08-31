@@ -13,8 +13,10 @@
       <div
         class="flex flex-col justify-start flex-grow mx-4 cursor-pointer text-left"
       >
-        <p class="text-on-primary text-base">{{ tenant.name }}</p>
-        <p class="text-on-primary text-opacity-50 text-xs">User Account</p>
+        <p class="text-on-primary tg-body-mobile">{{ tenant.name }}</p>
+        <p class="text-on-primary text-opacity-50 tg-caption-mobile">
+          User Account
+        </p>
       </div>
       <div class="flex content-start items-center cursor-pointer">
         <IconCheck />
@@ -22,7 +24,7 @@
     </div>
     <div class="flex flex-row my-4">
       <div
-        class="rounded-full h-10 w-10 flex items-center justify-center bg-gray-500"
+        class="rounded-full h-10 w-10 flex items-center justify-center bg-medium-emphasis"
       >
         <IconAddDark />
       </div>
@@ -58,3 +60,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.bg-medium-emphasis {
+  background: rgba(255, 255, 255, 0.54);
+}
+</style>

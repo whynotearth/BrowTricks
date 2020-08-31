@@ -1,4 +1,4 @@
-<template>
+<template functional>
   <div class="flex flex-row w-full justify-between p-4 cursor-pointer">
     <p class="text-on-background">{{ rowKey }}</p>
     <div class="flex flex-row">
