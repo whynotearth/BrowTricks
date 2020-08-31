@@ -2,7 +2,7 @@
   <div class="text-left text-on-background text-opacity-high" v-if="tenant">
     <!-- header -->
     <BaseHeroSection>
-      <img class="h-12 rounded-full" :src="tenant.logoUrl" alt="user-logo" />
+      <img class="h-12 rounded-full" :src="logoUrl" alt="user-logo" />
       <h3 class="py-6 tg-h2-mobile text-on-background">
         {{ tenant.name }}
       </h3>
@@ -60,7 +60,9 @@ export default {
   },
   data() {
     return {
-      tenantData: null
+      tenantData: null,
+      logoUrl:
+        'https://res.cloudinary.com/whynotearth/image/upload/v1597646048/BrowTricks/static_v2/crown_zp6ziq.png'
     };
   },
   computed: {
