@@ -44,15 +44,15 @@ import { mapMutations, mapActions, mapState } from 'vuex';
 import StepperTop from '@/components/BaseStepperTopBar';
 import StepperBottom from '@/components/BaseStepperBottomBar';
 import BasicInfo from '@/components/client/BasicInfo';
-import Notifications from '@/components/client/Notifications';
+// import Notifications from '@/components/client/Notifications';
 
 export default {
   name: 'ClientAddEdit',
   components: {
     StepperTop,
     StepperBottom,
-    BasicInfo,
-    Notifications
+    BasicInfo
+    // Notifications
   },
   props: {
     tenantSlug: {
@@ -66,11 +66,11 @@ export default {
         {
           step: 'basic-info',
           name: 'Basic Info'
-        },
-        {
-          step: 'notifications',
-          name: 'Notifications'
         }
+        // {
+        //   step: 'notifications',
+        //   name: 'Notifications'
+        // }
       ],
       errors: null
     };
