@@ -56,6 +56,14 @@
           </template>
         </ExpansionPanel>
 
+        <ExpansionPanel
+          title="Manage Subscriptions"
+          @click="$router.push({name: 'ManageSubscriptions'})"
+          >
+          <template #preIcon>
+          </template>
+        </ExpansionPanel>
+
         <ExpansionPanel title="Tutorials" @click="isTutorialsModalOpen = true">
           <template #preIcon>
             <IconTutorial class="h-4 w-4 fill-current" />

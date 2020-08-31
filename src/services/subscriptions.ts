@@ -16,13 +16,27 @@ export interface Subscription {
   transactions: Transaction[];
 }
 
+export enum Brands {
+  Unknown = 0,
+  Amex,
+  DinersClub,
+  Discover,
+  Jcb,
+  Mastercard,
+  Visa,
+  UnionPay
+}
+
 export interface Card {
-  type: string;
-  masked: string;
+  brand: Brands;
+  last4: string;
+  expirationMonth: number;
+  expirationYear: number;
 }
 
 export interface Transaction {
   date: string;
+  last4?: string;
   amount: number;
 }
 
@@ -37,19 +51,51 @@ export default class SubscriptionService {
       lastPaymentDate: '20200726T00:00:00Z',
       renewsOnDate: '20200727T00:00:00Z',
       card: {
-        type: 'Mastercard',
-        masked: '***********5555'
+        brand: Brands.Mastercard,
+        last4: "5555",
+        expirationMonth: 12,
+        expirationYear: 30
       },
-      transactions: []
+      transactions: [
+        {
+          date: "20200726T00:00:00Z",
+          amount: 100,
+          last4: "5555"
+        },
+        {
+          date: "20200626T00:00:00Z",
+          amount: 100,
+          last4: "5555"
+        }
+      ]
     };
   }
 
-  cancelSubscription(): void {
+  async loadPaymentMethodsByTenant(tenantSlug: string): Promise<Card[]> {
+    const response = await ajax.get('/api/v0/authentication/ping');
+
+    return [
+      {
+        brand: Brands.Mastercard,
+        last4: "5555",
+        expirationMonth: 12,
+        expirationYear: 30
+      },
+      {
+        brand: Brands.Amex,
+        last4: "7657",
+        expirationMonth: 4,
+        expirationYear: 23
+      }
+    ]
+  }
+
+  cancelSubscription(tenantSlug: string): void {
     console.log('cancel');
   }
 
-  changePaymentMethod(): void {
-    console.log('change');
+  changePaymentMethod(last4: string): void {
+    console.log(`changed to ${last4}`);
   }
 
   addPaymentMethod(): void {
