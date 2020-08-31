@@ -110,6 +110,7 @@ export default {
     init() {
       this.handleBackRoute();
       this.handleTitle();
+      this.onClickOutside();
     },
     handleTitle() {
       this.currentTitle = this.$route.meta.title;
