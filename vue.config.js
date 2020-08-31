@@ -1,4 +1,8 @@
 module.exports = {
+  pwa: {
+    name: 'BrowTricks',
+    themeColor: '#141414'
+  },
   devServer: {
     // for local browserstack
     disableHostCheck: true

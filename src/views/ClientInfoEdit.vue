@@ -172,7 +172,8 @@ export default {
         this.isDeleteModalOpen = false;
         showOverlayAndRedirect({
           title: 'Success!',
-          message: 'Client archived successfully!'
+          message: 'Client archived successfully!',
+          route: { name: 'ClientList' }
         });
       });
     }

@@ -29,9 +29,13 @@
         >
           <BaseChip>
             <template #icon>
-              <IconUser class="fill-current text-primary w-3 h-3" />
+              <IconCheck
+                v-if="selectedClient"
+                class="fill-current text-primary w-3 h-3"
+              />
+              <IconUser v-else class="fill-current text-primary w-3 h-3" />
             </template>
-            Client
+            Select Client
           </BaseChip>
         </a>
       </div>
@@ -84,6 +88,7 @@
       :isOpen="isOpenClientSelect"
       @close="isOpenClientSelect = false"
       @select="onSelectClient"
+      :selected="selectedClient"
     />
   </div>
 </template>
@@ -97,6 +102,7 @@ import BaseVideoPreview from '@/components/uploader/BaseVideoPreview';
 import BaseChip from '@/components/BaseChip';
 import { required } from 'vuelidate/lib/validators';
 import IconUser from '@/assets/icons/person.svg';
+import IconCheck from '@/assets/icons/check.svg';
 import IconShare from '@/assets/icons/share.svg';
 import { mapGetters, mapActions } from 'vuex';
 import {
@@ -134,13 +140,13 @@ export default {
     Button,
     TextAreaInput,
     IconUser,
+    IconCheck,
     BaseChip,
     IconShare,
     BaseImagePreview,
     BaseVideoPreview
   },
   beforeDestroy() {
-    console.log('clear uploadedFiles store state');
     this.uploadedFilesUpdate([]);
   },
   beforeMount() {
@@ -151,7 +157,7 @@ export default {
     this.file = this.uploadedFilesGet[0];
   },
   methods: {
-    ...mapActions('client', ['updateClient']),
+    ...mapActions('client', ['updateClient', 'fetchClient']),
     ...mapActions('uploader', ['uploadedFilesUpdate']),
     share,
     getCloudinaryVideoThumbnail,
@@ -161,22 +167,39 @@ export default {
       this.description =
         this.description + client.firstName + ' ' + client.lastName;
     },
-    submit() {
+    async submit() {
       this.$v.$touch();
       if (this.$v.$invalid) {
         return;
       }
 
-      const clientId = this.selectedClient.id;
-      const client = this.selectedClient;
+      let client;
+      try {
+        client = await this.fetchClient({
+          params: {
+            clientId: this.selectedClient.id,
+            tenantSlug: this.tenantSlug
+          }
+        });
+      } catch (error) {
+        alert('Error in getting client info');
+        return;
+      }
 
+      const clientId = client.id;
       const filesAdapted = this.uploadedFilesGet.map(item => ({
         ...item,
         url: item.url,
         publicId: item.publicId
       }));
-      const images = filesAdapted.filter(item => item.resourceType === 'image');
-      const videos = filesAdapted.filter(item => item.resourceType === 'video');
+      const images = [
+        ...client.images,
+        ...filesAdapted.filter(item => item.resourceType === 'image')
+      ];
+      const videos = [
+        ...client.videos,
+        ...filesAdapted.filter(item => item.resourceType === 'video')
+      ];
       const updatedInfo = {
         ...client,
         images,

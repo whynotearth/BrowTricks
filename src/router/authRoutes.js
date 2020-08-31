@@ -27,11 +27,5 @@ export const authRoutes = [
     name: 'Login',
     component: () => import('@/views/AuthLogIn.vue'),
     meta: { isPublic: true }
-  },
-  {
-    path: '/sign-up/success/:slug',
-    name: 'SignUpSuccess',
-    component: () => import('@/components/auth/SignUpSuccess.vue'),
-    meta: { layout: () => import('@/layouts/TenantLayout.vue'), isPublic: true }
   }
 ];
