@@ -2,6 +2,7 @@
   <div class="page min-h-screen flex flex-col text-white text-opacity-medium">
     <header
       class="bg-primary z-20 shadow-4dp flex flex-row items-center p-4 sticky top-0"
+      v-click-outside="onClickOutside"
     >
       <!-- icon -->
       <h1 class="tg-h2-mobile text-opacity-high flex-grow text-white ml-2">
@@ -125,12 +126,15 @@ export default {
       });
     },
     navigateTo(value) {
-      this.showOverFlowMenu = false;
+      this.onClickOutside();
       let params = this.$route.params;
       this.$router.push({
         name: value,
         params: { clientId: params.clientId, tenantSlug: params.tenantSlug }
       });
+    },
+    onClickOutside() {
+      this.showOverFlowMenu = false;
     }
   },
   watch: {
