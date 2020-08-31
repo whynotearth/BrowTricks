@@ -19,6 +19,10 @@
         </router-link>
       </div>
     </div>
+
+    <div v-else class="p-6 text-on-background text-opacity-medium">
+      No clients
+    </div>
   </div>
 </template>
 

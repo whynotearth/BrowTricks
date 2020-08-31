@@ -35,7 +35,7 @@ export const clientRoutes = [
     meta: {
       noNavigation: true,
       layout: WithTitleBarLayout,
-      title: 'Upload',
+      title: 'Portfolio Upload',
       backRoute: { name: 'TenantHome' }
     }
   },
