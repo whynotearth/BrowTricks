@@ -2,7 +2,6 @@
   <div class="page min-h-screen flex flex-col text-white text-opacity-medium">
     <header
       class="bg-primary z-20 shadow-4dp flex flex-row items-center p-4 sticky top-0"
-      v-click-outside="onClickOutside"
     >
       <!-- icon -->
       <h1 class="tg-h2-mobile text-opacity-high flex-grow text-white ml-2">
@@ -22,6 +21,7 @@
         />
       </router-link>
       <a
+        v-click-outside="onClickOutside"
         class="cursor-pointer self-center"
         v-else-if="$route.meta.menuItems"
         @click.prevent="showOverFlowMenu = true"
