@@ -1,4 +1,8 @@
-import { ClientService, ClientNoteService } from '@whynotearth/meredith-axios';
+import {
+  ClientService,
+  ClientNoteService,
+  PmuService
+} from '@whynotearth/meredith-axios';
 
 const state = {
   clients: [],
@@ -101,6 +105,16 @@ const actions = {
   },
   deleteClientNote(context, payload) {
     return ClientNoteService.notes2(payload);
+  },
+
+  pmuSignNotify(context, { params }) {
+    return PmuService.notify(params);
+  },
+  pmuPreSignPreview(context, { params }) {
+    return PmuService.pmu(params);
+  },
+  pmuSignAnswers(context, { params }) {
+    return PmuService.pmu1(params);
   }
 };
 

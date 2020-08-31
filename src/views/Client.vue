@@ -30,22 +30,19 @@ export default {
     ...mapGetters('loading', ['isLoading'])
   },
   async created() {
-    this.handleLoginByToken();
+    await this.handleLoginByToken();
     this._fetchClient();
   },
   methods: {
-    ...mapActions('auth', ['updateToken']),
+    ...mapActions('auth', ['updateToken', 'tokenlogin']),
     ...mapMutations('loading', ['loading']),
     ...mapActions('client', ['fetchClient']),
     handleLoginByToken() {
-      this.setTokenFromUrl();
-    },
-    setTokenFromUrl() {
-      if (this.$route.query.token) {
-        this.updateToken(this.$route.query.token);
-        return true;
+      const token = this.$route.query.token;
+      if (!token) {
+        return;
       }
-      return false;
+      return this.tokenlogin({ params: { body: { token } } });
     },
     async _fetchClient() {
       this.loading(true);

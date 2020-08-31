@@ -32,67 +32,17 @@
     </BaseHeroSection>
 
     <!-- content -->
-    <div class="max-w-md mx-auto px-4 -mt-16">
-      <div class="shadow-1dp px-2 py-6 rounded-lg mb-4 bg-surface">
-        <MaterialInput
-          margin="mb-6"
-          v-model="$v.client.firstName.$model"
-          label="First Name"
-          :error="$v.client.firstName.$error"
-        >
-          <p v-if="!$v.client.firstName.required" class="text-error text-xs">
-            First Name is required
-          </p>
-        </MaterialInput>
-        <MaterialInput
-          margin="mb-6"
-          v-model="$v.client.lastName.$model"
-          label="Last Name"
-          :error="$v.client.lastName.$error"
-        >
-          <p v-if="!$v.client.lastName.required" class="text-error text-xs">
-            Last Name is required
-          </p>
-        </MaterialInput>
-        <MaterialInput
-          margin="mb-6"
-          v-model="$v.client.phoneNumber.$model"
-          label="Phone Number"
-          :error="$v.client.phoneNumber.$error"
-        >
-          <p v-if="!$v.client.phoneNumber.required" class="text-error text-xs">
-            Phone number is required
-          </p>
-          <p
-            v-else-if="
-              !$v.client.phoneNumber.minLength ||
-                !$v.client.phoneNumber.isPhoneNumberValid
-            "
-            class="text-error text-xs"
-          >
-            Please enter a valid phone number
-          </p>
-        </MaterialInput>
-        <MaterialInput
-          :margin="null"
-          v-model="$v.client.email.$model"
-          label="Email"
-          :error="$v.client.email.$error"
-          :attrs="{ readonly: true }"
-        >
-          <p v-if="!$v.client.email.required" class="text-error text-xs">
-            Email is required
-          </p>
-          <p v-else-if="!$v.client.email.email" class="text-error text-xs">
-            Please enter a email address
-          </p>
-        </MaterialInput>
-      </div>
+    <div class="max-w-md mx-auto px-4 -mt-10">
       <ExpansionPanel
-        title="Notification Settings"
+        title="Edit Profile"
         @click="
           $router.push({
-            name: 'ClientNotifications'
+            name: 'ClientInfoEdit',
+            params: {
+              tenantSlug: tenantSlug,
+              clientId: clientId,
+              client: client
+            }
           })
         "
       >
@@ -100,116 +50,33 @@
           <IconNotification class="h-6 w-6 fill-current" />
         </template>
       </ExpansionPanel>
-      <ExpansionPanel
-        title="Uploads"
-        @click="
-          $router.push({
-            name: 'ClientUploads'
-          })
-        "
-      >
-        <template #preIcon>
-          <IconImages slot="preIcon" class="h-6 w-6 fill-current" />
+
+      <MediaManager :files="currentFiles" @change="updateFiles" class="mb-4">
+        <template #title>
+          <div class="tg-body-mobile ">
+            <span class="text-on-background text-opacity-high"></span>
+          </div>
         </template>
-      </ExpansionPanel>
-
-      <!-- incompleted PMU -->
-      <!-- TODO: enable -->
-      <!-- <ExpansionPanel
-        v-if="isPmuIncomplete"
-        @click="
-          $router.push({
-            name: 'PmuSignMethods',
-            params: { clientId, tenantSlug }
-          })
-        "
-        title="PMU"
-        :middleText="client.pmuStatus"
-      >
-        <Document slot="preIcon" class="h-6 w-6 fill-current" />
-      </ExpansionPanel> -->
-
-      <!-- completed PMU -->
-      <!-- v-else -->
-      <ExpansionPanel
-        @click="
-          $router.push({
-            name: 'PmuSign',
-            params: { clientId, tenantSlug }
-          })
-        "
-        title="PMU"
-        :middleText="client.pmuStatus"
-      >
-        <template #preIcon>
-          <IconDocument slot="preIcon" class="h-6 w-6 fill-current" />
-        </template>
-      </ExpansionPanel>
-
-      <ExpansionPanel
-        @click="$router.push({ name: 'ClientNotes' })"
-        title="Notes"
-      >
-        <template #preIcon>
-          <IconNotes slot="preIcon" class="h-6 w-6 fill-current" />
-        </template>
-      </ExpansionPanel>
-      <div class="py-6">
-        <Button class="rounded-full" title="Save" @clicked="save" />
-        <Button
-          class="mt-8"
-          textColor="text-error"
-          title="Delete Client"
-          theme="none"
-          @clicked="isDeleteModalOpen = true"
-        />
-      </div>
-
-      <BaseDialog
-        v-if="isDeleteModalOpen"
-        @close="isDeleteModalOpen = false"
-        title="Delete Client?"
-      >
-        <Button
-          textColor="text-on-primary text-opacity-medium"
-          title="Cancel"
-          theme="none"
-          @clicked="isDeleteModalOpen = false"
-          width="w-auto"
-          :margin="null"
-        />
-        <Button
-          textColor="text-error"
-          title="Delete"
-          theme="none"
-          @clicked="archive"
-          width="w-auto"
-          :margin="null"
-        />
-      </BaseDialog>
+      </MediaManager>
     </div>
   </div>
 </template>
 
 <script>
-import { required, minLength, email } from 'vuelidate/lib/validators';
-import MaterialInput from '@/components/inputs/MaterialInput.vue';
-import Button from '@/components/inputs/Button.vue';
+// import MaterialInput from '@/components/inputs/MaterialInput.vue';
 import ExpansionPanel from '@/components/ExpansionPanel.vue';
-import BaseDialog from '@/components/BaseDialog.vue';
 import BaseHeroSection from '@/components/BaseHeroSection.vue';
+import MediaManager from '@/components/uploader/MediaManager.vue';
 
-import IconDocument from '@/assets/icons/document.svg';
-import IconNotes from '@/assets/icons/notes.svg';
+// import IconDocument from '@/assets/icons/document.svg';
+// import IconNotes from '@/assets/icons/notes.svg';
 import IconNotification from '@/assets/icons/notification.svg';
-import IconImages from '@/assets/icons/images.svg';
+// import IconImages from '@/assets/icons/images.svg';
 import IconMail from '@/assets/icons/mail.svg';
 import IconPhone from '@/assets/icons/phone.svg';
 import IconPhoneAndroid from '@/assets/icons/phone_android.svg';
-
-import { isPhoneNumberValid } from '@/helpers';
+import { get } from 'lodash-es';
 import { mapActions } from 'vuex';
-import { sleep } from '@/helpers.js';
 
 export default {
   name: 'ClientEdit',
@@ -224,44 +91,26 @@ export default {
     }
   },
   components: {
-    BaseDialog,
+    // BaseDialog,
     BaseHeroSection,
-    IconDocument,
-    IconNotes,
+    // IconDocument,
+    // IconNotes,
     IconNotification,
-    IconImages,
+    // IconImages,
     IconMail,
     IconPhone,
     IconPhoneAndroid,
-    MaterialInput,
-    Button,
-    ExpansionPanel
+    // MaterialInput,
+    // Button,
+    ExpansionPanel,
+    MediaManager
   },
   data() {
     return {
       logo: process.env.VUE_APP_LOGO2_URL,
-      client: null,
-      isDeleteModalOpen: false
+      uploadPreset: process.env.VUE_APP_UPLOADER_MEDIA_PRESET,
+      client: null
     };
-  },
-  validations: {
-    client: {
-      firstName: {
-        required
-      },
-      lastName: {
-        required
-      },
-      phoneNumber: {
-        required,
-        minLength: minLength(10),
-        isPhoneNumberValid
-      },
-      email: {
-        required,
-        email
-      }
-    }
   },
   async created() {
     this._fetchClient();
@@ -272,6 +121,18 @@ export default {
         return false;
       }
       return this.client.pmuStatus === 'incomplete';
+    },
+    currentFiles() {
+      return [
+        ...get(this.client, 'images', []).map(item => ({
+          ...item,
+          resourceType: 'image'
+        })),
+        ...get(this.client, 'videos', []).map(item => ({
+          ...item,
+          resourceType: 'video'
+        }))
+      ];
     }
   },
   methods: {
@@ -287,53 +148,37 @@ export default {
         this.goListPage();
       });
     },
-
-    save() {
-      this.$v.$touch();
-      if (this.$v.$invalid) {
-        return;
-      }
-
-      this.updateClient({
-        tenantSlug: this.tenantSlug,
-        clientId: this.clientId,
-        body: this.client
-      }).then(async () => {
-        this.$store.commit('overlay/updateModel', {
-          title: 'Success!',
-          message: 'Client updated successfully!'
-        });
-        await sleep(1500);
-        this.$store.commit('overlay/updateModel', {
-          title: '',
-          message: ''
-        });
-      });
-    },
-
-    archive() {
-      this.archiveClient({
-        tenantSlug: this.tenantSlug,
-        clientId: this.clientId
-      }).then(async () => {
-        this.isDeleteModalOpen = false;
-        this.$store.commit('overlay/updateModel', {
-          title: 'Success!',
-          message: 'Client archived successfully!'
-        });
-        this.goListPage();
-        await sleep(1500);
-        this.$store.commit('overlay/updateModel', {
-          title: '',
-          message: ''
-        });
-      });
-    },
-
     goListPage() {
       this.$router.push({
         name: 'ClientList'
       });
+    },
+    updateFiles(files) {
+      console.log('files before updatefiles', files);
+      const filesAdapted = files.map(item => ({
+        ...item,
+        url: item.url,
+        publicId: item.publicId
+      }));
+      console.log('files after', filesAdapted);
+      const images = filesAdapted.filter(item => item.resourceType === 'image');
+      const videos = filesAdapted.filter(item => item.resourceType === 'video');
+      const updatedInfo = {
+        ...this.client,
+        images,
+        videos
+      };
+      this.updateClient({
+        tenantSlug: this.tenantSlug,
+        clientId: this.clientId,
+        body: updatedInfo
+      })
+        .then(() => {
+          this._fetchClient();
+        })
+        .catch(error => {
+          console.log('Update client error', error.response);
+        });
     }
   }
 };

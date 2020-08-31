@@ -15,9 +15,9 @@
         </template>
         <template #end>
           <div class="flex w-full justify-end">
-            <router-link v-if="isAuthenticated" :to="{ name: 'MyAccount' }">
+            <!-- <router-link v-if="isAuthenticated" :to="{ name: 'MyAccount' }">
               <BaseAvatar width="w-10" height="h-10" />
-            </router-link>
+            </router-link> -->
             <router-link
               v-if="!isAuthenticated"
               :to="{ name: 'Login' }"
@@ -116,7 +116,7 @@ import BaseHeader from '@/components/BaseHeader.vue';
 import ArticleMini from '@/components/ArticleMini.vue';
 import Button from '@/components/inputs/Button.vue';
 import MenuDrawerCustomer from '@/components/MenuDrawerCustomer.vue';
-import BaseAvatar from '@/components/BaseAvatar.vue';
+// import BaseAvatar from '@/components/BaseAvatar.vue';
 import IconMenu from '@/assets/icons/menu.svg';
 import { mapGetters, mapActions } from 'vuex';
 
@@ -128,7 +128,7 @@ export default {
     ArticleMini,
     Button,
     MenuDrawerCustomer,
-    BaseAvatar,
+    // BaseAvatar,
     IconMenu
   },
   computed: {
