@@ -2,15 +2,18 @@
   <div class="page min-h-screen flex flex-col text-white text-opacity-medium">
     <header
       class="bg-primary z-20 shadow-4dp flex flex-row justify-between items-center p-4 sticky top-0"
-      v-clickoutside="closeDropDownSheet"
     >
       <!-- icon -->
-      <a class="cursor-pointer" @click.prevent="iconClick">
+      <a class="cursor-pointer" @click.prevent="iconClick" v-if="backRoute">
         <IconBack class="text-white mr-2" />
       </a>
-      <div class="flex flex-row items-center">
-        <h1 class="tg-h2-mobile text-opacity-high text-left text-white ml-2">
-          {{ name }}
+      <div
+        class="flex flex-grow justify-center items-center text-center"
+        :class="{ 'ml-2': !backRoute }"
+        v-click-outside="closeDropDownSheet"
+      >
+        <h1 class="tg-h2-mobile text-opacity-high text-left text-white ml-4">
+          {{ tenant.name }}
         </h1>
         <ArrowDropDown
           class="cursor-pointer"
@@ -18,7 +21,7 @@
         />
       </div>
       <a class="cursor-pointer self-center">
-        <IconOverflowMenu />
+        <!-- <IconOverflowMenu /> -->
       </a>
     </header>
 
@@ -31,7 +34,7 @@
       leave-to-class="translate-y-1 opacity-0"
     >
       <div class="absolute inset-x-0 top-0 mt-12 z-50" v-if="showDropDownSheet">
-        <DropDownSheet />
+        <DropDownSheet :tenants="tenants" />
       </div>
     </transition>
 
@@ -45,7 +48,7 @@
     <!-- content -->
     <!-- mb-14 for bottom navigation -->
     <div class="relative flex-grow w-full mb-14 pb-6" v-show="!isLoading">
-      <MyAccount @name="getName" />
+      <MyAccount :tenant="tenant" />
     </div>
 
     <NavigationBottom v-if="!noNavigation" />
@@ -59,8 +62,9 @@ import { mapGetters } from 'vuex';
 import BaseSpinner from '@/components/BaseSpinner';
 import MyAccount from '@/views/MyAccount.vue';
 import NavigationBottom from '@/components/NavigationBottom';
-import IconOverflowMenu from '@/assets/icons/more.svg';
+// import IconOverflowMenu from '@/assets/icons/more.svg';
 import DropDownSheet from '@/components/tenant/DropDownSheet.vue';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'WithNameBarLayout',
@@ -68,36 +72,18 @@ export default {
     IconBack,
     BaseSpinner,
     NavigationBottom,
-    IconOverflowMenu,
+    // IconOverflowMenu,
     MyAccount,
     ArrowDropDown,
     DropDownSheet
-  },
-  directives: {
-    clickoutside: {
-      bind: function(el, binding, vnode) {
-        el.clickOutsideEvent = function(event) {
-          // here I check that click was outside the el and his childrens
-          if (!(el == event.target || el.contains(event.target))) {
-            // and if it did, call method provided in attribute value
-            vnode.context[binding.expression](event);
-          }
-        };
-        document.body.addEventListener('click', el.clickOutsideEvent);
-      },
-      unbind: function(el) {
-        document.body.removeEventListener('click', el.clickOutsideEvent);
-      },
-      stopProp(event) {
-        event.stopPropagation();
-      }
-    }
   },
   data: () => ({
     isVisible: false,
     name: '',
     backRoute: null,
-    showDropDownSheet: false
+    showDropDownSheet: false,
+    tenants: [],
+    tenant: {}
   }),
   mounted() {
     this.isVisible = true;
@@ -110,8 +96,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions('tenant', ['fetchUserTenants']),
     init() {
       this.handleBackRoute();
+      this._fetchTenants();
     },
     iconClick() {
       this.$router.push(this.backRoute);
@@ -125,6 +113,12 @@ export default {
     },
     getName(name) {
       this.name = name;
+    },
+    _fetchTenants() {
+      this.fetchUserTenants().then(tenants => {
+        this.tenants = tenants;
+        this.tenant = tenants[0];
+      });
     },
     closeDropDownSheet() {
       this.showDropDownSheet = false;

@@ -17,6 +17,7 @@ module.exports = {
         divider: '0.12'
       },
       borderRadius: {
+        sm: '0.1875rem',
         xl: '0.75rem'
       },
       screens: {
@@ -40,6 +41,9 @@ module.exports = {
         '-1': '-1',
         '100': '100',
         '110': '110'
+      },
+      wordBreak: {
+        'break-word': 'break-word'
       }
     }
   },

@@ -23,20 +23,15 @@
 </template>
 
 <script>
-import { disableScrollbar, enableScrollbar } from '@/helpers.js';
+import noPageScrollbar from '@/utils/noPageScrollbarMixin.js';
 
 export default {
   name: 'BaseDialog',
+  mixins: [noPageScrollbar],
   props: {
     title: {
       type: String
     }
-  },
-  mounted() {
-    disableScrollbar();
-  },
-  beforeDestroy() {
-    enableScrollbar();
   }
 };
 </script>

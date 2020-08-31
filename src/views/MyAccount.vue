@@ -24,13 +24,13 @@
         </template>
       </ExpansionPanel>
 
-      <!-- <MediaManager :files="currentFiles" @change="updateFiles" class="mb-4">
+      <MediaManager :files="currentFiles" class="mb-4">
         <template #title>
           <div class="tg-body-mobile ">
             <span class="text-on-background text-opacity-high"></span>
           </div>
         </template>
-      </MediaManager> -->
+      </MediaManager>
     </div>
   </div>
 </template>
@@ -38,31 +38,59 @@
 <script>
 import BaseHeroSection from '@/components/BaseHeroSection.vue';
 import ExpansionPanel from '@/components/ExpansionPanel.vue';
-// import MediaManager from '@/components/uploader/MediaManager.vue';
-import IconCreate from '@/assets/icons/create.svg';
+import MediaManager from '@/components/uploader/MediaManager.vue';
 import { mapActions } from 'vuex';
+import { get } from 'lodash-es';
+import IconCreate from '@/assets/icons/create.svg';
+
 export default {
   name: 'MyAccount',
   components: {
     BaseHeroSection,
     IconCreate,
-    ExpansionPanel
-    // MediaManager
+    ExpansionPanel,
+    MediaManager
+  },
+  props: {
+    tenant: {
+      type: Object,
+      required: true
+    }
   },
   data() {
     return {
-      tenant: {}
+      tenantData: null
     };
   },
-  mounted() {
-    this.fetchUserTenant(this.$route.params.tenantSlug).then(tenant => {
-      console.log(tenant);
-      this.tenant = tenant;
-      this.$emit('name', this.tenant.name);
-    });
+  computed: {
+    currentFiles() {
+      return [
+        ...get(this.tenantData, 'images', []).map(item => ({
+          ...item,
+          resourceType: 'image'
+        })),
+        ...get(this.tenantData, 'videos', []).map(item => ({
+          ...item,
+          resourceType: 'video'
+        }))
+      ];
+    }
+  },
+  created() {
+    this.init();
   },
   methods: {
-    ...mapActions('tenant', ['fetchUserTenant'])
+    ...mapActions('tenant', ['fetchUserTenant']),
+    init() {
+      this._fetchTenantData();
+    },
+    async _fetchTenantData() {
+      this.tenantData = await this.fetchUserTenant(
+        this.$route.params.tenantSlug
+      ).catch(() => {
+        console.log('error in getting client');
+      });
+    }
   }
 };
 </script>

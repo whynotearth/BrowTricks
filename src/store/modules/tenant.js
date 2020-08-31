@@ -1,5 +1,6 @@
 import { ajax } from '@/services/ajax.js';
 import { BrowtricksTenantService } from '@whynotearth/meredith-axios';
+import { DisclosuresService } from '@whynotearth/meredith-axios';
 
 const notificationTypes = [
   // {
@@ -52,6 +53,7 @@ const defaultBusinessHours = days.map(day => {
 });
 
 const state = {
+  pmuDisclosures: [], // [{id, value}, ...]
   businessInfo: {
     name: '',
     email: '',
@@ -98,10 +100,20 @@ const getters = {
   },
   notificationTypes(state) {
     return state.notificationTypes;
-  }
+  },
+  pmuDisclosuresGet: state => state.pmuDisclosures
 };
 
 const actions = {
+  pmuDisclosuresFetch(context, { params }) {
+    return DisclosuresService.disclosures1(params).then(res => {
+      context.commit('pmuDisclosuresUpdate', res);
+    });
+  },
+  pmuDisclosuresUpdate(context, { params }) {
+    return DisclosuresService.disclosures(params);
+  },
+
   createTenant({ getters }) {
     const registerData = {
       name: getters.getName,
@@ -174,6 +186,9 @@ const actions = {
 };
 
 const mutations = {
+  pmuDisclosuresUpdate(state, payload) {
+    state.pmuDisclosures = payload;
+  },
   updateName(state, payload) {
     state.businessInfo.name = payload;
   },

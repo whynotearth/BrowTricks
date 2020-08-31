@@ -4,17 +4,33 @@
       class="bg-primary z-20 shadow-4dp flex flex-row items-center p-4 sticky top-0"
     >
       <!-- icon -->
-      <a class="cursor-pointer" @click.prevent="iconClick">
-        <IconBack class="text-white mr-2" />
-      </a>
-      <h1
-        class="tg-h2-mobile text-opacity-high flex-grow text-left text-white ml-2"
+      <a
+        class="cursor-pointer"
+        @click.prevent="iconClick"
+        v-if="$route.meta.backRoute"
       >
+        <IconBack class="text-white" />
+      </a>
+      <h1 class="tg-h2-mobile text-opacity-high flex-grow text-white">
         {{ currentTitle }}
       </h1>
-      <a
+
+      <router-link
+        :aria-labelledby="$route.meta.layoutAction.title"
+        :title="$route.meta.layoutAction.title"
+        :to="$route.meta.layoutAction.route"
         class="cursor-pointer self-center"
-        v-if="$route.meta.menuItems"
+        v-if="$route.meta.layoutAction"
+      >
+        <component
+          :is="$route.meta.layoutAction.icon"
+          class="fill-current text-on-primary text-opacity-high w-6 h-6"
+        />
+      </router-link>
+      <a
+        v-click-outside="onClickOutside"
+        class="cursor-pointer self-center"
+        v-else-if="$route.meta.menuItems"
         @click.prevent="showOverFlowMenu = true"
       >
         <IconOverflowMenu />
@@ -55,7 +71,11 @@
     </div>
     <!-- content -->
     <!-- mb-14 for bottom navigation -->
-    <div class="relative flex-grow w-full mb-14 pb-6" v-show="!isLoading">
+    <div
+      class="relative flex-grow w-full"
+      :class="[noNavigation ? '' : 'mb-14 pb-6']"
+      v-show="!isLoading"
+    >
       <slot v-if="isVisible" />
     </div>
 
@@ -64,15 +84,20 @@
 </template>
 
 <script>
-import IconBack from '@/assets/icons/arrow-back.svg';
 import { mapGetters } from 'vuex';
 import BaseSpinner from '@/components/BaseSpinner';
 import NavigationBottom from '@/components/NavigationBottom';
 import IconOverflowMenu from '@/assets/icons/more.svg';
+import IconBack from '@/assets/icons/arrow-back.svg';
 
 export default {
   name: 'WithTitleBarLayout',
-  components: { IconBack, BaseSpinner, NavigationBottom, IconOverflowMenu },
+  components: {
+    IconBack,
+    BaseSpinner,
+    NavigationBottom,
+    IconOverflowMenu
+  },
   data: () => ({
     isVisible: false,
     currentTitle: '',
@@ -93,6 +118,7 @@ export default {
     init() {
       this.handleBackRoute();
       this.handleTitle();
+      this.onClickOutside();
     },
     iconClick() {
       this.$router.push(this.backRoute);
@@ -112,12 +138,15 @@ export default {
       });
     },
     navigateTo(value) {
-      this.showOverFlowMenu = false;
+      this.onClickOutside();
       let params = this.$route.params;
       this.$router.push({
         name: value,
         params: { clientId: params.clientId, tenantSlug: params.tenantSlug }
       });
+    },
+    onClickOutside() {
+      this.showOverFlowMenu = false;
     }
   },
   watch: {

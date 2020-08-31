@@ -18,8 +18,7 @@ export const TenantPanelRoutes = [
     props: true,
     meta: {
       layout: () => import('@/layouts/WithNameBarLayout.vue'),
-      title: 'My Account',
-      backRoute: { name: 'TenantHome' }
+      title: 'My Account'
     }
   },
   {
@@ -29,7 +28,7 @@ export const TenantPanelRoutes = [
     component: () => import('@/views/AccountInfoEdit.vue'),
     meta: {
       layout: () => import('@/layouts/WithTitleBarLayout.vue'),
-      title: 'Edit Account Info',
+      title: 'Edit Profile',
       backRoute: { name: 'MyAccount' }
     }
   }

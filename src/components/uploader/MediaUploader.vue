@@ -1,5 +1,6 @@
 <template>
   <CloudinaryWidget
+    @widget-ready="$emit('widget-ready')"
     @uploaded="onUpload"
     :uploadPreset="uploadPreset"
     @error="onUploadError"
@@ -8,28 +9,17 @@
       maxImageWidth
     }"
     :id="id ? id : 'media_uploader_element'"
-    class="flex justify-center items-center upload-add w-1/3 border border-on-background border-dashed border-opacity-divider cursor-pointer"
   >
-    <label class="block cursor-pointer">
-      <div class="upload-icon">
-        <div class="upload-icon--dimension flex justify-center items-center">
-          <IconPlus
-            class="fill-current text-on-background text-opacity-medium"
-          />
-        </div>
-      </div>
-    </label>
+    <slot />
   </CloudinaryWidget>
 </template>
 
 <script>
-import IconPlus from '@/assets/icons/plus.svg';
 import { cloudinaryFileToMeredithFileAdapter } from '@/helpers.js';
 
 export default {
   name: 'MediaUploader',
   components: {
-    IconPlus,
     CloudinaryWidget: () => import('./CloudinaryWidget')
   },
   props: {

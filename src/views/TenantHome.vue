@@ -1,30 +1,7 @@
 <template>
   <!-- TODO: move layout to route meta -->
   <ClassicLayout>
-    <template #header>
-      <BaseHeader @iconClicked="isDrawerOpenUpdate(true)">
-        <template #icon>
-          <IconMenu class="h-6 w-6 fill-current" />
-        </template>
-        <template #menu-drawer>
-          <MenuDrawerPanel :tenantSlug="tenantSlug" />
-        </template>
-        <template #end>
-          <div class="flex w-full justify-end">
-            <router-link v-if="isAuthenticated" :to="{ name: 'MyAccount' }">
-              <BaseAvatar width="w-10" height="h-10" />
-            </router-link>
-            <router-link
-              v-if="!isAuthenticated"
-              :to="{ name: 'Login' }"
-              class="uppercase text-secondary"
-            >
-              Log In
-            </router-link>
-          </div>
-        </template>
-      </BaseHeader>
-    </template>
+    <template #header />
 
     <!-- content -->
     <template #content>
@@ -49,8 +26,14 @@
           </template>
         </ExpansionPanel>
 
-        <!-- TODO: update link -->
-        <ExpansionPanel @click="() => {}" title="PMU Forms">
+        <ExpansionPanel
+          @click="
+            $router.push({
+              name: 'TenantPmuSetup'
+            })
+          "
+          title="PMU Forms"
+        >
           <template #preIcon>
             <IconDocument slot="preIcon" class="h-6 w-6 fill-current" />
           </template>
@@ -133,15 +116,11 @@
 
 <script>
 import ClassicLayout from '@/layouts/ClassicLayout.vue';
-import BaseHeader from '@/components/BaseHeader.vue';
 import BaseHeroSection from '@/components/BaseHeroSection.vue';
 import Button from '@/components/inputs/Button.vue';
 import ExpansionPanel from '@/components/ExpansionPanel.vue';
-import MenuDrawerPanel from '@/components/MenuDrawerPanel.vue';
-import BaseAvatar from '@/components/BaseAvatar.vue';
 import BaseDialog from '@/components/BaseDialog.vue';
 import NavigationBottom from '@/components/NavigationBottom.vue';
-import IconMenu from '@/assets/icons/menu.svg';
 import IconUser from '@/assets/icons/user-nocircle.svg';
 import IconDocument from '@/assets/icons/document.svg';
 import IconFacebook from '@/assets/icons/facebook.svg';
@@ -162,13 +141,9 @@ export default {
     ClassicLayout,
     Button,
     BaseHeroSection,
-    BaseHeader,
     ExpansionPanel,
     NavigationBottom,
-    MenuDrawerPanel,
-    BaseAvatar,
     BaseDialog,
-    IconMenu,
     IconUser,
     IconFacebook,
     IconShop,

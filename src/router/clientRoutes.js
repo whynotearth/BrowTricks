@@ -1,4 +1,5 @@
 import WithTitleBarLayout from '@/layouts/WithTitleBarLayout.vue';
+import IconPlus from '@/assets/icons/plus.svg';
 
 export const clientRoutes = [
   {
@@ -8,6 +9,14 @@ export const clientRoutes = [
     component: () => import('@/views/ClientList.vue'),
     meta: {
       layout: WithTitleBarLayout,
+      layoutAction: {
+        title: 'Add Client',
+        icon: IconPlus,
+        route: {
+          name: 'AddClient',
+          params: { step: 'basic-info' }
+        }
+      },
       title: 'Clients',
       backRoute: { name: 'TenantHome' }
     }
@@ -17,6 +26,18 @@ export const clientRoutes = [
     name: 'AddClient',
     props: true,
     component: () => import('@/views/ClientAddEdit.vue')
+  },
+  {
+    path: '/tenant/:tenantSlug/upload',
+    name: 'ClientUpload',
+    props: true,
+    component: () => import('@/views/ClientUpload.vue'),
+    meta: {
+      noNavigation: true,
+      layout: WithTitleBarLayout,
+      title: 'Upload',
+      backRoute: { name: 'TenantHome' }
+    }
   },
   {
     path: '/tenant/:tenantSlug/clients/:clientId',
@@ -80,17 +101,6 @@ export const clientRoutes = [
 
       // PMU
       {
-        path: 'pmu-sign-methods',
-        name: 'PmuSignMethods',
-        props: true,
-        component: () => import('@/views/PmuSignMethods.vue'),
-        meta: {
-          layout: WithTitleBarLayout,
-          title: 'PMU Form Sign',
-          backRoute: { name: 'ClientEdit' }
-        }
-      },
-      {
         path: 'pmu-sign',
         name: 'PmuSign',
         component: () => import('@/views/PmuSign.vue'),
@@ -104,7 +114,7 @@ export const clientRoutes = [
       {
         path: 'pmu-sign-from-notify',
         name: 'PmuSignFromNotify',
-        component: () => import('@/views/PmuSign.vue'),
+        component: () => import('@/views/PmuSignFlow.vue'),
         props: true,
         meta: {
           isPublic: true,
@@ -112,6 +122,13 @@ export const clientRoutes = [
           title: 'PMU Form Sign',
           backRoute: { name: 'ClientEdit' }
         }
+      },
+      {
+        // sign flow
+        path: 'pmu-sign/flow/:stepSlug',
+        name: 'PmuSignFlow',
+        component: () => import('@/views/PmuSignFlow.vue'),
+        props: true
       },
       {
         path: 'notes',

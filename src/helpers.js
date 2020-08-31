@@ -101,6 +101,13 @@ export function transformCloudinaryUrl(resourceUrl, transformations) {
   return urlParts.join('/');
 }
 
+export function getCloudinaryVideoThumbnail(file) {
+  const urlSegments = file.url.split('.');
+  const extension = urlSegments[urlSegments.length - 1];
+  const thumbnail = file.url.replace(new RegExp(extension + '$'), 'jpg');
+  return thumbnail;
+}
+
 // @input jsonfile: {url}
 export function urlToFile(jsonfile) {
   const urlParts = jsonfile.url.split('/');
@@ -118,6 +125,10 @@ export function urlToFile(jsonfile) {
         });
     });
   });
+}
+
+export function isShareApiSupported() {
+  return !!window.navigator.share;
 }
 
 // @input jsonfile: {url}
