@@ -14,7 +14,14 @@
             :key="client.id"
             :client="client"
             @select="onSelectClient(client)"
-          />
+          >
+            <template #end>
+              <IconCheck
+                v-if="selected && client.id === selected.id"
+                class="fill-current w-6 h-6 text-on-background text-opacity-medium"
+              />
+            </template>
+          </ClientListItem>
         </div>
       </div>
     </BaseOverlayPage>
@@ -24,11 +31,15 @@
 <script>
 import ClientListItem from '@/components/client/ClientListItem';
 import BaseOverlayPage from '@/components/BaseOverlayPage';
+import IconCheck from '@/assets/icons/check.svg';
 import { mapActions, mapGetters } from 'vuex';
 export default {
   name: 'ClientSelectOverlay',
-  components: { ClientListItem, BaseOverlayPage },
+  components: { ClientListItem, BaseOverlayPage, IconCheck },
   props: {
+    selected: {
+      type: Object
+    },
     isOpen: {
       type: Boolean,
       default: false

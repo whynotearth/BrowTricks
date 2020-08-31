@@ -29,9 +29,13 @@
         >
           <BaseChip>
             <template #icon>
-              <IconUser class="fill-current text-primary w-3 h-3" />
+              <IconCheck
+                v-if="selectedClient"
+                class="fill-current text-primary w-3 h-3"
+              />
+              <IconUser v-else class="fill-current text-primary w-3 h-3" />
             </template>
-            Client
+            Select Client
           </BaseChip>
         </a>
       </div>
@@ -84,6 +88,7 @@
       :isOpen="isOpenClientSelect"
       @close="isOpenClientSelect = false"
       @select="onSelectClient"
+      :selected="selectedClient"
     />
   </div>
 </template>
@@ -97,6 +102,7 @@ import BaseVideoPreview from '@/components/uploader/BaseVideoPreview';
 import BaseChip from '@/components/BaseChip';
 import { required } from 'vuelidate/lib/validators';
 import IconUser from '@/assets/icons/person.svg';
+import IconCheck from '@/assets/icons/check.svg';
 import IconShare from '@/assets/icons/share.svg';
 import { mapGetters, mapActions } from 'vuex';
 import {
@@ -134,6 +140,7 @@ export default {
     Button,
     TextAreaInput,
     IconUser,
+    IconCheck,
     BaseChip,
     IconShare,
     BaseImagePreview,

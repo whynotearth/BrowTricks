@@ -1,5 +1,5 @@
 <template>
-  <div class="px-6">
+  <div class="px-6 pb-20">
     <MaterialInput
       v-model="$v.firstName.$model"
       label="First Name"
