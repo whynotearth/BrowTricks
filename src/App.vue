@@ -3,14 +3,14 @@
     id="app"
     class="min-h-vh100 h-full text-center font-sans bg-background has-noise"
   >
-    <transition :name="transitionName">
-      <component
-        :is="this.$route.meta.layout || 'div'"
-        class="h-full min-h-vh100"
-      >
+    <component
+      :is="this.$route.meta.layout || 'div'"
+      class="h-full min-h-vh100"
+    >
+      <transition :name="transitionName">
         <router-view />
-      </component>
-    </transition>
+      </transition>
+    </component>
     <SnackBar :showSnackBar="showPrivacySnackBar">
       <div
         class="flex items-center justify-between text-white w-full h-12 tg-caption-mobile leading-4 p-4 
@@ -76,7 +76,8 @@ export default {
     $route(to, from) {
       const toDepth = to.path.split('/').length;
       const fromDepth = from.path.split('/').length;
-      this.transitionName = toDepth < fromDepth ? 'slide-left' : 'fade';
+      this.transitionName =
+        toDepth < fromDepth ? 'router-view-back' : 'router-view';
     }
   },
   beforeMount() {
@@ -107,22 +108,29 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.fade-enter {
+.router-view-enter-active {
+  transition: opacity 0.5s ease-in-out;
+  z-index: 2;
   opacity: 0;
 }
-.fade-enter-to {
+.router-view-enter-to {
+  z-index: 2;
   opacity: 1;
 }
-
-.fade-enter-active {
-  transition: all 0.5s ease-in-out;
+.router-view-leave-active {
+  z-index: -1;
 }
-.slide-left-leave-active {
-  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+.router-view-leave-to {
+  z-index: -1;
 }
 
-.slide-left-leave-to {
-  transform: translateX(-100%);
-  opacity: 0;
+.router-view-back-leave-active {
+  transition: transform 0.5s ease-in-out;
+  z-index: 2;
+  transform: translateX(0%);
+}
+.router-view-back-leave-to {
+  z-index: 2;
+  transform: translateX(100%);
 }
 </style>
