@@ -160,8 +160,8 @@ export default {
       this.createTenant()
         .then(res => {
           this.$router.push({
-            name: 'SignUpSuccess',
-            params: { slug: res }
+            name: 'ClientList',
+            params: { tenantSlug: res }
           });
         })
         .catch(error => {

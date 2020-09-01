@@ -8,6 +8,16 @@
   transform: translateX(-100%);
 }
 
+.slideYbottom-enter-active,
+.slideYbottom-leave-active {
+  transition: transform 0.3s ease;
+}
+
+.slideYbottom-enter,
+.slideYbottom-leave-to {
+  transform: translateY(100%);
+}
+
 /* fade */
 .fade-enter-active,
 .fade-leave-active {
