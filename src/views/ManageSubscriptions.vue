@@ -173,7 +173,8 @@ export default class extends Vue {
     private selectedCard: Card | null = null;
 
     get status() {
-        return SubscriptionStatuses[this.subscription.status];
+        if (this.subscription) return SubscriptionStatuses[this.subscription.status];
+        return 0;
     }
 
     brand(card: Card): string {
@@ -202,7 +203,7 @@ export default class extends Vue {
     }
 
     cancel() {
-        this.service.cancelSubscription(this.tenantSlug);
+        if (this.tenantSlug) this.service.cancelSubscription(this.tenantSlug);
     }
 
     changeCard() {
@@ -210,9 +211,11 @@ export default class extends Vue {
     }
 
     setCard() {
-        this.service.changePaymentMethod(this.selectedCard.last4);
-        this.currentCard = this.selectedCard;
-        this.changingCard = false;
+        if (this.selectedCard) {
+            this.service.changePaymentMethod(this.selectedCard.last4);
+            this.currentCard = this.selectedCard;
+            this.changingCard = false;
+        }
     }
 
     updateCard(card) {
