@@ -4,7 +4,7 @@
   >
     <div class="flex text-left px-2 mb-4">
       <div class="flex-grow px-2 break-word">
-        <TextAreaInput
+        <!-- <TextAreaInput
           class="mb-4"
           v-model="$v.description.$model"
           :error="$v.description.$error"
@@ -12,14 +12,10 @@
           labelBackground="has-noise bg-background"
           rows="4"
         >
-          <p v-if="!$v.selectedClient.required">
-            Select a client please
-          </p>
-
-          <p v-else-if="!$v.description.required">
+          <p v-if="!$v.description.required">
             Description is required
           </p>
-        </TextAreaInput>
+        </TextAreaInput> -->
 
         <!-- chips -->
         <a
@@ -30,7 +26,7 @@
           <BaseChip>
             <template #icon>
               <IconCheck
-                v-if="selectedClient"
+                v-if="selectedClientId"
                 class="fill-current text-primary w-3 h-3"
               />
               <IconUser v-else class="fill-current text-primary w-3 h-3" />
@@ -38,6 +34,12 @@
             Select Client
           </BaseChip>
         </a>
+        <p
+          v-if="$v.selectedClientId.$error"
+          class="text-error tg-body-mobile mt-2 ml-4"
+        >
+          Client is required
+        </p>
       </div>
       <div class="px-2">
         <div class="image-wrapper max-w-full" v-if="file">
@@ -88,14 +90,14 @@
       :isOpen="isOpenClientSelect"
       @close="isOpenClientSelect = false"
       @select="onSelectClient"
-      :selected="selectedClient"
+      :selectedId="selectedClientId"
     />
   </div>
 </template>
 
 <script>
 import ClientSelectOverlay from '@/components/client/ClientSelectOverlay';
-import TextAreaInput from '@/components/inputs/TextAreaInput';
+// // import TextAreaInput from '@/components/inputs/TextAreaInput';
 import Button from '@/components/inputs/Button';
 import BaseImagePreview from '@/components/uploader/BaseImagePreview';
 import BaseVideoPreview from '@/components/uploader/BaseVideoPreview';
@@ -118,15 +120,18 @@ export default {
     isOpenClientSelect: false,
     description: '',
     file: null,
-    selectedClient: null
+    selectedClientId: null
   }),
   validations: {
-    selectedClient: {
-      required
-    },
-    description: {
+    selectedClientId: {
       required
     }
+    // description: {
+    //   required
+    // }
+  },
+  created() {
+    this.setDefaultSelectedClientId();
   },
   computed: {
     ...mapGetters('uploader', ['uploadedFilesGet']),
@@ -138,7 +143,7 @@ export default {
   components: {
     ClientSelectOverlay,
     Button,
-    TextAreaInput,
+    // TextAreaInput,
     IconUser,
     IconCheck,
     BaseChip,
@@ -161,11 +166,14 @@ export default {
     ...mapActions('uploader', ['uploadedFilesUpdate']),
     share,
     getCloudinaryVideoThumbnail,
+    setDefaultSelectedClientId() {
+      if (!this.$route.query.clientId) {
+        return;
+      }
+      this.selectedClientId = this.$route.query.clientId;
+    },
     onSelectClient(client) {
-      this.selectedClient = client;
-
-      this.description =
-        this.description + client.firstName + ' ' + client.lastName;
+      this.selectedClientId = client.id;
     },
     async submit() {
       this.$v.$touch();
@@ -177,7 +185,7 @@ export default {
       try {
         client = await this.fetchClient({
           params: {
-            clientId: this.selectedClient.id,
+            clientId: this.selectedClientId,
             tenantSlug: this.tenantSlug
           }
         });

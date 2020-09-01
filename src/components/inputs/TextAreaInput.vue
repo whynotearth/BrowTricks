@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <textarea
-      class="input appearance-none outline-none relative bg-transparent rounded w-full px-4 py-3 border text-opacity-medium focus:text-opacity-high border-opacity-medium focus:border-opacity-high"
+      class="block input appearance-none outline-none relative bg-transparent rounded w-full px-4 py-3 border text-opacity-medium focus:text-opacity-high border-opacity-medium focus:border-opacity-high"
       :class="[
         textColor,
         borderColor,

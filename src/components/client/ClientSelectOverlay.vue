@@ -17,7 +17,7 @@
           >
             <template #end>
               <IconCheck
-                v-if="selected && client.id === selected.id"
+                v-if="client.id === selectedId"
                 class="fill-current w-6 h-6 text-on-background text-opacity-medium"
               />
             </template>
@@ -37,8 +37,8 @@ export default {
   name: 'ClientSelectOverlay',
   components: { ClientListItem, BaseOverlayPage, IconCheck },
   props: {
-    selected: {
-      type: Object
+    selectedId: {
+      type: [String, Number]
     },
     isOpen: {
       type: Boolean,
