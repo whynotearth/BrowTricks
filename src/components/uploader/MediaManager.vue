@@ -150,13 +150,15 @@ export default {
   height: 100px;
 }
 
-.upload-previews-wrapper {
+.upload-previews-wrapper,
+.upload-add {
   width: 100px;
   height: 100px;
 }
 
 @screen sm {
-  .upload-previews-wrapper {
+  .upload-previews-wrapper,
+  .upload-add {
     width: 100px;
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="container mx-auto pt-4 text-on-background text-opacity-high text-left"
+    class="mx-auto pt-4 text-on-background text-opacity-high text-left max-w-4xl"
   >
     <div class="flex text-left px-2 mb-4">
       <div class="flex-grow px-2 break-word">
@@ -155,17 +155,25 @@ export default {
     this.uploadedFilesUpdate([]);
   },
   beforeMount() {
-    if (!this.uploadedFilesGet[0]) {
-      alert('No uploaded file.');
-      this.$router.push({ name: 'TenantHome' });
-    }
-    this.file = this.uploadedFilesGet[0];
+    this.checkUploadedFileExistance();
+    this.isOpenDrawerUploadUpdate(false);
   },
   methods: {
     ...mapActions('client', ['updateClient', 'fetchClient']),
-    ...mapActions('uploader', ['uploadedFilesUpdate']),
+    ...mapActions('uploader', [
+      'uploadedFilesUpdate',
+      'isOpenDrawerUploadUpdate'
+    ]),
     share,
     getCloudinaryVideoThumbnail,
+    checkUploadedFileExistance() {
+      if (!this.uploadedFilesGet[0]) {
+        alert('No uploaded file.');
+        this.$router.push({ name: 'TenantHome' });
+        return;
+      }
+      this.file = this.uploadedFilesGet[0];
+    },
     setDefaultSelectedClientId() {
       if (!this.$route.query.clientId) {
         return;
