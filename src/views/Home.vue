@@ -30,13 +30,8 @@
       </BaseHeader>
     </template>
     <template #content>
-      <div class="px-4 mx-auto max-w-sm lg:max-w-lg">
-        <img
-          class="mx-auto block mt-6 mb-14"
-          src="https://res.cloudinary.com/whynotearth/image/upload/v1597844859/BrowTricks/static_v2/logo-round_hpkxxz.png"
-          alt=""
-        />
-
+      <div class="px-4 mx-auto max-h-sm lg:max-h-lg max-w-sm lg:max-w-lg">
+        <IconLogo class="mx-auto h-full w-full block" alt="" />
         <header>
           <h1 class="tg-h1-mobile mb-4 text-primary">
             Brow Tricks Beauty
@@ -46,11 +41,11 @@
           </h2>
         </header>
 
-        <img
+        <!-- <img
           src="https://res.cloudinary.com/whynotearth/image/upload/v1596140165/BrowTricks/static_v2/Rectangle_11_fr7lxx.png"
           alt=""
           class="mx-auto block mb-10"
-        />
+        /> -->
 
         <Button
           :to="{ name: 'Welcome' }"
@@ -61,13 +56,11 @@
         />
 
         <ArticleMini class="mb-10">
-          <template #title>Custom PMU forms with eSignatures</template>
+          <template #title>Custom PMU forms</template>
           <template #content>
             <p>
-              Get PMU forms done faster with legally binding eSignatures. Send,
-              sign and collect signatures in an instant. Compliant with all
-              major eSignature laws including ESIGN Act, UETA, and European
-              eIDAS.
+              Get PMU forms done faster. Send disclosures via text and get
+              agreements in an instant!
             </p>
           </template>
         </ArticleMini>
@@ -115,9 +108,10 @@ import ClassicLayout from '@/layouts/ClassicLayout.vue';
 import BaseHeader from '@/components/BaseHeader.vue';
 import ArticleMini from '@/components/ArticleMini.vue';
 import Button from '@/components/inputs/Button.vue';
-import MenuDrawerCustomer from '@/components/MenuDrawerCustomer.vue';
+import IconLogo from '@/assets/icons/browtricks-logo.svg';
+// import MenuDrawerCustomer from '@/components/MenuDrawerCustomer.vue';
 // import BaseAvatar from '@/components/BaseAvatar.vue';
-import IconMenu from '@/assets/icons/menu.svg';
+// import IconMenu from '@/assets/icons/menu.svg';
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
@@ -127,9 +121,10 @@ export default {
     BaseHeader,
     ArticleMini,
     Button,
-    MenuDrawerCustomer,
+    IconLogo
+    // MenuDrawerCustomer,
     // BaseAvatar,
-    IconMenu
+    // IconMenu
   },
   computed: {
     ...mapGetters('auth', ['isAuthenticated'])
