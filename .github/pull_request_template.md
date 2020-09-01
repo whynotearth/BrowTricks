@@ -1,6 +1,6 @@
 # Issue Being Addressed
 
-Put the issue(s) # that your PR is addressing here. e.g. #15, #29
+Put the issue(s) # that your PR is addressing here. e.g. `#15`, `#29`
 
 # Type of PR
 
