@@ -17,25 +17,25 @@
                 </template>
 
                 <template #content>
-                    <span class="flex justify-between space-x-10">
+                    <span class="flex justify-between space-x-10 py-2">
                         <span :class="darkText">Status</span>
                         <span :class="lightText">{{ status }}</span>
                     </span>
-                    <span class="flex justify-between space-x-10">
+                    <span class="flex justify-between space-x-10 py-2">
                         <span :class="darkText">Payments</span>
                         <span :class="lightText">{{ `${subscription.renewsOnDate != "" ? "Automatic" : "Manual"}` }}</span>
                     </span>
-                    <span class="flex justify-between space-x-10">
+                    <span class="flex justify-between space-x-10 py-2">
                         <span :class="darkText">Last Payment Date</span>
-                        <span :class="lightText">{{ subscription.lastPaymentDate }}</span>
+                        <span :class="lightText">{{ translateDate(subscription.lastPaymentDate) }}</span>
                     </span>
-                    <span class="flex justify-between space-x-10">
+                    <span class="flex justify-between space-x-10 py-2">
                         <span :class="darkText">Payment Amount</span>
-                        <span :class="lightText">{{ subscription.lastPaymentAmount }}</span>
+                        <span :class="lightText">{{ translateCurrency(subscription.lastPaymentAmount) }}</span>
                     </span>
-                    <span class="flex justify-between space-x-10">
+                    <span class="flex justify-between space-x-10 py-2">
                         <span :class="darkText">Renews On</span>
-                        <span :class="lightText">{{ `${(subscription.renewsOnDate != "") ? subscription.renewsOnDate : "Never"}` }}</span>
+                        <span :class="lightText">{{ `${(subscription.renewsOnDate != "") ? translateDate(subscription.renewsOnDate) : "Never"}` }}</span>
                     </span>
                 </template>
 
@@ -49,7 +49,7 @@
                 </template>
             </BaseCard>
             
-            <BaseCard class="flex justify-center mt-6">
+            <BaseCard v-if="!addingCard" class="flex justify-center mt-6">
                 <template #header>
                     <p class="flex justify-left text-md text-gray-900">Payment Method</p>
                 </template>
@@ -61,12 +61,21 @@
                         :value="card.last4"
                         :selectedOption="selectedCard.last4"
                         @updateSelectedOption="updateCard"
+                        class="py-4"
                     >
                         <template #title>
                             <BaseCreditCard
                                 :text="`${brand(card)} ****${card.last4}`"
                                 :subtext="`${card.expirationMonth}/${card.expirationYear}`"
                             />
+                        </template>
+                    </RadioInput>
+                    <RadioInput
+                        @updateSelectedOption="addCard"
+                        class="py-4"
+                    >
+                        <template #title>
+                            <span :class="darkText">Add Credit Card</span>
                         </template>
                     </RadioInput>
                 </template>
@@ -92,6 +101,24 @@
                     ></Button>
                 </template>
             </BaseCard>
+
+            <BaseCard v-if="addingCard" class="flex justify-center mt-6">
+                <template #header>
+                    <p class="flex justify-left text-md text-gray-900">Add Credit Card</p>
+                </template>
+                <template #content>
+                    <span class="flex justify-between space-x-10">
+                        <span :class="darkText">Stripe Form Goes Here</span>
+                    </span>
+                </template>
+                <template #footer>
+                    <Button @clicked="addingCard = !addingCard"
+                        title="Cancel"
+                        textColor="bg-none text-red-600"
+                        theme="none"
+                    ></Button>
+                </template>
+            </BaseCard>
             
             <BaseCard class="flex justify-center mt-6">
                 <template #header>
@@ -99,9 +126,9 @@
                 </template>
 
                 <template #content>
-                    <span class="flex justify-between space-x-10 mt-2" v-for="transaction in subscription.transactions" :key="transaction.date">
-                        <span :class="darkText">{{ transaction.date }}</span>
-                        <span :class="lightText">{{ transaction.amount }}</span>
+                    <span class="flex justify-between space-x-10 mt-2 py-2" v-for="transaction in subscription.transactions" :key="transaction.date">
+                        <span :class="darkText">{{ translateDate(transaction.date) }}</span>
+                        <span :class="lightText">{{ translateCurrency(transaction.amount) }}</span>
                     </span>
                     <span :class="darkText" v-if="subscription.transactions.length == 0">No transactions found.</span>
                 </template>
@@ -117,6 +144,7 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import { Prop } from "vue-property-decorator";
+import Moment from 'moment';
 import SubscriptionService, { Subscription, SubscriptionStatuses, Brands, Card } from "../services/subscriptions";
 
 @Component({
@@ -135,35 +163,18 @@ export default class extends Vue {
     tenantSlug?: string;
     
     private changingCard = false;
+    private addingCard = false;
     private darkText = "text-gray-800 text-sm";
     private lightText = "text-gray-500 text-sm";
     private service: SubscriptionService = new SubscriptionService();
     private subscription: Subscription | null = null;
-    // {
-    //     id: -1,
-    //     status: SubscriptionStatuses.Unknown,
-    //     lastPaymentAmount: 0,
-    //     lastPaymentDate: 'Unknown',
-    //     renewsOnDate: 'Unknown',
-    //     card: {
-    //         brand: Brands.Unknown,
-    //         last4: "",
-    //         expirationMonth: 0,
-    //         expirationYear: 0
-    //     },
-    //     transactions: []
-    // };
     private paymentMethods: Card[] = [];
-    private currentCard: Card | null = null;// = this.subscription.card;
-    private selectedCard: Card | null = null;// = this.subscription.card;
+    private currentCard: Card | null = null;
+    private selectedCard: Card | null = null;
 
     get status() {
         return SubscriptionStatuses[this.subscription.status];
     }
-
-    // get brand() {
-    //     return Brands[this.subscription.card.brand];
-    // }
 
     brand(card: Card): string {
         return Brands[card.brand];
@@ -176,6 +187,18 @@ export default class extends Vue {
             this.currentCard = this.subscription.card;
             this.selectedCard = this.subscription.card;
         }
+    }
+
+    translateDate(inputDate: string) {
+        return Moment.utc(inputDate).format("D MMM, YYYY");
+    }
+
+    translateCurrency(amount: number) {
+        let formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+        });
+        return formatter.format(amount);
     }
 
     cancel() {
@@ -194,6 +217,11 @@ export default class extends Vue {
 
     updateCard(card) {
         this.selectedCard = this.paymentMethods.find(p => p.last4 == card) ?? this.selectedCard;
+    }
+
+    addCard() {
+        //Use this to run any Strype functions that are required.
+        this.addingCard = true;
     }
 }
 </script>

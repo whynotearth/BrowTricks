@@ -48,8 +48,8 @@ export default class SubscriptionService {
       id: 1,
       status: SubscriptionStatuses.Active,
       lastPaymentAmount: 100,
-      lastPaymentDate: '20200726T00:00:00Z',
-      renewsOnDate: '20200727T00:00:00Z',
+      lastPaymentDate: '20200726T000000',
+      renewsOnDate: '20200727T000000',
       card: {
         brand: Brands.Mastercard,
         last4: "5555",
@@ -58,12 +58,12 @@ export default class SubscriptionService {
       },
       transactions: [
         {
-          date: "20200726T00:00:00Z",
+          date: "20200726T000000",
           amount: 100,
           last4: "5555"
         },
         {
-          date: "20200626T00:00:00Z",
+          date: "20200626T000000",
           amount: 100,
           last4: "5555"
         }
