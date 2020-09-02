@@ -13,12 +13,23 @@ export const TenantPanelRoutes = [
     meta: { isPublic: true }
   },
   {
-    path: '/setting/:tenantSlug/account',
+    path: '/tenant/:tenantSlug/account',
     name: 'MyAccount',
     props: true,
     meta: {
       layout: () => import('@/layouts/WithNameBarLayout.vue'),
       title: 'My Account'
+    }
+  },
+  {
+    path: '/tenant/:tenantSlug/account/edit',
+    name: 'AccountInfoEdit',
+    props: true,
+    component: () => import('@/views/AccountInfoEdit.vue'),
+    meta: {
+      layout: () => import('@/layouts/WithTitleBarLayout.vue'),
+      title: 'Edit Account',
+      backRoute: { name: 'MyAccount' }
     }
   },
   {
@@ -31,17 +42,6 @@ export const TenantPanelRoutes = [
       layout: () => import('@/layouts/WithTitleBarLayout.vue'),
       title: 'PMU Form Setup',
       backRoute: { name: 'TenantHome' }
-    }
-  },
-  {
-    path: '/setting/:tenantSlug/edit-account',
-    name: 'AccountInfoEdit',
-    props: true,
-    component: () => import('@/views/AccountInfoEdit.vue'),
-    meta: {
-      layout: () => import('@/layouts/WithTitleBarLayout.vue'),
-      title: 'Edit Account',
-      backRoute: { name: 'MyAccount' }
     }
   }
 ];
