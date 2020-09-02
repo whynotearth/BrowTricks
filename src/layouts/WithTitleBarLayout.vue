@@ -27,6 +27,8 @@
           class="fill-current text-on-primary text-opacity-high w-6 h-6"
         />
       </router-link>
+
+      <!-- NOTE: not in use anywhere -->
       <a
         v-click-outside="onClickOutside"
         class="cursor-pointer self-center"

@@ -32,13 +32,15 @@
                 <a
                   tabindex="0"
                   class="flex items-center cursor-pointer"
-                  @click="isOpenDrawerUpload = true"
+                  @click="isOpenDrawerUploadUpdate(true)"
                 >
                   <div
                     class="rounded-xl h-10 w-14 flex items-center justify-center bg-secondary
                 shadow-6dp mx-auto"
                   >
-                    <IconAdd class="m-auto fill-current text-on-secondary" />
+                    <IconCameraPlus
+                      class="m-auto fill-current text-on-secondary"
+                    />
                   </div>
                 </a>
               </li>
@@ -70,19 +72,20 @@
       </div>
     </nav>
     <DrawerUpload
-      @close="isOpenDrawerUpload = false"
-      :isOpen="isOpenDrawerUpload"
+      @close="isOpenDrawerUploadUpdate(false)"
+      :isOpen="isOpenDrawerUploadGet"
     ></DrawerUpload>
   </div>
 </template>
 
 <script>
-import IconAdd from '@/assets/icons/add.svg';
+import IconCameraPlus from '@/assets/icons/camera-plus.svg';
 import IconHome from '@/assets/icons/home.svg';
 import IconUser from '@/assets/icons/person.svg';
 import IconUserCircle from '@/assets/icons/person-circle.svg';
 import IconDocument from '@/assets/icons/document.svg';
 import DrawerUpload from '@/components/DrawerUpload';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'NavigationBottom',
@@ -92,10 +95,16 @@ export default {
   components: {
     DrawerUpload,
     IconHome,
-    IconAdd,
+    IconCameraPlus,
     IconUser,
     IconUserCircle,
     IconDocument
+  },
+  methods: {
+    ...mapActions('uploader', ['isOpenDrawerUploadUpdate'])
+  },
+  computed: {
+    ...mapGetters('uploader', ['isOpenDrawerUploadGet'])
   }
 };
 </script>

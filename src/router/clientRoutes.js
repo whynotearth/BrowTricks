@@ -58,11 +58,7 @@ export const clientRoutes = [
         meta: {
           layout: WithTitleBarLayout,
           title: 'Client Profile',
-          backRoute: { name: 'ClientList' },
-          menuItems: [
-            { itemName: 'Pmu', routeName: 'PmuSign' },
-            { itemName: 'Notes', routeName: 'ClientNotes' }
-          ]
+          backRoute: { name: 'ClientList' }
         }
       },
       {
