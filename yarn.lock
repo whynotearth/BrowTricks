@@ -1426,10 +1426,10 @@
     "@webassemblyjs/wast-parser" "1.9.0"
     "@xtuc/long" "4.2.2"
 
-"@whynotearth/meredith-axios@^1.0.40":
-  version "1.0.48"
-  resolved "https://registry.yarnpkg.com/@whynotearth/meredith-axios/-/meredith-axios-1.0.48.tgz#2371a645c5aca2ac0a35a213cee14f987d6e84df"
-  integrity sha512-t2VdL0QhKBgDmTp63pExVRdc5lsE4sS+UjZnHbxQdFtRcMvbGDcgj2tbOvn0zoy1ndJIICHKrYMiFY0lQKUBRA==
+"@whynotearth/meredith-axios@^1.0.49":
+  version "1.0.49"
+  resolved "https://registry.yarnpkg.com/@whynotearth/meredith-axios/-/meredith-axios-1.0.49.tgz#deff6a7869d6695df8f53a71752e09ca2a0e6789"
+  integrity sha512-MP/p/ZNl8Kfu89kJjWFgrbuvt5qtHdSuvrzqjgV45dmCMBZEoqsRcfzsnKermG/2hem0S7hlGid5okjJ1ZmIMg==
   dependencies:
     swagger-axios-codegen "^0.10.3"
 
@@ -2486,6 +2486,18 @@ coa@^2.0.2:
     "@types/q" "^1.5.1"
     chalk "^2.4.1"
     q "^1.1.2"
+
+codemirror-spell-checker@*:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/codemirror-spell-checker/-/codemirror-spell-checker-1.1.2.tgz#1c660f9089483ccb5113b9ba9ca19c3f4993371e"
+  integrity sha1-HGYPkIlIPMtRE7m6nKGcP0mTNx4=
+  dependencies:
+    typo-js "*"
+
+codemirror@*:
+  version "5.57.0"
+  resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.57.0.tgz#d26365b72f909f5d2dbb6b1209349ca1daeb2d50"
+  integrity sha512-WGc6UL7Hqt+8a6ZAsj/f1ApQl3NPvHY/UQSzG6fB6l4BjExgVdhFaxd7mRTw1UCiYe/6q86zHP+kfvBQcZGvUg==
 
 collection-visit@^1.0.0:
   version "1.0.0"
@@ -4393,15 +4405,6 @@ he@1.2.x, he@^1.1.0:
   resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
 
-hellosign-embedded@^2.8.0:
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/hellosign-embedded/-/hellosign-embedded-2.8.0.tgz#786802ff6dd06ffe1f8c98f6ed2edef3e8a169dd"
-  integrity sha512-MWsotgke6PZRhN76WizXCTUyvbz6Jrdoscz1qAEhQSz0Vat2q8Cs5DaJ4SYtD0u2mioC6QTyvecfCgIglisYyA==
-  dependencies:
-    common-tags "^1.8.0"
-    debug "^4.1.1"
-    tiny-emitter "^2.1.0"
-
 hex-color-regex@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/hex-color-regex/-/hex-color-regex-1.1.0.tgz#4c06fccb4602fe2602b3c93df82d7e7dbf1a8a8e"
@@ -5477,6 +5480,11 @@ map-visit@^1.0.0:
   integrity sha1-7Nyo8TFE5mDxtb1B8S80edmN+48=
   dependencies:
     object-visit "^1.0.0"
+
+marked@*:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-1.1.1.tgz#e5d61b69842210d5df57b05856e0c91572703e6a"
+  integrity sha512-mJzT8D2yPxoPh7h0UXkB+dBj4FykPJ2OIfxAWeIHrvoHDkFxukV/29QxoFQoPM6RLEwhIFdJpmKBlqVM3s2ZIw==
 
 md5.js@^1.3.4:
   version "1.3.5"
@@ -7547,6 +7555,15 @@ simple-swizzle@^0.2.2:
   dependencies:
     is-arrayish "^0.3.1"
 
+simplemde@*:
+  version "1.11.2"
+  resolved "https://registry.yarnpkg.com/simplemde/-/simplemde-1.11.2.tgz#a23a35d978d2c40ef07dec008c92f070d8e080e3"
+  integrity sha1-ojo12XjSxA7wfewAjJLwcNjggOM=
+  dependencies:
+    codemirror "*"
+    codemirror-spell-checker "*"
+    marked "*"
+
 slash@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-1.0.0.tgz#c41f2f6c39fc16d1cd17ad4b5d896114ae470d55"
@@ -8155,11 +8172,6 @@ timsort@^0.3.0:
   resolved "https://registry.yarnpkg.com/timsort/-/timsort-0.3.0.tgz#405411a8e7e6339fe64db9a234de11dc31e02bd4"
   integrity sha1-QFQRqOfmM5/mTbmiNN4R3DHgK9Q=
 
-tiny-emitter@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/tiny-emitter/-/tiny-emitter-2.1.0.tgz#1d1a56edfc51c43e863cbb5382a72330e3555423"
-  integrity sha512-NB6Dk1A9xgQPMoGqC5CVXn123gWyte215ONT5Pp5a0yt4nlEoO1ZWeCwpncaekPHXO60i47ihFnZPiRPjRMq4Q==
-
 tmp@^0.0.33:
   version "0.0.33"
   resolved "https://registry.yarnpkg.com/tmp/-/tmp-0.0.33.tgz#6d34335889768d21b2bcda0aa277ced3b1bfadf9"
@@ -8342,6 +8354,11 @@ typescript@^3.9.7:
   version "3.9.7"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.7.tgz#98d600a5ebdc38f40cb277522f12dc800e9e25fa"
   integrity sha512-BLbiRkiBzAwsjut4x/dsibSTB6yWpwT5qWmC2OfuCg3GgVQCSgMs4vEctYPhsaGtd0AeuuHMkjZ2h2WG8MSzRw==
+
+typo-js@*:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/typo-js/-/typo-js-1.1.0.tgz#a5a9f592bcb453666bf70c9694da58705d025ed8"
+  integrity sha512-W3kLbx+ML9PBl5Bzso/lTvVxk4BCveSNAtQeht59FEtxCdGThmn6wSHA4Xq3eQYAK24NHdisMM4JmsK0GFy/pg==
 
 uglify-js@3.4.x:
   version "3.4.10"
@@ -8535,6 +8552,11 @@ uuid@^3.3.2, uuid@^3.4.0:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
 
+v-click-outside@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/v-click-outside/-/v-click-outside-3.1.0.tgz#941be55f54982291b2e1beaa8447e5830b7afe29"
+  integrity sha512-WZBeCxHjmL67+dpw4GTNwNWoCUsyjvP4bO0xFLCEPIYqWhigQso28NKasfvg4vDYn7fUvMigFmKf+mV42lbJ2Q==
+
 v8-compile-cache@^2.0.3:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/v8-compile-cache/-/v8-compile-cache-2.1.1.tgz#54bc3cdd43317bca91e35dcaf305b1a7237de745"
@@ -8623,12 +8645,27 @@ vue-router@^3.1.5:
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.3.4.tgz#4e38abc34a11c41b6c3d8244449a2e363ba6250b"
   integrity sha512-SdKRBeoXUjaZ9R/8AyxsdTqkOfMcI5tWxPZOUX5Ie1BTL5rPSZ0O++pbiZCeYeythiZIdLEfkDiQPKIaWk5hDg==
 
+vue-simplemde@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/vue-simplemde/-/vue-simplemde-1.1.2.tgz#8324b3fceb8a40e5df58d1207367269535978499"
+  integrity sha512-PuiReBtdMUzBnmkcoybMEHgTQ2DxRqWTSJR+UItMVH3WUDjlCKTgENuq6krE//UU7C62lWrUOOfOmD5xIK4TSA==
+  dependencies:
+    marked "*"
+    simplemde "*"
+
 vue-smooth-picker@^0.4.2:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/vue-smooth-picker/-/vue-smooth-picker-0.4.2.tgz#ab93a54ee84a440d126ba989ab20eff18c70d24a"
   integrity sha512-TCvdBY3Jw67DhlVJ1Pak+h9PATpmvEgs0sSEEgMah6EVpBakdVyfnZXy2LgysH1+8IscdS2Gpx5WkBw8yL9VWQ==
   dependencies:
     vue "^2.5.2"
+
+vue-stripe-elements-plus@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/vue-stripe-elements-plus/-/vue-stripe-elements-plus-0.3.2.tgz#9b3835e1c61048a1405798ded66abe09f9d38084"
+  integrity sha512-Cuo+guUye1bHrwgQyU4Yb9mIEH+IKiz/QKNW7I70z1BWSIU0OjCgDHWcdBUDIgzLGip4/8FQqSa8IICKT+Lzmg==
+  dependencies:
+    lodash "^4.17.11"
 
 vue-style-loader@^4.1.0, vue-style-loader@^4.1.2:
   version "4.1.2"

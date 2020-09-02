@@ -1,3 +1,4 @@
+// TODO: move to utils folder
 export default {
   mounted() {
     this.vhFixerListenResize();

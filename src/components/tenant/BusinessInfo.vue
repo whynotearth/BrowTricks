@@ -1,5 +1,5 @@
 <template>
-  <div class="px-6 pb-14">
+  <div class="px-6 pb-20">
     <MaterialInput
       labelBackground="has-noise bg-background"
       v-model="$v.name.$model"
@@ -23,7 +23,7 @@
         Phone number is not valid, it should be a US phone number
       </p>
     </MaterialInput>
-    <TextArea
+    <TextAreaInput
       v-model="$v.description.$model"
       label="Description"
       labelBackground="has-noise bg-background"
@@ -40,7 +40,20 @@
           :files="currentImages"
           @change="_updateLogo"
           :uploadPreset="uploadPreset"
-        />
+          class="flex justify-center items-center upload-add w-1/3 border border-on-background border-dashed border-opacity-divider cursor-pointer"
+        >
+          <label class="block cursor-pointer">
+            <div class="upload-icon">
+              <div
+                class="upload-icon--dimension flex justify-center items-center"
+              >
+                <IconPlus
+                  class="fill-current text-on-background text-opacity-medium"
+                />
+              </div>
+            </div>
+          </label>
+        </MediaUploader>
       </template>
 
       <template #title>
@@ -62,16 +75,18 @@
 import { mapMutations, mapGetters } from 'vuex';
 import { required, minLength } from 'vuelidate/lib/validators';
 import MaterialInput from '@/components/inputs/MaterialInput';
-import TextArea from '@/components/inputs/TextArea.vue';
+import TextAreaInput from '@/components/inputs/TextAreaInput.vue';
 import MediaManager from '@/components/uploader/MediaManager.vue';
 import MediaUploader from '@/components/uploader/MediaUploader.vue';
 import { isPhoneNumberValid } from '@/helpers';
+import IconPlus from '@/assets/icons/plus.svg';
 
 export default {
   name: 'BusinessInfo',
   components: {
+    IconPlus,
     MaterialInput,
-    TextArea,
+    TextAreaInput,
     MediaManager,
     MediaUploader
   },
@@ -151,3 +166,14 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.upload-add {
+  height: 100px;
+}
+@screen sm {
+  .upload-add {
+    width: 100px;
+  }
+}
+</style>

@@ -1,5 +1,6 @@
 import { ajax } from '@/services/ajax.js';
-import { getAPIURL } from '../../helpers';
+import { getAPIURL } from '@/helpers';
+import { AuthenticationService } from '@whynotearth/meredith-axios';
 
 const state = {
   provider: '',
@@ -23,6 +24,20 @@ const getters = {
 };
 
 const actions = {
+  tokenlogin({ dispatch }, { params }) {
+    return new Promise((resolve, reject) => {
+      // params: {body: {token: 'xyz'}}
+      AuthenticationService.tokenlogin(params)
+        .then(tokenString => {
+          dispatch('updateToken', tokenString);
+          resolve(tokenString);
+        })
+        .catch(error => {
+          dispatch('clear');
+          reject(error);
+        });
+    });
+  },
   ping({ commit, dispatch, state }) {
     return new Promise((resolve, reject) => {
       // TODO: use meredith-axios

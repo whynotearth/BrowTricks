@@ -20,6 +20,7 @@ module.exports = {
     'vue/no-unused-components': 'warn',
     '@typescript-eslint/no-empty-function': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
+    '@typescript-eslint/no-this-alias': 'off',
     indent: ['warn', 2, { SwitchCase: 1 }],
     quotes: ['warn', 'single']
   }

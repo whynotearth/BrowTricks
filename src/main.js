@@ -6,6 +6,7 @@ import router from './router';
 import store from './store';
 import './assets/styles/app.css';
 import Vuelidate from 'vuelidate';
+import vClickOutside from 'v-click-outside';
 import configureModerator from './store/store-moderator';
 
 import SmoothPicker from 'vue-smooth-picker';
@@ -13,6 +14,7 @@ import 'vue-smooth-picker/dist/css/style.css';
 
 Vue.use(SmoothPicker);
 Vue.use(Vuelidate);
+Vue.use(vClickOutside);
 
 Vue.config.productionTip = false;
 

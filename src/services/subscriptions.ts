@@ -35,7 +35,18 @@ export enum Brands {
   UnionPay
 }
 
+export interface BillingDetails {
+  name: string;
+  address_line1: string;
+  address_line2: string;
+  address_city: string;
+  address_state: string;
+  address_zip: string;
+  address_country: string;
+}
+
 export interface Card {
+  id: number;
   brand: Brands;
   last4: string;
   expirationMonth: number;
@@ -48,65 +59,78 @@ export interface Transaction {
   amount: number;
 }
 
-export default class SubscriptionService {
-  async loadSubscriptionByTenant(tenantSlug: string): Promise<Subscription> {
-    const response = await ajax.get('/api/v0/authentication/ping');
+export interface Plan {
+  id: number;
+  name: number;
+  price: number;
+}
 
+export default class SubscriptionService {
+  async getPlans(domain: string): Promise<Plan[]> {
+    const response = await ajax.get<Plan[]>(
+      `/api/v0/subscriptions/domain/${domain}`
+    );
+    return response.data;
+  }
+
+  async createSubscirption(
+    tenantSlug: string,
+    subscriptionId: number,
+    couponCode: string
+  ) {
+    const response = await ajax.post(
+      `/api/v0/tenant/${tenantSlug}/subscriptions/`,
+      {
+        subscriptionId: subscriptionId,
+        couponCode: couponCode
+      }
+    );
+  }
+
+  async loadSubscriptionByTenant(tenantSlug: string): Promise<Subscription> {
+    const response = await ajax.get(
+      `/api/v0/tenant/${tenantSlug}/subscriptions/`
+    );
+    const transactions = await ajax.get(
+      `/api/v0/tenant/${tenantSlug}/subscriptions/payments`
+    );
     return {
-      id: 1,
-      status: SubscriptionStatuses.Active,
-      lastPaymentAmount: 100,
-      lastPaymentDate: '20200726T000000',
-      renewsOnDate: '20200727T000000',
-      card: {
-        brand: Brands.Mastercard,
-        last4: "5555",
-        expirationMonth: 12,
-        expirationYear: 30
-      },
-      transactions: [
-        {
-          date: "20200726T000000",
-          amount: 100,
-          last4: "5555"
-        },
-        {
-          date: "20200626T000000",
-          amount: 100,
-          last4: "5555"
-        }
-      ]
+      ...response.data,
+      transactions: transactions.data
     };
   }
 
   async loadPaymentMethodsByTenant(tenantSlug: string): Promise<Card[]> {
-    const response = await ajax.get('/api/v0/authentication/ping');
+    const response = await ajax.get(
+      `/api/v0/tenant/${tenantSlug}/paymentmethods`
+    );
 
-    return [
-      {
-        brand: Brands.Mastercard,
-        last4: "5555",
-        expirationMonth: 12,
-        expirationYear: 30
-      },
-      {
-        brand: Brands.Amex,
-        last4: "7657",
-        expirationMonth: 4,
-        expirationYear: 23
-      }
-    ]
+    return response.data;
   }
 
-  cancelSubscription(tenantSlug: string): void {
-    console.log('cancel');
+  async cancelSubscription(tenantSlug: string): Promise<void> {
+    const response = await ajax.post(
+      `/api/v0/tenant/${tenantSlug}/subscriptions/cancel1`
+    );
   }
 
-  changePaymentMethod(last4: string): void {
-    console.log(`changed to ${last4}`);
+  async changePaymentMethod(tenantSlug: string, cardId: number): Promise<void> {
+    await ajax.post(
+      `/api/v0/tenant/${tenantSlug}/subscriptions/changepaymentmethod`,
+      { cardId: cardId }
+    );
   }
 
-  addPaymentMethod(): void {
-    console.log('add');
+  async addPaymentMethod(tenantSlug: string, token: string): Promise<void> {
+    await ajax.post(`/api/v0/tenant/${tenantSlug}/paymentmethods/`, {
+      token: token
+    });
+  }
+
+  async getPublishableKey(tenantSlug: string): Promise<string> {
+    const response = await ajax.get(
+      `/api/v0/tenant/${tenantSlug}/paymentmethods/stripe`
+    );
+    return response.data.publishableKey;
   }
 }
