@@ -1,5 +1,9 @@
 import { ajax } from '@/services/ajax.js';
-import { DisclosuresService } from '@whynotearth/meredith-axios';
+import {
+  BrowtricksTenantService,
+  DisclosuresService,
+  TenantService
+} from '@whynotearth/meredith-axios';
 
 const notificationTypes = [
   // {
@@ -156,6 +160,16 @@ const actions = {
         }
       );
     });
+  },
+  userOwnsTenant(context, tenantSlug) {
+    let companySlug = process.env.VUE_APP_COMPANY_SLUG;
+    return TenantService.owns({
+      companySlug: companySlug,
+      tenantSlug: tenantSlug
+    });
+  },
+  fetchUserTenant(context, { params }) {
+    return BrowtricksTenantService.tenants(params);
   }
 };
 
