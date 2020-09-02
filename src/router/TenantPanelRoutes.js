@@ -40,7 +40,7 @@ export const TenantPanelRoutes = [
     component: () => import('@/views/AccountInfoEdit.vue'),
     meta: {
       layout: () => import('@/layouts/WithTitleBarLayout.vue'),
-      title: 'Edit Profile',
+      title: 'Edit Account',
       backRoute: { name: 'MyAccount' }
     }
   }

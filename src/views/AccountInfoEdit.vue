@@ -1,32 +1,46 @@
 <template>
-  <div class="flex flex-col text-on-background text-opacity-high" v-if="tenant">
-    <EditProfileRow rowKey="Name" :rowValue="tenant.name" />
-    <EditProfileRow rowKey="Username" />
-    <EditProfileRow rowKey="Tags" />
-    <EditProfileRow rowKey="Description" />
-    <EditProfileRow rowKey="Loction" />
-    <hr class="border-divider border-opacity-divider" />
-    <EditProfileRow rowKey="Instagram" />
-    <EditProfileRow rowKey="Facebook" />
-    <EditProfileRow rowKey="WhatsApp" />
-    <EditProfileRow rowKey="YouTube" />
+  <div class="max-w-md mx-auto">
+    <div
+      class="flex flex-col text-on-background text-opacity-high"
+      v-if="tenant"
+    >
+      <AccountEditRow rowKey="Name" :rowValue="tenant.name" />
+      <AccountEditRow rowKey="Username" />
+      <AccountEditRow rowKey="Tags" />
+      <AccountEditRow rowKey="Description" />
+      <AccountEditRow rowKey="Loction" />
+      <hr class="border-divider border-opacity-divider" />
+      <AccountEditRow rowKey="Instagram" />
+      <AccountEditRow rowKey="Facebook" />
+      <AccountEditRow rowKey="WhatsApp" />
+      <AccountEditRow rowKey="YouTube" />
+    </div>
   </div>
 </template>
 
 <script>
-import EditProfileRow from '@/components/tenant/EditProfileRow.vue';
+import AccountEditRow from '@/components/tenant/AccountEditRow.vue';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'MyAccountEdit',
   components: {
-    EditProfileRow
+    AccountEditRow
   },
-  props: {
-    tenant: {
-      type: Object,
-      required: true
+  data: () => ({
+    tenant: null
+  }),
+  props: ['tenantSlug'],
+  created() {
+    this.init();
+  },
+  methods: {
+    ...mapActions('tenant', ['fetchUserTenant']),
+    async init() {
+      this.tenant = await this.fetchUserTenant({
+        params: { tenantSlug: this.tenantSlug }
+      });
     }
-  },
-  methods: {}
+  }
 };
 </script>

@@ -168,8 +168,8 @@ const actions = {
       tenantSlug: tenantSlug
     });
   },
-  fetchUserTenant(context, tenantSlug) {
-    return BrowtricksTenantService.tenants({ tenantSlug: tenantSlug });
+  fetchUserTenant(context, { params }) {
+    return BrowtricksTenantService.tenants(params);
   }
 };
 

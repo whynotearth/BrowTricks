@@ -2,11 +2,10 @@
   <div>
     <nav class="flex w-full fixed bottom-0 bg-transparent z-30">
       <div class="flex flex-auto">
-        <div class=" bg-primary flex-1"></div>
-        <div class="container">
-          <div class="flex relative">
+        <div class="w-full">
+          <div class="flex relative bg-primary">
             <ul
-              class="wrapper flex-auto flex text-left justify-around items-center menu list-none bg-primary tg-caption-mobile"
+              class="max-w-4xl mx-auto wrapper flex-auto flex text-left justify-around items-center menu list-none tg-caption-mobile"
             >
               <li class="text-on-primary text-opacity-high link-item">
                 <router-link
@@ -67,7 +66,6 @@
               </li>
             </ul>
           </div>
-          <div class=" bg-primary flex-1"></div>
         </div>
       </div>
     </nav>
