@@ -23,7 +23,7 @@
         </p>
       </div>
       <div class="flex content-start items-center cursor-pointer">
-        <IconCheck />
+        <IconCheck v-if="isCurrentTenant(tenant)" />
       </div>
     </router-link>
     <div class="flex flex-row my-4">
@@ -68,6 +68,11 @@ export default {
     tenants: {
       type: Array,
       required: true
+    }
+  },
+  methods: {
+    isCurrentTenant(tenant) {
+      return tenant.slug === this.$route.params.tenantSlug;
     }
   }
 };
