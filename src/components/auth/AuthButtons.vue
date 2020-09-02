@@ -7,7 +7,7 @@
     >
       <Button
         textJustify="justify-between"
-        :title="`Log In With ${name}`"
+        :title="`${mode === 'signup' ? 'Sign Up' : 'Log In'} With ${name}`"
         class="tg-color-label-mobile text-white text-opacity-high rounded-full py-3 md:px-5"
         @clicked="openAuthentication(name)"
       >
@@ -31,9 +31,15 @@ import IconGoogle from '@/assets/icons/google.svg';
 import IconFacebook from '@/assets/icons/facebook.svg';
 
 export default {
-  name: 'LinkAccount',
+  name: 'AuthButtons',
   components: {
     Button
+  },
+  props: {
+    mode: {
+      type: String,
+      default: 'signup'
+    }
   },
   data() {
     return {
@@ -51,25 +57,24 @@ export default {
   },
   computed: {
     ...mapGetters('auth', ['oauthUrlGet']),
-    signupReturnUrl() {
-      const path = this.$router.resolve({
-        name: 'SignUp',
-        params: { step: 'business-info' }
+    myAccountEmptyPath() {
+      return this.$router.resolve({
+        name: 'MyAccountEmpty'
       }).href;
-      return `${window.location.origin}${path}?emailVerified=1`;
+    },
+    signupReturnUrl() {
+      return `${window.location.origin}${this.myAccountEmptyPath}?signup=1`;
     },
     loginReturnUrl() {
-      return `${window.location.href}?emailVerified=1`;
+      return `${window.location.href}`;
     }
   },
   methods: {
     ...mapMutations('auth', ['updateProvider', 'updateReturnUrl']),
     async openAuthentication(provider) {
       await this.updateProvider(provider);
-
-      await this.updateReturnUrl(this.loginReturnUrl);
-      console.log('this.oauth', this.oauthUrlGet);
-      window.location.assign(this.oauth);
+      await this.updateReturnUrl(this.signupReturnUrl);
+      window.location.assign(this.oauthUrlGet);
     }
   }
 };

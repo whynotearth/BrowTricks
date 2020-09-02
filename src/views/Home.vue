@@ -18,13 +18,6 @@
             <!-- <router-link v-if="isAuthenticated" :to="{ name: 'MyAccount' }">
               <BaseAvatar width="w-10" height="h-10" />
             </router-link> -->
-            <router-link
-              v-if="!isAuthenticated"
-              :to="{ name: 'Login' }"
-              class="uppercase text-on-background"
-            >
-              Log In
-            </router-link>
           </div>
         </template>
       </BaseHeader>

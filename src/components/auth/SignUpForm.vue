@@ -44,11 +44,9 @@ import { mapGetters, mapMutations, mapActions } from 'vuex';
 import StepperTop from '@/components/BaseStepperTopBar';
 import StepperBottom from '@/components/BaseStepperBottomBar';
 import BusinessInfo from '@/components/tenant/BusinessInfo';
-import LinkAccount from '@/components/tenant/LinkAccount';
 import Notifications from '@/components/tenant/Notifications';
 import BusinessHours from '@/components/tenant/BusinessHours';
 import PaymentMethods from '@/components/tenant/PaymentMethods';
-// import { disableScrollbar, enableScrollbar } from '@/helpers.js';
 
 export default {
   name: 'SignUpForm',
@@ -56,7 +54,6 @@ export default {
     StepperTop,
     StepperBottom,
     BusinessInfo,
-    LinkAccount,
     Notifications,
     BusinessHours,
     PaymentMethods
@@ -68,10 +65,6 @@ export default {
         {
           step: 'business-info',
           name: 'Business Info'
-        },
-        {
-          step: 'link-account',
-          name: 'Link Account'
         },
         {
           step: 'notifications',
@@ -97,18 +90,8 @@ export default {
     }
   },
   created() {
-    if (
-      this.isAuthenticated &&
-      !this.$route.query.emailVerified &&
-      this.navigation.length > 0
-    ) {
-      this.removeLinkAccountStep();
-      this.updateEmail(this.userName);
-    }
-    if (
-      !this.$route.query.emailVerified &&
-      this.$route.params.step !== 'business-info'
-    ) {
+    this.updateEmail(this.userName);
+    if (this.$route.params.step !== 'business-info') {
       this.$router.replace({ params: { step: 'business-info' } });
     }
   },
@@ -120,20 +103,13 @@ export default {
     ]),
     ...mapActions('tenant', ['createTenant']),
     onModalToggled(isModalOpen) {
-      console.log('isModalOpen', isModalOpen);
       this.isModalOpen = isModalOpen;
-    },
-    removeLinkAccountStep() {
-      this.navigation.splice(
-        this.navigation.findIndex(item => item.step === 'link-account'),
-        1
-      );
     },
     previousStep() {
       if (this.page > 1) {
         this.pageChange(this.page - 1);
       } else if (this.page === 1) {
-        this.$router.push({ name: 'Welcome' });
+        this.$router.push({ name: 'MyAccountEmpty' });
       }
     },
     nextStep() {
@@ -161,17 +137,6 @@ export default {
           });
         })
         .catch(error => {
-          if (error.response.status === 401) {
-            const isLinkAccountAvailabble = this.navigation.findIndex(
-              nav => nav.step === 'link-account'
-            );
-            if (isLinkAccountAvailabble !== -1) {
-              this.navigation.push({
-                step: 'link-account',
-                name: 'Link Account'
-              });
-            }
-          }
           this.errors = error.response.data.errors;
         });
     }
@@ -191,7 +156,7 @@ export default {
         if (index >= 0) {
           this.pageChange(index + 1);
         } else if (index < 0) {
-          this.$router.push({ name: 'Welcome' });
+          console.log('a problem in watch step occured');
         }
       }
     }

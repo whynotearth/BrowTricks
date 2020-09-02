@@ -7,20 +7,19 @@
   >
     <!-- signup screen -->
     <div
-      v-if="activeState === 'signup'"
+      v-if="activeMode === 'signup'"
       class="flex flex-col h-full justify-between"
     >
       <div class="px-4">
         <p class="text-on-surface text-opacity-medium mb-4">
           Create a profile to start booking appointments on BrowTricks Beauty!
         </p>
-
-        <AuthButtons />
+        <AuthButtons :mode="activeMode" />
       </div>
 
       <Button
         title="Already have an account? Log in"
-        @clicked="activeState = 'login'"
+        @clicked="activeMode = 'login'"
         background="bg-secondary"
         textColor="text-on-secondary text-opacity-high"
         theme="btnsecondary"
@@ -29,7 +28,7 @@
 
     <!-- login screen -->
     <div
-      v-if="activeState === 'login'"
+      v-if="activeMode === 'login'"
       class="flex flex-col h-full justify-between"
     >
       <div class="px-4">
@@ -37,13 +36,12 @@
         <p class="text-on-surface text-opacity-medium mb-4">
           Create a profile to start booking appointments on BrowTricks Beauty!
         </p>
-
-        <AuthButtons />
+        <AuthButtons :mode="activeMode" />
       </div>
 
       <Button
         title="Don’t have an account? Register Now"
-        @clicked="activeState = 'signup'"
+        @clicked="activeMode = 'signup'"
         background="bg-secondary"
         textColor="text-on-secondary text-opacity-high"
         theme="btnsecondary"
@@ -62,7 +60,7 @@ import AuthButtons from '@/components/auth/AuthButtons';
 export default {
   name: 'DrawerAuth',
   data: () => ({
-    activeState: 'signup',
+    activeMode: 'signup',
     appName: process.env.VUE_APP_NAME
   }),
   components: { BaseDrawerActions, Button, AuthButtons },

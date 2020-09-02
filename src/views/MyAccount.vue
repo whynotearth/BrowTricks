@@ -22,6 +22,12 @@
         </template>
       </ExpansionPanel>
 
+      <ExpansionPanel title="Log out" @click="logout">
+        <template #preIcon>
+          <IconPerson class="h-6 w-6 fill-current" />
+        </template>
+      </ExpansionPanel>
+
       <MediaManager :files="currentFiles" class="mb-4">
         <template #title>
           <div class="tg-body-mobile ">
@@ -40,6 +46,7 @@ import MediaManager from '@/components/uploader/MediaManager.vue';
 import { mapActions } from 'vuex';
 import { get } from 'lodash-es';
 import IconCreate from '@/assets/icons/create.svg';
+import IconPerson from '@/assets/icons/person.svg';
 
 export default {
   name: 'MyAccount',
@@ -47,7 +54,8 @@ export default {
     BaseHeroSection,
     IconCreate,
     ExpansionPanel,
-    MediaManager
+    MediaManager,
+    IconPerson
   },
   data() {
     return {
@@ -76,6 +84,7 @@ export default {
   },
   methods: {
     ...mapActions('tenant', ['fetchUserTenant', 'fetchUserTenants']),
+    ...mapActions('auth', ['logout']),
     init() {
       this._fetchUserTenant();
     },

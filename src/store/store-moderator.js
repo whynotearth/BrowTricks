@@ -8,7 +8,7 @@ export default function configureModerator(store, router) {
     switch (type) {
       case 'auth/logout':
         console.log('got logout');
-        router.push({ name: 'Login' });
+        router.push({ name: 'MyAccountEmpty' });
     }
   });
 }

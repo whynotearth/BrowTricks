@@ -2,7 +2,6 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import store from '../store';
 
-import { authRoutes } from './authRoutes';
 import { clientRoutes } from './clientRoutes';
 import { TenantPanelRoutes } from './TenantPanelRoutes';
 import { generalRoutes } from './generalRoutes';
@@ -15,8 +14,7 @@ const routes = [
   ...TenantPanelRoutes,
   ...TenantPublicRoutes,
   ...clientRoutes,
-  ...generalRoutes,
-  ...authRoutes
+  ...generalRoutes
 ];
 
 const router = new VueRouter({
@@ -58,14 +56,14 @@ router.beforeEach((to, from, next) => {
           // only runs if isAuthenticated is changed right now
           next();
         } else {
-          next({ name: 'Welcome' });
+          next({ name: 'Home' });
         }
       })
       .catch(error => {
         console.log('Not authenticated');
         const isError401 = get(error, 'response.status', null) === 401;
         if (isError401) {
-          next({ name: 'Welcome' });
+          next({ name: 'Home' });
         }
       });
   }
