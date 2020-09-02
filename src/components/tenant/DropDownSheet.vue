@@ -6,7 +6,7 @@
       class="flex flex-row my-4"
     >
       <div
-        class="rounded-full h-10 w-10 flex items-center justify-center bg-background"
+        class="rounded-full h-10 w-10 flex items-center justify-center bg-background overflow-hidden"
       >
         <img :src="tenant.logoUrl" />
       </div>
@@ -31,25 +31,27 @@
       <div
         class="flex flex-grow content-start items-center mx-4 cursor-pointer"
       >
-        <p class="text-on-primary text-base">Add Account</p>
+        <p class="text-on-primary text-opacity-disabled text-base">
+          Add Account (coming soon)
+        </p>
       </div>
-      <!-- <div class="flex content-start items-center cursor-pointer">
+      <div class="flex content-start items-center cursor-pointer">
         <IconFeatureLock />
-      </div> -->
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import IconAddDark from '@/assets/icons/add-dark.svg';
-// import IconFeatureLock from '@/assets/icons/feature-lock.svg';
+import IconFeatureLock from '@/assets/icons/feature-lock.svg';
 import IconCheck from '@/assets/icons/check.svg';
 
 export default {
   name: 'DropDownSheet',
   components: {
     IconAddDark,
-    // IconFeatureLock,
+    IconFeatureLock,
     IconCheck
   },
   props: {
