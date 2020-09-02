@@ -1,7 +1,7 @@
 <template>
   <!-- This is where we handle redirect to a tenant account or show empty state -->
   <div class="text-left text-on-background text-opacity-high">
-    <div class="max-w-md mx-auto text-center pt-6">
+    <div class="max-w-md mx-auto text-center pt-6 px-4">
       <p class="tg-body-mobile text-on-background text-opacity-high mb-4">
         You need to create an account
       </p>
@@ -64,11 +64,10 @@ export default {
         this.handleSignup();
         return;
       }
-      // FIXME: enable
-      // this.$router.replace({
-      //   name: 'MyAccount',
-      //   params: { tenantSlug: selectedTenant.slug }
-      // });
+      this.$router.replace({
+        name: 'MyAccount',
+        params: { tenantSlug: selectedTenant.slug }
+      });
     },
     handleSignup() {
       const shouldSignup = this.$route.query.signup === '1';
