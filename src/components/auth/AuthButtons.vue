@@ -9,7 +9,7 @@
         textJustify="justify-between"
         :title="`Log In With ${name}`"
         class="tg-color-label-mobile text-white text-opacity-high rounded-full py-3 md:px-5"
-        @clicked="oauth(name)"
+        @clicked="openAuthentication(name)"
       >
         <template #start>
           <!-- icon -->
@@ -28,7 +28,7 @@
 import { mapMutations, mapGetters } from 'vuex';
 import Button from '@/components/inputs/Button.vue';
 import IconGoogle from '@/assets/icons/google.svg';
-// import IconFacebook from '@/assets/icons/facebook.svg';
+import IconFacebook from '@/assets/icons/facebook.svg';
 
 export default {
   name: 'LinkAccount',
@@ -38,12 +38,10 @@ export default {
   data() {
     return {
       socialMediaProviders: [
-        /*
         {
           name: 'Facebook',
-          logo: facebookLogo
+          logo: IconFacebook
         },
-        */
         {
           name: 'Google',
           logo: IconGoogle
@@ -52,18 +50,26 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('auth', {
-      oauthLink: 'oauth'
-    })
+    ...mapGetters('auth', ['oauthUrlGet']),
+    signupReturnUrl() {
+      const path = this.$router.resolve({
+        name: 'SignUp',
+        params: { step: 'business-info' }
+      }).href;
+      return `${window.location.origin}${path}?emailVerified=1`;
+    },
+    loginReturnUrl() {
+      return `${window.location.href}?emailVerified=1`;
+    }
   },
   methods: {
     ...mapMutations('auth', ['updateProvider', 'updateReturnUrl']),
-    async oauth(provider) {
+    async openAuthentication(provider) {
       await this.updateProvider(provider);
-      const returnURL = `${window.location.href}?signUpStarted=true`;
-      await this.updateReturnUrl(returnURL);
-      const redirectUrl = await this.oauthLink;
-      window.location.assign(redirectUrl);
+
+      await this.updateReturnUrl(this.loginReturnUrl);
+      console.log('this.oauth', this.oauthUrlGet);
+      window.location.assign(this.oauth);
     }
   }
 };

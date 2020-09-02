@@ -48,14 +48,20 @@
         />
       </div>
     </transition>
+
+    <DrawerAuth
+      @close="isDrawerOpenAuthUpdate(false)"
+      :isOpen="isDrawerOpenAuthGet"
+    ></DrawerAuth>
   </div>
 </template>
 <script>
 import BaseOverlaySuccess from '@/components/BaseOverlaySuccess.vue';
 import SnackBar from '@/components/SnackBar.vue';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import vhFix from '@/mixins/vhFix.js';
 import cookie from '@/utils/cookie';
+import DrawerAuth from '@/components/auth/DrawerAuth';
 
 export default {
   name: 'App',
@@ -66,8 +72,9 @@ export default {
     };
   },
   mixins: [vhFix],
-  components: { BaseOverlaySuccess, SnackBar },
+  components: { BaseOverlaySuccess, SnackBar, DrawerAuth },
   computed: {
+    ...mapGetters('global', ['isDrawerOpenAuthGet']),
     ...mapGetters('overlay', {
       overlayModel: 'model'
     })
@@ -89,6 +96,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions('global', ['isDrawerOpenAuthUpdate']),
     setSnackBarCookie() {
       this.showPrivacySnackBar = false;
       // set cookie with name 'snackbar'. Set value to 1 which means true. Set expiration to 7 days.

@@ -42,7 +42,7 @@ export default {
     if (this.isAuthenticated) {
       this.updateEmail(this.userName);
     }
-    if (this.$route.query.signUpStarted) {
+    if (this.$route.query.emailVerified) {
       this.$emit('nextStep');
     }
   },

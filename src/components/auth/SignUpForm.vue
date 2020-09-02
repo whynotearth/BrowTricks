@@ -1,6 +1,7 @@
 <template>
   <div class="">
     <div class="min-h-vh100 w-full flex flex-col justify-between">
+      <!-- isModalOpen for business hours -->
       <div :class="[isModalOpen ? 'z-50' : 'z-30']">
         <StepperTop :navigation="navigation" :page="page" />
         <div>
@@ -98,14 +99,14 @@ export default {
   created() {
     if (
       this.isAuthenticated &&
-      !this.$route.query.signUpStarted &&
+      !this.$route.query.emailVerified &&
       this.navigation.length > 0
     ) {
       this.removeLinkAccountStep();
       this.updateEmail(this.userName);
     }
     if (
-      !this.$route.query.signUpStarted &&
+      !this.$route.query.emailVerified &&
       this.$route.params.step !== 'business-info'
     ) {
       this.$router.replace({ params: { step: 'business-info' } });
@@ -121,11 +122,6 @@ export default {
     onModalToggled(isModalOpen) {
       console.log('isModalOpen', isModalOpen);
       this.isModalOpen = isModalOpen;
-      // if (isModalOpen) {
-      //   disableScrollbar();
-      // } else {
-      //   enableScrollbar();
-      // }
     },
     removeLinkAccountStep() {
       this.navigation.splice(

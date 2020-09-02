@@ -48,7 +48,7 @@
         /> -->
 
         <Button
-          :to="{ name: 'Welcome' }"
+          @clicked="isDrawerOpenAuthUpdate(true)"
           :isRounded="true"
           title="Sign Up"
           class="mb-10"
@@ -92,7 +92,7 @@
         </ArticleMini>
 
         <Button
-          :to="{ name: 'Welcome' }"
+          @clicked="isDrawerOpenAuthUpdate(true)"
           :isRounded="true"
           title="Sign Up"
           class="mb-10"
@@ -130,7 +130,7 @@ export default {
     ...mapGetters('auth', ['isAuthenticated'])
   },
   methods: {
-    ...mapActions('global', ['isDrawerOpenUpdate'])
+    ...mapActions('global', ['isDrawerOpenUpdate', 'isDrawerOpenAuthUpdate'])
   }
 };
 </script>
