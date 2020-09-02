@@ -14,15 +14,17 @@
         :class="{ 'ml-2': !backRoute }"
         v-click-outside="closeDropDownSheet"
       >
-        <h1
-          class="tg-h2-mobile text-opacity-high text-left text-on-primary ml-4"
+        <div
+          class="flex cursor-pointer items-center"
+          @click="showDropDownSheet = !showDropDownSheet"
         >
-          {{ tenant.name }}
-        </h1>
-        <ArrowDropDown
-          class="cursor-pointer"
-          @click="showDropDownSheet = true"
-        />
+          <h1
+            class="tg-h2-mobile text-opacity-high text-left text-on-primary ml-4"
+          >
+            {{ currentTitle }}
+          </h1>
+          <ArrowDropDown class="cursor-pointer" />
+        </div>
       </div>
       <a class="cursor-pointer self-center">
         <!-- <IconOverflowMenu /> -->
@@ -52,7 +54,7 @@
     <!-- content -->
     <!-- mb-14 for bottom navigation -->
     <div class="relative flex-grow w-full mb-14 pb-6" v-show="!isLoading">
-      <MyAccount :tenant="tenant" />
+      <MyAccount />
     </div>
 
     <NavigationBottom v-if="!noNavigation" />
@@ -82,12 +84,12 @@ export default {
     DropDownSheet
   },
   data: () => ({
+    currentTitle: '',
     isVisible: false,
     name: '',
     backRoute: null,
     showDropDownSheet: false,
-    tenants: [],
-    tenant: {}
+    tenants: []
   }),
   mounted() {
     this.isVisible = true;
@@ -104,6 +106,10 @@ export default {
     init() {
       this.handleBackRoute();
       this._fetchTenants();
+      this.handleTitle();
+    },
+    handleTitle() {
+      this.currentTitle = this.$route.meta.title;
     },
     iconClick() {
       this.$router.push(this.backRoute);
@@ -121,7 +127,6 @@ export default {
     _fetchTenants() {
       this.fetchUserTenants().then(tenants => {
         this.tenants = tenants;
-        this.tenant = tenants[0];
       });
     },
     closeDropDownSheet() {

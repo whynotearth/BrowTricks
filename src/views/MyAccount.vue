@@ -49,14 +49,9 @@ export default {
     ExpansionPanel,
     MediaManager
   },
-  props: {
-    tenant: {
-      type: Object,
-      required: true
-    }
-  },
   data() {
     return {
+      tenant: null,
       tenantData: null,
       logoUrl:
         'https://res.cloudinary.com/whynotearth/image/upload/v1597646048/BrowTricks/static_v2/crown_zp6ziq.png'
@@ -80,11 +75,11 @@ export default {
     this.init();
   },
   methods: {
-    ...mapActions('tenant', ['fetchUserTenant']),
+    ...mapActions('tenant', ['fetchUserTenant', 'fetchUserTenants']),
     init() {
-      this._fetchTenantData();
+      this._fetchUserTenant();
     },
-    async _fetchTenantData() {
+    async _fetchUserTenant() {
       this.tenantData = await this.fetchUserTenant({
         params: {
           tenantSlug: this.$route.params.tenantSlug
@@ -92,6 +87,18 @@ export default {
       }).catch(() => {
         console.log('error in getting tenant');
       });
+
+      // TODO: use fetchUserTenant when api was ready
+      this.fetchUserTenants().then(tenants => {
+        this.tenant = tenants.find(
+          item => item.slug === this.$route.params.tenantSlug
+        );
+      });
+    }
+  },
+  watch: {
+    '$route.params.tenantSlug'() {
+      this.init();
     }
   }
 };

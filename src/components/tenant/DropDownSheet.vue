@@ -1,9 +1,10 @@
 <template>
   <div class="bg-primary text-white text-opacity-high py-2 px-6">
-    <div
+    <router-link
       v-for="tenant in tenants"
       :key="tenant.slug"
       class="flex flex-row my-4"
+      :to="{ name: 'MyAccount', params: { tenantSlug: tenant.slug } }"
     >
       <div
         class="rounded-full h-10 w-10 flex items-center justify-center bg-background overflow-hidden"
@@ -21,7 +22,7 @@
       <div class="flex content-start items-center cursor-pointer">
         <IconCheck />
       </div>
-    </div>
+    </router-link>
     <div class="flex flex-row my-4">
       <div
         class="rounded-full h-10 w-10 flex items-center justify-center bg-medium-emphasis"
