@@ -4,7 +4,14 @@
       class="bg-primary z-20 shadow-4dp flex flex-row items-center p-4 sticky top-0"
     >
       <!-- icon -->
-      <h1 class="tg-h2-mobile text-opacity-high flex-grow text-white ml-2">
+      <a
+        class="cursor-pointer"
+        @click.prevent="iconClick"
+        v-if="$route.meta.backRoute"
+      >
+        <IconBack class="text-white" />
+      </a>
+      <h1 class="tg-h2-mobile text-opacity-high flex-grow text-white">
         {{ currentTitle }}
       </h1>
 
@@ -83,11 +90,12 @@ import { mapGetters } from 'vuex';
 import BaseSpinner from '@/components/BaseSpinner';
 import NavigationBottom from '@/components/NavigationBottom';
 import IconOverflowMenu from '@/assets/icons/more.svg';
+import IconBack from '@/assets/icons/arrow-back.svg';
 
 export default {
   name: 'WithTitleBarLayout',
   components: {
-    // IconBack,
+    IconBack,
     BaseSpinner,
     NavigationBottom,
     IconOverflowMenu
@@ -113,6 +121,9 @@ export default {
       this.handleBackRoute();
       this.handleTitle();
       this.onClickOutside();
+    },
+    iconClick() {
+      this.$router.push(this.backRoute);
     },
     handleTitle() {
       this.currentTitle = this.$route.meta.title;

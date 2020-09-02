@@ -45,6 +45,7 @@ import StepperTop from '@/components/BaseStepperTopBar';
 import StepperBottom from '@/components/BaseStepperBottomBar';
 import BasicInfo from '@/components/client/BasicInfo';
 // import Notifications from '@/components/client/Notifications';
+import { showOverlayAndRedirect } from '@/helpers.js';
 
 export default {
   name: 'ClientAddEdit',
@@ -113,17 +114,15 @@ export default {
         tenantSlug: this.tenantSlug
       })
         .then(() => {
-          this.goClientList();
+          showOverlayAndRedirect({
+            title: 'Success!',
+            message: 'Client added successfully!',
+            route: { name: 'ClientList' }
+          });
         })
         .catch(error => {
           this.errors = error.response.data.errors;
         });
-    },
-    goClientList() {
-      this.$router.push({
-        name: 'ClientList',
-        params: { tenantSlug: this.tenantSlug }
-      });
     }
   },
   watch: {
