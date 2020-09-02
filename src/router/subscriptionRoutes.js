@@ -7,5 +7,14 @@ export const SubscriptionRoutes = [
     meta: {
       requiresAuth: true
     }
+  },
+  {
+    path: '/tenant/:tenantSlug/setupTest',
+    name: 'SetupSubscription',
+    props: true,
+    component: () => import('@/views/tenant/subscription/setupSubscription.vue'),
+    meta: {
+      requiresAuth: true
+    }
   }
 ];
