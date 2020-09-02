@@ -30,6 +30,7 @@
     "vue-router": "^3.1.5",
     "vue-simplemde": "^1.1.2",
     "vue-smooth-picker": "^0.4.2",
+    "vue-stripe-elements-plus": "^0.3.2",
     "vue-svg-loader": "^0.16.0",
     "vuelidate": "^0.7.5",
     "vuex": "^3.1.2",
