@@ -38,7 +38,7 @@
             class="absolute inset-x-0 top-0 mt-12 max-w-md mx-auto"
             v-if="showDropDownSheet"
           >
-            <portal-target name="NameBarSwitcher"></portal-target>
+            <portal-target name="SwitcherBar"></portal-target>
           </div>
         </transition>
       </div>

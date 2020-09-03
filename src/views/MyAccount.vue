@@ -37,7 +37,7 @@
       </MediaManager>
     </div>
 
-    <portal to="NameBarSwitcher">
+    <portal to="SwitcherBar">
       <DropDownSheet :tenants="tenants" />
     </portal>
   </div>

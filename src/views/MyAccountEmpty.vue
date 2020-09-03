@@ -28,27 +28,30 @@
         />
       </template>
     </div>
+
+    <portal to="SwitcherBar">
+      <DropDownSheet :tenants="tenants" />
+    </portal>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 import Button from '@/components/inputs/Button';
+import DropDownSheet from '@/components/tenant/DropDownSheet.vue';
 
 export default {
   name: 'MyAccountEmpty',
-  components: { Button },
+  components: { Button, DropDownSheet },
   data() {
     return {
+      tenants: [],
       tenant: null,
       tenantData: null
     };
   },
   computed: {
     ...mapGetters('auth', ['isAuthenticated'])
-  },
-  beforeDestroy() {
-    this.loading(false);
   },
   created() {
     const gotToken = this.setTokenFromUrl();
@@ -68,6 +71,7 @@ export default {
 
       this.fetchUserTenants()
         .then(tenants => {
+          this.tenants = tenants;
           this.handleRedirect(tenants);
         })
         .catch(error => {
@@ -78,16 +82,17 @@ export default {
           this.loading(false);
         });
     },
-    handleRedirect(tenants) {
+    async handleRedirect(tenants) {
       const selectedTenant = tenants[0];
       if (!selectedTenant) {
         this.handleSignup();
         return;
       }
-      this.$router.replace({
+      await this.$router.replace({
         name: 'MyAccount',
         params: { tenantSlug: selectedTenant.slug }
       });
+      this.loading(false);
     },
     handleSignup() {
       const shouldSignup = this.$route.query.signup === '1';

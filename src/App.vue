@@ -78,6 +78,13 @@ export default {
   },
   watch: {
     $route(to, from) {
+      // disable transition from meta of routes, e.g. {pageTransition: {from: false}}
+      const specialTransition = this.getSpecialTransitions(to, from);
+      if (specialTransition) {
+        this.transitionName = specialTransition;
+        return;
+      }
+
       const toDepth = to.path.split('/').length;
       const fromDepth = from.path.split('/').length;
       this.transitionName = toDepth < fromDepth ? 'slide-left' : 'fade';
@@ -94,6 +101,22 @@ export default {
   },
   methods: {
     ...mapActions('global', ['isDrawerOpenAuthUpdate']),
+    getSpecialTransitions(to, from) {
+      const list = [
+        {
+          from: 'MyAccountEmpty',
+          to: 'MyAccount',
+          transition: 'none'
+        }
+      ];
+      const transitionItem = list.find(item => {
+        return item.to === to.name && item.from === from.name;
+      });
+      if (transitionItem) {
+        return transitionItem.transition;
+      }
+      return null;
+    },
     setSnackBarCookie() {
       this.showPrivacySnackBar = false;
       // set cookie with name 'snackbar'. Set value to 1 which means true. Set expiration to 7 days.

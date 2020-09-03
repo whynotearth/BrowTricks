@@ -6,7 +6,7 @@ export const TenantPanelRoutes = [
     component: () => import('@/views/MyAccountEmpty.vue'),
     meta: {
       isPublic: true,
-      layout: () => import('@/layouts/WithTitleBarLayout.vue'),
+      layout: () => import('@/layouts/WithSwitcherBarLayout.vue'),
       title: 'My Account'
     }
   },
