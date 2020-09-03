@@ -38,7 +38,7 @@
             class="absolute inset-x-0 top-0 mt-12 max-w-md mx-auto"
             v-if="showDropDownSheet"
           >
-            <DropDownSheet @close="closeDropDownSheet" :tenants="tenants" />
+            <portal-target name="SwitcherBar"></portal-target>
           </div>
         </transition>
       </div>
@@ -54,7 +54,7 @@
     <!-- content -->
     <!-- mb-14 for bottom navigation -->
     <div class="relative flex-grow w-full mb-14 pb-6" v-show="!isLoading">
-      <MyAccount />
+      <slot />
     </div>
 
     <NavigationBottom v-if="!noNavigation" />
@@ -66,28 +66,22 @@ import IconBack from '@/assets/icons/arrow-back.svg';
 import ArrowDropDown from '@/assets/icons/arrow-drop-down.svg';
 import { mapGetters } from 'vuex';
 import BaseSpinner from '@/components/BaseSpinner';
-import MyAccount from '@/views/MyAccount.vue';
 import NavigationBottom from '@/components/NavigationBottom';
-import DropDownSheet from '@/components/tenant/DropDownSheet.vue';
-import { mapActions } from 'vuex';
 
 export default {
-  name: 'WithNameBarLayout',
+  name: 'WithSwitcherBarLayout',
   components: {
     IconBack,
     BaseSpinner,
     NavigationBottom,
-    MyAccount,
-    ArrowDropDown,
-    DropDownSheet
+    ArrowDropDown
   },
   data: () => ({
     currentTitle: '',
     isVisible: false,
     name: '',
     backRoute: null,
-    showDropDownSheet: false,
-    tenants: []
+    showDropDownSheet: false
   }),
   mounted() {
     this.isVisible = true;
@@ -100,11 +94,9 @@ export default {
     }
   },
   methods: {
-    ...mapActions('tenant', ['fetchUserTenants']),
     init() {
       this.closeDropDownSheet();
       this.handleBackRoute();
-      this._fetchTenants();
       this.handleTitle();
     },
     handleTitle() {
@@ -118,14 +110,6 @@ export default {
       // listen for back route updates
       this.$on('layoutBackRoute', data => {
         this.backRoute = data;
-      });
-    },
-    getName(name) {
-      this.name = name;
-    },
-    _fetchTenants() {
-      this.fetchUserTenants().then(tenants => {
-        this.tenants = tenants;
       });
     },
     closeDropDownSheet() {

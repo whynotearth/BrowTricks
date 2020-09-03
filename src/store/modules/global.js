@@ -2,12 +2,16 @@ import { cloneDeep } from 'lodash-es';
 import { disableScrollbar, enableScrollbar } from '@/helpers.js';
 
 const defaultState = {
-  isDrawerOpen: false
+  isDrawerOpen: false,
+  isDrawerOpenAuth: false
 };
 
 const mutations = {
   isDrawerOpenUpdate(state, payload) {
     state.isDrawerOpen = payload;
+  },
+  isDrawerOpenAuthUpdate(state, payload) {
+    state.isDrawerOpenAuth = payload;
   }
 };
 const actions = {
@@ -19,11 +23,17 @@ const actions = {
     }
 
     commit('isDrawerOpenUpdate', payload);
+  },
+  isDrawerOpenAuthUpdate({ commit }, payload) {
+    commit('isDrawerOpenAuthUpdate', payload);
   }
 };
 const getters = {
   isDrawerOpen(state) {
     return state.isDrawerOpen;
+  },
+  isDrawerOpenAuthGet(state) {
+    return state.isDrawerOpenAuth;
   }
 };
 

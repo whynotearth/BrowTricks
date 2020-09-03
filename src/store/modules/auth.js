@@ -10,7 +10,7 @@ const state = {
 };
 
 const getters = {
-  oauth(state) {
+  oauthUrlGet(state) {
     return getAPIURL(
       `/api/v0/authentication/provider/login?provider=${state.provider}&returnUrl=${state.returnURL}`
     );
@@ -98,7 +98,7 @@ const mutations = {
     state.provider = payload;
   },
   updateReturnUrl(state, payload) {
-    state.returnURL = payload;
+    state.returnURL = encodeURIComponent(payload);
   }
 };
 
