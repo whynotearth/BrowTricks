@@ -36,6 +36,10 @@
         </template>
       </MediaManager>
     </div>
+
+    <portal to="NameBarSwitcher">
+      <DropDownSheet :tenants="tenants" />
+    </portal>
   </div>
 </template>
 
@@ -47,10 +51,12 @@ import { mapActions, mapMutations } from 'vuex';
 import { get } from 'lodash-es';
 import IconCreate from '@/assets/icons/create.svg';
 import IconPerson from '@/assets/icons/person.svg';
+import DropDownSheet from '@/components/tenant/DropDownSheet.vue';
 
 export default {
   name: 'MyAccount',
   components: {
+    DropDownSheet,
     BaseHeroSection,
     IconCreate,
     ExpansionPanel,
@@ -59,6 +65,7 @@ export default {
   },
   data() {
     return {
+      tenants: [],
       tenant: null,
       tenantData: null,
       logoUrl:
@@ -102,6 +109,7 @@ export default {
 
       // TODO: use fetchUserTenant when api was ready
       await this.fetchUserTenants().then(tenants => {
+        this.tenants = tenants;
         this.tenant = tenants.find(
           item => item.slug === this.$route.params.tenantSlug
         );

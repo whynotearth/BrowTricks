@@ -11,6 +11,16 @@ export const TenantPanelRoutes = [
     }
   },
   {
+    path: '/tenant/:tenantSlug/account',
+    name: 'MyAccount',
+    props: true,
+    component: () => import('@/views/MyAccount.vue'),
+    meta: {
+      layout: () => import('@/layouts/WithSwitcherBarLayout.vue'),
+      title: 'My Account'
+    }
+  },
+  {
     // first step: /sign-up/business-info
     path: '/sign-up/:step',
     name: 'SignUp',
@@ -33,15 +43,6 @@ export const TenantPanelRoutes = [
     props: true,
     component: () => import('@/views/Home.vue'),
     meta: { isPublic: true }
-  },
-  {
-    path: '/tenant/:tenantSlug/account',
-    name: 'MyAccount',
-    props: true,
-    meta: {
-      layout: () => import('@/layouts/WithNameBarLayout.vue'),
-      title: 'My Account'
-    }
   },
   {
     path: '/tenant/:tenantSlug/account/edit',

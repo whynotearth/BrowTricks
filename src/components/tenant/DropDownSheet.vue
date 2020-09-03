@@ -7,7 +7,6 @@
       :key="tenant.slug"
       class="flex flex-row my-4"
       :to="{ name: 'MyAccount', params: { tenantSlug: tenant.slug } }"
-      @click.stop.native="$emit('close')"
     >
       <div
         class="rounded-full h-10 w-10 flex items-center justify-center bg-background overflow-hidden"
