@@ -1,8 +1,8 @@
 import { ajax } from '@/services/ajax.js';
 import {
-  BrowtricksTenantService,
+  TenantService,
   DisclosuresService,
-  TenantService
+  PmuService
 } from '@whynotearth/meredith-axios';
 
 const notificationTypes = [
@@ -108,6 +108,9 @@ const getters = {
 };
 
 const actions = {
+  tenantPmuPreview(context, { params }) {
+    return PmuService.pmu(params);
+  },
   pmuDisclosuresFetch(context, { params }) {
     return DisclosuresService.disclosures1(params).then(res => {
       context.commit('pmuDisclosuresUpdate', res);
@@ -160,7 +163,7 @@ const actions = {
     });
   },
   fetchUserTenant(context, { params }) {
-    return BrowtricksTenantService.tenants(params);
+    return TenantService.tenants(params);
   }
 };
 
