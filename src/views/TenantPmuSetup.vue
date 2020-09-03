@@ -3,15 +3,14 @@
   <div class="max-w-4xl mx-auto px-4 pt-4">
     <div class="text-left p-2 text-on-background">
       <template>
-        <!-- <div class="preview" v-if="shouldShowPreview">
-          <PmuPreSignPreview
+        <div class="preview" v-if="shouldShowPreview">
+          <TenantPmuPreview
             title="Here is your pre-set PMU form:"
             :tenantSlug="tenantSlug"
-            :clientId="0"
           />
         </div>
 
-        <hr class="border-white border-opacity-divider mb-6" /> -->
+        <hr class="border-white border-opacity-divider mb-6" />
 
         <h2 class="tg-h2-mobile text-on-background text-opacity-high mb-6">
           Add Your Disclosures
@@ -71,7 +70,7 @@
 import { mapActions, mapGetters } from 'vuex';
 import BaseEditor from '@/components/inputs/BaseEditor.vue';
 import Button from '@/components/inputs/Button.vue';
-// // import PmuPreSignPreview from '@/components/pmu/PmuPreSignPreview.vue';
+import TenantPmuPreview from '@/components/pmu/TenantPmuPreview.vue';
 import IconDelete from '@/assets/icons/delete.svg';
 import { randomId, showOverlayAndRedirect } from '@/helpers';
 
@@ -79,7 +78,7 @@ export default {
   name: 'TenantPmuSetup',
   components: {
     BaseEditor,
-    // PmuPreSignPreview,
+    TenantPmuPreview,
     Button,
     IconDelete
   },
