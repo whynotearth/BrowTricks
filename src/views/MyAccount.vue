@@ -22,7 +22,7 @@
         </template>
       </ExpansionPanel>
 
-      <ExpansionPanel title="Log out" @click="logout">
+      <ExpansionPanel title="Log Out" @click="logout">
         <template #preIcon>
           <IconPerson class="h-6 w-6 fill-current" />
         </template>
@@ -43,7 +43,7 @@
 import BaseHeroSection from '@/components/BaseHeroSection.vue';
 import ExpansionPanel from '@/components/ExpansionPanel.vue';
 import MediaManager from '@/components/uploader/MediaManager.vue';
-import { mapActions } from 'vuex';
+import { mapActions, mapMutations } from 'vuex';
 import { get } from 'lodash-es';
 import IconCreate from '@/assets/icons/create.svg';
 import IconPerson from '@/assets/icons/person.svg';
@@ -85,8 +85,11 @@ export default {
   methods: {
     ...mapActions('tenant', ['fetchUserTenant', 'fetchUserTenants']),
     ...mapActions('auth', ['logout']),
-    init() {
-      this._fetchUserTenant();
+    ...mapMutations('loading', ['loading']),
+    async init() {
+      this.loading(true);
+      await this._fetchUserTenant();
+      this.loading(false);
     },
     async _fetchUserTenant() {
       this.tenantData = await this.fetchUserTenant({
@@ -98,7 +101,7 @@ export default {
       });
 
       // TODO: use fetchUserTenant when api was ready
-      this.fetchUserTenants().then(tenants => {
+      await this.fetchUserTenants().then(tenants => {
         this.tenant = tenants.find(
           item => item.slug === this.$route.params.tenantSlug
         );
