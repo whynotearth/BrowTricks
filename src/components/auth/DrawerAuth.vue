@@ -8,7 +8,7 @@
     <!-- signup screen -->
     <div
       v-if="activeMode === 'signup'"
-      class="flex flex-col h-full justify-between"
+      class="flex flex-col h-full justify-between flex-grow"
     >
       <div class="px-4">
         <p class="text-on-surface text-opacity-medium mb-4">
@@ -29,7 +29,7 @@
     <!-- login screen -->
     <div
       v-if="activeMode === 'login'"
-      class="flex flex-col h-full justify-between"
+      class="flex flex-col h-full justify-between flex-grow"
     >
       <div class="px-4">
         <!-- TODO: new sentence for login! -->

@@ -24,7 +24,7 @@
             />
           </a>
         </header>
-        <DrawerContent class="flex-grow">
+        <DrawerContent class="flex-grow flex h-full">
           <slot />
         </DrawerContent>
       </section>
