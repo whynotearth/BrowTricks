@@ -106,8 +106,11 @@ export default {
     }
   },
   watch: {
-    '$route.params.tenantSlug'() {
-      this.init();
+    '$route.params.tenantSlug'(newValue) {
+      console.log('watch tenantSlug', newValue);
+      if (newValue) {
+        this.init();
+      }
     }
   }
 };
