@@ -59,34 +59,57 @@ export const TenantPanelRoutes = [
   {
     path: '/tenant/:tenantSlug/form-templates',
     name: 'FormTemplates',
-    component: () => import('@/views/FormTemplatesList.vue'),
+    component: () => import('@/views/FormTemplates.vue'),
     props: true,
+    redirect: { name: 'FormTemplatesList' },
     meta: {
       layout: () => import('@/layouts/WithTitleBarLayout.vue'),
       title: 'Form Templates'
-    }
-  },
-  {
-    path: '/tenant/:tenantSlug/form-templates/add',
-    name: 'FormTemplatesAdd',
-    component: () => import('@/views/FormTemplatesAddEdit.vue'),
-    props: true,
-    meta: {
-      layout: () => import('@/layouts/WithTitleBarLayout.vue'),
-      title: 'Form Templates Setup',
-      backRoute: { name: 'FormTemplates' }
-    }
-  },
-  {
-    path: '/tenant/:tenantSlug/form-templates/edit/:id',
-    name: 'FormTemplatesEdit',
-    component: () => import('@/views/FormTemplatesAddEdit.vue'),
-    props: true,
-    meta: {
-      layout: () => import('@/layouts/WithTitleBarLayout.vue'),
-      title: 'Form Templates Setup',
-      backRoute: { name: 'FormTemplates' }
-    }
+    },
+    children: [
+      {
+        path: 'list',
+        name: 'FormTemplatesList',
+        component: () => import('@/views/FormTemplatesList.vue'),
+        props: true,
+        meta: {
+          layout: () => import('@/layouts/WithTitleBarLayout.vue'),
+          title: 'Form Templates'
+        }
+      },
+      {
+        path: 'add',
+        name: 'FormTemplatesAdd',
+        component: () => import('@/views/FormTemplatesAddEdit.vue'),
+        props: true,
+        meta: {
+          layout: () => import('@/layouts/WithTitleBarLayout.vue'),
+          title: 'Form Templates Setup',
+          backRoute: { name: 'FormTemplates' }
+        }
+      },
+      {
+        path: 'edit/:formId',
+        name: 'FormTemplatesEdit',
+        component: () => import('@/views/FormTemplatesAddEdit.vue'),
+        props: true,
+        meta: {
+          layout: () => import('@/layouts/WithTitleBarLayout.vue'),
+          title: 'Form Templates Setup',
+          backRoute: { name: 'FormTemplates' }
+        }
+      },
+      {
+        path: 'field-selection',
+        name: 'FormTemplateFieldSelection',
+        component: () => import('@/views/FormTemplateFieldSelection.vue'),
+        props: true,
+        meta: {
+          layout: () => import('@/layouts/WithTitleBarLayout.vue'),
+          title: 'Form Templates Setup'
+        }
+      }
+    ]
   },
 
   // TODO: remove

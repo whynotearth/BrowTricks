@@ -11,7 +11,7 @@
     "@whynotearth/meredith-axios": "^1.0.50",
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
-    "date-fns": "^2.14.0",
+    "date-fns": "^2.16.1",
     "keen-slider": "^5.1.0",
     "lodash-es": "^4.17.15",
     "portal-vue": "^2.1.7",

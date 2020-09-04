@@ -1,5 +1,6 @@
 import router from '@/router';
 import store from '@/store';
+import { format } from 'date-fns';
 
 export function randomId() {
   return Math.random()
@@ -207,4 +208,14 @@ export function disableScrollbar() {
 }
 export function enableScrollbar() {
   document.body.classList.remove('overflow-hidden');
+}
+
+export function formatDate(inputDate, dateFormat = 'MMM dd, yyyy - h:mm a') {
+  if (!inputDate) {
+    return '';
+  }
+  if (typeof inputDate === ('string' || 'number')) {
+    inputDate = new Date(inputDate);
+  }
+  return format(inputDate, dateFormat);
 }
