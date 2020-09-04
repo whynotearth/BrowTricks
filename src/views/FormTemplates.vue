@@ -1,7 +1,7 @@
 <template>
   <div class="text-left">
     <transition name="fadeslow">
-      <router-view v-show="!isLoading" />
+      <router-view v-on="$listeners" v-show="!isLoading" />
     </transition>
   </div>
 </template>

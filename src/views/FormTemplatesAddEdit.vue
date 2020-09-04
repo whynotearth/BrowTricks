@@ -14,7 +14,12 @@
       </div>
     </router-link>
 
-    <router-link :to="{ name: 'FormTemplateFieldSelection' }">
+    <router-link
+      :to="{
+        name: 'FormTemplateFieldSelection',
+        query: { formId: $route.params.formId }
+      }"
+    >
       <BaseCard className="items-center flex-col">
         <div class="mb-6">
           <IconAdd

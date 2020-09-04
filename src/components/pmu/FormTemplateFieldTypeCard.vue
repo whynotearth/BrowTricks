@@ -9,15 +9,20 @@
     <h2 class="text-on-surface text-opacity-high mb-6 flex items-center">
       <span class="block">{{ title }}</span>
       <IconHelpRounded
+        v-if="hasHelp"
         @click="openHelp(fieldtype)"
         class="text-on-surface text-opacity-medium ml-2 cursor-pointer select-none"
       />
     </h2>
 
-    <p class="tg-caption-mobile text-on-surface text-opacity-high">
-      Already have a PDF or JPEF of your form? Upload to your template with an
-      agreement request.
+    <p
+      v-if="description"
+      class="tg-caption-mobile text-on-surface text-opacity-high"
+    >
+      {{ description }}
     </p>
+
+    <slot />
   </BaseCard>
 </template>
 
@@ -50,9 +55,17 @@ export default {
       type: String,
       required: true
     },
+    description: {
+      type: String,
+      required: true
+    },
     fieldtype: {
       type: String,
       required: true
+    },
+    hasHelp: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {

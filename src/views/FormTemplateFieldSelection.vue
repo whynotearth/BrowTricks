@@ -10,6 +10,7 @@
         icon="IconImages"
         title="Upload"
         fieldtype="upload"
+        :hasHelp="true"
         description="Already have a PDF or JPEF of your form? Upload to your template
             with an agreement request."
       />
@@ -19,6 +20,7 @@
         icon="IconCheckSquared"
         title="Agreement Request"
         fieldtype="agreement"
+        :hasHelp="true"
         description="Add a required agreement request to your form so your clients can agree to your terms."
       />
 
@@ -27,6 +29,7 @@
         icon="IconText"
         title="Text Response"
         fieldtype="textarea"
+        :hasHelp="true"
         description="Add a text response question to your form so your clients can type in their answers."
       />
 
@@ -35,7 +38,8 @@
         icon="IconChecklist"
         title="Checklist"
         fieldtype="checkbox"
-        description="Add a checklist to your form so your clients can select all options that apply. Add a checklist to your form so your clients can select all options that apply."
+        :hasHelp="true"
+        description="Add a checklist to your form so your clients can select all options that apply."
       />
 
       <FormTemplateFieldTypeCard
@@ -43,6 +47,7 @@
         icon="IconRadiolist"
         title="Multiple Choice"
         fieldtype="radio"
+        :hasHelp="true"
         description="Add a multiple choice question to your form so your clients can select the best option suited for them."
       />
     </div>
@@ -51,9 +56,30 @@
 
 <script>
 import FormTemplateFieldTypeCard from '@/components/pmu/FormTemplateFieldTypeCard';
+import eventBus from '@/utils/eventBus.js';
 export default {
   name: 'FormTemplateFieldSelection',
-  components: { FormTemplateFieldTypeCard }
+  components: { FormTemplateFieldTypeCard },
+  created() {
+    this.prepareBackRoute();
+  },
+  computed: {
+    backRoute() {
+      const formId = this.$route.query.formId;
+      if (formId) {
+        return {
+          name: 'FormTemplatesEdit',
+          params: { formId }
+        };
+      }
+      return { name: 'FormTemplatesAdd' };
+    }
+  },
+  methods: {
+    prepareBackRoute() {
+      eventBus.$emit('layoutBackRoute', this.backRoute);
+    }
+  }
 };
 </script>
 

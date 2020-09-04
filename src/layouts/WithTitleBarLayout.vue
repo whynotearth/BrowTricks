@@ -91,6 +91,7 @@ import BaseSpinner from '@/components/BaseSpinner';
 import NavigationBottom from '@/components/NavigationBottom';
 import IconOverflowMenu from '@/assets/icons/more.svg';
 import IconBack from '@/assets/icons/arrow-back.svg';
+import eventBus from '@/utils/eventBus.js';
 
 export default {
   name: 'WithTitleBarLayout',
@@ -128,14 +129,14 @@ export default {
     handleTitle() {
       this.currentTitle = this.$route.meta.title;
       // listen for title updates
-      this.$on('layoutTitle', data => {
+      eventBus.$on('layoutTitle', data => {
         this.currentTitle = data;
       });
     },
     handleBackRoute() {
       this.backRoute = this.$route.meta.backRoute;
       // listen for back route updates
-      this.$on('layoutBackRoute', data => {
+      eventBus.$on('layoutBackRoute', data => {
         this.backRoute = data;
       });
     },
