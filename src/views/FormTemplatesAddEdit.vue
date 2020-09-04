@@ -14,6 +14,19 @@
       </div>
     </router-link>
 
+    <!-- current questions -->
+    <FormTemplateFieldTypeCard
+      class="mb-4"
+      icon="IconImages"
+      title="Upload"
+      fieldtype="upload"
+    >
+      <p class="text-on-background text-opacity-high">
+        content of question here.....
+      </p>
+    </FormTemplateFieldTypeCard>
+
+    <!-- add question -->
     <router-link
       :to="{
         name: 'FormTemplateFieldSelection',
@@ -40,12 +53,13 @@
 </template>
 
 <script>
+import FormTemplateFieldTypeCard from '@/components/pmu/FormTemplateFieldTypeCard';
 import IconArrowRight from '@/assets/icons/keyboard_arrow_right.svg';
 import BaseCard from '@/components/BaseCard';
 import IconAdd from '@/assets/icons/add.svg';
 export default {
   name: 'FormTemplatesAddEdit',
-  components: { IconArrowRight, BaseCard, IconAdd }
+  components: { FormTemplateFieldTypeCard, IconArrowRight, BaseCard, IconAdd }
 };
 </script>
 

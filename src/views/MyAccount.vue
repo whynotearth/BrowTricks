@@ -104,7 +104,7 @@ export default {
           tenantSlug: this.$route.params.tenantSlug
         }
       }).catch(() => {
-        console.log('error in getting tenant');
+        console.log('error in getting a tenant');
       });
 
       // TODO: use fetchUserTenant when api was ready
