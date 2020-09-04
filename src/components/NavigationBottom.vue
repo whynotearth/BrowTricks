@@ -80,7 +80,7 @@
               >
                 <router-link
                   class="navigation--link block"
-                  :to="{ name: 'TenantPmuSetup' }"
+                  :to="{ name: 'FormTemplates' }"
                   exact
                 >
                   <IconDocument class="m-auto mb-2 w-5 h-5" />

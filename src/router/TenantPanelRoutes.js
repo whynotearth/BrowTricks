@@ -55,6 +55,41 @@ export const TenantPanelRoutes = [
       backRoute: { name: 'MyAccount' }
     }
   },
+
+  {
+    path: '/tenant/:tenantSlug/form-templates',
+    name: 'FormTemplates',
+    component: () => import('@/views/FormTemplatesList.vue'),
+    props: true,
+    meta: {
+      layout: () => import('@/layouts/WithTitleBarLayout.vue'),
+      title: 'Form Templates'
+    }
+  },
+  {
+    path: '/tenant/:tenantSlug/form-templates/add',
+    name: 'FormTemplatesAdd',
+    component: () => import('@/views/FormTemplatesAddEdit.vue'),
+    props: true,
+    meta: {
+      layout: () => import('@/layouts/WithTitleBarLayout.vue'),
+      title: 'Form Templates Setup',
+      backRoute: { name: 'FormTemplates' }
+    }
+  },
+  {
+    path: '/tenant/:tenantSlug/form-templates/edit/:id',
+    name: 'FormTemplatesEdit',
+    component: () => import('@/views/FormTemplatesAddEdit.vue'),
+    props: true,
+    meta: {
+      layout: () => import('@/layouts/WithTitleBarLayout.vue'),
+      title: 'Form Templates Setup',
+      backRoute: { name: 'FormTemplates' }
+    }
+  },
+
+  // TODO: remove
   {
     // tenant pmu setup
     path: '/tenant/:tenantSlug/pmu-setup',
