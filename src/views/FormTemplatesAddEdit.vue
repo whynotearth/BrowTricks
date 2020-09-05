@@ -20,22 +20,22 @@
     </router-link>
 
     <!-- current questions -->
-    <FormTemplateFieldsSortableList lockAxis="y" v-model="currentFields">
-      <FormTemplateFieldTypeCard
-        v-for="(field, index) in currentFields"
-        :index="index"
-        :key="index"
-        :item="field"
-        class="mb-4"
-        :icon="field.icon"
-        :title="field.title"
-        :fieldtype="field.fieldtype"
-      >
-        <p class="text-on-background text-opacity-high">
-          {{ field.textContent }}
-        </p>
-      </FormTemplateFieldTypeCard>
-    </FormTemplateFieldsSortableList>
+    <SortableList lockAxis="y" v-model="currentFields">
+      <li v-for="(field, index) in currentFields" :key="index">
+        <FormTemplateFieldTypeCard
+          :item="field"
+          :index="index"
+          class="mb-4"
+          :icon="field.icon"
+          :title="field.title"
+          :fieldtype="field.fieldtype"
+        >
+          <p class="text-on-background text-opacity-high">
+            {{ field.textContent }}
+          </p>
+        </FormTemplateFieldTypeCard>
+      </li>
+    </SortableList>
 
     <!-- add question -->
     <router-link
@@ -65,15 +65,26 @@
 
 <script>
 import FormTemplateFieldTypeCard from '@/components/pmu/FormTemplateFieldTypeCard';
-import FormTemplateFieldsSortableList from '@/components/pmu/FormTemplateFieldsSortableList';
 import IconArrowRight from '@/assets/icons/keyboard_arrow_right.svg';
 import BaseCard from '@/components/BaseCard';
 import IconAdd from '@/assets/icons/add.svg';
+import { ContainerMixin } from 'vue-slicksort';
+
+const SortableList = {
+  mixins: [ContainerMixin],
+  /*
+  same as: `<ul><slot /></ul>`
+  */
+  render: function(createElement) {
+    return createElement('ul', this.$slots.default);
+  }
+};
 
 export default {
   name: 'FormTemplatesAddEdit',
   components: {
-    FormTemplateFieldsSortableList,
+    SortableList,
+
     FormTemplateFieldTypeCard,
     IconArrowRight,
     BaseCard,
