@@ -5,9 +5,14 @@
       :to="{ name: 'FormTemplateFieldSelection' }"
       class="flex justify-between tg-body-mobile border-b border-divider border-opacity-divider py-3 mb-6"
     >
-      <span class="text-on-background text-opacity-high">Name</span>
+      <label
+        for="formTemplateName"
+        class="text-on-background text-opacity-high"
+      >
+        Name
+      </label>
       <div class="flex items-center text-on-background text-opacity-medium">
-        <span class="mr-2">Untitled</span>
+        <span id="formTemplateName" class="mr-2">Untitled</span>
         <IconArrowRight
           class="fill-current text-on-background text-opacity-medium"
         />
@@ -15,16 +20,22 @@
     </router-link>
 
     <!-- current questions -->
-    <FormTemplateFieldTypeCard
-      class="mb-4"
-      icon="IconImages"
-      title="Upload"
-      fieldtype="upload"
-    >
-      <p class="text-on-background text-opacity-high">
-        content of question here.....
-      </p>
-    </FormTemplateFieldTypeCard>
+    <FormTemplateFieldsSortableList lockAxis="y" v-model="currentFields">
+      <FormTemplateFieldTypeCard
+        v-for="(field, index) in currentFields"
+        :index="index"
+        :key="index"
+        :item="field"
+        class="mb-4"
+        :icon="field.icon"
+        :title="field.title"
+        :fieldtype="field.fieldtype"
+      >
+        <p class="text-on-background text-opacity-high">
+          {{ field.textContent }}
+        </p>
+      </FormTemplateFieldTypeCard>
+    </FormTemplateFieldsSortableList>
 
     <!-- add question -->
     <router-link
@@ -54,12 +65,42 @@
 
 <script>
 import FormTemplateFieldTypeCard from '@/components/pmu/FormTemplateFieldTypeCard';
+import FormTemplateFieldsSortableList from '@/components/pmu/FormTemplateFieldsSortableList';
 import IconArrowRight from '@/assets/icons/keyboard_arrow_right.svg';
 import BaseCard from '@/components/BaseCard';
 import IconAdd from '@/assets/icons/add.svg';
+
 export default {
   name: 'FormTemplatesAddEdit',
-  components: { FormTemplateFieldTypeCard, IconArrowRight, BaseCard, IconAdd }
+  components: {
+    FormTemplateFieldsSortableList,
+    FormTemplateFieldTypeCard,
+    IconArrowRight,
+    BaseCard,
+    IconAdd
+  },
+  data: () => ({
+    currentFields: [
+      {
+        title: 'Upload 1',
+        icon: 'IconImages',
+        fieldtype: 'upload',
+        textContent: 'content of question here.....'
+      },
+      {
+        title: 'Upload 2',
+        icon: 'IconImages',
+        fieldtype: 'upload',
+        textContent: 'content of question here.....'
+      },
+      {
+        title: 'Upload 3',
+        icon: 'IconImages',
+        fieldtype: 'upload',
+        textContent: 'content of question here.....'
+      }
+    ]
+  })
 };
 </script>
 
