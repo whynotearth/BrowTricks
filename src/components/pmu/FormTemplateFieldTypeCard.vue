@@ -13,7 +13,7 @@
       <span class="block">{{ title }}</span>
       <IconHelpRounded
         v-if="hasHelp"
-        @click="openHelp(fieldtype)"
+        @click="openHelp(type)"
         class="text-on-surface text-opacity-medium ml-2 cursor-pointer select-none"
       />
     </h2>
@@ -65,7 +65,7 @@ export default {
     description: {
       type: String
     },
-    fieldtype: {
+    type: {
       type: String,
       required: true
     },
@@ -75,8 +75,8 @@ export default {
     }
   },
   methods: {
-    openHelp(fieldtype) {
-      console.log('fieldtype', fieldtype);
+    openHelp(type) {
+      console.log('type', type);
     }
   }
 };
