@@ -1,5 +1,5 @@
 <template>
-  <BaseCard className="items-center flex-col text-center">
+  <BaseCard className="items-center flex-col text-center select-none">
     <div class="mb-6">
       <component
         :is="icon"
