@@ -1,0 +1,71 @@
+<template>
+  <div>
+    <div class="px-4">
+      <h2 class="tg-h3-mobile text-on-background text-opacity-high mb-2">
+        Text Response
+      </h2>
+
+      <p class="text-on-background text-opacity-medium tg-body-mobile mb-6">
+        Add a text response question to your form so your clients can type in
+        their answers.
+      </p>
+
+      <TextAreaInput
+        v-model="model.description"
+        class="mb-4"
+        placeholder="e.g. I am being treated for, or was in the past for the following conditions (Please include allergies, espcially to dye, pigment, or numbing agent.)"
+        label="Question"
+        labelBackground="bg-background has-noise"
+        rows="8"
+      />
+
+      <CheckBox
+        class="block mb-8"
+        v-model="model.isRequired"
+        :value="true"
+        label="This question is required"
+      />
+
+      <Button class="rounded-full mb-4" title="Save" @clicked="save" />
+
+      <Button
+        class="mt-8"
+        textColor="text-error"
+        title="Delete Question"
+        theme="none"
+        @clicked="remove"
+      />
+    </div>
+  </div>
+</template>
+
+<script>
+import TextAreaInput from '@/components/inputs/TextAreaInput';
+import CheckBox from '@/components/inputs/CheckBox';
+import Button from '@/components/inputs/Button';
+import { fieldModelToFieldTypeCard } from '@/services/formTemplate.js';
+export default {
+  name: 'FormTemplateFieldTextarea',
+  components: { TextAreaInput, CheckBox, Button },
+  data: () => ({
+    model: {
+      isRequired: false,
+      description: ''
+    }
+  }),
+  methods: {
+    remove() {
+      this.$emit('remove');
+    },
+    save() {
+      const field = fieldModelToFieldTypeCard({
+        ...this.model,
+        type: 'textarea'
+      });
+      this.$emit('save', field);
+    }
+  }
+};
+</script>
+
+<style scoped></style>

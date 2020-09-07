@@ -44,6 +44,7 @@
             :attrs="{ rounded: index === 0 ? 'rounded-t' : null }"
             :icon="field.icon"
             :title="field.title"
+            :description="field.description"
             :type="field.type"
           >
             <p class="text-on-background text-opacity-high">

@@ -21,6 +21,10 @@ const actions = {
   currentFieldUpdate(context, payload) {
     context.commit('currentFieldUpdate', payload);
   },
+  currentFieldReset(context) {
+    const initial = cloneDeep(defaultState.currentField);
+    context.commit('currentFieldUpdate', initial);
+  },
   currentTemplateUpdate(context, payload) {
     context.commit('currentTemplateUpdate', payload);
   }

@@ -114,7 +114,7 @@ export const TenantPanelRoutes = [
         // route qeury: {type}
         path: 'add-field',
         name: 'FormTemplateFieldAdd',
-        component: () => import('@/views/FormTemplateFieldAddEdit.vue'),
+        component: () => import('@/views/FormTemplateFieldAdd.vue'),
         props: true,
         meta: {
           layout: () => import('@/layouts/WithTitleBarLayout.vue'),
@@ -125,7 +125,7 @@ export const TenantPanelRoutes = [
       {
         path: 'edit-field/:fieldId?',
         name: 'FormTemplateFieldEdit',
-        component: () => import('@/views/FormTemplateFieldAddEdit.vue'),
+        component: () => import('@/views/FormTemplateFieldEdit.vue'),
         props: true,
         meta: {
           layout: () => import('@/layouts/WithTitleBarLayout.vue'),
