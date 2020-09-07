@@ -5,7 +5,7 @@
         <div class="w-full">
           <div class="flex relative bg-primary">
             <ul
-              class="link-items max-w-4xl mx-auto wrapper flex-auto flex text-left justify-around items-center menu list-none tg-caption-mobile"
+              class="link-items max-w-4xl mx-auto wrapper flex-auto flex text-left justify-around items-center menu list-none tg-caption-mobile select-none"
             >
               <li class="text-on-primary text-opacity-high link-item">
                 <router-link

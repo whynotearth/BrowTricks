@@ -1,5 +1,8 @@
 <template>
-  <BaseCard className="items-center flex-col text-center select-none">
+  <BaseCard
+    className="items-center flex-col text-center select-none"
+    v-bind="attrs"
+  >
     <div class="mb-6">
       <component
         :is="icon"
@@ -49,6 +52,10 @@ export default {
     IconHelpRounded
   },
   props: {
+    attrs: {
+      type: Object,
+      default: () => ({})
+    },
     icon: {
       type: String,
       required: true

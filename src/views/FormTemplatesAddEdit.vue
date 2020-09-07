@@ -1,5 +1,7 @@
 <template>
-  <div class="max-w-md mx-auto pt-2 text-on-background text-opacity-high">
+  <div
+    class="wrapper max-w-md mx-auto pt-2 text-on-background text-opacity-high"
+  >
     <!-- form title -->
     <router-link
       :to="{ name: 'FormTemplateFieldSelection' }"
@@ -23,14 +25,20 @@
       </div>
     </router-link>
 
-    <div class="px-4">
+    <div class="px-4 md:px-0">
       <!-- current questions -->
-      <SortableList :pressDelay="0" lockAxis="y" v-model="currentFields">
+      <SortableList
+        :useWindowAsScrollContainer="true"
+        :pressDelay="300"
+        lockAxis="y"
+        v-model="currentFields"
+        @input="fieldsUpdate"
+      >
         <li v-for="(field, index) in currentFields" :key="index">
           <FormTemplateFieldTypeCard
+            :attrs="{ rounded: index === 0 ? 'rounded-t' : null }"
             :item="field"
             :index="index"
-            class="mb-8"
             :icon="field.icon"
             :title="field.title"
             :fieldtype="field.fieldtype"
@@ -49,7 +57,10 @@
           query: { formId: $route.params.formId }
         }"
       >
-        <BaseCard className="items-center flex-col select-none">
+        <BaseCard
+          className="items-center flex-col select-none"
+          rounded="rounded-b"
+        >
           <div class="mb-6">
             <IconAdd
               class="fill-current text-on-surface text-opacity-high w-4 h-4"
@@ -111,6 +122,7 @@ import IconAdd from '@/assets/icons/add.svg';
 import { showOverlayAndRedirect } from '@/helpers';
 import { ContainerMixin } from 'vue-slicksort';
 import { mapActions } from 'vuex';
+import noPullToRefresh from '@/utils/noPullToRefreshMixin.js';
 
 const SortableList = {
   mixins: [ContainerMixin],
@@ -124,6 +136,7 @@ const SortableList = {
 
 export default {
   name: 'FormTemplatesAddEdit',
+  mixins: [noPullToRefresh],
   components: {
     BaseDialog,
     Button,
@@ -164,6 +177,9 @@ export default {
   }),
   methods: {
     ...mapActions('tenant', ['deleteFormTemplate']),
+    fieldsUpdate(list) {
+      console.log('updated list', list);
+    },
     remove() {
       console.log('TODO: delete');
 
@@ -183,5 +199,3 @@ export default {
   }
 };
 </script>
-
-<style scoped></style>

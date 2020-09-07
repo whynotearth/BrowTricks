@@ -203,11 +203,11 @@ export function cloudinaryFileToMeredithFileAdapter(cloudinaryFileInfo) {
   }
 }
 
-export function disableScrollbar() {
-  document.body.classList.add('overflow-hidden');
+export function disableBodyClass(className) {
+  document.body.classList.remove(className);
 }
-export function enableScrollbar() {
-  document.body.classList.remove('overflow-hidden');
+export function enableBodyClass(className) {
+  document.body.classList.add(className);
 }
 
 export function formatDate(inputDate, dateFormat = 'MMM dd, yyyy - h:mm a') {

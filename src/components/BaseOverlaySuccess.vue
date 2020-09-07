@@ -38,9 +38,10 @@
 
 <script>
 import BaseProgressCircle from '@/components/BaseProgressCircle.vue';
-import { disableScrollbar, enableScrollbar } from '@/helpers.js';
+import noPageScrollbar from '@/utils/noPageScrollbarMixin.js';
 
 export default {
+  mixins: [noPageScrollbar],
   name: 'OverlayBrand',
   components: { BaseProgressCircle },
   data() {
@@ -82,14 +83,10 @@ export default {
       };
     }
   },
-  beforeDestroy() {
-    enableScrollbar();
-  },
   mounted() {
     setTimeout(() => {
       this.progress = 1;
     }, 300);
-    disableScrollbar();
   }
 };
 </script>

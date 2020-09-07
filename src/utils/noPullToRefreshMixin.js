@@ -2,9 +2,9 @@ import { disableBodyClass, enableBodyClass } from '@/helpers.js';
 
 export default {
   mounted() {
-    enableBodyClass('no-scrollbars');
+    enableBodyClass('no-pull-to-refresh');
   },
   beforeDestroy() {
-    disableBodyClass('no-scrollbars');
+    disableBodyClass('no-pull-to-refresh');
   }
 };
