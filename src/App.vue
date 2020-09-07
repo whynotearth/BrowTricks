@@ -1,7 +1,7 @@
 <template>
   <div
     id="app"
-    class="min-h-vh100 h-full text-center font-sans bg-background has-noise"
+    class="min-h-vh100 h-full text-center font-sans bg-background has-noise text-on-background"
   >
     <transition :name="transitionName">
       <component :is="$route.meta.layout || 'div'" class="h-full min-h-vh100">
@@ -10,7 +10,7 @@
     </transition>
     <SnackBar :showSnackBar="showPrivacySnackBar">
       <div
-        class="flex items-center justify-between text-white w-full h-12 tg-caption-mobile leading-4 p-4 
+        class="flex items-center justify-between text-on-primary w-full h-12 tg-caption-mobile leading-4 p-4 
           bg-primary"
       >
         <p>

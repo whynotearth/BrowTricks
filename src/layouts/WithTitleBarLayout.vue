@@ -1,5 +1,7 @@
 <template>
-  <div class="page min-h-screen flex flex-col text-white text-opacity-medium">
+  <div
+    class="page min-h-screen flex flex-col text-on-background text-opacity-high"
+  >
     <header
       class="bg-primary z-20 shadow-4dp flex flex-row items-center p-4 sticky top-0"
     >
@@ -9,9 +11,9 @@
         @click.prevent="iconClick"
         v-if="$route.meta.backRoute"
       >
-        <IconBack class="text-white" />
+        <IconBack class="text-on-primary" />
       </a>
-      <h1 class="tg-h2-mobile text-opacity-high flex-grow text-white">
+      <h1 class="tg-h2-mobile text-opacity-high flex-grow text-on-primary">
         {{ currentTitle }}
       </h1>
 
