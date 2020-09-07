@@ -5,10 +5,11 @@
         Select a question type:
       </h2>
 
-      <router-link
-        :to="{ name: 'FormTemplateFieldAdd', query: { type: field.type } }"
+      <a
         v-for="field in fieldsAvailable"
         :key="field.type"
+        @click.prevent="selectField(field)"
+        class="cursor-pointer"
       >
         <FormTemplateFieldTypeCard
           class="mb-4"
@@ -18,13 +19,14 @@
           :type="field.type"
           :description="field.description"
         />
-      </router-link>
+      </a>
     </div>
   </div>
 </template>
 
 <script>
 import FormTemplateFieldTypeCard from '@/components/pmu/FormTemplateFieldTypeCard';
+import { mapActions } from 'vuex';
 import eventBus from '@/utils/eventBus.js';
 export default {
   name: 'FormTemplateFieldSelection',
@@ -84,8 +86,19 @@ export default {
     }
   },
   methods: {
+    ...mapActions('formTemplate', ['currentFieldUpdate']),
     prepareBackRoute() {
       eventBus.$emit('layoutBackRoute', this.backRoute);
+    },
+    selectField(field) {
+      this.currentFieldUpdate({
+        id: null,
+        type: field.type
+      });
+      this.$router.push({
+        name: 'FormTemplateFieldAdd',
+        query: { ...this.$route.query, type: field.type }
+      });
     }
   }
 };

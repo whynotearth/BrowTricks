@@ -8,7 +8,7 @@
       class="tg-body-mobile"
     >
       <div
-        class="px-4 flex justify-between py-3 border-b border-divider border-opacity-divider mb-6"
+        class="px-4 md:px-0 flex justify-between py-3 border-b border-divider border-opacity-divider mb-6"
       >
         <label
           for="formTemplateName"
@@ -17,7 +17,7 @@
           Name
         </label>
         <div class="flex items-center text-on-background text-opacity-medium">
-          <span id="formTemplateName" class="mr-2">Untitled</span>
+          <span id="formTemplateName" class="mr-2">{{ model.title }}</span>
           <IconArrowRight
             class="fill-current text-on-background text-opacity-medium"
           />
@@ -31,11 +31,11 @@
         :useWindowAsScrollContainer="true"
         :pressDelay="300"
         lockAxis="y"
-        v-model="currentFields"
+        v-model="model.fields"
         @input="fieldsUpdate"
       >
         <SortableItem
-          v-for="(field, index) in currentFields"
+          v-for="(field, index) in model.fields"
           :key="index"
           :item="field"
           :index="index"
@@ -44,7 +44,7 @@
             :attrs="{ rounded: index === 0 ? 'rounded-t' : null }"
             :icon="field.icon"
             :title="field.title"
-            :fieldtype="field.fieldtype"
+            :type="field.type"
           >
             <p class="text-on-background text-opacity-high">
               {{ field.textContent }}
@@ -124,7 +124,7 @@ import Button from '@/components/inputs/Button';
 import IconAdd from '@/assets/icons/add.svg';
 import { showOverlayAndRedirect } from '@/helpers';
 import { ContainerMixin, ElementMixin } from 'vue-slicksort';
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import noPullToRefresh from '@/utils/noPullToRefreshMixin.js';
 
 const SortableList = {
@@ -170,36 +170,25 @@ export default {
     BaseCard,
     IconAdd
   },
+  data: () => ({
+    isDeleteModalOpen: false,
+    model: null
+  }),
+  created() {
+    if (this.isEdit) {
+      // fetch the current template from api and update store
+    }
+    this.model = this.currentTemplateGet;
+  },
   computed: {
+    ...mapGetters('formTemplate', ['currentTemplateGet']),
     isEdit() {
       return this.$route.params.formId;
     }
   },
-  data: () => ({
-    isDeleteModalOpen: false,
-    currentFields: [
-      {
-        title: 'Upload 1',
-        icon: 'IconImages',
-        fieldtype: 'upload',
-        textContent: 'content of question here.....'
-      },
-      {
-        title: 'Upload 2',
-        icon: 'IconImages',
-        fieldtype: 'upload',
-        textContent: 'content of question here.....'
-      },
-      {
-        title: 'Upload 3',
-        icon: 'IconImages',
-        fieldtype: 'upload',
-        textContent: 'content of question here.....'
-      }
-    ]
-  }),
   methods: {
     ...mapActions('tenant', ['deleteFormTemplate']),
+    ...mapActions('formTemplate', ['currentTemplateUpdate']),
     fieldsUpdate(list) {
       console.log('updated list', list);
     },
