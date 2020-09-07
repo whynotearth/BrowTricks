@@ -5,15 +5,17 @@
         Select a question type:
       </h2>
 
-      <FormTemplateFieldTypeCard
-        class="mb-4"
-        icon="IconImages"
-        title="Upload"
-        fieldtype="upload"
-        :hasHelp="true"
-        description="Already have a PDF or JPEF of your form? Upload to your template
+      <router-link :to="{ name: 'FormTemplateFieldAddEdit' }">
+        <FormTemplateFieldTypeCard
+          class="mb-4"
+          icon="IconImages"
+          title="Upload"
+          fieldtype="upload"
+          :hasHelp="true"
+          description="Already have a PDF or JPEF of your form? Upload to your template
             with an agreement request."
-      />
+        />
+      </router-link>
 
       <FormTemplateFieldTypeCard
         class="mb-4"

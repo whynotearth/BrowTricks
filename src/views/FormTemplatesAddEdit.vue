@@ -34,11 +34,14 @@
         v-model="currentFields"
         @input="fieldsUpdate"
       >
-        <li v-for="(field, index) in currentFields" :key="index">
+        <SortableItem
+          v-for="(field, index) in currentFields"
+          :key="index"
+          :item="field"
+          :index="index"
+        >
           <FormTemplateFieldTypeCard
             :attrs="{ rounded: index === 0 ? 'rounded-t' : null }"
-            :item="field"
-            :index="index"
             :icon="field.icon"
             :title="field.title"
             :fieldtype="field.fieldtype"
@@ -47,7 +50,7 @@
               {{ field.textContent }}
             </p>
           </FormTemplateFieldTypeCard>
-        </li>
+        </SortableItem>
       </SortableList>
 
       <!-- add question -->
@@ -120,7 +123,7 @@ import BaseDialog from '@/components/BaseDialog';
 import Button from '@/components/inputs/Button';
 import IconAdd from '@/assets/icons/add.svg';
 import { showOverlayAndRedirect } from '@/helpers';
-import { ContainerMixin } from 'vue-slicksort';
+import { ContainerMixin, ElementMixin } from 'vue-slicksort';
 import { mapActions } from 'vuex';
 import noPullToRefresh from '@/utils/noPullToRefreshMixin.js';
 
@@ -134,6 +137,25 @@ const SortableList = {
   }
 };
 
+const SortableItem = {
+  mixins: [ElementMixin],
+  props: ['item'],
+  /*
+  same as: `<li><slot /></li>`
+  */
+  render: function(createElement) {
+    return createElement(
+      'li',
+      {
+        attrs: {
+          class: 'list-none'
+        }
+      },
+      this.$slots.default
+    );
+  }
+};
+
 export default {
   name: 'FormTemplatesAddEdit',
   mixins: [noPullToRefresh],
@@ -141,6 +163,7 @@ export default {
     BaseDialog,
     Button,
     SortableList,
+    SortableItem,
 
     FormTemplateFieldTypeCard,
     IconArrowRight,

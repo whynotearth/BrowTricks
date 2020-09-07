@@ -37,10 +37,8 @@ import IconCheckSquared from '@/assets/icons/check-squared.svg';
 import IconChecklist from '@/assets/icons/checklist.svg';
 import IconRadiolist from '@/assets/icons/radiolist.svg';
 import IconHelpRounded from '@/assets/icons/help-rounded.svg';
-import { ElementMixin } from 'vue-slicksort';
 
 export default {
-  mixins: [ElementMixin],
   name: 'FormTemplateFieldTypeCard',
   components: {
     IconText,

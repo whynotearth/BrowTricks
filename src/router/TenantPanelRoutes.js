@@ -100,9 +100,20 @@ export const TenantPanelRoutes = [
         }
       },
       {
-        path: 'add-field',
+        path: 'select-field',
         name: 'FormTemplateFieldSelection',
         component: () => import('@/views/FormTemplateFieldSelection.vue'),
+        props: true,
+        meta: {
+          layout: () => import('@/layouts/WithTitleBarLayout.vue'),
+          title: 'Form Templates Setup',
+          backRoute: { name: 'FormTemplatesEdit' }
+        }
+      },
+      {
+        path: 'field/:fieldId?',
+        name: 'FormTemplateFieldAddEdit',
+        component: () => import('@/views/FormTemplateFieldAddEdit.vue'),
         props: true,
         meta: {
           layout: () => import('@/layouts/WithTitleBarLayout.vue'),
