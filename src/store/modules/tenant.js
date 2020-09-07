@@ -169,6 +169,10 @@ const actions = {
       companySlug
     };
     return TenantService.mytenants(_params);
+  },
+
+  deleteFormTemplate(context, { params }) {
+    console.log('delete in store: params', params);
   }
 };
 

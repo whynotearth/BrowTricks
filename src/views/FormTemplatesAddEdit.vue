@@ -60,6 +60,38 @@
         </p>
       </BaseCard>
     </router-link>
+
+    <div class="py-6" v-if="isEdit">
+      <Button
+        textColor="text-error"
+        title="Delete Form Template"
+        theme="none"
+        @clicked="isDeleteModalOpen = true"
+      />
+    </div>
+
+    <BaseDialog
+      v-if="isDeleteModalOpen"
+      @close="isDeleteModalOpen = false"
+      title="Delete Form Template?"
+    >
+      <Button
+        textColor="text-on-primary text-opacity-medium"
+        title="Cancel"
+        theme="none"
+        @clicked="isDeleteModalOpen = false"
+        width="w-auto"
+        :margin="null"
+      />
+      <Button
+        textColor="text-error"
+        title="Delete"
+        theme="none"
+        @clicked="remove"
+        width="w-auto"
+        :margin="null"
+      />
+    </BaseDialog>
   </div>
 </template>
 
@@ -67,8 +99,12 @@
 import FormTemplateFieldTypeCard from '@/components/pmu/FormTemplateFieldTypeCard';
 import IconArrowRight from '@/assets/icons/keyboard_arrow_right.svg';
 import BaseCard from '@/components/BaseCard';
+import BaseDialog from '@/components/BaseDialog';
+import Button from '@/components/inputs/Button';
 import IconAdd from '@/assets/icons/add.svg';
+import { showOverlayAndRedirect } from '@/helpers';
 import { ContainerMixin } from 'vue-slicksort';
+import { mapActions } from 'vuex';
 
 const SortableList = {
   mixins: [ContainerMixin],
@@ -83,6 +119,8 @@ const SortableList = {
 export default {
   name: 'FormTemplatesAddEdit',
   components: {
+    BaseDialog,
+    Button,
     SortableList,
 
     FormTemplateFieldTypeCard,
@@ -90,7 +128,13 @@ export default {
     BaseCard,
     IconAdd
   },
+  computed: {
+    isEdit() {
+      return this.$route.params.formId;
+    }
+  },
   data: () => ({
+    isDeleteModalOpen: false,
     currentFields: [
       {
         title: 'Upload 1',
@@ -111,7 +155,26 @@ export default {
         textContent: 'content of question here.....'
       }
     ]
-  })
+  }),
+  methods: {
+    ...mapActions('tenant', ['deleteFormTemplate']),
+    remove() {
+      console.log('TODO: delete');
+
+      this.deleteFormTemplate({
+        params: {
+          hi: 1
+        }
+      }).then(async () => {
+        this.isDeleteModalOpen = false;
+        showOverlayAndRedirect({
+          title: 'Success!',
+          message: 'Form template deleted successfully!',
+          route: { name: 'FormTemplatesList' }
+        });
+      });
+    }
+  }
 };
 </script>
 
