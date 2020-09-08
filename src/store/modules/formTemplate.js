@@ -47,6 +47,12 @@ const actions = {
       context.commit('templatesUpdate', filteredAdaptedTemplates);
     });
   },
+  templateDelete(context, { params, isDraft = false }) {
+    if (isDraft) {
+      return true;
+    }
+    return FormTemplateService.formtemplates4(params);
+  },
   currentFieldUpdate(context, payload) {
     context.commit('currentFieldUpdate', payload);
   },

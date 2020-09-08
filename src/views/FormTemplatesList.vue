@@ -74,8 +74,9 @@ export default {
     },
     async addTemplate() {
       const newForm = await this.currentTemplateReset();
+      console.log('newForm', newForm);
       this.$router.push({
-        name: 'FormTemplatesAdd',
+        name: 'FormTemplateItemEdit',
         params: { formId: newForm.id }
       });
     }

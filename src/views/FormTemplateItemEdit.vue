@@ -163,12 +163,12 @@ const SortableItem = {
 export default {
   name: 'FormTemplateItemEdit',
   mixins: [noPullToRefresh],
+  props: ['tenantSlug'],
   components: {
     BaseDialog,
     Button,
     SortableList,
     SortableItem,
-
     FormTemplateFieldTypeCard,
     IconArrowRight,
     BaseCard,
@@ -181,29 +181,33 @@ export default {
     ...mapGetters('formTemplate', ['currentTemplateGet'])
   },
   methods: {
-    ...mapActions('tenant', ['deleteFormTemplate']),
     ...mapActions('formTemplate', [
       'currentTemplateUpdate',
-      'currentFieldUpdate'
+      'currentFieldUpdate',
+      'templateDelete'
     ]),
     fieldsUpdate(list) {
       console.log('updated list', list);
     },
     remove() {
-      console.log('TODO: delete');
-
-      this.deleteFormTemplate({
+      this.templateDelete({
+        isDraft: this.currentTemplateGet.draft,
         params: {
-          hi: 1
+          tenantSlug: this.tenantSlug,
+          templateId: this.$route.params.formId
         }
-      }).then(async () => {
-        this.isDeleteModalOpen = false;
-        showOverlayAndRedirect({
-          title: 'Success!',
-          message: 'Form template deleted successfully!',
-          route: { name: 'FormTemplatesList' }
+      })
+        .then(async () => {
+          this.isDeleteModalOpen = false;
+          showOverlayAndRedirect({
+            title: 'Success!',
+            message: 'Form template deleted successfully!',
+            route: { name: 'FormTemplatesList' }
+          });
+        })
+        .catch(() => {
+          alert('Something went wrong.');
         });
-      });
     },
     selectField(field) {
       console.log('field', field);
