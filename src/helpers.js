@@ -2,10 +2,10 @@ import router from '@/router';
 import store from '@/store';
 import { format } from 'date-fns';
 
-export function randomId() {
+export function randomId(len = 16) {
   return Math.random()
     .toString()
-    .substr(2);
+    .substr(2, len);
 }
 
 export function timeFormat(time, format = '12h') {

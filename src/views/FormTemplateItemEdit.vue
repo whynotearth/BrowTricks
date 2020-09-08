@@ -40,25 +40,26 @@
           :item="field"
           :index="index"
         >
-          <FormTemplateFieldTypeCard
-            :attrs="{ rounded: index === 0 ? 'rounded-t' : null }"
-            :icon="field.icon"
-            :title="field.title"
-            :description="field.description"
-            :type="field.type"
-          >
-            <p class="text-on-background text-opacity-high">
-              {{ field.textContent }}
-            </p>
-          </FormTemplateFieldTypeCard>
+          <a @click.prevent="selectField(field, index)" class="cursor-pointer">
+            <FormTemplateFieldTypeCard
+              :attrs="{ rounded: index === 0 ? 'rounded-t' : null }"
+              :icon="field.icon"
+              :title="field.title"
+              :description="field.description"
+              :type="field.type"
+            >
+              <p class="text-on-background text-opacity-high">
+                {{ field.textContent }}
+              </p>
+            </FormTemplateFieldTypeCard>
+          </a>
         </SortableItem>
       </SortableList>
 
       <!-- add question -->
       <router-link
         :to="{
-          name: 'FormTemplateFieldSelection',
-          query: { formId: $route.params.formId }
+          name: 'FormTemplateFieldSelection'
         }"
       >
         <BaseCard
@@ -158,7 +159,7 @@ const SortableItem = {
 };
 
 export default {
-  name: 'FormTemplatesAddEdit',
+  name: 'FormTemplateItemEdit',
   mixins: [noPullToRefresh],
   components: {
     BaseDialog,
@@ -189,7 +190,10 @@ export default {
   },
   methods: {
     ...mapActions('tenant', ['deleteFormTemplate']),
-    ...mapActions('formTemplate', ['currentTemplateUpdate']),
+    ...mapActions('formTemplate', [
+      'currentTemplateUpdate',
+      'currentFieldUpdate'
+    ]),
     fieldsUpdate(list) {
       console.log('updated list', list);
     },
@@ -207,6 +211,14 @@ export default {
           message: 'Form template deleted successfully!',
           route: { name: 'FormTemplatesList' }
         });
+      });
+    },
+    selectField(field) {
+      console.log('field', field);
+      this.currentFieldUpdate(field);
+      this.$router.push({
+        name: 'FormTemplateFieldEdit',
+        params: { fieldId: field.id }
       });
     }
   }

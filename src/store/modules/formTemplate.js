@@ -1,12 +1,24 @@
 import { cloneDeep } from 'lodash-es';
+import { randomId } from '@/helpers.js';
+
+function generateEmptyTemplate() {
+  return (() => ({
+    id: randomId(8),
+    title: 'Untitled',
+    fields: []
+  }))();
+}
+
+function generateEmptyField(type) {
+  return (() => ({
+    id: randomId(8),
+    type
+  }))();
+}
 
 const defaultState = {
   currentField: {},
-  currentTemplate: {
-    id: null,
-    title: 'Untitled',
-    fields: []
-  }
+  currentTemplate: {}
 };
 
 const mutations = {
@@ -17,16 +29,23 @@ const mutations = {
     state.currentTemplate = payload;
   }
 };
+
 const actions = {
   currentFieldUpdate(context, payload) {
     context.commit('currentFieldUpdate', payload);
   },
-  currentFieldReset(context) {
-    const initial = cloneDeep(defaultState.currentField);
-    context.commit('currentFieldUpdate', initial);
+  currentFieldReset(context, type) {
+    const newField = generateEmptyField(type);
+    context.commit('currentFieldUpdate', {});
+    return newField;
   },
   currentTemplateUpdate(context, payload) {
     context.commit('currentTemplateUpdate', payload);
+  },
+  currentTemplateReset(context) {
+    const newForm = generateEmptyTemplate();
+    context.commit('currentTemplateUpdate', newForm);
+    return newForm;
   }
 };
 const getters = {

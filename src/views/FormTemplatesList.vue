@@ -2,7 +2,7 @@
   <div class="max-w-md mx-auto pt-6">
     <router-link
       class="block mb-3"
-      :to="{ name: 'FormTemplatesEdit', params: { formId: 1 } }"
+      :to="{ name: 'FormTemplateItemEdit', params: { formId: 1 } }"
       v-for="template in formTemplates"
       :key="template.id"
     >
@@ -23,7 +23,7 @@
       </div>
     </router-link>
 
-    <router-link class="block" :to="{ name: 'FormTemplatesAdd' }">
+    <a class="block cursor-pointer" @click.prevent="addForm">
       <div class="flex justify-between items-center px-4 py-2">
         <div class="text-on-background text-opacity-high tg-body-mobile">
           Add Form
@@ -34,7 +34,7 @@
           />
         </div>
       </div>
-    </router-link>
+    </a>
   </div>
 </template>
 
@@ -42,19 +42,27 @@
 import IconAdd from '@/assets/icons/add.svg';
 import IconCreate from '@/assets/icons/create.svg';
 import { formatDate } from '@/helpers';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'FormTemplatesList',
   components: { IconAdd, IconCreate },
   data: () => ({
+    // TODO: use real data
     formTemplates: [
       { id: 1, title: 'PMU Disclosure Form...', created: new Date().getTime() }
     ]
   }),
   methods: {
-    formatDate
+    ...mapActions('formTemplate', ['currentTemplateReset']),
+    formatDate,
+    async addForm() {
+      const newForm = await this.currentTemplateReset();
+      this.$router.push({
+        name: 'FormTemplatesAdd',
+        params: { formId: newForm.id }
+      });
+    }
   }
 };
 </script>
-
-<style scoped></style>

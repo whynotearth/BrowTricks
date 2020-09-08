@@ -43,6 +43,7 @@
 import TextAreaInput from '@/components/inputs/TextAreaInput';
 import CheckBox from '@/components/inputs/CheckBox';
 import Button from '@/components/inputs/Button';
+import { randomId } from '@/helpers.js';
 import { fieldModelToFieldTypeCard } from '@/services/formTemplate.js';
 export default {
   name: 'FormTemplateFieldTextarea',
@@ -58,9 +59,11 @@ export default {
       this.$emit('remove');
     },
     save() {
+      const id = this.model.id || randomId(8);
       const field = fieldModelToFieldTypeCard({
         ...this.model,
-        type: 'textarea'
+        type: 'textarea',
+        id
       });
       this.$emit('save', field);
     }

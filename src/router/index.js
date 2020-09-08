@@ -6,11 +6,13 @@ import { clientRoutes } from './clientRoutes';
 import { TenantPanelRoutes } from './TenantPanelRoutes';
 import { generalRoutes } from './generalRoutes';
 import { TenantPublicRoutes } from './TenantPublicRoutes';
+import { formTemplateRoutes } from './formTemplateRoutes';
 import { get } from 'lodash-es';
 
 Vue.use(VueRouter);
 
 const routes = [
+  ...formTemplateRoutes,
   ...TenantPanelRoutes,
   ...TenantPublicRoutes,
   ...clientRoutes,

@@ -50,7 +50,7 @@ export default {
     },
     redirectBack() {
       let route = {
-        name: 'FormTemplatesEdit',
+        name: 'FormTemplateItemEdit',
         params: { formId: this.$route.query.formId }
       };
       this.$router.push(route);

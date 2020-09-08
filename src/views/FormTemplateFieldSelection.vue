@@ -78,7 +78,7 @@ export default {
       const formId = this.$route.query.formId;
       if (formId) {
         return {
-          name: 'FormTemplatesEdit',
+          name: 'FormTemplateItemEdit',
           params: { formId }
         };
       }
@@ -86,18 +86,16 @@ export default {
     }
   },
   methods: {
-    ...mapActions('formTemplate', ['currentFieldUpdate']),
+    ...mapActions('formTemplate', ['currentFieldReset']),
     prepareBackRoute() {
       eventBus.$emit('layoutBackRoute', this.backRoute);
     },
-    selectField(field) {
-      this.currentFieldUpdate({
-        id: null,
-        type: field.type
-      });
+    async selectField(field) {
+      const newField = await this.currentFieldReset(field.type);
       this.$router.push({
-        name: 'FormTemplateFieldAdd',
-        query: { ...this.$route.query, type: field.type }
+        name: 'FormTemplateFieldEdit',
+        params: { fieldId: newField.id },
+        query: { type: field.type }
       });
     }
   }
