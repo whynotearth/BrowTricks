@@ -9,8 +9,10 @@
         class="h-6 w-6 fill-current text-on-surface text-opacity-medium"
       />
     </div>
+
+    <!-- title -->
     <h2 class="text-on-surface text-opacity-high mb-6 flex items-center">
-      <span class="block">{{ title }}</span>
+      <span class="block">{{ name }}</span>
       <IconHelpRounded
         v-if="hasHelp"
         @click="openHelp(type)"
@@ -18,6 +20,7 @@
       />
     </h2>
 
+    <!-- description -->
     <p
       v-if="description"
       class="tg-caption-mobile text-on-surface text-opacity-high"
@@ -25,6 +28,7 @@
       {{ description }}
     </p>
 
+    <!-- default slot -->
     <slot />
   </BaseCard>
 </template>
@@ -58,7 +62,7 @@ export default {
       type: String,
       required: true
     },
-    title: {
+    name: {
       type: String,
       required: true
     },

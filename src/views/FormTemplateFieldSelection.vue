@@ -15,7 +15,7 @@
           class="mb-4"
           :hasHelp="true"
           :icon="field.icon"
-          :title="field.title"
+          :name="field.name"
           :type="field.type"
           :description="field.description"
         />
@@ -36,35 +36,35 @@ export default {
       return [
         {
           icon: 'IconImages',
-          title: 'Upload',
+          name: 'Upload',
           type: 'image',
           description:
             'Already have a PDF or JPEF of your form? Upload to your template with an agreement request.'
         },
         {
           icon: 'IconCheckSquared',
-          title: 'Agreement Request',
+          name: 'Agreement Request',
           type: 'agreement_request',
           description:
             'Add a required agreement request to your form so your clients can agree to your terms.'
         },
         {
           icon: 'IconText',
-          title: 'Text Response',
+          name: 'Text Response',
           type: 'text_response',
           description:
             'Add a text response question to your form so your clients can type in their answers.'
         },
         {
           icon: 'IconChecklist',
-          title: 'Checklist',
+          name: 'Checklist',
           type: 'checklist',
           description:
             'Add a checklist to your form so your clients can select all options that apply.'
         },
         {
           icon: 'IconRadiolist',
-          title: 'Multiple Choice',
+          name: 'Multiple Choice',
           type: 'multiple_choice',
           description:
             'Add a multiple choice question to your form so your clients can select the best option suited for them.'

@@ -11,7 +11,7 @@
       </p>
 
       <TextAreaInput
-        v-model="model.description"
+        v-model="model.value"
         class="mb-4"
         placeholder="e.g. I am being treated for, or was in the past for the following conditions (Please include allergies, espcially to dye, pigment, or numbing agent.)"
         label="Question"
@@ -44,22 +44,19 @@ import TextAreaInput from '@/components/inputs/TextAreaInput';
 import CheckBox from '@/components/inputs/CheckBox';
 import Button from '@/components/inputs/Button';
 import { randomId } from '@/helpers.js';
-import { fieldModelToFieldTypeCard } from '@/services/formTemplate.js';
+import { adaptApiTemplateFieldItemToModelCard } from '@/services/formTemplate.js';
 import { cloneDeep } from 'lodash-es';
 
 export default {
   name: 'FormTemplateFieldTextarea',
   components: { TextAreaInput, CheckBox, Button },
   props: {
-    initialModel: {
-      type: Object,
-      required: true
-    }
+    initialModel: null
   },
   data: () => ({
     model: {
       isRequired: false,
-      description: ''
+      value: ''
     }
   }),
   created() {
@@ -72,7 +69,7 @@ export default {
     save() {
       // if the field is new, generate a random id
       const id = this.model.id || randomId(8);
-      const field = fieldModelToFieldTypeCard({
+      const field = adaptApiTemplateFieldItemToModelCard({
         ...this.model,
         id
       });

@@ -1,7 +1,8 @@
 import { cloneDeep } from 'lodash-es';
 import { randomId } from '@/helpers.js';
 import { FormTemplateService } from '@whynotearth/meredith-axios';
-import { adaptAndFilterTemplates } from '@/services/formTemplate.js';
+import { adaptAndFilterApiTemplatesToModel } from '@/services/formTemplate.js';
+import { adaptTemplateToApi } from '../../services/formTemplate';
 
 const defaultState = {
   currentField: {},
@@ -14,13 +15,14 @@ function generateEmptyTemplate() {
   return (() => ({
     draft: true,
     id: randomId(8),
-    title: 'Untitled',
+    name: 'Untitled',
     items: []
   }))();
 }
 
 function generateEmptyField(type) {
   return (() => ({
+    isRequired: false,
     draft: true,
     id: randomId(8),
     type
@@ -42,10 +44,14 @@ const mutations = {
 const actions = {
   templatesFetch(context, { params }) {
     return FormTemplateService.formtemplates1(params).then(response => {
-      const filteredAdaptedTemplates = adaptAndFilterTemplates(response);
-      console.log('response', response);
+      const filteredAdaptedTemplates = adaptAndFilterApiTemplatesToModel(
+        response
+      );
       context.commit('templatesUpdate', filteredAdaptedTemplates);
     });
+  },
+  templateFetch(context, { params }) {
+    return FormTemplateService.formtemplates3(params);
   },
   templateDelete(context, { params, isDraft = false }) {
     if (isDraft) {
@@ -69,7 +75,20 @@ const actions = {
     context.commit('currentTemplateUpdate', newForm);
     return newForm;
   },
-  saveField({ getters, commit }, { field, formId }) {
+  templateSave(context, { template, tenantSlug }) {
+    const templateAdapted = adaptTemplateToApi(template);
+    // post method
+    let apiAction = FormTemplateService.formtemplates2;
+    if (template.draft) {
+      // put method
+      apiAction = FormTemplateService.formtemplates;
+    }
+    apiAction({
+      tenantSlug,
+      body: templateAdapted
+    });
+  },
+  async saveField({ getters, dispatch }, { field, formId, tenantSlug }) {
     const currentTemplate = getters.currentTemplateGet;
     if (String(currentTemplate.id) !== String(formId)) {
       alert(
@@ -78,6 +97,7 @@ const actions = {
       return;
     }
 
+    // update field in template with handling both add/edit
     let updatedFields = [];
     if (field.draft) {
       updatedFields = [...currentTemplate.items, field];
@@ -93,9 +113,7 @@ const actions = {
       ...currentTemplate,
       items: updatedFields
     };
-    // TODO: save template to api here, then:
-    commit('currentTemplateUpdate', updatedTemplate);
-    console.log('in save store:', field, formId);
+    return dispatch('templateSave', { template: updatedTemplate, tenantSlug });
   }
 };
 const getters = {

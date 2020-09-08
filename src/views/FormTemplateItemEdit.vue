@@ -180,12 +180,27 @@ export default {
   computed: {
     ...mapGetters('formTemplate', ['currentTemplateGet'])
   },
+  created() {
+    this.init();
+  },
   methods: {
     ...mapActions('formTemplate', [
+      'templateFetch',
       'currentTemplateUpdate',
       'currentFieldUpdate',
       'templateDelete'
     ]),
+    async init() {
+      if (!this.currentTemplateGet.draft) {
+        // TODO: handle errors
+        const template = await this.templateFetch({
+          formId: this.$route.params.formId,
+          tenantSlug: this.tenantSlug
+        });
+
+        this.currentTemplateUpdate(template);
+      }
+    },
     fieldsUpdate(list) {
       console.log('updated list', list);
     },

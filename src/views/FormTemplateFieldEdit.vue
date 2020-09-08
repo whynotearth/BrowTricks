@@ -16,6 +16,7 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
   name: 'FormTemplateFieldEdit',
   components: { FormTemplateFieldTextarea },
+  props: ['tenantSlug'],
   created() {
     this.init();
   },
@@ -34,7 +35,11 @@ export default {
       this.model = { ...this.currentFieldGet };
     },
     submit(field) {
-      this.saveField({ field, formId: Number(this.$route.params.formId) });
+      this.saveField({
+        tenantSlug: this.tenantSlug,
+        field,
+        formId: Number(this.$route.params.formId)
+      });
       this.redirectBack();
     },
     removeField() {

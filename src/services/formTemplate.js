@@ -1,8 +1,22 @@
-export const adaptAndFilterTemplates = templates => {
+// adapt vue template to api model
+export const adaptTemplateToApi = template => {
+  const items = template.items.map(fieldModelToApiField);
+  const id = template.draft ? undefined : template.id;
+  return {
+    ...template,
+    draft: undefined,
+    id,
+    items,
+    type: 'disclosure'
+  };
+};
+
+// adapt api templates to Vue model
+export const adaptAndFilterApiTemplatesToModel = templates => {
   return templates
     .filter(template => template.id)
     .map(template => {
-      let items = template.items.map(fieldModelToFieldTypeCard);
+      let items = template.items.map(adaptApiTemplateFieldItemToModelCard);
       return {
         ...template,
         items
@@ -10,8 +24,14 @@ export const adaptAndFilterTemplates = templates => {
     });
 };
 
+// adapt vue field to api field
+export const fieldModelToApiField = item => {
+  const id = item.draft ? undefined : item.id;
+  return { ...item, id, icon: undefined, title: undefined, draft: undefined };
+};
+
 // adapt template.items of API to Vue model
-export const fieldModelToFieldTypeCard = item => {
+export const adaptApiTemplateFieldItemToModelCard = item => {
   switch (item.type) {
     case 'image':
       return {
