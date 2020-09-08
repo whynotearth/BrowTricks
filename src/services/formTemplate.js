@@ -1,34 +1,42 @@
 export const fieldModelToFieldTypeCard = field => {
   switch (field.type) {
-    case 'upload':
+    case 'image':
       return {
         ...field,
         icon: 'IconImages',
         title: 'Upload'
       };
 
-    case 'agreement':
+    case 'agreement_request':
       return {
         ...field,
         icon: 'IconCheckSquared',
         title: 'Agreement Request'
       };
 
-    case 'textarea':
+    case 'text_response':
       return {
         ...field,
         icon: 'IconText',
         title: 'Text Response'
       };
 
-    case 'checkbox':
+    // TODO: no design? (probably just like simple yes)
+    case 'text':
+      return {
+        ...field,
+        icon: 'IconText',
+        title: 'Text'
+      };
+
+    case 'checklist':
       return {
         ...field,
         icon: 'IconChecklist',
         title: 'Checklist'
       };
 
-    case 'radio':
+    case 'multiple_choice':
       return {
         ...field,
         icon: 'IconRadiolist',

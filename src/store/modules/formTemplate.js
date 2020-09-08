@@ -1,5 +1,6 @@
 import { cloneDeep } from 'lodash-es';
 import { randomId } from '@/helpers.js';
+import { FormTemplateService } from '@whynotearth/meredith-axios';
 
 const defaultState = {
   currentField: {},
@@ -26,6 +27,9 @@ function generateEmptyField(type) {
 }
 
 const mutations = {
+  templatesUpdate(state, payload) {
+    state.templates = payload;
+  },
   currentFieldUpdate(state, payload) {
     state.currentField = payload;
   },
@@ -35,6 +39,12 @@ const mutations = {
 };
 
 const actions = {
+  templatesFetch(context, { params }) {
+    return FormTemplateService.formtemplates1(params).then(response => {
+      console.log('response', response);
+      context.commit('templatesUpdate', response);
+    });
+  },
   currentFieldUpdate(context, payload) {
     context.commit('currentFieldUpdate', payload);
   },
@@ -82,7 +92,8 @@ const actions = {
 };
 const getters = {
   currentFieldGet: state => state.currentField,
-  currentTemplateGet: state => state.currentTemplate
+  currentTemplateGet: state => state.currentTemplate,
+  templatesGet: state => state.templates
 };
 
 export default {

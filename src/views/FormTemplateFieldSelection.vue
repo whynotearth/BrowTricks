@@ -31,40 +31,41 @@ export default {
   name: 'FormTemplateFieldSelection',
   components: { FormTemplateFieldTypeCard },
   computed: {
+    // NOTE: types are: text, agreement_request, text_response, checklist, multiple_choice, image, pdf
     fieldsAvailable() {
       return [
         {
           icon: 'IconImages',
           title: 'Upload',
-          type: 'upload',
+          type: 'image',
           description:
             'Already have a PDF or JPEF of your form? Upload to your template with an agreement request.'
         },
         {
           icon: 'IconCheckSquared',
           title: 'Agreement Request',
-          type: 'agreement',
+          type: 'agreement_request',
           description:
             'Add a required agreement request to your form so your clients can agree to your terms.'
         },
         {
           icon: 'IconText',
           title: 'Text Response',
-          type: 'textarea',
+          type: 'text_response',
           description:
             'Add a text response question to your form so your clients can type in their answers.'
         },
         {
           icon: 'IconChecklist',
           title: 'Checklist',
-          type: 'checkbox',
+          type: 'checklist',
           description:
             'Add a checklist to your form so your clients can select all options that apply.'
         },
         {
           icon: 'IconRadiolist',
           title: 'Multiple Choice',
-          type: 'radio',
+          type: 'multiple_choice',
           description:
             'Add a multiple choice question to your form so your clients can select the best option suited for them.'
         }

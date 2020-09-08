@@ -3,14 +3,14 @@
     <a
       tabindex="0"
       class="block mb-3 cursor-pointer"
-      v-for="template in formTemplates"
+      v-for="template in templatesGetFiltered"
       :key="template.id"
       @click="editTemplate(template)"
     >
       <div class="flex justify-between items-center px-4 py-3">
         <div class="text-on-background text-opacity-high tg-body-mobile">
           <div class="text-on-background text-opacity-high mb-1">
-            PMU Disclosure Form...
+            {{ template.name }}
           </div>
           <div class="tg-caption-mobile text-on-background text-opacity-medium">
             Created {{ formatDate(template.createdAt) }}
@@ -43,28 +43,31 @@
 import IconAdd from '@/assets/icons/add.svg';
 import IconCreate from '@/assets/icons/create.svg';
 import { formatDate } from '@/helpers';
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'FormTemplatesList',
   components: { IconAdd, IconCreate },
-  data: () => ({
-    // TODO: use real data
-    formTemplates: [
-      {
-        id: 1,
-        title: 'PMU Disclosure Form...',
-        createdAt: new Date().getTime(),
-        fields: []
-      }
-    ]
-  }),
+  props: ['tenantSlug'],
+  computed: {
+    ...mapGetters('formTemplate', ['templatesGet']),
+    templatesGetFiltered() {
+      return this.templatesGet.filter(item => item.id);
+    }
+  },
+  created() {
+    this.init();
+  },
   methods: {
     ...mapActions('formTemplate', [
       'currentTemplateReset',
-      'currentTemplateUpdate'
+      'currentTemplateUpdate',
+      'templatesFetch'
     ]),
     formatDate,
+    init() {
+      this.templatesFetch({ params: { tenantSlug: this.tenantSlug } });
+    },
     async editTemplate(template) {
       this.currentTemplateUpdate(template);
       this.$router.push({
