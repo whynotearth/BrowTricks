@@ -27,13 +27,9 @@
 <script>
 import FormTemplateFieldTypeCard from '@/components/pmu/FormTemplateFieldTypeCard';
 import { mapActions } from 'vuex';
-import eventBus from '@/utils/eventBus.js';
 export default {
   name: 'FormTemplateFieldSelection',
   components: { FormTemplateFieldTypeCard },
-  created() {
-    this.prepareBackRoute();
-  },
   computed: {
     fieldsAvailable() {
       return [
@@ -73,23 +69,10 @@ export default {
             'Add a multiple choice question to your form so your clients can select the best option suited for them.'
         }
       ];
-    },
-    backRoute() {
-      const formId = this.$route.query.formId;
-      if (formId) {
-        return {
-          name: 'FormTemplateItemEdit',
-          params: { formId }
-        };
-      }
-      return { name: 'FormTemplatesAdd' };
     }
   },
   methods: {
     ...mapActions('formTemplate', ['currentFieldReset']),
-    prepareBackRoute() {
-      eventBus.$emit('layoutBackRoute', this.backRoute);
-    },
     async selectField(field) {
       const newField = await this.currentFieldReset(field.type);
       this.$router.push({

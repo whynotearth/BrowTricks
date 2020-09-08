@@ -17,7 +17,9 @@
           Name
         </label>
         <div class="flex items-center text-on-background text-opacity-medium">
-          <span id="formTemplateName" class="mr-2">{{ model.title }}</span>
+          <span id="formTemplateName" class="mr-2">{{
+            currentTemplateGet.title
+          }}</span>
           <IconArrowRight
             class="fill-current text-on-background text-opacity-medium"
           />
@@ -31,11 +33,11 @@
         :useWindowAsScrollContainer="true"
         :pressDelay="300"
         lockAxis="y"
-        v-model="model.fields"
+        v-model="currentTemplateGet.fields"
         @input="fieldsUpdate"
       >
         <SortableItem
-          v-for="(field, index) in model.fields"
+          v-for="(field, index) in currentTemplateGet.fields"
           :key="index"
           :item="field"
           :index="index"
@@ -83,7 +85,7 @@
       </router-link>
     </div>
 
-    <div class="py-6" v-if="isEdit">
+    <div class="py-6">
       <Button
         textColor="text-error"
         title="Delete Form Template"
@@ -173,20 +175,10 @@ export default {
     IconAdd
   },
   data: () => ({
-    isDeleteModalOpen: false,
-    model: null
+    isDeleteModalOpen: false
   }),
-  created() {
-    if (this.isEdit) {
-      // fetch the current template from api and update store
-    }
-    this.model = this.currentTemplateGet;
-  },
   computed: {
-    ...mapGetters('formTemplate', ['currentTemplateGet']),
-    isEdit() {
-      return this.$route.params.formId;
-    }
+    ...mapGetters('formTemplate', ['currentTemplateGet'])
   },
   methods: {
     ...mapActions('tenant', ['deleteFormTemplate']),

@@ -59,7 +59,7 @@ export const formTemplateRoutes = [
             }
           },
           {
-            path: 'edit-field/:fieldId',
+            path: 'field/:fieldId',
             name: 'FormTemplateFieldEdit',
             component: () => import('@/views/FormTemplateFieldEdit.vue'),
             props: true,

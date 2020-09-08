@@ -45,15 +45,26 @@ import CheckBox from '@/components/inputs/CheckBox';
 import Button from '@/components/inputs/Button';
 import { randomId } from '@/helpers.js';
 import { fieldModelToFieldTypeCard } from '@/services/formTemplate.js';
+import { cloneDeep } from 'lodash-es';
+
 export default {
   name: 'FormTemplateFieldTextarea',
   components: { TextAreaInput, CheckBox, Button },
+  props: {
+    initialModel: {
+      type: Object,
+      required: true
+    }
+  },
   data: () => ({
     model: {
       isRequired: false,
       description: ''
     }
   }),
+  created() {
+    this.model = cloneDeep(this.initialModel);
+  },
   methods: {
     remove() {
       this.$emit('remove');

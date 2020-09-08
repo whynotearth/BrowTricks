@@ -1,6 +1,7 @@
 <template>
   <div class="max-w-md mx-auto pt-6">
     <component
+      :initialModel="currentFieldGet"
       @save="submit"
       @remove="removeField"
       :is="componentType"
@@ -10,7 +11,6 @@
 
 <script>
 import FormTemplateFieldTextarea from '@/components/pmu/FormTemplateFieldTextarea';
-import EventBus from '@/utils/eventBus';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
@@ -29,19 +29,12 @@ export default {
     this.currentFieldReset();
   },
   methods: {
-    ...mapActions('formTemplate', ['currentFieldReset']),
+    ...mapActions('formTemplate', ['currentFieldReset', 'saveField']),
     init() {
-      this.prepareBackRoute();
       this.model = { ...this.currentFieldGet };
     },
-    prepareBackRoute() {
-      EventBus.$emit('layoutBackRoute', {
-        name: 'FormTemplateFieldSelection',
-        query: { ...this.$route.query }
-      });
-    },
     submit(field) {
-      console.log('TODO: save field', field);
+      this.saveField({ field, formId: Number(this.$route.params.formId) });
       this.redirectBack();
     },
     removeField() {
@@ -49,11 +42,7 @@ export default {
       this.redirectBack();
     },
     redirectBack() {
-      let route = {
-        name: 'FormTemplateItemEdit',
-        params: { formId: this.$route.query.formId }
-      };
-      this.$router.push(route);
+      this.$router.push({ name: 'FormTemplateItemEdit' });
     }
   }
 };

@@ -1,10 +1,11 @@
 <template>
   <div class="max-w-md mx-auto pt-6">
-    <router-link
-      class="block mb-3"
-      :to="{ name: 'FormTemplateItemEdit', params: { formId: 1 } }"
+    <a
+      tabindex="0"
+      class="block mb-3 cursor-pointer"
       v-for="template in formTemplates"
       :key="template.id"
+      @click="editTemplate(template)"
     >
       <div class="flex justify-between items-center px-4 py-3">
         <div class="text-on-background text-opacity-high tg-body-mobile">
@@ -12,7 +13,7 @@
             PMU Disclosure Form...
           </div>
           <div class="tg-caption-mobile text-on-background text-opacity-medium">
-            Created {{ formatDate(template.created) }}
+            Created {{ formatDate(template.createdAt) }}
           </div>
         </div>
         <div>
@@ -21,9 +22,9 @@
           />
         </div>
       </div>
-    </router-link>
+    </a>
 
-    <a class="block cursor-pointer" @click.prevent="addForm">
+    <a class="block cursor-pointer" @click.prevent="addTemplate">
       <div class="flex justify-between items-center px-4 py-2">
         <div class="text-on-background text-opacity-high tg-body-mobile">
           Add Form
@@ -50,13 +51,28 @@ export default {
   data: () => ({
     // TODO: use real data
     formTemplates: [
-      { id: 1, title: 'PMU Disclosure Form...', created: new Date().getTime() }
+      {
+        id: 1,
+        title: 'PMU Disclosure Form...',
+        createdAt: new Date().getTime(),
+        fields: []
+      }
     ]
   }),
   methods: {
-    ...mapActions('formTemplate', ['currentTemplateReset']),
+    ...mapActions('formTemplate', [
+      'currentTemplateReset',
+      'currentTemplateUpdate'
+    ]),
     formatDate,
-    async addForm() {
+    async editTemplate(template) {
+      this.currentTemplateUpdate(template);
+      this.$router.push({
+        name: 'FormTemplateItemEdit',
+        params: { formId: template.id }
+      });
+    },
+    async addTemplate() {
       const newForm = await this.currentTemplateReset();
       this.$router.push({
         name: 'FormTemplatesAdd',
