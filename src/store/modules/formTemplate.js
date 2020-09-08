@@ -1,6 +1,7 @@
 import { cloneDeep } from 'lodash-es';
 import { randomId } from '@/helpers.js';
 import { FormTemplateService } from '@whynotearth/meredith-axios';
+import { adaptAndFilterTemplates } from '@/services/formTemplate.js';
 
 const defaultState = {
   currentField: {},
@@ -14,7 +15,7 @@ function generateEmptyTemplate() {
     draft: true,
     id: randomId(8),
     title: 'Untitled',
-    fields: []
+    items: []
   }))();
 }
 
@@ -41,8 +42,9 @@ const mutations = {
 const actions = {
   templatesFetch(context, { params }) {
     return FormTemplateService.formtemplates1(params).then(response => {
+      const filteredAdaptedTemplates = adaptAndFilterTemplates(response);
       console.log('response', response);
-      context.commit('templatesUpdate', response);
+      context.commit('templatesUpdate', filteredAdaptedTemplates);
     });
   },
   currentFieldUpdate(context, payload) {
@@ -72,9 +74,9 @@ const actions = {
 
     let updatedFields = [];
     if (field.draft) {
-      updatedFields = [...currentTemplate.fields, field];
+      updatedFields = [...currentTemplate.items, field];
     } else {
-      updatedFields = currentTemplate.fields.map(item => {
+      updatedFields = currentTemplate.items.map(item => {
         if (field.id === item.id) {
           return field;
         }
@@ -83,7 +85,7 @@ const actions = {
     }
     const updatedTemplate = {
       ...currentTemplate,
-      fields: updatedFields
+      items: updatedFields
     };
     // TODO: save template to api here, then:
     commit('currentTemplateUpdate', updatedTemplate);

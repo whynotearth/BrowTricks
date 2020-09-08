@@ -1,22 +1,35 @@
-export const fieldModelToFieldTypeCard = field => {
-  switch (field.type) {
+export const adaptAndFilterTemplates = templates => {
+  return templates
+    .filter(template => template.id)
+    .map(template => {
+      let items = template.items.map(fieldModelToFieldTypeCard);
+      return {
+        ...template,
+        items
+      };
+    });
+};
+
+// adapt template.items of API to Vue model
+export const fieldModelToFieldTypeCard = item => {
+  switch (item.type) {
     case 'image':
       return {
-        ...field,
+        ...item,
         icon: 'IconImages',
         title: 'Upload'
       };
 
     case 'agreement_request':
       return {
-        ...field,
+        ...item,
         icon: 'IconCheckSquared',
         title: 'Agreement Request'
       };
 
     case 'text_response':
       return {
-        ...field,
+        ...item,
         icon: 'IconText',
         title: 'Text Response'
       };
@@ -24,27 +37,27 @@ export const fieldModelToFieldTypeCard = field => {
     // TODO: no design? (probably just like simple yes)
     case 'text':
       return {
-        ...field,
+        ...item,
         icon: 'IconText',
         title: 'Text'
       };
 
     case 'checklist':
       return {
-        ...field,
+        ...item,
         icon: 'IconChecklist',
         title: 'Checklist'
       };
 
     case 'multiple_choice':
       return {
-        ...field,
+        ...item,
         icon: 'IconRadiolist',
         title: 'Multiple Choice'
       };
 
     default:
-      console.log('Field type is unknown');
+      console.log('Field type is unknown', item);
       break;
   }
 };

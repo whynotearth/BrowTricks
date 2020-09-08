@@ -18,7 +18,7 @@
         </label>
         <div class="flex items-center text-on-background text-opacity-medium">
           <span id="formTemplateName" class="mr-2">{{
-            currentTemplateGet.title
+            currentTemplateGet.name
           }}</span>
           <IconArrowRight
             class="fill-current text-on-background text-opacity-medium"
@@ -33,11 +33,11 @@
         :useWindowAsScrollContainer="true"
         :pressDelay="300"
         lockAxis="y"
-        v-model="currentTemplateGet.fields"
+        v-model="currentTemplateGet.items"
         @input="fieldsUpdate"
       >
         <SortableItem
-          v-for="(field, index) in currentTemplateGet.fields"
+          v-for="(field, index) in currentTemplateGet.items"
           :key="index"
           :item="field"
           :index="index"

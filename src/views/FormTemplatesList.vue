@@ -3,7 +3,7 @@
     <a
       tabindex="0"
       class="block mb-3 cursor-pointer"
-      v-for="template in templatesGetFiltered"
+      v-for="template in templatesGet"
       :key="template.id"
       @click="editTemplate(template)"
     >
@@ -24,7 +24,7 @@
       </div>
     </a>
 
-    <a class="block cursor-pointer" @click.prevent="addTemplate">
+    <a tabindex="0" class="block cursor-pointer" @click.prevent="addTemplate">
       <div class="flex justify-between items-center px-4 py-2">
         <div class="text-on-background text-opacity-high tg-body-mobile">
           Add Form
@@ -50,10 +50,7 @@ export default {
   components: { IconAdd, IconCreate },
   props: ['tenantSlug'],
   computed: {
-    ...mapGetters('formTemplate', ['templatesGet']),
-    templatesGetFiltered() {
-      return this.templatesGet.filter(item => item.id);
-    }
+    ...mapGetters('formTemplate', ['templatesGet'])
   },
   created() {
     this.init();

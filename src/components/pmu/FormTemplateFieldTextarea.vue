@@ -70,10 +70,10 @@ export default {
       this.$emit('remove');
     },
     save() {
+      // if the field is new, generate a random id
       const id = this.model.id || randomId(8);
       const field = fieldModelToFieldTypeCard({
         ...this.model,
-        type: 'textarea',
         id
       });
       this.$emit('save', field);
