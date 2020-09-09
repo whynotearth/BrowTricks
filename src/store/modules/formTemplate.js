@@ -9,7 +9,7 @@ import { adaptModelTemplateToApi } from '../../services/formTemplate';
 
 const defaultState = {
   currentField: {},
-  currentTemplate: {},
+  currentTemplate: { items: [] },
 
   templates: {} // [id]: {}, [id]: {}. (fetch from api only)
 };
@@ -80,7 +80,6 @@ const actions = {
     return newForm;
   },
   templateSave(context, { template, tenantSlug }) {
-    console.log('template, tenantSlug', template, tenantSlug);
     const templateAdapted = adaptModelTemplateToApi(template);
     // post method
     let apiAction = FormTemplateService.formtemplates;
@@ -99,7 +98,6 @@ const actions = {
   // TODO: rename formId to templateId everywhere
   async saveField({ getters, dispatch }, { field, formId, tenantSlug }) {
     const currentTemplate = getters.currentTemplateGet;
-    console.log(currentTemplate.id, formId);
     if (String(currentTemplate.id) !== String(formId)) {
       alert(
         'If you have two open tabs please close the other and start again.'

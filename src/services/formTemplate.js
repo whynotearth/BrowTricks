@@ -1,4 +1,17 @@
-// adapt vue template to api model
+import { randomId } from '@/helpers.js';
+
+// adapt templates
+// api => vue
+export const adaptApiTemplatesToModel = templates => {
+  return (
+    templates
+      // .filter(template => template.id)
+      .map(adaptApiTemplateToModel)
+  );
+};
+
+// adapt template
+// vue => api
 export const adaptModelTemplateToApi = template => {
   const items = template.items.map(fieldModelToApiField);
   return {
@@ -11,15 +24,8 @@ export const adaptModelTemplateToApi = template => {
   };
 };
 
-// adapt api templates to Vue model
-export const adaptApiTemplatesToModel = templates => {
-  return (
-    templates
-      // .filter(template => template.id)
-      .map(adaptApiTemplateToModel)
-  );
-};
-
+// adapt template
+// api => vue
 export const adaptApiTemplateToModel = template => {
   let items = template.items.map(adaptApiTemplateFieldItemToModelCard);
   return {
@@ -28,60 +34,90 @@ export const adaptApiTemplateToModel = template => {
   };
 };
 
-// adapt vue field to api field
+// adapt fieldItem
+// vue => api
 export const fieldModelToApiField = item => {
-  const id = item.draft ? undefined : item.id;
-  return { ...item, id, icon: undefined, title: undefined, draft: undefined };
+  const adaptOption = option => option.value;
+
+  const { type, isRequired, value, options = [] } = item;
+  console.log('fieldModelToApiField options', options);
+  let _options = options.map(adaptOption);
+  _options = _options.length > 0 ? _options : undefined;
+  console.log('fieldModelToApiField _options', _options);
+  return {
+    type,
+    isRequired,
+    value,
+    options: _options
+  };
 };
 
-// adapt template.items of API to Vue model
+// adapt fieldItem
+// api => vue
 export const adaptApiTemplateFieldItemToModelCard = item => {
+  const adaptOption = option => ({
+    value: option,
+    key: randomId(),
+    fromApiToVue: 1
+  });
+
+  let field = {
+    ...item,
+    options: (item.options || []).map(adaptOption)
+  };
   switch (item.type) {
     case 'image':
-      return {
-        ...item,
+      field = {
+        ...field,
         icon: 'IconImages',
         title: 'Upload'
       };
+      break;
 
     case 'agreement_request':
-      return {
-        ...item,
+      field = {
+        ...field,
         icon: 'IconCheckSquared',
         title: 'Agreement Request'
       };
+      break;
 
     case 'text_response':
-      return {
-        ...item,
+      field = {
+        ...field,
         icon: 'IconText',
         title: 'Text Response'
       };
+      break;
 
     // TODO: no design? (probably just like simple yes)
     case 'text':
-      return {
-        ...item,
+      field = {
+        ...field,
         icon: 'IconText',
         title: 'Text'
       };
+      break;
 
     case 'checklist':
-      return {
-        ...item,
+      field = {
+        ...field,
         icon: 'IconChecklist',
         title: 'Checklist'
       };
+      break;
 
     case 'multiple_choice':
-      return {
-        ...item,
+      field = {
+        ...field,
         icon: 'IconRadiolist',
         title: 'Multiple Choice'
       };
+      break;
 
     default:
       console.log('Field type is unknown', item);
       break;
   }
+  return field;
 };

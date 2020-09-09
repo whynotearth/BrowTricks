@@ -44,7 +44,6 @@ import TextAreaInput from '@/components/inputs/TextAreaInput';
 import CheckBox from '@/components/inputs/CheckBox';
 import Button from '@/components/inputs/Button';
 import { randomId } from '@/helpers.js';
-import { adaptApiTemplateFieldItemToModelCard } from '@/services/formTemplate.js';
 import { cloneDeep } from 'lodash-es';
 
 export default {
@@ -69,10 +68,10 @@ export default {
     save() {
       // if the field is new, generate a random id
       const id = this.model.id || randomId(8);
-      const field = adaptApiTemplateFieldItemToModelCard({
+      const field = {
         ...this.model,
         id
-      });
+      };
       this.$emit('save', field);
     }
   }

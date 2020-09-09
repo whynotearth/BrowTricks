@@ -76,12 +76,14 @@ export default {
       this.model = { ...this.currentFieldGet };
     },
     async submit(field) {
-      const templateId = await this.saveField({
+      this.saveField({
         tenantSlug: this.tenantSlug,
         field,
         formId: Number(this.$route.params.formId)
+      }).then(templateId => {
+        const _templateId = templateId || this.$route.params.formId;
+        this.redirectBack(_templateId);
       });
-      this.redirectBack(templateId);
     },
     removeField() {
       console.log('TODO: delete field');

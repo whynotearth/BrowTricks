@@ -194,6 +194,10 @@ export default {
         return;
       }
 
+      if (!this.$route.params.formId) {
+        throw new Error('Something went wrong');
+      }
+
       // TODO: handle errors
       await this.templateFetch({
         params: {
@@ -203,7 +207,7 @@ export default {
       });
     },
     fieldsUpdate(list) {
-      console.log('updated list', list);
+      console.log('TODO: updated list', list);
     },
     remove() {
       this.templateDelete({
