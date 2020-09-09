@@ -31,7 +31,7 @@
       <!-- current questions -->
       <SortableList
         :useWindowAsScrollContainer="true"
-        :pressDelay="300"
+        :pressDelay="100"
         lockAxis="y"
         v-model="currentTemplateGet.items"
         @input="fieldsUpdate"
@@ -130,6 +130,7 @@ import { showOverlayAndRedirect } from '@/helpers';
 import { ContainerMixin, ElementMixin } from 'vue-slicksort';
 import { mapActions, mapGetters } from 'vuex';
 import noPullToRefresh from '@/utils/noPullToRefreshMixin.js';
+import { cloneDeep } from 'lodash-es';
 
 const SortableList = {
   mixins: [ContainerMixin],
@@ -185,6 +186,7 @@ export default {
   },
   methods: {
     ...mapActions('formTemplate', [
+      'templateSave',
       'templateFetch',
       'currentFieldUpdate',
       'templateDelete'
@@ -199,15 +201,27 @@ export default {
       }
 
       // TODO: handle errors
-      await this.templateFetch({
+      this._templateFetch();
+    },
+    _templateFetch() {
+      this.templateFetch({
         params: {
           templateId: this.$route.params.formId,
           tenantSlug: this.tenantSlug
         }
       });
     },
-    fieldsUpdate(list) {
-      console.log('TODO: updated list', list);
+    fieldsUpdate(updatedItems) {
+      const updatedTemplate = {
+        ...this.currentTemplateGet,
+        items: cloneDeep(updatedItems)
+      };
+
+      // TODO: add a delay and throttle
+      this.templateSave({
+        template: updatedTemplate,
+        tenantSlug: this.tenantSlug
+      }).then(this._templateFetch);
     },
     remove() {
       this.templateDelete({
