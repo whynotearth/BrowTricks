@@ -3,9 +3,12 @@ import store from '@/store';
 import { format, utcToZonedTime } from 'date-fns-tz';
 
 export function randomId(len = 16) {
-  return Math.random()
-    .toString()
-    .substr(2, len);
+  return (
+    1 +
+    Math.random()
+      .toString()
+      .substr(2, len - 1)
+  );
 }
 
 export function timeFormat(time, format = '12h') {

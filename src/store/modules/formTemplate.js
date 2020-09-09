@@ -92,17 +92,14 @@ const actions = {
       tenantSlug,
       templateId: template.id,
       body: templateAdapted
-    }).then(response => {
-      console.log(
-        'TODO: redirect to template with real id here immediately (dont change route, just change formId)',
-        response
-      );
-      return response;
+    }).then(templateId => {
+      return templateId;
     });
   },
   // TODO: rename formId to templateId everywhere
   async saveField({ getters, dispatch }, { field, formId, tenantSlug }) {
     const currentTemplate = getters.currentTemplateGet;
+    console.log(currentTemplate.id, formId);
     if (String(currentTemplate.id) !== String(formId)) {
       alert(
         'If you have two open tabs please close the other and start again.'

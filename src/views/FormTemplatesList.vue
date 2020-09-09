@@ -70,14 +70,11 @@ export default {
       }).catch(() => {});
     },
     async editTemplate(template) {
-      if (!template.id) {
-        console.log('This form template has no id');
-        return;
-      }
       this.currentTemplateUpdate(template);
       this.$router.push({
         name: 'FormTemplateItemEdit',
-        params: { formId: template.id }
+        params: { formId: template.id },
+        query: { refresh: 1 }
       });
     },
     async addTemplate() {

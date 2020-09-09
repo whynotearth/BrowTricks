@@ -190,15 +190,17 @@ export default {
       'templateDelete'
     ]),
     async init() {
-      if (!this.currentTemplateGet.draft) {
-        // TODO: handle errors
-        await this.templateFetch({
-          params: {
-            templateId: this.$route.params.formId,
-            tenantSlug: this.tenantSlug
-          }
-        });
+      if (this.currentTemplateGet.draft && !this.$route.query.refresh) {
+        return;
       }
+
+      // TODO: handle errors
+      await this.templateFetch({
+        params: {
+          templateId: this.$route.params.formId,
+          tenantSlug: this.tenantSlug
+        }
+      });
     },
     fieldsUpdate(list) {
       console.log('updated list', list);
@@ -227,7 +229,8 @@ export default {
       this.currentFieldUpdate(field);
       this.$router.push({
         name: 'FormTemplateFieldEdit',
-        params: { fieldId: field.id }
+        params: { fieldId: field.id },
+        query: { type: field.type }
       });
     }
   }

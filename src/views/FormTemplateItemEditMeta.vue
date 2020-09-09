@@ -74,11 +74,15 @@ export default {
         template: { ...this.currentTemplateGet, name: this.name },
         tenantSlug: this.tenantSlug
       })
-        .then(() => {
+        .then(templateId => {
           showOverlayAndRedirect({
             title: 'Success!',
             message: 'Form template saved!',
-            route: { name: 'FormTemplateItemEdit' }
+            route: {
+              name: 'FormTemplateItemEdit',
+              params: { templateId },
+              query: { refresh: 1 }
+            }
           });
         })
         .catch(() => {

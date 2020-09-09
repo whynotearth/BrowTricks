@@ -75,20 +75,24 @@ export default {
     init() {
       this.model = { ...this.currentFieldGet };
     },
-    submit(field) {
-      this.saveField({
+    async submit(field) {
+      const templateId = await this.saveField({
         tenantSlug: this.tenantSlug,
         field,
         formId: Number(this.$route.params.formId)
       });
-      this.redirectBack();
+      this.redirectBack(templateId);
     },
     removeField() {
       console.log('TODO: delete field');
-      this.redirectBack();
+      this.redirectBack(this.$route.params.formId);
     },
-    redirectBack() {
-      this.$router.push({ name: 'FormTemplateItemEdit' });
+    redirectBack(templateId) {
+      this.$router.push({
+        name: 'FormTemplateItemEdit',
+        params: { formId: templateId },
+        query: { refresh: 1 }
+      });
     }
   }
 };
