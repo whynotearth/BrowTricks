@@ -43,7 +43,6 @@ export const fieldModelToApiField = item => {
   console.log('fieldModelToApiField options', options);
   let _options = options.map(adaptOption);
   _options = _options.length > 0 ? _options : undefined;
-  console.log('fieldModelToApiField _options', _options);
   return {
     type,
     isRequired,

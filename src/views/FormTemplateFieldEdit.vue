@@ -35,7 +35,7 @@ export default {
     this.init();
   },
   computed: {
-    ...mapGetters('formTemplate', ['currentFieldGet']),
+    ...mapGetters('formTemplate', ['currentFieldGet', 'currentTemplateGet']),
     componentType() {
       return this.$route.query.type;
     },
@@ -50,8 +50,9 @@ export default {
         case 'text_response':
           return 'FormTemplateFieldTextResponse';
 
+        // same as TextResponse
         case 'text':
-          return 'FormTemplateFieldText';
+          return 'FormTemplateFieldTextResponse';
 
         case 'multiple_choice':
           return 'FormTemplateFieldMultipleChoice';
@@ -71,7 +72,11 @@ export default {
     this.currentFieldReset();
   },
   methods: {
-    ...mapActions('formTemplate', ['currentFieldReset', 'saveField']),
+    ...mapActions('formTemplate', [
+      'currentFieldReset',
+      'saveField',
+      'fieldDelete'
+    ]),
     init() {
       this.model = { ...this.currentFieldGet };
     },
@@ -85,9 +90,21 @@ export default {
         this.redirectBack(_templateId);
       });
     },
-    removeField() {
-      console.log('TODO: delete field');
-      this.redirectBack(this.$route.params.formId);
+    async removeField() {
+      if (!this.currentFieldGet.draft) {
+        await this.fieldDelete({
+          fieldId: this.currentFieldGet.id,
+          tenantSlug: this.tenantSlug
+        })
+          .then(() => {
+            this.redirectBack(this.$route.params.formId);
+          })
+          .catch(() => {
+            alert('Something went wrong');
+          });
+      } else {
+        this.redirectBack(this.$route.params.formId);
+      }
     },
     redirectBack(templateId) {
       this.$router.push({

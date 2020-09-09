@@ -95,6 +95,15 @@ const actions = {
       return templateId;
     });
   },
+  fieldDelete({ getters, dispatch }, { fieldId, tenantSlug }) {
+    const currentItems = getters.currentTemplateGet.items;
+    const updatedItems = currentItems.filter(item => item.id !== fieldId);
+    const updatedTemplate = {
+      ...getters.currentTemplateGet,
+      items: updatedItems
+    };
+    return dispatch('templateSave', { template: updatedTemplate, tenantSlug });
+  },
   // TODO: rename formId to templateId everywhere
   async saveField({ getters, dispatch }, { field, formId, tenantSlug }) {
     const currentTemplate = getters.currentTemplateGet;

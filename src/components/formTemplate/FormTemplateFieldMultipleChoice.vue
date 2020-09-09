@@ -37,7 +37,8 @@
           <MaterialInput
             class="flex-grow"
             :margin="null"
-            label="e.g. Yes"
+            label="Option"
+            placeholder="e.g. Yes"
             labelBackground="has-noise bg-background"
             v-model.trim="choice.value"
           />
@@ -118,7 +119,6 @@ export default {
         id
       };
 
-      console.log('multiplechoice: field.options', field);
       this.$emit('save', field);
     },
 
