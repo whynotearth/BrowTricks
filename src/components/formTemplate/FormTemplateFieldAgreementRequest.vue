@@ -2,18 +2,18 @@
   <div>
     <div class="px-4">
       <h2 class="tg-h3-mobile text-on-background text-opacity-high mb-2">
-        Text Response
+        Agreement Request
       </h2>
 
       <p class="text-on-background text-opacity-medium tg-body-mobile mb-6">
-        Add a text response question to your form so your clients can type in
-        their answers.
+        Add an agreement request to your form so your clients can agree to your
+        terms.
       </p>
 
       <TextAreaInput
         v-model="model.value"
         class="mb-4"
-        placeholder="e.g. I am being treated for, or was in the past for the following conditions (Please include allergies, espcially to dye, pigment, or numbing agent.)"
+        placeholder="By selecting this box, I agree that I have read and understood the instructions given to me."
         label="Question"
         labelBackground="bg-background has-noise"
         rows="8"
@@ -48,7 +48,7 @@ import { adaptApiTemplateFieldItemToModelCard } from '@/services/formTemplate.js
 import { cloneDeep } from 'lodash-es';
 
 export default {
-  name: 'FormTemplateFieldTextarea',
+  name: 'FormTemplateFieldAgreementRequest',
   components: { TextAreaInput, CheckBox, Button },
   props: {
     initialModel: null

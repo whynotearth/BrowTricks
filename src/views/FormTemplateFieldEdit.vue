@@ -4,18 +4,32 @@
       :initialModel="currentFieldGet"
       @save="submit"
       @remove="removeField"
-      :is="componentType"
+      :is="componentName"
     ></component>
   </div>
 </template>
 
 <script>
-import FormTemplateFieldTextarea from '@/components/formTemplate/FormTemplateFieldTextarea';
+import FormTemplateFieldAgreementRequest from '@/components/formTemplate/FormTemplateFieldAgreementRequest';
+import FormTemplateFieldChecklist from '@/components/formTemplate/FormTemplateFieldChecklist';
+import FormTemplateFieldTextResponse from '@/components/formTemplate/FormTemplateFieldTextResponse';
+import FormTemplateFieldText from '@/components/formTemplate/FormTemplateFieldText';
+import FormTemplateFieldMultipleChoice from '@/components/formTemplate/FormTemplateFieldMultipleChoice';
+import FormTemplateFieldImage from '@/components/formTemplate/FormTemplateFieldImage';
+import FormTemplateFieldPdf from '@/components/formTemplate/FormTemplateFieldPdf';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'FormTemplateFieldEdit',
-  components: { FormTemplateFieldTextarea },
+  components: {
+    FormTemplateFieldAgreementRequest,
+    FormTemplateFieldChecklist,
+    FormTemplateFieldTextResponse,
+    FormTemplateFieldText,
+    FormTemplateFieldMultipleChoice,
+    FormTemplateFieldImage,
+    FormTemplateFieldPdf
+  },
   props: ['tenantSlug'],
   created() {
     this.init();
@@ -23,7 +37,34 @@ export default {
   computed: {
     ...mapGetters('formTemplate', ['currentFieldGet']),
     componentType() {
-      return 'FormTemplateFieldTextarea';
+      return this.$route.query.type;
+    },
+    componentName() {
+      switch (this.componentType) {
+        case 'agreement_request':
+          return 'FormTemplateFieldAgreementRequest';
+
+        case 'checklist':
+          return 'FormTemplateFieldChecklist';
+
+        case 'text_response':
+          return 'FormTemplateFieldTextResponse';
+
+        case 'text':
+          return 'FormTemplateFieldText';
+
+        case 'multiple_choice':
+          return 'FormTemplateFieldMultipleChoice';
+
+        case 'image':
+          return 'FormTemplateFieldImage';
+
+        case 'pdf':
+          return 'FormTemplateFieldPdf';
+
+        default:
+          throw new Error('Field type not found');
+      }
     }
   },
   destroyed() {
