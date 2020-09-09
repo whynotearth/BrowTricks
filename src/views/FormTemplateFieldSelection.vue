@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import FormTemplateFieldTypeCard from '@/components/pmu/FormTemplateFieldTypeCard';
+import FormTemplateFieldTypeCard from '@/components/formTemplate/FormTemplateFieldTypeCard';
 import { mapActions } from 'vuex';
 export default {
   name: 'FormTemplateFieldSelection',

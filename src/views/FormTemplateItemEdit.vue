@@ -120,7 +120,7 @@
 </template>
 
 <script>
-import FormTemplateFieldTypeCard from '@/components/pmu/FormTemplateFieldTypeCard';
+import FormTemplateFieldTypeCard from '@/components/formTemplate/FormTemplateFieldTypeCard';
 import IconArrowRight from '@/assets/icons/keyboard_arrow_right.svg';
 import BaseCard from '@/components/BaseCard';
 import BaseDialog from '@/components/BaseDialog';

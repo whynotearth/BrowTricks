@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import FormTemplateFieldTextarea from '@/components/pmu/FormTemplateFieldTextarea';
+import FormTemplateFieldTextarea from '@/components/formTemplate/FormTemplateFieldTextarea';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {

@@ -64,7 +64,9 @@ export default {
     ]),
     formatDate,
     init() {
-      this.templatesFetch({ params: { tenantSlug: this.tenantSlug } });
+      this.templatesFetch({
+        params: { tenantSlug: this.tenantSlug }
+      }).catch(() => {});
     },
     async editTemplate(template) {
       if (!template.id) {
