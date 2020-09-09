@@ -2,10 +2,10 @@ import { cloneDeep } from 'lodash-es';
 import { randomId } from '@/helpers.js';
 import { FormTemplateService } from '@whynotearth/meredith-axios';
 import {
-  adaptAndFilterApiTemplatesToModel,
-  adaptAndFilterApiTemplateToModel
+  adaptApiTemplatesToModel,
+  adaptApiTemplateToModel
 } from '@/services/formTemplate.js';
-import { adaptTemplateToApi } from '../../services/formTemplate';
+import { adaptModelTemplateToApi } from '../../services/formTemplate';
 
 const defaultState = {
   currentField: {},
@@ -47,18 +47,14 @@ const mutations = {
 const actions = {
   templatesFetch(context, { params }) {
     return FormTemplateService.formtemplates1(params).then(response => {
-      const filteredAdaptedTemplates = adaptAndFilterApiTemplatesToModel(
-        response
-      );
-      context.commit('templatesUpdate', filteredAdaptedTemplates);
+      const adaptedTemplates = adaptApiTemplatesToModel(response);
+      context.commit('templatesUpdate', adaptedTemplates);
     });
   },
   templateFetch(context, { params }) {
     return FormTemplateService.formtemplates3(params).then(response => {
-      const filteredAdaptedTemplates = adaptAndFilterApiTemplateToModel(
-        response
-      );
-      context.commit('currentTemplateUpdate', filteredAdaptedTemplates);
+      const adaptedTemplate = adaptApiTemplateToModel(response);
+      context.commit('currentTemplateUpdate', adaptedTemplate);
     });
   },
   templateDelete(context, { params, isDraft = false }) {
@@ -84,24 +80,27 @@ const actions = {
     return newForm;
   },
   templateSave(context, { template, tenantSlug }) {
-    const templateAdapted = adaptTemplateToApi(template);
+    console.log('template, tenantSlug', template, tenantSlug);
+    const templateAdapted = adaptModelTemplateToApi(template);
     // post method
-    let apiAction = FormTemplateService.formtemplates2;
-    if (template.draft) {
+    let apiAction = FormTemplateService.formtemplates;
+    if (!template.draft) {
       // put method
-      apiAction = FormTemplateService.formtemplates;
+      apiAction = FormTemplateService.formtemplates2;
     }
-    apiAction({
+    return apiAction({
       tenantSlug,
+      templateId: template.id,
       body: templateAdapted
     }).then(response => {
       console.log(
-        'TODO: redirect to template with real id if it was a draft template (no redirect here, do in component)',
+        'TODO: redirect to template with real id here immediately (dont change route, just change formId)',
         response
       );
       return response;
     });
   },
+  // TODO: rename formId to templateId everywhere
   async saveField({ getters, dispatch }, { field, formId, tenantSlug }) {
     const currentTemplate = getters.currentTemplateGet;
     if (String(currentTemplate.id) !== String(formId)) {
@@ -127,7 +126,10 @@ const actions = {
       ...currentTemplate,
       items: updatedFields
     };
-    return dispatch('templateSave', { template: updatedTemplate, tenantSlug });
+    return dispatch('templateSave', {
+      template: updatedTemplate,
+      tenantSlug
+    });
   }
 };
 const getters = {

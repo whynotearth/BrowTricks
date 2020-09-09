@@ -35,7 +35,7 @@ export const formTemplateRoutes = [
 
         children: [
           {
-            // edit form meta info
+            // edit a single template and sort fields
             path: 'edit',
             name: 'FormTemplateItemEdit',
             component: () => import('@/views/FormTemplateItemEdit.vue'),
@@ -44,6 +44,19 @@ export const formTemplateRoutes = [
               layout: () => import('@/layouts/WithTitleBarLayout.vue'),
               title: 'Form Templates Setup',
               backRoute: { name: 'FormTemplates' }
+            }
+          },
+
+          {
+            // edit a single template and sort fields
+            path: 'edit-meta',
+            name: 'FormTemplateItemEditMeta',
+            component: () => import('@/views/FormTemplateItemEditMeta.vue'),
+            props: true,
+            meta: {
+              layout: () => import('@/layouts/WithTitleBarLayout.vue'),
+              title: 'Form Templates Setup',
+              backRoute: { name: 'FormTemplateItemEdit' }
             }
           },
 

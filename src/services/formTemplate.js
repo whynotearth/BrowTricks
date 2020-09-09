@@ -1,26 +1,26 @@
 // adapt vue template to api model
-export const adaptTemplateToApi = template => {
+export const adaptModelTemplateToApi = template => {
   const items = template.items.map(fieldModelToApiField);
-  const id = template.draft ? undefined : template.id;
   return {
     ...template,
+    id: undefined,
     draft: undefined,
-    id,
+    createdAt: undefined,
     items,
-    type: 'disclosure'
+    type: template.type || 'custom'
   };
 };
 
 // adapt api templates to Vue model
-export const adaptAndFilterApiTemplatesToModel = templates => {
+export const adaptApiTemplatesToModel = templates => {
   return (
     templates
       // .filter(template => template.id)
-      .map(adaptAndFilterApiTemplateToModel)
+      .map(adaptApiTemplateToModel)
   );
 };
 
-export const adaptAndFilterApiTemplateToModel = template => {
+export const adaptApiTemplateToModel = template => {
   let items = template.items.map(adaptApiTemplateFieldItemToModelCard);
   return {
     ...template,

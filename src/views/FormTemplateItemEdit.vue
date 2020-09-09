@@ -4,7 +4,7 @@
   >
     <!-- form title -->
     <router-link
-      :to="{ name: 'FormTemplateFieldSelection' }"
+      :to="{ name: 'FormTemplateItemEditMeta' }"
       class="tg-body-mobile"
     >
       <div
@@ -186,7 +186,6 @@ export default {
   methods: {
     ...mapActions('formTemplate', [
       'templateFetch',
-      'currentTemplateUpdate',
       'currentFieldUpdate',
       'templateDelete'
     ]),
@@ -225,7 +224,6 @@ export default {
         });
     },
     selectField(field) {
-      console.log('field', field);
       this.currentFieldUpdate(field);
       this.$router.push({
         name: 'FormTemplateFieldEdit',
