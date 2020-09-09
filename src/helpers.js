@@ -1,6 +1,6 @@
 import router from '@/router';
 import store from '@/store';
-import { format } from 'date-fns';
+import { format, utcToZonedTime } from 'date-fns-tz';
 
 export function randomId(len = 16) {
   return Math.random()
@@ -210,12 +210,33 @@ export function enableBodyClass(className) {
   document.body.classList.add(className);
 }
 
-export function formatDate(inputDate, dateFormat = 'MMM dd, yyyy - h:mm a') {
-  if (!inputDate) {
+const _formatDateTimeDefaultOptions = {
+  dateFormat: 'MMM dd, yyyy - h:mm a',
+  timeZone: _getUserTimeZone()
+};
+
+export function formatDateTime(
+  dateString,
+  {
+    dateFormat = 'MMM dd, yyyy - h:mm a',
+    timeZone = _getUserTimeZone()
+  } = _formatDateTimeDefaultOptions
+) {
+  if (!dateString) {
     return '';
   }
-  if (typeof inputDate === ('string' || 'number')) {
-    inputDate = new Date(inputDate);
+
+  // Fix DotNet backward compatibility of not including 'Z' at the end of UTC date
+  let _dateString = dateString;
+  if (_dateString.charAt(_dateString.length - 1) !== 'Z') {
+    _dateString = `${_dateString}Z`;
   }
-  return format(inputDate, dateFormat);
+
+  const dateObject = new Date(_dateString);
+  const dateObjectZoned = utcToZonedTime(dateObject, timeZone);
+  return format(dateObjectZoned, dateFormat);
+}
+
+function _getUserTimeZone() {
+  return Intl.DateTimeFormat().resolvedOptions().timeZone;
 }

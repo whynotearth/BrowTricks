@@ -13,7 +13,8 @@
             {{ template.name }}
           </div>
           <div class="tg-caption-mobile text-on-background text-opacity-medium">
-            Created {{ formatDate(template.createdAt) }}
+            Created
+            {{ formatDateTime(template.createdAt) }}
           </div>
         </div>
         <div>
@@ -43,7 +44,7 @@
 <script>
 import IconAdd from '@/assets/icons/add.svg';
 import IconCreate from '@/assets/icons/create.svg';
-import { formatDate } from '@/helpers';
+import { formatDateTime } from '@/helpers';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
@@ -62,7 +63,7 @@ export default {
       'currentTemplateUpdate',
       'templatesFetch'
     ]),
-    formatDate,
+    formatDateTime,
     init() {
       this.templatesFetch({
         params: { tenantSlug: this.tenantSlug }
