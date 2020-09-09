@@ -46,8 +46,8 @@
             <FormTemplateFieldTypeCard
               :attrs="{ rounded: index === 0 ? 'rounded-t' : null }"
               :icon="field.icon"
-              :title="field.title"
-              :description="field.description"
+              :name="field.title"
+              :value="field.value"
               :type="field.type"
             >
               <p class="text-on-background text-opacity-high">
@@ -193,12 +193,12 @@ export default {
     async init() {
       if (!this.currentTemplateGet.draft) {
         // TODO: handle errors
-        const template = await this.templateFetch({
-          formId: this.$route.params.formId,
-          tenantSlug: this.tenantSlug
+        await this.templateFetch({
+          params: {
+            templateId: this.$route.params.formId,
+            tenantSlug: this.tenantSlug
+          }
         });
-
-        this.currentTemplateUpdate(template);
       }
     },
     fieldsUpdate(list) {

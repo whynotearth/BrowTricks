@@ -18,6 +18,7 @@
         </div>
         <div>
           <IconCreate
+            v-if="template.id"
             class="fill-current text-on-background text-opacity-high w-4 h-4"
           />
         </div>
@@ -66,6 +67,10 @@ export default {
       this.templatesFetch({ params: { tenantSlug: this.tenantSlug } });
     },
     async editTemplate(template) {
+      if (!template.id) {
+        console.log('This form template has no id');
+        return;
+      }
       this.currentTemplateUpdate(template);
       this.$router.push({
         name: 'FormTemplateItemEdit',

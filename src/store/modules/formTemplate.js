@@ -1,7 +1,10 @@
 import { cloneDeep } from 'lodash-es';
 import { randomId } from '@/helpers.js';
 import { FormTemplateService } from '@whynotearth/meredith-axios';
-import { adaptAndFilterApiTemplatesToModel } from '@/services/formTemplate.js';
+import {
+  adaptAndFilterApiTemplatesToModel,
+  adaptAndFilterApiTemplateToModel
+} from '@/services/formTemplate.js';
 import { adaptTemplateToApi } from '../../services/formTemplate';
 
 const defaultState = {
@@ -51,7 +54,12 @@ const actions = {
     });
   },
   templateFetch(context, { params }) {
-    return FormTemplateService.formtemplates3(params);
+    return FormTemplateService.formtemplates3(params).then(response => {
+      const filteredAdaptedTemplates = adaptAndFilterApiTemplateToModel(
+        response
+      );
+      context.commit('currentTemplateUpdate', filteredAdaptedTemplates);
+    });
   },
   templateDelete(context, { params, isDraft = false }) {
     if (isDraft) {
@@ -86,6 +94,12 @@ const actions = {
     apiAction({
       tenantSlug,
       body: templateAdapted
+    }).then(response => {
+      console.log(
+        'TODO: redirect to template with real id if it was a draft template (no redirect here, do in component)',
+        response
+      );
+      return response;
     });
   },
   async saveField({ getters, dispatch }, { field, formId, tenantSlug }) {

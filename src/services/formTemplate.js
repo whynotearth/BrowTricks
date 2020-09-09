@@ -13,15 +13,19 @@ export const adaptTemplateToApi = template => {
 
 // adapt api templates to Vue model
 export const adaptAndFilterApiTemplatesToModel = templates => {
-  return templates
-    .filter(template => template.id)
-    .map(template => {
-      let items = template.items.map(adaptApiTemplateFieldItemToModelCard);
-      return {
-        ...template,
-        items
-      };
-    });
+  return (
+    templates
+      // .filter(template => template.id)
+      .map(adaptAndFilterApiTemplateToModel)
+  );
+};
+
+export const adaptAndFilterApiTemplateToModel = template => {
+  let items = template.items.map(adaptApiTemplateFieldItemToModelCard);
+  return {
+    ...template,
+    items
+  };
 };
 
 // adapt vue field to api field
