@@ -1,4 +1,3 @@
-<style scoped></style>
 <template>
   <div>
     <div class="px-4">
@@ -12,13 +11,18 @@
       </p>
 
       <TextAreaInput
-        v-model="model.value"
+        v-model="$v.model.value.$model"
         class="mb-4"
         placeholder="e.g. Check any that apply:"
         label="Question"
         labelBackground="bg-background has-noise"
         rows="8"
-      />
+        :error="$v.model.value.$error"
+      >
+        <p v-if="!$v.model.value.required">
+          Question is required
+        </p>
+      </TextAreaInput>
 
       <CheckBox
         class="block mb-8"
@@ -32,7 +36,7 @@
       <div class="py-4 mb-4 rounded-lg">
         <div
           class="flex items-center pb-4 w-full"
-          v-for="choice in model.options"
+          v-for="choice in $v.model.options.$model"
           :key="choice.key"
         >
           <MaterialInput
@@ -62,6 +66,13 @@
           class="text-primary tg-color-label-mobile text-center py-2 w-full block cursor-pointer"
           >Add Option</a
         >
+
+        <p
+          class="text-error tg-body-mobile text-center"
+          v-if="$v.model.options.$error"
+        >
+          At least one option is required
+        </p>
       </div>
 
       <Button class="rounded-full mb-4" title="Save" @clicked="save" />
@@ -85,6 +96,7 @@ import { randomId } from '@/helpers.js';
 import { cloneDeep } from 'lodash-es';
 import MaterialInput from '@/components/inputs/MaterialInput';
 import IconDelete from '@/assets/icons/delete.svg';
+import { minLength, required } from 'vuelidate/lib/validators';
 
 export default {
   name: 'FormTemplateFieldChecklist',
@@ -94,6 +106,23 @@ export default {
     Button,
     IconDelete,
     MaterialInput
+  },
+  validations: {
+    model: {
+      options: {
+        required,
+        minLength: minLength(1),
+        $each: {
+          value: {
+            required,
+            minLength: minLength(2)
+          }
+        }
+      },
+      value: {
+        required
+      }
+    }
   },
   props: {
     initialModel: null
@@ -113,6 +142,11 @@ export default {
       this.$emit('remove');
     },
     save() {
+      this.$v.$touch();
+      if (this.$v.$invalid) {
+        return;
+      }
+
       // if the field is new, generate a random id
       const id = this.model.id || randomId(8);
       const field = {
@@ -131,8 +165,8 @@ export default {
       this.model.options.push(choice);
     },
     choiceRemove(key) {
-      const index = this.sentences.findIndex(q => q.key === key);
-      this.sentences.splice(index - 1, 1);
+      const index = this.model.options.findIndex(q => q.key === key);
+      this.model.options.splice(index, 1);
     }
   }
 };

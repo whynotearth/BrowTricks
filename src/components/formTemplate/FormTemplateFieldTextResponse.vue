@@ -10,14 +10,19 @@
         their answers.
       </p>
 
+      <!-- :error="$v.model.value.$error" -->
       <TextAreaInput
-        v-model="model.value"
+        v-model="$v.model.value.$model"
         class="mb-4"
         placeholder="e.g. I am being treated for, or was in the past for the following conditions (Please include allergies, espcially to dye, pigment, or numbing agent.)"
         label="Question"
         labelBackground="bg-background has-noise"
         rows="8"
-      />
+      >
+        <p v-if="!$v.model.value.required">
+          Question is required
+        </p>
+      </TextAreaInput>
 
       <CheckBox
         class="block mb-8"
@@ -45,10 +50,18 @@ import CheckBox from '@/components/inputs/CheckBox';
 import Button from '@/components/inputs/Button';
 import { randomId } from '@/helpers.js';
 import { cloneDeep } from 'lodash-es';
+import { required } from 'vuelidate/lib/validators';
 
 export default {
   name: 'FormTemplateFieldTextResponse',
   components: { TextAreaInput, CheckBox, Button },
+  validations: {
+    model: {
+      value: {
+        required
+      }
+    }
+  },
   props: {
     initialModel: null
   },
@@ -66,6 +79,11 @@ export default {
       this.$emit('remove');
     },
     save() {
+      // this.$v.$touch();
+      // if (this.$v.$invalid) {
+      //   return;
+      // }
+
       // if the field is new, generate a random id
       const id = this.model.id || randomId(8);
       const field = {
