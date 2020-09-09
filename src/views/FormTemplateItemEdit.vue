@@ -51,7 +51,7 @@
               :type="field.type"
             >
               <p class="text-on-background text-opacity-high">
-                {{ field.textContent }}
+                {{ field.value }}
               </p>
             </FormTemplateFieldTypeCard>
           </a>
