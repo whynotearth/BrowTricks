@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-md mx-auto pt-6">
+  <div class="max-w-4xl mx-auto pt-6">
     <component
       :initialModel="currentFieldGet"
       @save="submit"
@@ -15,8 +15,7 @@ import FormTemplateFieldChecklist from '@/components/formTemplate/FormTemplateFi
 import FormTemplateFieldTextResponse from '@/components/formTemplate/FormTemplateFieldTextResponse';
 import FormTemplateFieldText from '@/components/formTemplate/FormTemplateFieldText';
 import FormTemplateFieldMultipleChoice from '@/components/formTemplate/FormTemplateFieldMultipleChoice';
-import FormTemplateFieldImage from '@/components/formTemplate/FormTemplateFieldImage';
-import FormTemplateFieldPdf from '@/components/formTemplate/FormTemplateFieldPdf';
+import FormTemplateFieldUpload from '@/components/formTemplate/FormTemplateFieldUpload';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
@@ -27,8 +26,7 @@ export default {
     FormTemplateFieldTextResponse,
     FormTemplateFieldText,
     FormTemplateFieldMultipleChoice,
-    FormTemplateFieldImage,
-    FormTemplateFieldPdf
+    FormTemplateFieldUpload
   },
   props: ['tenantSlug'],
   created() {
@@ -58,10 +56,10 @@ export default {
           return 'FormTemplateFieldMultipleChoice';
 
         case 'image':
-          return 'FormTemplateFieldImage';
+          return 'FormTemplateFieldUpload';
 
         case 'pdf':
-          return 'FormTemplateFieldPdf';
+          return 'FormTemplateFieldUpload';
 
         default:
           throw new Error('Field type not found');
@@ -69,11 +67,11 @@ export default {
     }
   },
   destroyed() {
-    this.currentFieldReset();
+    this.currentFieldClear();
   },
   methods: {
     ...mapActions('formTemplate', [
-      'currentFieldReset',
+      'currentFieldClear',
       'saveField',
       'fieldDelete'
     ]),

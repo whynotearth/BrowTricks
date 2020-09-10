@@ -105,7 +105,7 @@ export function transformCloudinaryUrl(resourceUrl, transformations) {
   return urlParts.join('/');
 }
 
-export function getCloudinaryVideoThumbnail(file) {
+export function getCloudinaryThumbnail(file) {
   const urlSegments = file.url.split('.');
   const extension = urlSegments[urlSegments.length - 1];
   const thumbnail = file.url.replace(new RegExp(extension + '$'), 'jpg');
@@ -168,13 +168,25 @@ function _shareOld(jsonfile) {
 }
 
 export function cloudinaryFileToMeredithFileAdapter(cloudinaryFileInfo) {
-  const resourceType = cloudinaryFileInfo.resource_type;
+  const resourceType =
+    cloudinaryFileInfo.format === 'pdf'
+      ? 'pdf'
+      : cloudinaryFileInfo.resource_type;
+
+  if (resourceType === 'pdf') {
+    const { secure_url, public_id } = cloudinaryFileInfo;
+    return {
+      resourceType,
+      publicId: public_id,
+      url: secure_url
+    };
+  }
 
   // image type
   if (resourceType === 'image') {
     const { secure_url, height, width, public_id } = cloudinaryFileInfo;
     return {
-      resourceType: 'image',
+      resourceType,
       height,
       width,
       publicId: public_id,

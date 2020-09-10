@@ -29,6 +29,7 @@ export const formTemplateRoutes = [
         component: () => import('@/views/FormTemplateItem.vue'),
         redirect: { name: 'FormTemplateItemEdit' },
         meta: {
+          noNavigation: true,
           layout: () => import('@/layouts/WithTitleBarLayout.vue'),
           title: 'Form Templates'
         },

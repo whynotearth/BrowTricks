@@ -159,6 +159,9 @@ export default {
     IconUserCircle,
     IconDocument
   },
+  beforeDestroy() {
+    this.isOpenDrawerUploadUpdate(false);
+  },
   methods: {
     ...mapActions('uploader', ['isOpenDrawerUploadUpdate'])
   },

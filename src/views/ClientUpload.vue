@@ -51,7 +51,7 @@
           <BaseVideoPreview
             v-if="file.resourceType === 'video'"
             :selectFile="() => {}"
-            :file="{ ...file, thumbnail: getCloudinaryVideoThumbnail(file) }"
+            :file="{ ...file, thumbnail: getCloudinaryThumbnail(file) }"
           />
         </div>
       </div>
@@ -111,7 +111,7 @@ import {
   share,
   isShareApiSupported,
   showOverlayAndRedirect,
-  getCloudinaryVideoThumbnail
+  getCloudinaryThumbnail
 } from '@/helpers.js';
 
 export default {
@@ -165,7 +165,7 @@ export default {
       'isOpenDrawerUploadUpdate'
     ]),
     share,
-    getCloudinaryVideoThumbnail,
+    getCloudinaryThumbnail,
     checkUploadedFileExistance() {
       if (!this.uploadedFilesGet[0]) {
         alert('No uploaded file.');

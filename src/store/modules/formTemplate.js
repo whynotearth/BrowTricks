@@ -66,6 +66,9 @@ const actions = {
   currentFieldUpdate(context, payload) {
     context.commit('currentFieldUpdate', payload);
   },
+  currentFieldClear(context) {
+    context.commit('currentFieldUpdate', {});
+  },
   currentFieldReset(context, type) {
     const newField = generateEmptyField(type);
     context.commit('currentFieldUpdate', newField);

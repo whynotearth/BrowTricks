@@ -21,26 +21,43 @@
         />
       </a>
     </div>
+
+    <FormTemplateDrawerUpload
+      @close="isOpenDrawerUploadUpdate(false)"
+      :isOpen="isOpenDrawerUploadGet"
+      :fieldId="get(draftField, 'id', null)"
+    ></FormTemplateDrawerUpload>
   </div>
 </template>
 
 <script>
 import FormTemplateFieldTypeCard from '@/components/formTemplate/FormTemplateFieldTypeCard';
-import { mapActions } from 'vuex';
+import FormTemplateDrawerUpload from '@/components/formTemplate/FormTemplateDrawerUpload';
+import { get } from 'lodash-es';
+
+import { mapActions, mapGetters } from 'vuex';
 export default {
   name: 'FormTemplateFieldSelection',
-  components: { FormTemplateFieldTypeCard },
+  components: { FormTemplateFieldTypeCard, FormTemplateDrawerUpload },
+  data: () => ({
+    draftField: null
+  }),
   computed: {
+    ...mapGetters('uploader', ['isOpenDrawerUploadGet']),
     // NOTE: types are: text, agreement_request, text_response, checklist, multiple_choice, image, pdf
+    uploaderField() {
+      return {
+        useUploader: true,
+        icon: 'IconImages',
+        name: 'Upload',
+        type: 'image',
+        description:
+          'Already have a PDF or JPEF of your form? Upload to your template with an agreement request.'
+      };
+    },
     fieldsAvailable() {
       return [
-        {
-          icon: 'IconImages',
-          name: 'Upload',
-          type: 'image',
-          description:
-            'Already have a PDF or JPEF of your form? Upload to your template with an agreement request.'
-        },
+        this.uploaderField,
         {
           icon: 'IconCheckSquared',
           name: 'Agreement Request',
@@ -72,14 +89,30 @@ export default {
       ];
     }
   },
+  beforeDestroy() {
+    this.isOpenDrawerUploadUpdate(false);
+  },
   methods: {
     ...mapActions('formTemplate', ['currentFieldReset']),
+    ...mapActions('uploader', ['isOpenDrawerUploadUpdate']),
+    get,
     async selectField(field) {
-      const newField = await this.currentFieldReset(field.type);
+      this.draftField = await this.currentFieldReset(field.type);
+      if (field.useUploader) {
+        this.selectUploader();
+      } else {
+        this.selectOrdinaryFields(field.type, this.draftField.id);
+      }
+    },
+
+    selectUploader() {
+      this.isOpenDrawerUploadUpdate(true);
+    },
+    selectOrdinaryFields(type, fieldId) {
       this.$router.push({
         name: 'FormTemplateFieldEdit',
-        params: { fieldId: newField.id },
-        query: { type: field.type }
+        params: { fieldId },
+        query: { type }
       });
     }
   }
