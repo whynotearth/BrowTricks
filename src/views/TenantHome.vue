@@ -29,7 +29,7 @@
         <ExpansionPanel
           @click="
             $router.push({
-              name: 'TenantPmuSetup'
+              name: 'FormTemplatesList'
             })
           "
           title="PMU Forms"
