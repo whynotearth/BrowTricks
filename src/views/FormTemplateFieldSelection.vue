@@ -50,7 +50,8 @@ export default {
         useUploader: true,
         icon: 'IconImages',
         name: 'Upload',
-        type: 'image',
+        // set type in FormTemplateDrawerUpload after upload file
+        type: '',
         description:
           'Already have a PDF or JPEF of your form? Upload to your template with an agreement request.'
       };

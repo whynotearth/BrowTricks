@@ -64,7 +64,7 @@ import IconImages from '@/assets/icons/images.svg';
 import IconDocument from '@/assets/icons/document.svg';
 import BaseDrawerActions from '@/components/BaseDrawerActions';
 import MediaUploader from '@/components/uploader/MediaUploader';
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'FormTemplateDrawerUpload',
@@ -87,11 +87,13 @@ export default {
       default: false
     }
   },
+  computed: {
+    ...mapGetters('formTemplate', ['currentFieldGet'])
+  },
   methods: {
-    ...mapActions('client', ['updateClient', 'fetchClient']),
     ...mapActions('uploader', ['uploadedFilesUpdate']),
+    ...mapActions('formTemplate', ['currentFieldUpdate']),
     updateFiles(files) {
-      console.log('files', files);
       const filesAdapted = files.map(item => ({
         ...item,
         url: item.url,
@@ -100,6 +102,8 @@ export default {
       this.uploadedFilesUpdate(filesAdapted);
 
       let fieldType = this.getFieldType(filesAdapted[0]);
+
+      this.updateFieldType(fieldType);
 
       this.$router.push({
         name: 'FormTemplateFieldEdit',
@@ -117,6 +121,12 @@ export default {
         fieldType = 'image';
       }
       return fieldType;
+    },
+    updateFieldType(fieldType) {
+      this.currentFieldUpdate({
+        ...this.currentFieldGet,
+        type: fieldType
+      });
     }
   }
 };
