@@ -72,6 +72,14 @@ export const adaptApiTemplateFieldItemToModelCard = item => {
       };
       break;
 
+    case 'pdf':
+      field = {
+        ...field,
+        icon: 'IconDocument',
+        title: 'Upload'
+      };
+      break;
+
     case 'agreement_request':
       field = {
         ...field,

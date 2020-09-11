@@ -31,7 +31,7 @@
       <!-- current questions -->
       <SortableList
         :useWindowAsScrollContainer="true"
-        :pressDelay="100"
+        :pressDelay="250"
         lockAxis="y"
         v-model="currentTemplateGet.items"
         @input="fieldsUpdate"
@@ -53,6 +53,12 @@
               <p class="text-on-background text-opacity-high">
                 {{ field.value }}
               </p>
+              <img
+                class="card-image-preview block mt-4"
+                v-if="get(field, 'options[0].value')"
+                :src="getCloudinaryThumbnail(get(field, 'options[0].value'))"
+                alt=""
+              />
             </FormTemplateFieldTypeCard>
           </a>
         </SortableItem>
@@ -126,11 +132,11 @@ import BaseCard from '@/components/BaseCard';
 import BaseDialog from '@/components/BaseDialog';
 import Button from '@/components/inputs/Button';
 import IconAdd from '@/assets/icons/add.svg';
-import { showOverlayAndRedirect } from '@/helpers';
+import { showOverlayAndRedirect, getCloudinaryThumbnail } from '@/helpers';
 import { ContainerMixin, ElementMixin } from 'vue-slicksort';
 import { mapActions, mapGetters } from 'vuex';
 import noPullToRefresh from '@/utils/noPullToRefreshMixin.js';
-import { cloneDeep } from 'lodash-es';
+import { cloneDeep, get } from 'lodash-es';
 
 const SortableList = {
   mixins: [ContainerMixin],
@@ -191,6 +197,8 @@ export default {
       'currentFieldUpdate',
       'templateDelete'
     ]),
+    get,
+    getCloudinaryThumbnail,
     async init() {
       if (this.currentTemplateGet.draft && !this.$route.query.refresh) {
         return;
@@ -212,6 +220,7 @@ export default {
       });
     },
     fieldsUpdate(updatedItems) {
+      console.log('updatedItems', updatedItems);
       const updatedTemplate = {
         ...this.currentTemplateGet,
         items: cloneDeep(updatedItems)
@@ -254,3 +263,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.card-image-preview {
+  max-height: 352px;
+}
+</style>

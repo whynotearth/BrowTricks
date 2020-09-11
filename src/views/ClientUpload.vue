@@ -51,7 +51,7 @@
           <BaseVideoPreview
             v-if="file.resourceType === 'video'"
             :selectFile="() => {}"
-            :file="{ ...file, thumbnail: getCloudinaryThumbnail(file) }"
+            :file="{ ...file, thumbnail: getCloudinaryThumbnail(file.url) }"
           />
         </div>
       </div>

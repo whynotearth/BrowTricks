@@ -105,10 +105,10 @@ export function transformCloudinaryUrl(resourceUrl, transformations) {
   return urlParts.join('/');
 }
 
-export function getCloudinaryThumbnail(file) {
-  const urlSegments = file.url.split('.');
+export function getCloudinaryThumbnail(url) {
+  const urlSegments = url.split('.');
   const extension = urlSegments[urlSegments.length - 1];
-  const thumbnail = file.url.replace(new RegExp(extension + '$'), 'jpg');
+  const thumbnail = url.replace(new RegExp(extension + '$'), 'jpg');
   return thumbnail;
 }
 

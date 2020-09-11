@@ -43,6 +43,7 @@
 <script>
 import BaseCard from '@/components/BaseCard';
 import IconImages from '@/assets/icons/images.svg';
+import IconDocument from '@/assets/icons/document.svg';
 import IconText from '@/assets/icons/text.svg';
 import IconCheckSquared from '@/assets/icons/check-squared.svg';
 import IconChecklist from '@/assets/icons/checklist.svg';
@@ -56,6 +57,7 @@ export default {
     IconChecklist,
     IconRadiolist,
     IconImages,
+    IconDocument,
     BaseCard,
     IconCheckSquared,
     IconHelpRounded

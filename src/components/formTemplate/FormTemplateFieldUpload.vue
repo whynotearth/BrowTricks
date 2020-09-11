@@ -33,7 +33,7 @@
         <BaseImagePreview
           :selectFile="() => {}"
           :file="{ ...file }"
-          :thumbnail="getCloudinaryThumbnail(file)"
+          :thumbnail="getCloudinaryThumbnail(file.url)"
         />
       </div>
     </div>
@@ -64,7 +64,7 @@ import TextAreaInput from '@/components/inputs/TextAreaInput';
 import CheckBox from '@/components/inputs/CheckBox';
 import Button from '@/components/inputs/Button';
 import BaseImagePreview from '@/components/uploader/BaseImagePreview';
-import { cloneDeep } from 'lodash-es';
+import { cloneDeep, get } from 'lodash-es';
 import { required } from 'vuelidate/lib/validators';
 import { mapActions, mapGetters } from 'vuex';
 import { getCloudinaryThumbnail, randomId } from '@/helpers.js';
@@ -100,8 +100,12 @@ export default {
   },
   created() {
     this.model = { ...this.model, ...cloneDeep(this.initialModel) };
-    this.checkUploadedFileExistance();
-    this.isOpenDrawerUploadUpdate(false);
+    if (this.model.draft) {
+      this.checkUploadedFileExistance();
+      this.isOpenDrawerUploadUpdate(false);
+    } else {
+      this.file = { url: get(this.model, 'options[0].value') };
+    }
   },
   beforeDestroy() {
     this.uploadedFilesUpdate([]);
@@ -114,7 +118,7 @@ export default {
     getCloudinaryThumbnail,
     checkUploadedFileExistance() {
       if (!this.uploadedFilesGet[0]) {
-        alert('No uploaded file.');
+        console.log('No new uploaded file.');
         return;
       }
       this.file = this.uploadedFilesGet[0];
