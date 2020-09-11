@@ -12,6 +12,7 @@
         class="cursor-pointer"
       >
         <FormTemplateFieldTypeCard
+          @selectHelp="selectHelp"
           class="mb-4"
           :hasHelp="true"
           :icon="field.icon"
@@ -27,20 +28,28 @@
       :isOpen="isOpenDrawerUploadGet"
       :fieldId="get(draftField, 'id', null)"
     ></FormTemplateDrawerUpload>
+
+    <FormTemplateCardHelp @close="helpModalType = null" :type="helpModalType" />
   </div>
 </template>
 
 <script>
 import FormTemplateFieldTypeCard from '@/components/formTemplate/FormTemplateFieldTypeCard';
 import FormTemplateDrawerUpload from '@/components/formTemplate/FormTemplateDrawerUpload';
+import FormTemplateCardHelp from '@/components/formTemplate/FormTemplateCardHelp';
 import { get } from 'lodash-es';
 
 import { mapActions, mapGetters } from 'vuex';
 export default {
   name: 'FormTemplateFieldSelection',
-  components: { FormTemplateFieldTypeCard, FormTemplateDrawerUpload },
+  components: {
+    FormTemplateFieldTypeCard,
+    FormTemplateDrawerUpload,
+    FormTemplateCardHelp
+  },
   data: () => ({
-    draftField: null
+    draftField: null,
+    helpModalType: null
   }),
   computed: {
     ...mapGetters('uploader', ['isOpenDrawerUploadGet']),
@@ -50,8 +59,8 @@ export default {
         useUploader: true,
         icon: 'IconImages',
         name: 'Upload',
-        // set type in FormTemplateDrawerUpload after upload file
-        type: '',
+        // NOTE: we'll set the actual type in FormTemplateDrawerUpload after upload file (image or pdf)
+        type: 'upload',
         description:
           'Already have a PDF or JPEF of your form? Upload to your template with an agreement request.'
       };
@@ -97,6 +106,9 @@ export default {
     ...mapActions('formTemplate', ['currentFieldReset']),
     ...mapActions('uploader', ['isOpenDrawerUploadUpdate']),
     get,
+    selectHelp(type) {
+      this.helpModalType = type;
+    },
     async selectField(field) {
       this.draftField = await this.currentFieldReset(field.type);
       if (field.useUploader) {

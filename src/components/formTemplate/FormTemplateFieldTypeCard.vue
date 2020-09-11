@@ -11,13 +11,20 @@
     </div>
 
     <!-- title -->
-    <h2 class="text-on-surface text-opacity-high mb-6 flex items-center">
+    <h2
+      class="text-on-surface text-opacity-high mb-6 flex items-center relative"
+    >
       <span class="block">{{ name }}</span>
-      <IconHelpRounded
-        v-if="hasHelp"
-        @click="openHelp(type)"
-        class="text-on-surface text-opacity-medium ml-2 cursor-pointer select-none"
-      />
+      <a
+        title="Sample Question"
+        tabindex="0"
+        @click.stop="$emit('selectHelp', type)"
+      >
+        <IconHelpRounded
+          v-if="hasHelp"
+          class="text-on-surface text-opacity-medium ml-2 cursor-pointer select-none"
+        />
+      </a>
     </h2>
 
     <!-- description -->
@@ -76,11 +83,6 @@ export default {
     hasHelp: {
       type: Boolean,
       default: false
-    }
-  },
-  methods: {
-    openHelp(type) {
-      console.log('type', type);
     }
   }
 };
