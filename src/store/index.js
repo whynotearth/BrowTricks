@@ -7,12 +7,13 @@ import client from './modules/client';
 import overlay from './modules/overlay';
 import loading from './modules/loading';
 import uploader from './modules/uploader';
+import formTemplate from './modules/formTemplate';
 
 import VuexPersistence from 'vuex-persist';
 
 const vuexSession = new VuexPersistence({
   storage: window.sessionStorage,
-  modules: ['auth', 'tenant', 'uploader'],
+  modules: ['auth', 'tenant', 'uploader', 'formTemplate'],
   key: 'vuexSessionStore'
 });
 
@@ -37,6 +38,7 @@ export default new Vuex.Store({
     }
   },
   modules: {
+    formTemplate,
     global,
     auth,
     tenant,

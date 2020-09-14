@@ -5,7 +5,7 @@
         <div class="w-full">
           <div class="flex relative bg-primary">
             <ul
-              class="link-items max-w-4xl mx-auto wrapper flex-auto flex text-left justify-around items-center menu list-none tg-caption-mobile"
+              class="link-items max-w-4xl mx-auto wrapper flex-auto flex text-left justify-around items-center menu list-none tg-caption-mobile select-none"
             >
               <li class="text-on-primary text-opacity-high link-item">
                 <router-link
@@ -80,8 +80,7 @@
               >
                 <router-link
                   class="navigation--link block"
-                  :to="{ name: 'TenantPmuSetup' }"
-                  exact
+                  :to="{ name: 'FormTemplates' }"
                 >
                   <IconDocument class="m-auto mb-2 w-5 h-5" />
                   <span>Forms</span>
@@ -159,6 +158,9 @@ export default {
     IconUser,
     IconUserCircle,
     IconDocument
+  },
+  beforeDestroy() {
+    this.isOpenDrawerUploadUpdate(false);
   },
   methods: {
     ...mapActions('uploader', ['isOpenDrawerUploadUpdate'])

@@ -12,6 +12,14 @@
 @import './inputs.css';
 @import './scrollbars.css';
 
+.no-pull-to-refresh {
+  overscroll-behavior: contain;
+}
+
+.no-scrollbars {
+  @apply overflow-hidden;
+}
+
 .has-noise {
   background-image: url(https://res.cloudinary.com/whynotearth/image/upload/v1597904330/BrowTricks/static_v2/noise_m7ti9c.png);
   background-repeat: repeat;

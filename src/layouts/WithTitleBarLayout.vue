@@ -1,5 +1,7 @@
 <template>
-  <div class="page min-h-screen flex flex-col text-white text-opacity-medium">
+  <div
+    class="page min-h-screen flex flex-col text-on-background text-opacity-high"
+  >
     <header
       class="bg-primary z-20 shadow-4dp flex flex-row items-center p-4 sticky top-0"
     >
@@ -9,9 +11,9 @@
         @click.prevent="iconClick"
         v-if="$route.meta.backRoute"
       >
-        <IconBack class="text-white" />
+        <IconBack class="text-on-primary" />
       </a>
-      <h1 class="tg-h2-mobile text-opacity-high flex-grow text-white">
+      <h1 class="tg-h2-mobile text-opacity-high flex-grow text-on-primary">
         {{ currentTitle }}
       </h1>
 
@@ -91,6 +93,7 @@ import BaseSpinner from '@/components/BaseSpinner';
 import NavigationBottom from '@/components/NavigationBottom';
 import IconOverflowMenu from '@/assets/icons/more.svg';
 import IconBack from '@/assets/icons/arrow-back.svg';
+import eventBus from '@/utils/eventBus.js';
 
 export default {
   name: 'WithTitleBarLayout',
@@ -128,14 +131,14 @@ export default {
     handleTitle() {
       this.currentTitle = this.$route.meta.title;
       // listen for title updates
-      this.$on('layoutTitle', data => {
+      eventBus.$on('layoutTitle', data => {
         this.currentTitle = data;
       });
     },
     handleBackRoute() {
       this.backRoute = this.$route.meta.backRoute;
       // listen for back route updates
-      this.$on('layoutBackRoute', data => {
+      eventBus.$on('layoutBackRoute', data => {
         this.backRoute = data;
       });
     },

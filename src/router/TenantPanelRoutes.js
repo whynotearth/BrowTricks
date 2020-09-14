@@ -54,17 +54,5 @@ export const TenantPanelRoutes = [
       title: 'Edit Account',
       backRoute: { name: 'MyAccount' }
     }
-  },
-  {
-    // tenant pmu setup
-    path: '/tenant/:tenantSlug/pmu-setup',
-    name: 'TenantPmuSetup',
-    component: () => import('@/views/TenantPmuSetup.vue'),
-    props: true,
-    meta: {
-      layout: () => import('@/layouts/WithTitleBarLayout.vue'),
-      title: 'PMU Form Setup',
-      backRoute: { name: 'TenantHome' }
-    }
   }
 ];

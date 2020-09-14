@@ -33,15 +33,15 @@
 </template>
 
 <script>
-import noPageScrollbar from '@/utils/noPageScrollbarMixin.js';
+import noPageScrollbar from '@/utils/noPageScrollbarMixin';
 import IconClose from '@/assets/icons/close.svg';
 
 const DrawerContent = {
+  mixins: [noPageScrollbar],
   name: 'DrawerContent',
   render: function(createElement) {
     return createElement('div', this.$slots.default);
-  },
-  mixins: [noPageScrollbar]
+  }
 };
 
 export default {

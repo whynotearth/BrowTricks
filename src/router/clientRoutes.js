@@ -45,6 +45,7 @@ export const clientRoutes = [
     props: true,
     component: () => import('@/views/Client.vue'),
     meta: {
+      // TODO: remove layout line, has no effect on pages
       layout: WithTitleBarLayout,
       title: 'Client Profile',
       backRoute: { name: 'ClientList' }
