@@ -111,10 +111,10 @@ const actions = {
     return PmuService.notify(params);
   },
   pmuPreSignPreview(context, { params }) {
-    return PmuService.pmu(params);
+    return PmuService.pmu1(params);
   },
   pmuSignAnswers(context, { params }) {
-    return PmuService.pmu1(params);
+    return PmuService.pmu2(params);
   }
 };
 

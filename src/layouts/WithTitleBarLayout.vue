@@ -1,10 +1,19 @@
 <template>
-  <div class="page min-h-screen flex flex-col text-white text-opacity-medium">
+  <div
+    class="page min-h-screen flex flex-col text-on-background text-opacity-high"
+  >
     <header
       class="bg-primary z-20 shadow-4dp flex flex-row items-center p-4 sticky top-0"
     >
       <!-- icon -->
-      <h1 class="tg-h2-mobile text-opacity-high flex-grow text-white ml-2">
+      <a
+        class="cursor-pointer"
+        @click.prevent="iconClick"
+        v-if="$route.meta.backRoute"
+      >
+        <IconBack class="text-on-primary" />
+      </a>
+      <h1 class="tg-h2-mobile text-opacity-high flex-grow text-on-primary">
         {{ currentTitle }}
       </h1>
 
@@ -20,6 +29,8 @@
           class="fill-current text-on-primary text-opacity-high w-6 h-6"
         />
       </router-link>
+
+      <!-- NOTE: not in use anywhere -->
       <a
         v-click-outside="onClickOutside"
         class="cursor-pointer self-center"
@@ -81,11 +92,13 @@ import { mapGetters } from 'vuex';
 import BaseSpinner from '@/components/BaseSpinner';
 import NavigationBottom from '@/components/NavigationBottom';
 import IconOverflowMenu from '@/assets/icons/more.svg';
+import IconBack from '@/assets/icons/arrow-back.svg';
+import eventBus from '@/utils/eventBus.js';
 
 export default {
   name: 'WithTitleBarLayout',
   components: {
-    // IconBack,
+    IconBack,
     BaseSpinner,
     NavigationBottom,
     IconOverflowMenu
@@ -112,17 +125,20 @@ export default {
       this.handleTitle();
       this.onClickOutside();
     },
+    iconClick() {
+      this.$router.push(this.backRoute);
+    },
     handleTitle() {
       this.currentTitle = this.$route.meta.title;
       // listen for title updates
-      this.$on('layoutTitle', data => {
+      eventBus.$on('layoutTitle', data => {
         this.currentTitle = data;
       });
     },
     handleBackRoute() {
       this.backRoute = this.$route.meta.backRoute;
       // listen for back route updates
-      this.$on('layoutBackRoute', data => {
+      eventBus.$on('layoutBackRoute', data => {
         this.backRoute = data;
       });
     },

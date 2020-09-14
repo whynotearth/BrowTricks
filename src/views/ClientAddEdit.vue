@@ -44,15 +44,16 @@ import { mapMutations, mapActions, mapState } from 'vuex';
 import StepperTop from '@/components/BaseStepperTopBar';
 import StepperBottom from '@/components/BaseStepperBottomBar';
 import BasicInfo from '@/components/client/BasicInfo';
-import Notifications from '@/components/client/Notifications';
+// import Notifications from '@/components/client/Notifications';
+import { showOverlayAndRedirect } from '@/helpers.js';
 
 export default {
   name: 'ClientAddEdit',
   components: {
     StepperTop,
     StepperBottom,
-    BasicInfo,
-    Notifications
+    BasicInfo
+    // Notifications
   },
   props: {
     tenantSlug: {
@@ -66,11 +67,11 @@ export default {
         {
           step: 'basic-info',
           name: 'Basic Info'
-        },
-        {
-          step: 'notifications',
-          name: 'Notifications'
         }
+        // {
+        //   step: 'notifications',
+        //   name: 'Notifications'
+        // }
       ],
       errors: null
     };
@@ -113,17 +114,15 @@ export default {
         tenantSlug: this.tenantSlug
       })
         .then(() => {
-          this.goClientList();
+          showOverlayAndRedirect({
+            title: 'Success!',
+            message: 'Client added successfully!',
+            route: { name: 'ClientList' }
+          });
         })
         .catch(error => {
           this.errors = error.response.data.errors;
         });
-    },
-    goClientList() {
-      this.$router.push({
-        name: 'ClientList',
-        params: { tenantSlug: this.tenantSlug }
-      });
     }
   },
   watch: {

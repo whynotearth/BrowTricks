@@ -2,11 +2,13 @@
   VUE_APP_UPLOADER_IMAGE_PRESET="browtricks_tenant_cms_images_dev"
   VUE_APP_UPLOADER_VIDEO_PRESET="browtricks_tenant_cms_videos_dev"
   VUE_APP_UPLOADER_MEDIA_PRESET="browtricks_cms_media_dev"
+  VUE_APP_UPLOADER_PDF_PRESET="browtricks_tenant_cms_pdf_dev"
 
 [context.master.environment]
   VUE_APP_UPLOADER_IMAGE_PRESET="browtricks_tenant_cms_images"
   VUE_APP_UPLOADER_VIDEO_PRESET="browtricks_tenant_cms_videos"
   VUE_APP_UPLOADER_MEDIA_PRESET="browtricks_cms_media"
+  VUE_APP_UPLOADER_PDF_PRESET="browtricks_tenant_cms_pdf"
 
 [[redirects]]
   from = "/*"

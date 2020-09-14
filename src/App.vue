@@ -1,19 +1,16 @@
 <template>
   <div
     id="app"
-    class="min-h-vh100 h-full text-center font-sans bg-background has-noise"
+    class="min-h-vh100 h-full text-center font-sans bg-background has-noise text-on-background"
   >
-    <component
-      :is="this.$route.meta.layout || 'div'"
-      class="h-full min-h-vh100"
-    >
+    <component :is="$route.meta.layout || 'div'" class="h-full min-h-vh100">
       <transition :name="transitionName">
         <router-view />
       </transition>
     </component>
     <SnackBar :showSnackBar="showPrivacySnackBar">
       <div
-        class="flex items-center justify-between text-white w-full h-12 tg-caption-mobile leading-4 p-4 
+        class="flex items-center justify-between text-on-primary w-full h-12 tg-caption-mobile leading-4 p-4 
           bg-primary"
       >
         <p>
@@ -48,14 +45,20 @@
         />
       </div>
     </transition>
+
+    <DrawerAuth
+      @close="isDrawerOpenAuthUpdate(false)"
+      :isOpen="isDrawerOpenAuthGet"
+    ></DrawerAuth>
   </div>
 </template>
 <script>
 import BaseOverlaySuccess from '@/components/BaseOverlaySuccess.vue';
 import SnackBar from '@/components/SnackBar.vue';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import vhFix from '@/mixins/vhFix.js';
 import cookie from '@/utils/cookie';
+import DrawerAuth from '@/components/auth/DrawerAuth';
 
 export default {
   name: 'App',
@@ -66,14 +69,22 @@ export default {
     };
   },
   mixins: [vhFix],
-  components: { BaseOverlaySuccess, SnackBar },
+  components: { BaseOverlaySuccess, SnackBar, DrawerAuth },
   computed: {
+    ...mapGetters('global', ['isDrawerOpenAuthGet']),
     ...mapGetters('overlay', {
       overlayModel: 'model'
     })
   },
   watch: {
     $route(to, from) {
+      // disable transition from meta of routes, e.g. {pageTransition: {from: false}}
+      const specialTransition = this.getSpecialTransitions(to, from);
+      if (specialTransition) {
+        this.transitionName = specialTransition;
+        return;
+      }
+
       const toDepth = to.path.split('/').length;
       const fromDepth = from.path.split('/').length;
       this.transitionName =
@@ -90,6 +101,23 @@ export default {
     }
   },
   methods: {
+    ...mapActions('global', ['isDrawerOpenAuthUpdate']),
+    getSpecialTransitions(to, from) {
+      const list = [
+        {
+          from: 'MyAccountEmpty',
+          to: 'MyAccount',
+          transition: 'none'
+        }
+      ];
+      const transitionItem = list.find(item => {
+        return item.to === to.name && item.from === from.name;
+      });
+      if (transitionItem) {
+        return transitionItem.transition;
+      }
+      return null;
+    },
     setSnackBarCookie() {
       this.showPrivacySnackBar = false;
       // set cookie with name 'snackbar'. Set value to 1 which means true. Set expiration to 7 days.

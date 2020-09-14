@@ -5,7 +5,7 @@
   >
     <img
       class="upload-img--dimension object-cover object-center w-full h-full cursor-pointer"
-      :src="props.file.url"
+      :src="props.thumbnail || props.file.url"
     />
   </a>
 </template>

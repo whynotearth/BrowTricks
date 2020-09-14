@@ -7,12 +7,10 @@
     >
       <section
         @click.stop=""
-        class="drawer-card fixed inset-x-0 bottom-0 bg-surface text-on-surface z-30 shadow-16dp rounded-t-xl cursor-default"
+        class="drawer-card fixed inset-x-0 bottom-0 bg-surface text-on-surface z-30 shadow-16dp rounded-t-xl cursor-default flex flex-col"
       >
         <header class="flex justify-center relative pt-4 pb-6">
-          <h2
-            class="tg-caption-bold-mobile text-on-surface text-opacity-medium"
-          >
+          <h2 class="tg-caption-bold-mobile text-on-surface text-opacity-high">
             {{ title }}
           </h2>
           <a
@@ -26,7 +24,7 @@
             />
           </a>
         </header>
-        <DrawerContent>
+        <DrawerContent class="flex-grow flex h-full">
           <slot />
         </DrawerContent>
       </section>
@@ -35,15 +33,15 @@
 </template>
 
 <script>
-import noPageScrollbar from '@/utils/noPageScrollbarMixin.js';
+import noPageScrollbar from '@/utils/noPageScrollbarMixin';
 import IconClose from '@/assets/icons/close.svg';
 
 const DrawerContent = {
+  mixins: [noPageScrollbar],
   name: 'DrawerContent',
   render: function(createElement) {
     return createElement('div', this.$slots.default);
-  },
-  mixins: [noPageScrollbar]
+  }
 };
 
 export default {

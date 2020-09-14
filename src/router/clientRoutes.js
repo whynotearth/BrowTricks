@@ -35,7 +35,7 @@ export const clientRoutes = [
     meta: {
       noNavigation: true,
       layout: WithTitleBarLayout,
-      title: 'Upload',
+      title: 'Portfolio Upload',
       backRoute: { name: 'TenantHome' }
     }
   },
@@ -45,6 +45,7 @@ export const clientRoutes = [
     props: true,
     component: () => import('@/views/Client.vue'),
     meta: {
+      // TODO: remove layout line, has no effect on pages
       layout: WithTitleBarLayout,
       title: 'Client Profile',
       backRoute: { name: 'ClientList' }
@@ -58,11 +59,7 @@ export const clientRoutes = [
         meta: {
           layout: WithTitleBarLayout,
           title: 'Client Profile',
-          backRoute: { name: 'ClientList' },
-          menuItems: [
-            { itemName: 'Pmu', routeName: 'PmuSign' },
-            { itemName: 'Notes', routeName: 'ClientNotes' }
-          ]
+          backRoute: { name: 'ClientList' }
         }
       },
       {

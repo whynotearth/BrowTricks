@@ -104,26 +104,18 @@ export default {
   methods: {
     ...mapActions('client', ['updateClient', 'fetchClient']),
     ...mapActions('uploader', ['uploadedFilesUpdate']),
-    async _fetchClient() {
-      this.client = await this.fetchClient({
-        params: {
-          clientId: this.clientId,
-          tenantSlug: this.tenantSlug
-        }
-      }).catch(() => {
-        console.log('error in getting client');
-      });
-    },
     updateFiles(files) {
-      console.log('files before updatefiles', files);
+      const optionalClientId = this.$route.params.clientId;
       const filesAdapted = files.map(item => ({
         ...item,
         url: item.url,
         publicId: item.publicId
       }));
       this.uploadedFilesUpdate(filesAdapted);
-      console.log('files after', filesAdapted);
-      this.$router.push({ name: 'ClientUpload' });
+      this.$router.push({
+        name: 'ClientUpload',
+        query: { clientId: optionalClientId }
+      });
     }
   }
 };

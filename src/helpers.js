@@ -1,10 +1,14 @@
 import router from '@/router';
 import store from '@/store';
+import { format, utcToZonedTime } from 'date-fns-tz';
 
-export function randomId() {
-  return Math.random()
-    .toString()
-    .substr(2);
+export function randomId(len = 16) {
+  return (
+    1 +
+    Math.random()
+      .toString()
+      .substr(2, len - 1)
+  );
 }
 
 export function timeFormat(time, format = '12h') {
@@ -101,10 +105,10 @@ export function transformCloudinaryUrl(resourceUrl, transformations) {
   return urlParts.join('/');
 }
 
-export function getCloudinaryVideoThumbnail(file) {
-  const urlSegments = file.url.split('.');
+export function getCloudinaryThumbnail(url) {
+  const urlSegments = url.split('.');
   const extension = urlSegments[urlSegments.length - 1];
-  const thumbnail = file.url.replace(new RegExp(extension + '$'), 'jpg');
+  const thumbnail = url.replace(new RegExp(extension + '$'), 'jpg');
   return thumbnail;
 }
 
@@ -164,13 +168,25 @@ function _shareOld(jsonfile) {
 }
 
 export function cloudinaryFileToMeredithFileAdapter(cloudinaryFileInfo) {
-  const resourceType = cloudinaryFileInfo.resource_type;
+  const resourceType =
+    cloudinaryFileInfo.format === 'pdf'
+      ? 'pdf'
+      : cloudinaryFileInfo.resource_type;
+
+  if (resourceType === 'pdf') {
+    const { secure_url, public_id } = cloudinaryFileInfo;
+    return {
+      resourceType,
+      publicId: public_id,
+      url: secure_url
+    };
+  }
 
   // image type
   if (resourceType === 'image') {
     const { secure_url, height, width, public_id } = cloudinaryFileInfo;
     return {
-      resourceType: 'image',
+      resourceType,
       height,
       width,
       publicId: public_id,
@@ -202,9 +218,40 @@ export function cloudinaryFileToMeredithFileAdapter(cloudinaryFileInfo) {
   }
 }
 
-export function disableScrollbar() {
-  document.body.classList.add('overflow-hidden');
+export function disableBodyClass(className) {
+  document.body.classList.remove(className);
 }
-export function enableScrollbar() {
-  document.body.classList.remove('overflow-hidden');
+export function enableBodyClass(className) {
+  document.body.classList.add(className);
+}
+
+const _formatDateTimeDefaultOptions = {
+  dateFormat: 'MMM dd, yyyy - h:mm a',
+  timeZone: _getUserTimeZone()
+};
+
+export function formatDateTime(
+  dateString,
+  {
+    dateFormat = 'MMM dd, yyyy - h:mm a',
+    timeZone = _getUserTimeZone()
+  } = _formatDateTimeDefaultOptions
+) {
+  if (!dateString) {
+    return '';
+  }
+
+  // Fix DotNet backward compatibility of not including 'Z' at the end of UTC date
+  let _dateString = dateString;
+  if (_dateString.charAt(_dateString.length - 1) !== 'Z') {
+    _dateString = `${_dateString}Z`;
+  }
+
+  const dateObject = new Date(_dateString);
+  const dateObjectZoned = utcToZonedTime(dateObject, timeZone);
+  return format(dateObjectZoned, dateFormat);
+}
+
+function _getUserTimeZone() {
+  return Intl.DateTimeFormat().resolvedOptions().timeZone;
 }

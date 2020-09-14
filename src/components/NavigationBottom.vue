@@ -2,11 +2,10 @@
   <div>
     <nav class="flex w-full fixed bottom-0 bg-transparent z-30">
       <div class="flex flex-auto">
-        <div class=" bg-primary flex-1"></div>
-        <div class="container">
-          <div class="flex relative">
+        <div class="w-full">
+          <div class="flex relative bg-primary">
             <ul
-              class="wrapper flex-auto flex text-left justify-around items-center menu list-none bg-primary tg-caption-mobile"
+              class="link-items max-w-4xl mx-auto wrapper flex-auto flex text-left justify-around items-center menu list-none tg-caption-mobile select-none"
             >
               <li class="text-on-primary text-opacity-high link-item">
                 <router-link
@@ -18,7 +17,11 @@
                   <span>Home</span>
                 </router-link>
               </li>
-              <li class="text-on-primary text-opacity-high link-item">
+
+              <li
+                v-if="hasActiveTenant"
+                class="text-on-primary text-opacity-high link-item"
+              >
                 <router-link
                   class="navigation--link block"
                   :to="{ name: 'ClientList' }"
@@ -28,38 +31,95 @@
                   <span>Clients</span>
                 </router-link>
               </li>
+              <li
+                v-else
+                disabled
+                class="text-on-primary text-opacity-high link-item"
+              >
+                <a class="navigation--link block">
+                  <IconUser class="m-auto mb-2 w-5 h-5" />
+                  <span>Clients</span>
+                </a>
+              </li>
 
-              <li class="text-on-primary text-opacity-high">
+              <li
+                v-if="hasActiveTenant"
+                class="text-on-primary text-opacity-high"
+              >
                 <a
                   tabindex="0"
                   class="flex items-center cursor-pointer"
-                  @click="isOpenDrawerUpload = true"
+                  @click="isOpenDrawerUploadUpdate(true)"
                 >
                   <div
                     class="rounded-xl h-10 w-14 flex items-center justify-center bg-secondary
                 shadow-6dp mx-auto"
                   >
-                    <IconAdd class="m-auto fill-current text-on-secondary" />
+                    <IconCameraPlus
+                      class="m-auto fill-current text-on-secondary"
+                    />
                   </div>
                 </a>
               </li>
-
-              <li class="text-on-primary text-opacity-high link-item">
-                <router-link
-                  class="navigation--link block"
-                  :to="{ name: 'TenantPmuSetup' }"
-                  exact
-                >
-                  <IconDocument class="m-auto mb-2 w-5 h-5" />
-                  <span>PMU Forms</span>
-                </router-link>
+              <li v-else disabled class="text-on-primary text-opacity-high">
+                <div class="flex items-center">
+                  <div
+                    class="rounded-xl h-10 w-14 flex items-center justify-center bg-secondary
+                shadow-6dp mx-auto"
+                  >
+                    <IconCameraPlus
+                      class="m-auto fill-current text-on-secondary"
+                    />
+                  </div>
+                </div>
               </li>
 
-              <li class="text-on-primary text-opacity-high link-item">
+              <li
+                v-if="hasActiveTenant"
+                class="text-on-primary text-opacity-high link-item"
+              >
                 <router-link
                   class="navigation--link block"
-                  :to="{ name: 'TenantHome' }"
+                  :to="{ name: 'FormTemplates' }"
+                >
+                  <IconDocument class="m-auto mb-2 w-5 h-5" />
+                  <span>Forms</span>
+                </router-link>
+              </li>
+              <li
+                v-else
+                disabled
+                class="text-on-primary text-opacity-high link-item"
+              >
+                <a class="navigation--link block">
+                  <IconDocument class="m-auto mb-2 w-5 h-5" />
+                  <span>Forms</span>
+                </a>
+              </li>
+
+              <!-- MyAccount -->
+              <li
+                v-if="hasActiveTenant"
+                class="text-on-primary text-opacity-high link-item"
+              >
+                <router-link
+                  class="navigation--link block"
+                  :to="{ name: 'MyAccount' }"
                   exact
+                >
+                  <IconUserCircle class="m-auto mb-2 w-5 h-5" />
+                  <span>Account</span>
+                </router-link>
+              </li>
+              <!-- MyAccountEmpty -->
+              <li
+                v-else
+                disabled
+                class="text-on-primary text-opacity-high link-item"
+              >
+                <router-link
+                  class="navigation--link block"
+                  :to="{ name: 'MyAccountEmpty' }"
                 >
                   <IconUserCircle class="m-auto mb-2 w-5 h-5" />
                   <span>Account</span>
@@ -68,23 +128,23 @@
             </ul>
           </div>
         </div>
-        <div class=" bg-primary flex-1"></div>
       </div>
     </nav>
     <DrawerUpload
-      @close="isOpenDrawerUpload = false"
-      :isOpen="isOpenDrawerUpload"
+      @close="isOpenDrawerUploadUpdate(false)"
+      :isOpen="isOpenDrawerUploadGet"
     ></DrawerUpload>
   </div>
 </template>
 
 <script>
-import IconAdd from '@/assets/icons/add.svg';
+import IconCameraPlus from '@/assets/icons/camera-plus.svg';
 import IconHome from '@/assets/icons/home.svg';
 import IconUser from '@/assets/icons/person.svg';
 import IconUserCircle from '@/assets/icons/person-circle.svg';
 import IconDocument from '@/assets/icons/document.svg';
 import DrawerUpload from '@/components/DrawerUpload';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'NavigationBottom',
@@ -94,10 +154,22 @@ export default {
   components: {
     DrawerUpload,
     IconHome,
-    IconAdd,
+    IconCameraPlus,
     IconUser,
     IconUserCircle,
     IconDocument
+  },
+  beforeDestroy() {
+    this.isOpenDrawerUploadUpdate(false);
+  },
+  methods: {
+    ...mapActions('uploader', ['isOpenDrawerUploadUpdate'])
+  },
+  computed: {
+    ...mapGetters('uploader', ['isOpenDrawerUploadGet']),
+    hasActiveTenant() {
+      return this.$route.params.tenantSlug;
+    }
   }
 };
 </script>
@@ -129,5 +201,8 @@ export default {
 .link-item {
   min-width: 64px;
   @apply text-center;
+}
+.link-items > [disabled] {
+  @apply cursor-not-allowed;
 }
 </style>

@@ -51,7 +51,62 @@
         </template>
       </ExpansionPanel>
 
+      <!-- incompleted PMU -->
+      <ExpansionPanel
+        v-if="isPmuIncomplete"
+        @click="
+          $router.push({
+            name: 'PmuSign',
+            params: { clientId, tenantSlug }
+          })
+        "
+        title="PMU"
+        :middleText="client.pmuStatus"
+      >
+        <template #preIcon>
+          <IconDocument class="h-6 w-6 fill-current" />
+        </template>
+      </ExpansionPanel>
+
+      <!-- completed PMU -->
+      <ExpansionPanel
+        v-else
+        @click="
+          $router.push({
+            name: 'PmuSign',
+            params: { clientId, tenantSlug }
+          })
+        "
+        title="PMU"
+        :middleText="client.pmuStatus"
+      >
+        <template #preIcon>
+          <IconDocument class="h-6 w-6 fill-current" />
+        </template>
+      </ExpansionPanel>
+
+      <ExpansionPanel
+        @click="$router.push({ name: 'ClientNotes' })"
+        title="Notes"
+      >
+        <template #preIcon>
+          <IconNotes class="h-6 w-6 fill-current" />
+        </template>
+      </ExpansionPanel>
+
       <MediaManager :files="currentFiles" @change="updateFiles" class="mb-4">
+        <template #uploadButton>
+          <a
+            tabindex="0"
+            class="upload-add border border-dashed border-primary border-opacity-divider flex justify-center items-center p-4 cursor-pointer"
+            aria-label="Upload"
+            @click="isOpenDrawerUploadUpdate(true)"
+          >
+            <IconCameraPlus
+              class="fill-current text-on-background text-opacity-medium w-10 h-10"
+            />
+          </a>
+        </template>
         <template #title>
           <div class="tg-body-mobile ">
             <span class="text-on-background text-opacity-high"></span>
@@ -68,12 +123,13 @@ import ExpansionPanel from '@/components/ExpansionPanel.vue';
 import BaseHeroSection from '@/components/BaseHeroSection.vue';
 import MediaManager from '@/components/uploader/MediaManager.vue';
 
-// import IconDocument from '@/assets/icons/document.svg';
-// import IconNotes from '@/assets/icons/notes.svg';
+import IconDocument from '@/assets/icons/document.svg';
+import IconNotes from '@/assets/icons/notes.svg';
 import IconNotification from '@/assets/icons/notification.svg';
 // import IconImages from '@/assets/icons/images.svg';
 import IconMail from '@/assets/icons/mail.svg';
 import IconPhone from '@/assets/icons/phone.svg';
+import IconCameraPlus from '@/assets/icons/camera-plus.svg';
 import IconPhoneAndroid from '@/assets/icons/phone_android.svg';
 import { get } from 'lodash-es';
 import { mapActions } from 'vuex';
@@ -93,10 +149,11 @@ export default {
   components: {
     // BaseDialog,
     BaseHeroSection,
-    // IconDocument,
-    // IconNotes,
+    IconDocument,
+    IconNotes,
     IconNotification,
     // IconImages,
+    IconCameraPlus,
     IconMail,
     IconPhone,
     IconPhoneAndroid,
@@ -137,6 +194,7 @@ export default {
   },
   methods: {
     ...mapActions('client', ['updateClient', 'archiveClient', 'fetchClient']),
+    ...mapActions('uploader', ['isOpenDrawerUploadUpdate']),
     async _fetchClient() {
       this.client = await this.fetchClient({
         params: {

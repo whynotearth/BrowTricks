@@ -1,10 +1,10 @@
 <template>
   <div
-    class="container mx-auto pt-4 text-on-background text-opacity-high text-left"
+    class="mx-auto pt-4 text-on-background text-opacity-high text-left max-w-4xl"
   >
     <div class="flex text-left px-2 mb-4">
       <div class="flex-grow px-2 break-word">
-        <TextAreaInput
+        <!-- <TextAreaInput
           class="mb-4"
           v-model="$v.description.$model"
           :error="$v.description.$error"
@@ -12,14 +12,10 @@
           labelBackground="has-noise bg-background"
           rows="4"
         >
-          <p v-if="!$v.selectedClient.required">
-            Select a client please
-          </p>
-
-          <p v-else-if="!$v.description.required">
+          <p v-if="!$v.description.required">
             Description is required
           </p>
-        </TextAreaInput>
+        </TextAreaInput> -->
 
         <!-- chips -->
         <a
@@ -29,11 +25,21 @@
         >
           <BaseChip>
             <template #icon>
-              <IconUser class="fill-current text-primary w-3 h-3" />
+              <IconCheck
+                v-if="selectedClientId"
+                class="fill-current text-primary w-3 h-3"
+              />
+              <IconUser v-else class="fill-current text-primary w-3 h-3" />
             </template>
-            Client
+            Select Client
           </BaseChip>
         </a>
+        <p
+          v-if="$v.selectedClientId.$error"
+          class="text-error tg-body-mobile mt-2 ml-4"
+        >
+          Client is required
+        </p>
       </div>
       <div class="px-2">
         <div class="image-wrapper max-w-full" v-if="file">
@@ -45,7 +51,7 @@
           <BaseVideoPreview
             v-if="file.resourceType === 'video'"
             :selectFile="() => {}"
-            :file="{ ...file, thumbnail: getCloudinaryVideoThumbnail(file) }"
+            :file="{ ...file, thumbnail: getCloudinaryThumbnail(file.url) }"
           />
         </div>
       </div>
@@ -84,26 +90,28 @@
       :isOpen="isOpenClientSelect"
       @close="isOpenClientSelect = false"
       @select="onSelectClient"
+      :selectedId="selectedClientId"
     />
   </div>
 </template>
 
 <script>
 import ClientSelectOverlay from '@/components/client/ClientSelectOverlay';
-import TextAreaInput from '@/components/inputs/TextAreaInput';
+// // import TextAreaInput from '@/components/inputs/TextAreaInput';
 import Button from '@/components/inputs/Button';
 import BaseImagePreview from '@/components/uploader/BaseImagePreview';
 import BaseVideoPreview from '@/components/uploader/BaseVideoPreview';
 import BaseChip from '@/components/BaseChip';
 import { required } from 'vuelidate/lib/validators';
 import IconUser from '@/assets/icons/person.svg';
+import IconCheck from '@/assets/icons/check.svg';
 import IconShare from '@/assets/icons/share.svg';
 import { mapGetters, mapActions } from 'vuex';
 import {
   share,
   isShareApiSupported,
   showOverlayAndRedirect,
-  getCloudinaryVideoThumbnail
+  getCloudinaryThumbnail
 } from '@/helpers.js';
 
 export default {
@@ -112,15 +120,18 @@ export default {
     isOpenClientSelect: false,
     description: '',
     file: null,
-    selectedClient: null
+    selectedClientId: null
   }),
   validations: {
-    selectedClient: {
-      required
-    },
-    description: {
+    selectedClientId: {
       required
     }
+    // description: {
+    //   required
+    // }
+  },
+  created() {
+    this.setDefaultSelectedClientId();
   },
   computed: {
     ...mapGetters('uploader', ['uploadedFilesGet']),
@@ -132,51 +143,79 @@ export default {
   components: {
     ClientSelectOverlay,
     Button,
-    TextAreaInput,
+    // TextAreaInput,
     IconUser,
+    IconCheck,
     BaseChip,
     IconShare,
     BaseImagePreview,
     BaseVideoPreview
   },
   beforeDestroy() {
-    console.log('clear uploadedFiles store state');
     this.uploadedFilesUpdate([]);
   },
   beforeMount() {
-    if (!this.uploadedFilesGet[0]) {
-      alert('No uploaded file.');
-      this.$router.push({ name: 'TenantHome' });
-    }
-    this.file = this.uploadedFilesGet[0];
+    this.checkUploadedFileExistance();
+    this.isOpenDrawerUploadUpdate(false);
   },
   methods: {
-    ...mapActions('client', ['updateClient']),
-    ...mapActions('uploader', ['uploadedFilesUpdate']),
+    ...mapActions('client', ['updateClient', 'fetchClient']),
+    ...mapActions('uploader', [
+      'uploadedFilesUpdate',
+      'isOpenDrawerUploadUpdate'
+    ]),
     share,
-    getCloudinaryVideoThumbnail,
-    onSelectClient(client) {
-      this.selectedClient = client;
-
-      this.description =
-        this.description + client.firstName + ' ' + client.lastName;
+    getCloudinaryThumbnail,
+    checkUploadedFileExistance() {
+      if (!this.uploadedFilesGet[0]) {
+        alert('No uploaded file.');
+        this.$router.push({ name: 'TenantHome' });
+        return;
+      }
+      this.file = this.uploadedFilesGet[0];
     },
-    submit() {
+    setDefaultSelectedClientId() {
+      if (!this.$route.query.clientId) {
+        return;
+      }
+      this.selectedClientId = this.$route.query.clientId;
+    },
+    onSelectClient(client) {
+      this.selectedClientId = client.id;
+    },
+    async submit() {
       this.$v.$touch();
       if (this.$v.$invalid) {
         return;
       }
 
-      const clientId = this.selectedClient.id;
-      const client = this.selectedClient;
+      let client;
+      try {
+        client = await this.fetchClient({
+          params: {
+            clientId: this.selectedClientId,
+            tenantSlug: this.tenantSlug
+          }
+        });
+      } catch (error) {
+        alert('Error in getting client info');
+        return;
+      }
 
+      const clientId = client.id;
       const filesAdapted = this.uploadedFilesGet.map(item => ({
         ...item,
         url: item.url,
         publicId: item.publicId
       }));
-      const images = filesAdapted.filter(item => item.resourceType === 'image');
-      const videos = filesAdapted.filter(item => item.resourceType === 'video');
+      const images = [
+        ...client.images,
+        ...filesAdapted.filter(item => item.resourceType === 'image')
+      ];
+      const videos = [
+        ...client.videos,
+        ...filesAdapted.filter(item => item.resourceType === 'video')
+      ];
       const updatedInfo = {
         ...client,
         images,
