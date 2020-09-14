@@ -1,7 +1,7 @@
 <template>
   <div
     id="app"
-    class="min-h-vh100 h-full text-center font-sans bg-background has-noise text-on-background"
+    class="min-h-vh100 h-full text-center font-sans bg-background has-noise text-on-background overflow-x-hidden"
   >
     <component :is="$route.meta.layout || 'div'" class="h-full min-h-vh100">
       <transition :name="transitionName">
