@@ -59,6 +59,7 @@ export default {
     this.init();
   },
   data: () => ({
+    pmuFormTemplate: null,
     client: null
   }),
   computed: {
@@ -87,8 +88,25 @@ export default {
       'pmuSignNotify',
       'pmuPreSignPreview'
     ]),
+    ...mapActions('formTemplate', ['templatesFetch']),
     async init() {
+      this.getPmuFormTemplate();
       this._fetchClient();
+    },
+    async getPmuFormTemplate() {
+      let formTemplates;
+      try {
+        formTemplates = await this.templatesFetch({
+          params: {
+            tenantSlug: this.tenantSlug
+          }
+        });
+        this.pmuFormTemplate = formTemplates.find(
+          template => template.type === 'disclosure'
+        );
+      } catch (error) {
+        console.log('Error in finding a template', error);
+      }
     },
     async _fetchClient() {
       this.client = await this.fetchClient({
@@ -120,7 +138,11 @@ export default {
       });
     },
     async submit() {
-      this.$router.push({ name: 'PmuSignFlow' });
+      const templateId = this.pmuFormTemplate && this.pmuFormTemplate.id;
+      if (!templateId) {
+        return;
+      }
+      this.$router.push({ name: 'PmuSignFlow', params: { templateId } });
     }
   }
 };

@@ -20,6 +20,7 @@ export const adaptModelTemplateToApi = template => {
     draft: undefined,
     createdAt: undefined,
     items,
+    // FIXME: set disclosure when it's the first time
     type: template.type || 'custom'
   };
 };

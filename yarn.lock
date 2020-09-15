@@ -1524,12 +1524,21 @@
     "@webassemblyjs/wast-parser" "1.9.0"
     "@xtuc/long" "4.2.2"
 
-"@whynotearth/meredith-axios@^1.0.51":
-  version "1.0.51"
-  resolved "https://registry.yarnpkg.com/@whynotearth/meredith-axios/-/meredith-axios-1.0.51.tgz#fdf7968d511f0408dd637af20935e3d5cc47ac27"
-  integrity sha512-6r+xk02rf/0JAokcdOwmDOafvZ8kw2vGeOKfRcxNbHj1btXy8gEL6n70ifg9V2vl9PNv+D45uAbZWxBfnr+2vQ==
+"@whynotearth/meredith-axios@^1.0.52":
+  version "1.0.52"
+  resolved "https://registry.yarnpkg.com/@whynotearth/meredith-axios/-/meredith-axios-1.0.52.tgz#386fba1faa1fefb3e5744414e475fd605cbb79ee"
+  integrity sha512-7xZBqs0ug9BI3eOIzKIztyk7Xq4fRYkjGOtFuwNXTR55uBYmtSgc8hVvb/b7rLo1aZ/M7LiDjM3L6Kyd/GmeHA==
   dependencies:
     swagger-axios-codegen "^0.10.3"
+
+"@whynotearth/vue-flow-form@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@whynotearth/vue-flow-form/-/vue-flow-form-0.0.2.tgz#29a66066bf3a942e0389723b80acdb5674221967"
+  integrity sha512-7f4aiKY4xc66IgJuDXMtTQya4UF7PSxReYWuAhTrWcll4w7C8GnI8QtzSv5BzpWaFn20ucHc2QEYPh4CDTMRtw==
+  dependencies:
+    es6-object-assign "^1.1.0"
+    vue-textarea-autosize "^1.1.1"
+    vue-the-mask "^0.11.1"
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
@@ -2815,7 +2824,7 @@ core-js-compat@^3.6.2, core-js-compat@^3.6.5:
     browserslist "^4.8.5"
     semver "7.0.0"
 
-core-js@^2.4.0:
+core-js@^2.4.0, core-js@^2.6.5:
   version "2.6.11"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.11.tgz#38831469f9922bded8ee21c9dc46985e0399308c"
   integrity sha512-5wjnpaT/3dV+XB4borEsnAYQchn00XSgTAWKDkEqv+K8KevjbzmofK6hfJ9TZIlpj2N0xQpazy7PiRQiWHqzWg==
@@ -3544,6 +3553,11 @@ es-to-primitive@^1.2.1:
     is-callable "^1.1.4"
     is-date-object "^1.0.1"
     is-symbol "^1.0.2"
+
+es6-object-assign@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/es6-object-assign/-/es6-object-assign-1.1.0.tgz#c2c3582656247c39ea107cb1e6652b6f9f24523c"
+  integrity sha1-wsNYJlYkfDnqEHyx5mUrb58kUjw=
 
 escalade@^3.0.1:
   version "3.0.1"
@@ -8687,6 +8701,18 @@ vue-template-es2015-compiler@^1.9.0:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
+
+vue-textarea-autosize@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/vue-textarea-autosize/-/vue-textarea-autosize-1.1.1.tgz#fcf1e1523c4eaebfdfeaaa5f5c5aeb92ca7c80f2"
+  integrity sha512-B33Mg5ZDEfj/whhoPBLg25qqAdGHGM2NjDT99Qi5MXRyeLmXb4C3s6EprAHqy3nU0cooWXFU+IekI5DpoEbnFg==
+  dependencies:
+    core-js "^2.6.5"
+
+vue-the-mask@^0.11.1:
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/vue-the-mask/-/vue-the-mask-0.11.1.tgz#91ee01008354ae57bccc79bb61b65f32d971d9d5"
+  integrity sha512-UquSfnSWejD0zAfcD+3jJ1chUAkOAyoxya9Lxh9acCRtrlmGcAIvd0cQYraWqKenbuZJUdum+S174atv2AuEHQ==
 
 vue@^2.5.2, vue@^2.6, vue@^2.6.11:
   version "2.6.11"

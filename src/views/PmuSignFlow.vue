@@ -1,253 +1,105 @@
 <template>
-  <div class="">
-    <link
-      href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap"
-      rel="stylesheet"
+  <div v-if="isReady">
+    <flow-form
+      v-on:submit="onSubmit"
+      v-on:complete="onComplete"
+      v-bind:questions="questions"
+      v-bind:language="language"
     />
+
     <div
-      class="min-h-screen bg-background w-full flex flex-col justify-between"
+      v-if="errorMessage"
+      class="max-w-4xl mx-auto px-3 text-error tg-body-mobile"
     >
-      <div>
-        <StepperTop :navigation="navigation" :page="step + 1" />
-        <div class="my-4 max-w-4xl mx-auto px-4 pt-4">
-          <transition name="fade" mode="out-in">
-            <keep-alive>
-              <component
-                v-bind="componentProps"
-                :is="componentName"
-                :ref="componentName"
-                @nextStep="nextStep"
-                @answerUpdate="answerUpdate"
-              ></component>
-            </keep-alive>
-          </transition>
-          <div v-if="errors" class="px-4 text-error text-xs">
-            <div v-for="(error, key) in errors" :key="key">
-              <p v-for="(detail, key) in error" :key="key">{{ detail }}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <StepperBottom
-        :page="step + 1"
-        :nextStepText="step === navigation.length - 1 ? 'Finish' : 'Continue'"
-        @previousStep="previousStep"
-        @nextStep="nextStep"
-        :firstPageStepBack="true"
-      />
+      {{ errorMessage }}
     </div>
   </div>
 </template>
 
 <script>
-import StepperTop from '@/components/BaseStepperTopBar';
-import StepperBottom from '@/components/BaseStepperBottomBar';
-import BusinessInfo from '@/components/tenant/BusinessInfo';
-import StepContentHTML from '@/components/pmu/StepContentHtml';
-import StepQuestion from '@/components/pmu/StepQuestion';
-import PmuPreSignPreview from '@/components/pmu/PmuPreSignPreview';
-import {
-  // defaultNavigationSteps,
-  tenantQuestionsNavigationSteps
-} from '@/services/pmu.js';
-import { mapActions, mapGetters } from 'vuex';
-import { showOverlayAndRedirect } from '@/helpers.js';
+// import { adaptApiQuestionsToModel } from '@/services/pmu.js';
+import FlowForm, { LanguageModel } from '@whynotearth/vue-flow-form';
+import { mapActions } from 'vuex';
+import { adaptApiQuestionsToModel } from '@/services/pmu.js';
+import { get, isArray } from 'lodash-es';
 
 export default {
-  name: 'PmuSignFlow',
-  components: {
-    StepperTop,
-    StepperBottom,
-    BusinessInfo,
-    StepContentHTML,
-    StepQuestion,
-    PmuPreSignPreview
-  },
+  name: 'example',
   props: ['tenantSlug', 'clientId'],
-  data() {
-    return {
-      step: null,
-      navigationPart3: [],
-      result: {
-        answers: [
-          // {
-          //   questionId: 0,
-          //   answer: ''
-          // }
-        ]
-      },
-      errors: null
-    };
+  components: {
+    FlowForm
   },
   created() {
-    // NOTE: for development, you can set this to every step you need to debug
-    this.stepUpdate(0);
-    this.prepareTenantQuestions();
+    this.init();
   },
-  computed: {
-    ...mapGetters('tenant', ['pmuDisclosuresGet']),
-    componentName() {
-      return this.navigation[this.step].componentName;
-    },
-    componentProps() {
-      return this.navigation[this.step].componentProps;
-    },
-    navigation() {
-      return [
-        // ...this.navigationPart1,
-        // ...this.navigationPart2,
-        ...this.navigationPart3,
-        ...this.navigationPart4
-      ];
-    },
-    // navigationPart1() {
-    //   return defaultNavigationSteps({ signature: this.result.signature });
-    // },
-    // navigationPart2() {
-    //   if (this.navigationPart3.length > 0) {
-    //     return [
-    //       {
-    //         slug: 'tenant-questions',
-    //         name: 'Tenant Questions',
-    //         componentName: 'StepContentHTML',
-    //         componentProps: {
-    //           content:
-    //             'Boise Brow Queen has some additional questions for their services:'
-    //         }
-    //       }
-    //     ];
-    //   }
-    //   return [];
-    // },
-    navigationPart4() {
-      return [
-        {
-          onNext: this.submit,
-          slug: 'review-sign-submit',
-          name: 'Review & Sign',
-          componentName: 'PmuPreSignPreview',
-          componentProps: {
-            title: 'Agree and Sign?',
-            clientId: this.clientId,
-            tenantSlug: this.tenantSlug
-          }
-        }
-      ];
-    }
+  data() {
+    return {
+      errorMessage: '',
+      isReady: false,
+      language: new LanguageModel({
+        // Your language definitions here (optional).
+        // You can leave out this prop if you want to use the default definitions.
+      }),
+      questions: []
+    };
   },
   methods: {
-    // ...mapActions('pmu', [
-    //   'fetchQuestions',
-    //   'submitAnswers',
-    //   'getSignUrl',
-    //   'submitSign'
-    // ]),
-    ...mapActions('tenant', ['pmuDisclosuresFetch']),
+    ...mapActions('formTemplate', ['templateFetch']),
     ...mapActions('client', ['pmuSignAnswers']),
-    async prepareTenantQuestions() {
-      await this.pmuDisclosuresFetch({
-        params: { tenantSlug: this.tenantSlug }
-      });
-      this.navigationPart3 = this.pmuDisclosuresGet.map((item, index) =>
-        tenantQuestionsNavigationSteps(item, index)
-      );
-    },
-    stepUpdate(step) {
-      this.step = step;
-      const newRoute = this.navigation[step];
-      if (this.$route.params.stepSlug === newRoute.slug) {
-        // current route is correct
-        return;
-      }
-
-      this.$router
-        .push({
-          name: 'PmuSignFlow',
-          params: { stepSlug: newRoute.slug }
-        })
-        .catch(() => {});
-    },
-    answerUpdate({ field, value }) {
-      if (field.noSave) {
-        return;
-      }
-      // handle tenant questions
-      // -----------------------
-      if (field.data && field.data.isTenantQuestion) {
-        const questionId = field.data.questionId;
-        const currentAnswerIndex = this.result.answers.findIndex(
-          item => item.questionId === questionId
-        );
-        if (currentAnswerIndex > -1) {
-          this.result.answers.splice(currentAnswerIndex, 1);
+    async init() {
+      this.errorMessage = '';
+      const templateId = this.$route.params.templateId;
+      const template = await this.templateFetch({
+        params: {
+          tenantSlug: this.tenantSlug,
+          templateId
         }
-        this.result.answers.push({
-          questionId,
-          answer: value
-        });
-      }
-      // handle others
-      // -------------
-      else {
-        this.result[field.name] = value;
-      }
+      });
+      const questions = template.items;
+      this._adaptApiQuestionsToModel(questions);
     },
-    previousStep() {
-      if (this.step > 0) {
-        this.stepUpdate(this.step - 1);
-        return;
-      }
-      this.$router.push({ name: 'PmuSign' });
+    _adaptApiQuestionsToModel(questions) {
+      this.questions = adaptApiQuestionsToModel(questions);
+      this.isReady = true;
     },
-    async nextStep() {
-      const valid = this.validateStep(this.step);
-      if (!valid) {
-        return;
-      }
+    onSubmit(questionList) {
+      // This method will only be called if you don't override the
+      // completeButton slot.
+      console.log('quesitonList', questionList);
+      const payload = {
+        answers: questionList.map(question => {
+          return {
+            formItemId: question.questionId,
+            value: isArray(question.answer)
+              ? question.answer
+              : [question.answer]
+          };
+        })
+      };
 
-      const onNext = this.navigation[this.step].onNext;
-      if (onNext) {
-        await onNext();
-      }
-
-      const isLastStep = this.step === this.navigation.length - 1;
-      if (isLastStep) return;
-      this.stepUpdate(this.step + 1);
-    },
-    validateStep(step) {
-      let valid = true;
-      const stepComponentRef = this.$refs[this.navigation[step].componentName];
-      const hasComponentValidation = !!stepComponentRef.$v;
-      if (hasComponentValidation) {
-        // trigger validation touch
-        stepComponentRef.$v.$touch();
-        valid = !stepComponentRef.$v.$invalid;
-      }
-      return valid;
-    },
-    async submit() {
+      console.log('submit payload:', payload);
       this.pmuSignAnswers({
         params: {
           clientId: this.clientId,
-          tenantSlug: this.tenantSlug
+          tenantSlug: this.tenantSlug,
+          body: payload
         }
-      })
-        .then(async () => {
-          showOverlayAndRedirect({
-            title: 'Success!',
-            message: 'Signed successfully!',
-            route: { name: 'PmuSign' },
-            params: {
-              clientId: this.clientId,
-              tenantSlug: this.tenantSlug
-            }
-          });
-        })
-        .catch(error => {
-          alert('Something went wrong in sign process.');
-          console.log(error);
-        });
+      }).catch(error => {
+        this.errorMessage = get(
+          error,
+          'response.data.message',
+          'Something went wrong, Answers NOT submitted!'
+        );
+      });
+    },
+    onComplete() {
+      console.log('on complete');
     }
   }
 };
 </script>
+
+<style scoped>
+@import '~@whynotearth/vue-flow-form/dist/vue-flow-form.css';
+@import '~@whynotearth/vue-flow-form/dist/vue-flow-form.theme-minimal.css';
+</style>
