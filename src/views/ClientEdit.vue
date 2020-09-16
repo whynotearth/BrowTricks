@@ -53,32 +53,14 @@
 
       <!-- incompleted PMU -->
       <ExpansionPanel
-        v-if="isPmuIncomplete"
         @click="
           $router.push({
             name: 'PmuSignTemplateSelector',
             params: { clientId, tenantSlug }
           })
         "
-        title="PMU"
-        :middleText="client.pmuStatus"
-      >
-        <template #preIcon>
-          <IconDocument class="h-6 w-6 fill-current" />
-        </template>
-      </ExpansionPanel>
-
-      <!-- completed PMU -->
-      <ExpansionPanel
-        v-else
-        @click="
-          $router.push({
-            name: 'PmuSignPreview',
-            params: { clientId, tenantSlug }
-          })
-        "
-        title="PMU"
-        :middleText="client.pmuStatus"
+        title="PMU Forms"
+        :middleText="pmuMiddleText"
       >
         <template #preIcon>
           <IconDocument class="h-6 w-6 fill-current" />
@@ -173,11 +155,9 @@ export default {
     this._fetchClient();
   },
   computed: {
-    isPmuIncomplete() {
-      if (!this.client) {
-        return false;
-      }
-      return this.client.pmuStatus === 'incomplete';
+    pmuMiddleText() {
+      const completedPmuCount = get(this.client, 'signatures', []).length;
+      return `Completed: ${completedPmuCount}`;
     },
     currentFiles() {
       return [

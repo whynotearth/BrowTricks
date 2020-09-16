@@ -17,6 +17,7 @@ import FormTemplateFieldText from '@/components/formTemplate/FormTemplateFieldTe
 import FormTemplateFieldMultipleChoice from '@/components/formTemplate/FormTemplateFieldMultipleChoice';
 import FormTemplateFieldUpload from '@/components/formTemplate/FormTemplateFieldUpload';
 import { mapActions, mapGetters } from 'vuex';
+import { showOverlayAndRedirect } from '@/helpers.js';
 
 export default {
   name: 'FormTemplateFieldEdit',
@@ -105,10 +106,14 @@ export default {
       }
     },
     redirectBack(templateId) {
-      this.$router.push({
-        name: 'FormTemplateItemEdit',
-        params: { formId: templateId },
-        query: { refresh: 1 }
+      showOverlayAndRedirect({
+        title: 'Success!',
+        message: 'Form template saved!',
+        route: {
+          name: 'FormTemplateItemEdit',
+          params: { formId: templateId },
+          query: { refresh: 1 }
+        }
       });
     }
   }
