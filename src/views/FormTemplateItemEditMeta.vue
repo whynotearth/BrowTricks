@@ -88,7 +88,7 @@ export default {
         message: 'Form template saved!',
         route: {
           name: 'FormTemplateItemEdit',
-          params: { formId: templateId },
+          params: { formId: templateId || this.$route.params.formId },
           query: { refresh: 1 }
         }
       });

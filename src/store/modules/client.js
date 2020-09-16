@@ -114,7 +114,7 @@ const actions = {
     // NOTE: this is equal to tenant/pmuEmptyPreview
     return FormAnswerService.preview(params);
   },
-  pmuPreSubmitPreview(context, { params }) {
+  pmuFilledPreview(context, { params }) {
     return FormAnswerService.preview1(params);
   },
   pmuSignSubmitAnswers(context, { params }) {

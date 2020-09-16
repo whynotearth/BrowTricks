@@ -16,26 +16,27 @@
 <script>
 import { mapActions } from 'vuex';
 export default {
-  name: 'PmuFormEmptyPreview',
-  props: ['tenantSlug', 'templateId', 'title'],
+  name: 'PmuFormFilledPreview',
+  props: ['tenantSlug', 'templateId', 'title', 'clientId'],
   data: () => ({
     imagePreview: ''
   }),
   created() {
-    this._pmuEmptyPreview();
+    this._pmuFilledPreview();
   },
   methods: {
-    ...mapActions('client', ['pmuEmptyPreview']),
-    async _pmuEmptyPreview() {
-      this.imagePreview = await this.pmuEmptyPreview({
+    ...mapActions('client', ['pmuFilledPreview']),
+    async _pmuFilledPreview() {
+      this.imagePreview = await this.pmuFilledPreview({
         params: {
           tenantSlug: this.tenantSlug,
-          templateId: this.templateId
+          templateId: this.templateId,
+          clientId: this.clientId
         }
       });
     },
     init() {
-      this._pmuEmptyPreview();
+      this._pmuFilledPreview();
     }
   }
 };

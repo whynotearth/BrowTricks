@@ -1,5 +1,7 @@
 // types are: image,pdf,agreement_request,text_response,text,checklist,multiple_choice,
 
+import { isArray } from 'lodash-es';
+import { getCloudinaryThumbnail } from '@/helpers.js';
 import {
   QuestionModel,
   QuestionType,
@@ -60,6 +62,18 @@ export const adaptApiQuestionsToModel = questions => {
         break;
 
       case 'pdf':
+        adapted = new QuestionModel({
+          questionId: question.id,
+          id: `question__${question.id}`,
+          title: question.value,
+          required: question.isRequired,
+          // content: 'No content',
+          // description: 'No description',
+          image: getCloudinaryThumbnail(question.options[0]),
+          type: QuestionType.SectionBreak
+        });
+        break;
+
       case 'image':
         adapted = new QuestionModel({
           questionId: question.id,
@@ -91,4 +105,15 @@ export const adaptApiQuestionsToModel = questions => {
     }
     return adapted;
   });
+};
+
+export const adaptAnswersToApi = questionList => {
+  return {
+    answers: questionList.map(question => {
+      return {
+        formItemId: question.questionId,
+        value: isArray(question.answer) ? question.answer : [question.answer]
+      };
+    })
+  };
 };

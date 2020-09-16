@@ -159,7 +159,8 @@ export default {
       }).then(async () => {
         showOverlayAndRedirect({
           title: 'Success!',
-          message: 'Client updated successfully!'
+          message: 'Client updated successfully!',
+          route: { name: 'ClientEdit' }
         });
       });
     },

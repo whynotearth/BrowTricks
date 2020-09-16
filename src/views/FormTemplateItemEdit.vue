@@ -203,7 +203,6 @@ export default {
       if (this.currentTemplateGet.draft && !this.$route.query.refresh) {
         return;
       }
-
       if (!this.$route.params.formId) {
         throw new Error('Something went wrong');
       }

@@ -8,28 +8,44 @@
       rel="stylesheet"
       href="https://unpkg.com/@ditdot-dev/vue-flow-form@1.1.0/dist/vue-flow-form.theme-minimal.min.css"
     />
-    <flow-form
+    <FlowForm
       v-if="isReady"
       v-on:submit="onSubmit"
       v-on:complete="onComplete"
       v-bind:questions="questions"
       v-bind:language="language"
-    />
-
-    <div
-      v-if="errorMessage"
-      class="max-w-4xl mx-auto px-3 text-error tg-body-mobile"
     >
-      {{ errorMessage }}
-    </div>
+      <template #complete>
+        <div class="section-wrap">
+          <div v-if="errorMessage" class="text-error tg-body-mobile">
+            {{ errorMessage }}
+          </div>
+          <div v-else>
+            <p>
+              <span class="fh2">Review and Sign</span>
+            </p>
+
+            <PmuFormFilledPreview
+              v-if="isCompleted"
+              title="Here is your PMU form:"
+              :clientId="clientId"
+              :tenantSlug="tenantSlug"
+              :templateId="templateId"
+              :answers="answers"
+            />
+          </div>
+        </div>
+      </template>
+    </FlowForm>
   </div>
 </template>
 
 <script>
 import FlowForm, { LanguageModel } from '@whynotearth/vue-flow-form';
 import { mapActions } from 'vuex';
-import { adaptApiQuestionsToModel } from '@/services/pmu.js';
-import { get, isArray } from 'lodash-es';
+import { adaptApiQuestionsToModel, adaptAnswersToApi } from '@/services/pmu.js';
+import { get } from 'lodash-es';
+import PmuFormFilledPreview from '@/components/pmu/PmuFormFilledPreview.vue';
 
 // https://github.com/ditdot-dev/vue-flow-form
 
@@ -37,19 +53,19 @@ export default {
   name: 'example',
   props: ['tenantSlug', 'clientId', 'templateId'],
   components: {
-    FlowForm
+    FlowForm,
+    PmuFormFilledPreview
   },
   created() {
     this.init();
   },
   data() {
     return {
+      isCompleted: false,
       errorMessage: '',
       isReady: false,
-      language: new LanguageModel({
-        // Your language definitions here (optional).
-        // You can leave out this prop if you want to use the default definitions.
-      }),
+      language: new LanguageModel({}),
+      answers: [],
       questions: []
     };
   },
@@ -57,6 +73,7 @@ export default {
     ...mapActions('formTemplate', ['templateFetch']),
     ...mapActions('client', ['pmuSignSubmitAnswers']),
     async init() {
+      this.isCompleted = false;
       this.errorMessage = '';
       const templateId = this.templateId;
       const template = await this.templateFetch({
@@ -75,17 +92,8 @@ export default {
     onSubmit(questionList) {
       // This method will only be called if you don't override the
       // completeButton slot.
-      console.log('quesitonList', questionList);
-      const payload = {
-        answers: questionList.map(question => {
-          return {
-            formItemId: question.questionId,
-            value: isArray(question.answer)
-              ? question.answer
-              : [question.answer]
-          };
-        })
-      };
+      console.log('questionList', questionList);
+      const payload = adaptAnswersToApi(questionList);
 
       console.log('submit payload:', payload);
       this.pmuSignSubmitAnswers({
@@ -103,8 +111,11 @@ export default {
         );
       });
     },
-    onComplete() {
-      console.log('on complete');
+    onComplete(completed, questionList) {
+      this.answers = adaptAnswersToApi(questionList);
+      console.log('this.answers', this.answers);
+      console.log('on complete', completed, questionList);
+      this.isCompleted = completed;
     }
   }
 };
