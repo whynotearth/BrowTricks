@@ -25,16 +25,31 @@
         </div>
       </div>
     </router-link>
+
+    <a tabindex="0" class="block cursor-pointer" @click.prevent="addTemplate">
+      <div class="flex justify-between items-center px-4 py-2">
+        <div class="text-on-background text-opacity-high tg-body-mobile">
+          Add Form
+        </div>
+        <div>
+          <IconAdd
+            class="fill-current text-on-background text-opacity-high w-4 h-4"
+          />
+        </div>
+      </div>
+    </a>
   </div>
 </template>
 
 <script>
 import { formatDateTime } from '@/helpers';
 import { mapActions, mapGetters } from 'vuex';
+import IconAdd from '@/assets/icons/add.svg';
 
 export default {
   name: 'PmuSignTemplateSelector',
   props: ['tenantSlug'],
+  components: { IconAdd },
   computed: {
     ...mapGetters('formTemplate', ['templatesGet'])
   },
@@ -52,6 +67,13 @@ export default {
       this.templatesFetch({
         params: { tenantSlug: this.tenantSlug }
       }).catch(() => {});
+    },
+    async addTemplate() {
+      const newForm = await this.currentTemplateReset();
+      this.$router.push({
+        name: 'FormTemplateItemEdit',
+        params: { formId: newForm.id }
+      });
     }
   }
 };
