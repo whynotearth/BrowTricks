@@ -1,8 +1,8 @@
 <template>
   <!-- TODO rename questions to disclosures (or something meaningful and more general) everywhere -->
   <div class="max-w-4xl mx-auto px-4 pt-4">
-    <div class="text-left p-2 text-on-background">
-      <template v-if="isPmuIncomplete">
+    <div class="text-left p-2 text-on-background" v-if="client">
+      <template v-if="!pmuPdfUrl">
         <Button
           v-if="shouldShowSms"
           class="rounded-full mb-6 "
@@ -19,15 +19,16 @@
         <hr class="border-divider border-opacity-divider mb-6" />
 
         <div>
-          <PmuPreSignPreview
+          <PmuFormEmptyPreview
             title="Here is your pre-set PMU form:"
             :clientId="clientId"
             :tenantSlug="tenantSlug"
+            :templateId="templateId"
           />
         </div>
       </template>
 
-      <template v-else-if="pmuPdfUrl">
+      <template v-else>
         <h2 class="tg-body-mobile py-2 text-center my-6 text-on-background">
           You have already signed the PMU
         </h2>
@@ -45,13 +46,13 @@
 <script>
 import { mapActions } from 'vuex';
 import Button from '@/components/inputs/Button.vue';
-import PmuPreSignPreview from '@/components/pmu/PmuPreSignPreview.vue';
+import PmuFormEmptyPreview from '@/components/pmu/PmuFormEmptyPreview.vue';
 import { showOverlayAndRedirect } from '@/helpers';
 
 export default {
   name: 'PmuSignPreview',
   components: {
-    PmuPreSignPreview,
+    PmuFormEmptyPreview,
     Button
   },
   props: ['tenantSlug', 'clientId', 'templateId'],
@@ -72,20 +73,15 @@ export default {
       if (!this.client) {
         return null;
       }
-      return this.client.pmuPdfUrl;
-    },
-    isPmuIncomplete() {
-      if (!this.client) {
-        return false;
-      }
-      return this.client.pmuStatus === 'incomplete';
+      // FIXME: find signed pmu with this.$route.params.templateId in client.signatures
+      return this.client.signatures[0];
     }
   },
   methods: {
     ...mapActions('client', [
       'fetchClient',
-      'pmuSignNotify',
-      'pmuPreSignPreview'
+      'pmuSendFormLink',
+      'pmuEmptyPreview'
     ]),
     ...mapActions('formTemplate', ['templatesFetch']),
     async init() {
@@ -107,10 +103,11 @@ export default {
       }).href;
       const callbackUrl = `${window.location.origin}${path}`;
       console.log('callbackUrl', callbackUrl);
-      this.pmuSignNotify({
+      this.pmuSendFormLink({
         params: {
           clientId: this.clientId,
           tenantSlug: this.tenantSlug,
+          templateId: this.templateId,
           callbackUrl
         }
       }).then(() => {

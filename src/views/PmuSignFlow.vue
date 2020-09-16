@@ -35,7 +35,7 @@ import { get, isArray } from 'lodash-es';
 
 export default {
   name: 'example',
-  props: ['tenantSlug', 'clientId'],
+  props: ['tenantSlug', 'clientId', 'templateId'],
   components: {
     FlowForm
   },
@@ -55,10 +55,10 @@ export default {
   },
   methods: {
     ...mapActions('formTemplate', ['templateFetch']),
-    ...mapActions('client', ['pmuSignAnswers']),
+    ...mapActions('client', ['pmuSignSubmitAnswers']),
     async init() {
       this.errorMessage = '';
-      const templateId = this.$route.params.templateId;
+      const templateId = this.templateId;
       const template = await this.templateFetch({
         params: {
           tenantSlug: this.tenantSlug,
@@ -88,17 +88,18 @@ export default {
       };
 
       console.log('submit payload:', payload);
-      this.pmuSignAnswers({
+      this.pmuSignSubmitAnswers({
         params: {
           clientId: this.clientId,
           tenantSlug: this.tenantSlug,
+          templateId: this.templateId,
           body: payload
         }
       }).catch(error => {
         this.errorMessage = get(
           error,
           'response.data.message',
-          'Something went wrong, Answers NOT submitted!'
+          'Something went wrong, Answers not submitted.'
         );
       });
     },
