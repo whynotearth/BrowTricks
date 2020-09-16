@@ -56,7 +56,7 @@
         v-if="isPmuIncomplete"
         @click="
           $router.push({
-            name: 'PmuSign',
+            name: 'PmuSignTemplateSelector',
             params: { clientId, tenantSlug }
           })
         "
@@ -73,7 +73,7 @@
         v-else
         @click="
           $router.push({
-            name: 'PmuSign',
+            name: 'PmuSignPreview',
             params: { clientId, tenantSlug }
           })
         "

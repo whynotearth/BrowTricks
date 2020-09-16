@@ -1,6 +1,15 @@
 <template>
-  <div v-if="isReady">
+  <div>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@ditdot-dev/vue-flow-form@1.1.0/dist/vue-flow-form.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@ditdot-dev/vue-flow-form@1.1.0/dist/vue-flow-form.theme-minimal.min.css"
+    />
     <flow-form
+      v-if="isReady"
       v-on:submit="onSubmit"
       v-on:complete="onComplete"
       v-bind:questions="questions"
@@ -17,11 +26,12 @@
 </template>
 
 <script>
-// import { adaptApiQuestionsToModel } from '@/services/pmu.js';
 import FlowForm, { LanguageModel } from '@whynotearth/vue-flow-form';
 import { mapActions } from 'vuex';
 import { adaptApiQuestionsToModel } from '@/services/pmu.js';
 import { get, isArray } from 'lodash-es';
+
+// https://github.com/ditdot-dev/vue-flow-form
 
 export default {
   name: 'example',
@@ -99,7 +109,7 @@ export default {
 };
 </script>
 
-<style scoped>
-@import '~@whynotearth/vue-flow-form/dist/vue-flow-form.css';
-@import '~@whynotearth/vue-flow-form/dist/vue-flow-form.theme-minimal.css';
+<style>
+/* @import '~@whynotearth/vue-flow-form/dist/vue-flow-form.css';
+@import '~@whynotearth/vue-flow-form/dist/vue-flow-form.theme-minimal.css'; */
 </style>

@@ -11,6 +11,7 @@ export const adaptApiQuestionsToModel = questions => {
   return questions.map(question => {
     let adapted;
     switch (question.type) {
+      case 'text':
       case 'text_response':
         adapted = new QuestionModel({
           questionId: question.id,
@@ -58,6 +59,7 @@ export const adaptApiQuestionsToModel = questions => {
         });
         break;
 
+      case 'pdf':
       case 'image':
         adapted = new QuestionModel({
           questionId: question.id,
@@ -89,17 +91,4 @@ export const adaptApiQuestionsToModel = questions => {
     }
     return adapted;
   });
-
-  // [
-  //   // QuestionModel array
-  //   new QuestionModel({
-  //     title: 'Question',
-  //     type: QuestionType.MultipleChoice,
-  //     options: [
-  //       new ChoiceOption({
-  //         label: 'Answer'
-  //       })
-  //     ]
-  //   })
-  // ]
 };

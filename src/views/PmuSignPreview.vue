@@ -49,17 +49,16 @@ import PmuPreSignPreview from '@/components/pmu/PmuPreSignPreview.vue';
 import { showOverlayAndRedirect } from '@/helpers';
 
 export default {
-  name: 'PmuSign',
+  name: 'PmuSignPreview',
   components: {
     PmuPreSignPreview,
     Button
   },
-  props: ['tenantSlug', 'clientId'],
+  props: ['tenantSlug', 'clientId', 'templateId'],
   created() {
     this.init();
   },
   data: () => ({
-    pmuFormTemplate: null,
     client: null
   }),
   computed: {
@@ -90,23 +89,7 @@ export default {
     ]),
     ...mapActions('formTemplate', ['templatesFetch']),
     async init() {
-      this.getPmuFormTemplate();
       this._fetchClient();
-    },
-    async getPmuFormTemplate() {
-      let formTemplates;
-      try {
-        formTemplates = await this.templatesFetch({
-          params: {
-            tenantSlug: this.tenantSlug
-          }
-        });
-        this.pmuFormTemplate = formTemplates.find(
-          template => template.type === 'disclosure'
-        );
-      } catch (error) {
-        console.log('Error in finding a template', error);
-      }
     },
     async _fetchClient() {
       this.client = await this.fetchClient({
@@ -138,19 +121,15 @@ export default {
       });
     },
     async submit() {
-      const templateId = this.pmuFormTemplate && this.pmuFormTemplate.id;
-      if (!templateId) {
+      if (!this.templateId) {
+        alert('Something went wrong, No template has chosen');
         return;
       }
-      this.$router.push({ name: 'PmuSignFlow', params: { templateId } });
+      this.$router.push({
+        name: 'PmuSignFlow',
+        params: { templateId: this.templateId }
+      });
     }
   }
 };
 </script>
-
-<style scoped>
-.slide {
-  align-items: flex-start;
-  @apply bg-white;
-}
-</style>

@@ -98,9 +98,21 @@ export const clientRoutes = [
 
       // PMU
       {
-        path: 'pmu-sign',
-        name: 'PmuSign',
-        component: () => import('@/views/PmuSign.vue'),
+        path: 'pmu-sign/select-template',
+        name: 'PmuSignTemplateSelector',
+        component: () => import('@/views/PmuSignTemplateSelector.vue'),
+        props: true,
+        meta: {
+          layout: WithTitleBarLayout,
+          title: 'Form Templates',
+          backRoute: { name: 'ClientEdit' }
+        }
+      },
+
+      {
+        path: 'pmu-sign/:templateId/choose-method',
+        name: 'PmuSignPreview',
+        component: () => import('@/views/PmuSignPreview.vue'),
         props: true,
         meta: {
           layout: WithTitleBarLayout,
@@ -108,8 +120,10 @@ export const clientRoutes = [
           backRoute: { name: 'ClientEdit' }
         }
       },
+
+      // flow (From Notification)
       {
-        path: 'pmu-sign-from-notify',
+        path: 'pmu-sign-fn/:templateId/flow',
         name: 'PmuSignFromNotify',
         component: () => import('@/views/PmuSignFlow.vue'),
         props: true,
@@ -121,12 +135,13 @@ export const clientRoutes = [
         }
       },
       {
-        // sign flow
-        path: 'pmu-sign/flow/:templateId',
+        // flow (No SMS)
+        path: 'pmu-sign/:templateId/flow',
         name: 'PmuSignFlow',
         component: () => import('@/views/PmuSignFlow.vue'),
         props: true
       },
+
       {
         path: 'notes',
         name: 'ClientNotes',
