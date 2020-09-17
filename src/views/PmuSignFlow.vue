@@ -8,8 +8,24 @@
       rel="stylesheet"
       href="https://unpkg.com/@ditdot-dev/vue-flow-form@1.1.0/dist/vue-flow-form.theme-minimal.min.css"
     />
+    <div
+      class="px-4 max-w-md mx-auto h-vh100 flex items-center justify-center"
+      v-if="isReady && !(questions.length > 0)"
+    >
+      <BaseCard>
+        <div class="flex flex-col">
+          <p class="text-error tg-h3-mobile mb-6">
+            This form template has no questions.
+          </p>
+
+          <div class="text-center">
+            <Button :to="{ name: 'Home' }" title="Go home page" theme="none" />
+          </div>
+        </div>
+      </BaseCard>
+    </div>
     <FlowForm
-      v-if="isReady"
+      v-else-if="isReady"
       v-on:submit="onSubmit"
       v-on:complete="onComplete"
       v-bind:questions="questions"
@@ -54,6 +70,8 @@ import { mapActions } from 'vuex';
 import { adaptApiQuestionsToModel, adaptAnswersToApi } from '@/services/pmu.js';
 import { get } from 'lodash-es';
 import PmuFormFilledPreview from '@/components/pmu/PmuFormFilledPreview.vue';
+import BaseCard from '@/components/BaseCard.vue';
+import Button from '@/components/inputs/Button.vue';
 
 // https://github.com/ditdot-dev/vue-flow-form
 
@@ -61,6 +79,8 @@ export default {
   name: 'example',
   props: ['tenantSlug', 'clientId', 'templateId'],
   components: {
+    Button,
+    BaseCard,
     FlowForm,
     PmuFormFilledPreview
   },
@@ -101,7 +121,13 @@ export default {
     onSubmit(questionList) {
       // This method will only be called if you don't override the
       // completeButton slot.
-      const payload = adaptAnswersToApi(questionList);
+
+      const path = this.$router.resolve({
+        name: 'PmuFormDownload'
+      }).href;
+      const callbackUrl = `${window.location.origin}${path}`;
+      console.log('notificationCallBackUrl', callbackUrl);
+      const payload = adaptAnswersToApi(questionList, callbackUrl);
 
       console.log('answers for api:', payload);
       this.pmuSignSubmitAnswers({

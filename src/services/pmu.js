@@ -107,8 +107,9 @@ export const adaptApiQuestionsToModel = questions => {
   });
 };
 
-export const adaptAnswersToApi = questionList => {
+export const adaptAnswersToApi = (questionList, callbackUrl) => {
   return {
+    notificationCallBackUrl: callbackUrl,
     answers: questionList.map(question => {
       return {
         formItemId: question.questionId,

@@ -44,9 +44,8 @@ export const clientRoutes = [
     name: 'Client',
     props: true,
     component: () => import('@/views/Client.vue'),
+    redirect: { name: 'ClientEdit' },
     meta: {
-      // TODO: remove layout line, has no effect on pages
-      layout: WithTitleBarLayout,
       title: 'Client Profile',
       backRoute: { name: 'ClientList' }
     },
@@ -120,7 +119,17 @@ export const clientRoutes = [
           backRoute: { name: 'ClientEdit' }
         }
       },
-
+      {
+        path: 'pmu-form-download/:templateId',
+        name: 'PmuFormDownload',
+        component: () => import('@/views/PmuFormDownload.vue'),
+        props: true,
+        meta: {
+          noNavigation: true,
+          layout: WithTitleBarLayout,
+          title: 'PMU Form Download'
+        }
+      },
       // flow (From Notification)
       {
         path: 'pmu-sign-fn/:templateId/flow',
