@@ -1,5 +1,5 @@
 import { ajax } from '@/services/ajax.js';
-import { TenantService, PmuService } from '@whynotearth/meredith-axios';
+import { TenantService, FormAnswerService } from '@whynotearth/meredith-axios';
 
 const notificationTypes = [
   // {
@@ -102,8 +102,9 @@ const getters = {
 };
 
 const actions = {
-  tenantPmuPreview(context, { params }) {
-    return PmuService.pmu(params);
+  pmuEmptyPreview(context, { params }) {
+    // NOTE: this is equal to clinet/pmuEmptyPreview
+    return FormAnswerService.preview(params);
   },
 
   createTenant({ getters }) {

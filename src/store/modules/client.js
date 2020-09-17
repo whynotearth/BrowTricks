@@ -1,7 +1,7 @@
 import {
   ClientService,
   ClientNoteService,
-  PmuService
+  FormAnswerService
 } from '@whynotearth/meredith-axios';
 
 const state = {
@@ -107,14 +107,18 @@ const actions = {
     return ClientNoteService.notes2(payload);
   },
 
-  pmuSignNotify(context, { params }) {
-    return PmuService.notify(params);
+  pmuSendFormLink(context, { params }) {
+    return FormAnswerService.notify(params);
   },
-  pmuPreSignPreview(context, { params }) {
-    return PmuService.pmu1(params);
+  pmuEmptyPreview(context, { params }) {
+    // NOTE: this is equal to tenant/pmuEmptyPreview
+    return FormAnswerService.preview(params);
   },
-  pmuSignAnswers(context, { params }) {
-    return PmuService.pmu2(params);
+  pmuFilledPreview(context, { params }) {
+    return FormAnswerService.preview1(params);
+  },
+  pmuSignSubmitAnswers(context, { params }) {
+    return FormAnswerService.answer(params);
   }
 };
 

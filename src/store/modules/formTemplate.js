@@ -49,12 +49,14 @@ const actions = {
     return FormTemplateService.formtemplates1(params).then(response => {
       const adaptedTemplates = adaptApiTemplatesToModel(response);
       context.commit('templatesUpdate', adaptedTemplates);
+      return response;
     });
   },
   templateFetch(context, { params }) {
     return FormTemplateService.formtemplates3(params).then(response => {
       const adaptedTemplate = adaptApiTemplateToModel(response);
       context.commit('currentTemplateUpdate', adaptedTemplate);
+      return response;
     });
   },
   templateDelete(context, { params, isDraft = false }) {

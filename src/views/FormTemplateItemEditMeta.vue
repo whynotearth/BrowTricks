@@ -75,19 +75,23 @@ export default {
         tenantSlug: this.tenantSlug
       })
         .then(templateId => {
-          showOverlayAndRedirect({
-            title: 'Success!',
-            message: 'Form template saved!',
-            route: {
-              name: 'FormTemplateItemEdit',
-              params: { templateId },
-              query: { refresh: 1 }
-            }
-          });
+          this.redirectBack(templateId);
         })
         .catch(() => {
           alert('Something went wrong');
         });
+    },
+
+    redirectBack(templateId) {
+      showOverlayAndRedirect({
+        title: 'Success!',
+        message: 'Form template saved!',
+        route: {
+          name: 'FormTemplateItemEdit',
+          params: { formId: templateId || this.$route.params.formId },
+          query: { refresh: 1 }
+        }
+      });
     }
   }
 };

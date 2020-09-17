@@ -19,8 +19,7 @@ export const adaptModelTemplateToApi = template => {
     id: undefined,
     draft: undefined,
     createdAt: undefined,
-    items,
-    type: template.type || 'custom'
+    items
   };
 };
 

@@ -16,26 +16,28 @@
 <script>
 import { mapActions } from 'vuex';
 export default {
-  name: 'PmuPreSignPreview',
-  props: ['clientId', 'tenantSlug', 'title'],
+  name: 'PmuFormFilledPreview',
+  props: ['tenantSlug', 'templateId', 'title', 'clientId', 'answers'],
   data: () => ({
     imagePreview: ''
   }),
   created() {
-    this._pmuPreSignPreview();
+    this._pmuFilledPreview();
   },
   methods: {
-    ...mapActions('client', ['pmuPreSignPreview']),
-    async _pmuPreSignPreview() {
-      this.imagePreview = await this.pmuPreSignPreview({
+    ...mapActions('client', ['pmuFilledPreview']),
+    async _pmuFilledPreview() {
+      this.imagePreview = await this.pmuFilledPreview({
         params: {
+          tenantSlug: this.tenantSlug,
+          templateId: this.templateId,
           clientId: this.clientId,
-          tenantSlug: this.tenantSlug
+          body: this.answers
         }
       });
     },
     init() {
-      this._pmuPreSignPreview();
+      this._pmuFilledPreview();
     }
   }
 };
