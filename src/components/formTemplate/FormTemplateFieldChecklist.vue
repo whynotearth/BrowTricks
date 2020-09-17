@@ -115,7 +115,7 @@ export default {
         $each: {
           value: {
             required,
-            minLength: minLength(2)
+            minLength: minLength(1)
           }
         }
       },
@@ -158,6 +158,8 @@ export default {
     },
 
     choiceAdd() {
+      this.$v.model.options.$reset();
+
       let choice = {
         value: null,
         key: randomId()
