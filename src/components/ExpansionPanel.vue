@@ -8,7 +8,7 @@
     v-bind="attrs"
   >
     <div class="flex">
-      <div class="flex">
+      <div class="flex" :class="leftSideClasses">
         <div
           class="icon-pre text-on-surface text-opacity-medium flex items-center"
         >
@@ -16,7 +16,8 @@
         </div>
         <slot
           ><h4
-            class="title ml-4 text-on-surface text-opacity-high min-w-expansion-panel text-left"
+            :title="title"
+            class="title ml-4 mr-4 text-on-surface text-opacity-high min-w-expansion-panel text-left"
           >
             {{ title }}
           </h4></slot
@@ -65,6 +66,10 @@ export default {
     margin: {
       type: String,
       default: 'mb-4'
+    },
+    leftSideClasses: {
+      type: String,
+      default: ''
     }
   },
   computed: {

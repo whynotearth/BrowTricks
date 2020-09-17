@@ -129,7 +129,6 @@ export const clientRoutes = [
         props: true,
         meta: {
           isPublic: true,
-          layout: WithTitleBarLayout,
           title: 'PMU Form Sign',
           backRoute: { name: 'ClientEdit' }
         }

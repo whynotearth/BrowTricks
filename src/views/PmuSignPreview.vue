@@ -3,11 +3,22 @@
   <div class="max-w-4xl mx-auto px-4 pt-4">
     <div class="text-left p-2 text-on-background" v-if="client">
       <template v-if="!pdfUrl">
+        <!-- send sms -->
         <Button
-          v-if="shouldShowSms"
+          v-if="hasPhoneNumber"
           class="rounded-full mb-6 "
           @clicked="sendSms"
           :title="`Text to ${client.phoneNumber}`"
+          :disabled="!client.phoneNumber"
+        ></Button>
+
+        <!-- disabled send sms -->
+        <Button
+          v-else
+          class="rounded-full mb-6 "
+          title="No phone number provided to send text"
+          :disabled="!client.phoneNumber"
+          theme="none"
         ></Button>
 
         <Button
@@ -43,7 +54,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapMutations } from 'vuex';
 import Button from '@/components/inputs/Button.vue';
 import PmuFormEmptyPreview from '@/components/pmu/PmuFormEmptyPreview.vue';
 import { showOverlayAndRedirect } from '@/helpers';
@@ -62,33 +73,33 @@ export default {
     client: null
   }),
   computed: {
-    shouldShowSms() {
-      if (this.$route.name === 'PmuSignFromNotify') {
-        return false;
-      }
-      return !!this.client.phoneNumber;
+    hasPhoneNumber() {
+      return this.client.phoneNumber;
     },
     pdfUrl() {
       if (!this.client) {
-        return null;
+        return undefined;
       }
       const signature = this.client.signatures.find(
         sig => sig.formTemplateId === Number(this.templateId)
       );
-      return signature.pdfUrl;
+      return signature && signature.pdfUrl;
     }
   },
   methods: {
+    ...mapMutations('loading', ['loading']),
     ...mapActions('client', [
       'fetchClient',
       'pmuSendFormLink',
       'pmuEmptyPreview'
     ]),
     ...mapActions('formTemplate', ['templatesFetch']),
-    async init() {
+    init() {
       this._fetchClient();
     },
     async _fetchClient() {
+      this.loading(true);
+
       this.client = await this.fetchClient({
         params: {
           clientId: this.clientId,
@@ -97,6 +108,8 @@ export default {
       }).catch(() => {
         alert('Error in getting client');
       });
+
+      this.loading(false);
     },
     sendSms() {
       const path = this.$router.resolve({
