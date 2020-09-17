@@ -17,8 +17,16 @@
     >
       <template #complete>
         <div class="section-wrap">
-          <div v-if="errorMessage" class="text-error tg-body-mobile">
+          <div v-if="errorMessage" class="text-error tg-h2-mobile">
             {{ errorMessage }}
+          </div>
+          <div v-else-if="isSubmitted">
+            <p>
+              <span class="fh2">Thank You!</span>
+              <span class="tg-mobile-body text-on-background"
+                >PMU successfuly submitted.</span
+              >
+            </p>
           </div>
           <div v-else>
             <p>
@@ -61,6 +69,7 @@ export default {
   },
   data() {
     return {
+      isSubmitted: false,
       isCompleted: false,
       errorMessage: '',
       isReady: false,
@@ -102,13 +111,17 @@ export default {
           templateId: this.templateId,
           body: payload
         }
-      }).catch(error => {
-        this.errorMessage = get(
-          error,
-          'response.data.message',
-          'Something went wrong, Answers not submitted.'
-        );
-      });
+      })
+        .then(() => {
+          this.isSubmitted = true;
+        })
+        .catch(error => {
+          this.errorMessage = get(
+            error,
+            'response.data.message',
+            'Something went wrong, Answers not submitted.'
+          );
+        });
     },
     onComplete(completed, questionList) {
       this.answers = adaptAnswersToApi(questionList);

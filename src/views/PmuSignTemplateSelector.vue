@@ -67,8 +67,10 @@ export default {
     ]),
     formatDateTime,
     getTemplateStatusText(templateId) {
+      console.log('templateId', templateId);
+      console.log('this.client.signatures', this.client.signatures);
       const isSigned = this.client.signatures.find(
-        sig => sig.id === Number(templateId)
+        sig => sig.formTemplateId === Number(templateId)
       );
       return isSigned ? 'Completed' : 'Incomplete';
     },
