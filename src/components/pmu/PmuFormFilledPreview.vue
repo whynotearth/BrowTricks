@@ -17,7 +17,7 @@
 import { mapActions } from 'vuex';
 export default {
   name: 'PmuFormFilledPreview',
-  props: ['tenantSlug', 'templateId', 'title', 'clientId'],
+  props: ['tenantSlug', 'templateId', 'title', 'clientId', 'answers'],
   data: () => ({
     imagePreview: ''
   }),
@@ -31,7 +31,8 @@ export default {
         params: {
           tenantSlug: this.tenantSlug,
           templateId: this.templateId,
-          clientId: this.clientId
+          clientId: this.clientId,
+          body: this.answers
         }
       });
     },

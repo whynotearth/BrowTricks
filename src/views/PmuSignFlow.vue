@@ -92,10 +92,9 @@ export default {
     onSubmit(questionList) {
       // This method will only be called if you don't override the
       // completeButton slot.
-      console.log('questionList', questionList);
       const payload = adaptAnswersToApi(questionList);
 
-      console.log('submit payload:', payload);
+      console.log('answers for api:', payload);
       this.pmuSignSubmitAnswers({
         params: {
           clientId: this.clientId,
@@ -113,8 +112,6 @@ export default {
     },
     onComplete(completed, questionList) {
       this.answers = adaptAnswersToApi(questionList);
-      console.log('this.answers', this.answers);
-      console.log('on complete', completed, questionList);
       this.isCompleted = completed;
     }
   }

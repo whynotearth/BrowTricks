@@ -2,7 +2,7 @@
   <!-- TODO rename questions to disclosures (or something meaningful and more general) everywhere -->
   <div class="max-w-4xl mx-auto px-4 pt-4">
     <div class="text-left p-2 text-on-background" v-if="client">
-      <template v-if="!pmuPdfUrl">
+      <template v-if="!pdfUrl">
         <Button
           v-if="shouldShowSms"
           class="rounded-full mb-6 "
@@ -33,9 +33,8 @@
           You have already signed the PMU
         </h2>
         <Button
-          :href="pmuPdfUrl"
+          :href="pdfUrl"
           class="rounded-full mb-6 "
-          @clicked="submit"
           title="Download Signed PMU"
         ></Button>
       </template>
@@ -69,12 +68,14 @@ export default {
       }
       return !!this.client.phoneNumber;
     },
-    pmuPdfUrl() {
+    pdfUrl() {
       if (!this.client) {
         return null;
       }
-      // FIXME: find signed pmu with this.$route.params.templateId in client.signatures
-      return this.client.signatures[0];
+      const signature = this.client.signatures.find(
+        sig => sig.formTemplateId === Number(this.templateId)
+      );
+      return signature.pdfUrl;
     }
   },
   methods: {
