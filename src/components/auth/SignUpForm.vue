@@ -91,16 +91,9 @@ export default {
   },
   created() {
     this.updateEmail(this.userName);
-    if (this.$route.params.step !== 'business-info') {
-      this.$router.replace({ params: { step: 'business-info' } });
-    }
   },
   methods: {
-    ...mapMutations('tenant', [
-      'pageChange',
-      'resetCreateTenantForm',
-      'updateEmail'
-    ]),
+    ...mapMutations('tenant', ['pageChange', 'updateEmail']),
     ...mapActions('tenant', ['createTenant']),
     onModalToggled(isModalOpen) {
       this.isModalOpen = isModalOpen;
