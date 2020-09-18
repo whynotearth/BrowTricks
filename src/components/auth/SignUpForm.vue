@@ -125,7 +125,7 @@ export default {
       this.createTenant()
         .then(slug => {
           this.$router.push({
-            name: 'FormTemplateCreationRequirement',
+            name: 'FormTemplateRequirement',
             params: { tenantSlug: slug }
           });
         })

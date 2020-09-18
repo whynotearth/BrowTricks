@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-md mx-auto pt-6">
+  <div class="max-w-md w-full mx-auto pt-6">
     <a
       tabindex="0"
       class="block mb-3 cursor-pointer"
@@ -26,7 +26,11 @@
       </div>
     </a>
 
-    <a tabindex="0" class="block cursor-pointer" @click.prevent="addTemplate">
+    <a
+      tabindex="0"
+      class="block cursor-pointer"
+      @click.prevent="formTemplateAdd"
+    >
       <div class="flex justify-between items-center px-4 py-2">
         <div class="text-on-background text-opacity-high tg-body-mobile">
           Add Form
@@ -44,7 +48,7 @@
 <script>
 import IconAdd from '@/assets/icons/add.svg';
 import IconCreate from '@/assets/icons/create.svg';
-import { formatDateTime } from '@/helpers';
+import { formatDateTime, formTemplateAdd } from '@/helpers';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
@@ -59,10 +63,11 @@ export default {
   },
   methods: {
     ...mapActions('formTemplate', [
-      'currentTemplateReset',
+      'templateAdd',
       'currentTemplateUpdate',
       'templatesFetch'
     ]),
+    formTemplateAdd,
     formatDateTime,
     init() {
       this.templatesFetch({
@@ -75,13 +80,6 @@ export default {
         name: 'FormTemplateItemEdit',
         params: { formId: template.id },
         query: { refresh: 1 }
-      });
-    },
-    async addTemplate() {
-      const newForm = await this.currentTemplateReset();
-      this.$router.push({
-        name: 'FormTemplateItemEdit',
-        params: { formId: newForm.id }
       });
     }
   }

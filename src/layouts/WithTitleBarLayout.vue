@@ -77,7 +77,7 @@
     <!-- mb-14 for bottom navigation -->
     <div
       class="relative flex-grow w-full"
-      :class="[noNavigation ? '' : 'mb-14 pb-6']"
+      :class="[noNavigation ? '' : 'navigation-spacer']"
       v-show="!isLoading"
     >
       <slot v-if="isVisible" />
