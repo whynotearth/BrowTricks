@@ -8,22 +8,9 @@
       rel="stylesheet"
       href="https://unpkg.com/@ditdot-dev/vue-flow-form@1.1.0/dist/vue-flow-form.theme-minimal.min.css"
     />
-    <div
-      class="px-4 max-w-md mx-auto h-vh100 flex items-center justify-center"
-      v-if="isReady && !(questions.length > 0)"
-    >
-      <BaseCard>
-        <div class="flex flex-col">
-          <p class="text-error tg-h3-mobile mb-6">
-            This form template has no questions.
-          </p>
-
-          <div class="text-center">
-            <Button :to="{ name: 'Home' }" title="Go home page" theme="none" />
-          </div>
-        </div>
-      </BaseCard>
-    </div>
+    <ErrorFullScreen :height="null" v-if="isReady && !(questions.length > 0)">
+      This form template has no questions.
+    </ErrorFullScreen>
     <FlowForm
       v-else-if="isReady"
       v-on:submit="onSubmit"
@@ -33,9 +20,9 @@
     >
       <template #complete>
         <div class="section-wrap">
-          <div v-if="errorMessage" class="text-error tg-h2-mobile">
+          <ErrorFullScreen :height="null" v-if="errorMessage">
             {{ errorMessage }}
-          </div>
+          </ErrorFullScreen>
           <div v-else-if="isSubmitted">
             <p>
               <span class="fh2">Thank You!</span>
@@ -70,17 +57,15 @@ import { mapActions } from 'vuex';
 import { adaptApiQuestionsToModel, adaptAnswersToApi } from '@/services/pmu.js';
 import { get } from 'lodash-es';
 import PmuFormFilledPreview from '@/components/pmu/PmuFormFilledPreview.vue';
-import BaseCard from '@/components/BaseCard.vue';
-import Button from '@/components/inputs/Button.vue';
+import ErrorFullScreen from '@/components/ErrorFullScreen.vue';
 
 // https://github.com/ditdot-dev/vue-flow-form
 
 export default {
-  name: 'example',
+  name: 'PmuSignFlow',
   props: ['tenantSlug', 'clientId', 'templateId'],
   components: {
-    Button,
-    BaseCard,
+    ErrorFullScreen,
     FlowForm,
     PmuFormFilledPreview
   },
