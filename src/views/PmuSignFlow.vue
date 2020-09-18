@@ -8,7 +8,7 @@
       rel="stylesheet"
       href="https://unpkg.com/@ditdot-dev/vue-flow-form@1.1.0/dist/vue-flow-form.theme-minimal.min.css"
     />
-    <ErrorFullScreen v-if="isReady && !(questions.length > 0)">
+    <ErrorFullScreen :height="null" v-if="isReady && !(questions.length > 0)">
       This form template has no questions.
     </ErrorFullScreen>
     <FlowForm
@@ -20,9 +20,9 @@
     >
       <template #complete>
         <div class="section-wrap">
-          <div v-if="errorMessage" class="text-error tg-h2-mobile">
+          <ErrorFullScreen :height="null" v-if="errorMessage">
             {{ errorMessage }}
-          </div>
+          </ErrorFullScreen>
           <div v-else-if="isSubmitted">
             <p>
               <span class="fh2">Thank You!</span>
@@ -62,7 +62,7 @@ import ErrorFullScreen from '@/components/ErrorFullScreen.vue';
 // https://github.com/ditdot-dev/vue-flow-form
 
 export default {
-  name: 'example',
+  name: 'PmuSignFlow',
   props: ['tenantSlug', 'clientId', 'templateId'],
   components: {
     ErrorFullScreen,
