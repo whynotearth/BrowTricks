@@ -65,6 +65,7 @@
         </div>
       </template>
     </MediaManager>
+
     <span v-if="$v.logo.$dirty && $v.logo.$error" class="text-error text-xs">
       Logo is required
     </span>
@@ -73,7 +74,7 @@
 
 <script>
 import { mapMutations, mapGetters } from 'vuex';
-import { required, minLength } from 'vuelidate/lib/validators';
+import { required } from 'vuelidate/lib/validators';
 import MaterialInput from '@/components/inputs/MaterialInput';
 import TextAreaInput from '@/components/inputs/TextAreaInput.vue';
 import MediaManager from '@/components/uploader/MediaManager.vue';
@@ -101,16 +102,11 @@ export default {
     },
     phone: {
       required,
-      minLength: minLength(10),
       isPhoneNumberValid
     },
     description: {},
     logo: {
-      $each: {
-        url: {
-          required
-        }
-      }
+      required
     }
   },
   computed: {
@@ -142,6 +138,11 @@ export default {
       },
       set(value) {
         this.updateDescription(value);
+      }
+    },
+    logo: {
+      get() {
+        return this.currentImages[0];
       }
     },
     currentImages() {
