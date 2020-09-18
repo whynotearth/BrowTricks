@@ -50,3 +50,20 @@
 .fadefast-leave-to {
   opacity: 0;
 }
+
+/* router-view fade */
+.routefade-enter-active {
+  transition: opacity 0.5s ease-in-out;
+  z-index: 2;
+  opacity: 0;
+}
+.routefade-enter-to {
+  z-index: 2;
+  opacity: 1;
+}
+.routefade-leave-active {
+  z-index: -1;
+}
+.routefade-leave-to {
+  z-index: -1;
+}

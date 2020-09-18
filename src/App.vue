@@ -4,9 +4,7 @@
     class="min-h-vh100 h-full text-center font-sans bg-background has-noise text-on-background overflow-x-hidden"
   >
     <component :is="$route.meta.layout || 'div'">
-      <transition :name="transitionName">
-        <router-view />
-      </transition>
+      <router-view />
     </component>
     <SnackBar :showSnackBar="showPrivacySnackBar">
       <div
@@ -64,7 +62,6 @@ export default {
   name: 'App',
   data() {
     return {
-      transitionName: '',
       showPrivacySnackBar: true
     };
   },
@@ -75,21 +72,6 @@ export default {
     ...mapGetters('overlay', {
       overlayModel: 'model'
     })
-  },
-  watch: {
-    $route(to, from) {
-      // disable transition from meta of routes, e.g. {pageTransition: {from: false}}
-      const specialTransition = this.getSpecialTransitions(to, from);
-      if (specialTransition) {
-        this.transitionName = specialTransition;
-        return;
-      }
-
-      const toDepth = to.path.split('/').length;
-      const fromDepth = from.path.split('/').length;
-      this.transitionName =
-        toDepth < fromDepth ? 'router-view-back' : 'router-view';
-    }
   },
   beforeMount() {
     let showSnackBar = cookie.getCookie('privacy-snackbar');
@@ -102,22 +84,6 @@ export default {
   },
   methods: {
     ...mapActions('global', ['isDrawerOpenAuthUpdate']),
-    getSpecialTransitions(to, from) {
-      const list = [
-        {
-          from: 'MyAccountEmpty',
-          to: 'MyAccount',
-          transition: 'none'
-        }
-      ];
-      const transitionItem = list.find(item => {
-        return item.to === to.name && item.from === from.name;
-      });
-      if (transitionItem) {
-        return transitionItem.transition;
-      }
-      return null;
-    },
     setSnackBarCookie() {
       this.showPrivacySnackBar = false;
       // set cookie with name 'snackbar'. Set value to 1 which means true. Set expiration to 7 days.
@@ -134,31 +100,5 @@ body {
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-.router-view-enter-active {
-  transition: opacity 0.5s ease-in-out;
-  z-index: 2;
-  opacity: 0;
-}
-.router-view-enter-to {
-  z-index: 2;
-  opacity: 1;
-}
-.router-view-leave-active {
-  z-index: -1;
-}
-.router-view-leave-to {
-  z-index: -1;
-}
-
-.router-view-back-leave-active {
-  transition: transform 0.5s ease-in-out;
-  z-index: 2;
-  transform: translateX(0%);
-}
-.router-view-back-leave-to {
-  z-index: 2;
-  transform: translateX(100%);
 }
 </style>
