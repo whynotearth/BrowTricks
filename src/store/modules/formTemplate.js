@@ -1,5 +1,5 @@
 import { cloneDeep } from 'lodash-es';
-import { randomId } from '@/helpers.js';
+import { randomId, navigationStatusUpdate } from '@/helpers.js';
 import { FormTemplateService } from '@whynotearth/meredith-axios';
 import {
   adaptApiTemplatesToModel,
@@ -97,6 +97,7 @@ const actions = {
       templateId: template.id,
       body: templateAdapted
     }).then(templateId => {
+      navigationStatusUpdate('normal');
       return templateId;
     });
   },

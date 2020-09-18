@@ -67,12 +67,15 @@ export default {
       'currentTemplateUpdate',
       'templatesFetch'
     ]),
+    ...mapActions('navigation', ['statusUpdate']),
     formTemplateAdd,
     formatDateTime,
     init() {
       this.templatesFetch({
         params: { tenantSlug: this.tenantSlug }
-      }).catch(() => {});
+      }).catch(() => {
+        alert('Something went wrong, refreshing page may fix it.');
+      });
     },
     async editTemplate(template) {
       this.currentTemplateUpdate(template);

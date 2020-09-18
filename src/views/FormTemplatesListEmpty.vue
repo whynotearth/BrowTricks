@@ -1,10 +1,11 @@
 <template>
-  <div class="my-auto items-center justify-center w-full max-w-md mx-auto pt-6">
+  <div
+    class="my-auto items-center justify-center w-full max-w-md mx-auto pt-6 px-4"
+  >
     <p
       class="tg-body-mobile text-on-background text-opacity-high text-center mb-6"
     >
-      To be able to create custom PMU forms, please start with our templates, or
-      create your own!
+      To be able to create custom PMU forms, please create a new template.
     </p>
     <div>
       <img
@@ -27,7 +28,7 @@ import { formTemplateAdd } from '@/helpers';
 import { mapActions } from 'vuex';
 import Button from '@/components/inputs/Button.vue';
 export default {
-  name: 'FormTemplateRequirement',
+  name: 'FormTemplatesListEmpty',
   components: { Button },
   beforeMount() {
     this.statusUpdate('locked');

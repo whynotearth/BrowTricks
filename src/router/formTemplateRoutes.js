@@ -13,8 +13,8 @@ export const formTemplateRoutes = [
     children: [
       {
         path: 'requirement',
-        name: 'FormTemplateRequirement',
-        component: () => import('@/views/FormTemplateRequirement.vue'),
+        name: 'FormTemplatesListEmpty',
+        component: () => import('@/views/FormTemplatesListEmpty.vue'),
         props: true,
         meta: {
           layout: () => import('@/layouts/WithTitleBarLayout.vue'),
