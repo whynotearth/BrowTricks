@@ -255,3 +255,15 @@ export function formatDateTime(
 function _getUserTimeZone() {
   return Intl.DateTimeFormat().resolvedOptions().timeZone;
 }
+
+export async function formTemplateAdd() {
+  const newForm = await store.dispatch('formTemplate/currentTemplateReset');
+  router.push({
+    name: 'FormTemplateItemEdit',
+    params: { formId: newForm.id }
+  });
+}
+
+export function navigationStatusUpdate(status) {
+  store.dispatch('navigation/statusUpdate', status);
+}

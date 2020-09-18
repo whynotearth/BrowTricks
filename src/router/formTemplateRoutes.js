@@ -12,6 +12,17 @@ export const formTemplateRoutes = [
 
     children: [
       {
+        path: 'requirement',
+        name: 'FormTemplatesListEmpty',
+        component: () => import('@/views/FormTemplatesListEmpty.vue'),
+        props: true,
+        meta: {
+          layout: () => import('@/layouts/WithTitleBarLayout.vue'),
+          title: `Welcome to ${process.env.VUE_APP_SHORTNAME}`
+        }
+      },
+
+      {
         path: 'list',
         name: 'FormTemplatesList',
         component: () => import('@/views/FormTemplatesList.vue'),

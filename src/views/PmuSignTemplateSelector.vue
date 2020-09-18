@@ -22,7 +22,11 @@
       </template>
     </ExpansionPanel>
 
-    <a tabindex="0" class="block cursor-pointer" @click.prevent="addTemplate">
+    <a
+      tabindex="0"
+      class="block cursor-pointer"
+      @click.prevent="formTemplateAdd"
+    >
       <div class="flex justify-between items-center px-4 py-2">
         <div class="text-on-background text-opacity-high tg-body-mobile">
           Add Form
@@ -40,7 +44,7 @@
 <script>
 import ExpansionPanel from '@/components/ExpansionPanel.vue';
 import IconDocument from '@/assets/icons/document.svg';
-import { formatDateTime } from '@/helpers';
+import { formatDateTime, formTemplateAdd } from '@/helpers';
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 import IconAdd from '@/assets/icons/add.svg';
 
@@ -65,10 +69,9 @@ export default {
       'currentTemplateUpdate',
       'templatesFetch'
     ]),
+    formTemplateAdd,
     formatDateTime,
     getTemplateStatusText(templateId) {
-      console.log('templateId', templateId);
-      console.log('this.client.signatures', this.client.signatures);
       const isSigned = this.client.signatures.find(
         sig => sig.formTemplateId === Number(templateId)
       );
@@ -91,13 +94,6 @@ export default {
       this.templatesFetch({
         params: { tenantSlug: this.tenantSlug }
       }).catch(() => {});
-    },
-    async addTemplate() {
-      const newForm = await this.currentTemplateReset();
-      this.$router.push({
-        name: 'FormTemplateItemEdit',
-        params: { formId: newForm.id }
-      });
     }
   }
 };

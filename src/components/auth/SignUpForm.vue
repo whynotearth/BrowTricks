@@ -117,16 +117,16 @@ export default {
         if (this.page < this.navigation.length) {
           this.pageChange(this.page + 1);
         } else {
-          this.register();
+          this.submit();
         }
       }
     },
-    register() {
+    submit() {
       this.createTenant()
-        .then(res => {
+        .then(slug => {
           this.$router.push({
-            name: 'ClientList',
-            params: { tenantSlug: res }
+            name: 'FormTemplatesListEmpty',
+            params: { tenantSlug: slug }
           });
         })
         .catch(error => {

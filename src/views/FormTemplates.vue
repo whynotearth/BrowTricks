@@ -1,5 +1,5 @@
 <template>
-  <div class="text-left">
+  <div class="page-content--min-h text-left flex flex-col">
     <transition name="fadeslow">
       <router-view v-on="$listeners" v-show="!isLoading" />
     </transition>
@@ -15,5 +15,3 @@ export default {
   }
 };
 </script>
-
-<style scoped></style>
