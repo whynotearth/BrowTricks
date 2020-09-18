@@ -1,16 +1,24 @@
 <template>
-  <div class="text-left" v-if="client">
-    <transition name="fadeslow">
-      <router-view v-show="!isLoading" :client="client" />
-    </transition>
+  <div class="text-left">
+    <ErrorFullScreen v-if="errorMessage">
+      {{ errorMessage }}
+    </ErrorFullScreen>
+    <template v-else-if="client">
+      <transition name="fadeslow">
+        <router-view v-show="!isLoading" :client="client" />
+      </transition>
+    </template>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex';
+import { get } from 'lodash-es';
+import ErrorFullScreen from '@/components/ErrorFullScreen.vue';
 
 export default {
   name: 'Client',
+  components: { ErrorFullScreen },
   props: {
     tenantSlug: {
       type: String,
@@ -23,6 +31,7 @@ export default {
   },
   data() {
     return {
+      errorMessage: '',
       client: null
     };
   },
@@ -30,6 +39,7 @@ export default {
     ...mapGetters('loading', ['isLoading'])
   },
   async created() {
+    this.errorMessage = '';
     await this.handleLoginByToken();
     this._fetchClient();
   },
@@ -42,7 +52,13 @@ export default {
       if (!token) {
         return;
       }
-      return this.tokenlogin({ params: { body: { token } } });
+      return this.tokenlogin({ params: { body: { token } } }).catch(error => {
+        this.errorMessage = get(
+          error,
+          'response.data.error',
+          'This link is not valid.'
+        );
+      });
     },
     async _fetchClient() {
       this.loading(true);
