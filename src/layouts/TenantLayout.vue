@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen mx-auto">
+  <div class="h-full min-h-vh100 mx-auto">
     <transition name="fade" mode="out-in">
       <slot></slot>
     </transition>

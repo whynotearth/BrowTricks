@@ -8,13 +8,16 @@
     v-bind="attrs"
   >
     <div class="flex">
-      <div class="flex">
-        <div class="text-on-surface text-opacity-medium flex items-center">
+      <div class="flex" :class="leftSideClasses">
+        <div
+          class="icon-pre text-on-surface text-opacity-medium flex items-center"
+        >
           <slot name="preIcon"></slot>
         </div>
         <slot
           ><h4
-            class="ml-4 text-on-surface text-opacity-high min-w-expansion-panel text-left"
+            :title="title"
+            class="title ml-4 mr-4 text-on-surface text-opacity-high min-w-expansion-panel text-left"
           >
             {{ title }}
           </h4></slot
@@ -29,7 +32,9 @@
         </div>
         <!-- end icon -->
         <slot name="afterIcon">
-          <IconArrowRight class="fill-current ml-4" />
+          <IconArrowRight
+            class="icon-after fill-current ml-4 text-on-surface"
+          />
         </slot>
       </div>
     </div>
@@ -61,6 +66,10 @@ export default {
     margin: {
       type: String,
       default: 'mb-4'
+    },
+    leftSideClasses: {
+      type: String,
+      default: ''
     }
   },
   computed: {
@@ -80,5 +89,10 @@ export default {
 }
 .subtitle {
   max-width: 162px;
+}
+[disabled] .title,
+[disabled] .icon-pre,
+[disabled] .icon-after {
+  @apply text-opacity-disabled;
 }
 </style>

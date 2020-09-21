@@ -12,6 +12,31 @@
 @import './inputs.css';
 @import './scrollbars.css';
 
+:root {
+  --navigation-height: 56px;
+  --header-height: 60px;
+  --navigation-spacer: calc(var(--navigation-height) + 24px);
+}
+
+.navigation-spacer {
+  margin-bottom: 56px;
+  padding-bottom: 24px;
+}
+
+.page-content--min-h {
+  min-height: calc(
+    100 * var(--vh) - var(--navigation-spacer) - var(--header-height)
+  );
+}
+
+.no-pull-to-refresh {
+  overscroll-behavior: contain;
+}
+
+.no-scrollbars {
+  @apply overflow-hidden;
+}
+
 .has-noise {
   background-image: url(https://res.cloudinary.com/whynotearth/image/upload/v1597904330/BrowTricks/static_v2/noise_m7ti9c.png);
   background-repeat: repeat;

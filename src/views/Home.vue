@@ -18,13 +18,6 @@
             <!-- <router-link v-if="isAuthenticated" :to="{ name: 'MyAccount' }">
               <BaseAvatar width="w-10" height="h-10" />
             </router-link> -->
-            <router-link
-              v-if="!isAuthenticated"
-              :to="{ name: 'Login' }"
-              class="uppercase text-on-background"
-            >
-              Log In
-            </router-link>
           </div>
         </template>
       </BaseHeader>
@@ -48,7 +41,7 @@
         /> -->
 
         <Button
-          :to="{ name: 'Welcome' }"
+          @clicked="isDrawerOpenAuthUpdate(true)"
           :isRounded="true"
           title="Sign Up"
           class="mb-10"
@@ -92,7 +85,7 @@
         </ArticleMini>
 
         <Button
-          :to="{ name: 'Welcome' }"
+          @clicked="isDrawerOpenAuthUpdate(true)"
           :isRounded="true"
           title="Sign Up"
           class="mb-10"
@@ -130,7 +123,7 @@ export default {
     ...mapGetters('auth', ['isAuthenticated'])
   },
   methods: {
-    ...mapActions('global', ['isDrawerOpenUpdate'])
+    ...mapActions('global', ['isDrawerOpenUpdate', 'isDrawerOpenAuthUpdate'])
   }
 };
 </script>

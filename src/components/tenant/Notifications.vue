@@ -17,12 +17,12 @@
         >
           <template #label>
             <div class="tg-body-mobile flex flex-wrap">
-              <span class="mx-1 text-on-background text-opacity-high">{{
-                notificationType.name
-              }}</span>
+              <span class="mx-1 text-on-background text-opacity-high"
+                >{{ notificationType.name }} to:</span
+              >
               <span
                 class="mx-1 text-on-background text-opacity-medium break-all"
-                >({{ authDetail[notificationType.key] }})</span
+                >{{ authDetail[notificationType.key] }}</span
               >
             </div>
           </template>
@@ -66,7 +66,6 @@ export default {
         return this.getSelectedNotificationTypes;
       },
       set(value) {
-        console.log('value', value);
         this.updateSelectedNotificationTypes(value);
       }
     },

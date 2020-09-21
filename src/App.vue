@@ -1,19 +1,14 @@
 <template>
   <div
     id="app"
-    class="min-h-vh100 h-full text-center font-sans bg-background has-noise"
+    class="min-h-vh100 h-full text-center font-sans bg-background has-noise text-on-background overflow-x-hidden"
   >
-    <transition :name="transitionName">
-      <component
-        :is="this.$route.meta.layout || 'div'"
-        class="h-full min-h-vh100"
-      >
-        <router-view />
-      </component>
-    </transition>
+    <component :is="$route.meta.layout || 'div'">
+      <router-view />
+    </component>
     <SnackBar :showSnackBar="showPrivacySnackBar">
       <div
-        class="flex items-center justify-between text-white w-full h-12 tg-caption-mobile leading-4 p-4 
+        class="flex items-center justify-between text-on-primary w-full h-12 tg-caption-mobile leading-4 p-4 
           bg-primary"
       >
         <p>
@@ -48,36 +43,35 @@
         />
       </div>
     </transition>
+
+    <DrawerAuth
+      @close="isDrawerOpenAuthUpdate(false)"
+      :isOpen="isDrawerOpenAuthGet"
+    ></DrawerAuth>
   </div>
 </template>
 <script>
 import BaseOverlaySuccess from '@/components/BaseOverlaySuccess.vue';
 import SnackBar from '@/components/SnackBar.vue';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import vhFix from '@/mixins/vhFix.js';
 import cookie from '@/utils/cookie';
+import DrawerAuth from '@/components/auth/DrawerAuth';
 
 export default {
   name: 'App',
   data() {
     return {
-      transitionName: '',
       showPrivacySnackBar: true
     };
   },
   mixins: [vhFix],
-  components: { BaseOverlaySuccess, SnackBar },
+  components: { BaseOverlaySuccess, SnackBar, DrawerAuth },
   computed: {
+    ...mapGetters('global', ['isDrawerOpenAuthGet']),
     ...mapGetters('overlay', {
       overlayModel: 'model'
     })
-  },
-  watch: {
-    $route(to, from) {
-      const toDepth = to.path.split('/').length;
-      const fromDepth = from.path.split('/').length;
-      this.transitionName = toDepth < fromDepth ? 'slide-left' : 'fade';
-    }
   },
   beforeMount() {
     let showSnackBar = cookie.getCookie('privacy-snackbar');
@@ -89,6 +83,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions('global', ['isDrawerOpenAuthUpdate']),
     setSnackBarCookie() {
       this.showPrivacySnackBar = false;
       // set cookie with name 'snackbar'. Set value to 1 which means true. Set expiration to 7 days.
@@ -105,24 +100,5 @@ body {
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-.fade-enter {
-  opacity: 0;
-}
-.fade-enter-to {
-  opacity: 1;
-}
-
-.fade-enter-active {
-  transition: all 0.5s ease-in-out;
-}
-.slide-left-leave-active {
-  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
-}
-
-.slide-left-leave-to {
-  transform: translateX(-100%);
-  opacity: 0;
 }
 </style>

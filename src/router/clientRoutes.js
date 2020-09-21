@@ -44,8 +44,8 @@ export const clientRoutes = [
     name: 'Client',
     props: true,
     component: () => import('@/views/Client.vue'),
+    redirect: { name: 'ClientEdit' },
     meta: {
-      layout: WithTitleBarLayout,
       title: 'Client Profile',
       backRoute: { name: 'ClientList' }
     },
@@ -97,9 +97,21 @@ export const clientRoutes = [
 
       // PMU
       {
-        path: 'pmu-sign',
-        name: 'PmuSign',
-        component: () => import('@/views/PmuSign.vue'),
+        path: 'pmu-sign/select-template',
+        name: 'PmuSignTemplateSelector',
+        component: () => import('@/views/PmuSignTemplateSelector.vue'),
+        props: true,
+        meta: {
+          layout: WithTitleBarLayout,
+          title: 'Form Templates',
+          backRoute: { name: 'ClientEdit' }
+        }
+      },
+
+      {
+        path: 'pmu-sign/:templateId/choose-method',
+        name: 'PmuSignPreview',
+        component: () => import('@/views/PmuSignPreview.vue'),
         props: true,
         meta: {
           layout: WithTitleBarLayout,
@@ -108,24 +120,36 @@ export const clientRoutes = [
         }
       },
       {
-        path: 'pmu-sign-from-notify',
+        path: 'pmu-form-download/:templateId',
+        name: 'PmuFormDownload',
+        component: () => import('@/views/PmuFormDownload.vue'),
+        props: true,
+        meta: {
+          noNavigation: true,
+          layout: WithTitleBarLayout,
+          title: 'PMU Form Download'
+        }
+      },
+      // flow (From Notification)
+      {
+        path: 'pmu-sign-fn/:templateId/flow',
         name: 'PmuSignFromNotify',
         component: () => import('@/views/PmuSignFlow.vue'),
         props: true,
         meta: {
           isPublic: true,
-          layout: WithTitleBarLayout,
           title: 'PMU Form Sign',
           backRoute: { name: 'ClientEdit' }
         }
       },
       {
-        // sign flow
-        path: 'pmu-sign/flow/:stepSlug',
+        // flow (No SMS)
+        path: 'pmu-sign/:templateId/flow',
         name: 'PmuSignFlow',
         component: () => import('@/views/PmuSignFlow.vue'),
         props: true
       },
+
       {
         path: 'notes',
         name: 'ClientNotes',

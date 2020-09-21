@@ -154,6 +154,7 @@ export default {
 .upload-add {
   width: 100px;
   height: 100px;
+  margin: 0 2px 4px 2px;
 }
 
 @screen sm {

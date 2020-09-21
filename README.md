@@ -1,6 +1,7 @@
 # browtricks
 
-https://browtricks.netlify.app/
+# Staging URL
+https://staging.browtricksbeauty.com/
 
 ## Project setup
 ```

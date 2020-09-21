@@ -1,6 +1,6 @@
 <template>
   <div
-    class="layout--splash text-on-background-image bg-cover bg-no-repeat"
+    class="h-full min-h-vh100 layout--splash text-on-background-image bg-cover bg-no-repeat"
     :style="{ 'background-image': `url(${backgroundImage})` }"
   >
     <!-- loading -->
