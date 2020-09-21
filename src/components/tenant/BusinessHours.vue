@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="-my-2 pb-12">
+    <div class="pb-12 pt-2">
       <div
         class="cursor-pointer"
         v-for="(day, index) in businessHours"

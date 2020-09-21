@@ -1,7 +1,9 @@
 <template>
   <div>
     <transition name="fadeslow" mode="out-in">
-      <div v-show="!loadingGet && isVisible"><slot /></div>
+      <div class="transition-page-wrapper" v-show="!loadingGet && isVisible">
+        <slot />
+      </div>
     </transition>
   </div>
 </template>
