@@ -40,14 +40,13 @@
       <div class="pb-8 cursor-pointer text-on-background text-opacity-disabled">
         Privacy Policy
       </div>
-      <router-link
+      <a
         class="pb-8 cursor-pointer"
         v-if="!isAuthenticated"
-        @click.native="closeDrawer"
-        :to="{ name: 'Login' }"
+        @click.prevent.stop="openLogin"
       >
         Log In
-      </router-link>
+      </a>
       <div class="cursor-pointer" v-else @click="onLogout">
         Logout
       </div>
@@ -58,7 +57,6 @@
 <script>
 import BaseDrawerMenu from '@/components/BaseDrawerMenu.vue';
 import { mapGetters, mapActions } from 'vuex';
-import store from '@/store';
 
 export default {
   name: 'MenuDrawerPanel',
@@ -69,16 +67,28 @@ export default {
   },
   methods: {
     ...mapActions('auth', ['logout']),
-    closeDrawer() {
+    ...mapActions('loading', ['loadingUpdate']),
+    ...mapActions('global', ['isDrawerOpenUpdate', 'isDrawerOpenAuthUpdate']),
+    openLogin() {
       // native event has no access to 'this'
-      store.dispatch('global/isDrawerOpenUpdate', false);
+      this.closeDrawer();
+      this.isDrawerOpenAuthUpdate(true);
+    },
+    closeDrawer() {
+      this.isDrawerOpenUpdate(false);
     },
     onLogout() {
-      this.logout().catch(() => {
-        alert(
-          `Logout failed! If the problem persisted, please contact ${process.env.VUE_APP_ADMINISTRATOR_CONTACT_EMAIL}`
-        );
-      });
+      this.loadingUpdate(true);
+      this.closeDrawer();
+      this.logout()
+        .catch(() => {
+          alert(
+            `Logout failed! If the problem persisted, please contact ${process.env.VUE_APP_ADMINISTRATOR_CONTACT_EMAIL}`
+          );
+        })
+        .finally(() => {
+          this.loadingUpdate(false);
+        });
     }
   }
 };

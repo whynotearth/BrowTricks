@@ -5,13 +5,13 @@
   >
     <!-- loading -->
     <div
-      v-show="isLoading"
+      v-show="loadingGet"
       class="flex flex-col justify-center items-center min-h-vh100"
     >
       <BaseSpinner />
     </div>
     <div
-      v-show="!isLoading"
+      v-show="!loadingGet"
       class="flex flex-col justify-end items-center min-h-vh100 py-5"
     >
       <div class="flex flex-col max-w-sm mx-auto overflow-auto p-4">
@@ -59,7 +59,7 @@ export default {
   name: 'SplashLayout',
   components: { BaseSpinner },
   computed: {
-    ...mapGetters('loading', ['isLoading'])
+    ...mapGetters('loading', ['loadingGet'])
   },
   props: {
     backgroundImage: {

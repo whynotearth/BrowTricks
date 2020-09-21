@@ -1,7 +1,7 @@
 <template>
   <div class="text-left">
     <transition name="fadeslow">
-      <router-view v-on="$listeners" v-show="!isLoading" />
+      <router-view v-on="$listeners" v-show="!loadingGet" />
     </transition>
   </div>
 </template>
@@ -11,7 +11,7 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'FormTemplateItem',
   computed: {
-    ...mapGetters('loading', ['isLoading'])
+    ...mapGetters('loading', ['loadingGet'])
   }
 };
 </script>

@@ -68,7 +68,7 @@
 
     <!-- loading -->
     <div
-      v-show="isLoading"
+      v-show="loadingGet"
       class="relative flex-grow max-w-6xl mx-auto w-full flex justify-around items-center"
     >
       <BaseSpinner />
@@ -78,7 +78,7 @@
     <div
       class="relative flex-grow w-full"
       :class="[noNavigation ? '' : 'navigation-spacer']"
-      v-show="!isLoading"
+      v-show="!loadingGet"
     >
       <slot v-if="isVisible" />
     </div>
@@ -114,7 +114,7 @@ export default {
     this.init();
   },
   computed: {
-    ...mapGetters('loading', ['isLoading']),
+    ...mapGetters('loading', ['loadingGet']),
     noNavigation() {
       return this.$route.matched.some(route => route.meta.noNavigation);
     }

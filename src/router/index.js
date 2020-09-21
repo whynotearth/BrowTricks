@@ -26,7 +26,7 @@ const router = new VueRouter({
 });
 
 function isRouteChangingUpdate(value) {
-  store.commit('loading/loading', value);
+  store.dispatch('loading/loadingUpdate', value);
 }
 
 router.beforeEach((to, from, next) => {

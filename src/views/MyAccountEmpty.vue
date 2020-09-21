@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import Button from '@/components/inputs/Button';
 import DropDownSheet from '@/components/tenant/DropDownSheet.vue';
 
@@ -65,9 +65,9 @@ export default {
     ...mapActions('global', ['isDrawerOpenAuthUpdate']),
     ...mapActions('tenant', ['fetchUserTenants']),
     ...mapActions('auth', ['updateToken']),
-    ...mapMutations('loading', ['loading']),
+    ...mapActions('loading', ['loadingUpdate']),
     init() {
-      this.loading(true);
+      this.loadingUpdate(true);
 
       this.fetchUserTenants()
         .then(tenants => {
@@ -79,7 +79,7 @@ export default {
           alert(
             `Something went wrong in getting your account data, refreshing page may help. Otherwise please contact ${process.env.VUE_APP_ADMINISTRATOR_CONTACT_EMAIL}`
           );
-          this.loading(false);
+          this.loadingUpdate(false);
         });
     },
     async handleRedirect(tenants) {
@@ -92,7 +92,7 @@ export default {
         name: 'MyAccount',
         params: { tenantSlug: selectedTenant.slug }
       });
-      this.loading(false);
+      this.loadingUpdate(false);
     },
     handleSignup() {
       const shouldSignup = this.$route.query.signup === '1';
