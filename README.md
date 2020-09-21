@@ -1,5 +1,6 @@
 # browtricks
 
+# Staging URL
 https://staging.browtricksbeauty.com/
 
 ## Project setup
