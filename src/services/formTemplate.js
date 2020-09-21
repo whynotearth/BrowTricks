@@ -52,15 +52,9 @@ export const fieldModelToApiField = item => {
 // adapt fieldItem
 // api => vue
 export const adaptApiTemplateFieldItemToModelCard = item => {
-  const adaptOption = option => ({
-    value: option,
-    key: randomId(),
-    fromApiToVue: 1
-  });
-
   let field = {
     ...item,
-    options: (item.options || []).map(adaptOption)
+    options: adaptApiFieldOptionsToModel(item.options)
   };
   switch (item.type) {
     case 'image':
@@ -126,3 +120,14 @@ export const adaptApiTemplateFieldItemToModelCard = item => {
   }
   return field;
 };
+
+// field.options
+// api => vue
+export const adaptApiFieldOptionsToModel = options => {
+  return (options || []).map(option => ({
+    value: option,
+    key: randomId()
+  }));
+};
+
+export const adaptInitialFieldOptionsToModel = adaptApiFieldOptionsToModel;
