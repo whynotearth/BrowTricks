@@ -14,7 +14,9 @@
       v-show="!loadingGet"
       class="flex-grow overflow-auto flex flex-col mb-14 pb-6"
     >
-      <slot name="content" />
+      <TransitionPage>
+        <slot name="content" />
+      </TransitionPage>
     </div>
     <slot name="footer" />
   </div>
@@ -23,10 +25,11 @@
 <script>
 import { mapGetters } from 'vuex';
 import BaseSpinner from '@/components/BaseSpinner';
+import TransitionPage from '@/components/TransitionPage';
 
 export default {
   name: 'ClassicLayout',
-  components: { BaseSpinner },
+  components: { TransitionPage, BaseSpinner },
   computed: {
     ...mapGetters('loading', ['loadingGet'])
   }

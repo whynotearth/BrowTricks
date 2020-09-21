@@ -48,10 +48,13 @@ export default {
         'https://res.cloudinary.com/whynotearth/image/upload/v1585738963/BrowTricks/_0003_MANAGE-CLIENTS_hl5cux.png'
     };
   },
-  created() {
-    this.fetchClients(this.tenantSlug);
+  async created() {
+    this.loadingUpdate(true);
+    await this.fetchClients(this.tenantSlug);
+    this.loadingUpdate(false);
   },
   methods: {
+    ...mapActions('loading', ['loadingUpdate']),
     ...mapActions('client', ['fetchClients']),
     showLetter(prev, current) {
       if (!prev) return true;

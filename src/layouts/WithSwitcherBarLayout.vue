@@ -54,7 +54,9 @@
     <!-- content -->
     <!-- mb-14 for bottom navigation -->
     <div class="relative flex-grow w-full mb-14 pb-6" v-show="!loadingGet">
-      <slot />
+      <transition name="fadeslow" mode="out-in">
+        <slot v-show="!loadingGet && isVisible" />
+      </transition>
     </div>
 
     <NavigationBottom v-if="!noNavigation" />
