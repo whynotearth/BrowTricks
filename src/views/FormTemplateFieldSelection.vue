@@ -73,28 +73,40 @@ export default {
           name: 'Agreement Request',
           type: 'agreement_request',
           description:
-            'Add a required agreement request to your form so your clients can agree to your terms.'
+            'Add a required agreement request to your form so your clients can agree to your terms.',
+          value:
+            'By selecting this box, I certify that I have read, or had read to me, the content of this consent, and I fully understand its contents.'
         },
         {
           icon: 'IconText',
           name: 'Text Response',
           type: 'text_response',
           description:
-            'Add a text response question to your form so your clients can type in their answers.'
+            'Add a text response question to your form so your clients can type in their answers.',
+          value:
+            'I am being treated for, or was in the past for the following conditions (Please include allergies, especially to dye, pigment, or numbing agent.)'
         },
         {
           icon: 'IconChecklist',
           name: 'Checklist',
           type: 'checklist',
           description:
-            'Add a checklist to your form so your clients can select all options that apply.'
+            'Add a checklist to your form so your clients can select all options that apply.',
+          value: 'Select all that apply',
+          options: [
+            'I am currently taking blood thinggers',
+            'I am pregnant or breastfeeding',
+            'I have skin diseases such as psoriasis or eczema'
+          ]
         },
         {
           icon: 'IconRadiolist',
           name: 'Multiple Choice',
           type: 'multiple_choice',
           description:
-            'Add a multiple choice question to your form so your clients can select the best option suited for them.'
+            'Add a multiple choice question to your form so your clients can select the best option suited for them.',
+          value: 'I am not on any medications that can cause my blood to thin.',
+          options: ['Yes', 'No']
         }
       ];
     }
@@ -110,7 +122,7 @@ export default {
       this.helpModalType = type;
     },
     async selectField(field) {
-      this.draftField = await this.currentFieldReset(field.type);
+      this.draftField = await this.currentFieldReset(field);
       if (field.useUploader) {
         this.selectUploader();
       } else {

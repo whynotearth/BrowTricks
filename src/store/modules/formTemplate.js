@@ -5,7 +5,10 @@ import {
   adaptApiTemplatesToModel,
   adaptApiTemplateToModel
 } from '@/services/formTemplate.js';
-import { adaptModelTemplateToApi } from '../../services/formTemplate';
+import {
+  adaptModelTemplateToApi,
+  adaptInitialFieldOptionsToModel
+} from '@/services/formTemplate';
 
 const defaultState = {
   currentField: {},
@@ -23,12 +26,14 @@ function generateEmptyTemplate() {
   }))();
 }
 
-function generateEmptyField(type) {
+function generateEmptyField({ type, value, options }) {
   return (() => ({
     isRequired: false,
     draft: true,
     id: randomId(8),
-    type
+    type,
+    value,
+    options: adaptInitialFieldOptionsToModel(options)
   }))();
 }
 
@@ -71,8 +76,8 @@ const actions = {
   currentFieldClear(context) {
     context.commit('currentFieldUpdate', {});
   },
-  currentFieldReset(context, type) {
-    const newField = generateEmptyField(type);
+  currentFieldReset(context, field) {
+    const newField = generateEmptyField(field);
     context.commit('currentFieldUpdate', newField);
     return newField;
   },

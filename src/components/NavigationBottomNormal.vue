@@ -40,6 +40,7 @@
     </li>
 
     <li class="text-on-primary text-opacity-high link-item">
+      <!-- FIXME: when tenantSlug is not available yet, this makes / and active -->
       <router-link
         class="navigation--link block"
         :to="{ name: 'FormTemplates' }"
