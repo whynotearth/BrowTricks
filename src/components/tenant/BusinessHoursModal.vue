@@ -124,7 +124,7 @@
 
 <script>
 import TimePicker from '@/components/inputs/TimePicker.vue';
-import Button from '@/components/inputs/Button.vue';
+
 import CloseIcon from '@/assets/icons/close.svg';
 import ToggleSwitch from '@/components/inputs/BaseToggleSwitch';
 
@@ -143,7 +143,6 @@ export default {
   },
   components: {
     TimePicker,
-    Button,
     CloseIcon,
     ToggleSwitch
   },

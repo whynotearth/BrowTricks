@@ -91,7 +91,7 @@
 <script>
 import TextAreaInput from '@/components/inputs/TextAreaInput';
 import CheckBox from '@/components/inputs/CheckBox';
-import Button from '@/components/inputs/Button';
+
 import { randomId } from '@/helpers.js';
 import { cloneDeep } from 'lodash-es';
 import MaterialInput from '@/components/inputs/MaterialInput';
@@ -103,7 +103,6 @@ export default {
   components: {
     TextAreaInput,
     CheckBox,
-    Button,
     IconDelete,
     MaterialInput
   },

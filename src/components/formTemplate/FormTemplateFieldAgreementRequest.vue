@@ -42,13 +42,13 @@
 <script>
 import TextAreaInput from '@/components/inputs/TextAreaInput';
 import CheckBox from '@/components/inputs/CheckBox';
-import Button from '@/components/inputs/Button';
+
 import { randomId } from '@/helpers.js';
 import { cloneDeep } from 'lodash-es';
 
 export default {
   name: 'FormTemplateFieldAgreementRequest',
-  components: { TextAreaInput, CheckBox, Button },
+  components: { TextAreaInput, CheckBox },
   props: {
     initialModel: null
   },

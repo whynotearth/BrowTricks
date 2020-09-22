@@ -92,7 +92,6 @@
 <script>
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
 import BaseDialog from '@/components/BaseDialog.vue';
-import Button from '@/components/inputs/Button.vue';
 
 import { required, minLength, email } from 'vuelidate/lib/validators';
 import { isPhoneNumberValid } from '@/helpers';
@@ -103,8 +102,7 @@ export default {
   name: 'EditClientInfo',
   components: {
     MaterialInput,
-    BaseDialog,
-    Button
+    BaseDialog
   },
   props: {
     client: {

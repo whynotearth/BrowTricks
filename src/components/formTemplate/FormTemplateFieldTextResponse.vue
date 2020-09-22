@@ -47,14 +47,14 @@
 <script>
 import TextAreaInput from '@/components/inputs/TextAreaInput';
 import CheckBox from '@/components/inputs/CheckBox';
-import Button from '@/components/inputs/Button';
+
 import { randomId } from '@/helpers.js';
 import { cloneDeep } from 'lodash-es';
 import { required } from 'vuelidate/lib/validators';
 
 export default {
   name: 'FormTemplateFieldTextResponse',
-  components: { TextAreaInput, CheckBox, Button },
+  components: { TextAreaInput, CheckBox },
   validations: {
     model: {
       value: {
