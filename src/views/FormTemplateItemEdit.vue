@@ -130,7 +130,7 @@ import FormTemplateFieldTypeCard from '@/components/formTemplate/FormTemplateFie
 import IconArrowRight from '@/assets/icons/keyboard_arrow_right.svg';
 import BaseCard from '@/components/BaseCard';
 import BaseDialog from '@/components/BaseDialog';
-import Button from '@/components/inputs/Button';
+
 import IconAdd from '@/assets/icons/add.svg';
 import { showOverlayAndRedirect, getCloudinaryThumbnail } from '@/helpers';
 import { ContainerMixin, ElementMixin } from 'vue-slicksort';
@@ -173,7 +173,6 @@ export default {
   props: ['tenantSlug'],
   components: {
     BaseDialog,
-    Button,
     SortableList,
     SortableItem,
     FormTemplateFieldTypeCard,

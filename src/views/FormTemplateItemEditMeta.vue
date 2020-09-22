@@ -27,14 +27,13 @@
 
 <script>
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
-import Button from '@/components/inputs/Button.vue';
 import { mapActions, mapGetters } from 'vuex';
 import { required } from 'vuelidate/lib/validators';
 import { showOverlayAndRedirect } from '@/helpers.js';
 
 export default {
   name: 'FormTemplatesList',
-  components: { MaterialInput, Button },
+  components: { MaterialInput },
   props: ['tenantSlug'],
   data: () => ({
     name: ''

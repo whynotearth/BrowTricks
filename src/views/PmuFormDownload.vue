@@ -19,13 +19,9 @@
 
 <script>
 import { mapActions } from 'vuex';
-import Button from '@/components/inputs/Button.vue';
 
 export default {
   name: 'PmuFormDownload',
-  components: {
-    Button
-  },
   props: ['tenantSlug', 'clientId', 'templateId'],
   created() {
     this.init();

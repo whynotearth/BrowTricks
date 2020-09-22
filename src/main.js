@@ -11,6 +11,9 @@ import configureModerator from './store/store-moderator';
 import PortalVue from 'portal-vue';
 import SmoothPicker from 'vue-smooth-picker';
 import 'vue-smooth-picker/dist/css/style.css';
+// global components
+import Button from '@/components/inputs/Button.vue';
+Vue.component('Button', Button);
 
 Vue.use(SmoothPicker);
 Vue.use(Vuelidate);
@@ -18,7 +21,6 @@ Vue.use(vClickOutside);
 Vue.use(PortalVue);
 
 Vue.config.productionTip = false;
-
 async function main() {
   await configureModerator(store, router);
   new Vue({

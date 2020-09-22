@@ -140,7 +140,6 @@ export default {
     IconPhone,
     IconPhoneAndroid,
     // MaterialInput,
-    // Button,
     ExpansionPanel,
     MediaManager
   },

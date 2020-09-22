@@ -37,12 +37,11 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import Button from '@/components/inputs/Button';
 import DropDownSheet from '@/components/tenant/DropDownSheet.vue';
 
 export default {
   name: 'MyAccountEmpty',
-  components: { Button, DropDownSheet },
+  components: { DropDownSheet },
   data() {
     return {
       tenants: [],

@@ -55,15 +55,14 @@
 
 <script>
 import { mapActions } from 'vuex';
-import Button from '@/components/inputs/Button.vue';
+
 import PmuFormEmptyPreview from '@/components/pmu/PmuFormEmptyPreview.vue';
 import { showOverlayAndRedirect } from '@/helpers';
 
 export default {
   name: 'PmuSignPreview',
   components: {
-    PmuFormEmptyPreview,
-    Button
+    PmuFormEmptyPreview
   },
   props: ['tenantSlug', 'clientId', 'templateId'],
   created() {

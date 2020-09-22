@@ -38,7 +38,6 @@
 </template>
 
 <script>
-import Button from '@/components/inputs/Button.vue';
 import AddEditNote from '@/components/client/AddEditNote.vue';
 import { format } from 'date-fns';
 import { mapActions } from 'vuex';
@@ -48,7 +47,6 @@ export default {
   name: 'ClientNotifications',
   props: ['tenantSlug', 'clientId'],
   components: {
-    Button,
     AddEditNote
   },
   data() {

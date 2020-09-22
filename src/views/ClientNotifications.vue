@@ -41,7 +41,6 @@
 </template>
 
 <script>
-import Button from '@/components/inputs/Button.vue';
 import { mapGetters, mapActions } from 'vuex';
 import CheckBox from '@/components/inputs/CheckBox';
 import { required } from 'vuelidate/lib/validators';
@@ -69,8 +68,7 @@ export default {
     }
   },
   components: {
-    CheckBox,
-    Button
+    CheckBox
   },
   data() {
     return { selectedNotificationTypes: [] };

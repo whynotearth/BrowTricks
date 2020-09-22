@@ -117,7 +117,7 @@
 <script>
 import ClassicLayout from '@/layouts/ClassicLayout.vue';
 import BaseHeroSection from '@/components/BaseHeroSection.vue';
-import Button from '@/components/inputs/Button.vue';
+
 import ExpansionPanel from '@/components/ExpansionPanel.vue';
 import BaseDialog from '@/components/BaseDialog.vue';
 import NavigationBottom from '@/components/NavigationBottom.vue';
@@ -139,7 +139,6 @@ export default {
   }),
   components: {
     ClassicLayout,
-    Button,
     BaseHeroSection,
     ExpansionPanel,
     NavigationBottom,

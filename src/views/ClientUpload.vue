@@ -98,7 +98,7 @@
 <script>
 import ClientSelectOverlay from '@/components/client/ClientSelectOverlay';
 // // import TextAreaInput from '@/components/inputs/TextAreaInput';
-import Button from '@/components/inputs/Button';
+
 import BaseImagePreview from '@/components/uploader/BaseImagePreview';
 import BaseVideoPreview from '@/components/uploader/BaseVideoPreview';
 import BaseChip from '@/components/BaseChip';
@@ -142,7 +142,6 @@ export default {
   },
   components: {
     ClientSelectOverlay,
-    Button,
     // TextAreaInput,
     IconUser,
     IconCheck,

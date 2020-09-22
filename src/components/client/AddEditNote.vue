@@ -30,12 +30,10 @@
 </template>
 
 <script>
-import Button from '@/components/inputs/Button.vue';
 import TextAreaInput from '@/components/inputs/TextAreaInput.vue';
 
 export default {
   components: {
-    Button,
     TextAreaInput
   },
   props: {

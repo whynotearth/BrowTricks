@@ -26,15 +26,12 @@
 
 <script>
 import { mapMutations, mapGetters } from 'vuex';
-import Button from '@/components/inputs/Button.vue';
+
 import IconGoogle from '@/assets/icons/google.svg';
 import IconFacebook from '@/assets/icons/facebook.svg';
 
 export default {
   name: 'AuthButtons',
-  components: {
-    Button
-  },
   props: {
     mode: {
       type: String,

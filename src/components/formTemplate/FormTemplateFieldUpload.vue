@@ -62,7 +62,6 @@
 <script>
 import TextAreaInput from '@/components/inputs/TextAreaInput';
 import CheckBox from '@/components/inputs/CheckBox';
-import Button from '@/components/inputs/Button';
 import BaseImagePreview from '@/components/uploader/BaseImagePreview';
 import { cloneDeep, get } from 'lodash-es';
 import { required } from 'vuelidate/lib/validators';
@@ -74,8 +73,7 @@ export default {
   components: {
     BaseImagePreview,
     TextAreaInput,
-    CheckBox,
-    Button
+    CheckBox
   },
   validations: {
     model: {

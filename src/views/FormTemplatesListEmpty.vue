@@ -26,10 +26,9 @@
 <script>
 import { formTemplateAdd } from '@/helpers';
 import { mapActions } from 'vuex';
-import Button from '@/components/inputs/Button.vue';
+
 export default {
   name: 'FormTemplatesListEmpty',
-  components: { Button },
   beforeMount() {
     this.statusUpdate('locked');
   },

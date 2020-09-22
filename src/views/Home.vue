@@ -100,7 +100,7 @@
 import ClassicLayout from '@/layouts/ClassicLayout.vue';
 import BaseHeader from '@/components/BaseHeader.vue';
 import ArticleMini from '@/components/ArticleMini.vue';
-import Button from '@/components/inputs/Button.vue';
+
 import IconLogo from '@/assets/icons/browtricks-logo.svg';
 import MenuDrawerCustomer from '@/components/MenuDrawerCustomer.vue';
 // import BaseAvatar from '@/components/BaseAvatar.vue';
@@ -113,7 +113,6 @@ export default {
     ClassicLayout,
     BaseHeader,
     ArticleMini,
-    Button,
     IconLogo,
     MenuDrawerCustomer,
     // BaseAvatar,

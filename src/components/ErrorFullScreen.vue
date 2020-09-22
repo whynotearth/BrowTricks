@@ -19,11 +19,10 @@
 
 <script>
 import BaseCard from '@/components/BaseCard.vue';
-import Button from '@/components/inputs/Button.vue';
 
 export default {
   name: 'ErrorFullScreen',
-  components: { Button, BaseCard },
+  components: { BaseCard },
   props: {
     height: {
       type: String,
