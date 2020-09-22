@@ -13,6 +13,7 @@
       >
         <IconBack class="text-on-primary" />
       </a>
+
       <h1 class="tg-h2-mobile text-opacity-high flex-grow text-on-primary">
         {{ currentTitle }}
       </h1>
@@ -29,46 +30,11 @@
           class="fill-current text-on-primary text-opacity-high w-6 h-6"
         />
       </router-link>
-
-      <!-- NOTE: not in use anywhere -->
-      <a
-        v-click-outside="onClickOutside"
-        class="cursor-pointer self-center"
-        v-else-if="$route.meta.menuItems"
-        @click.prevent="showOverFlowMenu = true"
-      >
-        <IconOverflowMenu />
-      </a>
     </header>
-
-    <transition
-      enter-active-class="transition duration-150 ease-out"
-      enter-class="translate-y-1 opacity-0"
-      enter-to-class="translate-y-0 opacity-100"
-      leave-active-class="transition duration-100 ease-in"
-      leave-class="translate-y-0 opacity-100"
-      leave-to-class="translate-y-1 opacity-0"
-    >
-      <div
-        class="absolute top-0 right-0 z-50 mr-4 mt-14 p-4 rounded-lg shadow-1dp bg-surface"
-        v-if="showOverFlowMenu"
-      >
-        <ul class="text-primary text-left -my-2">
-          <li
-            class="p-2 cursor-pointer"
-            v-for="item in $route.meta.menuItems"
-            :key="item.itemName"
-            @click="navigateTo(item.routeName)"
-          >
-            {{ item.itemName }}
-          </li>
-        </ul>
-      </div>
-    </transition>
 
     <!-- loading -->
     <div
-      v-show="isLoading"
+      v-show="loadingGet"
       class="relative flex-grow max-w-6xl mx-auto w-full flex justify-around items-center"
     >
       <BaseSpinner />
@@ -78,9 +44,11 @@
     <div
       class="relative flex-grow w-full"
       :class="[noNavigation ? '' : 'navigation-spacer']"
-      v-show="!isLoading"
+      v-show="!loadingGet"
     >
-      <slot v-if="isVisible" />
+      <TransitionPage>
+        <slot />
+      </TransitionPage>
     </div>
 
     <NavigationBottom v-if="!noNavigation" />
@@ -91,6 +59,7 @@
 import { mapGetters } from 'vuex';
 import BaseSpinner from '@/components/BaseSpinner';
 import NavigationBottom from '@/components/NavigationBottom';
+import TransitionPage from '@/components/TransitionPage';
 import IconOverflowMenu from '@/assets/icons/more.svg';
 import IconBack from '@/assets/icons/arrow-back.svg';
 import eventBus from '@/utils/eventBus.js';
@@ -98,23 +67,21 @@ import eventBus from '@/utils/eventBus.js';
 export default {
   name: 'WithTitleBarLayout',
   components: {
+    TransitionPage,
     IconBack,
     BaseSpinner,
     NavigationBottom,
     IconOverflowMenu
   },
   data: () => ({
-    isVisible: false,
     currentTitle: '',
-    backRoute: null,
-    showOverFlowMenu: false
+    backRoute: null
   }),
   mounted() {
-    this.isVisible = true;
     this.init();
   },
   computed: {
-    ...mapGetters('loading', ['isLoading']),
+    ...mapGetters('loading', ['loadingGet']),
     noNavigation() {
       return this.$route.matched.some(route => route.meta.noNavigation);
     }
@@ -123,7 +90,6 @@ export default {
     init() {
       this.handleBackRoute();
       this.handleTitle();
-      this.onClickOutside();
     },
     iconClick() {
       this.$router.push(this.backRoute);
@@ -141,17 +107,6 @@ export default {
       eventBus.$on('layoutBackRoute', data => {
         this.backRoute = data;
       });
-    },
-    navigateTo(value) {
-      this.onClickOutside();
-      let params = this.$route.params;
-      this.$router.push({
-        name: value,
-        params: { clientId: params.clientId, tenantSlug: params.tenantSlug }
-      });
-    },
-    onClickOutside() {
-      this.showOverFlowMenu = false;
     }
   },
   watch: {

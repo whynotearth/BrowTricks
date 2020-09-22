@@ -45,7 +45,7 @@
 import ExpansionPanel from '@/components/ExpansionPanel.vue';
 import IconDocument from '@/assets/icons/document.svg';
 import { formatDateTime, formTemplateAdd } from '@/helpers';
-import { mapActions, mapGetters, mapMutations } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import IconAdd from '@/assets/icons/add.svg';
 
 export default {
@@ -62,7 +62,7 @@ export default {
     this.init();
   },
   methods: {
-    ...mapMutations('loading', ['loading']),
+    ...mapActions('loading', ['loadingUpdate']),
     ...mapActions('client', ['fetchClient']),
     ...mapActions('formTemplate', [
       'currentTemplateReset',
@@ -78,7 +78,7 @@ export default {
       return isSigned ? 'Completed' : 'Incomplete';
     },
     async _fetchClient() {
-      this.loading(true);
+      this.loadingUpdate(true);
       this.client = await this.fetchClient({
         params: {
           clientId: this.clientId,
@@ -87,7 +87,7 @@ export default {
       }).catch(() => {
         console.log('error in getting client');
       });
-      this.loading(false);
+      this.loadingUpdate(false);
     },
     async init() {
       this._fetchClient();

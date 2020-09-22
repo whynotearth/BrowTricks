@@ -62,6 +62,7 @@ export default {
     this.init();
   },
   methods: {
+    ...mapActions('loading', ['loadingUpdate']),
     ...mapActions('formTemplate', [
       'templateAdd',
       'currentTemplateUpdate',
@@ -71,11 +72,16 @@ export default {
     formTemplateAdd,
     formatDateTime,
     init() {
+      this.loadingUpdate(true);
       this.templatesFetch({
         params: { tenantSlug: this.tenantSlug }
-      }).catch(() => {
-        alert('Something went wrong, refreshing page may fix it.');
-      });
+      })
+        .catch(() => {
+          alert('Something went wrong, refreshing page may fix it.');
+        })
+        .finally(() => {
+          this.loadingUpdate(false);
+        });
     },
     async editTemplate(template) {
       this.currentTemplateUpdate(template);

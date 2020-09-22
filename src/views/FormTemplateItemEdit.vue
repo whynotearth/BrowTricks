@@ -187,10 +187,13 @@ export default {
   computed: {
     ...mapGetters('formTemplate', ['currentTemplateGet'])
   },
-  created() {
-    this.init();
+  async created() {
+    this.loadingUpdate(true);
+    await this.init();
+    this.loadingUpdate(false);
   },
   methods: {
+    ...mapActions('loading', ['loadingUpdate']),
     ...mapActions('formTemplate', [
       'templateSave',
       'templateFetch',
@@ -207,19 +210,20 @@ export default {
         throw new Error('Something went wrong');
       }
 
-      // TODO: handle errors
-      this._templateFetch();
+      await this._templateFetch();
     },
     _templateFetch() {
-      this.templateFetch({
+      return this.templateFetch({
         params: {
           templateId: this.$route.params.formId,
           tenantSlug: this.tenantSlug
         }
+      }).catch(() => {
+        // This can happen after creating a template then using browser back (which leads browser to draft template again)
+        console.log('Could not get form template');
       });
     },
     fieldsUpdate(updatedItems) {
-      console.log('updatedItems', updatedItems);
       const updatedTemplate = {
         ...this.currentTemplateGet,
         items: cloneDeep(updatedItems)

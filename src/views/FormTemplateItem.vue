@@ -1,19 +1,15 @@
 <template>
   <div class="text-left">
-    <transition name="fadeslow">
-      <router-view v-on="$listeners" v-show="!isLoading" />
-    </transition>
+    <TransitionPage>
+      <router-view v-on="$listeners" />
+    </TransitionPage>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import TransitionPage from '@/components/TransitionPage.vue';
 export default {
   name: 'FormTemplateItem',
-  computed: {
-    ...mapGetters('loading', ['isLoading'])
-  }
+  components: { TransitionPage }
 };
 </script>
-
-<style scoped></style>

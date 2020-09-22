@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex';
+import { mapActions } from 'vuex';
 import Button from '@/components/inputs/Button.vue';
 import PmuFormEmptyPreview from '@/components/pmu/PmuFormEmptyPreview.vue';
 import { showOverlayAndRedirect } from '@/helpers';
@@ -87,7 +87,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('loading', ['loading']),
+    ...mapActions('loading', ['loadingUpdate']),
     ...mapActions('client', [
       'fetchClient',
       'pmuSendFormLink',
@@ -98,7 +98,7 @@ export default {
       this._fetchClient();
     },
     async _fetchClient() {
-      this.loading(true);
+      this.loadingUpdate(true);
 
       this.client = await this.fetchClient({
         params: {
@@ -109,7 +109,7 @@ export default {
         alert('Error in getting client');
       });
 
-      this.loading(false);
+      this.loadingUpdate(false);
     },
     sendSms() {
       const path = this.$router.resolve({

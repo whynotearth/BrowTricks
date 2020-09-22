@@ -52,18 +52,18 @@
 }
 
 /* router-view fade */
-.routefade-enter-active {
+.pagefade-enter-active {
   transition: opacity 0.5s ease-in-out;
   z-index: 2;
   opacity: 0;
 }
-.routefade-enter-to {
+.pagefade-enter-to {
   z-index: 2;
   opacity: 1;
 }
-.routefade-leave-active {
+.pagefade-leave-active {
   z-index: -1;
 }
-.routefade-leave-to {
+.pagefade-leave-to {
   z-index: -1;
 }

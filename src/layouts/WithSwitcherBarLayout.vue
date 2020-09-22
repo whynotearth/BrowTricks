@@ -46,15 +46,17 @@
 
     <!-- loading -->
     <div
-      v-show="isLoading"
+      v-show="loadingGet"
       class="relative flex-grow max-w-6xl mx-auto w-full flex justify-around items-center"
     >
       <BaseSpinner />
     </div>
     <!-- content -->
     <!-- mb-14 for bottom navigation -->
-    <div class="relative flex-grow w-full mb-14 pb-6" v-show="!isLoading">
-      <slot />
+    <div class="relative flex-grow w-full mb-14 pb-6" v-show="!loadingGet">
+      <transition name="fadeslow" mode="out-in">
+        <slot v-show="!loadingGet && isVisible" />
+      </transition>
     </div>
 
     <NavigationBottom v-if="!noNavigation" />
@@ -88,7 +90,7 @@ export default {
     this.init();
   },
   computed: {
-    ...mapGetters('loading', ['isLoading']),
+    ...mapGetters('loading', ['loadingGet']),
     noNavigation() {
       return this.$route.matched.some(route => route.meta.noNavigation);
     }

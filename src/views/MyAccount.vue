@@ -47,7 +47,7 @@
 import BaseHeroSection from '@/components/BaseHeroSection.vue';
 import ExpansionPanel from '@/components/ExpansionPanel.vue';
 import MediaManager from '@/components/uploader/MediaManager.vue';
-import { mapActions, mapMutations } from 'vuex';
+import { mapActions } from 'vuex';
 import { get } from 'lodash-es';
 import IconCreate from '@/assets/icons/create.svg';
 import IconPerson from '@/assets/icons/person.svg';
@@ -92,11 +92,11 @@ export default {
   methods: {
     ...mapActions('tenant', ['fetchUserTenant', 'fetchUserTenants']),
     ...mapActions('auth', ['logout']),
-    ...mapMutations('loading', ['loading']),
+    ...mapActions('loading', ['loadingUpdate']),
     async init() {
-      this.loading(true);
+      this.loadingUpdate(true);
       await this._fetchUserTenant();
-      this.loading(false);
+      this.loadingUpdate(false);
     },
     async _fetchUserTenant() {
       this.tenantData = await this.fetchUserTenant({

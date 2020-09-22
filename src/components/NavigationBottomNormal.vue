@@ -14,11 +14,7 @@
     </li>
 
     <li class="text-on-primary text-opacity-high link-item">
-      <router-link
-        class="navigation--link block"
-        :to="{ name: 'ClientList' }"
-        exact
-      >
+      <router-link class="navigation--link block" :to="{ name: 'ClientList' }">
         <IconUser class="m-auto mb-2 w-5 h-5" />
         <span>Clients</span>
       </router-link>
@@ -52,11 +48,7 @@
 
     <!-- MyAccount -->
     <li class="text-on-primary text-opacity-high link-item">
-      <router-link
-        class="navigation--link block"
-        :to="{ name: 'MyAccount' }"
-        exact
-      >
+      <router-link class="navigation--link block" :to="{ name: 'MyAccount' }">
         <IconUserCircle class="m-auto mb-2 w-5 h-5" />
         <span>Account</span>
       </router-link>

@@ -5,7 +5,7 @@
       <div :class="[isModalOpen ? 'z-50' : 'z-30']">
         <StepperTop :navigation="navigation" :page="page" />
         <div>
-          <transition name="fade" mode="out-in">
+          <transition name="fadeslow" mode="out-in">
             <keep-alive>
               <component
                 :is="component"
