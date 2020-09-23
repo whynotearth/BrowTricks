@@ -6,5 +6,19 @@ export const generalRoutes = [
     meta: {
       isPublic: true
     }
+  },
+  {
+    path: '/login',
+    name: 'AuthLogin',
+    component: () => import('@/views/AuthLogin.vue'),
+    props: true,
+    meta: {
+      isPublic: true,
+      layout: () => import('@/layouts/AppBarLayout.vue'),
+      routeBack: { name: 'Home' },
+      appBar: {
+        title: 'Welcome Back!'
+      }
+    }
   }
 ];

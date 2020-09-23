@@ -1,9 +1,9 @@
 <template>
   <component
     :is="type"
-    class="button tg-color-label-mobile font-semibold uppercase cursor-pointer transition-all duration-75 select-none"
+    class="button tg-button font-semibold uppercase cursor-pointer transition-all duration-75 select-none"
     :class="[
-      `theme-${theme}`,
+      isBordered ? 'border border-black' : '',
       shadow,
       margin,
       display,
@@ -11,7 +11,7 @@
       isRounded ? 'rounded-full' : '',
       width,
       background,
-      textColorComputed,
+      textColor,
       padding
     ]"
     v-bind="attrs"
@@ -56,7 +56,7 @@ export default {
     },
     background: {
       type: String,
-      default: ''
+      default: 'bg-primary'
     },
     shadow: {
       type: String,
@@ -68,7 +68,7 @@ export default {
     },
     textColor: {
       type: String,
-      default: ''
+      default: 'text-on-primary text-opacity-high'
     },
     maxWidth: {
       type: String,
@@ -80,7 +80,7 @@ export default {
     },
     isRounded: {
       type: Boolean,
-      default: false
+      default: true
     },
     display: {
       type: String,
@@ -90,9 +90,9 @@ export default {
       type: String,
       default: 'mx-auto'
     },
-    theme: {
-      type: String,
-      default: 'btnprimary' // ['btnprimary', 'btnsecondary']
+    isBordered: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -111,14 +111,6 @@ export default {
       } else {
         return 'button';
       }
-    },
-    textColorComputed() {
-      if (this.textColor) {
-        return this.textColor;
-      }
-      return this.theme === 'btnprimary'
-        ? 'text-on-secondary text-opacity-high'
-        : 'text-primary text-opacity-high';
     }
   }
 };
@@ -128,18 +120,5 @@ export default {
 .button:focus {
   outline: none;
   box-shadow: 0 0 0 2px white;
-}
-.theme-btnprimary {
-  @apply shadow-2dp;
-  background: linear-gradient(
-      308deg,
-      rgba(237, 187, 174, 0.14) 0%,
-      rgba(255, 255, 255, 0.42) 49.37%,
-      rgba(255, 255, 255, 0.42) 98.01%
-    ),
-    #edaeae;
-}
-.theme-btnsecondary {
-  @apply shadow-2dp bg-secondary;
 }
 </style>

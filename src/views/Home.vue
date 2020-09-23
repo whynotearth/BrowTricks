@@ -13,7 +13,10 @@
       <Button title="Create Account" class="normal-case" />
     </template>
     <template #tertiaryCTA>
-      <Button title="Don't have an account? Sign Up" />
+      <p class="text-on-background">
+        Already have an account?
+        <router-link class="" :to="{ name: 'AuthLogin' }">Log In</router-link>
+      </p>
     </template>
   </SplashLayout>
 </template>

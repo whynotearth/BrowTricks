@@ -12,6 +12,10 @@
 @import './inputs.css';
 @import './scrollbars.css';
 
+html {
+  font-family: 'Titillium Web', sans-serif;
+}
+
 :root {
   --navigation-height: 56px;
   --header-height: 60px;

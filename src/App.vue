@@ -1,7 +1,7 @@
 <template>
   <div
     id="app"
-    class="min-h-vh100 h-full text-center font-sans bg-background has-noise text-on-background overflow-x-hidden"
+    class="min-h-vh100 h-full text-center bg-background text-on-background overflow-x-hidden"
   >
     <component :is="$route.meta.layout || 'div'">
       <router-view />

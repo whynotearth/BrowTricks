@@ -1,6 +1,6 @@
 <template>
   <div
-    class="h-full min-h-vh100 layout--splash text-on-background-image bg-cover bg-no-repeat"
+    class="h-full min-h-vh100 layout--splash text-on-background bg-cover bg-no-repeat"
     :style="{ 'background-image': `url(${backgroundImage})` }"
   >
     <!-- loading -->
@@ -47,7 +47,7 @@
         </div>
         <div
           v-if="$slots.tertiaryCTA"
-          class="tg-body-hyperlink-mobile text-on-background-image text-opacity-medium mb-4"
+          class="tg-body-hyperlink-mobile text-on-background text-opacity-medium mb-4"
         >
           <slot name="tertiaryCTA" />
         </div>
