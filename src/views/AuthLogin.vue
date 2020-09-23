@@ -1,14 +1,13 @@
 <template>
   <div class="flex flex-col items-center text-left w-full">
-    <div class="px-4">
+    <div class="px-4 max-w-md">
       <img
-        class="max-w-md"
         src="https://res.cloudinary.com/whynotearth/image/upload/v1600874347/BrowTricks/static_v2/image-login_crwfva.png"
         alt=""
       />
     </div>
     <div
-      class="flex flex-col items-center justify-start flex-1 w-full bg-surface rounded-xl p-4"
+      class="flex flex-col items-center justify-start flex-1 w-full bg-surface rounded-xl px-4 pt-8"
     >
       <div class="w-full max-w-sm">
         <MaterialInput
