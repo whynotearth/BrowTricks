@@ -12,16 +12,21 @@
     </div>
     <div
       v-show="!loadingGet"
-      class="flex flex-col justify-end items-center min-h-vh100 py-5"
+      class="flex flex-col justify-between items-center min-h-vh100 py-5"
     >
       <div class="flex flex-col max-w-sm mx-auto overflow-auto p-4">
         <div class="mx-auto"><slot name="image" /></div>
-        <h1 class="tg-h1-mobile  mb-4">
+        <p class="tg-h2-mobile text-on-background mb-4" v-if="$slots.pretitle">
+          <slot name="pretitle" />
+        </p>
+        <h1 class="tg-h1-mobile text-on-background  mb-4 uppercase">
           <slot name="title" />
         </h1>
         <div v-if="$slots.subtitle" class="tg-body-mobile mb-4">
           <slot name="subtitle" />
         </div>
+      </div>
+      <div class="flex flex-col max-w-sm mx-auto overflow-auto p-4">
         <div
           v-if="$slots.link"
           class="tg-body-hyperlink-mobile text-secondary mb-4"
@@ -65,7 +70,7 @@ export default {
     backgroundImage: {
       type: String,
       default:
-        'https://res.cloudinary.com/whynotearth/image/upload/v1598336510/BrowTricks/static_v2/brandcover_lo3i0l.jpg'
+        'https://res.cloudinary.com/whynotearth/image/upload/v1600846678/BrowTricks/static_v2/bg-pattern-2_rfldwv.png'
     }
   }
 };
