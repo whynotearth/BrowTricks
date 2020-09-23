@@ -12,7 +12,7 @@
     <div slot="content" class="p-6 my-auto text-on-background-image">
       <div class="tg-h1-mobile mb-8">Ask us a question</div>
       <div class="flex flex-col w-full tg-body-mobile">
-        <BaseInputText label="Name" class="pb-8">
+        <!-- <BaseInputText label="Name" class="pb-8">
           Name
         </BaseInputText>
         <BaseInputText
@@ -22,14 +22,14 @@
           :lineStyle="['border-opacity-medium']"
         >
           Email
-        </BaseInputText>
-        <BaseInputTextArea class="pb-8">
+        </BaseInputText> -->
+        <!-- <BaseInputTextArea class="pb-8">
           Message
-        </BaseInputTextArea>
-        <BaseButton class="border mb-8 w-full">
+        </BaseInputTextArea> -->
+        <!-- <BaseButton class="border mb-8 w-full">
           <IconSend slot="icon" class="fill-current opacity-medium h-6 w-6" />
           <span slot="cta-text">Send</span>
-        </BaseButton>
+        </BaseButton> -->
         <div class="tg-caption-mobile">
           {{ tenantName }} will receive an email and a text with your message.
         </div>
@@ -43,10 +43,10 @@ import LayoutFixedScrollable from '@/components/LayoutFixedScrollable.vue';
 import BaseHeader from '@/components/BaseHeader.vue';
 import IconMenu from '@/assets/icons/menu.svg';
 import MenuDrawerCustomer from '@/components/MenuDrawerCustomer.vue';
-import BaseInputText from '@/components/BaseInputText.vue';
-import BaseInputTextArea from '@/components/BaseInputTextArea.vue';
-import BaseButton from '@/components/BaseButton.vue';
-import IconSend from '@/assets/icons/send.svg';
+// import BaseInputText from '@/components/BaseInputText.vue';
+// // import BaseInputTextArea from '@/components/BaseInputTextArea.vue';
+// // import BaseButton from '@/components/BaseButton.vue';
+// import IconSend from '@/assets/icons/send.svg';
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
@@ -55,11 +55,11 @@ export default {
     LayoutFixedScrollable,
     BaseHeader,
     IconMenu,
-    MenuDrawerCustomer,
-    BaseInputText,
-    BaseInputTextArea,
-    BaseButton,
-    IconSend
+    MenuDrawerCustomer
+    // BaseInputText,
+    // BaseInputTextArea,
+    // BaseButton,
+    // IconSend
   },
   computed: {
     ...mapGetters({
