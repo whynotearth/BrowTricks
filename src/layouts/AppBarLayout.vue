@@ -3,7 +3,6 @@
     <BaseHeader
       v-if="appBar"
       :routeBack="meta.routeBack"
-      :background="null"
       :title="appBar.title"
     />
     <transition name="fade">

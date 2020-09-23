@@ -24,6 +24,21 @@ const getters = {
 };
 
 const actions = {
+  async loginStandard({ dispatch }, { params }) {
+    let token;
+    try {
+      token = await AuthenticationService.login(params);
+
+      await dispatch('updateToken', token);
+    } catch (error) {
+      throw new Error(error.message);
+    }
+    const pingResult = await dispatch('ping');
+
+    if (!pingResult) {
+      throw new Error('An error occured during login');
+    }
+  },
   tokenlogin({ dispatch }, { params }) {
     return new Promise((resolve, reject) => {
       // params: {body: {token: 'xyz'}}

@@ -1,7 +1,7 @@
 <template>
   <component
     :is="type"
-    class="button tg-button font-semibold uppercase cursor-pointer transition-all duration-75 select-none"
+    class="button tg-button font-semibold cursor-pointer transition-all duration-75 select-none"
     :class="[
       isBordered ? 'border border-black' : '',
       shadow,
@@ -19,12 +19,9 @@
     :href="href"
     :to="to"
   >
-    <div
-      class="flex content-between w-full items-center"
-      :class="[textJustify]"
-    >
+    <div class="flex content-between items-center" :class="[textJustify]">
       <slot name="start" />
-      <span class="flex items-center flex-grow-0">{{ title }}</span>
+      <span class="title flex items-center flex-grow-0">{{ title }}</span>
       <slot name="end" />
     </div>
   </component>
@@ -50,7 +47,7 @@ export default {
     },
     width: {
       type: String,
-      default: 'w-full'
+      default: 'min-w-200'
     },
     background: {
       type: String,
@@ -118,5 +115,13 @@ export default {
 .button:focus {
   outline: none;
   box-shadow: 0 0 0 2px white;
+}
+.min-w-200 {
+  min-width: 200px;
+}
+
+.title {
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 </style>

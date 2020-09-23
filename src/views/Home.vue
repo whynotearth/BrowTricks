@@ -10,7 +10,12 @@
     <template #pretitle>Welcome to</template>
     <template #title>{{ SHORTNAME }}</template>
     <template #primaryCTA>
-      <Button title="Create Account" class="normal-case" />
+      <Button
+        background="bg-primary"
+        textColor="text-on-primary"
+        title="Create Account"
+        class="normal-case"
+      />
     </template>
     <template #tertiaryCTA>
       <p class="text-on-background">

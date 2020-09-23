@@ -77,7 +77,7 @@ export default {
     },
     margin: {
       type: String,
-      default: 'mb-4'
+      default: 'mb-6'
     },
     // update value on input event
     immediateInput: {
@@ -163,5 +163,13 @@ export default {
 
 .input:focus::placeholder {
   color: transparent;
+}
+
+/* change autofill background to white */
+.input:-webkit-autofill,
+.input:-webkit-autofill:hover,
+.input:-webkit-autofill:focus,
+.input:-webkit-autofill:active {
+  box-shadow: 0 0 0 30px white inset;
 }
 </style>
