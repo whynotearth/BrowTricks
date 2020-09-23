@@ -41,11 +41,6 @@ html {
   @apply overflow-hidden;
 }
 
-.has-noise {
-  background-image: url(https://res.cloudinary.com/whynotearth/image/upload/v1597904330/BrowTricks/static_v2/noise_m7ti9c.png);
-  background-repeat: repeat;
-}
-
 .layout-splash {
   background-image: url('https://res.cloudinary.com/whynotearth/image/upload/v1598336510/BrowTricks/static_v2/brandcover_lo3i0l.jpg');
   @apply bg-cover bg-no-repeat;

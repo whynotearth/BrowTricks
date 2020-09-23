@@ -9,7 +9,6 @@
           v-model="$v.description.$model"
           :error="$v.description.$error"
           label="Description"
-          labelBackground="has-noise bg-background"
           rows="4"
         >
           <p v-if="!$v.description.required">

@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <textarea
-      class="block input appearance-none outline-none relative bg-transparent rounded w-full px-4 py-3 border text-opacity-medium focus:text-opacity-high border-opacity-medium focus:border-opacity-high tg-body-mobile"
+      class="block input appearance-none outline-none relative bg-transparent w-full px-4 py-3 border-b text-opacity-medium focus:text-opacity-high border-opacity-medium focus:border-opacity-high tg-body-mobile"
       :class="[
         textColor,
         borderColor,
@@ -18,7 +18,7 @@
     <label
       :for="idName"
       class="label absolute mb-0 top-0 left-0 mt-3 ml-3 cursor-text"
-      :class="[labelColor, labelBackground]"
+      :class="[labelColor]"
     >
       {{ label }}
     </label>
@@ -49,10 +49,6 @@ export default {
     label: {
       type: String,
       default: 'Label'
-    },
-    labelBackground: {
-      type: String,
-      default: 'bg-surface'
     },
     placeholder: {
       type: String

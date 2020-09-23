@@ -7,7 +7,7 @@
       />
     </div>
     <div
-      class="flex-grow w-full bg-surface rounded-xl px-4 py-8 flex flex-col items-center"
+      class="flex-grow w-full bg-surface rounded-t-xl px-4 py-8 flex flex-col items-center"
     >
       <AuthButtons></AuthButtons>
 
@@ -25,7 +25,6 @@
           <MaterialInput
             v-model="$v.email.$model"
             label="Email"
-            labelBackground="has-noise bg-background"
             :error="$v.email.$error"
             theme="light"
           >
