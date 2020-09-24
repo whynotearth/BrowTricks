@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <textarea
-      class="block input appearance-none outline-none relative bg-transparent w-full px-4 py-3 border-b text-opacity-medium focus:text-opacity-high border-opacity-medium focus:border-opacity-high tg-body-mobile"
+      class="block input appearance-none outline-none relative bg-transparent w-full py-3 border-b text-opacity-medium focus:text-opacity-high border-opacity-medium focus:border-opacity-high tg-body-mobile"
       :class="[
         textColor,
         borderColor,
@@ -17,7 +17,7 @@
     ></textarea>
     <label
       :for="idName"
-      class="label absolute mb-0 top-0 left-0 mt-3 ml-3 cursor-text"
+      class="label absolute mb-0 top-0 left-0 mt-3 cursor-text"
       :class="[labelColor]"
     >
       {{ label }}
@@ -67,7 +67,7 @@ export default {
     },
     margin: {
       type: String,
-      default: 'mb-4'
+      default: 'mb-6'
     },
     // update value on input event
     immediateInput: {
@@ -131,7 +131,7 @@ export default {
   transition: all 0.2s ease-out;
   transition: all 200ms;
   opacity: 0;
-  padding: 0 5px;
+  padding: 0;
   z-index: 1;
 }
 

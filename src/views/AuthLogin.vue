@@ -51,7 +51,7 @@
           <Button type="submit" title="Login" />
           <p class="mt-4 tg-body-mobile text-center">
             Don't have an account?
-            <router-link :to="{ name: 'SignUp' }" class="text-primary-blue">
+            <router-link :to="{ name: 'AuthSignup' }" class="text-primary-blue">
               Sign Up
             </router-link>
           </p>
@@ -101,6 +101,7 @@ export default {
         });
     },
     onSuccess() {
+      // TODO: fetch tenants first or go to my account
       showOverlayAndRedirect({
         title: 'Success!',
         route: { name: 'TenantHome' }

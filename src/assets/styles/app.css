@@ -58,3 +58,9 @@ html {
 .break-word {
   word-break: break-word;
 }
+
+@responsive {
+  .bg-none {
+    background-image: none !important;
+  }
+}

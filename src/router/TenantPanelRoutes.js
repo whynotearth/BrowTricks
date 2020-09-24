@@ -23,9 +23,9 @@ export const TenantPanelRoutes = [
   {
     // first step: /sign-up/business-info
     path: '/sign-up/:step',
-    name: 'SignUp',
+    name: 'TenantSignup',
     props: true,
-    component: () => import('@/views/AuthSignUp.vue'),
+    component: () => import('@/views/TenantSignup.vue'),
     meta: {
       layout: () => import('@/layouts/TenantLayout.vue'),
       needsUserInfo: true

@@ -24,6 +24,24 @@ const getters = {
 };
 
 const actions = {
+  register({ dispatch }, { params }) {
+    return new Promise((resolve, reject) => {
+      AuthenticationService.register(params)
+        .then(async token => {
+          await dispatch('updateToken', token);
+
+          dispatch('ping')
+            .then(resolve)
+            .catch(error => {
+              console.error('Could not get user data after successful login');
+              reject(error);
+            });
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+  },
   async loginStandard({ dispatch }, { params }) {
     let token;
     try {
@@ -55,9 +73,7 @@ const actions = {
   },
   ping({ commit, dispatch, state }) {
     return new Promise((resolve, reject) => {
-      // TODO: use meredith-axios
-      ajax
-        .get('/api/v0/authentication/ping')
+      AuthenticationService.ping()
         .then(response => {
           commit('updateProvider', response.data.loginProviders[0]);
           commit('updateUserName', response.data.userName);
@@ -72,11 +88,11 @@ const actions = {
   },
   logout({ state, dispatch }) {
     return new Promise((resolve, reject) => {
-      // TODO: use meredith-axios
-      ajax
-        .post(
-          `/api/v0/authentication/provider/logout?provider=${state.provider}`
-        )
+      const service = state.provider
+        ? AuthenticationService.logout1
+        : AuthenticationService.logout;
+      const serviceParams = state.provider ? { provider: state.provider } : {};
+      service(serviceParams)
         .then(() => {
           dispatch('clear');
           dispatch('updateToken', undefined);

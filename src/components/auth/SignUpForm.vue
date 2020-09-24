@@ -136,7 +136,9 @@ export default {
   },
   watch: {
     component(step) {
-      this.$router.push({ name: 'SignUp', params: { step } }).catch(() => {});
+      this.$router
+        .push({ name: 'TenantSignup', params: { step } })
+        .catch(() => {});
     },
     '$route.params.step': {
       immediate: true,
