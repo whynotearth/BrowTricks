@@ -24,7 +24,7 @@
     >
       {{ label }}
     </label>
-    <div class="ml-4 mt-2 text-error tg-body-mobile" v-if="error">
+    <div class="mt-2 text-error tg-body-mobile" v-if="error">
       <slot />
     </div>
   </div>

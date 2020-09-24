@@ -55,6 +55,11 @@
             </p>
           </MaterialInput>
         </div>
+
+        <p v-if="errorMessage" class="mb-4 text-error tg-body-mobile">
+          {{ errorMessage }}
+        </p>
+
         <div>
           <Button type="submit" title="Let's Get Started" />
           <p class="mt-4 tg-body-mobile text-center">
@@ -74,6 +79,7 @@ import MaterialInput from '@/components/inputs/MaterialInput.vue';
 import { required, email } from 'vuelidate/lib/validators';
 import { mapActions } from 'vuex';
 import { showOverlayAndRedirect } from '@/helpers';
+import { get } from 'lodash-es';
 
 export default {
   name: 'AuthSignup',
@@ -82,6 +88,7 @@ export default {
   },
   data() {
     return {
+      errorMessage: '',
       firstName: '',
       lastName: '',
       email: '',
@@ -103,9 +110,22 @@ export default {
       required
     }
   },
+  created() {
+    this.clearError();
+  },
   methods: {
     ...mapActions('auth', ['register']),
+    clearError() {
+      this.errorMessage = '';
+    },
     submit() {
+      this.clearError();
+
+      this.$v.$touch();
+      if (this.$v.$invalid) {
+        return;
+      }
+
       this.register({
         params: {
           body: {
@@ -118,6 +138,11 @@ export default {
       })
         .then(this.onSuccess)
         .catch(error => {
+          this.errorMessage = get(
+            error,
+            'response.data[0].description',
+            'Something went wrong'
+          );
           console.log(error, error.response);
         });
     },

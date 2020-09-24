@@ -43,19 +43,9 @@ const actions = {
     });
   },
   async loginStandard({ dispatch }, { params }) {
-    let token;
-    try {
-      token = await AuthenticationService.login(params);
-
-      await dispatch('updateToken', token);
-    } catch (error) {
-      throw new Error(error.message);
-    }
-    const pingResult = await dispatch('ping');
-
-    if (!pingResult) {
-      throw new Error('An error occured during login');
-    }
+    return AuthenticationService.login(params)
+      .then(token => dispatch('updateToken', token))
+      .then(async () => await dispatch('ping'));
   },
   tokenlogin({ dispatch }, { params }) {
     return new Promise((resolve, reject) => {
@@ -75,10 +65,11 @@ const actions = {
     return new Promise((resolve, reject) => {
       AuthenticationService.ping()
         .then(response => {
-          commit('updateProvider', response.data.loginProviders[0]);
-          commit('updateUserName', response.data.userName);
+          console.log('response', response);
+          commit('updateProvider', response.loginProviders[0]);
+          commit('updateUserName', response.userName);
           dispatch('updateToken', state.token);
-          resolve(response.data);
+          resolve(response);
         })
         .catch(error => {
           dispatch('clear');

@@ -47,6 +47,11 @@
             </p>
           </MaterialInput>
         </div>
+
+        <p v-if="errorMessage" class="mb-4 text-error tg-body-mobile">
+          {{ errorMessage }}
+        </p>
+
         <div>
           <Button type="submit" title="Login" />
           <p class="mt-4 tg-body-mobile text-center">
@@ -67,6 +72,7 @@ import AuthButtons from '@/components/auth/AuthButtons';
 import { required, email } from 'vuelidate/lib/validators';
 import { mapActions } from 'vuex';
 import { showOverlayAndRedirect } from '@/helpers';
+import { get } from 'lodash-es';
 
 export default {
   name: 'AuthLogin',
@@ -76,6 +82,7 @@ export default {
   },
   data() {
     return {
+      errorMessage: '',
       email: '',
       password: ''
     };
@@ -89,14 +96,32 @@ export default {
       required
     }
   },
+  created() {
+    this.clearError();
+  },
   methods: {
     ...mapActions('auth', ['loginStandard']),
+    clearError() {
+      this.errorMessage = '';
+    },
     submit() {
+      this.clearError();
+
+      this.$v.$touch();
+      if (this.$v.$invalid) {
+        return;
+      }
+
       this.loginStandard({
         params: { body: { password: this.password, email: this.email } }
       })
         .then(this.onSuccess)
         .catch(error => {
+          this.errorMessage = get(
+            error,
+            'response.data.error',
+            'Something went wrong'
+          );
           console.log(error, error.response);
         });
     },
