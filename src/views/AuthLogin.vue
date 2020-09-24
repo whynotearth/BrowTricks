@@ -104,7 +104,7 @@ export default {
       // TODO: fetch tenants first or go to my account
       showOverlayAndRedirect({
         title: 'Success!',
-        route: { name: 'TenantHome' }
+        route: { name: 'MyAccountEmpty' }
       });
     }
   }

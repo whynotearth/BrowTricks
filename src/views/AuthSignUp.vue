@@ -59,7 +59,7 @@
           <Button type="submit" title="Let's Get Started" />
           <p class="mt-4 tg-body-mobile text-center">
             Already have an account?
-            <router-link :to="{ name: 'SignUp' }" class="text-primary-blue">
+            <router-link :to="{ name: 'AuthLogin' }" class="text-primary-blue">
               Login
             </router-link>
           </p>

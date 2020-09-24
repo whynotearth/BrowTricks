@@ -15,6 +15,7 @@
         textColor="text-on-primary"
         title="Create Account"
         class="normal-case"
+        :to="{ name: 'AuthSignup' }"
       />
     </template>
     <template #tertiaryCTA>
