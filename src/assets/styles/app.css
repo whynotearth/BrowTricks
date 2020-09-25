@@ -17,13 +17,13 @@ html {
 }
 
 :root {
-  --navigation-height: 56px;
+  --navigation-height: 80px;
   --header-height: 60px;
   --navigation-spacer: calc(var(--navigation-height) + 24px);
 }
 
 .navigation-spacer {
-  margin-bottom: 56px;
+  margin-bottom: 80px;
   padding-bottom: 24px;
 }
 

@@ -84,7 +84,7 @@
             aria-label="Upload"
             @click="isOpenDrawerUploadUpdate(true)"
           >
-            <IconCameraPlus
+            <IconCamera
               class="fill-current text-on-background text-opacity-medium w-10 h-10"
             />
           </a>
@@ -111,7 +111,7 @@ import IconNotification from '@/assets/icons/notification.svg';
 // import IconImages from '@/assets/icons/images.svg';
 import IconMail from '@/assets/icons/mail.svg';
 import IconPhone from '@/assets/icons/phone.svg';
-import IconCameraPlus from '@/assets/icons/camera-plus.svg';
+import IconCamera from '@/assets/icons/camera.svg';
 import IconPhoneAndroid from '@/assets/icons/phone_android.svg';
 import { get } from 'lodash-es';
 import { mapActions } from 'vuex';
@@ -135,7 +135,7 @@ export default {
     IconNotes,
     IconNotification,
     // IconImages,
-    IconCameraPlus,
+    IconCamera,
     IconMail,
     IconPhone,
     IconPhoneAndroid,
