@@ -1,15 +1,16 @@
 <template>
-  <div class="page-content--min-h text-left flex flex-col">
+  <PageContentBoard>
     <TransitionPage>
       <router-view v-on="$listeners" />
     </TransitionPage>
-  </div>
+  </PageContentBoard>
 </template>
 
 <script>
 import TransitionPage from '@/components/TransitionPage';
+import PageContentBoard from '@/components/PageContentBoard';
 export default {
   name: 'FormTemplates',
-  components: { TransitionPage }
+  components: { TransitionPage, PageContentBoard }
 };
 </script>

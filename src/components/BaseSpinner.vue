@@ -1,10 +1,17 @@
-<template>
-  <div class="loading"></div>
+<template functional>
+  <div class="loading" :class="[props.classNames, props.borderColor]"></div>
 </template>
 
 <script>
 export default {
-  name: 'BaseSpinner'
+  name: 'BaseSpinner',
+  props: {
+    borderColor: {
+      type: String,
+      default: 'border-white'
+    },
+    classNames: String
+  }
 };
 </script>
 
@@ -14,7 +21,7 @@ export default {
 }
 
 .loading {
-  @apply border-white border-4 rounded-full w-10 h-10;
+  @apply border-4 rounded-full w-10 h-10;
   animation: spin 500ms linear infinite;
   border-bottom-color: transparent;
   border-right-color: transparent;

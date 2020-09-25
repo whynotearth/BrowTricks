@@ -19,18 +19,12 @@ html {
 :root {
   --navigation-height: 80px;
   --header-height: 56px;
-  --navigation-spacer: calc(var(--navigation-height) + 24px);
   --content-board-spacer: 24px;
-}
-
-.navigation-spacer {
-  margin-bottom: 80px;
-  padding-bottom: 24px;
 }
 
 .page-content--min-h {
   min-height: calc(
-    100 * var(--vh) - var(--navigation-spacer) - var(--header-height)
+    100 * var(--vh) - var(--header-height)
   );
 }
 

@@ -95,7 +95,7 @@
       <Button
         textColor="text-error"
         title="Delete Form Template"
-        theme="none"
+        :background="null"
         @clicked="isDeleteModalOpen = true"
       />
     </div>

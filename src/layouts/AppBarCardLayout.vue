@@ -1,5 +1,8 @@
 <template>
-  <div class="min-h-vh100 w-full bg-primary flex flex-col">
+  <div
+    class="min-h-vh100 w-full bg-primary flex flex-col"
+    :class="[!meta.noNavigation ? 'has-navigation' : '']"
+  >
     <BaseHeader v-if="appBar" />
 
     <!-- loading -->
@@ -7,7 +10,7 @@
       v-show="loadingGet"
       class="relative flex-grow max-w-6xl mx-auto w-full flex justify-around items-center"
     >
-      <BaseSpinner />
+      <BaseSpinner borderColor="border-white" classNames="spinner" />
     </div>
     <!-- content -->
     <!-- mb-14 for bottom navigation -->
@@ -47,3 +50,10 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.has-navigation /deep/ .spinner {
+  position: relative;
+  top: calc(-1 * var(--navigation-height) / 2);
+}
+</style>

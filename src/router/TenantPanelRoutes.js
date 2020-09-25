@@ -1,3 +1,5 @@
+import AppBarCardLayout from '@/layouts/AppBarCardLayout.vue';
+
 export const TenantPanelRoutes = [
   {
     path: '/account',
@@ -49,7 +51,7 @@ export const TenantPanelRoutes = [
     props: true,
     component: () => import('@/views/AccountInfoEdit.vue'),
     meta: {
-      layout: () => import('@/layouts/WithTitleBarLayout.vue'),
+      layout: AppBarCardLayout,
       title: 'Edit Account',
       backRoute: { name: 'MyAccount' }
     }

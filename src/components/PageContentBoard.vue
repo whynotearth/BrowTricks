@@ -15,6 +15,7 @@ export default {
   min-height: calc(
     100 * var(--vh) - var(--header-height) - var(--content-board-spacer)
   );
+  padding-bottom: var(--navigation-height);
   margin-bottom: var(--content-board-spacer);
 }
 </style>

@@ -1,4 +1,4 @@
-import AppBarLayout from '@/layouts/AppBarLayout.vue';
+import AppBarLayout from '@/layouts/AppBarCardLayout.vue';
 import IconEdit from '@/assets/icons/edit.svg';
 
 export const clientRoutes = [
