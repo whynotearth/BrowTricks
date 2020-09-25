@@ -96,7 +96,7 @@
           href="http://www.browtricks.com/"
           :attrs="{ target: '_blank' }"
           textColor="text-brand1"
-          theme="none"
+          :background="null"
           width="w-auto"
           :margin="null"
         />
@@ -105,7 +105,7 @@
           href="http://www.browtricksmembers.com/"
           :attrs="{ target: '_blank' }"
           textColor="text-brand1"
-          theme="none"
+          :background="null"
           width="w-auto"
           :margin="null"
         />

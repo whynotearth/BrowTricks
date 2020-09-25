@@ -59,7 +59,7 @@
         class="mt-8"
         textColor="text-error"
         title="Delete Client"
-        theme="none"
+        :background="null"
         @clicked="isDeleteModalOpen = true"
       />
     </div>
@@ -72,7 +72,7 @@
       <Button
         textColor="text-on-primary text-opacity-medium"
         title="Cancel"
-        theme="none"
+        :background="null"
         @clicked="isDeleteModalOpen = false"
         width="w-auto"
         :margin="null"
@@ -80,7 +80,7 @@
       <Button
         textColor="text-error"
         title="Delete"
-        theme="none"
+        :background="null"
         @clicked="archive"
         width="w-auto"
         :margin="null"

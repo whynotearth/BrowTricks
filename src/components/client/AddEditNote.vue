@@ -15,14 +15,14 @@
         textColor="text-on-background text-opacity-medium"
         title="Cancel"
         @clicked="$emit('cancel', note)"
-        theme="none"
+        :background="null"
       />
       <Button
         v-if="note && note.id"
         class="mb-2"
         textColor="text-error text-opacity-medium"
         title="Delete"
-        theme="none"
+        :background="null"
         @clicked="$emit('delete', note)"
       />
     </div>
