@@ -1,7 +1,7 @@
 <template>
   <div class="time-picker-modal" v-if="selectedDayOption">
     <!-- backdrop -->
-    <div class="bg-background has-noise fixed inset-0 z-50"></div>
+    <div class="bg-background fixed inset-0 z-50"></div>
     <div
       class="absolute w-full min-h-vh100 top-0 left-0 z-50"
       @click="$emit('closeModal')"

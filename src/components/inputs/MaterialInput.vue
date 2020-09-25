@@ -1,7 +1,7 @@
 <template>
   <div class="relative" :class="[margin]">
     <input
-      class="input appearance-none outline-none relative bg-transparent rounded w-full px-4 py-3 border text-opacity-medium focus:text-opacity-high border-opacity-medium focus:border-opacity-high"
+      class="input appearance-none outline-none relative bg-transparent w-full py-3 border-b text-opacity-medium focus:text-opacity-high border-opacity-medium focus:border-opacity-high"
       :class="[
         textColor,
         borderColor,
@@ -19,12 +19,12 @@
     />
     <label
       :for="idName"
-      class="label absolute mb-0 top-0 left-0 mt-3 ml-3 cursor-text"
-      :class="[labelColor, labelBackground]"
+      class="label absolute mb-0 top-0 left-0 mt-3 cursor-text"
+      :class="[labelColor]"
     >
       {{ label }}
     </label>
-    <div class="ml-4 mt-2 text-error tg-body-mobile" v-if="error">
+    <div class="mt-2 text-error tg-body-mobile" v-if="error">
       <slot />
     </div>
   </div>
@@ -47,10 +47,6 @@ export default {
     label: {
       type: String,
       default: 'Label'
-    },
-    labelBackground: {
-      type: String,
-      default: 'bg-surface'
     },
     placeholder: {
       type: String
@@ -81,7 +77,7 @@ export default {
     },
     margin: {
       type: String,
-      default: 'mb-4'
+      default: 'mb-6'
     },
     // update value on input event
     immediateInput: {
@@ -150,7 +146,7 @@ export default {
   transition: all 0.2s ease-out;
   transition: all 200ms;
   opacity: 0;
-  padding: 0 5px;
+  padding: 0;
   z-index: 1;
 }
 
@@ -167,5 +163,13 @@ export default {
 
 .input:focus::placeholder {
   color: transparent;
+}
+
+/* change autofill background to white */
+.input:-webkit-autofill,
+.input:-webkit-autofill:hover,
+.input:-webkit-autofill:focus,
+.input:-webkit-autofill:active {
+  box-shadow: 0 0 0 30px white inset;
 }
 </style>

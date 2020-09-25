@@ -15,7 +15,6 @@
         class="mb-4"
         placeholder="By selecting this box, I agree that I have read and understood the instructions given to me."
         label="Question"
-        labelBackground="bg-background has-noise"
         rows="8"
       />
 

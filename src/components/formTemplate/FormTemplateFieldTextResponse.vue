@@ -16,7 +16,6 @@
         class="mb-4"
         placeholder="e.g. I am being treated for, or was in the past for the following conditions (Please include allergies, espcially to dye, pigment, or numbing agent.)"
         label="Question"
-        labelBackground="bg-background has-noise"
         rows="8"
       >
         <p v-if="!$v.model.value.required">

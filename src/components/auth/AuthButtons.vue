@@ -5,12 +5,7 @@
       v-for="({ name, logo }, index) in socialMediaProviders"
       :key="index"
     >
-      <Button
-        textJustify="justify-between"
-        :title="`${mode === 'signup' ? 'Sign Up' : 'Log In'} With ${name}`"
-        class="tg-color-label-mobile text-white text-opacity-high rounded-full py-3 md:px-5"
-        @clicked="openAuthentication(name)"
-      >
+      <Button :title="`${name}`" @clicked="openAuthentication(name)">
         <template #start>
           <!-- icon -->
           <component
@@ -27,9 +22,6 @@
 <script>
 import { mapMutations, mapGetters } from 'vuex';
 
-import IconGoogle from '@/assets/icons/google.svg';
-import IconFacebook from '@/assets/icons/facebook.svg';
-
 export default {
   name: 'AuthButtons',
   props: {
@@ -42,12 +34,10 @@ export default {
     return {
       socialMediaProviders: [
         {
-          name: 'Facebook',
-          logo: IconFacebook
+          name: 'Facebook'
         },
         {
-          name: 'Google',
-          logo: IconGoogle
+          name: 'Google'
         }
       ]
     };

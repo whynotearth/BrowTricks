@@ -3,7 +3,6 @@
     <MaterialInput
       v-model="$v.firstName.$model"
       label="First Name"
-      labelBackground="has-noise bg-background"
       :error="$v.firstName.$error"
       theme="light"
     >
@@ -14,7 +13,6 @@
     <MaterialInput
       v-model="$v.lastName.$model"
       label="Last Name"
-      labelBackground="has-noise bg-background"
       :error="$v.lastName.$error"
       theme="light"
     >
@@ -25,7 +23,6 @@
     <MaterialInput
       v-model="$v.phone.$model"
       label="Phone number"
-      labelBackground="has-noise bg-background"
       :error="$v.phone.$error"
       theme="light"
     >
@@ -39,7 +36,6 @@
     <MaterialInput
       v-model="$v.email.$model"
       label="Email"
-      labelBackground="has-noise bg-background"
       :error="$v.email.$error"
       theme="light"
     >

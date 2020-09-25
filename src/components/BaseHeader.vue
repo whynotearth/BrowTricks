@@ -1,48 +1,56 @@
 <template>
   <div
-    class="h-14 w-full px-2 py-5 sticky top-0 z-40 flex-row justify-center items-center"
-    :class="[background, shadow, hasNoise ? 'has-noise' : '']"
+    class="h-14 w-full px-2 sticky top-0 z-40 flex justify-between items-center"
+    :class="[background, shadow]"
   >
-    <a
-      v-if="$slots.icon"
+    <router-link
+      v-if="routeBack"
       @click.prevent="$emit('iconClicked')"
       class="cursor-pointer w-10 h-10 flex justify-center items-center"
+      :to="routeBack"
     >
-      <span class="opacity-high" :class="[iconColor]"><slot name="icon"/></span>
-    </a>
-    <div v-if="$slots.content" class="tg-h2-mobile">
-      <slot name="content" />
+      <span class="opacity-high" :class="[iconColor]"><IconBack /></span>
+    </router-link>
+    <div class="flex-grow">
+      <h1 class="tg-h2-mobile">
+        {{ appBar.title }}
+      </h1>
     </div>
     <div class="tg-color-label-mobile ml-auto">
       <slot name="end" />
     </div>
-
-    <slot name="menu-drawer" />
   </div>
 </template>
 
 <script>
+import IconBack from '@/assets/icons/arrow-back.svg';
+
 export default {
   name: 'BaseHeader',
-  props: {
-    theme: {
-      type: String,
-      default: 'dark'
+  components: { IconBack },
+  computed: {
+    meta() {
+      return this.$route.meta;
     },
-    hasNoise: {
-      type: Boolean,
-      default: false
+    appBar() {
+      return this.$route.meta.appBar || {};
     }
   },
-  computed: {
-    background() {
-      return this.theme === 'dark' ? 'bg-primary' : 'bg-background';
+  props: {
+    routeBack: {
+      type: Object
     },
-    shadow() {
-      return this.theme === 'dark' ? 'shadow-4dp' : '';
+    background: {
+      type: String,
+      default: 'bg-primary'
     },
-    iconColor() {
-      return this.theme === 'dark' ? 'text-background' : 'text-primary';
+    shadow: {
+      type: String,
+      default: ''
+    },
+    iconColor: {
+      type: String,
+      default: 'text-on-primary'
     }
   }
 };
