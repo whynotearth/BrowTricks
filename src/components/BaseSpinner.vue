@@ -14,7 +14,7 @@ export default {
 }
 
 .loading {
-  @apply border-secondary border-4 rounded-full w-10 h-10;
+  @apply border-white border-4 rounded-full w-10 h-10;
   animation: spin 500ms linear infinite;
   border-bottom-color: transparent;
   border-right-color: transparent;

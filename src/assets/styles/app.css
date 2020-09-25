@@ -18,8 +18,9 @@ html {
 
 :root {
   --navigation-height: 80px;
-  --header-height: 60px;
+  --header-height: 56px;
   --navigation-spacer: calc(var(--navigation-height) + 24px);
+  --content-board-spacer: 24px;
 }
 
 .navigation-spacer {

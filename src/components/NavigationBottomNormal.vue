@@ -1,6 +1,6 @@
 <template>
   <ul
-    class="link-items max-w-4xl mx-auto wrapper flex-auto flex text-left justify-around items-center menu list-none tg-caption-mobile select-none py-4"
+    class="link-items max-w-md mx-auto wrapper flex-auto flex text-left justify-around items-center menu list-none tg-caption-mobile select-none py-4"
   >
     <li class="text-brand1 text-opacity-high link-item">
       <router-link

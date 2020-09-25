@@ -14,7 +14,7 @@ export const generalRoutes = [
     meta: {
       isPublic: true,
       layout: () => import('@/layouts/AppBarLayout.vue'),
-      routeBack: { name: 'Home' },
+      backRoute: { name: 'Home' },
       appBar: {
         title: 'Logging out...'
       }
@@ -28,7 +28,7 @@ export const generalRoutes = [
     meta: {
       isPublic: true,
       layout: () => import('@/layouts/AppBarLayout.vue'),
-      routeBack: { name: 'Home' },
+      backRoute: { name: 'Home' },
       appBar: {
         title: 'Welcome Back!'
       }
@@ -42,7 +42,7 @@ export const generalRoutes = [
     meta: {
       isPublic: true,
       layout: () => import('@/layouts/AppBarLayout.vue'),
-      routeBack: { name: 'Home' },
+      backRoute: { name: 'Home' },
       appBar: {
         title: 'Create Account'
       }

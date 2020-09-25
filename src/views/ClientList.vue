@@ -1,5 +1,5 @@
 <template>
-  <div class="text-left">
+  <PageContentBoard>
     <div class="mb-1" v-if="clients.length > 0">
       <div class="" v-for="(client, key) in clients" :key="key">
         <h6
@@ -23,16 +23,18 @@
     <div v-else class="p-6 text-on-background text-opacity-medium">
       No clients
     </div>
-  </div>
+  </PageContentBoard>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import ClientListItem from '@/components/client/ClientListItem';
+import PageContentBoard from '@/components/PageContentBoard';
 
 export default {
   name: 'ClientList',
   components: {
+    PageContentBoard,
     ClientListItem
   },
   props: {
@@ -72,5 +74,3 @@ export default {
   }
 };
 </script>
-
-<style scoped></style>

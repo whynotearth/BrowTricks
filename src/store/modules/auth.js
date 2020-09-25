@@ -65,7 +65,6 @@ const actions = {
     return new Promise((resolve, reject) => {
       AuthenticationService.ping()
         .then(response => {
-          console.log('response', response);
           commit('updateProvider', response.loginProviders[0]);
           commit('updateUserName', response.userName);
           dispatch('updateToken', state.token);
