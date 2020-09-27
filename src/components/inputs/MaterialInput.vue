@@ -13,7 +13,7 @@
       :type="type"
       :min="min"
       :step="step"
-      :value="value"
+      :value="value | trim"
       v-on="inputListeners"
       :placeholder="placeholder || label"
     />
@@ -83,6 +83,11 @@ export default {
     immediateInput: {
       type: Boolean,
       default: false
+    }
+  },
+  filters: {
+    trim: function(value) {
+      return value.trim();
     }
   },
   computed: {
