@@ -1,7 +1,7 @@
 <template>
   <div class="px-6 pb-20 pt-6">
     <MaterialInput
-      v-model="$v.name.$model"
+      v-model.trim="$v.name.$model"
       label="Name"
       :error="$v.name.$error"
     >
@@ -10,7 +10,7 @@
       </span>
     </MaterialInput>
     <MaterialInput
-      v-model="$v.phone.$model"
+      v-model.trim="$v.phone.$model"
       label="Phone number"
       :error="$v.phone.$error"
     >

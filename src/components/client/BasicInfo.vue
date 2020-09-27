@@ -1,7 +1,7 @@
 <template>
   <div class="px-6 pb-20">
     <MaterialInput
-      v-model="$v.firstName.$model"
+      v-model.trim="$v.firstName.$model"
       label="First Name"
       :error="$v.firstName.$error"
       theme="light"
@@ -11,7 +11,7 @@
       </p>
     </MaterialInput>
     <MaterialInput
-      v-model="$v.lastName.$model"
+      v-model.trim="$v.lastName.$model"
       label="Last Name"
       :error="$v.lastName.$error"
       theme="light"
@@ -21,7 +21,7 @@
       </p>
     </MaterialInput>
     <MaterialInput
-      v-model="$v.phone.$model"
+      v-model.trim="$v.phone.$model"
       label="Phone number"
       :error="$v.phone.$error"
       theme="light"
@@ -34,7 +34,7 @@
       </p>
     </MaterialInput>
     <MaterialInput
-      v-model="$v.email.$model"
+      v-model.trim="$v.email.$model"
       label="Email"
       :error="$v.email.$error"
       theme="light"
