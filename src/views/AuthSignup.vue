@@ -33,7 +33,7 @@
             </p>
           </MaterialInput>
           <MaterialInput
-            v-model="$v.email.$model"
+            v-model.trim="$v.email.$model"
             label="Email Address"
             :error="$v.email.$error"
           >
