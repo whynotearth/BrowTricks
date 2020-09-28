@@ -1,7 +1,7 @@
 <template>
   <div class="text-left text-on-background text-opacity-high" v-if="client">
     <!-- header -->
-    <BaseHeroSection>
+    <div>
       <img class="h-12 rounded-full" :src="logo" alt="user-logo" />
       <h3 class="py-6 tg-h2-mobile text-on-background">
         {{ client.firstName }} {{ client.lastName }}
@@ -29,7 +29,7 @@
           <span class="text-on-background text-opacity-high">Call</span>
         </a>
       </div>
-    </BaseHeroSection>
+    </div>
 
     <!-- content -->
     <div class="max-w-md mx-auto px-4 -mt-10">
@@ -102,7 +102,6 @@
 <script>
 // import MaterialInput from '@/components/inputs/MaterialInput.vue';
 import ExpansionPanel from '@/components/ExpansionPanel.vue';
-import BaseHeroSection from '@/components/BaseHeroSection.vue';
 import MediaManager from '@/components/uploader/MediaManager.vue';
 
 import IconDocument from '@/assets/icons/document.svg';
@@ -130,7 +129,6 @@ export default {
   },
   components: {
     // BaseDialog,
-    BaseHeroSection,
     IconDocument,
     IconNotes,
     IconNotification,

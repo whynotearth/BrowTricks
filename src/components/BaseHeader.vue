@@ -11,11 +11,15 @@
     >
       <span class="opacity-high text-on-primary"><IconBack /></span>
     </router-link>
-    <div class="flex-grow">
-      <h1 class="tg-h2-mobile">
-        {{ appBar.title }}
-      </h1>
-    </div>
+
+    <slot name="title">
+      <div class="flex-grow">
+        <h1 class="tg-h2-mobile">
+          {{ appBar.title }}
+        </h1>
+      </div>
+    </slot>
+
     <div class="tg-color-label-mobile ml-auto">
       <router-link v-if="action" :to="action.route">
         <component :is="action.icon" />

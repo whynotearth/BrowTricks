@@ -155,7 +155,7 @@ const actions = {
       ...params,
       companySlug
     };
-    return TenantService.mytenants(_params);
+    return TenantService.tenants2(_params);
   }
 };
 
