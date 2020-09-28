@@ -35,10 +35,12 @@ export default {
     this.init();
   },
   methods: {
-    ...mapActions('tenant', ['fetchUserTenant']),
+    ...mapActions('tenant', ['fetchTenant']),
     async init() {
-      this.tenant = await this.fetchUserTenant({
+      this.fetchTenant({
         params: { tenantSlug: this.tenantSlug }
+      }).then(response => {
+        this.tenant = response.tenant;
       });
     }
   }

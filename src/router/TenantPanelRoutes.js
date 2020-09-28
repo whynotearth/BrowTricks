@@ -4,12 +4,12 @@ import AppBarSwitcherLayout from '@/layouts/AppBarSwitcherLayout.vue';
 export const TenantPanelRoutes = [
   {
     path: '/account',
-    name: 'MyAccountEmpty',
+    name: 'HomeRedirector',
     props: true,
-    component: () => import('@/views/MyAccountEmpty.vue'),
+    component: () => import('@/views/HomeRedirector.vue'),
     meta: {
-      layout: AppBarSwitcherLayout,
-      appBar: { title: 'My Account' }
+      layout: AppBarCardLayout,
+      appBar: { title: 'Home' }
     }
   },
   {
@@ -24,6 +24,7 @@ export const TenantPanelRoutes = [
   },
   {
     // first step: /sign-up/business-info
+    // TODO: change to /signup/:step
     path: '/sign-up/:step',
     name: 'TenantSignup',
     props: true,
