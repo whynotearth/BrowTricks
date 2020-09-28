@@ -1,18 +1,19 @@
 <template>
-  <!-- TODO: move layout to route meta -->
-  <ClassicLayout>
-    <template #header />
-
-    <!-- content -->
-    <template #content>
+  <div class="pb-20">
+    <HeaderHeroSection>
+      <!-- header -->
       <div>
-        <img class="w-12 rounded-full mb-6" :src="logo" alt="user-logo" />
-        <h1 class="tg-h1-mobile text-opacity-high text-on-background uppercase">
-          {{ appShortName }}
+        <h1
+          class="tg-h2-mobile sm:tg-h1-mobile text-opacity-high text-on-background uppercase flex mb-2 items-center"
+        >
+          <span>Brow</span>
+          <img class="w-20 rounded-full" :src="logo" alt="user-logo" />
+          <span>Tricks</span>
         </h1>
       </div>
+
       <!-- content -->
-      <div class="max-w-md mx-auto px-4 -mt-16 w-full">
+      <div class="max-w-md mx-auto w-full">
         <ExpansionPanel
           title="Clients"
           @click="
@@ -35,7 +36,7 @@
           title="PMU Forms"
         >
           <template #preIcon>
-            <IconDocument slot="preIcon" class="h-6 w-6 fill-current" />
+            <IconDocument slot="preIcon" class="h-4 w-4 fill-current" />
           </template>
         </ExpansionPanel>
 
@@ -74,51 +75,47 @@
           </template>
         </ExpansionPanel>
       </div>
-    </template>
-    <template #footer>
-      <NavigationBottom />
+    </HeaderHeroSection>
 
-      <!-- Tutorials dialog -->
-      <BaseDialog
-        v-if="isTutorialsModalOpen"
-        @close="isTutorialsModalOpen = false"
-        title="Tutorials"
-      >
-        <template #content>
-          <p>
-            Make sure to use code BROWTRICKSTRIBE to get my $199 course bundle
-            FREE!
-          </p>
-        </template>
+    <!-- content -->
 
-        <Button
-          title="Enroll Now"
-          href="http://www.browtricks.com/"
-          :attrs="{ target: '_blank' }"
-          textColor="text-brand1"
-          :background="null"
-          width="w-auto"
-          :margin="null"
-        />
-        <Button
-          title="Courses Login"
-          href="http://www.browtricksmembers.com/"
-          :attrs="{ target: '_blank' }"
-          textColor="text-brand1"
-          :background="null"
-          width="w-auto"
-          :margin="null"
-        />
-      </BaseDialog>
-    </template>
-  </ClassicLayout>
+    <!-- Tutorials dialog -->
+    <BaseDialog
+      v-if="isTutorialsModalOpen"
+      @close="isTutorialsModalOpen = false"
+      title="Tutorials"
+    >
+      <template #content>
+        <p>
+          Make sure to use code BROWTRICKSTRIBE to get my $199 course bundle
+          FREE!
+        </p>
+      </template>
+
+      <Button
+        title="Enroll Now"
+        href="http://www.browtricks.com/"
+        :attrs="{ target: '_blank' }"
+        :background="null"
+        width="w-auto"
+        :margin="null"
+      />
+      <Button
+        title="Courses Login"
+        href="http://www.browtricksmembers.com/"
+        :attrs="{ target: '_blank' }"
+        :background="null"
+        width="w-auto"
+        :margin="null"
+      />
+    </BaseDialog>
+  </div>
 </template>
 
 <script>
-import ClassicLayout from '@/layouts/ClassicLayout.vue';
+import HeaderHeroSection from '@/components/HeaderHeroSection.vue';
 import ExpansionPanel from '@/components/ExpansionPanel.vue';
 import BaseDialog from '@/components/BaseDialog.vue';
-import NavigationBottom from '@/components/NavigationBottom.vue';
 import IconUser from '@/assets/icons/user-nocircle.svg';
 import IconDocument from '@/assets/icons/document.svg';
 import IconFacebook from '@/assets/icons/facebook.svg';
@@ -136,9 +133,8 @@ export default {
     appShortName: process.env.VUE_APP_SHORTNAME
   }),
   components: {
-    ClassicLayout,
+    HeaderHeroSection,
     ExpansionPanel,
-    NavigationBottom,
     BaseDialog,
     IconUser,
     IconFacebook,

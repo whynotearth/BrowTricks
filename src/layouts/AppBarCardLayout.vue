@@ -1,9 +1,9 @@
 <template>
   <div
-    class="min-h-vh100 w-full bg-primary flex flex-col"
-    :class="[!meta.noNavigation ? 'has-navigation' : '']"
+    class="min-h-vh100 w-full flex flex-col"
+    :class="[!meta.noNavigation ? 'has-navigation' : '', pageBackground]"
   >
-    <BaseHeader v-if="appBar" />
+    <BaseHeader v-if="appBar && !appBar.noHeader" />
 
     <!-- loading -->
     <div
@@ -14,7 +14,7 @@
     </div>
     <!-- content -->
     <!-- mb-14 for bottom navigation -->
-    <div class="relative flex-grow w-full" v-show="!loadingGet">
+    <div class="content-wrapper relative flex-grow w-full" v-show="!loadingGet">
       <TransitionPage>
         <router-view />
       </TransitionPage>
@@ -46,6 +46,9 @@ export default {
     },
     meta() {
       return this.$route.meta;
+    },
+    pageBackground() {
+      return this.meta.pageBackground || 'bg-primary';
     }
   }
 };

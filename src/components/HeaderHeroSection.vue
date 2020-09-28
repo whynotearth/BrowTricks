@@ -1,0 +1,22 @@
+<template>
+  <div class="hero-section py-8 px-6">
+    <div
+      class="account-header flex flex-col justify-center items-center max-w-md mx-auto px-6 py-4 border-6 border-brand2 bg-background"
+    >
+      <slot />
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'HeaderHeroSection'
+};
+</script>
+
+<style scoped>
+.hero-section {
+  background: url('https://res.cloudinary.com/whynotearth/image/upload/v1601297195/BrowTricks/static_v2/rosegold-pattern2_hstttj.jpg')
+    center;
+}
+</style>

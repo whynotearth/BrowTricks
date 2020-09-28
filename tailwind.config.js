@@ -24,6 +24,9 @@ module.exports = {
         sm: '0.1875rem',
         xl: '0.75rem'
       },
+      borderWidth: {
+        '6': '6px'
+      },
       screens: {
         xl: '1280px',
         xxl: '1920px'

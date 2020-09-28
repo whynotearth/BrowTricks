@@ -2,7 +2,7 @@
   <component
     :is="type"
     :href="href"
-    class="block cursor-pointer bg-surface shadow-1dp py-6 px-4 rounded-lg"
+    class="block cursor-pointer bg-surface shadow-1dp py-3 px-4 rounded-full"
     :class="[margin]"
     @click="$emit('click')"
     v-bind="attrs"

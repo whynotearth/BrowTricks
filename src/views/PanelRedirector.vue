@@ -9,7 +9,7 @@ export default {
   name: 'PanelRedirector',
   data() {
     return {
-      tenants: [],
+      tenants: []
     };
   },
   computed: {
