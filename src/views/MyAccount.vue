@@ -15,16 +15,16 @@
             params: { tenant: tenant }
           })
         " -->
-    <div class="max-w-md mx-auto px-4 -mt-10">
+    <div class="max-w-md px-4 mx-auto -mt-10">
       <ExpansionPanel title="Edit Account" disabled>
         <template #preIcon>
-          <IconCreate class="h-6 w-6 fill-current" />
+          <IconCreate class="w-6 h-6 fill-current" />
         </template>
       </ExpansionPanel>
 
       <ExpansionPanel title="Log Out" @click="logout">
         <template #preIcon>
-          <IconPerson class="h-6 w-6 fill-current" />
+          <IconPerson class="w-6 h-6 fill-current" />
         </template>
       </ExpansionPanel>
 
@@ -66,7 +66,6 @@ export default {
   data() {
     return {
       tenants: [],
-      tenant: null,
       tenantData: null,
       logoUrl:
         'https://res.cloudinary.com/whynotearth/image/upload/v1600846670/BrowTricks/static_v2/logo-round-wbg_oo659o.png'

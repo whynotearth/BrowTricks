@@ -8,13 +8,13 @@
         hasNoise="has-noise"
       >
         <template #icon>
-          <IconMenu class="h-6 w-6 fill-current" />
+          <IconMenu class="w-6 h-6 fill-current" />
         </template>
         <template #menu-drawer>
           <MenuDrawerCustomer />
         </template>
         <template #end>
-          <div class="flex w-full justify-end">
+          <div class="flex justify-end w-full">
             <!-- <router-link v-if="isAuthenticated" :to="{ name: 'MyAccount' }">
               <BaseAvatar width="w-10" height="h-10" />
             </router-link> -->
@@ -23,21 +23,21 @@
       </BaseHeader>
     </template>
     <template #content>
-      <div class="px-4 mx-auto max-h-sm lg:max-h-lg max-w-sm lg:max-w-lg">
-        <IconLogo class="mx-auto h-full w-full block" alt="" />
+      <div class="max-w-sm px-4 mx-auto max-h-sm lg:max-h-lg lg:max-w-lg">
+        <IconLogo class="block w-full h-full mx-auto" alt="" />
         <header>
-          <h1 class="tg-h1-mobile mb-4 text-primary">
+          <h1 class="mb-4 tg-h1-mobile text-primary">
             Brow Tricks Beauty
           </h1>
-          <h2 class="tg-h2-mobile mb-4 text-on-background text-opacity-medium">
+          <h2 class="mb-4 tg-h2-mobile text-on-background text-opacity-medium">
             Privacy Policy
           </h2>
         </header>
 
         <div
-          class="tg-body-mobile text-on-background text-opacity-medium text-left"
+          class="text-left tg-body-mobile text-on-background text-opacity-medium"
         >
-          <h2 class="font-bold mt-12">Last Modified: May 6, 2019</h2>
+          <h2 class="mt-12 font-bold">Last Modified: May 6, 2019</h2>
           <br />
           <p>
             We at meredith-core (aurelox llc dba meredith-core. and our
@@ -638,10 +638,8 @@
 <script>
 import ClassicLayout from '@/layouts/ClassicLayout.vue';
 import BaseHeader from '@/components/BaseHeader.vue';
-import ArticleMini from '@/components/ArticleMini.vue';
 
 import IconLogo from '@/assets/icons/browtricks-logo-updated.svg';
-import MenuDrawerCustomer from '@/components/MenuDrawerCustomer.vue';
 // import BaseAvatar from '@/components/BaseAvatar.vue';
 import IconMenu from '@/assets/icons/menu.svg';
 import { mapGetters, mapActions } from 'vuex';
@@ -651,9 +649,7 @@ export default {
   components: {
     ClassicLayout,
     BaseHeader,
-    ArticleMini,
     IconLogo,
-    MenuDrawerCustomer,
     // BaseAvatar,
     IconMenu
   },
