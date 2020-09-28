@@ -102,7 +102,7 @@ export default {
       if (this.page > 1) {
         this.pageChange(this.page - 1);
       } else if (this.page === 1) {
-        this.$router.push({ name: 'MyAccountEmpty' });
+        this.$router.push({ name: 'PanelRedirector' });
       }
     },
     nextStep() {

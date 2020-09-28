@@ -1,52 +1,15 @@
 <template>
-  <!-- This is where we handle redirect to a tenant account or show empty state -->
-  <div class="text-left text-on-background text-opacity-high">
-    <div class="max-w-md mx-auto text-center pt-6 px-4">
-      <template v-if="isAuthenticated">
-        <p class="tg-body-mobile text-on-background text-opacity-high mb-4">
-          You need to create an account
-        </p>
-
-        <Button
-          @clicked="tenantSignup"
-          :isRounded="true"
-          title="Add Account"
-          theme="btnprimary"
-        />
-      </template>
-
-      <template v-else>
-        <p class="tg-body-mobile text-on-background text-opacity-high mb-4">
-          You need to signup and create an account
-        </p>
-
-        <Button
-          @clicked="isDrawerOpenAuthUpdate(true)"
-          :isRounded="true"
-          title="Sign Up"
-          theme="btnprimary"
-        />
-      </template>
-    </div>
-
-    <portal to="SwitcherBar">
-      <DropDownSheet :tenants="tenants" />
-    </portal>
-  </div>
+  <div></div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import DropDownSheet from '@/components/tenant/DropDownSheet.vue';
 
 export default {
-  name: 'MyAccountEmpty',
-  components: { DropDownSheet },
+  name: 'PanelRedirector',
   data() {
     return {
       tenants: [],
-      tenant: null,
-      tenantData: null
     };
   },
   computed: {
@@ -88,7 +51,7 @@ export default {
         return;
       }
       await this.$router.replace({
-        name: 'MyAccount',
+        name: 'TenantHome',
         params: { tenantSlug: selectedTenant.slug }
       });
       this.loadingUpdate(false);

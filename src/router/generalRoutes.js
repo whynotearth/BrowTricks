@@ -59,7 +59,10 @@ export const generalRoutes = [
     name: 'PrivacyPolicy',
     component: () => import('@/views/PrivacyPolicy.vue'),
     meta: {
-      isPublic: true
+      isPublic: true,
+      appBar: {
+        title: 'Privacy Policy'
+      }
     }
   }
 ];
