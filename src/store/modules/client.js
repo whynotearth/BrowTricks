@@ -97,14 +97,14 @@ const actions = {
     return ClientNoteService.notes1(payload);
   },
   createClientNote(context, payload) {
-    return ClientNoteService.notes(payload);
+    return ClientNoteService.notes2(payload);
   },
   updateClientNote(context, payload) {
-    // No update endpoint is available
-    return ClientNoteService.notes(payload);
+    // same as create, just with a payload containing an id
+    return ClientNoteService.notes2(payload);
   },
   deleteClientNote(context, payload) {
-    return ClientNoteService.notes2(payload);
+    return ClientNoteService.notes(payload);
   },
 
   pmuSendFormLink(context, { params }) {
