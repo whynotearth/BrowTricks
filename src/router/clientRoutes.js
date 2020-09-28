@@ -37,8 +37,7 @@ export const clientRoutes = [
     meta: {
       noNavigation: true,
       layout: AppBarLayout,
-      title: 'Portfolio Upload',
-      backRoute: { name: 'TenantHome' }
+      appBar: { title: 'Portfolio Upload', backRoute: { name: 'TenantHome' } }
     }
   },
   {
@@ -48,8 +47,10 @@ export const clientRoutes = [
     component: () => import('@/views/Client.vue'),
     redirect: { name: 'ClientEdit' },
     meta: {
-      title: 'Client Profile',
-      backRoute: { name: 'ClientList' }
+      appBar: {
+        backRoute: { name: 'ClientList' },
+        title: 'Client Profile'
+      }
     },
     children: [
       {
@@ -59,8 +60,9 @@ export const clientRoutes = [
         component: () => import('@/views/ClientEdit.vue'),
         meta: {
           layout: AppBarLayout,
-          title: 'Client Profile',
-          backRoute: { name: 'ClientList' }
+          pageBackground: 'bg-background',
+          headerBackground: 'bg-background',
+          appBar: { title: 'Client Profile', backRoute: { name: 'ClientList' } }
         }
       },
       {
@@ -70,8 +72,7 @@ export const clientRoutes = [
         component: () => import('@/views/ClientUploads.vue'),
         meta: {
           layout: AppBarLayout,
-          title: 'Uploads',
-          backRoute: { name: 'ClientEdit' }
+          appBar: { backRoute: { name: 'ClientEdit' }, title: 'Uploads' }
         }
       },
       {
@@ -81,8 +82,7 @@ export const clientRoutes = [
         component: () => import('@/views/ClientUploads.vue'),
         meta: {
           layout: AppBarLayout,
-          title: 'Uploads',
-          backRoute: { name: 'ClientUploads' }
+          appBar: { title: 'Uploads', backRoute: { name: 'ClientUploads' } }
         }
       },
       {
@@ -92,8 +92,7 @@ export const clientRoutes = [
         component: () => import('@/views/ClientNotifications.vue'),
         meta: {
           layout: AppBarLayout,
-          title: 'Notifications',
-          backRoute: { name: 'ClientEdit' }
+          appBar: { title: 'Notifications', backRoute: { name: 'ClientEdit' } }
         }
       },
 
@@ -105,8 +104,7 @@ export const clientRoutes = [
         props: true,
         meta: {
           layout: AppBarLayout,
-          title: 'Form Templates',
-          backRoute: { name: 'ClientEdit' }
+          appBar: { title: 'Form Templates', backRoute: { name: 'ClientEdit' } }
         }
       },
 
@@ -117,8 +115,7 @@ export const clientRoutes = [
         props: true,
         meta: {
           layout: AppBarLayout,
-          title: 'PMU Form Sign',
-          backRoute: { name: 'ClientEdit' }
+          appBar: { title: 'PMU Form Sign', backRoute: { name: 'ClientEdit' } }
         }
       },
       {
@@ -128,8 +125,7 @@ export const clientRoutes = [
         props: true,
         meta: {
           noNavigation: true,
-          layout: AppBarLayout,
-          title: 'PMU Form Download'
+          appBar: { layout: AppBarLayout, title: 'PMU Form Download' }
         }
       },
       // flow (From Notification)
@@ -140,8 +136,7 @@ export const clientRoutes = [
         props: true,
         meta: {
           isPublic: true,
-          title: 'PMU Form Sign',
-          backRoute: { name: 'ClientEdit' }
+          appBar: { title: 'PMU Form Sign', backRoute: { name: 'ClientEdit' } }
         }
       },
       {
@@ -159,8 +154,7 @@ export const clientRoutes = [
         props: true,
         meta: {
           layout: AppBarLayout,
-          title: 'Notes',
-          backRoute: { name: 'ClientEdit' }
+          appBar: { title: 'Notes', backRoute: { name: 'ClientEdit' } }
         }
       },
       {
@@ -170,8 +164,10 @@ export const clientRoutes = [
         props: true,
         meta: {
           layout: AppBarLayout,
-          title: 'Edit Client Info',
-          backRoute: { name: 'ClientEdit' }
+          appBar: {
+            title: 'Edit Client Info',
+            backRoute: { name: 'ClientEdit' }
+          }
         }
       }
     ]

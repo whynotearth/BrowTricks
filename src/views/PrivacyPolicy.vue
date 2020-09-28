@@ -630,16 +630,13 @@
 <script>
 import ClassicLayout from '@/layouts/ClassicLayout.vue';
 import BaseHeader from '@/components/BaseHeader.vue';
-
-import IconMenu from '@/assets/icons/menu.svg';
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'Home',
   components: {
     ClassicLayout,
-    BaseHeader,
-    IconMenu
+    BaseHeader
   },
   computed: {
     ...mapGetters('auth', ['isAuthenticated'])

@@ -16,7 +16,12 @@ export const TenantPanelRoutes = [
     path: '/tenant/:tenantSlug',
     name: 'TenantHome',
     props: true,
-    component: () => import('@/views/TenantHome.vue')
+    component: () => import('@/views/TenantHome.vue'),
+    meta: {
+      layout: AppBarCardLayout,
+      pageBackground: 'bg-background',
+      appBar: { title: 'Brow Tricks', noHeader: true }
+    }
   },
   {
     path: '/tenant/:tenantSlug/account',

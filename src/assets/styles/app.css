@@ -22,10 +22,12 @@ html {
   --content-board-spacer: 24px;
 }
 
+.bg-pattern {
+  background-image: url('https://res.cloudinary.com/whynotearth/image/upload/v1601297195/BrowTricks/static_v2/rosegold-pattern2_hstttj.jpg');
+}
+
 .page-content--min-h {
-  min-height: calc(
-    100 * var(--vh) - var(--header-height)
-  );
+  min-height: calc(100 * var(--vh) - var(--header-height));
 }
 
 .no-pull-to-refresh {

@@ -99,7 +99,7 @@ export default {
     this.model = { ...this.model, ...cloneDeep(this.initialModel) };
     if (this.model.draft) {
       this.checkUploadedFileExistance();
-      this.isOpenDrawerUploadUpdate(false);
+      this.openDrawerUploadUpdate(false);
     } else {
       this.file = { url: get(this.model, 'options[0].value') };
     }
@@ -110,7 +110,7 @@ export default {
   methods: {
     ...mapActions('uploader', [
       'uploadedFilesUpdate',
-      'isOpenDrawerUploadUpdate'
+      'openDrawerUploadUpdate'
     ]),
     getCloudinaryThumbnail,
     checkUploadedFileExistance() {

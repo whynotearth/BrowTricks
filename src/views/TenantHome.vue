@@ -1,82 +1,87 @@
 <template>
-  <!-- TODO: move layout to route meta -->
-  <ClassicLayout>
-    <template #header />
+  <PageContentBoard background="bg-pattern">
+    <div class="pb-20">
+      <HeaderHeroSection>
+        <!-- header -->
+        <div>
+          <h1
+            class="tg-h2-mobile sm:tg-h1-mobile text-opacity-high text-on-background uppercase flex mb-2 items-center"
+          >
+            <span>Brow</span>
+            <img class="w-20 rounded-full" :src="logo" alt="user-logo" />
+            <span>Tricks</span>
+          </h1>
+        </div>
 
-    <!-- content -->
-    <template #content>
-      <div>
-        <img class="w-12 rounded-full mb-6" :src="logo" alt="user-logo" />
-        <h1 class="tg-h1-mobile text-opacity-high text-on-background uppercase">
-          {{ appShortName }}
-        </h1>
-      </div>
+        <!-- content -->
+        <div class="max-w-md mx-auto w-full">
+          <ExpansionPanel
+            title="Clients"
+            @click="
+              $router.push({
+                name: 'ClientList'
+              })
+            "
+          >
+            <template #preIcon>
+              <IconUser class="h-4 w-4 fill-current" />
+            </template>
+          </ExpansionPanel>
+
+          <ExpansionPanel
+            @click="
+              $router.push({
+                name: 'FormTemplatesList'
+              })
+            "
+            title="PMU Forms"
+          >
+            <template #preIcon>
+              <IconDocument slot="preIcon" class="h-4 w-4 fill-current" />
+            </template>
+          </ExpansionPanel>
+
+          <ExpansionPanel
+            title="Tutorials"
+            @click="isTutorialsModalOpen = true"
+          >
+            <template #preIcon>
+              <IconTutorial class="h-4 w-4 fill-current" />
+            </template>
+            <template #afterIcon>
+              <IconExit class="h-6 w-6 fill-current" />
+            </template>
+          </ExpansionPanel>
+
+          <ExpansionPanel
+            title="Shops"
+            href="http://www.browtricksproducts.com/"
+            :attrs="{ target: '_blank' }"
+          >
+            <template #preIcon>
+              <IconShop class="h-4 w-4 fill-current" />
+            </template>
+            <template #afterIcon>
+              <IconExit class="h-6 w-6 fill-current" />
+            </template>
+          </ExpansionPanel>
+
+          <ExpansionPanel
+            title="FB Community"
+            href="http://www.facebook.com/groups/browtrickstribe"
+            :attrs="{ target: '_blank' }"
+          >
+            <template #preIcon>
+              <IconFacebook class="h-4 w-4 fill-current" />
+            </template>
+            <template #afterIcon>
+              <IconExit class="h-6 w-6 fill-current" />
+            </template>
+          </ExpansionPanel>
+        </div>
+      </HeaderHeroSection>
+
       <!-- content -->
-      <div class="max-w-md mx-auto px-4 -mt-16 w-full">
-        <ExpansionPanel
-          title="Clients"
-          @click="
-            $router.push({
-              name: 'ClientList'
-            })
-          "
-        >
-          <template #preIcon>
-            <IconUser class="h-4 w-4 fill-current" />
-          </template>
-        </ExpansionPanel>
-
-        <ExpansionPanel
-          @click="
-            $router.push({
-              name: 'FormTemplatesList'
-            })
-          "
-          title="PMU Forms"
-        >
-          <template #preIcon>
-            <IconDocument slot="preIcon" class="h-6 w-6 fill-current" />
-          </template>
-        </ExpansionPanel>
-
-        <ExpansionPanel title="Tutorials" @click="isTutorialsModalOpen = true">
-          <template #preIcon>
-            <IconTutorial class="h-4 w-4 fill-current" />
-          </template>
-          <template #afterIcon>
-            <IconExit class="h-6 w-6 fill-current" />
-          </template>
-        </ExpansionPanel>
-
-        <ExpansionPanel
-          title="Shops"
-          href="http://www.browtricksproducts.com/"
-          :attrs="{ target: '_blank' }"
-        >
-          <template #preIcon>
-            <IconShop class="h-4 w-4 fill-current" />
-          </template>
-          <template #afterIcon>
-            <IconExit class="h-6 w-6 fill-current" />
-          </template>
-        </ExpansionPanel>
-
-        <ExpansionPanel
-          title="FB Community"
-          href="http://www.facebook.com/groups/browtrickstribe"
-          :attrs="{ target: '_blank' }"
-        >
-          <template #preIcon>
-            <IconFacebook class="h-4 w-4 fill-current" />
-          </template>
-          <template #afterIcon>
-            <IconExit class="h-6 w-6 fill-current" />
-          </template>
-        </ExpansionPanel>
-      </div>
-    </template>
-    <template #footer>
-      <NavigationBottom />
 
       <!-- Tutorials dialog -->
       <BaseDialog
@@ -95,7 +100,6 @@
           title="Enroll Now"
           href="http://www.browtricks.com/"
           :attrs="{ target: '_blank' }"
-          textColor="text-brand1"
           :background="null"
           width="w-auto"
           :margin="null"
@@ -104,21 +108,20 @@
           title="Courses Login"
           href="http://www.browtricksmembers.com/"
           :attrs="{ target: '_blank' }"
-          textColor="text-brand1"
           :background="null"
           width="w-auto"
           :margin="null"
         />
       </BaseDialog>
-    </template>
-  </ClassicLayout>
+    </div>
+  </PageContentBoard>
 </template>
 
 <script>
-import ClassicLayout from '@/layouts/ClassicLayout.vue';
+import HeaderHeroSection from '@/components/HeaderHeroSection.vue';
+import PageContentBoard from '@/components/PageContentBoard.vue';
 import ExpansionPanel from '@/components/ExpansionPanel.vue';
 import BaseDialog from '@/components/BaseDialog.vue';
-import NavigationBottom from '@/components/NavigationBottom.vue';
 import IconUser from '@/assets/icons/user-nocircle.svg';
 import IconDocument from '@/assets/icons/document.svg';
 import IconFacebook from '@/assets/icons/facebook.svg';
@@ -136,9 +139,9 @@ export default {
     appShortName: process.env.VUE_APP_SHORTNAME
   }),
   components: {
-    ClassicLayout,
+    PageContentBoard,
+    HeaderHeroSection,
     ExpansionPanel,
-    NavigationBottom,
     BaseDialog,
     IconUser,
     IconFacebook,

@@ -26,9 +26,9 @@
             <template #icon>
               <IconCheck
                 v-if="selectedClientId"
-                class="fill-current text-primary w-3 h-3"
+                class="fill-current text-on-surface w-3 h-3"
               />
-              <IconUser v-else class="fill-current text-primary w-3 h-3" />
+              <IconUser v-else class="fill-current text-on-surface w-3 h-3" />
             </template>
             Select Client
           </BaseChip>
@@ -78,8 +78,8 @@
         <Button
           :isRounded="true"
           title="Post"
-          theme="btnprimary"
           @clicked="submit"
+          background="bg-brand2"
         ></Button>
       </div>
     </div>
@@ -154,13 +154,13 @@ export default {
   },
   beforeMount() {
     this.checkUploadedFileExistance();
-    this.isOpenDrawerUploadUpdate(false);
+    this.openDrawerUploadUpdate(false);
   },
   methods: {
     ...mapActions('client', ['updateClient', 'fetchClient']),
     ...mapActions('uploader', [
       'uploadedFilesUpdate',
-      'isOpenDrawerUploadUpdate'
+      'openDrawerUploadUpdate'
     ]),
     share,
     getCloudinaryThumbnail,

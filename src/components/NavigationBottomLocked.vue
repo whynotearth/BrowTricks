@@ -26,7 +26,7 @@
         class="main-button navigation--link flex flex-col justify-center relative text-center outline-none cursor-pointer"
       >
         <div
-          class="main-button--shape absolute rounded-full h-14 w-14 flex items-center justify-center bg-primary mx-auto"
+          class="main-button--shape absolute rounded-full h-14 w-14 flex items-center justify-center bg-brand2 mx-auto"
         >
           <IconCamera class="w-6 h-6 m-auto fill-current text-white" />
         </div>

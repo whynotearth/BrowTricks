@@ -2,8 +2,8 @@ const getters = {
   uploadedFilesGet(state) {
     return state.uploadedFiles;
   },
-  isOpenDrawerUploadGet(state) {
-    return state.isOpenDrawerUpload;
+  openDrawerUploadGet(state) {
+    return state.openDrawerUpload;
   }
 };
 
@@ -11,8 +11,8 @@ const actions = {
   uploadedFilesUpdate(context, payload) {
     context.commit('uploadedFilesUpdate', payload);
   },
-  isOpenDrawerUploadUpdate(context, payload) {
-    context.commit('isOpenDrawerUploadUpdate', payload);
+  openDrawerUploadUpdate(context, payload) {
+    context.commit('openDrawerUploadUpdate', payload);
   }
 };
 
@@ -20,8 +20,8 @@ const mutations = {
   uploadedFilesUpdate(state, payload) {
     state.uploadedFiles = payload;
   },
-  isOpenDrawerUploadUpdate(state, payload) {
-    state.isOpenDrawerUpload = payload;
+  openDrawerUploadUpdate(state, payload) {
+    state.openDrawerUpload = payload;
   }
 };
 
@@ -29,7 +29,7 @@ export default {
   namespaced: true,
   state: {
     uploadedFiles: [],
-    isOpenDrawerUpload: false
+    openDrawerUpload: null
   },
   getters,
   actions,
