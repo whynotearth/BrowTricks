@@ -11,11 +11,11 @@
         </div>
 
         <div class="w-full">
-          <ExpansionPanel title="Edit Account" disabled>
+          <!-- <ExpansionPanel title="Edit Account" disabled>
             <template #preIcon>
               <IconCreate class="w-4 h-4 fill-current" />
             </template>
-          </ExpansionPanel>
+          </ExpansionPanel> -->
 
           <ExpansionPanel title="Log Out" @click="logout">
             <template #preIcon>
@@ -56,7 +56,7 @@ import HeaderHeroSection from '@/components/HeaderHeroSection.vue';
 import MediaManager from '@/components/uploader/MediaManager.vue';
 import { mapActions } from 'vuex';
 import { get } from 'lodash-es';
-import IconCreate from '@/assets/icons/create.svg';
+// import IconCreate from '@/assets/icons/create.svg';
 import IconPerson from '@/assets/icons/person.svg';
 import DropDownSheet from '@/components/tenant/DropDownSheet.vue';
 import BaseAvatar from '@/components/BaseAvatar.vue';
@@ -68,7 +68,7 @@ export default {
     HeaderHeroSection,
     BaseAvatar,
     DropDownSheet,
-    IconCreate,
+    // IconCreate,
     ExpansionPanel,
     MediaManager,
     IconPerson

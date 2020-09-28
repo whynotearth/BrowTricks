@@ -9,7 +9,12 @@
       />
     </div>
     <div class="py-8">
-      <Button class="rounded-full mb-4" background="bg-brand2" title="Save" @clicked="save" />
+      <Button
+        class="rounded-full mb-4"
+        background="bg-brand2"
+        title="Save"
+        @clicked="save"
+      />
       <Button
         class="mb-2"
         textColor="text-on-background text-opacity-medium"
