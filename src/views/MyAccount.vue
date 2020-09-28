@@ -69,7 +69,7 @@ export default {
       tenant: null,
       tenantData: null,
       logoUrl:
-        'https://res.cloudinary.com/whynotearth/image/upload/v1597646048/BrowTricks/static_v2/crown_zp6ziq.png'
+        'https://res.cloudinary.com/whynotearth/image/upload/v1600846670/BrowTricks/static_v2/logo-round-wbg_oo659o.png'
     };
   },
   computed: {

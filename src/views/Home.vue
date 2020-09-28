@@ -101,7 +101,7 @@ import ClassicLayout from '@/layouts/ClassicLayout.vue';
 import BaseHeader from '@/components/BaseHeader.vue';
 import ArticleMini from '@/components/ArticleMini.vue';
 
-import IconLogo from '@/assets/icons/browtricks-logo.svg';
+import IconLogo from '@/assets/icons/browtricks-logo-updated.svg';
 import MenuDrawerCustomer from '@/components/MenuDrawerCustomer.vue';
 // import BaseAvatar from '@/components/BaseAvatar.vue';
 import IconMenu from '@/assets/icons/menu.svg';
