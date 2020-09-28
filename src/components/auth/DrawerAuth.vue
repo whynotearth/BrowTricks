@@ -54,7 +54,7 @@
 
 <script>
 import BaseDrawerActions from '@/components/BaseDrawerActions';
-import Button from '@/components/inputs/Button';
+
 import AuthButtons from '@/components/auth/AuthButtons';
 
 export default {
@@ -63,7 +63,7 @@ export default {
     activeMode: 'signup',
     appName: process.env.VUE_APP_NAME
   }),
-  components: { BaseDrawerActions, Button, AuthButtons },
+  components: { BaseDrawerActions, AuthButtons },
   props: {
     isOpen: {
       type: Boolean,

@@ -1,5 +1,5 @@
 <template>
-  <div class="text-left">
+  <PageContentBoard>
     <div class="mb-1" v-if="clients.length > 0">
       <div class="" v-for="(client, key) in clients" :key="key">
         <h6
@@ -23,16 +23,18 @@
     <div v-else class="p-6 text-on-background text-opacity-medium">
       No clients
     </div>
-  </div>
+  </PageContentBoard>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import ClientListItem from '@/components/client/ClientListItem';
+import PageContentBoard from '@/components/PageContentBoard';
 
 export default {
   name: 'ClientList',
   components: {
+    PageContentBoard,
     ClientListItem
   },
   props: {
@@ -48,10 +50,13 @@ export default {
         'https://res.cloudinary.com/whynotearth/image/upload/v1585738963/BrowTricks/_0003_MANAGE-CLIENTS_hl5cux.png'
     };
   },
-  created() {
-    this.fetchClients(this.tenantSlug);
+  async created() {
+    this.loadingUpdate(true);
+    await this.fetchClients(this.tenantSlug);
+    this.loadingUpdate(false);
   },
   methods: {
+    ...mapActions('loading', ['loadingUpdate']),
     ...mapActions('client', ['fetchClients']),
     showLetter(prev, current) {
       if (!prev) return true;
@@ -69,5 +74,3 @@ export default {
   }
 };
 </script>
-
-<style scoped></style>

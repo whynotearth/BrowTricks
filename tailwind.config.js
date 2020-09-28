@@ -5,6 +5,10 @@ const boxShadow = require('./src/assets/styles/shadows');
 const colors = require('./src/assets/styles/colors');
 
 module.exports = {
+  future: {
+    removeDeprecatedGapUtilities: true,
+    purgeLayersByDefault: true
+  },
   purge: ['./public/**/*.html', './src/**/*.vue'],
   theme: {
     extend: {

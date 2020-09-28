@@ -20,7 +20,6 @@
           class="mb-4"
           placeholder="e.g. Check any that apply:"
           label="Question"
-          labelBackground="bg-background has-noise"
           rows="7"
           :error="$v.model.value.$error"
         >
@@ -52,7 +51,7 @@
         class="mt-8"
         textColor="text-error"
         title="Delete Question"
-        theme="none"
+        :background="null"
         @clicked="remove"
       />
     </div>
@@ -62,7 +61,6 @@
 <script>
 import TextAreaInput from '@/components/inputs/TextAreaInput';
 import CheckBox from '@/components/inputs/CheckBox';
-import Button from '@/components/inputs/Button';
 import BaseImagePreview from '@/components/uploader/BaseImagePreview';
 import { cloneDeep, get } from 'lodash-es';
 import { required } from 'vuelidate/lib/validators';
@@ -74,8 +72,7 @@ export default {
   components: {
     BaseImagePreview,
     TextAreaInput,
-    CheckBox,
-    Button
+    CheckBox
   },
   validations: {
     model: {

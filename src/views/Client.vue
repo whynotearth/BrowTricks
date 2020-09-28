@@ -5,14 +5,14 @@
     </ErrorFullScreen>
     <template v-else-if="client">
       <transition name="fadeslow">
-        <router-view v-show="!isLoading" :client="client" />
+        <router-view v-show="!loadingGet" :client="client" />
       </transition>
     </template>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters, mapMutations } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import { get } from 'lodash-es';
 import ErrorFullScreen from '@/components/ErrorFullScreen.vue';
 
@@ -36,7 +36,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('loading', ['isLoading'])
+    ...mapGetters('loading', ['loadingGet'])
   },
   async created() {
     this.errorMessage = '';
@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     ...mapActions('auth', ['updateToken', 'tokenlogin']),
-    ...mapMutations('loading', ['loading']),
+    ...mapActions('loading', ['loadingUpdate']),
     ...mapActions('client', ['fetchClient']),
     handleLoginByToken() {
       const token = this.$route.query.token;
@@ -61,7 +61,7 @@ export default {
       });
     },
     async _fetchClient() {
-      this.loading(true);
+      this.loadingUpdate(true);
       this.fetchClient({
         params: {
           clientId: this.clientId,
@@ -75,7 +75,7 @@ export default {
           console.log('Error in getting client');
         })
         .finally(() => {
-          this.loading(false);
+          this.loadingUpdate(false);
         });
     }
   },

@@ -6,7 +6,7 @@
       title="Back"
       textColor="text-on-primary text-opacity-high"
       background="bg-primary"
-      theme="none"
+      :isRounded="false"
       :maxWidth="null"
       textJustify="justify-start"
       class="py-3"
@@ -22,7 +22,7 @@
       :title="nextStepText"
       textColor="text-on-secondary text-opacity-high"
       background="bg-secondary"
-      theme="none"
+      :isRounded="false"
       :maxWidth="null"
       textJustify="justify-end"
       :width="'flex-grow'"
@@ -36,14 +36,12 @@
 </template>
 
 <script>
-import Button from '@/components/inputs/Button.vue';
 import ArrowRightIcon from '@/assets/icons/keyboard_arrow_right.svg';
 import ArrowLeftIcon from '@/assets/icons/keyboard_arrow_left.svg';
 
 export default {
   name: 'CheckoutNavBar',
   components: {
-    Button,
     ArrowRightIcon,
     ArrowLeftIcon
   },

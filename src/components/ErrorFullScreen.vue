@@ -10,7 +10,11 @@
         </div>
 
         <div class="text-center">
-          <Button :to="{ name: 'Home' }" title="Go home page" theme="none" />
+          <Button
+            :to="{ name: 'Home' }"
+            title="Go home page"
+            :background="null"
+          />
         </div>
       </div>
     </BaseCard>
@@ -19,11 +23,10 @@
 
 <script>
 import BaseCard from '@/components/BaseCard.vue';
-import Button from '@/components/inputs/Button.vue';
 
 export default {
   name: 'ErrorFullScreen',
-  components: { Button, BaseCard },
+  components: { BaseCard },
   props: {
     height: {
       type: String,

@@ -14,7 +14,7 @@
       <circle
         :stroke-width="strokeWidth"
         :class="progressClasses"
-        class="text-secondary stroke-current"
+        class="stroke-current text-primary"
         :cx="centerX"
         :cy="centerY"
         :r="radius"

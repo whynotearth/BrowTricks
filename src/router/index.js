@@ -5,7 +5,6 @@ import store from '../store';
 import { clientRoutes } from './clientRoutes';
 import { TenantPanelRoutes } from './TenantPanelRoutes';
 import { generalRoutes } from './generalRoutes';
-import { TenantPublicRoutes } from './TenantPublicRoutes';
 import { formTemplateRoutes } from './formTemplateRoutes';
 import { get } from 'lodash-es';
 
@@ -14,7 +13,6 @@ Vue.use(VueRouter);
 const routes = [
   ...formTemplateRoutes,
   ...TenantPanelRoutes,
-  ...TenantPublicRoutes,
   ...clientRoutes,
   ...generalRoutes
 ];
@@ -26,7 +24,7 @@ const router = new VueRouter({
 });
 
 function isRouteChangingUpdate(value) {
-  store.commit('loading/loading', value);
+  store.dispatch('loading/loadingUpdate', value);
 }
 
 router.beforeEach((to, from, next) => {

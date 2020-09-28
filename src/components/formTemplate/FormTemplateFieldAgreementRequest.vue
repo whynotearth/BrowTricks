@@ -15,7 +15,6 @@
         class="mb-4"
         placeholder="By selecting this box, I agree that I have read and understood the instructions given to me."
         label="Question"
-        labelBackground="bg-background has-noise"
         rows="8"
       />
 
@@ -32,7 +31,7 @@
         class="mt-8"
         textColor="text-error"
         title="Delete Question"
-        theme="none"
+        :background="null"
         @clicked="remove"
       />
     </div>
@@ -42,13 +41,13 @@
 <script>
 import TextAreaInput from '@/components/inputs/TextAreaInput';
 import CheckBox from '@/components/inputs/CheckBox';
-import Button from '@/components/inputs/Button';
+
 import { randomId } from '@/helpers.js';
 import { cloneDeep } from 'lodash-es';
 
 export default {
   name: 'FormTemplateFieldAgreementRequest',
-  components: { TextAreaInput, CheckBox, Button },
+  components: { TextAreaInput, CheckBox },
   props: {
     initialModel: null
   },

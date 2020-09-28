@@ -95,7 +95,7 @@
       <Button
         textColor="text-error"
         title="Delete Form Template"
-        theme="none"
+        :background="null"
         @clicked="isDeleteModalOpen = true"
       />
     </div>
@@ -108,7 +108,7 @@
       <Button
         textColor="text-on-primary text-opacity-medium"
         title="Cancel"
-        theme="none"
+        :background="null"
         @clicked="isDeleteModalOpen = false"
         width="w-auto"
         :margin="null"
@@ -116,7 +116,7 @@
       <Button
         textColor="text-error"
         title="Delete"
-        theme="none"
+        :background="null"
         @clicked="remove"
         width="w-auto"
         :margin="null"
@@ -130,7 +130,7 @@ import FormTemplateFieldTypeCard from '@/components/formTemplate/FormTemplateFie
 import IconArrowRight from '@/assets/icons/keyboard_arrow_right.svg';
 import BaseCard from '@/components/BaseCard';
 import BaseDialog from '@/components/BaseDialog';
-import Button from '@/components/inputs/Button';
+
 import IconAdd from '@/assets/icons/add.svg';
 import { showOverlayAndRedirect, getCloudinaryThumbnail } from '@/helpers';
 import { ContainerMixin, ElementMixin } from 'vue-slicksort';
@@ -173,7 +173,6 @@ export default {
   props: ['tenantSlug'],
   components: {
     BaseDialog,
-    Button,
     SortableList,
     SortableItem,
     FormTemplateFieldTypeCard,
@@ -187,10 +186,13 @@ export default {
   computed: {
     ...mapGetters('formTemplate', ['currentTemplateGet'])
   },
-  created() {
-    this.init();
+  async created() {
+    this.loadingUpdate(true);
+    await this.init();
+    this.loadingUpdate(false);
   },
   methods: {
+    ...mapActions('loading', ['loadingUpdate']),
     ...mapActions('formTemplate', [
       'templateSave',
       'templateFetch',
@@ -207,19 +209,20 @@ export default {
         throw new Error('Something went wrong');
       }
 
-      // TODO: handle errors
-      this._templateFetch();
+      await this._templateFetch();
     },
     _templateFetch() {
-      this.templateFetch({
+      return this.templateFetch({
         params: {
           templateId: this.$route.params.formId,
           tenantSlug: this.tenantSlug
         }
+      }).catch(() => {
+        // This can happen after creating a template then using browser back (which leads browser to draft template again)
+        console.log('Could not get form template');
       });
     },
     fieldsUpdate(updatedItems) {
-      console.log('updatedItems', updatedItems);
       const updatedTemplate = {
         ...this.currentTemplateGet,
         items: cloneDeep(updatedItems)

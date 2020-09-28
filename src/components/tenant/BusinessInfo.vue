@@ -1,8 +1,7 @@
 <template>
-  <div class="px-6 pb-20">
+  <div class="px-6 pb-20 pt-6">
     <MaterialInput
-      labelBackground="has-noise bg-background"
-      v-model="$v.name.$model"
+      v-model.trim="$v.name.$model"
       label="Name"
       :error="$v.name.$error"
     >
@@ -11,8 +10,7 @@
       </span>
     </MaterialInput>
     <MaterialInput
-      labelBackground="has-noise bg-background"
-      v-model="$v.phone.$model"
+      v-model.trim="$v.phone.$model"
       label="Phone number"
       :error="$v.phone.$error"
     >
@@ -23,11 +21,7 @@
         Phone number is not valid, it should be a US phone number
       </p>
     </MaterialInput>
-    <TextAreaInput
-      v-model="$v.description.$model"
-      label="Description"
-      labelBackground="has-noise bg-background"
-    />
+    <TextAreaInput v-model="$v.description.$model" label="Description" />
     <hr class="border-on-background border-opacity-divider my-8" />
     <MediaManager
       :maxFiles="1"
@@ -47,7 +41,7 @@
               <div
                 class="upload-icon--dimension flex justify-center items-center"
               >
-                <IconCameraPlus
+                <IconCamera
                   class="fill-current text-on-background text-opacity-medium w-10 h-10"
                 />
               </div>
@@ -80,12 +74,12 @@ import TextAreaInput from '@/components/inputs/TextAreaInput.vue';
 import MediaManager from '@/components/uploader/MediaManager.vue';
 import MediaUploader from '@/components/uploader/MediaUploader.vue';
 import { isPhoneNumberValid } from '@/helpers';
-import IconCameraPlus from '@/assets/icons/camera-plus.svg';
+import IconCamera from '@/assets/icons/camera.svg';
 
 export default {
   name: 'BusinessInfo',
   components: {
-    IconCameraPlus,
+    IconCamera,
     MaterialInput,
     TextAreaInput,
     MediaManager,

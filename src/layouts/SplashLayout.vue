@@ -1,27 +1,32 @@
 <template>
   <div
-    class="h-full min-h-vh100 layout--splash text-on-background-image bg-cover bg-no-repeat"
+    class="h-full min-h-vh100 layout--splash text-on-background bg-cover bg-no-repeat bg-secondary sm:bg-none"
     :style="{ 'background-image': `url(${backgroundImage})` }"
   >
     <!-- loading -->
     <div
-      v-show="isLoading"
+      v-show="loadingGet"
       class="flex flex-col justify-center items-center min-h-vh100"
     >
       <BaseSpinner />
     </div>
     <div
-      v-show="!isLoading"
-      class="flex flex-col justify-end items-center min-h-vh100 py-5"
+      v-show="!loadingGet"
+      class="flex flex-col justify-between items-center min-h-vh100 py-5"
     >
       <div class="flex flex-col max-w-sm mx-auto overflow-auto p-4">
         <div class="mx-auto"><slot name="image" /></div>
-        <h1 class="tg-h1-mobile  mb-4">
+        <p class="tg-h2-mobile text-on-background mb-4" v-if="$slots.pretitle">
+          <slot name="pretitle" />
+        </p>
+        <h1 class="tg-h1-mobile text-on-background  mb-4 uppercase">
           <slot name="title" />
         </h1>
         <div v-if="$slots.subtitle" class="tg-body-mobile mb-4">
           <slot name="subtitle" />
         </div>
+      </div>
+      <div class="flex flex-col max-w-sm mx-auto overflow-auto p-4">
         <div
           v-if="$slots.link"
           class="tg-body-hyperlink-mobile text-secondary mb-4"
@@ -42,7 +47,7 @@
         </div>
         <div
           v-if="$slots.tertiaryCTA"
-          class="tg-body-hyperlink-mobile text-on-background-image text-opacity-medium mb-4"
+          class="tg-body-hyperlink-mobile text-on-background text-opacity-medium mb-4"
         >
           <slot name="tertiaryCTA" />
         </div>
@@ -59,13 +64,13 @@ export default {
   name: 'SplashLayout',
   components: { BaseSpinner },
   computed: {
-    ...mapGetters('loading', ['isLoading'])
+    ...mapGetters('loading', ['loadingGet'])
   },
   props: {
     backgroundImage: {
       type: String,
       default:
-        'https://res.cloudinary.com/whynotearth/image/upload/v1598336510/BrowTricks/static_v2/brandcover_lo3i0l.jpg'
+        'https://res.cloudinary.com/whynotearth/image/upload/v1600846678/BrowTricks/static_v2/bg-pattern-2_rfldwv.png'
     }
   }
 };

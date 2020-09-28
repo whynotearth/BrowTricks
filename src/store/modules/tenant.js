@@ -1,5 +1,9 @@
 import { ajax } from '@/services/ajax.js';
-import { TenantService, FormAnswerService } from '@whynotearth/meredith-axios';
+import {
+  TenantService,
+  BrowtricksService,
+  FormAnswerService
+} from '@whynotearth/meredith-axios';
 
 const notificationTypes = [
   // {
@@ -149,13 +153,11 @@ const actions = {
       tenantSlug: tenantSlug
     });
   },
-  fetchUserTenant(context, { params }) {
-    let companySlug = process.env.VUE_APP_COMPANY_SLUG;
+  fetchTenant(context, { params }) {
     let _params = {
-      ...params,
-      companySlug
+      ...params
     };
-    return TenantService.mytenants(_params);
+    return BrowtricksService.tenants(_params);
   }
 };
 

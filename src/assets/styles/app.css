@@ -12,20 +12,19 @@
 @import './inputs.css';
 @import './scrollbars.css';
 
-:root {
-  --navigation-height: 56px;
-  --header-height: 60px;
-  --navigation-spacer: calc(var(--navigation-height) + 24px);
+html {
+  font-family: 'Roboto', sans-serif;
 }
 
-.navigation-spacer {
-  margin-bottom: 56px;
-  padding-bottom: 24px;
+:root {
+  --navigation-height: 80px;
+  --header-height: 56px;
+  --content-board-spacer: 24px;
 }
 
 .page-content--min-h {
   min-height: calc(
-    100 * var(--vh) - var(--navigation-spacer) - var(--header-height)
+    100 * var(--vh) - var(--header-height)
   );
 }
 
@@ -35,11 +34,6 @@
 
 .no-scrollbars {
   @apply overflow-hidden;
-}
-
-.has-noise {
-  background-image: url(https://res.cloudinary.com/whynotearth/image/upload/v1597904330/BrowTricks/static_v2/noise_m7ti9c.png);
-  background-repeat: repeat;
 }
 
 .layout-splash {
@@ -58,4 +52,10 @@
 
 .break-word {
   word-break: break-word;
+}
+
+@responsive {
+  .bg-none {
+    background-image: none !important;
+  }
 }

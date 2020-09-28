@@ -1,5 +1,5 @@
-import WithTitleBarLayout from '@/layouts/WithTitleBarLayout.vue';
-import IconPlus from '@/assets/icons/plus.svg';
+import AppBarLayout from '@/layouts/AppBarCardLayout.vue';
+import IconEdit from '@/assets/icons/edit.svg';
 
 export const clientRoutes = [
   {
@@ -8,17 +8,19 @@ export const clientRoutes = [
     props: true,
     component: () => import('@/views/ClientList.vue'),
     meta: {
-      layout: WithTitleBarLayout,
-      layoutAction: {
-        title: 'Add Client',
-        icon: IconPlus,
-        route: {
-          name: 'AddClient',
-          params: { step: 'basic-info' }
-        }
-      },
-      title: 'Clients',
-      backRoute: { name: 'TenantHome' }
+      layout: AppBarLayout,
+      appBar: {
+        action: {
+          title: 'Add Client',
+          icon: IconEdit,
+          route: {
+            name: 'AddClient',
+            params: { step: 'basic-info' }
+          }
+        },
+        title: 'Clients',
+        backRoute: { name: 'TenantHome' }
+      }
     }
   },
   {
@@ -34,7 +36,7 @@ export const clientRoutes = [
     component: () => import('@/views/ClientUpload.vue'),
     meta: {
       noNavigation: true,
-      layout: WithTitleBarLayout,
+      layout: AppBarLayout,
       title: 'Portfolio Upload',
       backRoute: { name: 'TenantHome' }
     }
@@ -56,7 +58,7 @@ export const clientRoutes = [
         props: true,
         component: () => import('@/views/ClientEdit.vue'),
         meta: {
-          layout: WithTitleBarLayout,
+          layout: AppBarLayout,
           title: 'Client Profile',
           backRoute: { name: 'ClientList' }
         }
@@ -67,7 +69,7 @@ export const clientRoutes = [
         props: true,
         component: () => import('@/views/ClientUploads.vue'),
         meta: {
-          layout: WithTitleBarLayout,
+          layout: AppBarLayout,
           title: 'Uploads',
           backRoute: { name: 'ClientEdit' }
         }
@@ -78,7 +80,7 @@ export const clientRoutes = [
         props: true,
         component: () => import('@/views/ClientUploads.vue'),
         meta: {
-          layout: WithTitleBarLayout,
+          layout: AppBarLayout,
           title: 'Uploads',
           backRoute: { name: 'ClientUploads' }
         }
@@ -89,7 +91,7 @@ export const clientRoutes = [
         props: true,
         component: () => import('@/views/ClientNotifications.vue'),
         meta: {
-          layout: WithTitleBarLayout,
+          layout: AppBarLayout,
           title: 'Notifications',
           backRoute: { name: 'ClientEdit' }
         }
@@ -102,7 +104,7 @@ export const clientRoutes = [
         component: () => import('@/views/PmuSignTemplateSelector.vue'),
         props: true,
         meta: {
-          layout: WithTitleBarLayout,
+          layout: AppBarLayout,
           title: 'Form Templates',
           backRoute: { name: 'ClientEdit' }
         }
@@ -114,7 +116,7 @@ export const clientRoutes = [
         component: () => import('@/views/PmuSignPreview.vue'),
         props: true,
         meta: {
-          layout: WithTitleBarLayout,
+          layout: AppBarLayout,
           title: 'PMU Form Sign',
           backRoute: { name: 'ClientEdit' }
         }
@@ -126,7 +128,7 @@ export const clientRoutes = [
         props: true,
         meta: {
           noNavigation: true,
-          layout: WithTitleBarLayout,
+          layout: AppBarLayout,
           title: 'PMU Form Download'
         }
       },
@@ -156,7 +158,7 @@ export const clientRoutes = [
         component: () => import('@/views/ClientNotes.vue'),
         props: true,
         meta: {
-          layout: WithTitleBarLayout,
+          layout: AppBarLayout,
           title: 'Notes',
           backRoute: { name: 'ClientEdit' }
         }
@@ -167,7 +169,7 @@ export const clientRoutes = [
         component: () => import('@/views/ClientInfoEdit.vue'),
         props: true,
         meta: {
-          layout: WithTitleBarLayout,
+          layout: AppBarLayout,
           title: 'Edit Client Info',
           backRoute: { name: 'ClientEdit' }
         }

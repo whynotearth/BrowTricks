@@ -1,16 +1,37 @@
 <template>
   <div class="h-full min-h-vh100 flex flex-col">
     <slot name="header" />
+
+    <div
+      v-show="loadingGet"
+      class="relative flex-grow max-w-6xl mx-auto w-full flex justify-around items-center"
+    >
+      <BaseSpinner />
+    </div>
+
     <!-- mb-14 for bottom navigation -->
-    <div class="flex-grow overflow-auto flex flex-col mb-14 pb-6">
-      <slot name="content" />
+    <div
+      v-show="!loadingGet"
+      class="flex-grow overflow-auto flex flex-col mb-14 pb-6"
+    >
+      <TransitionPage>
+        <slot name="content" />
+      </TransitionPage>
     </div>
     <slot name="footer" />
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import BaseSpinner from '@/components/BaseSpinner';
+import TransitionPage from '@/components/TransitionPage';
+
 export default {
-  name: 'ClassicLayout'
+  name: 'ClassicLayout',
+  components: { TransitionPage, BaseSpinner },
+  computed: {
+    ...mapGetters('loading', ['loadingGet'])
+  }
 };
 </script>

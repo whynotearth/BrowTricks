@@ -5,7 +5,7 @@
       <div :class="[isModalOpen ? 'z-50' : 'z-30']">
         <StepperTop :navigation="navigation" :page="page" />
         <div>
-          <transition name="fade" mode="out-in">
+          <transition name="fadeslow" mode="out-in">
             <keep-alive>
               <component
                 :is="component"
@@ -102,7 +102,7 @@ export default {
       if (this.page > 1) {
         this.pageChange(this.page - 1);
       } else if (this.page === 1) {
-        this.$router.push({ name: 'MyAccountEmpty' });
+        this.$router.push({ name: 'PanelRedirector' });
       }
     },
     nextStep() {
@@ -136,7 +136,9 @@ export default {
   },
   watch: {
     component(step) {
-      this.$router.push({ name: 'SignUp', params: { step } }).catch(() => {});
+      this.$router
+        .push({ name: 'TenantSignup', params: { step } })
+        .catch(() => {});
     },
     '$route.params.step': {
       immediate: true,

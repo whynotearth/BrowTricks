@@ -5,12 +5,7 @@
       v-for="({ name, logo }, index) in socialMediaProviders"
       :key="index"
     >
-      <Button
-        textJustify="justify-between"
-        :title="`${mode === 'signup' ? 'Sign Up' : 'Log In'} With ${name}`"
-        class="tg-color-label-mobile text-white text-opacity-high rounded-full py-3 md:px-5"
-        @clicked="openAuthentication(name)"
-      >
+      <Button :title="`${name}`" @clicked="openAuthentication(name)">
         <template #start>
           <!-- icon -->
           <component
@@ -26,15 +21,9 @@
 
 <script>
 import { mapMutations, mapGetters } from 'vuex';
-import Button from '@/components/inputs/Button.vue';
-import IconGoogle from '@/assets/icons/google.svg';
-import IconFacebook from '@/assets/icons/facebook.svg';
 
 export default {
   name: 'AuthButtons',
-  components: {
-    Button
-  },
   props: {
     mode: {
       type: String,
@@ -45,25 +34,23 @@ export default {
     return {
       socialMediaProviders: [
         {
-          name: 'Facebook',
-          logo: IconFacebook
+          name: 'Facebook'
         },
         {
-          name: 'Google',
-          logo: IconGoogle
+          name: 'Google'
         }
       ]
     };
   },
   computed: {
     ...mapGetters('auth', ['oauthUrlGet']),
-    myAccountEmptyPath() {
+    getPanelRedirectorPath() {
       return this.$router.resolve({
-        name: 'MyAccountEmpty'
+        name: 'PanelRedirector'
       }).href;
     },
     signupReturnUrl() {
-      return `${window.location.origin}${this.myAccountEmptyPath}?signup=1`;
+      return `${window.location.origin}${this.getPanelRedirectorPath}?signup=1`;
     },
     loginReturnUrl() {
       return `${window.location.href}`;

@@ -15,7 +15,6 @@
         class="mb-4"
         placeholder="e.g. Check any that apply:"
         label="Question"
-        labelBackground="bg-background has-noise"
         rows="8"
         :error="$v.model.value.$error"
       >
@@ -33,9 +32,9 @@
 
       <hr class="mb-2 border-on-background border-opacity-divider" />
 
-      <div class="py-4 mb-4 rounded-lg">
+      <div class="py-4 rounded-lg">
         <div
-          class="flex items-center pb-4 w-full"
+          class="flex items-center mb-6 w-full"
           v-for="choice in $v.model.options.$model"
           :key="choice.key"
         >
@@ -44,7 +43,6 @@
             :margin="null"
             label="Option"
             placeholder="e. g. I am pregnant or breastfeeding"
-            labelBackground="has-noise bg-background"
             v-model.trim="choice.value"
           />
 
@@ -60,19 +58,27 @@
           </a>
         </div>
 
-        <a
-          tabindex="0"
-          @click="choiceAdd"
-          class="text-primary tg-color-label-mobile text-center py-2 w-full block cursor-pointer"
-          >Add Option</a
-        >
+        <Button
+          textColor="text-on-background"
+          title="Add Option"
+          :background="null"
+          @clicked="choiceAdd"
+        />
 
-        <p
-          class="text-error tg-body-mobile text-center"
-          v-if="$v.model.options.$error"
-        >
-          At least one option is required
-        </p>
+        <div v-if="$v.model.options.$error">
+          <p
+            class="text-error tg-body-mobile text-center"
+            v-if="!$v.model.options.required"
+          >
+            At least one option is required.
+          </p>
+          <p
+            class="text-error tg-body-mobile text-center"
+            v-else-if="$v.model.options.$each.$invalid"
+          >
+            Empty option is not valid.
+          </p>
+        </div>
       </div>
 
       <Button class="rounded-full mb-4" title="Save" @clicked="save" />
@@ -81,7 +87,7 @@
         class="mt-8"
         textColor="text-error"
         title="Delete Question"
-        theme="none"
+        :background="null"
         @clicked="remove"
       />
     </div>
@@ -91,7 +97,7 @@
 <script>
 import TextAreaInput from '@/components/inputs/TextAreaInput';
 import CheckBox from '@/components/inputs/CheckBox';
-import Button from '@/components/inputs/Button';
+
 import { randomId } from '@/helpers.js';
 import { cloneDeep } from 'lodash-es';
 import MaterialInput from '@/components/inputs/MaterialInput';
@@ -103,7 +109,6 @@ export default {
   components: {
     TextAreaInput,
     CheckBox,
-    Button,
     IconDelete,
     MaterialInput
   },

@@ -11,21 +11,21 @@
       ></Button>
 
       <div class="text-center">
-        <Button :to="{ name: 'Home' }" title="Go Home Page" theme="none" />
+        <Button
+          :to="{ name: 'Home' }"
+          title="Go Home Page"
+          :background="null"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex';
-import Button from '@/components/inputs/Button.vue';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'PmuFormDownload',
-  components: {
-    Button
-  },
   props: ['tenantSlug', 'clientId', 'templateId'],
   created() {
     this.init();
@@ -45,7 +45,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('loading', ['loading']),
+    ...mapActions('loading', ['loadingUpdate']),
     ...mapActions('client', [
       'fetchClient',
       'pmuSendFormLink',
@@ -56,7 +56,7 @@ export default {
       this._fetchClient();
     },
     async _fetchClient() {
-      this.loading(true);
+      this.loadingUpdate(true);
 
       this.client = await this.fetchClient({
         params: {
@@ -67,7 +67,7 @@ export default {
         alert('Error in getting client');
       });
 
-      this.loading(false);
+      this.loadingUpdate(false);
     }
   }
 };
