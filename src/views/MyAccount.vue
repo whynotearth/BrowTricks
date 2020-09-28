@@ -1,54 +1,57 @@
 <template>
-  <div class="text-left text-on-background text-opacity-high" v-if="tenant">
-    <!-- header -->
-    <HeaderHeroSection>
-      <div class="account-owner">
-        <BaseAvatar :image="avatar" />
-        <h2 class="py-4 tg-h2-mobile text-on-background text-center">
-          {{ tenant.name }}
-        </h2>
-      </div>
+  <PageContentBoard background="bg-pattern">
+    <div class="text-left text-on-background text-opacity-high" v-if="tenant">
+      <!-- header -->
+      <HeaderHeroSection>
+        <div class="account-owner">
+          <BaseAvatar :image="avatar" />
+          <h2 class="py-4 tg-h2-mobile text-on-background text-center">
+            {{ tenant.name }}
+          </h2>
+        </div>
 
-      <div class="w-full">
-        <ExpansionPanel title="Edit Account" disabled>
-          <template #preIcon>
-            <IconCreate class="w-4 h-4 fill-current" />
-          </template>
-        </ExpansionPanel>
+        <div class="w-full">
+          <ExpansionPanel title="Edit Account" disabled>
+            <template #preIcon>
+              <IconCreate class="w-4 h-4 fill-current" />
+            </template>
+          </ExpansionPanel>
 
-        <ExpansionPanel title="Log Out" @click="logout">
-          <template #preIcon>
-            <IconPerson class="w-4 h-4 fill-current" />
-          </template>
-        </ExpansionPanel>
-      </div>
-    </HeaderHeroSection>
+          <ExpansionPanel title="Log Out" @click="logout">
+            <template #preIcon>
+              <IconPerson class="w-4 h-4 fill-current" />
+            </template>
+          </ExpansionPanel>
+        </div>
+      </HeaderHeroSection>
 
-    <!-- content -->
-    <!-- @click="
+      <!-- content -->
+      <!-- @click="
           $router.push({
             name: 'AccountInfoEdit',
             params: { tenant: tenant }
           })
         " -->
-    <div class="max-w-md px-4 mx-auto">
-      <MediaManager :files="currentFiles" class="mb-4">
-        <template #title>
-          <div class="tg-body-mobile ">
-            <span class="text-on-background text-opacity-high"></span>
-          </div>
-        </template>
-      </MediaManager>
-    </div>
+      <div class="max-w-md px-4 mx-auto">
+        <MediaManager :files="currentFiles" class="mb-4">
+          <template #title>
+            <div class="tg-body-mobile ">
+              <span class="text-on-background text-opacity-high"></span>
+            </div>
+          </template>
+        </MediaManager>
+      </div>
 
-    <portal to="SwitcherBar">
-      <DropDownSheet :tenants="tenants" />
-    </portal>
-  </div>
+      <portal to="SwitcherBar">
+        <DropDownSheet :tenants="tenants" />
+      </portal>
+    </div>
+  </PageContentBoard>
 </template>
 
 <script>
 import ExpansionPanel from '@/components/ExpansionPanel.vue';
+import PageContentBoard from '@/components/PageContentBoard.vue';
 import HeaderHeroSection from '@/components/HeaderHeroSection.vue';
 import MediaManager from '@/components/uploader/MediaManager.vue';
 import { mapActions } from 'vuex';
@@ -61,6 +64,7 @@ import BaseAvatar from '@/components/BaseAvatar.vue';
 export default {
   name: 'MyAccount',
   components: {
+    PageContentBoard,
     HeaderHeroSection,
     BaseAvatar,
     DropDownSheet,

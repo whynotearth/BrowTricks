@@ -13,10 +13,3 @@ export default {
   name: 'HeaderHeroSection'
 };
 </script>
-
-<style scoped>
-.hero-section {
-  background: url('https://res.cloudinary.com/whynotearth/image/upload/v1601297195/BrowTricks/static_v2/rosegold-pattern2_hstttj.jpg')
-    center;
-}
-</style>

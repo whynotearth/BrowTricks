@@ -99,8 +99,4 @@ export default {
   position: relative;
   top: calc(-1 * var(--navigation-height) / 2);
 }
-.content-wrapper {
-  padding-bottom: var(--navigation-height);
-  margin-bottom: var(--content-board-spacer);
-}
 </style>

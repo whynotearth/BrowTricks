@@ -13,7 +13,7 @@
       v-show="loadingGet"
       class="relative flex-grow max-w-6xl mx-auto w-full flex justify-around items-center"
     >
-      <BaseSpinner borderColor="border-white" classNames="spinner" />
+      <BaseSpinner borderColor="border-brand2" classNames="spinner" />
     </div>
     <!-- content -->
     <!-- mb-14 for bottom navigation -->

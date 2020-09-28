@@ -1,5 +1,5 @@
 <template>
-  <div class="text-left pb-20" v-if="client">
+  <div class="text-left pb-20 bg-pattern" v-if="client">
     <HeaderHeroSection>
       <!-- header -->
       <div class="text-center mb-6">
@@ -79,12 +79,12 @@
     </HeaderHeroSection>
 
     <!-- content -->
-    <div class="max-w-md mx-auto px-4">
+    <div class="max-w-md mx-auto px-6 sm:px-0">
       <MediaManager :files="currentFiles" @change="updateFiles" class="mb-4">
         <template #uploadButton>
           <a
             tabindex="0"
-            class="upload-add border border-dashed border-primary border-opacity-divider flex justify-center items-center p-4 cursor-pointer"
+            class="upload-add bg-surface border-brand2 border border-opacity-medium flex justify-center items-center p-4 cursor-pointer"
             aria-label="Upload"
             @click="isOpenDrawerUploadUpdate(true)"
           >
