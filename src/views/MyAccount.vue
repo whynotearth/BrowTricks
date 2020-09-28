@@ -1,8 +1,8 @@
 <template>
-  <PageContentBoard background="bg-pattern">
+  <PageContentBoard>
     <div class="text-left text-on-background text-opacity-high" v-if="tenant">
       <!-- header -->
-      <HeaderHeroSection>
+      <HeaderHeroSection class="bg-pattern pb-16">
         <div class="account-owner">
           <BaseAvatar :image="avatar" />
           <h2 class="py-4 tg-h2-mobile text-on-background text-center">
@@ -32,14 +32,16 @@
             params: { tenant: tenant }
           })
         " -->
-      <div class="max-w-md px-4 mx-auto">
-        <MediaManager :files="currentFiles" class="mb-4">
-          <template #title>
-            <div class="tg-body-mobile ">
-              <span class="text-on-background text-opacity-high"></span>
-            </div>
-          </template>
-        </MediaManager>
+      <div class="-mt-8">
+        <div class="max-w-md px-4 mx-auto">
+          <MediaManager :files="currentFiles" class="mb-4">
+            <template #title>
+              <div class="tg-body-mobile ">
+                <span class="text-on-background text-opacity-high"></span>
+              </div>
+            </template>
+          </MediaManager>
+        </div>
       </div>
 
       <portal to="SwitcherBar">
