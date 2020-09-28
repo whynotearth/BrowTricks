@@ -66,11 +66,13 @@ export default {
   data() {
     return {
       tenants: [],
-      tenant: null,
-      tenantData: null
+      tenantData: {}
     };
   },
   computed: {
+    tenant() {
+      return this.tenantData.tenant;
+    },
     currentFiles() {
       return [
         // TODO: this not working now, needs API update
@@ -89,14 +91,28 @@ export default {
     this.init();
   },
   methods: {
-    ...mapActions('tenant', ['fetchUserTenant', 'fetchUserTenants']),
+    ...mapActions('tenant', ['fetchUserTenants', 'fetchTenant']),
     ...mapActions('auth', ['logout']),
     ...mapActions('loading', ['loadingUpdate']),
     async init() {
       this.loadingUpdate(true);
-      await this._fetchUserTenant();
+      await this._fetchTenant();
       await this._fetchUserTenants();
       this.loadingUpdate(false);
+    },
+    _fetchTenant() {
+      this.fetchTenant({
+        params: {
+          tenantSlug: this.$route.params.tenantSlug
+        }
+      })
+        .then(response => {
+          this.tenantData = response;
+        })
+        .catch(() => {
+          console.log('error in getting media');
+          alert('Something went wrong, could not fetch the tenant');
+        });
     },
     _fetchUserTenants() {
       this.fetchUserTenants({
@@ -111,15 +127,6 @@ export default {
           console.log('error in getting mytenants');
           alert('Something went wrong, could not fetch tenants');
         });
-    },
-    async _fetchUserTenant() {
-      this.tenant = await this.fetchUserTenant({
-        params: {
-          tenantSlug: this.$route.params.tenantSlug
-        }
-      }).catch(() => {
-        console.log('error in getting mytenants');
-      });
     }
   },
   watch: {
