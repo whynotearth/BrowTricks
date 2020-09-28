@@ -17,19 +17,14 @@ html {
 }
 
 :root {
-  --navigation-height: 56px;
-  --header-height: 60px;
-  --navigation-spacer: calc(var(--navigation-height) + 24px);
-}
-
-.navigation-spacer {
-  margin-bottom: 56px;
-  padding-bottom: 24px;
+  --navigation-height: 80px;
+  --header-height: 56px;
+  --content-board-spacer: 24px;
 }
 
 .page-content--min-h {
   min-height: calc(
-    100 * var(--vh) - var(--navigation-spacer) - var(--header-height)
+    100 * var(--vh) - var(--header-height)
   );
 }
 

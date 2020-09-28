@@ -1,6 +1,6 @@
 <template>
   <div
-    class="wrapper bg-primary text-white text-opacity-high py-2 px-6 overflow-y-auto narrow-scrollbar"
+    class="wrapper bg-surface text-white text-opacity-high py-2 px-6 overflow-y-auto narrow-scrollbar"
   >
     <router-link
       v-for="tenant in tenants"
@@ -22,7 +22,10 @@
         </p>
       </div>
       <div class="flex content-start items-center cursor-pointer">
-        <IconCheck v-if="isCurrentTenant(tenant)" />
+        <IconCheck
+          class="fill-current text-on-surface"
+          v-if="isCurrentTenant(tenant)"
+        />
       </div>
     </router-link>
     <div class="flex flex-row my-4">

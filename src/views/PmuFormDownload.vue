@@ -11,7 +11,11 @@
       ></Button>
 
       <div class="text-center">
-        <Button :to="{ name: 'Home' }" title="Go Home Page" theme="none" />
+        <Button
+          :to="{ name: 'Home' }"
+          title="Go Home Page"
+          :background="null"
+        />
       </div>
     </div>
   </div>

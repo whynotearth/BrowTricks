@@ -79,7 +79,7 @@
         class="mt-8"
         textColor="text-error"
         title="Delete Question"
-        theme="none"
+        :background="null"
         @clicked="remove"
       />
     </div>

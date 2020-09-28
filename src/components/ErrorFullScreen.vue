@@ -10,7 +10,11 @@
         </div>
 
         <div class="text-center">
-          <Button :to="{ name: 'Home' }" title="Go home page" theme="none" />
+          <Button
+            :to="{ name: 'Home' }"
+            title="Go home page"
+            :background="null"
+          />
         </div>
       </div>
     </BaseCard>

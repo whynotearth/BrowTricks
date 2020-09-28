@@ -1,6 +1,6 @@
 <template>
   <div
-    class="z-50 fixed inset-0 bg-opacity-medium text-left bg-primary flex flex-col"
+    class="z-50 fixed inset-0 bg-opacity-medium text-left bg-black flex flex-col"
     @click="$emit('close')"
   >
     <div class="flex justify-end w-full flex-shrink-0">

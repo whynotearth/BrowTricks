@@ -41,7 +41,7 @@
               <div
                 class="upload-icon--dimension flex justify-center items-center"
               >
-                <IconCameraPlus
+                <IconCamera
                   class="fill-current text-on-background text-opacity-medium w-10 h-10"
                 />
               </div>
@@ -74,12 +74,12 @@ import TextAreaInput from '@/components/inputs/TextAreaInput.vue';
 import MediaManager from '@/components/uploader/MediaManager.vue';
 import MediaUploader from '@/components/uploader/MediaUploader.vue';
 import { isPhoneNumberValid } from '@/helpers';
-import IconCameraPlus from '@/assets/icons/camera-plus.svg';
+import IconCamera from '@/assets/icons/camera.svg';
 
 export default {
   name: 'BusinessInfo',
   components: {
-    IconCameraPlus,
+    IconCamera,
     MaterialInput,
     TextAreaInput,
     MediaManager,

@@ -1,10 +1,13 @@
+import AppBarCardLayout from '@/layouts/AppBarCardLayout.vue';
+
 export const generalRoutes = [
   {
     path: '/',
     name: 'Home',
     component: () => import('@/views/Home.vue'),
     meta: {
-      isPublic: true
+      isPublic: true,
+      noNavigation: true
     }
   },
   {
@@ -13,9 +16,10 @@ export const generalRoutes = [
     component: () => import('@/views/AuthLogout.vue'),
     meta: {
       isPublic: true,
-      layout: () => import('@/layouts/AppBarLayout.vue'),
-      routeBack: { name: 'Home' },
+      noNavigation: true,
+      layout: AppBarCardLayout,
       appBar: {
+        backRoute: { name: 'Home' },
         title: 'Logging out...'
       }
     }
@@ -27,9 +31,10 @@ export const generalRoutes = [
     props: true,
     meta: {
       isPublic: true,
-      layout: () => import('@/layouts/AppBarLayout.vue'),
-      routeBack: { name: 'Home' },
+      noNavigation: true,
+      layout: AppBarCardLayout,
       appBar: {
+        backRoute: { name: 'Home' },
         title: 'Welcome Back!'
       }
     }
@@ -41,9 +46,10 @@ export const generalRoutes = [
     props: true,
     meta: {
       isPublic: true,
-      layout: () => import('@/layouts/AppBarLayout.vue'),
-      routeBack: { name: 'Home' },
+      noNavigation: true,
+      layout: AppBarCardLayout,
       appBar: {
+        backRoute: { name: 'Home' },
         title: 'Create Account'
       }
     }

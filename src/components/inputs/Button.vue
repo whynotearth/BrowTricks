@@ -112,9 +112,13 @@ export default {
 </script>
 
 <style scoped>
+.button {
+  transition: box-shadow 300ms ease;
+}
 .button:focus {
   outline: none;
-  box-shadow: 0 0 0 2px white;
+  /* color is brand1 */
+  box-shadow: 0 0 0 2px #b5bbc9;
 }
 .min-w-200 {
   min-width: 200px;
