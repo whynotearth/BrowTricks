@@ -44,13 +44,13 @@ export default {
   },
   computed: {
     ...mapGetters('auth', ['oauthUrlGet']),
-    myAccountEmptyPath() {
+    getPanelRedirectorPath() {
       return this.$router.resolve({
-        name: 'MyAccountEmpty'
+        name: 'PanelRedirector'
       }).href;
     },
     signupReturnUrl() {
-      return `${window.location.origin}${this.myAccountEmptyPath}?signup=1`;
+      return `${window.location.origin}${this.getPanelRedirectorPath}?signup=1`;
     },
     loginReturnUrl() {
       return `${window.location.href}`;

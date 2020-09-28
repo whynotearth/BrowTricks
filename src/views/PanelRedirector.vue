@@ -6,7 +6,7 @@
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
-  name: 'HomeRedirector',
+  name: 'PanelRedirector',
   data() {
     return {
       tenants: [],
@@ -51,7 +51,7 @@ export default {
         return;
       }
       await this.$router.replace({
-        name: 'MyAccount',
+        name: 'TenantHome',
         params: { tenantSlug: selectedTenant.slug }
       });
       this.loadingUpdate(false);
