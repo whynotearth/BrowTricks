@@ -1,9 +1,9 @@
 <template>
   <div
-    class="min-h-vh100 w-full bg-primary flex flex-col"
+    class="min-h-vh100 w-full flex flex-col"
     :class="[!meta.noNavigation ? 'has-navigation' : '']"
   >
-    <BaseHeader v-if="appBar">
+    <BaseHeader v-if="appBar" background="bg-background">
       <template #title>
         <div
           class="flex flex-grow justify-center"
@@ -35,11 +35,11 @@
       v-show="loadingGet"
       class="relative flex-grow max-w-6xl mx-auto w-full flex justify-around items-center"
     >
-      <BaseSpinner borderColor="border-white" classNames="spinner" />
+      <BaseSpinner borderColor="border-primary" classNames="spinner" />
     </div>
     <!-- content -->
     <!-- mb-14 for bottom navigation -->
-    <div class="relative flex-grow w-full" v-show="!loadingGet">
+    <div class="content-wrapper relative flex-grow w-full" v-show="!loadingGet">
       <TransitionPage>
         <router-view />
       </TransitionPage>

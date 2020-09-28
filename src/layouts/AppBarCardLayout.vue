@@ -1,20 +1,23 @@
 <template>
   <div
-    class="min-h-vh100 w-full bg-primary flex flex-col"
-    :class="[!meta.noNavigation ? 'has-navigation' : '']"
+    class="min-h-vh100 w-full flex flex-col"
+    :class="[!meta.noNavigation ? 'has-navigation' : '', pageBackground]"
   >
-    <BaseHeader v-if="appBar" />
+    <BaseHeader
+      v-if="appBar && !appBar.noHeader"
+      :background="headerBackground"
+    />
 
     <!-- loading -->
     <div
       v-show="loadingGet"
       class="relative flex-grow max-w-6xl mx-auto w-full flex justify-around items-center"
     >
-      <BaseSpinner borderColor="border-white" classNames="spinner" />
+      <BaseSpinner borderColor="border-brand2" classNames="spinner" />
     </div>
     <!-- content -->
     <!-- mb-14 for bottom navigation -->
-    <div class="relative flex-grow w-full" v-show="!loadingGet">
+    <div class="content-wrapper relative flex-grow w-full" v-show="!loadingGet">
       <TransitionPage>
         <router-view />
       </TransitionPage>
@@ -46,6 +49,12 @@ export default {
     },
     meta() {
       return this.$route.meta;
+    },
+    pageBackground() {
+      return this.meta.pageBackground || 'bg-primary';
+    },
+    headerBackground() {
+      return this.meta.headerBackground || 'bg-primary';
     }
   }
 };
