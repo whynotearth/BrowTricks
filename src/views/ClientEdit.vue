@@ -1,7 +1,7 @@
 <template>
-  <PageContentBoard background="bg-pattern">
-    <div class="text-left pb-20 bg-pattern" v-if="client">
-      <HeaderHeroSection>
+  <PageContentBoard>
+    <div class="text-left" v-if="client">
+      <HeaderHeroSection class="bg-pattern pb-16">
         <!-- header -->
         <div class="text-center mb-6">
           <img class="h-12 rounded-full mx-auto" :src="logo" alt="user-logo" />
@@ -80,26 +80,32 @@
       </HeaderHeroSection>
 
       <!-- content -->
-      <div class="max-w-md mx-auto px-6 sm:px-0">
-        <MediaManager :files="currentFiles" @change="updateFiles" class="mb-4">
-          <template #uploadButton>
-            <a
-              tabindex="0"
-              class="upload-add bg-surface border-brand2 border border-opacity-medium flex justify-center items-center p-4 cursor-pointer"
-              aria-label="Upload"
-              @click="openDrawerUploadUpdate(true)"
-            >
-              <IconCamera
-                class="fill-current text-on-background text-opacity-medium w-10 h-10"
-              />
-            </a>
-          </template>
-          <template #title>
-            <div class="tg-body-mobile ">
-              <span class="text-on-background text-opacity-high"></span>
-            </div>
-          </template>
-        </MediaManager>
+      <div class="-mt-8">
+        <div class="max-w-md mx-auto px-6 sm:px-0">
+          <MediaManager
+            :files="currentFiles"
+            @change="updateFiles"
+            class="mb-4"
+          >
+            <template #uploadButton>
+              <a
+                tabindex="0"
+                class="upload-add bg-surface border-brand2 border border-opacity-medium flex justify-center items-center p-4 cursor-pointer"
+                aria-label="Upload"
+                @click="openDrawerUploadUpdate(true)"
+              >
+                <IconCamera
+                  class="fill-current text-on-background text-opacity-medium w-10 h-10"
+                />
+              </a>
+            </template>
+            <template #title>
+              <div class="tg-body-mobile ">
+                <span class="text-on-background text-opacity-high"></span>
+              </div>
+            </template>
+          </MediaManager>
+        </div>
       </div>
     </div>
   </PageContentBoard>
