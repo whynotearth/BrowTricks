@@ -1,49 +1,56 @@
 <template>
   <ul
-    class="link-items max-w-4xl mx-auto wrapper flex-auto flex text-left justify-around items-center menu list-none tg-caption-mobile select-none"
+    class="link-items max-w-md mx-auto wrapper flex-auto flex text-left justify-around items-center menu list-none tg-caption-mobile select-none py-4"
   >
-    <li class="text-on-primary text-opacity-high link-item">
+    <li class="text-brand1 text-opacity-high link-item">
       <router-link
         class="navigation--link block"
         :to="{ name: 'TenantHome' }"
         exact
       >
-        <IconHome class="m-auto mb-2 w-5 h-5" />
+        <IconHome class="m-auto mb-2 w-5 h-5 text-brand1" />
         <span>Home</span>
       </router-link>
     </li>
 
-    <li disabled class="text-on-primary text-opacity-high link-item">
-      <a class="navigation--link block">
-        <IconUser class="m-auto mb-2 w-5 h-5" />
+    <li disabled class="text-brand1 text-opacity-high link-item">
+      <div class="navigation--link block" :to="{ name: 'ClientList' }">
+        <IconUser class="m-auto mb-2 w-5 h-5 text-brand1" />
         <span>Clients</span>
-      </a>
-    </li>
-
-    <li disabled class="text-on-primary text-opacity-high">
-      <div class="flex items-center">
-        <div
-          class="rounded-xl h-10 w-14 flex items-center justify-center bg-secondary
-                shadow-6dp mx-auto"
-        >
-          <IconCameraPlus class="m-auto fill-current text-on-secondary" />
-        </div>
       </div>
     </li>
 
-    <li disabled class="text-on-primary text-opacity-high link-item">
-      <a class="navigation--link block">
-        <IconDocument class="m-auto mb-2 w-5 h-5" />
-        <span>Forms</span>
-      </a>
+    <li disabled class="text-brand1 text-opacity-high">
+      <div
+        tabindex="0"
+        class="main-button navigation--link flex flex-col justify-center relative text-center outline-none cursor-pointer"
+      >
+        <div
+          class="main-button--shape absolute rounded-full h-14 w-14 flex items-center justify-center bg-primary mx-auto"
+        >
+          <IconCamera class="w-6 h-6 m-auto fill-current text-white" />
+        </div>
+
+        <IconCamera class="invisible m-auto mb-2 w-5 h-5 text-brand1" />
+        <span>Upload</span>
+      </div>
     </li>
 
-    <li disabled class="text-on-primary text-opacity-high link-item">
+    <li class="text-brand1 text-opacity-high link-item">
+      <!-- FIXME: when tenantSlug is not available yet, this makes / and active -->
       <router-link
         class="navigation--link block"
-        :to="{ name: 'MyAccountEmpty' }"
+        :to="{ name: 'FormTemplates' }"
       >
-        <IconUserCircle class="m-auto mb-2 w-5 h-5" />
+        <IconDocument class="m-auto mb-2 w-5 h-5 text-brand1" />
+        <span>Forms</span>
+      </router-link>
+    </li>
+
+    <!-- MyAccount -->
+    <li class="text-brand1 text-opacity-high link-item">
+      <router-link class="navigation--link block" :to="{ name: 'MyAccount' }">
+        <IconUserCircle class="m-auto mb-2 w-5 h-5 text-brand1" />
         <span>Account</span>
       </router-link>
     </li>
@@ -51,7 +58,7 @@
 </template>
 
 <script>
-import IconCameraPlus from '@/assets/icons/camera-plus.svg';
+import IconCamera from '@/assets/icons/camera.svg';
 import IconHome from '@/assets/icons/home.svg';
 import IconUser from '@/assets/icons/person.svg';
 import IconUserCircle from '@/assets/icons/person-circle.svg';
@@ -61,7 +68,7 @@ export default {
   name: 'NavigationBottomLocked',
   components: {
     IconHome,
-    IconCameraPlus,
+    IconCamera,
     IconUser,
     IconUserCircle,
     IconDocument
@@ -70,34 +77,24 @@ export default {
 </script>
 
 <style scoped>
-.wrapper {
-  padding: 6px 0;
-}
-
-.navigation--link {
-  @apply opacity-medium;
-}
-
-.navigation--link svg path {
-  fill: #fff;
-  fill-opacity: 0.54;
-}
-
-.router-link-active {
-  @apply text-on-primary opacity-100;
-}
-
-.router-link-active svg path {
-  @apply opacity-100;
-
-  fill: #fff;
-  fill-opacity: 1;
-}
 .link-item {
   min-width: 64px;
   @apply text-center;
 }
+.main-button--shape {
+  top: -32px;
+  left: 0%;
+  transform: translateX(-8px);
+}
+.main-button:focus .main-button--shape {
+  border: 2px solid white;
+}
+.navigation--link {
+  min-width: 40px;
+}
+
 .link-items > [disabled] {
   @apply cursor-not-allowed;
+  @apply opacity-medium;
 }
 </style>

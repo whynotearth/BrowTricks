@@ -10,10 +10,9 @@
     </div>
     <MaterialInput
       margin="mb-6"
-      v-model="$v.name.$model"
+      v-model.trim="$v.name.$model"
       label="Name"
       placeholder="e.g. PMU Agreement Form"
-      labelBackground="bg-background has-noise"
       :error="$v.name.$error"
     >
       <p v-if="!$v.name.required">

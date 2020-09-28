@@ -1,12 +1,12 @@
 <template>
   <div class="text-left text-on-background text-opacity-high" v-if="tenant">
     <!-- header -->
-    <BaseHeroSection>
-      <img class="h-12 rounded-full" :src="logoUrl" alt="user-logo" />
+    <div class="account-header">
+      <BaseAvatar image="" />
       <h3 class="py-6 tg-h2-mobile text-on-background">
         {{ tenant.name }}
       </h3>
-    </BaseHeroSection>
+    </div>
 
     <!-- content -->
     <!-- @click="
@@ -44,7 +44,6 @@
 </template>
 
 <script>
-import BaseHeroSection from '@/components/BaseHeroSection.vue';
 import ExpansionPanel from '@/components/ExpansionPanel.vue';
 import MediaManager from '@/components/uploader/MediaManager.vue';
 import { mapActions } from 'vuex';
@@ -52,12 +51,13 @@ import { get } from 'lodash-es';
 import IconCreate from '@/assets/icons/create.svg';
 import IconPerson from '@/assets/icons/person.svg';
 import DropDownSheet from '@/components/tenant/DropDownSheet.vue';
+import BaseAvatar from '@/components/BaseAvatar.vue';
 
 export default {
   name: 'MyAccount',
   components: {
+    BaseAvatar,
     DropDownSheet,
-    BaseHeroSection,
     IconCreate,
     ExpansionPanel,
     MediaManager,
@@ -73,8 +73,12 @@ export default {
     };
   },
   computed: {
+    tenant() {
+      return this.tenantData.tenant;
+    },
     currentFiles() {
       return [
+        // TODO: this not working now, needs API update
         ...get(this.tenantData, 'images', []).map(item => ({
           ...item,
           resourceType: 'image'
@@ -90,35 +94,47 @@ export default {
     this.init();
   },
   methods: {
-    ...mapActions('tenant', ['fetchUserTenant', 'fetchUserTenants']),
+    ...mapActions('tenant', ['fetchUserTenants', 'fetchTenant']),
     ...mapActions('auth', ['logout']),
     ...mapActions('loading', ['loadingUpdate']),
     async init() {
       this.loadingUpdate(true);
-      await this._fetchUserTenant();
+      await this._fetchTenant();
+      await this._fetchUserTenants();
       this.loadingUpdate(false);
     },
-    async _fetchUserTenant() {
-      this.tenantData = await this.fetchUserTenant({
+    _fetchTenant() {
+      this.fetchTenant({
         params: {
           tenantSlug: this.$route.params.tenantSlug
         }
-      }).catch(() => {
-        console.log('error in getting mytenants');
-      });
-
-      // TODO: use fetchUserTenant when api was ready
-      await this.fetchUserTenants().then(tenants => {
-        this.tenants = tenants;
-        this.tenant = tenants.find(
-          item => item.slug === this.$route.params.tenantSlug
-        );
-      });
+      })
+        .then(response => {
+          this.tenantData = response;
+        })
+        .catch(() => {
+          console.log('error in getting media');
+          alert('Something went wrong, could not fetch the tenant');
+        });
+    },
+    _fetchUserTenants() {
+      this.fetchUserTenants({
+        params: {
+          tenantSlug: this.$route.params.tenantSlug
+        }
+      })
+        .then(response => {
+          this.tenants = response;
+        })
+        .catch(() => {
+          console.log('error in getting mytenants');
+          alert('Something went wrong, could not fetch tenants');
+        });
     }
   },
   watch: {
     '$route.params.tenantSlug'(newValue) {
-      console.log('watch tenantSlug', newValue);
+      console.log('Tenant changed:', newValue);
       if (newValue) {
         this.init();
       }

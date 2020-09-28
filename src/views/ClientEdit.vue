@@ -1,7 +1,7 @@
 <template>
   <div class="text-left text-on-background text-opacity-high" v-if="client">
     <!-- header -->
-    <BaseHeroSection>
+    <div>
       <img class="h-12 rounded-full" :src="logo" alt="user-logo" />
       <h3 class="py-6 tg-h2-mobile text-on-background">
         {{ client.firstName }} {{ client.lastName }}
@@ -29,7 +29,7 @@
           <span class="text-on-background text-opacity-high">Call</span>
         </a>
       </div>
-    </BaseHeroSection>
+    </div>
 
     <!-- content -->
     <div class="max-w-md mx-auto px-4 -mt-10">
@@ -84,7 +84,7 @@
             aria-label="Upload"
             @click="isOpenDrawerUploadUpdate(true)"
           >
-            <IconCameraPlus
+            <IconCamera
               class="fill-current text-on-background text-opacity-medium w-10 h-10"
             />
           </a>
@@ -102,7 +102,6 @@
 <script>
 // import MaterialInput from '@/components/inputs/MaterialInput.vue';
 import ExpansionPanel from '@/components/ExpansionPanel.vue';
-import BaseHeroSection from '@/components/BaseHeroSection.vue';
 import MediaManager from '@/components/uploader/MediaManager.vue';
 
 import IconDocument from '@/assets/icons/document.svg';
@@ -111,7 +110,7 @@ import IconNotification from '@/assets/icons/notification.svg';
 // import IconImages from '@/assets/icons/images.svg';
 import IconMail from '@/assets/icons/mail.svg';
 import IconPhone from '@/assets/icons/phone.svg';
-import IconCameraPlus from '@/assets/icons/camera-plus.svg';
+import IconCamera from '@/assets/icons/camera.svg';
 import IconPhoneAndroid from '@/assets/icons/phone_android.svg';
 import { get } from 'lodash-es';
 import { mapActions } from 'vuex';
@@ -130,12 +129,11 @@ export default {
   },
   components: {
     // BaseDialog,
-    BaseHeroSection,
     IconDocument,
     IconNotes,
     IconNotification,
     // IconImages,
-    IconCameraPlus,
+    IconCamera,
     IconMail,
     IconPhone,
     IconPhoneAndroid,

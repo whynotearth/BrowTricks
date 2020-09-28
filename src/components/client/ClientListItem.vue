@@ -12,7 +12,7 @@
             client.avatarUrl ||
               'https://res.cloudinary.com/whynotearth/image/upload/v1595228411/BrowTricks/avatar-placeholder_dphhvx.png'
           "
-          alt="user-logo"
+          alt="User picture"
         />
       </div>
       <div class="ml-2">

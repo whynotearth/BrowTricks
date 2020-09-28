@@ -15,7 +15,6 @@
         class="mb-4"
         placeholder="e.g. Check any that apply:"
         label="Question"
-        labelBackground="bg-background has-noise"
         rows="8"
         :error="$v.model.value.$error"
       >
@@ -44,7 +43,6 @@
             :margin="null"
             label="Option"
             placeholder="e. g. I am pregnant or breastfeeding"
-            labelBackground="has-noise bg-background"
             v-model.trim="choice.value"
           />
 
@@ -81,7 +79,7 @@
         class="mt-8"
         textColor="text-error"
         title="Delete Question"
-        theme="none"
+        :background="null"
         @clicked="remove"
       />
     </div>

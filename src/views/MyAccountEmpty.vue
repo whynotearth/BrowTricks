@@ -8,7 +8,7 @@
         </p>
 
         <Button
-          @clicked="addAccount"
+          @clicked="tenantSignup"
           :isRounded="true"
           title="Add Account"
           theme="btnprimary"
@@ -84,7 +84,7 @@ export default {
     async handleRedirect(tenants) {
       const selectedTenant = tenants[0];
       if (!selectedTenant) {
-        this.handleSignup();
+        this.tenantSignup();
         return;
       }
       await this.$router.replace({
@@ -93,16 +93,9 @@ export default {
       });
       this.loadingUpdate(false);
     },
-    handleSignup() {
-      const shouldSignup = this.$route.query.signup === '1';
-      console.log('TODO: shouldSignup', shouldSignup);
-      if (shouldSignup) {
-        this.addAccount();
-      }
-    },
-    addAccount() {
+    tenantSignup() {
       this.$router.push({
-        name: 'SignUp',
+        name: 'TenantSignup',
         params: { step: 'business-info' }
       });
     },

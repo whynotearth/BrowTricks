@@ -5,12 +5,12 @@
 
     <!-- content -->
     <template #content>
-      <BaseHeroSection>
+      <div>
         <img class="w-12 rounded-full mb-6" :src="logo" alt="user-logo" />
         <h1 class="tg-h1-mobile text-opacity-high text-on-background uppercase">
           {{ appShortName }}
         </h1>
-      </BaseHeroSection>
+      </div>
       <!-- content -->
       <div class="max-w-md mx-auto px-4 -mt-16 w-full">
         <ExpansionPanel
@@ -96,7 +96,7 @@
           href="http://www.browtricks.com/"
           :attrs="{ target: '_blank' }"
           textColor="text-brand1"
-          theme="none"
+          :background="null"
           width="w-auto"
           :margin="null"
         />
@@ -105,7 +105,7 @@
           href="http://www.browtricksmembers.com/"
           :attrs="{ target: '_blank' }"
           textColor="text-brand1"
-          theme="none"
+          :background="null"
           width="w-auto"
           :margin="null"
         />
@@ -116,8 +116,6 @@
 
 <script>
 import ClassicLayout from '@/layouts/ClassicLayout.vue';
-import BaseHeroSection from '@/components/BaseHeroSection.vue';
-
 import ExpansionPanel from '@/components/ExpansionPanel.vue';
 import BaseDialog from '@/components/BaseDialog.vue';
 import NavigationBottom from '@/components/NavigationBottom.vue';
@@ -139,7 +137,6 @@ export default {
   }),
   components: {
     ClassicLayout,
-    BaseHeroSection,
     ExpansionPanel,
     NavigationBottom,
     BaseDialog,

@@ -1,5 +1,9 @@
 import { ajax } from '@/services/ajax.js';
-import { TenantService, FormAnswerService } from '@whynotearth/meredith-axios';
+import {
+  TenantService,
+  BrowtricksService,
+  FormAnswerService
+} from '@whynotearth/meredith-axios';
 
 const notificationTypes = [
   // {
@@ -155,7 +159,13 @@ const actions = {
       ...params,
       companySlug
     };
-    return TenantService.mytenants(_params);
+    return TenantService.tenants2(_params);
+  },
+  fetchTenant(context, { params }) {
+    let _params = {
+      ...params
+    };
+    return BrowtricksService.tenants(_params);
   }
 };
 

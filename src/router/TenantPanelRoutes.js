@@ -1,3 +1,6 @@
+import AppBarCardLayout from '@/layouts/AppBarCardLayout.vue';
+import AppBarSwitcherLayout from '@/layouts/AppBarSwitcherLayout.vue';
+
 export const TenantPanelRoutes = [
   {
     path: '/account',
@@ -5,9 +8,8 @@ export const TenantPanelRoutes = [
     props: true,
     component: () => import('@/views/MyAccountEmpty.vue'),
     meta: {
-      isPublic: true,
-      layout: () => import('@/layouts/WithSwitcherBarLayout.vue'),
-      title: 'My Account'
+      layout: AppBarSwitcherLayout,
+      appBar: { title: 'My Account' }
     }
   },
   {
@@ -16,16 +18,16 @@ export const TenantPanelRoutes = [
     props: true,
     component: () => import('@/views/MyAccount.vue'),
     meta: {
-      layout: () => import('@/layouts/WithSwitcherBarLayout.vue'),
-      title: 'My Account'
+      layout: AppBarSwitcherLayout,
+      appBar: { title: 'My Account' }
     }
   },
   {
     // first step: /sign-up/business-info
     path: '/sign-up/:step',
-    name: 'SignUp',
+    name: 'TenantSignup',
     props: true,
-    component: () => import('@/views/AuthSignUp.vue'),
+    component: () => import('@/views/TenantSignup.vue'),
     meta: {
       layout: () => import('@/layouts/TenantLayout.vue'),
       needsUserInfo: true
@@ -38,21 +40,16 @@ export const TenantPanelRoutes = [
     component: () => import('@/views/TenantHome.vue')
   },
   {
-    path: '/tenant/:tenantSlug/home',
-    name: 'ShopHome',
-    props: true,
-    component: () => import('@/views/Home.vue'),
-    meta: { isPublic: true }
-  },
-  {
     path: '/tenant/:tenantSlug/account/edit',
     name: 'AccountInfoEdit',
     props: true,
     component: () => import('@/views/AccountInfoEdit.vue'),
     meta: {
-      layout: () => import('@/layouts/WithTitleBarLayout.vue'),
-      title: 'Edit Account',
-      backRoute: { name: 'MyAccount' }
+      layout: AppBarCardLayout,
+      appBar: {
+        title: 'Edit Account',
+        backRoute: { name: 'MyAccount' }
+      }
     }
   }
 ];

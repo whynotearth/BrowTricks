@@ -18,7 +18,7 @@
           class="rounded-full mb-6 "
           title="No phone number provided to send text"
           :disabled="!client.phoneNumber"
-          theme="none"
+          :background="null"
         ></Button>
 
         <Button

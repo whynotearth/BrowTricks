@@ -1,9 +1,9 @@
 <template>
   <component
     :is="type"
-    class="button tg-color-label-mobile font-semibold uppercase cursor-pointer transition-all duration-75 select-none"
+    class="button tg-button font-semibold cursor-pointer transition-all duration-75 select-none"
     :class="[
-      `theme-${theme}`,
+      isBordered ? 'border border-black' : '',
       shadow,
       margin,
       display,
@@ -11,7 +11,7 @@
       isRounded ? 'rounded-full' : '',
       width,
       background,
-      textColorComputed,
+      textColor,
       padding
     ]"
     v-bind="attrs"
@@ -19,14 +19,9 @@
     :href="href"
     :to="to"
   >
-    <div
-      class="flex content-between w-full items-center"
-      :class="[textJustify]"
-    >
+    <div class="flex content-between items-center" :class="[textJustify]">
       <slot name="start" />
-      <div class="flex items-center flex-grow-0">
-        {{ title }}
-      </div>
+      <span class="title flex items-center flex-grow-0">{{ title }}</span>
       <slot name="end" />
     </div>
   </component>
@@ -52,11 +47,11 @@ export default {
     },
     width: {
       type: String,
-      default: 'w-full'
+      default: 'min-w-200'
     },
     background: {
       type: String,
-      default: ''
+      default: 'bg-primary'
     },
     shadow: {
       type: String,
@@ -68,7 +63,7 @@ export default {
     },
     textColor: {
       type: String,
-      default: ''
+      default: 'text-on-primary text-opacity-high'
     },
     maxWidth: {
       type: String,
@@ -80,7 +75,7 @@ export default {
     },
     isRounded: {
       type: Boolean,
-      default: false
+      default: true
     },
     display: {
       type: String,
@@ -90,9 +85,9 @@ export default {
       type: String,
       default: 'mx-auto'
     },
-    theme: {
-      type: String,
-      default: 'btnprimary' // ['btnprimary', 'btnsecondary']
+    isBordered: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -111,35 +106,26 @@ export default {
       } else {
         return 'button';
       }
-    },
-    textColorComputed() {
-      if (this.textColor) {
-        return this.textColor;
-      }
-      return this.theme === 'btnprimary'
-        ? 'text-on-secondary text-opacity-high'
-        : 'text-primary text-opacity-high';
     }
   }
 };
 </script>
 
 <style scoped>
+.button {
+  transition: box-shadow 300ms ease;
+}
 .button:focus {
   outline: none;
-  box-shadow: 0 0 0 2px white;
+  /* color is brand1 */
+  box-shadow: 0 0 0 2px #b5bbc9;
 }
-.theme-btnprimary {
-  @apply shadow-2dp;
-  background: linear-gradient(
-      308deg,
-      rgba(237, 187, 174, 0.14) 0%,
-      rgba(255, 255, 255, 0.42) 49.37%,
-      rgba(255, 255, 255, 0.42) 98.01%
-    ),
-    #edaeae;
+.min-w-200 {
+  min-width: 200px;
 }
-.theme-btnsecondary {
-  @apply shadow-2dp bg-secondary;
+
+.title {
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 </style>

@@ -1,3 +1,5 @@
+import AppBarCardLayout from '@/layouts/AppBarCardLayout.vue';
+
 export const formTemplateRoutes = [
   {
     path: '/tenant/:tenantSlug/form-templates',
@@ -6,8 +8,10 @@ export const formTemplateRoutes = [
     props: true,
     redirect: { name: 'FormTemplatesList' },
     meta: {
-      layout: () => import('@/layouts/WithTitleBarLayout.vue'),
-      title: 'Form Templates'
+      layout: AppBarCardLayout,
+      appBar: {
+        title: 'Form Templates'
+      }
     },
 
     children: [
@@ -17,8 +21,11 @@ export const formTemplateRoutes = [
         component: () => import('@/views/FormTemplatesListEmpty.vue'),
         props: true,
         meta: {
-          layout: () => import('@/layouts/WithTitleBarLayout.vue'),
-          title: `Welcome to ${process.env.VUE_APP_SHORTNAME}`
+          layout: AppBarCardLayout,
+          appBar: {
+            title: `Welcome to ${process.env.VUE_APP_SHORTNAME}`,
+            backRoute: { name: 'FormTemplates' }
+          }
         }
       },
 
@@ -28,8 +35,10 @@ export const formTemplateRoutes = [
         component: () => import('@/views/FormTemplatesList.vue'),
         props: true,
         meta: {
-          layout: () => import('@/layouts/WithTitleBarLayout.vue'),
-          title: 'Form Templates'
+          layout: AppBarCardLayout,
+          appBar: {
+            title: 'Form Templates'
+          }
         }
       },
 
@@ -41,8 +50,10 @@ export const formTemplateRoutes = [
         redirect: { name: 'FormTemplateItemEdit' },
         meta: {
           noNavigation: true,
-          layout: () => import('@/layouts/WithTitleBarLayout.vue'),
-          title: 'Form Templates'
+          layout: AppBarCardLayout,
+          appBar: {
+            title: 'Form Templates'
+          }
         },
 
         children: [
@@ -53,9 +64,11 @@ export const formTemplateRoutes = [
             component: () => import('@/views/FormTemplateItemEdit.vue'),
             props: true,
             meta: {
-              layout: () => import('@/layouts/WithTitleBarLayout.vue'),
-              title: 'Form Templates Setup',
-              backRoute: { name: 'FormTemplates' }
+              layout: AppBarCardLayout,
+              appBar: {
+                title: 'Form Setup',
+                backRoute: { name: 'FormTemplates' }
+              }
             }
           },
 
@@ -66,9 +79,11 @@ export const formTemplateRoutes = [
             component: () => import('@/views/FormTemplateItemEditMeta.vue'),
             props: true,
             meta: {
-              layout: () => import('@/layouts/WithTitleBarLayout.vue'),
-              title: 'Form Templates Setup',
-              backRoute: { name: 'FormTemplateItemEdit' }
+              layout: AppBarCardLayout,
+              appBar: {
+                title: 'Form Setup',
+                backRoute: { name: 'FormTemplateItemEdit' }
+              }
             }
           },
 
@@ -78,9 +93,11 @@ export const formTemplateRoutes = [
             component: () => import('@/views/FormTemplateFieldSelection.vue'),
             props: true,
             meta: {
-              layout: () => import('@/layouts/WithTitleBarLayout.vue'),
-              title: 'Form Templates Setup',
-              backRoute: { name: 'FormTemplateItemEdit' }
+              layout: AppBarCardLayout,
+              appBar: {
+                title: 'Form Setup',
+                backRoute: { name: 'FormTemplateItemEdit' }
+              }
             }
           },
           {
@@ -89,9 +106,11 @@ export const formTemplateRoutes = [
             component: () => import('@/views/FormTemplateFieldEdit.vue'),
             props: true,
             meta: {
-              layout: () => import('@/layouts/WithTitleBarLayout.vue'),
-              title: 'Form Templates Setup',
-              backRoute: { name: 'FormTemplateItemEdit' }
+              layout: AppBarCardLayout,
+              appBar: {
+                title: 'Form Setup',
+                backRoute: { name: 'FormTemplateItemEdit' }
+              }
             }
           }
         ]
