@@ -154,13 +154,13 @@ export default {
   },
   beforeMount() {
     this.checkUploadedFileExistance();
-    this.isOpenDrawerUploadUpdate(false);
+    this.openDrawerUploadUpdate(false);
   },
   methods: {
     ...mapActions('client', ['updateClient', 'fetchClient']),
     ...mapActions('uploader', [
       'uploadedFilesUpdate',
-      'isOpenDrawerUploadUpdate'
+      'openDrawerUploadUpdate'
     ]),
     share,
     getCloudinaryThumbnail,

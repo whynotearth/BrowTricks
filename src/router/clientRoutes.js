@@ -47,7 +47,10 @@ export const clientRoutes = [
     component: () => import('@/views/Client.vue'),
     redirect: { name: 'ClientEdit' },
     meta: {
-      appBar: { backRoute: { name: 'ClientList' }, title: 'Client Profile' }
+      appBar: {
+        backRoute: { name: 'ClientList' },
+        title: 'Client Profile'
+      }
     },
     children: [
       {
