@@ -53,5 +53,13 @@ export const generalRoutes = [
         title: 'Create Account'
       }
     }
+  },
+  {
+    path: '/privacy-policy',
+    name: 'PrivacyPolicy',
+    component: () => import('@/views/PrivacyPolicy.vue'),
+    meta: {
+      isPublic: true
+    }
   }
 ];
