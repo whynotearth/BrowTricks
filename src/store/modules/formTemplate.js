@@ -95,7 +95,7 @@ const actions = {
     let apiAction = FormTemplateService.formtemplates;
     if (!template.draft) {
       // put method
-      apiAction = FormTemplateService.formtemplates2;
+      apiAction = FormTemplateService.formtemplates3;
     }
     return apiAction({
       tenantSlug,
