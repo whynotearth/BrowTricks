@@ -7,24 +7,16 @@
         theme="light"
         hasNoise="has-noise"
       >
-        <template #icon>
-          <IconMenu class="w-6 h-6 fill-current" />
-        </template>
-        <template #menu-drawer>
-          <MenuDrawerCustomer />
-        </template>
-        <template #end>
-          <div class="flex justify-end w-full">
-            <!-- <router-link v-if="isAuthenticated" :to="{ name: 'MyAccount' }">
-              <BaseAvatar width="w-10" height="h-10" />
-            </router-link> -->
-          </div>
-        </template>
       </BaseHeader>
     </template>
     <template #content>
-      <div class="max-w-sm px-4 mx-auto max-h-sm lg:max-h-lg lg:max-w-lg">
-        <IconLogo class="block w-full h-full mx-auto" alt="" />
+      <div class="max-w-sm px-4 mx-auto xl:max-w-xl">
+        <div class="my-10">
+          <img
+            src="https://res.cloudinary.com/whynotearth/image/upload/v1601286392/BrowTricks/static_v2/logo_yasjqb.png"
+            alt=""
+          />
+        </div>
         <header>
           <h1 class="mb-4 tg-h1-mobile text-primary">
             Brow Tricks Beauty
@@ -638,9 +630,6 @@
 <script>
 import ClassicLayout from '@/layouts/ClassicLayout.vue';
 import BaseHeader from '@/components/BaseHeader.vue';
-
-import IconLogo from '@/assets/icons/browtricks-logo-updated.svg';
-// import BaseAvatar from '@/components/BaseAvatar.vue';
 import IconMenu from '@/assets/icons/menu.svg';
 import { mapGetters, mapActions } from 'vuex';
 
@@ -649,8 +638,6 @@ export default {
   components: {
     ClassicLayout,
     BaseHeader,
-    IconLogo,
-    // BaseAvatar,
     IconMenu
   },
   computed: {

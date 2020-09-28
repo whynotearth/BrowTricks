@@ -58,7 +58,7 @@ const actions = {
     });
   },
   templateFetch(context, { params }) {
-    return FormTemplateService.formtemplates3(params).then(response => {
+    return FormTemplateService.formtemplates4(params).then(response => {
       const adaptedTemplate = adaptApiTemplateToModel(response);
       context.commit('currentTemplateUpdate', adaptedTemplate);
       return response;
@@ -68,7 +68,7 @@ const actions = {
     if (isDraft) {
       return true;
     }
-    return FormTemplateService.formtemplates4(params);
+    return FormTemplateService.formtemplates2(params);
   },
   currentFieldUpdate(context, payload) {
     context.commit('currentFieldUpdate', payload);
@@ -95,7 +95,7 @@ const actions = {
     let apiAction = FormTemplateService.formtemplates;
     if (!template.draft) {
       // put method
-      apiAction = FormTemplateService.formtemplates2;
+      apiAction = FormTemplateService.formtemplates3;
     }
     return apiAction({
       tenantSlug,

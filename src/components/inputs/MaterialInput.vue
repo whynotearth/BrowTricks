@@ -87,7 +87,7 @@ export default {
   },
   filters: {
     trim: function(value) {
-      return value.trim();
+      return (value || '').trim();
     }
   },
   computed: {

@@ -3,14 +3,20 @@ import AppBarSwitcherLayout from '@/layouts/AppBarSwitcherLayout.vue';
 
 export const TenantPanelRoutes = [
   {
-    path: '/account',
-    name: 'MyAccountEmpty',
+    path: '/panel-redirecting',
+    name: 'PanelRedirector',
     props: true,
-    component: () => import('@/views/MyAccountEmpty.vue'),
+    component: () => import('@/views/PanelRedirector.vue'),
     meta: {
-      layout: AppBarSwitcherLayout,
-      appBar: { title: 'My Account' }
+      layout: AppBarCardLayout,
+      appBar: { title: 'Home' }
     }
+  },
+  {
+    path: '/tenant/:tenantSlug',
+    name: 'TenantHome',
+    props: true,
+    component: () => import('@/views/TenantHome.vue')
   },
   {
     path: '/tenant/:tenantSlug/account',
@@ -24,6 +30,7 @@ export const TenantPanelRoutes = [
   },
   {
     // first step: /sign-up/business-info
+    // TODO: change to /signup/:step
     path: '/sign-up/:step',
     name: 'TenantSignup',
     props: true,
@@ -32,12 +39,6 @@ export const TenantPanelRoutes = [
       layout: () => import('@/layouts/TenantLayout.vue'),
       needsUserInfo: true
     }
-  },
-  {
-    path: '/tenant/:tenantSlug',
-    name: 'TenantHome',
-    props: true,
-    component: () => import('@/views/TenantHome.vue')
   },
   {
     path: '/tenant/:tenantSlug/account/edit',

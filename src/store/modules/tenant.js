@@ -153,14 +153,6 @@ const actions = {
       tenantSlug: tenantSlug
     });
   },
-  fetchUserTenant(context, { params }) {
-    let companySlug = process.env.VUE_APP_COMPANY_SLUG;
-    let _params = {
-      ...params,
-      companySlug
-    };
-    return TenantService.tenants2(_params);
-  },
   fetchTenant(context, { params }) {
     let _params = {
       ...params

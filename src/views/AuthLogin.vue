@@ -129,7 +129,7 @@ export default {
       // TODO: fetch tenants first or go to my account
       showOverlayAndRedirect({
         title: 'Success!',
-        route: { name: 'MyAccountEmpty' }
+        route: { name: 'PanelRedirector' }
       });
     }
   }
