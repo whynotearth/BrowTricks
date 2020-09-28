@@ -1,13 +1,14 @@
 @responsive {
   .tg-h1-mobile {
+    font-family: ChampagneLimousines, sans-serif;
     font-style: normal;
     font-weight: normal;
-    /* was 48px, decreased dut to large titles in mobile */
-    font-size: 40px;
+    font-size: 48px;
     line-height: 40px;
   }
 
   .tg-h2-mobile {
+    font-family: ChampagneLimousines, sans-serif;
     font-style: normal;
     font-weight: normal;
     /* was 24px, decreased dut to large titles in mobile */
@@ -17,6 +18,7 @@
   }
 
   .tg-h3-mobile {
+    font-family: ChampagneLimousines, sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 20px;

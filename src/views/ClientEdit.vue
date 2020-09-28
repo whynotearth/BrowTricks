@@ -1,81 +1,85 @@
 <template>
-  <div class="text-left text-on-background text-opacity-high" v-if="client">
-    <!-- header -->
-    <div>
-      <img class="h-12 rounded-full" :src="logo" alt="user-logo" />
-      <h3 class="py-6 tg-h2-mobile text-on-background">
-        {{ client.firstName }} {{ client.lastName }}
-      </h3>
-      <div class="flex justify-around tg-caption-mobile w-full sm:w-auto">
-        <a
-          class="flex flex-col items-center px-4 sm:px-8 text-secondary"
-          :href="`mailto:${client.email}`"
-        >
-          <IconMail class="fill-current mb-2" />
-          <span class="text-on-background text-opacity-high">Email</span>
-        </a>
-        <a
-          class="flex flex-col items-center px-4 sm:px-8 text-secondary"
-          :href="`sms:${client.phoneNumber}`"
-        >
-          <IconPhoneAndroid class="fill-current mb-2" />
-          <span class="text-on-background text-opacity-high">Text</span>
-        </a>
-        <a
-          class="flex flex-col items-center px-4 sm:px-8 text-secondary"
-          :href="`tel:${client.phoneNumber}`"
-        >
-          <IconPhone class="fill-current mb-2" />
-          <span class="text-on-background text-opacity-high">Call</span>
-        </a>
+  <div class="text-left pb-20" v-if="client">
+    <HeaderHeroSection>
+      <!-- header -->
+      <div class="text-center mb-6">
+        <img class="h-12 rounded-full mx-auto" :src="logo" alt="user-logo" />
+        <h3 class="py-6 tg-h2-mobile text-on-background">
+          {{ client.firstName }} {{ client.lastName }}
+        </h3>
+        <div class="flex justify-around tg-caption-mobile w-full sm:w-auto">
+          <a
+            class="flex flex-col items-center px-4 sm:px-8 text-on-surface"
+            :href="`mailto:${client.email}`"
+          >
+            <IconMail class="fill-current mb-2" />
+            <span class="text-on-background text-opacity-high">Email</span>
+          </a>
+          <a
+            class="flex flex-col items-center px-4 sm:px-8 text-on-surface"
+            :href="`sms:${client.phoneNumber}`"
+          >
+            <IconPhoneAndroid class="fill-current mb-2" />
+            <span class="text-on-background text-opacity-high">Text</span>
+          </a>
+          <a
+            class="flex flex-col items-center px-4 sm:px-8 text-on-surface"
+            :href="`tel:${client.phoneNumber}`"
+          >
+            <IconPhone class="fill-current mb-2" />
+            <span class="text-on-background text-opacity-high">Call</span>
+          </a>
+        </div>
       </div>
-    </div>
+
+      <div class="w-full">
+        <ExpansionPanel
+          title="Edit Profile"
+          @click="
+            $router.push({
+              name: 'ClientInfoEdit',
+              params: {
+                tenantSlug: tenantSlug,
+                clientId: clientId,
+                client: client
+              }
+            })
+          "
+        >
+          <template #preIcon>
+            <IconNotification class="h-4 w-4 fill-current" />
+          </template>
+        </ExpansionPanel>
+
+        <!-- incompleted PMU -->
+        <ExpansionPanel
+          @click="
+            $router.push({
+              name: 'PmuSignTemplateSelector',
+              params: { clientId, tenantSlug }
+            })
+          "
+          title="PMU Forms"
+          :middleText="pmuMiddleText"
+        >
+          <template #preIcon>
+            <IconDocument class="h-4 w-4 fill-current" />
+          </template>
+        </ExpansionPanel>
+
+        <ExpansionPanel
+          @click="$router.push({ name: 'ClientNotes' })"
+          title="Notes"
+        >
+          <template #preIcon>
+            <IconNotes class="h-4 w-4 fill-current" />
+          </template>
+        </ExpansionPanel>
+      </div>
+    </HeaderHeroSection>
 
     <!-- content -->
-    <div class="max-w-md mx-auto px-4 -mt-10">
-      <ExpansionPanel
-        title="Edit Profile"
-        @click="
-          $router.push({
-            name: 'ClientInfoEdit',
-            params: {
-              tenantSlug: tenantSlug,
-              clientId: clientId,
-              client: client
-            }
-          })
-        "
-      >
-        <template #preIcon>
-          <IconNotification class="h-6 w-6 fill-current" />
-        </template>
-      </ExpansionPanel>
-
-      <!-- incompleted PMU -->
-      <ExpansionPanel
-        @click="
-          $router.push({
-            name: 'PmuSignTemplateSelector',
-            params: { clientId, tenantSlug }
-          })
-        "
-        title="PMU Forms"
-        :middleText="pmuMiddleText"
-      >
-        <template #preIcon>
-          <IconDocument class="h-6 w-6 fill-current" />
-        </template>
-      </ExpansionPanel>
-
-      <ExpansionPanel
-        @click="$router.push({ name: 'ClientNotes' })"
-        title="Notes"
-      >
-        <template #preIcon>
-          <IconNotes class="h-6 w-6 fill-current" />
-        </template>
-      </ExpansionPanel>
-
+    <div class="max-w-md mx-auto px-4">
       <MediaManager :files="currentFiles" @change="updateFiles" class="mb-4">
         <template #uploadButton>
           <a
@@ -100,8 +104,8 @@
 </template>
 
 <script>
-// import MaterialInput from '@/components/inputs/MaterialInput.vue';
 import ExpansionPanel from '@/components/ExpansionPanel.vue';
+import HeaderHeroSection from '@/components/HeaderHeroSection.vue';
 import MediaManager from '@/components/uploader/MediaManager.vue';
 
 import IconDocument from '@/assets/icons/document.svg';
@@ -128,16 +132,14 @@ export default {
     }
   },
   components: {
-    // BaseDialog,
+    HeaderHeroSection,
     IconDocument,
     IconNotes,
     IconNotification,
-    // IconImages,
     IconCamera,
     IconMail,
     IconPhone,
     IconPhoneAndroid,
-    // MaterialInput,
     ExpansionPanel,
     MediaManager
   },

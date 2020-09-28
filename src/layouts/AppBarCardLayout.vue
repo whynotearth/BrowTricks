@@ -3,7 +3,10 @@
     class="min-h-vh100 w-full flex flex-col"
     :class="[!meta.noNavigation ? 'has-navigation' : '', pageBackground]"
   >
-    <BaseHeader v-if="appBar && !appBar.noHeader" />
+    <BaseHeader
+      v-if="appBar && !appBar.noHeader"
+      :background="headerBackground"
+    />
 
     <!-- loading -->
     <div
@@ -49,6 +52,9 @@ export default {
     },
     pageBackground() {
       return this.meta.pageBackground || 'bg-primary';
+    },
+    headerBackground() {
+      return this.meta.headerBackground || 'bg-primary';
     }
   }
 };

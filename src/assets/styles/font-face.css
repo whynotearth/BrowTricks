@@ -1,0 +1,17 @@
+@font-face {
+  font-family: ChampagneLimousines;
+  src: url('https://res.cloudinary.com/whynotearth/raw/upload/v1597759029/BrowTricks/static_v2/font/ChampagneLimousines_fyk4jg.eot');
+  src: url('https://res.cloudinary.com/whynotearth/raw/upload/v1597759029/BrowTricks/static_v2/font/ChampagneLimousines_fyk4jg.eot?#iefix')
+      format('embedded-opentype'),
+    url('https://res.cloudinary.com/whynotearth/raw/upload/v1597759024/BrowTricks/static_v2/font/ChampagneLimousines_luw3ar.woff2')
+      format('woff2'),
+    url('https://res.cloudinary.com/whynotearth/raw/upload/v1597759025/BrowTricks/static_v2/font/ChampagneLimousines_obtvma.woff')
+      format('woff'),
+    url('https://res.cloudinary.com/whynotearth/raw/upload/v1597759028/BrowTricks/static_v2/font/ChampagneLimousines_zb5prh.ttf')
+      format('truetype'),
+    url('https://res.cloudinary.com/whynotearth/raw/upload/v1597759031/BrowTricks/static_v2/font/ChampagneLimousines_cpxpmw.otf')
+      format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
