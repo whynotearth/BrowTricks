@@ -15,7 +15,7 @@
       >
         <div class="">
           <MaterialInput
-            v-model="$v.firstName.$model"
+            v-model.trim="$v.firstName.$model"
             label="First Name"
             :error="$v.firstName.$error"
           >
@@ -24,7 +24,7 @@
             </p>
           </MaterialInput>
           <MaterialInput
-            v-model="$v.lastName.$model"
+            v-model.trim="$v.lastName.$model"
             label="Last Name"
             :error="$v.lastName.$error"
           >
@@ -33,7 +33,7 @@
             </p>
           </MaterialInput>
           <MaterialInput
-            v-model="$v.email.$model"
+            v-model.trim="$v.email.$model"
             label="Email Address"
             :error="$v.email.$error"
           >
@@ -46,7 +46,7 @@
           </MaterialInput>
           <MaterialInput
             type="password"
-            v-model="$v.password.$model"
+            v-model.trim="$v.password.$model"
             label="Password"
             :error="$v.password.$error"
           >

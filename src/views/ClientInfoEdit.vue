@@ -2,7 +2,7 @@
   <div class="shadow-1dp px-2 py-6 rounded-lg mb-4 bg-surface">
     <MaterialInput
       margin="mb-6"
-      v-model="$v.client.firstName.$model"
+      v-model.trim="$v.client.firstName.$model"
       label="First Name"
       :error="$v.client.firstName.$error"
     >
@@ -12,7 +12,7 @@
     </MaterialInput>
     <MaterialInput
       margin="mb-6"
-      v-model="$v.client.lastName.$model"
+      v-model.trim="$v.client.lastName.$model"
       label="Last Name"
       :error="$v.client.lastName.$error"
     >
@@ -22,7 +22,7 @@
     </MaterialInput>
     <MaterialInput
       margin="mb-6"
-      v-model="$v.client.phoneNumber.$model"
+      v-model.trim="$v.client.phoneNumber.$model"
       label="Phone Number"
       :error="$v.client.phoneNumber.$error"
     >
@@ -40,7 +40,7 @@
     </MaterialInput>
     <MaterialInput
       :margin="null"
-      v-model="$v.client.email.$model"
+      v-model.trim="$v.client.email.$model"
       label="Email"
       :error="$v.client.email.$error"
       :attrs="{ readonly: true }"

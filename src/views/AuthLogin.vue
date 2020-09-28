@@ -23,7 +23,7 @@
       >
         <div class="">
           <MaterialInput
-            v-model="$v.email.$model"
+            v-model.trim="$v.email.$model"
             label="Email"
             :error="$v.email.$error"
             theme="light"
@@ -38,7 +38,7 @@
 
           <MaterialInput
             type="password"
-            v-model="$v.password.$model"
+            v-model.trim="$v.password.$model"
             label="Password"
             :error="$v.password.$error"
           >
