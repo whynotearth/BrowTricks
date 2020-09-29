@@ -50,7 +50,7 @@ export default {
       type: String
     },
     background: {
-      default: 'bg-secondary'
+      default: 'bg-white'
     },
     textColor: {
       default: 'text-on-primary'
