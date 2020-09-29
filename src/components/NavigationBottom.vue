@@ -3,7 +3,7 @@
     <nav class="flex w-full fixed bottom-0 bg-transparent z-30">
       <div class="flex flex-auto w-full">
         <div class="w-full">
-          <div class="relative bg-secondary rounded-t-lg mx-2">
+          <div class="relative bg-secondary rounded-t-2xl">
             <NavigationBottomLocked v-if="isLocked" />
             <NavigationBottomNormal v-else />
           </div>
