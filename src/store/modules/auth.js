@@ -116,12 +116,14 @@ const actions = {
     };
     return AuthenticationService.confirmphonetoken(params);
   },
-  submitVerifyCode(context, { params }) {
+  submitVerifyCode({ commit }, { params }) {
     // TODO: use meredith-axios (it should accept a json to use it)
     // return AuthenticationService.confirmphone(params);
 
     let url = '/api/v0/authentication/confirmphone';
-    return ajax.post(getAPIURL(url), params);
+    return ajax.post(getAPIURL(url), params).then(() => {
+      commit('isPhoneNumberConfirmedUpdate', true);
+    });
   },
   clear({ commit }) {
     commit('updateReturnUrl', '');
