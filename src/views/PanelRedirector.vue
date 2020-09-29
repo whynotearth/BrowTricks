@@ -13,14 +13,14 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('auth', ['isAuthenticated'])
+    ...mapGetters('auth', ['isAuthenticated', 'isPhoneNumberConfirmedGet'])
   },
   created() {
     const gotToken = this.setTokenFromUrl();
     if (!(gotToken || this.isAuthenticated)) {
+      alert('Authentication problem occured.');
       return;
     }
-
     this.init();
   },
   methods: {
@@ -28,38 +28,51 @@ export default {
     ...mapActions('tenant', ['fetchUserTenants']),
     ...mapActions('auth', ['updateToken']),
     ...mapActions('loading', ['loadingUpdate']),
-    init() {
-      this.loadingUpdate(true);
+    async init() {
+      if (!this.isPhoneNumberConfirmedGet) {
+        this.goNumberVerification();
+        return;
+      }
 
-      this.fetchUserTenants()
-        .then(tenants => {
-          this.tenants = tenants;
-          this.handleRedirect(tenants);
-        })
+      this.loadingUpdate(true);
+      await this.handleTenantRedirect();
+      this.loadingUpdate(false);
+    },
+    handleTenantRedirect() {
+      return this.fetchUserTenants()
+        .then(this.onGetTenants)
         .catch(error => {
           console.log(error);
           alert(
             `Something went wrong in getting your account data, refreshing page may help. Otherwise please contact ${process.env.VUE_APP_ADMINISTRATOR_CONTACT_EMAIL}`
           );
-          this.loadingUpdate(false);
         });
     },
-    async handleRedirect(tenants) {
+    async onGetTenants(tenants) {
+      this.tenants = tenants;
+
       const selectedTenant = tenants[0];
       if (!selectedTenant) {
-        this.tenantSignup();
+        this.goTenantSignup();
         return;
       }
-      await this.$router.replace({
+      this.goTenantHome(selectedTenant);
+    },
+    goTenantSignup() {
+      this.$router.replace({
+        name: 'TenantSignup',
+        params: { step: 'business-info' }
+      });
+    },
+    goTenantHome(selectedTenant) {
+      this.$router.replace({
         name: 'TenantHome',
         params: { tenantSlug: selectedTenant.slug }
       });
-      this.loadingUpdate(false);
     },
-    tenantSignup() {
-      this.$router.push({
-        name: 'TenantSignup',
-        params: { step: 'business-info' }
+    goNumberVerification() {
+      this.$router.replace({
+        name: 'AuthNumberVerify'
       });
     },
     setTokenFromUrl() {

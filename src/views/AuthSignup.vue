@@ -17,6 +17,7 @@
           <MaterialInput
             v-model.trim="$v.firstName.$model"
             label="First Name"
+            :attrs="{ autocomplete: 'first-name' }"
             :error="$v.firstName.$error"
           >
             <p v-if="!$v.firstName.required">
@@ -26,6 +27,7 @@
           <MaterialInput
             v-model.trim="$v.lastName.$model"
             label="Last Name"
+            :attrs="{ autocomplete: 'last-name' }"
             :error="$v.lastName.$error"
           >
             <p v-if="!$v.lastName.required">
@@ -33,8 +35,24 @@
             </p>
           </MaterialInput>
           <MaterialInput
+            v-model.trim="$v.phoneNumber.$model"
+            label="Phone Number"
+            type="tel"
+            :attrs="{ autocomplete: 'tel', inputmode: 'tel' }"
+            :error="$v.phoneNumber.$error"
+          >
+            <p v-if="!$v.phoneNumber.required">
+              Phone number is required
+            </p>
+            <p v-else-if="!$v.phoneNumber.isPhoneNumberValid">
+              Please enter a valid phone number
+            </p>
+          </MaterialInput>
+          <MaterialInput
+            type="email"
             v-model.trim="$v.email.$model"
             label="Email Address"
+            :attrs="{ autocomplete: 'email', inputmode: 'email' }"
             :error="$v.email.$error"
           >
             <p v-if="!$v.email.required">
@@ -48,6 +66,7 @@
             type="password"
             v-model.trim="$v.password.$model"
             label="Password"
+            :attrs="{ autocomplete: 'new-password' }"
             :error="$v.password.$error"
           >
             <p v-if="!$v.password.required">
@@ -78,7 +97,7 @@
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
 import { required, email } from 'vuelidate/lib/validators';
 import { mapActions } from 'vuex';
-import { showOverlayAndRedirect } from '@/helpers';
+import { showOverlayAndRedirect, isPhoneNumberValid } from '@/helpers';
 import { get } from 'lodash-es';
 
 export default {
@@ -92,7 +111,8 @@ export default {
       firstName: '',
       lastName: '',
       email: '',
-      password: ''
+      password: '',
+      phoneNumber: ''
     };
   },
   validations: {
@@ -108,6 +128,10 @@ export default {
     },
     password: {
       required
+    },
+    phoneNumber: {
+      required,
+      isPhoneNumberValid
     }
   },
   created() {
@@ -132,7 +156,8 @@ export default {
             password: this.password,
             email: this.email,
             firstName: this.firstName,
-            lastName: this.lastName
+            lastName: this.lastName,
+            phoneNumber: this.phoneNumber
           }
         }
       })
@@ -149,7 +174,7 @@ export default {
     onSuccess() {
       showOverlayAndRedirect({
         title: 'Success!',
-        route: { name: 'TenantHome' }
+        route: { name: 'AuthNumberVerify' }
       });
     }
   }

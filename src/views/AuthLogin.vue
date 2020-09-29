@@ -23,10 +23,11 @@
       >
         <div class="">
           <MaterialInput
+            type="email"
             v-model.trim="$v.email.$model"
-            label="Email"
+            label="Email Address"
+            :attrs="{ autocomplete: 'email', inputmode: 'email' }"
             :error="$v.email.$error"
-            theme="light"
           >
             <p v-if="!$v.email.required">
               Email is required
@@ -40,6 +41,7 @@
             type="password"
             v-model.trim="$v.password.$model"
             label="Password"
+            :attrs="{ autocomplete: 'current-password' }"
             :error="$v.password.$error"
           >
             <p v-if="!$v.password.required">
