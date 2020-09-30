@@ -5,6 +5,7 @@
     >
       <form
         @submit.prevent="submit"
+        novalidate
         class="flex flex-col w-full max-w-sm flex-grow justify-between"
       >
         <h2 class="tg-h3-mobile text-on-background text-opacity-high mb-3">
@@ -21,7 +22,7 @@
               autocomplete: 'one-time-code',
               inputmode: 'numeric'
             }"
-            :error="$v.verifyCode.$error"
+            :validatorModel="$v.verifyCode"
           >
             <p v-if="!$v.verifyCode.required">
               Code is required
@@ -50,15 +51,17 @@ import { required, numeric } from 'vuelidate/lib/validators';
 import { mapActions, mapGetters } from 'vuex';
 import { showOverlayAndRedirect } from '@/helpers';
 import { get } from 'lodash-es';
+import formGeneralUtils from '@/mixins/formGeneralUtils.js';
 
 export default {
   name: 'AuthNumberVerify',
+  // NOTE: we use a mixin
+  mixins: [formGeneralUtils],
   components: {
     MaterialInput
   },
   data() {
     return {
-      errorMessage: '',
       verifyCode: ''
     };
   },
@@ -72,6 +75,7 @@ export default {
     ...mapGetters('auth', ['isAuthenticated', 'isPhoneNumberConfirmedGet'])
   },
   created() {
+    this.clearErrors();
     this.init();
   },
   methods: {
@@ -82,7 +86,6 @@ export default {
       'submitVerifyCode'
     ]),
     async init() {
-      this.clearError();
       if (!this.isAuthenticated) {
         this.goLogin();
         return;
@@ -110,26 +113,17 @@ export default {
         // }
       })
         .then(() => {
-          console.log('sent code');
+          console.log('Code sent');
         })
-        .catch(error => {
-          this.errorMessage = get(
-            error,
-            'response.data.message',
-            'Something went wrong'
-          );
-        });
+        .catch(this.onSubmitCatch);
     },
     submit() {
-      this.clearError();
-
-      this.$v.$touch();
-      if (this.$v.$invalid) {
+      if (!this.beforeSubmit()) {
         return;
       }
 
       this.submitVerifyCode({
-        params: this.verifyCode
+        params: { body: { token: this.verifyCode } }
       })
         .then(this.onSuccess)
         .catch(error => {
