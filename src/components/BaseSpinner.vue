@@ -1,5 +1,9 @@
 <template functional>
-  <div class="loading" :class="[props.classNames, props.borderColor]"></div>
+  <div
+    aria-label="Loading"
+    class="loading"
+    :class="[props.classNames, props.borderColor]"
+  ></div>
 </template>
 
 <script>

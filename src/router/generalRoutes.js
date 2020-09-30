@@ -55,6 +55,21 @@ export const generalRoutes = [
     }
   },
   {
+    path: '/verify',
+    name: 'AuthNumberVerify',
+    component: () => import('@/views/AuthNumberVerify.vue'),
+    props: true,
+    meta: {
+      pageBackground: 'bg-background',
+      noNavigation: true,
+      layout: AppBarCardLayout,
+      appBar: {
+        backRoute: { name: 'Home' },
+        title: 'Verification Required'
+      }
+    }
+  },
+  {
     path: '/privacy-policy',
     name: 'PrivacyPolicy',
     component: () => import('@/views/PrivacyPolicy.vue'),

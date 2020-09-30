@@ -19,14 +19,17 @@
 
       <form
         @submit.prevent="submit"
+        novalidate
         class="flex flex-col w-full max-w-sm flex-grow justify-between"
       >
         <div class="">
-          <MaterialInput
+          <!-- <MaterialInput
+            type="email"
             v-model.trim="$v.email.$model"
-            label="Email"
-            :error="$v.email.$error"
-            theme="light"
+            label="Email Address"
+            :attrs="{ autocomplete: 'email', inputmode: 'email' }"
+            :validatorModel="$v.email"
+            :serverErrors="serverErrors.Email"
           >
             <p v-if="!$v.email.required">
               Email is required
@@ -34,13 +37,33 @@
             <p v-else-if="!$v.email.email">
               Please enter an email address
             </p>
+          </MaterialInput> -->
+
+          <MaterialInput
+            v-model.trim="$v.userName.$model"
+            label="Username"
+            :attrs="{ autocomplete: 'username' }"
+            :validatorModel="$v.userName"
+            :serverErrors="serverErrors.UserName"
+          >
+            <p v-if="!$v.userName.required">
+              Username is required
+            </p>
+            <p v-if="!$v.userName.minLength">
+              Should be at least 5 characters
+            </p>
+            <p v-else-if="!$v.userName.alphaNum">
+              Should be alphanumeric
+            </p>
           </MaterialInput>
 
           <MaterialInput
             type="password"
             v-model.trim="$v.password.$model"
             label="Password"
-            :error="$v.password.$error"
+            :attrs="{ autocomplete: 'current-password' }"
+            :validatorModel="$v.password"
+            :serverErrors="serverErrors.Password"
           >
             <p v-if="!$v.password.required">
               Password is required
@@ -69,43 +92,48 @@
 <script>
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
 import AuthButtons from '@/components/auth/AuthButtons';
-import { required, email } from 'vuelidate/lib/validators';
+import formGeneralUtils from '@/mixins/formGeneralUtils.js';
+import { required, minLength, alphaNum } from 'vuelidate/lib/validators';
 import { mapActions } from 'vuex';
 import { showOverlayAndRedirect } from '@/helpers';
-import { get } from 'lodash-es';
 
 export default {
   name: 'AuthLogin',
+  // NOTE: we use a mixin
+  mixins: [formGeneralUtils],
   components: {
     AuthButtons,
     MaterialInput
   },
   data() {
     return {
+      serverErrors: {},
       errorMessage: '',
-      email: '',
+      // email: '',
+      userName: '',
       password: ''
     };
   },
   validations: {
-    email: {
+    // email: {
+    //   required,
+    //   email
+    // },
+    userName: {
       required,
-      email
+      alphaNum,
+      minLength: minLength(5)
     },
     password: {
       required
     }
   },
-  created() {
-    this.clearError();
-  },
   methods: {
     ...mapActions('auth', ['loginStandard']),
-    clearError() {
-      this.errorMessage = '';
-    },
     submit() {
-      this.clearError();
+      if (!this.beforeSubmit()) {
+        return;
+      }
 
       this.$v.$touch();
       if (this.$v.$invalid) {
@@ -113,17 +141,16 @@ export default {
       }
 
       this.loginStandard({
-        params: { body: { password: this.password, email: this.email } }
+        params: {
+          body: {
+            password: this.password,
+            // email: this.email
+            email: this.userName
+          }
+        }
       })
         .then(this.onSuccess)
-        .catch(error => {
-          this.errorMessage = get(
-            error,
-            'response.data.error',
-            'Something went wrong'
-          );
-          console.log(error, error.response);
-        });
+        .catch(this.onSubmitCatch);
     },
     onSuccess() {
       // TODO: fetch tenants first or go to my account

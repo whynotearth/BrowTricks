@@ -1,9 +1,10 @@
 <template>
+  <!-- todo: remove -->
   <div class="px-6 pb-20 pt-6">
     <MaterialInput
       v-model.trim="$v.name.$model"
       label="Name"
-      :error="$v.name.$error"
+      :validatorModel="$v.name"
     >
       <span v-if="!$v.name.required">
         Name is required
@@ -12,7 +13,7 @@
     <MaterialInput
       v-model.trim="$v.phone.$model"
       label="Phone number"
-      :error="$v.phone.$error"
+      :validatorModel="$v.phone"
     >
       <p v-if="!$v.phone.required">
         This field is required

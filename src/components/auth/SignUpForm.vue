@@ -1,4 +1,5 @@
 <template>
+  <!-- todo: remove -->
   <div class="">
     <div class="min-h-vh100 w-full flex flex-col justify-between">
       <!-- isModalOpen for business hours -->

@@ -7,7 +7,7 @@
         <!-- <TextAreaInput
           class="mb-4"
           v-model="$v.description.$model"
-          :error="$v.description.$error"
+          :validatorModel="$v.description"
           label="Description"
           rows="4"
         >

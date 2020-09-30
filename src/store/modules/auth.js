@@ -6,7 +6,8 @@ const state = {
   provider: '',
   returnURL: '',
   token: '',
-  userName: ''
+  userName: '',
+  isPhoneNumberConfirmed: null
 };
 
 const getters = {
@@ -20,6 +21,9 @@ const getters = {
   },
   userName(state) {
     return state.userName;
+  },
+  isPhoneNumberConfirmedGet(state) {
+    return state.isPhoneNumberConfirmed;
   }
 };
 
@@ -67,6 +71,10 @@ const actions = {
         .then(response => {
           commit('updateProvider', response.loginProviders[0]);
           commit('updateUserName', response.userName);
+          commit(
+            'isPhoneNumberConfirmedUpdate',
+            response.isPhoneNumberConfirmed
+          );
           dispatch('updateToken', state.token);
           resolve(response);
         })
@@ -101,10 +109,23 @@ const actions = {
       delete ajax.defaults.headers.common['Authorization'];
     }
   },
+  requestVerifyCode() {
+    let companySlug = process.env.VUE_APP_COMPANY_SLUG;
+    const params = {
+      body: { companySlug }
+    };
+    return AuthenticationService.confirmphonetoken(params);
+  },
+  submitVerifyCode({ commit }, { params }) {
+    return AuthenticationService.confirmphone(params).then(() => {
+      commit('isPhoneNumberConfirmedUpdate', true);
+    });
+  },
   clear({ commit }) {
     commit('updateReturnUrl', '');
     commit('updateProvider', '');
     commit('updateUserName', '');
+    commit('isPhoneNumberConfirmedUpdate', null);
   }
 };
 
@@ -114,6 +135,9 @@ const mutations = {
   },
   updateUserName(state, payload) {
     state.userName = payload;
+  },
+  isPhoneNumberConfirmedUpdate(state, payload) {
+    state.isPhoneNumberConfirmed = payload;
   },
   updateProvider(state, payload) {
     state.provider = payload;

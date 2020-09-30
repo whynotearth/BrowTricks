@@ -13,7 +13,7 @@
       v-model.trim="$v.name.$model"
       label="Name"
       placeholder="e.g. PMU Agreement Form"
-      :error="$v.name.$error"
+      :validatorModel="$v.name"
     >
       <p v-if="!$v.name.required">
         Name of form template is required

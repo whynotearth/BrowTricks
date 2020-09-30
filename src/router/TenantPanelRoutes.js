@@ -9,7 +9,7 @@ export const TenantPanelRoutes = [
     component: () => import('@/views/PanelRedirector.vue'),
     meta: {
       layout: AppBarCardLayout,
-      appBar: { title: 'Home' }
+      noNavigation: true
     }
   },
   {
