@@ -25,15 +25,23 @@ export default {
       error,
       {
         serverErrorsField = 'response.data.errors',
-        messageFields = ['response.data.error', 'response.data.message']
-      }
+        messageFields = [
+          'response.data.error',
+          'response.data.message',
+          'response.data.title'
+        ]
+      } = {}
     ) {
       this.clearErrors();
       this.serverErrors = get(error, serverErrorsField, []);
       this.errorMessage = get(
         error,
         messageFields[0],
-        get(error, messageFields[1], 'Something went wrong')
+        get(
+          error,
+          messageFields[1],
+          get(error, messageFields[2], 'Something went wrong')
+        )
       );
     },
     clearErrors() {

@@ -14,7 +14,7 @@ import VuexPersistence from 'vuex-persist';
 
 const vuexSession = new VuexPersistence({
   storage: window.sessionStorage,
-  modules: ['auth', 'tenant', 'uploader', 'formTemplate'],
+  modules: ['auth', 'uploader', 'formTemplate'],
   key: 'vuexSessionStore'
 });
 

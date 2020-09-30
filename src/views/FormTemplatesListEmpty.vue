@@ -24,16 +24,31 @@
 </template>
 
 <script>
-import { formTemplateAdd } from '@/helpers';
+import { formTemplateAdd, navigationStatusUpdate } from '@/helpers';
 import { mapActions } from 'vuex';
 
 export default {
   name: 'FormTemplatesListEmpty',
+  props: ['tenantSlug'],
   beforeMount() {
-    this.statusUpdate('locked');
+    navigationStatusUpdate('locked');
+  },
+  async mounted() {
+    await this.templatesFetch({
+      params: { tenantSlug: this.tenantSlug }
+    })
+      .then(list => {
+        if (list && list.length > 0) {
+          navigationStatusUpdate('normal');
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
   },
   methods: {
     ...mapActions('navigation', ['statusUpdate']),
+    ...mapActions('formTemplate', ['templatesFetch']),
     formTemplateAdd
   }
 };

@@ -34,15 +34,18 @@ export const TenantPanelRoutes = [
     }
   },
   {
-    // first step: /sign-up/business-info
-    // TODO: change to /signup/:step
-    path: '/sign-up/:step',
+    path: '/tenant-signup',
     name: 'TenantSignup',
     props: true,
     component: () => import('@/views/TenantSignup.vue'),
     meta: {
-      layout: () => import('@/layouts/TenantLayout.vue'),
-      needsUserInfo: true
+      noNavigation: true,
+      layout: AppBarCardLayout,
+      pageBackground: 'bg-background',
+      needsUserInfo: true,
+      appBar: {
+        title: 'Create Tenant'
+      }
     }
   },
   {

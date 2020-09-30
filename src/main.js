@@ -13,7 +13,11 @@ import SmoothPicker from 'vue-smooth-picker';
 import 'vue-smooth-picker/dist/css/style.css';
 // global components
 import Button from '@/components/inputs/Button.vue';
+import TextAreaInput from '@/components/inputs/TextAreaInput.vue';
+import MaterialInput from '@/components/inputs/MaterialInput.vue';
 Vue.component('Button', Button);
+Vue.component('TextAreaInput', TextAreaInput);
+Vue.component('MaterialInput', MaterialInput);
 
 Vue.use(SmoothPicker);
 Vue.use(Vuelidate);
