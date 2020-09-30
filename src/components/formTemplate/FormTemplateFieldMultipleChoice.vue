@@ -16,7 +16,7 @@
         placeholder="e.g. Check any that apply:"
         label="Question"
         rows="8"
-        :error="$v.model.value.$error"
+        :validatorModel="$v.model.value"
       >
         <p v-if="!$v.model.value.required">
           Question is required

@@ -4,7 +4,7 @@
       margin="mb-6"
       v-model.trim="$v.client.firstName.$model"
       label="First Name"
-      :error="$v.client.firstName.$error"
+      :validatorModel="$v.client.firstName"
     >
       <p v-if="!$v.client.firstName.required">
         First Name is required
@@ -14,7 +14,7 @@
       margin="mb-6"
       v-model.trim="$v.client.lastName.$model"
       label="Last Name"
-      :error="$v.client.lastName.$error"
+      :validatorModel="$v.client.lastName"
     >
       <p v-if="!$v.client.lastName.required">
         Last Name is required
@@ -24,7 +24,7 @@
       margin="mb-6"
       v-model.trim="$v.client.phoneNumber.$model"
       label="Phone Number"
-      :error="$v.client.phoneNumber.$error"
+      :validatorModel="$v.client.phoneNumber"
     >
       <p v-if="!$v.client.phoneNumber.required">
         Phone number is required
@@ -42,7 +42,7 @@
       :margin="null"
       v-model.trim="$v.client.email.$model"
       label="Email"
-      :error="$v.client.email.$error"
+      :validatorModel="$v.client.email"
       :attrs="{ readonly: true }"
     >
       <p v-if="!$v.client.email.required">

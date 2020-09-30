@@ -26,7 +26,7 @@
             <CheckMark />
           </div>
         </div>
-        <div class="mx-4 tg-body-mobile">
+        <div class="mx-3 tg-body-mobile">
           <slot name="label">
             <span class="mx-1 text-on-background text-opacity-high select-none">
               {{ label }}

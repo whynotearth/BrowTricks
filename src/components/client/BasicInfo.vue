@@ -1,10 +1,10 @@
 <template>
+  <!-- NOTE: this form don't handle server errors for each field -->
   <div class="px-6 pb-20">
     <MaterialInput
       v-model.trim="$v.firstName.$model"
       label="First Name"
-      :error="$v.firstName.$error"
-      theme="light"
+      :validatorModel="$v.firstName"
     >
       <p v-if="!$v.firstName.required">
         First Name is required
@@ -13,8 +13,7 @@
     <MaterialInput
       v-model.trim="$v.lastName.$model"
       label="Last Name"
-      :error="$v.lastName.$error"
-      theme="light"
+      :validatorModel="$v.lastName"
     >
       <p v-if="!$v.lastName.required">
         Last Name is required
@@ -23,8 +22,7 @@
     <MaterialInput
       v-model.trim="$v.phone.$model"
       label="Phone number"
-      :error="$v.phone.$error"
-      theme="light"
+      :validatorModel="$v.phone"
     >
       <p v-if="!$v.phone.required">
         This field is required
@@ -36,8 +34,7 @@
     <MaterialInput
       v-model.trim="$v.email.$model"
       label="Email"
-      :error="$v.email.$error"
-      theme="light"
+      :validatorModel="$v.email"
     >
       <p v-if="!$v.email.required">
         Email is required

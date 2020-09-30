@@ -10,7 +10,7 @@
         their answers.
       </p>
 
-      <!-- :error="$v.model.value.$error" -->
+      <!-- :validatorModel="$v.model.value" -->
       <TextAreaInput
         v-model="$v.model.value.$model"
         class="mb-4"

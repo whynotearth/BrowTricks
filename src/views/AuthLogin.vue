@@ -28,7 +28,8 @@
             v-model.trim="$v.email.$model"
             label="Email Address"
             :attrs="{ autocomplete: 'email', inputmode: 'email' }"
-            :error="$v.email.$error"
+            :validatorModel="$v.email"
+            :serverErrors="serverErrors.Email"
           >
             <p v-if="!$v.email.required">
               Email is required
