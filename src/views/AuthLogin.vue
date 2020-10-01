@@ -44,7 +44,7 @@
           <MaterialInput
             v-model.trim="$v.userName.$model"
             label="Username"
-            :attrs="{ autocomplete: 'username' }"
+            :attrs="{ autocomplete: 'username', enterkeyhint: 'send' }"
             :validatorModel="$v.userName"
             :serverErrors="serverErrors.UserName"
           >
@@ -63,7 +63,7 @@
             type="password"
             v-model.trim="$v.password.$model"
             label="Password"
-            :attrs="{ autocomplete: 'current-password' }"
+            :attrs="{ autocomplete: 'current-password', enterkeyhint: 'send' }"
             :validatorModel="$v.password"
             :serverErrors="serverErrors.Password"
           >
