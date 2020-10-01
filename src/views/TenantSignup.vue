@@ -9,12 +9,12 @@
         class="flex flex-col w-full max-w-sm flex-grow justify-between"
       >
         <h2 class="tg-h3-mobile text-on-background text-opacity-high mb-4">
-          Write your tenant information
+          Enter your Business Info
         </h2>
         <div class="">
           <MaterialInput
             v-model.trim="$v.name.$model"
-            label="Name"
+            label="Business Name"
             :attrs="{ autocomplete: 'first-name' }"
             :validatorModel="$v.name"
             :serverErrors="serverErrors.Name"
@@ -26,7 +26,7 @@
 
           <MaterialInput
             v-model.trim="$v.phoneNumber.$model"
-            label="Phone Number"
+            label="Business Phone Number"
             type="tel"
             :attrs="{ autocomplete: 'tel', inputmode: 'tel' }"
             :validatorModel="$v.phoneNumber"
