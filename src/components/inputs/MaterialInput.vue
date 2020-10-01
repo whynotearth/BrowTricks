@@ -3,7 +3,7 @@
     <template #control>
       <div class="relative">
         <input
-          class="input appearance-none outline-none relative bg-transparent w-full pt-3 pb-2 border-b text-opacity-medium focus:text-opacity-high border-opacity-medium focus:border-opacity-high"
+          class="input appearance-none outline-none relative bg-transparent w-full pt-3 pb-2 border-b text-opacity-medium focus:text-opacity-high border-opacity-medium focus:border-opacity-high rounded-none"
           :class="[
             textColor,
             borderColor,
