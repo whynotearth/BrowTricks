@@ -24,9 +24,14 @@
         >
       </div>
       <div class="flex flex-grow justify-end">
-        <div class="subtitle flex-grow flex items-center" v-if="middleText || $slots.middleText">
+        <div
+          class="subtitle flex-grow flex items-center"
+          v-if="middleText || $slots.middleText"
+        >
           <!-- middle text -->
-          <div class="text-on-surface text-opacity-medium text-left capitalize tg-caption-mobile">
+          <div
+            class="text-on-surface text-opacity-medium text-left capitalize tg-caption-mobile"
+          >
             <slot name="middleText">{{ middleText }}</slot>
           </div>
         </div>
