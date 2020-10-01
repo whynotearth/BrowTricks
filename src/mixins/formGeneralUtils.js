@@ -28,11 +28,13 @@ export default {
         messageFields = [
           'response.data.error',
           'response.data.message',
-          'response.data.title'
+          'response.data.title',
+          'response.data[0].description'
         ]
       } = {}
     ) {
       this.clearErrors();
+      console.log('Error in form submition:', get(error, 'response.data', ''));
       this.serverErrors = get(error, serverErrorsField, []);
       this.errorMessage = get(
         error,
@@ -40,7 +42,11 @@ export default {
         get(
           error,
           messageFields[1],
-          get(error, messageFields[2], 'Something went wrong')
+          get(
+            error,
+            messageFields[2],
+            get(error, messageFields[3], 'Something went wrong')
+          )
         )
       );
     },
