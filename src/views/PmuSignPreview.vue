@@ -129,7 +129,7 @@ export default {
       }).then(() => {
         showOverlayAndRedirect({
           title: 'Message Sent Successfully!',
-          route: { name: 'ClientEdit' }
+          route: { name: 'ClientInfo' }
         });
       });
     },

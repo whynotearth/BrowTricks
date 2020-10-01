@@ -234,7 +234,7 @@ export default {
         .then(() => {
           showOverlayAndRedirect({
             title: 'Success!',
-            route: { name: 'ClientEdit', params: { clientId } }
+            route: { name: 'ClientInfo', params: { clientId } }
           });
         })
         .catch(error => {

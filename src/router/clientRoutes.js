@@ -14,7 +14,7 @@ export const clientRoutes = [
           title: 'Add Client',
           icon: IconEdit,
           route: {
-            name: 'AddClient',
+            name: 'ClientItemAdd',
             params: { step: 'basic-info' }
           }
         },
@@ -22,12 +22,6 @@ export const clientRoutes = [
         backRoute: { name: 'TenantHome' }
       }
     }
-  },
-  {
-    path: '/tenant/:tenantSlug/clients/add/:step',
-    name: 'AddClient',
-    props: true,
-    component: () => import('@/views/ClientAddEdit.vue')
   },
   {
     path: '/tenant/:tenantSlug/upload',
@@ -40,11 +34,21 @@ export const clientRoutes = [
     }
   },
   {
+    path: '/tenant/:tenantSlug/clients/add',
+    name: 'ClientItemAdd',
+    props: true,
+    component: () => import('@/views/ClientItemAdd.vue'),
+    meta: {
+      layout: AppBarLayout,
+      appBar: { title: 'Add Client', backRoute: { name: 'ClientList' } }
+    }
+  },
+  {
     path: '/tenant/:tenantSlug/clients/:clientId',
     name: 'Client',
     props: true,
     component: () => import('@/views/Client.vue'),
-    redirect: { name: 'ClientEdit' },
+    redirect: { name: 'ClientInfo' },
     meta: {
       appBar: {
         backRoute: { name: 'ClientList' },
@@ -53,25 +57,15 @@ export const clientRoutes = [
     },
     children: [
       {
-        path: 'edit',
-        name: 'ClientEdit',
+        path: 'info',
+        name: 'ClientInfo',
         props: true,
-        component: () => import('@/views/ClientEdit.vue'),
+        component: () => import('@/views/ClientInfo.vue'),
         meta: {
           layout: AppBarLayout,
           pageBackground: 'bg-background',
           headerBackground: 'bg-background',
           appBar: { title: 'Client Profile', backRoute: { name: 'ClientList' } }
-        }
-      },
-      {
-        path: 'notifications',
-        name: 'ClientNotifications',
-        props: true,
-        component: () => import('@/views/ClientNotifications.vue'),
-        meta: {
-          layout: AppBarLayout,
-          appBar: { title: 'Notifications', backRoute: { name: 'ClientEdit' } }
         }
       },
 
@@ -83,7 +77,7 @@ export const clientRoutes = [
         props: true,
         meta: {
           layout: AppBarLayout,
-          appBar: { title: 'Form Templates', backRoute: { name: 'ClientEdit' } }
+          appBar: { title: 'Form Templates', backRoute: { name: 'ClientInfo' } }
         }
       },
 
@@ -94,7 +88,7 @@ export const clientRoutes = [
         props: true,
         meta: {
           layout: AppBarLayout,
-          appBar: { title: 'PMU Form Sign', backRoute: { name: 'ClientEdit' } }
+          appBar: { title: 'PMU Form Sign', backRoute: { name: 'ClientInfo' } }
         }
       },
       {
@@ -115,7 +109,7 @@ export const clientRoutes = [
         props: true,
         meta: {
           isPublic: true,
-          appBar: { title: 'PMU Form Sign', backRoute: { name: 'ClientEdit' } }
+          appBar: { title: 'PMU Form Sign', backRoute: { name: 'ClientInfo' } }
         }
       },
       {
@@ -133,19 +127,19 @@ export const clientRoutes = [
         props: true,
         meta: {
           layout: AppBarLayout,
-          appBar: { title: 'Notes', backRoute: { name: 'ClientEdit' } }
+          appBar: { title: 'Notes', backRoute: { name: 'ClientInfo' } }
         }
       },
       {
-        path: 'client-info-edit',
-        name: 'ClientInfoEdit',
-        component: () => import('@/views/ClientInfoEdit.vue'),
+        path: 'edit',
+        name: 'ClientItemEdit',
+        component: () => import('@/views/ClientItemEdit.vue'),
         props: true,
         meta: {
           layout: AppBarLayout,
           appBar: {
             title: 'Edit Client Info',
-            backRoute: { name: 'ClientEdit' }
+            backRoute: { name: 'ClientInfo' }
           }
         }
       }

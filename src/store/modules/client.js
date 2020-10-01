@@ -60,30 +60,19 @@ const actions = {
     // params = { tenantSlug, clientId }
     return ClientService.clients3(params);
   },
-  createClient({ state, commit }, payload) {
-    const clientData = {
-      tenantSlug: payload.tenantSlug,
+  createClient(context, { params }) {
+    const _params = {
       companySlug: process.env.VUE_APP_COMPANY_SLUG,
-      body: {
-        firstName: state.clientInfo.firstName,
-        lastName: state.clientInfo.lastName,
-        phoneNumber: state.clientInfo.phoneNumber,
-        email: state.clientInfo.email,
-        notificationTypes: state.clientInfo.notificationTypes
-      }
+      ...params
     };
-    return ClientService.clients(clientData).then(() => {
-      commit('resetClientInfo');
-    });
+    return ClientService.clients(_params);
   },
-  updateClient(context, payload) {
-    const clientData = {
-      tenantSlug: payload.tenantSlug,
+  updateClient(context, { params }) {
+    const _params = {
       companySlug: process.env.VUE_APP_COMPANY_SLUG,
-      clientId: payload.clientId,
-      body: { ...payload.body }
+      ...params
     };
-    return ClientService.clients2(clientData);
+    return ClientService.clients2(_params);
   },
   archiveClient(context, payload) {
     const clientData = {
