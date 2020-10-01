@@ -5,7 +5,7 @@
         <!-- header -->
         <div>
           <h1
-            class="tg-h2-mobile sm:tg-h1-mobile text-opacity-high text-on-background uppercase flex mb-2 items-center"
+            class="tg-h2-mobile text-opacity-high text-on-background uppercase flex mb-2 items-center"
           >
             <span>Brow</span>
             <img class="w-20 rounded-full" :src="logo" alt="user-logo" />

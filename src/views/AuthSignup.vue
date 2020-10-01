@@ -1,5 +1,7 @@
 <template>
-  <div class="flex flex-col items-center text-left w-full">
+  <div
+    class="min-h-vh100--without-header flex flex-col items-center text-left w-full"
+  >
     <div class="px-4 max-w-md">
       <img
         src="https://res.cloudinary.com/whynotearth/image/upload/v1600874347/BrowTricks/static_v2/image-login_crwfva.png"

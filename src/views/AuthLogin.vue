@@ -1,5 +1,7 @@
 <template>
-  <div class="flex flex-col items-center text-left w-full">
+  <div
+    class="min-h-vh100--without-header flex flex-col items-center text-left w-full"
+  >
     <div class="px-4 max-w-md">
       <img
         src="https://res.cloudinary.com/whynotearth/image/upload/v1600874347/BrowTricks/static_v2/image-login_crwfva.png"
@@ -9,13 +11,13 @@
     <div
       class="flex-grow w-full bg-surface rounded-t-xl px-4 py-8 flex flex-col items-center"
     >
-      <AuthButtons></AuthButtons>
+      <!-- <AuthButtons></AuthButtons>
 
       <div class="w-full py-8 flex justify-center items-center">
         <hr class="flex-grow" />
         <span class="px-1">OR</span>
         <hr class="flex-grow" />
-      </div>
+      </div> -->
 
       <form
         @submit.prevent="submit"
@@ -91,7 +93,7 @@
 
 <script>
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
-import AuthButtons from '@/components/auth/AuthButtons';
+// import AuthButtons from '@/components/auth/AuthButtons';
 import formGeneralUtils from '@/mixins/formGeneralUtils.js';
 import { required, minLength, alphaNum } from 'vuelidate/lib/validators';
 import { mapActions } from 'vuex';
@@ -102,7 +104,7 @@ export default {
   // NOTE: we use a mixin
   mixins: [formGeneralUtils],
   components: {
-    AuthButtons,
+    // AuthButtons,
     MaterialInput
   },
   data() {
