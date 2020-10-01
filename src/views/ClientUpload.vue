@@ -1,10 +1,25 @@
 <template>
-  <div
-    class="mx-auto pt-4 text-on-background text-opacity-high text-left max-w-4xl"
-  >
-    <div class="flex text-left px-2 mb-4">
-      <div class="flex-grow px-2 break-word">
-        <!-- <TextAreaInput
+  <PageContentBoard>
+    <div
+      class="mx-auto pt-4 text-on-background text-opacity-high text-left max-w-md"
+    >
+      <div class="flex flex-col items-center text-left px-2 mb-8">
+        <div class="px-2 mb-4">
+          <div class="image-wrapper max-w-full" v-if="file">
+            <BaseImagePreview
+              v-if="file.resourceType === 'image'"
+              :selectFile="() => {}"
+              :file="{ ...file }"
+            />
+            <BaseVideoPreview
+              v-if="file.resourceType === 'video'"
+              :selectFile="() => {}"
+              :file="{ ...file, thumbnail: getCloudinaryThumbnail(file.url) }"
+            />
+          </div>
+        </div>
+        <div class="flex-grow px-2 break-word">
+          <!-- <TextAreaInput
           class="mb-4"
           v-model="$v.description.$model"
           :validatorModel="$v.description"
@@ -16,86 +31,77 @@
           </p>
         </TextAreaInput> -->
 
-        <!-- chips -->
-        <a
-          @click.prevent="isOpenClientSelect = true"
-          class="cursor-pointer"
-          tabindex="0"
-        >
-          <BaseChip>
-            <template #icon>
-              <IconCheck
-                v-if="selectedClientId"
-                class="fill-current text-on-surface w-3 h-3"
-              />
-              <IconUser v-else class="fill-current text-on-surface w-3 h-3" />
-            </template>
-            Select Client
-          </BaseChip>
-        </a>
-        <p
-          v-if="$v.selectedClientId.$error"
-          class="text-error tg-body-mobile mt-2 ml-4"
-        >
-          Client is required
-        </p>
-      </div>
-      <div class="px-2">
-        <div class="image-wrapper max-w-full" v-if="file">
-          <BaseImagePreview
-            v-if="file.resourceType === 'image'"
-            :selectFile="() => {}"
-            :file="{ ...file }"
-          />
-          <BaseVideoPreview
-            v-if="file.resourceType === 'video'"
-            :selectFile="() => {}"
-            :file="{ ...file, thumbnail: getCloudinaryThumbnail(file.url) }"
-          />
+          <!-- chips -->
+          <h3 class="tg-h2-mobile mb-2">
+            Select the related client
+          </h3>
+          <a
+            @click.prevent="isOpenClientSelect = true"
+            class="cursor-pointer"
+            tabindex="0"
+          >
+            <BaseChip>
+              <template #icon>
+                <IconCheck
+                  v-if="selectedClientId"
+                  class="fill-current text-on-surface w-3 h-3"
+                />
+                <IconUser v-else class="fill-current text-on-surface w-3 h-3" />
+              </template>
+              Select Client
+            </BaseChip>
+          </a>
+          <p
+            v-if="$v.selectedClientId.$error"
+            class="text-error tg-body-mobile mt-2 ml-4"
+          >
+            Client is required
+          </p>
         </div>
       </div>
-    </div>
 
-    <hr
-      v-if="isShareApiSupported"
-      class="border-divider border-opacity-divider mb-4"
-    />
+      <hr
+        v-if="isShareApiSupported"
+        class="border-divider border-opacity-divider mb-4"
+      />
 
-    <div class="px-4">
-      <div v-if="file && isShareApiSupported">
-        <h2 class="mb-4 tg-body-mobile">Share:</h2>
-        <a
-          @click="share(file)"
-          tabindex="0"
-          class="cursor-pointer block rounded-full w-10 h-10 bg-secondary flex justify-center items-center mb-6"
-        >
-          <IconShare
-            class="fill-current text-on-secondary text-opacity-medium"
-          />
-        </a>
+      <div class="px-4">
+        <div v-if="file && isShareApiSupported">
+          <h2 class="mb-4 tg-body-mobile">Share:</h2>
+          <a
+            @click="share(file)"
+            tabindex="0"
+            class="cursor-pointer block rounded-full w-10 h-10 bg-secondary flex justify-center items-center mb-6"
+          >
+            <IconShare
+              class="fill-current text-on-secondary text-opacity-medium"
+            />
+          </a>
+        </div>
+        <div>
+          <Button
+            :isRounded="true"
+            title="Post"
+            @clicked="submit"
+            background="bg-brand2"
+          ></Button>
+        </div>
       </div>
-      <div>
-        <Button
-          :isRounded="true"
-          title="Post"
-          @clicked="submit"
-          background="bg-brand2"
-        ></Button>
-      </div>
-    </div>
 
-    <ClientSelectOverlay
-      :tenantSlug="tenantSlug"
-      :isOpen="isOpenClientSelect"
-      @close="isOpenClientSelect = false"
-      @select="onSelectClient"
-      :selectedId="selectedClientId"
-    />
-  </div>
+      <ClientSelectOverlay
+        :tenantSlug="tenantSlug"
+        :isOpen="isOpenClientSelect"
+        @close="isOpenClientSelect = false"
+        @select="onSelectClient"
+        :selectedId="selectedClientId"
+      />
+    </div>
+  </PageContentBoard>
 </template>
 
 <script>
 import ClientSelectOverlay from '@/components/client/ClientSelectOverlay';
+import PageContentBoard from '@/components/PageContentBoard';
 // // import TextAreaInput from '@/components/inputs/TextAreaInput';
 
 import BaseImagePreview from '@/components/uploader/BaseImagePreview';
@@ -140,6 +146,7 @@ export default {
     }
   },
   components: {
+    PageContentBoard,
     ClientSelectOverlay,
     // TextAreaInput,
     IconUser,
