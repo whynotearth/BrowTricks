@@ -1,96 +1,99 @@
 <template>
-  <div class="shadow-1dp px-2 py-6 rounded-lg mb-4 bg-surface">
-    <MaterialInput
-      margin="mb-6"
-      v-model.trim="$v.client.firstName.$model"
-      label="First Name"
-      :validatorModel="$v.client.firstName"
-    >
-      <p v-if="!$v.client.firstName.required">
-        First Name is required
-      </p>
-    </MaterialInput>
-    <MaterialInput
-      margin="mb-6"
-      v-model.trim="$v.client.lastName.$model"
-      label="Last Name"
-      :validatorModel="$v.client.lastName"
-    >
-      <p v-if="!$v.client.lastName.required">
-        Last Name is required
-      </p>
-    </MaterialInput>
-    <MaterialInput
-      margin="mb-6"
-      v-model.trim="$v.client.phoneNumber.$model"
-      label="Phone Number"
-      :validatorModel="$v.client.phoneNumber"
-    >
-      <p v-if="!$v.client.phoneNumber.required">
-        Phone number is required
-      </p>
-      <p
-        v-else-if="
-          !$v.client.phoneNumber.minLength ||
-            !$v.client.phoneNumber.isPhoneNumberValid
-        "
+  <PageContentBoard>
+    <div class="py-8 px-4">
+      <MaterialInput
+        margin="mb-6"
+        v-model.trim="$v.client.firstName.$model"
+        label="First Name"
+        :validatorModel="$v.client.firstName"
       >
-        Please enter a valid phone numb er
-      </p>
-    </MaterialInput>
-    <MaterialInput
-      :margin="null"
-      v-model.trim="$v.client.email.$model"
-      label="Email"
-      :validatorModel="$v.client.email"
-      :attrs="{ readonly: true }"
-    >
-      <p v-if="!$v.client.email.required">
-        Email is required
-      </p>
-      <p v-else-if="!$v.client.email.email">
-        Please enter a email address
-      </p>
-    </MaterialInput>
+        <p v-if="!$v.client.firstName.required">
+          First Name is required
+        </p>
+      </MaterialInput>
+      <MaterialInput
+        margin="mb-6"
+        v-model.trim="$v.client.lastName.$model"
+        label="Last Name"
+        :validatorModel="$v.client.lastName"
+      >
+        <p v-if="!$v.client.lastName.required">
+          Last Name is required
+        </p>
+      </MaterialInput>
+      <MaterialInput
+        margin="mb-6"
+        v-model.trim="$v.client.phoneNumber.$model"
+        label="Phone Number"
+        :validatorModel="$v.client.phoneNumber"
+      >
+        <p v-if="!$v.client.phoneNumber.required">
+          Phone number is required
+        </p>
+        <p
+          v-else-if="
+            !$v.client.phoneNumber.minLength ||
+              !$v.client.phoneNumber.isPhoneNumberValid
+          "
+        >
+          Please enter a valid phone numb er
+        </p>
+      </MaterialInput>
+      <MaterialInput
+        :margin="null"
+        v-model.trim="$v.client.email.$model"
+        label="Email"
+        :validatorModel="$v.client.email"
+        :attrs="{ readonly: true }"
+      >
+        <p v-if="!$v.client.email.required">
+          Email is required
+        </p>
+        <p v-else-if="!$v.client.email.email">
+          Please enter a email address
+        </p>
+      </MaterialInput>
 
-    <div class="py-6">
-      <Button class="rounded-full" title="Save" @clicked="save" />
-      <Button
-        class="mt-8"
-        textColor="text-error"
-        title="Delete Client"
-        :background="null"
-        @clicked="isDeleteModalOpen = true"
-      />
+      <div class="py-6">
+        <Button class="rounded-full" title="Save" @clicked="save" />
+        <Button
+          class="mt-8"
+          textColor="text-error"
+          title="Delete Client"
+          :background="null"
+          @clicked="isDeleteModalOpen = true"
+        />
+      </div>
+
+      <BaseDialog
+        v-if="isDeleteModalOpen"
+        @close="isDeleteModalOpen = false"
+        title="Delete Client?"
+      >
+        <Button
+          textColor="text-on-primary text-opacity-medium"
+          title="Cancel"
+          :background="null"
+          @clicked="isDeleteModalOpen = false"
+          width="w-auto"
+          :margin="null"
+        />
+        <Button
+          textColor="text-error"
+          title="Delete"
+          :background="null"
+          @clicked="archive"
+          width="w-auto"
+          :margin="null"
+        />
+      </BaseDialog>
     </div>
-
-    <BaseDialog
-      v-if="isDeleteModalOpen"
-      @close="isDeleteModalOpen = false"
-      title="Delete Client?"
-    >
-      <Button
-        textColor="text-on-primary text-opacity-medium"
-        title="Cancel"
-        :background="null"
-        @clicked="isDeleteModalOpen = false"
-        width="w-auto"
-        :margin="null"
-      />
-      <Button
-        textColor="text-error"
-        title="Delete"
-        :background="null"
-        @clicked="archive"
-        width="w-auto"
-        :margin="null"
-      />
-    </BaseDialog>
-  </div>
+  </PageContentBoard>
 </template>
 
 <script>
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
+import PageContentBoard from '@/components/PageContentBoard.vue';
 import BaseDialog from '@/components/BaseDialog.vue';
 
 import { required, minLength, email } from 'vuelidate/lib/validators';
@@ -101,6 +104,7 @@ import { mapActions } from 'vuex';
 export default {
   name: 'EditClientInfo',
   components: {
+    PageContentBoard,
     MaterialInput,
     BaseDialog
   },

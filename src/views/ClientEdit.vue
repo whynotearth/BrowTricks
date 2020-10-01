@@ -53,6 +53,7 @@
           </ExpansionPanel>
 
           <!-- incompleted PMU -->
+          <!-- :middleText="pmuMiddleText" -->
           <ExpansionPanel
             @click="
               $router.push({
@@ -61,7 +62,6 @@
               })
             "
             title="PMU Forms"
-            :middleText="pmuMiddleText"
           >
             <template #preIcon>
               <IconDocument class="h-4 w-4 fill-current" />
@@ -92,7 +92,7 @@
                 tabindex="0"
                 class="upload-add bg-surface border-brand2 border border-opacity-medium flex justify-center items-center p-4 cursor-pointer"
                 aria-label="Upload"
-                @click="openDrawerUploadUpdate(true)"
+                @click="_openDrawerUploadUpdate"
               >
                 <IconCamera
                   class="fill-current text-on-background text-opacity-medium w-10 h-10"
@@ -127,6 +127,7 @@ import IconCamera from '@/assets/icons/camera.svg';
 import IconPhoneAndroid from '@/assets/icons/phone_android.svg';
 import { get } from 'lodash-es';
 import { mapActions } from 'vuex';
+import { UploaderTypes } from '@/services/uploader';
 
 export default {
   name: 'ClientEdit',
@@ -166,7 +167,7 @@ export default {
   computed: {
     pmuMiddleText() {
       const completedPmuCount = get(this.client, 'signatures', []).length;
-      return `Completed: ${completedPmuCount}`;
+      return `Signed: ${completedPmuCount}`;
     },
     currentFiles() {
       return [
@@ -184,6 +185,9 @@ export default {
   methods: {
     ...mapActions('client', ['updateClient', 'archiveClient', 'fetchClient']),
     ...mapActions('uploader', ['openDrawerUploadUpdate']),
+    _openDrawerUploadUpdate() {
+      this.openDrawerUploadUpdate(UploaderTypes.CLIENT);
+    },
     async _fetchClient() {
       this.client = await this.fetchClient({
         params: {

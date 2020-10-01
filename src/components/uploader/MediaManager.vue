@@ -9,10 +9,10 @@
         </span>
       </slot>
     </div>
-    <div class="flex flex-wrap">
+    <div class="grid grid-cols-3 sm:grid-cols-4 gap-1">
       <slot name="uploadButton" />
       <div
-        class="upload-previews-wrapper w-1/3"
+        class="upload-previews-wrapper"
         v-for="(file, index) in filesToPreview"
         :key="index"
       >
@@ -68,9 +68,6 @@ export default {
     ImagePreviewModal: () => import('./ImagePreviewModal'),
     VideoPreviewModal: () => import('./VideoPreviewModal')
   },
-  mounted() {
-    this.initialItemRouteActivation();
-  },
   computed: {
     filesToPreview() {
       return [...this.files];
@@ -89,12 +86,10 @@ export default {
       this.updateFiles(updatedFiles);
     },
     selectFile(file) {
-      this.goToItemRoute(file);
       this.selectedFileInfo = { ...file };
     },
     closeModal() {
       this.resetSelectedFile();
-      this.goToListRoute();
     },
     resetSelectedFile() {
       this.selectedFileInfo = {
@@ -102,65 +97,9 @@ export default {
         index: null
       };
     },
-    goToItemRoute(file) {
-      if (this.$route.name === 'ClientUploads') {
-        this.$router
-          .push({
-            name: 'ClientUploadsItem',
-            params: { mediaIndex: file.index }
-          })
-          .catch(() => {});
-      }
-    },
-    goToListRoute() {
-      if (this.$route.name === 'ClientUploadsItem') {
-        this.$router.go(-1);
-      }
-    },
     updateFiles(files) {
       this.$emit('change', files);
-    },
-    initialItemRouteActivation() {
-      const unwatch = this.$watch('files', () => {
-        if (this.$route.name === 'ClientUploadsItem') {
-          const mediaIndex = this.$route.params.mediaIndex;
-          const currentFile = this.files[mediaIndex];
-          this.selectFile(currentFile);
-          unwatch();
-        } else {
-          unwatch();
-        }
-      });
-    }
-  },
-  watch: {
-    $route(to) {
-      if (to.name === 'ClientUploads') {
-        this.resetSelectedFile();
-      }
     }
   }
 };
 </script>
-
-<style scoped>
-.upload-icon--dimension,
-.upload-img--dimension {
-  width: 100px;
-  height: 100px;
-}
-
-.upload-previews-wrapper,
-.upload-add {
-  width: 100px;
-  height: 100px;
-  margin: 0 2px 4px 2px;
-}
-
-@screen sm {
-  .upload-previews-wrapper,
-  .upload-add {
-    width: 100px;
-  }
-}
-</style>

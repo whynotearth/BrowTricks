@@ -35,7 +35,6 @@ export const clientRoutes = [
     props: true,
     component: () => import('@/views/ClientUpload.vue'),
     meta: {
-      noNavigation: true,
       layout: AppBarLayout,
       appBar: { title: 'Portfolio Upload', backRoute: { name: 'TenantHome' } }
     }
@@ -63,26 +62,6 @@ export const clientRoutes = [
           pageBackground: 'bg-background',
           headerBackground: 'bg-background',
           appBar: { title: 'Client Profile', backRoute: { name: 'ClientList' } }
-        }
-      },
-      {
-        path: 'uploads',
-        name: 'ClientUploads',
-        props: true,
-        component: () => import('@/views/ClientUploads.vue'),
-        meta: {
-          layout: AppBarLayout,
-          appBar: { backRoute: { name: 'ClientEdit' }, title: 'Uploads' }
-        }
-      },
-      {
-        path: 'uploads/:mediaIndex',
-        name: 'ClientUploadsItem',
-        props: true,
-        component: () => import('@/views/ClientUploads.vue'),
-        meta: {
-          layout: AppBarLayout,
-          appBar: { title: 'Uploads', backRoute: { name: 'ClientUploads' } }
         }
       },
       {
