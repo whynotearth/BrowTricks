@@ -101,13 +101,12 @@ export default {
         .then(this.onSuccess)
         .catch(this.onSubmitCatch);
     },
-    onSuccess(response) {
-      console.log('response', response);
+    onSuccess(tenantSlug) {
       showOverlayAndRedirect({
         title: 'Success!',
         route: {
           name: 'FormTemplatesListEmpty',
-          params: { tenantSlug: this.tenantSlug }
+          params: { tenantSlug }
         }
       });
     }

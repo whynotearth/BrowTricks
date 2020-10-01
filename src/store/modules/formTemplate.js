@@ -50,6 +50,13 @@ const mutations = {
 };
 
 const actions = {
+  hasAnyFormTemplates({ dispatch }, tenantSlug) {
+    return dispatch('templatesFetch', { params: { tenantSlug } }).then(
+      response => {
+        return response.length > 0;
+      }
+    );
+  },
   templatesFetch(context, { params }) {
     return FormTemplateService.formtemplates1(params).then(response => {
       const adaptedTemplates = adaptApiTemplatesToModel(response);
