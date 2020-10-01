@@ -2,17 +2,12 @@
   <div
     class="wrapper bg-surface text-white text-opacity-high py-2 px-6 overflow-y-auto narrow-scrollbar shadow-4dp rounded-b-xl"
   >
-    <router-link
+    <a
       v-for="tenant in tenants"
       :key="tenant.slug"
       class="flex flex-row my-4"
-      :to="{ name: 'MyAccount', params: { tenantSlug: tenant.slug } }"
+      @click.prevent="selectTenant(tenant)"
     >
-      <div
-        class="rounded-full h-10 w-10 flex items-center justify-center bg-background overflow-hidden"
-      >
-        <img @error="tenant.logoUrl = defaultLogo" :src="tenant.logoUrl" />
-      </div>
       <div
         class="flex flex-col justify-start flex-grow mx-4 cursor-pointer text-left"
       >
@@ -27,32 +22,35 @@
           v-if="isCurrentTenant(tenant)"
         />
       </div>
-    </router-link>
+    </a>
     <div class="flex flex-row my-4">
-      <div
+      <!-- <div
         class="rounded-full h-10 w-10 flex items-center justify-center bg-medium-emphasis"
       >
         <IconAddDark />
-      </div>
+      </div> -->
       <div
         class="flex flex-grow content-start items-center mx-4 cursor-pointer"
       >
-        <p class="text-on-primary text-opacity-disabled text-base">
-          Add Account (coming soon)
-        </p>
+        <router-link
+          class="text-on-primary text-opacity-high text-base"
+          :to="{ name: 'TenantSignup' }"
+        >
+          Add Account
+        </router-link>
       </div>
-      <div class="flex content-start items-center cursor-pointer">
+      <!-- <div class="flex content-start items-center cursor-pointer">
         <IconFeatureLock />
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
 
 <script>
-import IconAddDark from '@/assets/icons/add-dark.svg';
-import IconFeatureLock from '@/assets/icons/feature-lock.svg';
+// import IconFeatureLock from '@/assets/icons/feature-lock.svg';
 import IconCheck from '@/assets/icons/check.svg';
 import noPageScrollbarMixin from '@/utils/noPageScrollbarMixin.js';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'DropDownSheet',
@@ -62,8 +60,7 @@ export default {
       'https://res.cloudinary.com/whynotearth/image/upload/v1599063595/BrowTricks/static_v2/default-tenant-logo_mndtrm.png'
   }),
   components: {
-    IconAddDark,
-    IconFeatureLock,
+    // IconFeatureLock,
     IconCheck
   },
   props: {
@@ -73,8 +70,33 @@ export default {
     }
   },
   methods: {
+    ...mapActions('formTemplate', ['hasAnyFormTemplates']),
+    ...mapActions('loading', ['loadingUpdate']),
     isCurrentTenant(tenant) {
       return tenant.slug === this.$route.params.tenantSlug;
+    },
+    async selectTenant(tenant) {
+      this.loadingUpdate(true);
+      const hasAnyFormTemplates = await this.hasAnyFormTemplates(tenant.slug);
+      if (!hasAnyFormTemplates) {
+        this.goFormTemplateEmptyList(tenant);
+        this.loadingUpdate(false);
+        return;
+      }
+      this.goTenantAccount(tenant);
+      this.loadingUpdate(false);
+    },
+    goTenantAccount(tenant) {
+      this.$router.replace({
+        name: 'MyAccount',
+        params: { tenantSlug: tenant.slug }
+      });
+    },
+    goFormTemplateEmptyList(tenant) {
+      this.$router.replace({
+        name: 'FormTemplatesListEmpty',
+        params: { tenantSlug: tenant.slug }
+      });
     }
   }
 };

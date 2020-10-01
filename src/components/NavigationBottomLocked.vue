@@ -2,19 +2,15 @@
   <ul
     class="link-items max-w-md mx-auto wrapper flex-auto flex text-left justify-around items-center menu list-none tg-caption-mobile select-none py-4"
   >
-    <li class="text-brand1 text-opacity-high link-item">
-      <router-link
-        class="navigation--link block"
-        :to="{ name: 'TenantHome' }"
-        exact
-      >
+    <li disabled class="text-brand1 text-opacity-high link-item">
+      <div class="navigation--link block">
         <IconHome class="m-auto mb-2 w-5 h-5 text-brand1" />
         <span>Home</span>
-      </router-link>
+      </div>
     </li>
 
     <li disabled class="text-brand1 text-opacity-high link-item">
-      <div class="navigation--link block" :to="{ name: 'ClientList' }">
+      <div class="navigation--link block">
         <IconUser class="m-auto mb-2 w-5 h-5 text-brand1" />
         <span>Clients</span>
       </div>
@@ -22,8 +18,7 @@
 
     <li disabled class="text-brand1 text-opacity-high">
       <div
-        tabindex="0"
-        class="main-button navigation--link flex flex-col justify-center relative text-center outline-none cursor-pointer"
+        class="main-button navigation--link flex flex-col justify-center relative text-center outline-none"
       >
         <div
           class="main-button--shape absolute rounded-full h-14 w-14 flex items-center justify-center bg-brand2 mx-auto"
@@ -36,23 +31,19 @@
       </div>
     </li>
 
-    <li class="text-brand1 text-opacity-high link-item">
-      <!-- FIXME: when tenantSlug is not available yet, this makes / and active -->
-      <router-link
-        class="navigation--link block"
-        :to="{ name: 'FormTemplates' }"
-      >
+    <li disabled class="text-brand1 text-opacity-high link-item">
+      <div class="navigation--link block">
         <IconDocument class="m-auto mb-2 w-5 h-5 text-brand1" />
         <span>Forms</span>
-      </router-link>
+      </div>
     </li>
 
     <!-- MyAccount -->
-    <li class="text-brand1 text-opacity-high link-item">
-      <router-link class="navigation--link block" :to="{ name: 'MyAccount' }">
+    <li disabled class="text-brand1 text-opacity-high link-item">
+      <div class="navigation--link block">
         <IconUserCircle class="m-auto mb-2 w-5 h-5 text-brand1" />
         <span>Account</span>
-      </router-link>
+      </div>
     </li>
   </ul>
 </template>
