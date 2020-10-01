@@ -71,11 +71,11 @@
               Password is required
             </p>
           </MaterialInput>
-        </div>
 
-        <p v-if="errorMessage" class="mb-4 text-error tg-body-mobile">
-          {{ errorMessage }}
-        </p>
+          <p v-if="errorMessage" class="mb-4 text-error tg-body-mobile">
+            {{ errorMessage }}
+          </p>
+        </div>
 
         <div>
           <Button type="submit" title="Login" />

@@ -91,6 +91,9 @@ export default {
         this.goClientList();
       }
     },
+    goClientList(){
+      this.$router.go(-1);
+    },
     nextStep() {
       let valid = true;
       const isThereValidationAtComponent = !!this.$refs[this.component].$v;

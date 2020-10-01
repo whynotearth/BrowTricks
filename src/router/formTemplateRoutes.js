@@ -49,7 +49,6 @@ export const formTemplateRoutes = [
         component: () => import('@/views/FormTemplateItem.vue'),
         redirect: { name: 'FormTemplateItemEdit' },
         meta: {
-          noNavigation: true,
           layout: AppBarCardLayout,
           appBar: {
             title: 'Form Templates'

@@ -17,11 +17,13 @@
             </template>
           </ExpansionPanel> -->
 
-          <ExpansionPanel title="Log Out" @click="logout">
-            <template #preIcon>
-              <IconPerson class="w-4 h-4 fill-current" />
-            </template>
-          </ExpansionPanel>
+          <router-link :to="{ name: 'AuthLogout' }">
+            <ExpansionPanel title="Log Out">
+              <template #preIcon>
+                <IconPerson class="w-4 h-4 fill-current" />
+              </template>
+            </ExpansionPanel>
+          </router-link>
         </div>
       </HeaderHeroSection>
 
@@ -109,7 +111,6 @@ export default {
   },
   methods: {
     ...mapActions('tenant', ['fetchUserTenants', 'fetchTenant']),
-    ...mapActions('auth', ['logout']),
     ...mapActions('loading', ['loadingUpdate']),
     async init() {
       this.loadingUpdate(true);

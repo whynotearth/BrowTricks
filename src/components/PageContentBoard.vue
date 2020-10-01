@@ -31,12 +31,11 @@ export default {
 
 <style scoped>
 .content-board {
-  min-height: calc(
-    100 * var(--vh) - var(--header-height) - var(--content-board-spacer)
-  );
+  min-height: calc(100 * var(--vh) - var(--header-height));
 }
+
+/* or hsa-navigation-bottom */
 .has-spacer {
-  padding-bottom: var(--navigation-height);
-  margin-bottom: var(--content-board-spacer);
+  padding-bottom: calc(var(--navigation-height) + var(--content-board-spacer));
 }
 </style>

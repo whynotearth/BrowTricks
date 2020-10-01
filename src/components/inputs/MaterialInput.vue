@@ -13,8 +13,6 @@
           v-bind="attrs"
           :id="idName"
           :type="type"
-          :min="min"
-          :step="step"
           :value="value | trim"
           v-on="inputListeners"
           :placeholder="placeholder || label"
@@ -67,14 +65,6 @@ export default {
     type: {
       type: String,
       default: 'text'
-    },
-    min: {
-      type: [String, Number],
-      default: 0
-    },
-    step: {
-      type: String,
-      default: '1'
     },
     idName: {
       type: String,
