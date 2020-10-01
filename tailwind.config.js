@@ -22,7 +22,8 @@ module.exports = {
       },
       borderRadius: {
         sm: '0.1875rem',
-        xl: '0.75rem'
+        xl: '0.75rem',
+        '2xl': '1.25rem'
       },
       borderWidth: {
         '6': '6px'
