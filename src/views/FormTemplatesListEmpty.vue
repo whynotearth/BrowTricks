@@ -5,7 +5,8 @@
     <p
       class="tg-body-mobile text-on-background text-opacity-high text-center mb-6"
     >
-      To be able to create custom PMU forms, please create a new template.
+      Create and store PMU forms electronically.<br />Easily send to clients via
+      SMS.
     </p>
     <div>
       <img
@@ -17,7 +18,7 @@
 
     <Button
       class="rounded-full mb-4 normal-case"
-      title="Create PMU Form"
+      title="Get Started"
       @clicked="formTemplateAdd"
     />
   </div>

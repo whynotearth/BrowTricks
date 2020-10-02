@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-md mx-auto pt-6">
+  <div class="max-w-md mx-auto pt-6 px-4">
     <div class="mb-6">
       <h2 class="tg-h3-mobile text-on-background text-opacity-high mb-2">
         Name your form template.

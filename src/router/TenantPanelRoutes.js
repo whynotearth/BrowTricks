@@ -44,7 +44,7 @@ export const TenantPanelRoutes = [
       pageBackground: 'bg-background',
       needsUserInfo: true,
       appBar: {
-        title: 'Create Tenant'
+        title: 'Create Business Profile'
       }
     }
   },

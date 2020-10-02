@@ -20,8 +20,22 @@
       </div>
     </div>
 
-    <div v-else class="p-6 text-on-background text-opacity-medium">
-      No clients
+    <div
+      v-else
+      class="p-6 text-center max-w-sm mx-auto"
+    >
+      <p
+        class="tg-body-mobile text-on-background text-opacity-high mb-6"
+      >
+        Add your first clients.
+      </p>
+
+      <Button
+        class="mb-4"
+        background="bg-brand2"
+        title="Get Started"
+        :to="{ name: 'ClientItemAdd' }"
+      />
     </div>
   </PageContentBoard>
 </template>
