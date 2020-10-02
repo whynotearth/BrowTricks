@@ -1,67 +1,70 @@
 <template>
-  <!-- TODO rename questions to disclosures (or something meaningful and more general) everywhere -->
-  <div class="max-w-4xl mx-auto px-4 pt-4">
-    <div class="text-left p-2 text-on-background" v-if="client">
-      <template v-if="!pdfUrl">
-        <!-- send sms -->
-        <Button
-          v-if="hasPhoneNumber"
-          class="rounded-full mb-6 "
-          @clicked="sendSms"
-          :title="`Text to ${client.phoneNumber}`"
-          :disabled="!client.phoneNumber"
-        ></Button>
+  <PageContentBoard>
+    <!-- TODO rename questions to disclosures (or something meaningful and more general) everywhere -->
+    <div class="max-w-4xl mx-auto px-4 pt-4">
+      <div class="text-left p-2 text-on-background" v-if="client">
+        <template v-if="!pdfUrl">
+          <!-- send sms -->
+          <Button
+            v-if="hasPhoneNumber"
+            class="rounded-full mb-6 "
+            @clicked="sendSms"
+            :title="`Text to ${client.phoneNumber}`"
+            :disabled="!client.phoneNumber"
+          ></Button>
 
-        <!-- disabled send sms -->
-        <Button
-          v-else
-          class="rounded-full mb-6 "
-          title="No phone number provided to send text"
-          :disabled="!client.phoneNumber"
-          :background="null"
-        ></Button>
+          <!-- disabled send sms -->
+          <Button
+            v-else
+            class="rounded-full mb-6 "
+            title="No phone number provided to send text"
+            :disabled="!client.phoneNumber"
+            :background="null"
+          ></Button>
 
-        <Button
-          class="rounded-full mb-6 "
-          @clicked="submit"
-          title="Get Started"
-        ></Button>
+          <Button
+            class="rounded-full mb-6 "
+            @clicked="submit"
+            title="Get Started"
+          ></Button>
 
-        <hr class="border-divider border-opacity-divider mb-6" />
+          <hr class="border-divider border-opacity-divider mb-6" />
 
-        <div>
-          <PmuFormEmptyPreview
-            title="Here is your pre-set PMU form:"
-            :clientId="clientId"
-            :tenantSlug="tenantSlug"
-            :templateId="templateId"
-          />
-        </div>
-      </template>
+          <div>
+            <PmuFormEmptyPreview
+              title="Here is your pre-set PMU form:"
+              :clientId="clientId"
+              :tenantSlug="tenantSlug"
+              :templateId="templateId"
+            />
+          </div>
+        </template>
 
-      <template v-else>
-        <h2 class="tg-body-mobile py-2 text-center my-6 text-on-background">
-          You have already signed the PMU
-        </h2>
-        <Button
-          :href="pdfUrl"
-          class="rounded-full mb-6 "
-          title="Download Signed PMU"
-        ></Button>
-      </template>
+        <template v-else>
+          <h2 class="tg-body-mobile py-2 text-center my-6 text-on-background">
+            You have already signed the PMU
+          </h2>
+          <Button
+            :href="pdfUrl"
+            class="rounded-full mb-6 "
+            title="Download Signed PMU"
+          ></Button>
+        </template>
+      </div>
     </div>
-  </div>
+  </PageContentBoard>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
-
 import PmuFormEmptyPreview from '@/components/pmu/PmuFormEmptyPreview.vue';
+import PageContentBoard from '@/components/PageContentBoard.vue';
 import { showOverlayAndRedirect } from '@/helpers';
 
 export default {
   name: 'PmuSignPreview',
   components: {
+    PageContentBoard,
     PmuFormEmptyPreview
   },
   props: ['tenantSlug', 'clientId', 'templateId'],
@@ -126,7 +129,7 @@ export default {
       }).then(() => {
         showOverlayAndRedirect({
           title: 'Message Sent Successfully!',
-          route: { name: 'ClientEdit' }
+          route: { name: 'ClientInfo' }
         });
       });
     },

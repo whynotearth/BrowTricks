@@ -20,7 +20,8 @@
             :attrs="{
               pattern: '[0-9]*',
               autocomplete: 'one-time-code',
-              inputmode: 'numeric'
+              inputmode: 'numeric',
+              enterkeyhint: 'send'
             }"
             :validatorModel="$v.verifyCode"
           >

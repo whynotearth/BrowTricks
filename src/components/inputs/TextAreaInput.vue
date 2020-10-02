@@ -3,7 +3,7 @@
     <template #control>
       <div class="relative">
         <textarea
-          class="block input appearance-none outline-none relative bg-transparent w-full py-3 border-b text-opacity-medium focus:text-opacity-high border-opacity-medium focus:border-opacity-high tg-body-mobile"
+          class="block input appearance-none outline-none relative bg-transparent w-full py-3 border-b text-opacity-medium focus:text-opacity-high border-opacity-medium focus:border-opacity-high tg-body-mobile rounded-none"
           :class="[
             textColor,
             borderColor,

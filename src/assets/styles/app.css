@@ -51,6 +51,9 @@ html {
   height: 100vh;
   height: calc(100 * var(--vh));
 }
+.min-h-vh100--without-header {
+  min-height: calc(100 * var(--vh) - var(--header-height));
+}
 
 .break-word {
   word-break: break-word;

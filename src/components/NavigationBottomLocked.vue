@@ -1,6 +1,7 @@
 <template>
   <ul
     class="link-items max-w-md mx-auto wrapper flex-auto flex text-left justify-around items-center menu list-none tg-caption-mobile select-none py-4"
+    @click="handleClick"
   >
     <li disabled class="text-brand1 text-opacity-high link-item">
       <div class="navigation--link block">
@@ -16,7 +17,7 @@
       </div>
     </li>
 
-    <li disabled class="text-brand1 text-opacity-high">
+    <li class="text-brand1 text-opacity-high cursor-not-allowed">
       <div
         class="main-button navigation--link flex flex-col justify-center relative text-center outline-none"
       >
@@ -63,6 +64,12 @@ export default {
     IconUser,
     IconUserCircle,
     IconDocument
+  },
+  methods: {
+    handleClick() {
+      alert('Please set up your PMU forms first.');
+      this.$router.push({ name: 'FormTemplatesListEmpty' }).catch(() => {});
+    }
   }
 };
 </script>

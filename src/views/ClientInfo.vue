@@ -38,7 +38,7 @@
             title="Edit Profile"
             @click="
               $router.push({
-                name: 'ClientInfoEdit',
+                name: 'ClientItemEdit',
                 params: {
                   tenantSlug: tenantSlug,
                   clientId: clientId,
@@ -130,7 +130,7 @@ import { mapActions } from 'vuex';
 import { UploaderTypes } from '@/services/uploader';
 
 export default {
-  name: 'ClientEdit',
+  name: 'ClientInfo',
   props: {
     tenantSlug: {
       type: String,

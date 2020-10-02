@@ -1,5 +1,7 @@
 <template>
-  <div class="flex flex-col items-center text-left w-full">
+  <div
+    class="min-h-vh100--without-header flex flex-col items-center text-left w-full"
+  >
     <div class="px-4 max-w-md">
       <img
         src="https://res.cloudinary.com/whynotearth/image/upload/v1600874347/BrowTricks/static_v2/image-login_crwfva.png"
@@ -18,7 +20,11 @@
           <MaterialInput
             v-model.trim="$v.firstName.$model"
             label="First Name"
-            :attrs="{ autocomplete: 'first-name' }"
+            :attrs="{
+              autocomplete: 'first-name',
+              name: 'firstname',
+              enterkeyhint: 'send'
+            }"
             :validatorModel="$v.firstName"
             :serverErrors="serverErrors.FirstName"
           >
@@ -29,7 +35,11 @@
           <MaterialInput
             v-model.trim="$v.lastName.$model"
             label="Last Name"
-            :attrs="{ autocomplete: 'last-name' }"
+            :attrs="{
+              autocomplete: 'last-name',
+              name: 'lastname',
+              enterkeyhint: 'send'
+            }"
             :validatorModel="$v.lastName"
             :serverErrors="serverErrors.LastName"
           >
@@ -41,7 +51,12 @@
             v-model.trim="$v.phoneNumber.$model"
             label="Phone Number"
             type="tel"
-            :attrs="{ autocomplete: 'tel', inputmode: 'tel' }"
+            :attrs="{
+              autocomplete: 'tel',
+              inputmode: 'tel',
+              name: 'telephone',
+              enterkeyhint: 'send'
+            }"
             :validatorModel="$v.phoneNumber"
             :serverErrors="serverErrors.PhoneNumber"
           >
@@ -71,7 +86,11 @@
           <MaterialInput
             v-model.trim="$v.userName.$model"
             label="Username"
-            :attrs="{ autocomplete: 'username' }"
+            :attrs="{
+              autocomplete: 'family-name',
+              name: 'username',
+              enterkeyhint: 'send'
+            }"
             :validatorModel="$v.userName"
             :serverErrors="serverErrors.UserName"
           >
@@ -89,7 +108,7 @@
             type="password"
             v-model.trim="$v.password.$model"
             label="Password"
-            :attrs="{ autocomplete: 'new-password' }"
+            :attrs="{ autocomplete: 'new-password', enterkeyhint: 'send' }"
             :validatorModel="$v.password"
             :serverErrors="serverErrors.Password"
           >
