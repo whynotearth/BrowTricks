@@ -53,7 +53,7 @@
           </a>
           <p
             v-if="$v.selectedClientId.$error"
-            class="text-error tg-body-mobile mt-2 ml-4"
+            class="text-error tg-body-mobile mt-2"
           >
             Client is required
           </p>
@@ -201,7 +201,6 @@ export default {
         return;
       }
 
-      const clientId = client.id;
       const filesAdapted = this.uploadedFilesGet.map(item => ({
         ...item,
         url: item.url,
@@ -221,14 +220,16 @@ export default {
         videos
       };
       this.updateClient({
-        tenantSlug: this.tenantSlug,
-        clientId,
-        body: updatedInfo
+        params: {
+          tenantSlug: this.tenantSlug,
+          clientId: client.id,
+          body: updatedInfo
+        }
       })
         .then(() => {
           showOverlayAndRedirect({
             title: 'Success!',
-            route: { name: 'ClientInfo', params: { clientId } }
+            route: { name: 'ClientInfo', params: { clientId: client.id } }
           });
         })
         .catch(error => {
