@@ -104,9 +104,6 @@ export default {
       this.file = { url: get(this.model, 'options[0].value') };
     }
   },
-  beforeDestroy() {
-    this.uploadedFilesUpdate([]);
-  },
   methods: {
     ...mapActions('uploader', [
       'uploadedFilesUpdate',

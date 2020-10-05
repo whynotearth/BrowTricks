@@ -48,7 +48,7 @@
             "
           >
             <template #preIcon>
-              <IconNotification class="h-4 w-4 fill-current" />
+              <IconEdit class="h-4 w-4 fill-current" />
             </template>
           </ExpansionPanel>
 
@@ -119,7 +119,7 @@ import MediaManager from '@/components/uploader/MediaManager.vue';
 
 import IconDocument from '@/assets/icons/document.svg';
 import IconNotes from '@/assets/icons/notes.svg';
-import IconNotification from '@/assets/icons/notification.svg';
+import IconEdit from '@/assets/icons/edit.svg';
 // import IconImages from '@/assets/icons/images.svg';
 import IconMail from '@/assets/icons/mail.svg';
 import IconPhone from '@/assets/icons/phone.svg';
@@ -146,7 +146,7 @@ export default {
     HeaderHeroSection,
     IconDocument,
     IconNotes,
-    IconNotification,
+    IconEdit,
     IconCamera,
     IconMail,
     IconPhone,
