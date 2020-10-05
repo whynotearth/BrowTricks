@@ -121,6 +121,13 @@ const actions = {
       commit('isPhoneNumberConfirmedUpdate', true);
     });
   },
+  forgotPassword(context, { params }) {
+    let companySlug = process.env.VUE_APP_COMPANY_SLUG;
+    const _params = {
+      body: { companySlug, ...params }
+    };
+    return AuthenticationService.forgotpassword(_params);
+  },
   clear({ commit }) {
     commit('updateReturnUrl', '');
     commit('updateProvider', '');

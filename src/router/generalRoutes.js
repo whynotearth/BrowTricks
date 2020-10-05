@@ -40,6 +40,21 @@ export const generalRoutes = [
     }
   },
   {
+    path: '/forgot',
+    name: 'AuthForgotPassword',
+    component: () => import('@/views/AuthForgotPassword.vue'),
+    props: true,
+    meta: {
+      isPublic: true,
+      noNavigation: true,
+      layout: AppBarCardLayout,
+      appBar: {
+        backRoute: { name: 'AuthLogin' },
+        title: 'Forgot Password?'
+      }
+    }
+  },
+  {
     path: '/signup',
     name: 'AuthSignup',
     component: () => import('@/views/AuthSignup.vue'),
