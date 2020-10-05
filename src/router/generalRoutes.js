@@ -55,6 +55,21 @@ export const generalRoutes = [
     }
   },
   {
+    path: '/reset',
+    name: 'AuthResetPassword',
+    component: () => import('@/views/AuthResetPassword.vue'),
+    props: true,
+    meta: {
+      isPublic: true,
+      noNavigation: true,
+      layout: AppBarCardLayout,
+      appBar: {
+        backRoute: { name: 'AuthLogin' },
+        title: 'Create New Password'
+      }
+    }
+  },
+  {
     path: '/signup',
     name: 'AuthSignup',
     component: () => import('@/views/AuthSignup.vue'),

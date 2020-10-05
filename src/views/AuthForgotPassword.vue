@@ -19,7 +19,11 @@
           <MaterialInput
             v-model.trim="$v.userName.$model"
             label="Username"
-            :attrs="{ autocomplete: 'username', enterkeyhint: 'send' }"
+            :attrs="{
+              autocomplete: 'username',
+              enterkeyhint: 'send',
+              name: 'username'
+            }"
             :validatorModel="$v.userName"
             :serverErrors="serverErrors.UserName"
           >
@@ -82,6 +86,16 @@ export default {
       minLength: minLength(5)
     }
   },
+  computed: {
+    getResetPasswordPath() {
+      return this.$router.resolve({
+        name: 'AuthResetPassword'
+      }).href;
+    },
+    resetPasswordReturnUrl() {
+      return `${window.location.origin}${this.getResetPasswordPath}`;
+    }
+  },
   methods: {
     ...mapActions('auth', ['forgotPassword']),
     submit() {
@@ -97,7 +111,9 @@ export default {
       this.forgotPassword({
         params: {
           body: {
-            email: this.userName
+            companySlug: process.env.VUE_APP_COMPANY_SLUG,
+            returnUrl: this.resetPasswordReturnUrl,
+            userName: this.userName
           }
         }
       })
@@ -105,10 +121,9 @@ export default {
         .catch(this.onSubmitCatch);
     },
     onSuccess() {
-      // TODO: fetch tenants first or go to my account
       showOverlayAndRedirect({
         title: 'Success!',
-        route: { name: 'PanelRedirector' }
+        route: { name: 'Home' }
       });
     }
   }

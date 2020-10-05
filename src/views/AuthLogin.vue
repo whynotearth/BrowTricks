@@ -154,7 +154,7 @@ export default {
           body: {
             password: this.password,
             // email: this.email
-            email: this.userName
+            userName: this.userName
           }
         }
       })
@@ -162,7 +162,6 @@ export default {
         .catch(this.onSubmitCatch);
     },
     onSuccess() {
-      // TODO: fetch tenants first or go to my account
       showOverlayAndRedirect({
         title: 'Success!',
         route: { name: 'PanelRedirector' }

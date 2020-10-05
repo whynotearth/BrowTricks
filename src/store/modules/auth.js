@@ -131,11 +131,10 @@ const actions = {
     });
   },
   forgotPassword(context, { params }) {
-    let companySlug = process.env.VUE_APP_COMPANY_SLUG;
-    const _params = {
-      body: { companySlug, ...params }
-    };
-    return AuthenticationService.forgotpassword(_params);
+    return AuthenticationService.forgotpassword(params);
+  },
+  resetPassword(context, { params }) {
+    return AuthenticationService.forgotpasswordreset(params);
   },
   clear({ commit }) {
     commit('updateReturnUrl', '');

@@ -14,7 +14,7 @@
         background="bg-primary"
         textColor="text-on-primary"
         title="Create Account"
-        class="normal-case"
+        class="normal-case mb-2"
         :to="{ name: 'AuthSignup' }"
       />
     </template>

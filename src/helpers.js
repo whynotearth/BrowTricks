@@ -1,6 +1,7 @@
 import router from '@/router';
 import store from '@/store';
 import { format, utcToZonedTime } from 'date-fns-tz';
+import { required } from 'vuelidate/lib/validators';
 
 export function randomId(len = 16) {
   return (
@@ -65,6 +66,23 @@ export function isPhoneNumberValid(phone) {
     phone
   );
 }
+
+export const validationPassword = {
+  required,
+  // minLength: minLength(8)  // I assume you'd want something like this too
+  containsUppercase: function(value) {
+    return !/[A-Z]/.test(value);
+  },
+  containsLowercase: function(value) {
+    return !/[a-z]/.test(value);
+  },
+  containsNumber: function(value) {
+    return !/[0-9]/.test(value);
+  },
+  containsSpecial: function(value) {
+    return !/[#?!@$%^&*-]/.test(value);
+  }
+};
 
 export async function showOverlayAndRedirect({
   title = '',
