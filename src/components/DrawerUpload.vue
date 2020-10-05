@@ -1,4 +1,5 @@
 <template>
+  <!-- Client drawer upload -->
   <BaseDrawerActions :isOpen="isOpen" @close="$emit('close')" title="Upload">
     <ul class="text-on-background text-opacity-high tg-body-mobile">
       <li>

@@ -156,19 +156,13 @@ export default {
     BaseImagePreview,
     BaseVideoPreview
   },
-  beforeDestroy() {
-    this.uploadedFilesUpdate([]);
-  },
   beforeMount() {
     this.checkUploadedFileExistance();
     this.openDrawerUploadUpdate(false);
   },
   methods: {
     ...mapActions('client', ['updateClient', 'fetchClient']),
-    ...mapActions('uploader', [
-      'uploadedFilesUpdate',
-      'openDrawerUploadUpdate'
-    ]),
+    ...mapActions('uploader', ['openDrawerUploadUpdate']),
     share,
     getCloudinaryThumbnail,
     checkUploadedFileExistance() {
@@ -247,7 +241,6 @@ export default {
 
 <style scoped>
 .image-wrapper {
-  width: 120px;
-  height: 168px;
+  width: 300px;
 }
 </style>
