@@ -66,7 +66,8 @@ export default {
         // NOTE: we'll set the actual type in FormTemplateDrawerUpload after upload file (image or pdf)
         type: 'upload',
         description:
-          'Already have a PDF or JPEF of your form? Upload to your template with an agreement request.'
+          'Already have a PDF or JPEF of your form? Upload to your template with an agreement request.',
+        value: 'I agree to all terms and conditions above.'
       };
     },
     fieldsAvailable() {
