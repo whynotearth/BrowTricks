@@ -8,8 +8,11 @@
         novalidate
         class="flex flex-col w-full max-w-sm flex-grow justify-between"
       >
-        <h2 class="tg-h3-mobile text-on-background text-opacity-high mb-3">
-          Enter the code sent to your number
+        <h2 class="tg-h3-mobile text-on-background text-opacity-high mb-4">
+          Enter the code sent to your number<br /><span
+            class="tg-body-mobile"
+            >{{ phoneNumber }}</span
+          >
         </h2>
         <div class="flex flex-row justify-evenly" ref="otpContainer">
           <MaterialInput
@@ -63,7 +66,8 @@ export default {
   },
   data() {
     return {
-      verifyCode: ''
+      verifyCode: '',
+      phoneNumber: ''
     };
   },
   validations: {
@@ -82,7 +86,7 @@ export default {
   methods: {
     ...mapActions('loading', ['loadingUpdate']),
     ...mapActions('auth', [
-      'register',
+      'profileFetch',
       'requestVerifyCode',
       'submitVerifyCode'
     ]),
@@ -91,6 +95,8 @@ export default {
         this.goLogin();
         return;
       }
+
+      this._profileFetch();
 
       if (this.isPhoneNumberConfirmedGet) {
         this.goPanelRedirector();
@@ -101,8 +107,16 @@ export default {
       await this._requestVerifyCode();
       this.loadingUpdate(false);
     },
-    clearError() {
-      this.errorMessage = '';
+    async _profileFetch() {
+      this.loadingUpdate(true);
+      await this.profileFetch()
+        .then(({ phoneNumber }) => {
+          this.phoneNumber = phoneNumber;
+        })
+        .catch(() => {
+          console.log('Error in get profile');
+        });
+      this.loadingUpdate(false);
     },
     _requestVerifyCode() {
       return this.requestVerifyCode({
