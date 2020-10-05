@@ -3,7 +3,7 @@ const colors = {
   primary: '#C5E2D8',
   secondary: '#E6EDF9',
   // Button & Accent
-  accent: '#E9CFC4',
+  accent: '#C5E2D8',
   background: '#FFFFFF',
   // surface 1dp: linear-gradient(0deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05)), #FFFFFF;
   // surface 4dp: background: linear-gradient(0deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.09)), #FFFFFF;
@@ -18,7 +18,8 @@ const colors = {
   'on-error': '#FFFFFF',
   'on-accent': '#FFFFFF',
   brand1: '#B5BBC9',
-  brand2: '#F6BEAD'
+  brand2: '#F6BEAD',
+  brand3: '#'
 };
 
 module.exports = colors;
