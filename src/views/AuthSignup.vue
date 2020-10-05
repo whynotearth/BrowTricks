@@ -139,7 +139,7 @@
 <script>
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
 import { required, alphaNum, minLength } from 'vuelidate/lib/validators';
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import { showOverlayAndRedirect, isPhoneNumberValid } from '@/helpers';
 import formGeneralUtils from '@/mixins/formGeneralUtils.js';
 
@@ -184,8 +184,19 @@ export default {
       isPhoneNumberValid
     }
   },
+  created() {
+    if (this.isAuthenticated && !this.isPhoneNumberConfirmedGet) {
+      this.goAccountEdit();
+    }
+  },
+  computed: {
+    ...mapGetters('auth', ['isAuthenticated', 'isPhoneNumberConfirmedGet'])
+  },
   methods: {
     ...mapActions('auth', ['register']),
+    goAccountEdit() {
+      this.$router.push({ name: 'AuthSignupEdit' });
+    },
     submit() {
       if (!this.beforeSubmit()) {
         return;

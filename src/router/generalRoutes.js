@@ -56,8 +56,8 @@ export const generalRoutes = [
   },
   {
     path: '/signup/edit',
-    name: 'AughSignupEdit',
-    component: () => import('@/views/AughSignupEdit.vue'),
+    name: 'AuthSignupEdit',
+    component: () => import('@/views/AuthSignupEdit.vue'),
     props: true,
     meta: {
       isPublic: true,
@@ -79,7 +79,7 @@ export const generalRoutes = [
       noNavigation: true,
       layout: AppBarCardLayout,
       appBar: {
-        backRoute: { name: 'AughSignupEdit' },
+        backRoute: { name: 'AuthSignupEdit' },
         title: 'Verification Required'
       }
     }
