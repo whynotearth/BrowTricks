@@ -130,6 +130,12 @@ const actions = {
       commit('isPhoneNumberConfirmedUpdate', true);
     });
   },
+  forgotPassword(context, { params }) {
+    return AuthenticationService.forgotpassword(params);
+  },
+  resetPassword(context, { params }) {
+    return AuthenticationService.forgotpasswordreset(params);
+  },
   clear({ commit }) {
     commit('updateReturnUrl', '');
     commit('updateProvider', '');

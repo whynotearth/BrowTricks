@@ -87,7 +87,7 @@
             v-model.trim="$v.userName.$model"
             label="Username"
             :attrs="{
-              autocomplete: 'family-name',
+              autocomplete: 'username',
               name: 'username',
               enterkeyhint: 'send'
             }"
