@@ -38,12 +38,12 @@
     </div>
 
     <div class="px-4">
-      <CheckBox
+      <!-- <CheckBox
         class="block mb-8"
         v-model="model.isRequired"
         :value="true"
         label="This question is required"
-      />
+      /> -->
 
       <Button class="rounded-full mb-4" title="Save" @clicked="save" />
 
@@ -67,6 +67,8 @@ import { required } from 'vuelidate/lib/validators';
 import { mapActions, mapGetters } from 'vuex';
 import { getCloudinaryThumbnail, randomId } from '@/helpers.js';
 
+const isRequiredAlwaysTrue = true;
+
 export default {
   name: 'FormTemplateFieldUpload',
   components: {
@@ -88,7 +90,8 @@ export default {
     file: null,
     model: {
       options: [],
-      isRequired: false,
+      // NOTE: always required
+      isRequired: isRequiredAlwaysTrue,
       value: ''
     }
   }),
@@ -96,7 +99,11 @@ export default {
     ...mapGetters('uploader', ['uploadedFilesGet'])
   },
   created() {
-    this.model = { ...this.model, ...cloneDeep(this.initialModel) };
+    this.model = {
+      ...this.model,
+      ...cloneDeep(this.initialModel),
+      isRequired: isRequiredAlwaysTrue
+    };
     if (this.model.draft) {
       this.checkUploadedFileExistance();
       this.openDrawerUploadUpdate(false);
