@@ -1,4 +1,5 @@
 import { get } from 'lodash-es';
+import { mapActions } from 'vuex';
 
 export default {
   data: () => ({
@@ -12,6 +13,7 @@ export default {
     this.clearErrors();
   },
   methods: {
+    ...mapActions('loading', ['loadingUpdate']),
     beforeSubmit() {
       this.clearErrors();
 
