@@ -1,6 +1,9 @@
 import { ajax } from '@/services/ajax.js';
 import { getAPIURL } from '@/helpers';
-import { AuthenticationService } from '@whynotearth/meredith-axios';
+import {
+  AuthenticationService,
+  ProfileService
+} from '@whynotearth/meredith-axios';
 
 const state = {
   provider: '',
@@ -45,6 +48,12 @@ const actions = {
           reject(error);
         });
     });
+  },
+  profileFetch() {
+    return ProfileService.profile();
+  },
+  profileUpdate(context, { params }) {
+    return ProfileService.profile1(params);
   },
   async loginStandard({ dispatch }, { params }) {
     return AuthenticationService.login(params)
@@ -120,6 +129,12 @@ const actions = {
     return AuthenticationService.confirmphone(params).then(() => {
       commit('isPhoneNumberConfirmedUpdate', true);
     });
+  },
+  forgotPassword(context, { params }) {
+    return AuthenticationService.forgotpassword(params);
+  },
+  resetPassword(context, { params }) {
+    return AuthenticationService.forgotpasswordreset(params);
   },
   clear({ commit }) {
     commit('updateReturnUrl', '');

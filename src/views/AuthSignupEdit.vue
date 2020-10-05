@@ -82,40 +82,6 @@
               Please enter an email address
             </p>
           </MaterialInput> -->
-
-          <MaterialInput
-            v-model.trim="$v.userName.$model"
-            label="Username"
-            :attrs="{
-              autocomplete: 'username',
-              name: 'username',
-              enterkeyhint: 'send'
-            }"
-            :validatorModel="$v.userName"
-            :serverErrors="serverErrors.UserName"
-          >
-            <p v-if="!$v.userName.required">
-              Username is required
-            </p>
-            <p v-if="!$v.userName.minLength">
-              Should be at least 5 characters
-            </p>
-            <p v-else-if="!$v.userName.alphaNum">
-              Should be alphanumeric
-            </p>
-          </MaterialInput>
-          <MaterialInput
-            type="password"
-            v-model.trim="$v.password.$model"
-            label="Password"
-            :attrs="{ autocomplete: 'new-password', enterkeyhint: 'send' }"
-            :validatorModel="$v.password"
-            :serverErrors="serverErrors.Password"
-          >
-            <p v-if="!$v.password.required">
-              Password is required
-            </p>
-          </MaterialInput>
         </div>
 
         <p v-if="errorMessage" class="mb-4 text-error tg-body-mobile">
@@ -123,13 +89,13 @@
         </p>
 
         <div>
-          <Button type="submit" title="Let's Get Started" />
-          <p class="mt-4 tg-body-mobile text-center">
-            Already have an account?
-            <router-link :to="{ name: 'AuthLogin' }" class="text-primary-blue">
-              Login
-            </router-link>
-          </p>
+          <Button class="mb-4" type="submit" title="Save" />
+          <Button
+            type="button"
+            title="Logout"
+            :background="null"
+            :to="{ name: 'AuthLogout' }"
+          />
         </div>
       </form>
     </div>
@@ -138,13 +104,13 @@
 
 <script>
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
-import { required, alphaNum, minLength } from 'vuelidate/lib/validators';
-import { mapActions, mapGetters } from 'vuex';
+import { required } from 'vuelidate/lib/validators';
+import { mapActions } from 'vuex';
 import { showOverlayAndRedirect, isPhoneNumberValid } from '@/helpers';
 import formGeneralUtils from '@/mixins/formGeneralUtils.js';
 
 export default {
-  name: 'AuthSignup',
+  name: 'AuthSignupEdit',
   // NOTE: we use a mixin
   mixins: [formGeneralUtils],
   components: {
@@ -154,9 +120,6 @@ export default {
     return {
       firstName: '',
       lastName: '',
-      // email: '',
-      userName: '',
-      password: '',
       phoneNumber: ''
     };
   },
@@ -167,47 +130,37 @@ export default {
     lastName: {
       required
     },
-    // email: {
-    //   required,
-    //   email
-    // },
-    userName: {
-      required,
-      alphaNum,
-      minLength: minLength(5)
-    },
-    password: {
-      required
-    },
     phoneNumber: {
       required,
       isPhoneNumberValid
     }
   },
   created() {
-    if (this.isAuthenticated && !this.isPhoneNumberConfirmedGet) {
-      this.goAccountEdit();
-    }
-  },
-  computed: {
-    ...mapGetters('auth', ['isAuthenticated', 'isPhoneNumberConfirmedGet'])
+    this._profileFetch();
   },
   methods: {
-    ...mapActions('auth', ['register']),
-    goAccountEdit() {
-      this.$router.push({ name: 'AuthSignupEdit' });
+    ...mapActions('auth', ['register', 'profileUpdate', 'profileFetch']),
+    async _profileFetch() {
+      this.loadingUpdate(true);
+      await this.profileFetch()
+        .then(({ phoneNumber, firstName, lastName }) => {
+          this.phoneNumber = phoneNumber;
+          this.firstName = firstName;
+          this.lastName = lastName;
+        })
+        .catch(() => {
+          console.log('Error in get profile');
+        });
+      this.loadingUpdate(false);
     },
     submit() {
       if (!this.beforeSubmit()) {
         return;
       }
 
-      this.register({
+      this.profileUpdate({
         params: {
           body: {
-            password: this.password,
-            // email: this.email,
-            userName: this.userName,
             firstName: this.firstName,
             lastName: this.lastName,
             phoneNumber: this.phoneNumber

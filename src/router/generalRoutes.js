@@ -40,6 +40,36 @@ export const generalRoutes = [
     }
   },
   {
+    path: '/forgot',
+    name: 'AuthForgotPassword',
+    component: () => import('@/views/AuthForgotPassword.vue'),
+    props: true,
+    meta: {
+      isPublic: true,
+      noNavigation: true,
+      layout: AppBarCardLayout,
+      appBar: {
+        backRoute: { name: 'AuthLogin' },
+        title: 'Forgot Password?'
+      }
+    }
+  },
+  {
+    path: '/reset',
+    name: 'AuthResetPassword',
+    component: () => import('@/views/AuthResetPassword.vue'),
+    props: true,
+    meta: {
+      isPublic: true,
+      noNavigation: true,
+      layout: AppBarCardLayout,
+      appBar: {
+        backRoute: { name: 'AuthLogin' },
+        title: 'Create New Password'
+      }
+    }
+  },
+  {
     path: '/signup',
     name: 'AuthSignup',
     component: () => import('@/views/AuthSignup.vue'),
@@ -55,6 +85,21 @@ export const generalRoutes = [
     }
   },
   {
+    path: '/signup/edit',
+    name: 'AuthSignupEdit',
+    component: () => import('@/views/AuthSignupEdit.vue'),
+    props: true,
+    meta: {
+      isPublic: true,
+      noNavigation: true,
+      layout: AppBarCardLayout,
+      appBar: {
+        backRoute: { name: 'AuthNumberVerify' },
+        title: 'Edit Account'
+      }
+    }
+  },
+  {
     path: '/verify',
     name: 'AuthNumberVerify',
     component: () => import('@/views/AuthNumberVerify.vue'),
@@ -64,7 +109,7 @@ export const generalRoutes = [
       noNavigation: true,
       layout: AppBarCardLayout,
       appBar: {
-        backRoute: { name: 'Home' },
+        backRoute: { name: 'AuthSignupEdit' },
         title: 'Verification Required'
       }
     }

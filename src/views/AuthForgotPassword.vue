@@ -2,49 +2,28 @@
   <div
     class="min-h-vh100--without-header flex flex-col items-center text-left w-full"
   >
-    <div class="px-4 max-w-md">
-      <img
-        src="https://res.cloudinary.com/whynotearth/image/upload/v1600874347/BrowTricks/static_v2/image-login_crwfva.png"
-        alt=""
-      />
+    <div class="px-4 max-w-md py-10">
+      <p class="tg-body-mobile text-opacity-high">
+        Enter your registrated username to receive password reset instruction.
+      </p>
     </div>
     <div
       class="flex-grow w-full bg-surface rounded-t-xl px-4 py-8 flex flex-col items-center"
     >
-      <!-- <AuthButtons></AuthButtons>
-
-      <div class="w-full py-8 flex justify-center items-center">
-        <hr class="flex-grow" />
-        <span class="px-1">OR</span>
-        <hr class="flex-grow" />
-      </div> -->
-
       <form
         @submit.prevent="submit"
         novalidate
         class="flex flex-col w-full max-w-sm flex-grow justify-between"
       >
         <div class="">
-          <!-- <MaterialInput
-            type="email"
-            v-model.trim="$v.email.$model"
-            label="Email Address"
-            :attrs="{ autocomplete: 'email', inputmode: 'email' }"
-            :validatorModel="$v.email"
-            :serverErrors="serverErrors.Email"
-          >
-            <p v-if="!$v.email.required">
-              Email is required
-            </p>
-            <p v-else-if="!$v.email.email">
-              Please enter an email address
-            </p>
-          </MaterialInput> -->
-
           <MaterialInput
             v-model.trim="$v.userName.$model"
             label="Username"
-            :attrs="{ autocomplete: 'username', enterkeyhint: 'send' }"
+            :attrs="{
+              autocomplete: 'username',
+              enterkeyhint: 'send',
+              name: 'username'
+            }"
             :validatorModel="$v.userName"
             :serverErrors="serverErrors.UserName"
           >
@@ -59,39 +38,16 @@
             </p>
           </MaterialInput>
 
-          <MaterialInput
-            type="password"
-            v-model.trim="$v.password.$model"
-            label="Password"
-            :attrs="{ autocomplete: 'current-password', enterkeyhint: 'send' }"
-            :validatorModel="$v.password"
-            :serverErrors="serverErrors.Password"
-          >
-            <p v-if="!$v.password.required">
-              Password is required
-            </p>
-          </MaterialInput>
-
           <p v-if="errorMessage" class="mb-4 text-error tg-body-mobile">
             {{ errorMessage }}
           </p>
         </div>
 
         <div>
-          <Button class="mb-6" type="submit" title="Login" />
+          <Button class="mb-6" type="submit" title="Reset Password" />
           <p class="mt-4 tg-body-mobile text-center">
-            Don't have an account?
-            <router-link :to="{ name: 'AuthSignup' }" class="text-primary-blue">
-              Sign Up
-            </router-link>
-          </p>
-
-          <p class="mt-4 tg-body-mobile text-center">
-            <router-link
-              :to="{ name: 'AuthForgotPassword' }"
-              class="text-primary-blue"
-            >
-              Forgot password?
+            <router-link :to="{ name: 'AuthLogin' }" class="text-primary-blue">
+              Back to login
             </router-link>
           </p>
         </div>
@@ -102,25 +58,21 @@
 
 <script>
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
-// import AuthButtons from '@/components/auth/AuthButtons';
 import formGeneralUtils from '@/mixins/formGeneralUtils.js';
 import { required, minLength, alphaNum } from 'vuelidate/lib/validators';
 import { mapActions } from 'vuex';
 import { showOverlayAndRedirect } from '@/helpers';
 
 export default {
-  name: 'AuthLogin',
+  name: 'AuthForgotPassword',
   // NOTE: we use a mixin
   mixins: [formGeneralUtils],
   components: {
-    // AuthButtons,
     MaterialInput
   },
   data() {
     return {
-      // email: '',
-      userName: '',
-      password: ''
+      userName: ''
     };
   },
   validations: {
@@ -132,13 +84,20 @@ export default {
       required,
       alphaNum,
       minLength: minLength(5)
+    }
+  },
+  computed: {
+    getResetPasswordPath() {
+      return this.$router.resolve({
+        name: 'AuthResetPassword'
+      }).href;
     },
-    password: {
-      required
+    resetPasswordReturnUrl() {
+      return `${window.location.origin}${this.getResetPasswordPath}`;
     }
   },
   methods: {
-    ...mapActions('auth', ['loginStandard']),
+    ...mapActions('auth', ['forgotPassword']),
     submit() {
       if (!this.beforeSubmit()) {
         return;
@@ -149,11 +108,11 @@ export default {
         return;
       }
 
-      this.loginStandard({
+      this.forgotPassword({
         params: {
           body: {
-            password: this.password,
-            // email: this.email
+            companySlug: process.env.VUE_APP_COMPANY_SLUG,
+            returnUrl: this.resetPasswordReturnUrl,
             userName: this.userName
           }
         }
@@ -164,7 +123,7 @@ export default {
     onSuccess() {
       showOverlayAndRedirect({
         title: 'Success!',
-        route: { name: 'PanelRedirector' }
+        route: { name: 'Home' }
       });
     }
   }

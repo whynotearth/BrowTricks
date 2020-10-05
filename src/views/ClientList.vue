@@ -20,13 +20,8 @@
       </div>
     </div>
 
-    <div
-      v-else
-      class="p-6 text-center max-w-sm mx-auto"
-    >
-      <p
-        class="tg-body-mobile text-on-background text-opacity-high mb-6"
-      >
+    <div v-else class="p-6 text-center max-w-sm mx-auto">
+      <p class="tg-body-mobile text-on-background text-opacity-high mb-6">
         Add your first clients.
       </p>
 
