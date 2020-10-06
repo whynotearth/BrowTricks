@@ -202,13 +202,14 @@ export function cloudinaryFileToMeredithFileAdapter(cloudinaryFileInfo) {
 
   // image type
   if (resourceType === 'image') {
-    const { secure_url, height, width, public_id } = cloudinaryFileInfo;
+    const { secure_url, height, width, public_id, bytes } = cloudinaryFileInfo;
     return {
       resourceType,
       height,
       width,
       publicId: public_id,
-      url: secure_url
+      url: secure_url,
+      fileSize: bytes
     };
   }
 
@@ -221,7 +222,8 @@ export function cloudinaryFileToMeredithFileAdapter(cloudinaryFileInfo) {
       public_id,
       thumbnail_url,
       format,
-      duration
+      duration,
+      bytes
     } = cloudinaryFileInfo;
     return {
       resourceType: 'video',
@@ -231,7 +233,8 @@ export function cloudinaryFileToMeredithFileAdapter(cloudinaryFileInfo) {
       url: secure_url,
       thumbnailUrl: thumbnail_url,
       format,
-      duration
+      duration,
+      fileSize: bytes
     };
   }
 }

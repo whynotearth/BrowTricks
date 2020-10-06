@@ -1,10 +1,15 @@
 <template>
-  <FormGroup v-bind="$attrs" :validatorModel="validatorModel">
+  <FormGroup
+    v-bind="$attrs"
+    :validatorModel="validatorModel"
+    class="flex flex-col"
+  >
     <template #control>
-      <div class="relative">
+      <div class="relative" :class="[fillHeight ? 'h-full' : '']">
         <textarea
           class="block input appearance-none outline-none relative bg-transparent w-full py-3 border-b text-opacity-medium focus:text-opacity-high border-opacity-medium focus:border-opacity-high tg-body-mobile rounded-none"
           :class="[
+            fillHeight ? 'h-full' : '',
             textColor,
             borderColor,
             placeholderColor,
@@ -74,9 +79,9 @@ export default {
       type: String,
       default: 'light'
     },
-    margin: {
-      type: String,
-      default: 'mb-6'
+    fillHeight: {
+      type: Boolean,
+      default: false
     },
     // update value on input event
     immediateInput: {

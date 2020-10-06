@@ -71,10 +71,8 @@ export default {
       const thumbnail = file.url.replace(new RegExp(extension + '$'), 'jpg');
       return thumbnail;
     },
-    remove(index) {
-      let updatedFiles = this.files.slice();
-      updatedFiles.splice(index, 1);
-      this.updateFiles(updatedFiles);
+    remove(file) {
+      this.$emit('deleteItem', file);
     },
     selectFile(file) {
       this.selectedFileInfo = { ...file };

@@ -1,4 +1,5 @@
 import {
+  ClientMediaService,
   ClientService,
   ClientNoteService,
   FormAnswerService
@@ -108,6 +109,18 @@ const actions = {
   },
   pmuSignSubmitAnswers(context, { params }) {
     return FormAnswerService.answer(params);
+  },
+  imageAdd(context, { params }) {
+    return ClientMediaService.images(params);
+  },
+  videoAdd(context, { params }) {
+    return ClientMediaService.videos(params);
+  },
+  imageDelete(context, { params }) {
+    return ClientMediaService.images1(params);
+  },
+  videoDelete(context, { params }) {
+    return ClientMediaService.videos1(params);
   }
 };
 
