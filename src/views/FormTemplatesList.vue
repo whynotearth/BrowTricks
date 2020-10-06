@@ -28,7 +28,7 @@
 
     <a
       tabindex="0"
-      class="block cursor-pointer"
+      class="block cursor-pointer mt-2"
       @click.prevent="formTemplateAdd"
     >
       <div class="flex justify-between items-center px-4 py-2">
@@ -68,7 +68,6 @@ export default {
       'currentTemplateUpdate',
       'templatesFetch'
     ]),
-    ...mapActions('navigation', ['statusUpdate']),
     formTemplateAdd,
     formatDateTime,
     init() {

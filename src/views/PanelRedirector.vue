@@ -3,7 +3,6 @@
 </template>
 
 <script>
-import { navigationStatusUpdate } from '@/helpers';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
@@ -27,11 +26,9 @@ export default {
   methods: {
     ...mapActions('global', ['isDrawerOpenAuthUpdate']),
     ...mapActions('tenant', ['fetchUserTenants']),
-    ...mapActions('formTemplate', ['hasAnyFormTemplates']),
     ...mapActions('auth', ['updateToken']),
     ...mapActions('loading', ['loadingUpdate']),
     async init() {
-      navigationStatusUpdate('normal');
       if (!this.isPhoneNumberConfirmedGet) {
         this.goNumberVerification();
         return;
@@ -68,23 +65,11 @@ export default {
       });
     },
     async onDetectTenant(tenant) {
-      const hasAnyFormTemplates = await this.hasAnyFormTemplates(tenant.slug);
-      if (!hasAnyFormTemplates) {
-        this.goFormTemplateEmptyList(tenant);
-        return;
-      }
-
       this.goTenantHome(tenant);
     },
     goTenantHome(tenant) {
       this.$router.replace({
         name: 'TenantHome',
-        params: { tenantSlug: tenant.slug }
-      });
-    },
-    goFormTemplateEmptyList(tenant) {
-      this.$router.replace({
-        name: 'FormTemplatesListEmpty',
         params: { tenantSlug: tenant.slug }
       });
     },
