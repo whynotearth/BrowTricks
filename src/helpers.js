@@ -281,7 +281,3 @@ export async function formTemplateAdd() {
     params: { formId: newForm.id }
   });
 }
-
-export function navigationStatusUpdate(status) {
-  store.dispatch('navigation/statusUpdate', status);
-}
