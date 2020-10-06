@@ -1,10 +1,58 @@
 <template>
   <PageContentBoard>
     <div
-      class="mx-auto pt-4 text-on-background text-opacity-high text-left max-w-md"
+      class="mx-auto pt-4 text-on-background text-opacity-high text-left max-w-2xl"
     >
-      <div class="flex flex-col items-center text-left px-2 mb-8">
-        <div class="px-2 mb-4">
+      <div class="flex items-stretch px-2 mb-6">
+        <!-- description -->
+        <div class="flex-grow px-2 break-word flex flex-col">
+          <TextAreaInput
+            class="flex-grow"
+            :margin="null"
+            v-model="$v.description.$model"
+            :validatorModel="$v.description"
+            label="Description"
+            rows="4"
+          >
+            <p v-if="!$v.description.required">
+              Description is required
+            </p>
+          </TextAreaInput>
+
+          <div>
+            <!-- chips -->
+            <a
+              @click.prevent="isOpenClientSelect = true"
+              class="cursor-pointer"
+              tabindex="0"
+              aria-label="Select client"
+              title="Select client"
+            >
+              <BaseChip>
+                <template #icon>
+                  <IconCheck
+                    v-if="selectedClientId"
+                    class="fill-current text-on-surface w-3 h-3"
+                  />
+                  <IconUser
+                    v-else
+                    class="fill-current text-on-surface w-3 h-3"
+                  />
+                </template>
+                Client
+              </BaseChip>
+            </a>
+            <p
+              v-if="$v.selectedClientId.$error"
+              class="text-error tg-body-mobile mt-2"
+            >
+              Client is required
+            </p>
+          </div>
+        </div>
+
+        <!-- media -->
+        <div class="px-2">
           <div class="image-wrapper max-w-full" v-if="file">
             <BaseImagePreview
               v-if="file.resourceType === 'image'"
@@ -18,66 +66,9 @@
             />
           </div>
         </div>
-        <div class="flex-grow px-2 break-word">
-          <!-- <TextAreaInput
-          class="mb-4"
-          v-model="$v.description.$model"
-          :validatorModel="$v.description"
-          label="Description"
-          rows="4"
-        >
-          <p v-if="!$v.description.required">
-            Description is required
-          </p>
-        </TextAreaInput> -->
-
-          <!-- chips -->
-          <h3 class="tg-h2-mobile mb-2">
-            Select the related client
-          </h3>
-          <a
-            @click.prevent="isOpenClientSelect = true"
-            class="cursor-pointer"
-            tabindex="0"
-          >
-            <BaseChip>
-              <template #icon>
-                <IconCheck
-                  v-if="selectedClientId"
-                  class="fill-current text-on-surface w-3 h-3"
-                />
-                <IconUser v-else class="fill-current text-on-surface w-3 h-3" />
-              </template>
-              Select Client
-            </BaseChip>
-          </a>
-          <p
-            v-if="$v.selectedClientId.$error"
-            class="text-error tg-body-mobile mt-2"
-          >
-            Client is required
-          </p>
-        </div>
       </div>
 
-      <hr
-        v-if="isShareApiSupported"
-        class="border-divider border-opacity-divider mb-4"
-      />
-
       <div class="px-4">
-        <div v-if="file && isShareApiSupported">
-          <h2 class="mb-4 tg-body-mobile">Share:</h2>
-          <a
-            @click="share(file)"
-            tabindex="0"
-            class="cursor-pointer block rounded-full w-10 h-10 bg-secondary flex justify-center items-center mb-6"
-          >
-            <IconShare
-              class="fill-current text-on-secondary text-opacity-medium"
-            />
-          </a>
-        </div>
         <div>
           <Button
             :isRounded="true"
@@ -102,8 +93,6 @@
 <script>
 import ClientSelectOverlay from '@/components/client/ClientSelectOverlay';
 import PageContentBoard from '@/components/PageContentBoard';
-// // import TextAreaInput from '@/components/inputs/TextAreaInput';
-
 import BaseImagePreview from '@/components/uploader/BaseImagePreview';
 import BaseVideoPreview from '@/components/uploader/BaseVideoPreview';
 import BaseChip from '@/components/BaseChip';
@@ -114,7 +103,6 @@ import IconShare from '@/assets/icons/share.svg';
 import { mapGetters, mapActions } from 'vuex';
 import {
   share,
-  isShareApiSupported,
   showOverlayAndRedirect,
   getCloudinaryThumbnail
 } from '@/helpers.js';
@@ -130,17 +118,16 @@ export default {
   validations: {
     selectedClientId: {
       required
+    },
+    description: {
+      required
     }
-    // description: {
-    //   required
-    // }
   },
   created() {
-    this.setDefaultSelectedClientId();
+    this.setDefaultSelectedClient();
   },
   computed: {
     ...mapGetters('uploader', ['uploadedFilesGet']),
-    isShareApiSupported,
     tenantSlug() {
       return this.$route.params.tenantSlug;
     }
@@ -148,7 +135,6 @@ export default {
   components: {
     PageContentBoard,
     ClientSelectOverlay,
-    // TextAreaInput,
     IconUser,
     IconCheck,
     BaseChip,
@@ -173,14 +159,28 @@ export default {
       }
       this.file = this.uploadedFilesGet[0];
     },
-    setDefaultSelectedClientId() {
+    async setDefaultSelectedClient() {
       if (!this.$route.query.clientId) {
         return;
       }
+
       this.selectedClientId = this.$route.query.clientId;
+      const client = await this._fetchClient(this.selectedClientId);
+      this.onSelectClient(client);
+    },
+    async _fetchClient(clientId) {
+      return await this.fetchClient({
+        params: {
+          clientId,
+          tenantSlug: this.tenantSlug
+        }
+      }).catch(() => {
+        console.log('Could not get client info.');
+      });
     },
     onSelectClient(client) {
       this.selectedClientId = client.id;
+      this.description += `@${client.firstName}-${client.lastName}`;
     },
     async submit() {
       this.$v.$touch();
@@ -188,18 +188,7 @@ export default {
         return;
       }
 
-      let client;
-      try {
-        client = await this.fetchClient({
-          params: {
-            clientId: this.selectedClientId,
-            tenantSlug: this.tenantSlug
-          }
-        });
-      } catch (error) {
-        alert('Error in getting client info');
-        return;
-      }
+      const client = await this._fetchClient(this.selectedClientId);
 
       const filesAdapted = this.uploadedFilesGet.map(item => ({
         ...item,
@@ -242,6 +231,6 @@ export default {
 
 <style scoped>
 .image-wrapper {
-  width: 300px;
+  width: 160px;
 }
 </style>
