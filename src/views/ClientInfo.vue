@@ -99,11 +99,6 @@
                 />
               </a>
             </template>
-            <template #title>
-              <div class="tg-body-mobile ">
-                <span class="text-on-background text-opacity-high"></span>
-              </div>
-            </template>
           </MediaManager>
         </div>
       </div>
