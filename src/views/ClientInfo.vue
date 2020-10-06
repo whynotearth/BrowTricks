@@ -40,9 +40,9 @@
               $router.push({
                 name: 'ClientItemEdit',
                 params: {
-                  tenantSlug: tenantSlug,
-                  clientId: clientId,
-                  client: client
+                  tenantSlug,
+                  clientId,
+                  client
                 }
               })
             "
@@ -83,8 +83,8 @@
       <div class="-mt-8">
         <div class="max-w-md mx-auto px-6 sm:px-0">
           <MediaManager
+            @deleteItem="deleteItem"
             :files="currentFiles"
-            @change="updateFiles"
             class="mb-4"
           >
             <template #uploadButton>
@@ -111,11 +111,9 @@ import ExpansionPanel from '@/components/ExpansionPanel.vue';
 import PageContentBoard from '@/components/PageContentBoard.vue';
 import HeaderHeroSection from '@/components/HeaderHeroSection.vue';
 import MediaManager from '@/components/uploader/MediaManager.vue';
-
 import IconDocument from '@/assets/icons/document.svg';
 import IconNotes from '@/assets/icons/notes.svg';
 import IconEdit from '@/assets/icons/edit.svg';
-// import IconImages from '@/assets/icons/images.svg';
 import IconMail from '@/assets/icons/mail.svg';
 import IconPhone from '@/assets/icons/phone.svg';
 import IconCamera from '@/assets/icons/camera.svg';
@@ -178,7 +176,13 @@ export default {
     }
   },
   methods: {
-    ...mapActions('client', ['updateClient', 'archiveClient', 'fetchClient']),
+    ...mapActions('client', [
+      'updateClient',
+      'archiveClient',
+      'fetchClient',
+      'imageDelete',
+      'videoDelete'
+    ]),
     ...mapActions('uploader', ['openDrawerUploadUpdate']),
     _openDrawerUploadUpdate() {
       this.openDrawerUploadUpdate(UploaderTypes.CLIENT);
@@ -199,32 +203,22 @@ export default {
         name: 'ClientList'
       });
     },
-    updateFiles(files) {
-      console.log('files before updatefiles', files);
-      const filesAdapted = files.map(item => ({
-        ...item,
-        url: item.url,
-        publicId: item.publicId
-      }));
-      console.log('files after', filesAdapted);
-      const images = filesAdapted.filter(item => item.resourceType === 'image');
-      const videos = filesAdapted.filter(item => item.resourceType === 'video');
-      const updatedInfo = {
-        ...this.client,
-        images,
-        videos
-      };
-      this.updateClient({
-        tenantSlug: this.tenantSlug,
-        clientId: this.clientId,
-        body: updatedInfo
-      })
-        .then(() => {
-          this._fetchClient();
-        })
-        .catch(error => {
-          console.log('Update client error', error.response);
-        });
+    deleteItem({ id, resourceType }) {
+      const method =
+        resourceType === 'image'
+          ? this.imageDelete
+          : resourceType === 'video'
+          ? this.videoDelete
+          : null;
+      if (!method) {
+        console.log('Unknown resource type.');
+      }
+      method({
+        params: {
+          tenantSlug: this.tenantSlug,
+          [`${resourceType}Id`]: id
+        }
+      }).then(this._fetchClient);
     }
   }
 };

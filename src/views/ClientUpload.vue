@@ -8,7 +8,6 @@
         <div class="flex-grow px-2 break-word flex flex-col">
           <TextAreaInput
             class="flex-grow"
-            :margin="null"
             v-model="$v.description.$model"
             :validatorModel="$v.description"
             label="Description"
@@ -72,7 +71,7 @@
         <div>
           <Button
             :isRounded="true"
-            title="Post"
+            title="Upload"
             @clicked="submit"
             background="bg-brand2"
           ></Button>
@@ -99,7 +98,6 @@ import BaseChip from '@/components/BaseChip';
 import { required } from 'vuelidate/lib/validators';
 import IconUser from '@/assets/icons/person.svg';
 import IconCheck from '@/assets/icons/check.svg';
-import IconShare from '@/assets/icons/share.svg';
 import { mapGetters, mapActions } from 'vuex';
 import {
   share,
@@ -138,7 +136,6 @@ export default {
     IconUser,
     IconCheck,
     BaseChip,
-    IconShare,
     BaseImagePreview,
     BaseVideoPreview
   },
@@ -147,7 +144,7 @@ export default {
     this.openDrawerUploadUpdate(false);
   },
   methods: {
-    ...mapActions('client', ['updateClient', 'fetchClient']),
+    ...mapActions('client', ['fetchClient', 'videoAdd', 'imageAdd']),
     ...mapActions('uploader', ['openDrawerUploadUpdate']),
     share,
     getCloudinaryThumbnail,
@@ -189,30 +186,26 @@ export default {
       }
 
       const client = await this._fetchClient(this.selectedClientId);
+      const media = this.uploadedFilesGet[0];
+      const method =
+        media.resourceType === 'image'
+          ? this.imageAdd
+          : media.resourceType === 'video'
+          ? this.videoAdd
+          : null;
 
-      const filesAdapted = this.uploadedFilesGet.map(item => ({
-        ...item,
-        url: item.url,
-        publicId: item.publicId
-      }));
-      const images = [
-        ...client.images,
-        ...filesAdapted.filter(item => item.resourceType === 'image')
-      ];
-      const videos = [
-        ...client.videos,
-        ...filesAdapted.filter(item => item.resourceType === 'video')
-      ];
-      const updatedInfo = {
-        ...client,
-        images,
-        videos
-      };
-      this.updateClient({
+      if (!method) {
+        console.log('Unknown media type.');
+        return;
+      }
+      method({
         params: {
           tenantSlug: this.tenantSlug,
-          clientId: client.id,
-          body: updatedInfo
+          body: {
+            clientId: client.id,
+            [media.resourceType]: media,
+            description: this.description
+          }
         }
       })
         .then(() => {
