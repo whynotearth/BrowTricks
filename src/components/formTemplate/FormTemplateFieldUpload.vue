@@ -60,7 +60,7 @@
 
 <script>
 import TextAreaInput from '@/components/inputs/TextAreaInput';
-import CheckBox from '@/components/inputs/CheckBox';
+// import CheckBox from '@/components/inputs/CheckBox';
 import BaseImagePreview from '@/components/uploader/BaseImagePreview';
 import { cloneDeep, get } from 'lodash-es';
 import { required } from 'vuelidate/lib/validators';
@@ -73,8 +73,8 @@ export default {
   name: 'FormTemplateFieldUpload',
   components: {
     BaseImagePreview,
-    TextAreaInput,
-    CheckBox
+    TextAreaInput
+    // CheckBox
   },
   validations: {
     model: {

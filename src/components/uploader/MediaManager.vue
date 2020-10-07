@@ -1,14 +1,5 @@
 <template>
   <div>
-    <div class="mb-2">
-      <slot name="title">
-        <span
-          class="tg-h3-mobile text-on-background text-opacity-medium mt-8 inline-block"
-        >
-          Image
-        </span>
-      </slot>
-    </div>
     <div class="grid grid-cols-3 sm:grid-cols-4 gap-1">
       <slot name="uploadButton" />
       <div
@@ -80,10 +71,8 @@ export default {
       const thumbnail = file.url.replace(new RegExp(extension + '$'), 'jpg');
       return thumbnail;
     },
-    remove(index) {
-      let updatedFiles = this.files.slice();
-      updatedFiles.splice(index, 1);
-      this.updateFiles(updatedFiles);
+    remove(file) {
+      this.$emit('deleteItem', file);
     },
     selectFile(file) {
       this.selectedFileInfo = { ...file };

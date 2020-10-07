@@ -36,13 +36,7 @@
         " -->
       <div class="-mt-8">
         <div class="max-w-md px-4 mx-auto">
-          <MediaManager :files="currentFiles" class="mb-4">
-            <template #title>
-              <div class="tg-body-mobile ">
-                <span class="text-on-background text-opacity-high"></span>
-              </div>
-            </template>
-          </MediaManager>
+          <MediaManager :files="currentFiles" class="mb-4"> </MediaManager>
         </div>
       </div>
 

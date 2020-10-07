@@ -25,34 +25,15 @@
 </template>
 
 <script>
-import { formTemplateAdd, navigationStatusUpdate } from '@/helpers';
+import { formTemplateAdd } from '@/helpers';
 import { mapActions } from 'vuex';
 
 export default {
   name: 'FormTemplatesListEmpty',
   props: ['tenantSlug'],
-  beforeMount() {
-    navigationStatusUpdate('locked');
-  },
-  async mounted() {
-    await this.templatesFetch({
-      params: { tenantSlug: this.tenantSlug }
-    })
-      .then(list => {
-        if (list && list.length > 0) {
-          navigationStatusUpdate('normal');
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  },
   methods: {
-    ...mapActions('navigation', ['statusUpdate']),
     ...mapActions('formTemplate', ['templatesFetch']),
     formTemplateAdd
   }
 };
 </script>
-
-<style scoped></style>

@@ -76,7 +76,7 @@ export default {
       this.$emit('close');
     },
     deleteVideo() {
-      this.$emit('deleteVideo', this.file.index);
+      this.$emit('remove', this.file);
       this.closeModal();
     }
   }
