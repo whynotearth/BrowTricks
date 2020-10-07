@@ -55,6 +55,21 @@ export const generalRoutes = [
     }
   },
   {
+    path: '/email-sent-success',
+    name: 'AuthSentEmailSuccess',
+    component: () => import('@/views/AuthSentEmailSuccess.vue'),
+    props: true,
+    meta: {
+      isPublic: true,
+      noNavigation: true,
+      layout: AppBarCardLayout,
+      appBar: {
+        backRoute: { name: 'AuthLogin' },
+        title: 'Check Your Email'
+      }
+    }
+  },
+  {
     path: '/reset',
     name: 'AuthResetPassword',
     component: () => import('@/views/AuthResetPassword.vue'),

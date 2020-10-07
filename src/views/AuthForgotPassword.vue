@@ -1,40 +1,37 @@
 <template>
   <div
-    class="min-h-vh100--without-header flex flex-col items-center text-left w-full"
+    class="flex flex-col items-center w-full text-left min-h-vh100--without-header"
   >
-    <div class="px-4 max-w-md py-10">
+    <div class="max-w-md px-4 py-10">
       <p class="tg-body-mobile text-opacity-high">
-        Enter your registrated username to receive password reset instruction.
+        Enter your registrated email to receive password reset instruction.
       </p>
     </div>
     <div
-      class="flex-grow w-full bg-surface rounded-t-xl px-4 py-8 flex flex-col items-center"
+      class="flex flex-col items-center flex-grow w-full px-4 py-8 bg-surface rounded-t-xl"
     >
       <form
         @submit.prevent="submit"
         novalidate
-        class="flex flex-col w-full max-w-sm flex-grow justify-between"
+        class="flex flex-col justify-between flex-grow w-full max-w-sm"
       >
         <div class="">
           <MaterialInput
-            v-model.trim="$v.userName.$model"
-            label="Username"
+            v-model.trim="$v.email.$model"
+            label="Email"
             :attrs="{
-              autocomplete: 'username',
+              autocomplete: 'email',
               enterkeyhint: 'send',
-              name: 'username'
+              name: 'email'
             }"
-            :validatorModel="$v.userName"
-            :serverErrors="serverErrors.UserName"
+            :validatorModel="$v.email"
+            :serverErrors="serverErrors.Email"
           >
-            <p v-if="!$v.userName.required">
-              Username is required
+            <p v-if="!$v.email.required">
+              Email is required
             </p>
-            <p v-if="!$v.userName.minLength">
-              Should be at least 5 characters
-            </p>
-            <p v-else-if="!$v.userName.alphaNum">
-              Should be alphanumeric
+            <p v-else-if="!$v.email.email">
+              Should be a vaild email
             </p>
           </MaterialInput>
 
@@ -45,7 +42,7 @@
 
         <div>
           <Button class="mb-6" type="submit" title="Reset Password" />
-          <p class="mt-4 tg-body-mobile text-center">
+          <p class="mt-4 text-center tg-body-mobile">
             <router-link :to="{ name: 'AuthLogin' }" class="text-primary-blue">
               Back to login
             </router-link>
@@ -59,9 +56,9 @@
 <script>
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
 import formGeneralUtils from '@/mixins/formGeneralUtils.js';
-import { required, minLength, alphaNum } from 'vuelidate/lib/validators';
+import { required, email } from 'vuelidate/lib/validators';
 import { mapActions } from 'vuex';
-import { showOverlayAndRedirect } from '@/helpers';
+// import { showOverlayAndRedirect } from '@/helpers';
 
 export default {
   name: 'AuthForgotPassword',
@@ -72,18 +69,13 @@ export default {
   },
   data() {
     return {
-      userName: ''
+      email: ''
     };
   },
   validations: {
-    // email: {
-    //   required,
-    //   email
-    // },
-    userName: {
+    email: {
       required,
-      alphaNum,
-      minLength: minLength(5)
+      email
     }
   },
   computed: {
@@ -113,7 +105,7 @@ export default {
           body: {
             companySlug: process.env.VUE_APP_COMPANY_SLUG,
             returnUrl: this.resetPasswordReturnUrl,
-            userName: this.userName
+            email: this.email
           }
         }
       })
@@ -121,10 +113,7 @@ export default {
         .catch(this.onSubmitCatch);
     },
     onSuccess() {
-      showOverlayAndRedirect({
-        title: 'Success!',
-        route: { name: 'Home' }
-      });
+      this.$router.push({ name: 'AuthSentEmailSuccess' });
     }
   }
 };
