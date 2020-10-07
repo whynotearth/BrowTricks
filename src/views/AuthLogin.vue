@@ -1,19 +1,19 @@
 <template>
   <div
-    class="min-h-vh100--without-header flex flex-col items-center text-left w-full"
+    class="flex flex-col items-center w-full text-left min-h-vh100--without-header"
   >
-    <div class="px-4 max-w-md">
+    <div class="max-w-md px-4">
       <img
         src="https://res.cloudinary.com/whynotearth/image/upload/v1600874347/BrowTricks/static_v2/image-login_crwfva.png"
         alt=""
       />
     </div>
     <div
-      class="flex-grow w-full bg-surface rounded-t-xl px-4 py-8 flex flex-col items-center"
+      class="flex flex-col items-center flex-grow w-full px-4 py-8 bg-surface rounded-t-xl"
     >
       <!-- <AuthButtons></AuthButtons>
 
-      <div class="w-full py-8 flex justify-center items-center">
+      <div class="flex items-center justify-center w-full py-8">
         <hr class="flex-grow" />
         <span class="px-1">OR</span>
         <hr class="flex-grow" />
@@ -22,7 +22,7 @@
       <form
         @submit.prevent="submit"
         novalidate
-        class="flex flex-col w-full max-w-sm flex-grow justify-between"
+        class="flex flex-col justify-between flex-grow w-full max-w-sm"
       >
         <div class="">
           <!-- <MaterialInput
@@ -43,19 +43,13 @@
 
           <MaterialInput
             v-model.trim="$v.userName.$model"
-            label="Username"
+            label="Username/Email"
             :attrs="{ autocomplete: 'username', enterkeyhint: 'send' }"
             :validatorModel="$v.userName"
             :serverErrors="serverErrors.UserName"
           >
             <p v-if="!$v.userName.required">
-              Username is required
-            </p>
-            <p v-if="!$v.userName.minLength">
-              Should be at least 5 characters
-            </p>
-            <p v-else-if="!$v.userName.alphaNum">
-              Should be alphanumeric
+              This field is required
             </p>
           </MaterialInput>
 
@@ -79,14 +73,14 @@
 
         <div>
           <Button class="mb-6" type="submit" title="Login" />
-          <p class="mt-4 tg-body-mobile text-center">
+          <p class="mt-4 text-center tg-body-mobile">
             Don't have an account?
             <router-link :to="{ name: 'AuthSignup' }" class="text-primary-blue">
               Sign Up
             </router-link>
           </p>
 
-          <p class="mt-4 tg-body-mobile text-center">
+          <p class="mt-4 text-center tg-body-mobile">
             <router-link
               :to="{ name: 'AuthForgotPassword' }"
               class="text-primary-blue"
@@ -104,9 +98,9 @@
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
 // import AuthButtons from '@/components/auth/AuthButtons';
 import formGeneralUtils from '@/mixins/formGeneralUtils.js';
-import { required, minLength, alphaNum } from 'vuelidate/lib/validators';
+import { required } from 'vuelidate/lib/validators';
 import { mapActions } from 'vuex';
-import { showOverlayAndRedirect } from '@/helpers';
+import { isEmail, showOverlayAndRedirect } from '@/helpers';
 
 export default {
   name: 'AuthLogin',
@@ -129,9 +123,7 @@ export default {
     //   email
     // },
     userName: {
-      required,
-      alphaNum,
-      minLength: minLength(5)
+      required
     },
     password: {
       required
@@ -153,8 +145,7 @@ export default {
         params: {
           body: {
             password: this.password,
-            // email: this.email
-            userName: this.userName
+            [isEmail(this.userName) ? 'email' : 'userName']: this.userName
           }
         }
       })
