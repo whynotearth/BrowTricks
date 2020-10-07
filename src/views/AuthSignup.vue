@@ -1,20 +1,20 @@
 <template>
   <div
-    class="min-h-vh100--without-header flex flex-col items-center text-left w-full"
+    class="flex flex-col items-center w-full text-left min-h-vh100--without-header"
   >
-    <div class="px-4 max-w-md">
+    <div class="max-w-md px-4">
       <img
         src="https://res.cloudinary.com/whynotearth/image/upload/v1600874347/BrowTricks/static_v2/image-login_crwfva.png"
         alt=""
       />
     </div>
     <div
-      class="flex-grow w-full bg-surface rounded-t-xl px-4 py-8 flex flex-col items-center"
+      class="flex flex-col items-center flex-grow w-full px-4 py-8 bg-surface rounded-t-xl"
     >
       <form
         @submit.prevent="submit"
         novalidate
-        class="flex flex-col w-full max-w-sm flex-grow justify-between"
+        class="flex flex-col justify-between flex-grow w-full max-w-sm"
       >
         <div class="">
           <MaterialInput
@@ -67,7 +67,7 @@
               Please enter a valid phone number
             </p>
           </MaterialInput>
-          <!-- <MaterialInput
+          <MaterialInput
             type="email"
             v-model.trim="$v.email.$model"
             label="Email Address"
@@ -81,7 +81,7 @@
             <p v-else-if="!$v.email.email">
               Please enter an email address
             </p>
-          </MaterialInput> -->
+          </MaterialInput>
 
           <MaterialInput
             v-model.trim="$v.userName.$model"
@@ -124,7 +124,7 @@
 
         <div>
           <Button type="submit" title="Let's Get Started" />
-          <p class="mt-4 tg-body-mobile text-center">
+          <p class="mt-4 text-center tg-body-mobile">
             Already have an account?
             <router-link :to="{ name: 'AuthLogin' }" class="text-primary-blue">
               Login
@@ -138,7 +138,7 @@
 
 <script>
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
-import { required, alphaNum, minLength } from 'vuelidate/lib/validators';
+import { required, alphaNum, minLength, email } from 'vuelidate/lib/validators';
 import { mapActions, mapGetters } from 'vuex';
 import { showOverlayAndRedirect, isPhoneNumberValid } from '@/helpers';
 import formGeneralUtils from '@/mixins/formGeneralUtils.js';
@@ -154,7 +154,7 @@ export default {
     return {
       firstName: '',
       lastName: '',
-      // email: '',
+      email: '',
       userName: '',
       password: '',
       phoneNumber: ''
@@ -167,10 +167,10 @@ export default {
     lastName: {
       required
     },
-    // email: {
-    //   required,
-    //   email
-    // },
+    email: {
+      required,
+      email
+    },
     userName: {
       required,
       alphaNum,
@@ -206,7 +206,7 @@ export default {
         params: {
           body: {
             password: this.password,
-            // email: this.email,
+            email: this.email,
             userName: this.userName,
             firstName: this.firstName,
             lastName: this.lastName,
