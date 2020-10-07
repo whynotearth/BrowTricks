@@ -102,7 +102,7 @@ export default {
     }
   },
   created() {
-    if (!this.userName || !this.token || !this.email) {
+    if (!(this.userName || this.email) || !this.token) {
       this.invalidPage = true;
     }
   },
@@ -114,7 +114,7 @@ export default {
       return this.$route.query.token;
     },
     email() {
-      return this.$route.email;
+      return this.$route.query.email;
     }
   },
   methods: {

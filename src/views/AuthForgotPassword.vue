@@ -25,7 +25,7 @@
               name: 'email'
             }"
             :validatorModel="$v.email"
-            :serverErrors="serverErrors.email"
+            :serverErrors="serverErrors.Email"
           >
             <p v-if="!$v.email.required">
               Email is required
