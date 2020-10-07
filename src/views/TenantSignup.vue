@@ -105,7 +105,7 @@ export default {
       showOverlayAndRedirect({
         title: 'Success!',
         route: {
-          name: 'FormTemplatesListEmpty',
+          name: 'TenantHome',
           params: { tenantSlug }
         }
       });

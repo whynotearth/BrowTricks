@@ -15,6 +15,7 @@ export default {
   methods: {
     ...mapActions('loading', ['loadingUpdate']),
     beforeSubmit() {
+      this.blurFocusedInput();
       this.clearErrors();
 
       this.$v.$touch();
@@ -56,6 +57,11 @@ export default {
       this.$v.$reset();
       this.errorMessage = '';
       this.serverErrors = [];
+    },
+    blurFocusedInput() {
+      const focusedInput = document.querySelector('input:focus,textarea:focus');
+      const event = new Event('blur');
+      focusedInput.dispatchEvent(event);
     }
   }
 };

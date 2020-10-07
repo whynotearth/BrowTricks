@@ -25,7 +25,7 @@
 
       <a
         tabindex="0"
-        class="block cursor-pointer"
+        class="block cursor-pointer mt-2"
         @click.prevent="formTemplateAdd"
       >
         <div class="flex justify-between items-center px-4 py-2">
@@ -65,6 +65,7 @@ export default {
     this.init();
   },
   methods: {
+    ...mapActions('formTemplate', ['hasAnyFormTemplates']),
     ...mapActions('loading', ['loadingUpdate']),
     ...mapActions('client', ['fetchClient']),
     ...mapActions('formTemplate', [
@@ -93,10 +94,23 @@ export default {
       this.loadingUpdate(false);
     },
     async init() {
+      const tenantSlug = this.tenantSlug;
+      const hasAnyFormTemplates = await this.hasAnyFormTemplates(tenantSlug);
+      if (!hasAnyFormTemplates) {
+        this.goFormTemplateEmptyList(tenantSlug);
+        return;
+      }
+
       this._fetchClient();
       this.templatesFetch({
         params: { tenantSlug: this.tenantSlug }
       }).catch(() => {});
+    },
+    goFormTemplateEmptyList(tenantSlug) {
+      this.$router.replace({
+        name: 'FormTemplatesListEmpty',
+        params: { tenantSlug }
+      });
     }
   }
 };

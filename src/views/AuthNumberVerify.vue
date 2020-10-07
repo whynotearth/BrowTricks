@@ -42,7 +42,14 @@
         </p>
 
         <div>
-          <Button type="submit" title="Verify" />
+          <Button class="mb-4" type="submit" title="Verify" />
+
+          <Button
+            type="button"
+            title="Edit Your Number"
+            :background="null"
+            :to="{ name: 'AuthSignupEdit' }"
+          />
         </div>
       </form>
     </div>

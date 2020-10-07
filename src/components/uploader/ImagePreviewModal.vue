@@ -81,7 +81,7 @@ export default {
       this.$emit('close');
     },
     remove() {
-      this.$emit('remove', this.file.index);
+      this.$emit('remove', this.file);
       this.closeModal();
     }
   }
