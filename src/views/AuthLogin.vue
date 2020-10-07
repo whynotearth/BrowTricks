@@ -100,7 +100,7 @@ import MaterialInput from '@/components/inputs/MaterialInput.vue';
 import formGeneralUtils from '@/mixins/formGeneralUtils.js';
 import { required } from 'vuelidate/lib/validators';
 import { mapActions } from 'vuex';
-import { showOverlayAndRedirect } from '@/helpers';
+import { isEmail, showOverlayAndRedirect } from '@/helpers';
 
 export default {
   name: 'AuthLogin',
@@ -141,18 +141,12 @@ export default {
         return;
       }
 
-      let body = {
-        password: this.password
-      };
-
-      if (this.validateEmail(this.userName)) {
-        body.email = this.userName;
-      } else {
-        body.userName = this.userName;
-      }
       this.loginStandard({
         params: {
-          body
+          body: {
+            password: this.password,
+            [isEmail(this.userName) ? 'email' : 'userName']: this.userName
+          }
         }
       })
         .then(this.onSuccess)
@@ -163,13 +157,6 @@ export default {
         title: 'Success!',
         route: { name: 'PanelRedirector' }
       });
-    },
-    validateEmail(mail) {
-      return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
-        mail
-      )
-        ? true
-        : false;
     }
   }
 };
