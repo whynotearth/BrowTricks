@@ -60,8 +60,10 @@ export default {
     },
     blurFocusedInput() {
       const focusedInput = document.querySelector('input:focus,textarea:focus');
-      const event = new Event('blur');
-      focusedInput.dispatchEvent(event);
+      if (focusedInput) {
+        const event = new Event('blur');
+        focusedInput.dispatchEvent(event);
+      }
     }
   }
 };
