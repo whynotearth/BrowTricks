@@ -33,9 +33,7 @@ export default {
           templateId: this.templateId
         }
       });
-    },
-    init() {
-      this._pmuEmptyPreview();
+      this.$emit('imageReady', this.imagePreview);
     }
   }
 };

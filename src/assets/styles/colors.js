@@ -15,6 +15,7 @@ const colors = {
   'on-secondary': '#78839C',
   'on-surface': '#0D1F3C',
   'on-background': '#000000',
+  'on-background-image': '#ffffff',
   'on-error': '#FFFFFF',
   'on-accent': '#FFFFFF',
   brand1: '#B5BBC9',

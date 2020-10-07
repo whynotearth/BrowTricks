@@ -33,7 +33,6 @@
           <div>
             <PmuFormEmptyPreview
               title="Here is your pre-set PMU form:"
-              :clientId="clientId"
               :tenantSlug="tenantSlug"
               :templateId="templateId"
             />
