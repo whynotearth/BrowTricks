@@ -19,10 +19,10 @@
           <MaterialInput
             v-model.trim="$v.email.$model"
             label="Email"
+            type="email"
             :attrs="{
               autocomplete: 'email',
-              enterkeyhint: 'send',
-              name: 'email'
+              enterkeyhint: 'send'
             }"
             :validatorModel="$v.email"
             :serverErrors="serverErrors.Email"
