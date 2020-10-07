@@ -49,7 +49,7 @@
                 @click="_openDrawerUploadUpdate"
               >
                 <IconCamera
-                  class="fill-current text-on-background text-opacity-medium w-10 h-10"
+                  class="fill-current text-primary text-opacity-medium w-10 h-10"
                 />
               </a>
             </template>

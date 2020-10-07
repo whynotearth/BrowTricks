@@ -10,21 +10,21 @@
           </h3>
           <div class="flex justify-around tg-caption-mobile w-full sm:w-auto">
             <a
-              class="flex flex-col items-center px-4 sm:px-8 text-on-surface"
+              class="flex flex-col items-center px-4 sm:px-8 text-primary"
               :href="`mailto:${client.email}`"
             >
               <IconMail class="fill-current mb-2" />
               <span class="text-on-background text-opacity-high">Email</span>
             </a>
             <a
-              class="flex flex-col items-center px-4 sm:px-8 text-on-surface"
+              class="flex flex-col items-center px-4 sm:px-8 text-primary"
               :href="`sms:${client.phoneNumber}`"
             >
               <IconPhoneAndroid class="fill-current mb-2" />
               <span class="text-on-background text-opacity-high">Text</span>
             </a>
             <a
-              class="flex flex-col items-center px-4 sm:px-8 text-on-surface"
+              class="flex flex-col items-center px-4 sm:px-8 text-primary"
               :href="`tel:${client.phoneNumber}`"
             >
               <IconPhone class="fill-current mb-2" />
@@ -95,7 +95,7 @@
                 @click="_openDrawerUploadUpdate"
               >
                 <IconCamera
-                  class="fill-current text-on-background text-opacity-medium w-10 h-10"
+                  class="fill-current text-primary text-opacity-medium w-10 h-10"
                 />
               </a>
             </template>
