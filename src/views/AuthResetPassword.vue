@@ -1,20 +1,20 @@
 <template>
   <div
-    class="min-h-vh100--without-header flex flex-col items-center text-left w-full"
+    class="flex flex-col items-center w-full text-left min-h-vh100--without-header"
   >
-    <div v-if="!invalidPage" class="py-10 max-w-md px-4">
+    <div v-if="!invalidPage" class="max-w-md px-4 py-10">
       <p class="tg-body-mobile text-opacity-high">
         Your new password must be different from a previously used password.
       </p>
     </div>
     <div
-      class="flex-grow w-full bg-surface rounded-t-xl px-4 py-8 flex flex-col items-center"
+      class="flex flex-col items-center flex-grow w-full px-4 py-8 bg-surface rounded-t-xl"
     >
       <form
         v-if="!invalidPage"
         @submit.prevent="submit"
         novalidate
-        class="flex flex-col w-full max-w-sm flex-grow justify-between"
+        class="flex flex-col justify-between flex-grow w-full max-w-sm"
       >
         <div class="">
           <MaterialInput
@@ -53,7 +53,7 @@
 
         <div>
           <Button class="mb-6" type="submit" title="Submit" />
-          <p class="mt-4 tg-body-mobile text-center">
+          <p class="mt-4 text-center tg-body-mobile">
             <router-link :to="{ name: 'AuthLogin' }" class="text-primary-blue">
               Back to login
             </router-link>
@@ -102,7 +102,7 @@ export default {
     }
   },
   created() {
-    if (!this.userName || !this.token) {
+    if (!this.userName || !this.token || !this.email) {
       this.invalidPage = true;
     }
   },
@@ -112,6 +112,9 @@ export default {
     },
     token() {
       return this.$route.query.token;
+    },
+    email() {
+      return this.$route.email;
     }
   },
   methods: {
