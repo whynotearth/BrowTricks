@@ -132,7 +132,7 @@ export default {
       this.resetPassword({
         params: {
           body: {
-            userName: this.userName,
+            email: this.email,
             token: this.token,
             password: this.password,
             confirmPassword: this.confirmPassword
