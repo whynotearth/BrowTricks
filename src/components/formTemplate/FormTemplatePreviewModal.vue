@@ -6,23 +6,16 @@
       class="flex flex-col items-center text-left w-full h-full relative"
       @click="closeModal"
     >
+      <!-- caption -->
       <div
-        class="absolute bottom-0 w-full flex flex-col justify-center content-gradient pb-14"
+        @click.stop=""
+        class="absolute bottom-0 w-full content-gradient pb-14"
       >
-        <div class="pt-10 px-4 text-on-background-image text-opacity-high">
+        <div class="py-10 px-4 text-on-background-image text-opacity-high">
           <h1 class="tg-body-mobile mb-2">
             {{ currentTemplateGet.name }}
           </h1>
           <p class="tg-caption-mobile">{{ createdAt }}</p>
-        </div>
-
-        <div class="cta-wrapper relative">
-          <Button
-            title="Send me a test"
-            class="uppercase"
-            background="bg-primary"
-            textColor="text-on-primary"
-          />
         </div>
       </div>
 
@@ -34,26 +27,49 @@
       </div>
 
       <!-- content -->
-      <div class="w-full my-auto overflow-y-auto bg-white flex-grow">
-        <PmuFormEmptyPreview
+      <div
+        class="w-full my-auto overflow-y-auto bg-white flex-grow"
+        @click.stop=""
+      >
+        <!-- <PmuFormEmptyPreview
           @imageReady="onImagePreviewReady"
           :tenantSlug="tenantSlug"
           :templateId="templateId"
-        />
+        /> -->
       </div>
 
       <!-- bottom toolbar -->
-      <div class="flex justify-end w-full flex-shrink-0 z-10">
+      <div
+        class="flex justify-end w-full flex-shrink-0 z-50 relative"
+        @click.stop=""
+      >
+        <div class="flex flex-col justify-center w-full">
+          <div class="cta-wrapper relative z-50">
+            <Button
+              title="Preview"
+              class="uppercase"
+              background="bg-primary"
+              textColor="text-on-primary"
+              @clicked="tellmeee"
+              :to="{ name: 'PmuSignFlowPreview' }"
+            />
+          </div>
+        </div>
+
         <!-- share -->
-        <!-- TODO: -->
-        <!-- <a
-          v-if="isShareApiSupported"
-          @click.stop="share({ url: pdfUrl })"
+        <a
+          v-if="isShareApiSupported()"
+          @click.stop="
+            shareDataUrl({
+              data: imagePreviewBase64,
+              filename: previewFileName
+            })
+          "
           class="cursor-pointer p-4"
           title="Share"
         >
           <ShareIcon class="text-white w-6 h-6" />
-        </a> -->
+        </a>
 
         <!-- download -->
         <a
@@ -74,9 +90,9 @@ import DeleteIcon from '@/assets/icons/delete.svg';
 import DownloadIcon from '@/assets/icons/download.svg';
 import ShareIcon from '@/assets/icons/share.svg';
 import {
-  transformCloudinaryUrl,
+  isShareApiSupported,
   urlToFile,
-  share,
+  shareDataUrl,
   formatDateTime
 } from '@/helpers.js';
 import noPageScrollbarMixin from '@/utils/noPageScrollbarMixin.js';
@@ -100,26 +116,22 @@ export default {
   },
   computed: {
     ...mapGetters('formTemplate', ['currentTemplateGet']),
-    isShareApiSupported() {
-      return !!window.navigator.share;
-    },
     createdAt() {
       return formatDateTime(this.currentTemplateGet.createdAt);
+    },
+    previewFileName() {
+      return `${this.currentTemplateGet.name}.jpg`;
     }
   },
-  created() {
-    console.log('currentTemplateGet', this.currentTemplateGet);
-  },
   methods: {
-    transformCloudinaryUrl,
+    tellmeee() {
+      console.log('hii');
+    },
+    shareDataUrl,
+    isShareApiSupported,
     urlToFile,
-    share,
     downloadFile() {
-      downloadjs(
-        this.imagePreviewBase64,
-        `${this.currentTemplateGet.name}.jpg`,
-        'image/jpg'
-      );
+      downloadjs(this.imagePreviewBase64, this.previewFileName, 'image/jpg');
     },
     onImagePreviewReady(imagePreviewBase64) {
       this.imagePreviewBase64 = imagePreviewBase64;
@@ -140,6 +152,7 @@ export default {
   background: linear-gradient(180deg, transparent 0%, #000000 93.85%);
 }
 .cta-wrapper {
-  transform: translateY(50%);
+  transform: translateY(-50%);
+  pointer-events: none;
 }
 </style>

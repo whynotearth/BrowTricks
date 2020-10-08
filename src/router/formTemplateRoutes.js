@@ -111,6 +111,14 @@ export const formTemplateRoutes = [
                 backRoute: { name: 'FormTemplateItemEdit' }
               }
             }
+          },
+
+          // flow (For tenant testing and preview)
+          {
+            path: 'flow-preview',
+            name: 'PmuSignFlowPreview',
+            component: () => import('@/views/PmuSignFlowPreview.vue'),
+            props: true
           }
         ]
       }

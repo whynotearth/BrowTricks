@@ -101,7 +101,7 @@ export const clientRoutes = [
           appBar: { layout: AppBarLayout, title: 'PMU Form Download' }
         }
       },
-      // flow (From Notification)
+      // question flow (From Notification)
       {
         path: 'pmu-sign-fn/:templateId/flow',
         name: 'PmuSignFromNotify',
@@ -112,8 +112,8 @@ export const clientRoutes = [
           appBar: { title: 'PMU Form Sign', backRoute: { name: 'ClientInfo' } }
         }
       },
+      // question flow (No SMS)
       {
-        // flow (No SMS)
         path: 'pmu-sign/:templateId/flow',
         name: 'PmuSignFlow',
         component: () => import('@/views/PmuSignFlow.vue'),
