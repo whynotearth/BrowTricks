@@ -22,18 +22,20 @@ export default {
     imagePreview: ''
   }),
   created() {
-    this._pmuEmptyPreview();
+    this._pmuEmptyPngPreview();
   },
   methods: {
-    ...mapActions('client', ['pmuEmptyPreview']),
-    async _pmuEmptyPreview() {
-      this.imagePreview = await this.pmuEmptyPreview({
+    ...mapActions('client', ['pmuEmptyPngPreview']),
+    async _pmuEmptyPngPreview() {
+      this.imagePreview = await this.pmuEmptyPngPreview({
         params: {
           tenantSlug: this.tenantSlug,
           templateId: this.templateId
         }
+      }).catch(error => {
+        console.log(error);
+        alert('Something went wrong in generating image preview');
       });
-      this.$emit('imageReady', this.imagePreview);
     }
   }
 };

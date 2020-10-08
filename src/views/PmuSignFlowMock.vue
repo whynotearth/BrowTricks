@@ -25,15 +25,15 @@
             {{ errorMessage }}
           </ErrorFullScreen>
           <div v-else-if="isSubmitted">
-            <p class="mb-6">
+            <p class="mb-2">
               <span class="fh2">Thank You!</span>
-              <span class="tg-mobile-body text-on-background"
+              <span class="tg-body-mobile text-on-background"
                 >PMU successfuly submitted.</span
               >
             </p>
 
             <router-link
-              class="tg-mobile-body tg-text-brand3"
+              class="tg-body-mobile tg-text-brand3 underline"
               :to="{ name: 'FormTemplateItemEdit' }"
               >Back to Form Template</router-link
             >

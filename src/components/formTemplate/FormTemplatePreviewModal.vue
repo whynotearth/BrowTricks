@@ -18,11 +18,10 @@
         class="w-full my-auto overflow-y-auto bg-white flex-grow"
         @click.stop=""
       >
-        <!-- <PmuFormEmptyPreview
-          @imageReady="onImagePreviewReady"
+        <PmuFormEmptyPreview
           :tenantSlug="tenantSlug"
           :templateId="templateId"
-        /> -->
+        />
       </div>
 
       <!-- caption -->
@@ -71,6 +70,7 @@
         <a
           @click.stop="downloadFile"
           class="cursor-pointer p-4"
+          :class="[loadingPdf ? 'pointer-events-none' : '']"
           title="Download"
         >
           <DownloadIcon class="text-white w-6 h-6" />
@@ -82,7 +82,6 @@
 
 <script>
 import Close from '@/assets/icons/close.svg';
-import DeleteIcon from '@/assets/icons/delete.svg';
 import DownloadIcon from '@/assets/icons/download.svg';
 import ShareIcon from '@/assets/icons/share.svg';
 import {
@@ -92,20 +91,20 @@ import {
   formatDateTime
 } from '@/helpers.js';
 import noPageScrollbarMixin from '@/utils/noPageScrollbarMixin.js';
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import PmuFormEmptyPreview from '@/components/pmu/PmuFormEmptyPreview.vue';
 import downloadjs from 'downloadjs';
 
 export default {
   name: 'FormTemplatePreviewModal',
   data: () => ({
-    imagePreviewBase64: ''
+    imagePreviewBase64: '',
+    loadingPdf: false
   }),
   mixins: [noPageScrollbarMixin],
   props: ['tenantSlug', 'templateId'],
   components: {
     Close,
-    DeleteIcon,
     DownloadIcon,
     ShareIcon,
     PmuFormEmptyPreview
@@ -116,21 +115,33 @@ export default {
       return formatDateTime(this.currentTemplateGet.createdAt);
     },
     previewFileName() {
-      return `${this.currentTemplateGet.name}.jpg`;
+      return `${this.currentTemplateGet.name}.pdf`;
     }
   },
   methods: {
+    ...mapActions('tenant', ['pmuEmptyPdfPreview']),
     previewFlow() {
       this.$router.push({ name: 'PmuSignFlowMock' });
     },
     shareDataUrl,
     isShareApiSupported,
     urlToFile,
-    downloadFile() {
-      downloadjs(this.imagePreviewBase64, this.previewFileName, 'image/jpg');
-    },
-    onImagePreviewReady(imagePreviewBase64) {
-      this.imagePreviewBase64 = imagePreviewBase64;
+    async downloadFile() {
+      this.loadingPdf = true;
+      const pdfPreviewBase64 = await this.pmuEmptyPdfPreview({
+        params: {
+          tenantSlug: this.tenantSlug,
+          templateId: this.templateId
+        }
+      }).catch(error => {
+        console.log(error);
+        alert('Something went wrong in generating PDF preview');
+      });
+      this.loadingPdf = false;
+
+      if (pdfPreviewBase64) {
+        downloadjs(pdfPreviewBase64, this.previewFileName, 'application/pdf');
+      }
     },
     closeModal() {
       this.$emit('close');
@@ -148,6 +159,6 @@ export default {
   background: linear-gradient(180deg, transparent 0%, #000000 93.85%);
 }
 .cta-wrapper {
-  transform: translateY(-50%);
+  transform: translateY(-50%) translateX(28px);
 }
 </style>
