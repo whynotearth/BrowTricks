@@ -4,7 +4,8 @@
   >
     <div class="max-w-md px-4 py-10">
       <p class="tg-body-mobile text-opacity-high">
-        Enter your registrated email to receive password reset instruction.
+        Enter your registered email address to receive password reset
+        instructions.
       </p>
     </div>
     <div
@@ -113,7 +114,10 @@ export default {
         .catch(this.onSubmitCatch);
     },
     onSuccess() {
-      this.$router.push({ name: 'AuthSentEmailSuccess' });
+      this.$router.push({
+        name: 'AuthSentEmailSuccess',
+        params: { email: this.email }
+      });
     }
   }
 };
