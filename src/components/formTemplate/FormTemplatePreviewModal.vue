@@ -6,19 +6,6 @@
       class="flex flex-col items-center text-left w-full h-full relative"
       @click="closeModal"
     >
-      <!-- caption -->
-      <div
-        @click.stop=""
-        class="absolute bottom-0 w-full content-gradient pb-14"
-      >
-        <div class="py-10 px-4 text-on-background-image text-opacity-high">
-          <h1 class="tg-body-mobile mb-2">
-            {{ currentTemplateGet.name }}
-          </h1>
-          <p class="tg-caption-mobile">{{ createdAt }}</p>
-        </div>
-      </div>
-
       <!-- top toolbar -->
       <div class="flex justify-start w-full flex-shrink-0">
         <button class="p-3" @click.prevent="closeModal" title="Close">
@@ -38,20 +25,29 @@
         /> -->
       </div>
 
-      <!-- bottom toolbar -->
+      <!-- caption -->
       <div
-        class="flex justify-end w-full flex-shrink-0 z-50 relative"
         @click.stop=""
+        class="w-full content-gradient pb-14 absolute bottom-0"
       >
+        <div class="py-10 px-4 text-on-background-image text-opacity-high">
+          <h1 class="tg-body-mobile mb-2">
+            {{ currentTemplateGet.name }}
+          </h1>
+          <p class="tg-caption-mobile">{{ createdAt }}</p>
+        </div>
+      </div>
+
+      <!-- bottom toolbar -->
+      <div class="flex justify-end w-full z-20" @click.stop="">
         <div class="flex flex-col justify-center w-full">
-          <div class="cta-wrapper relative z-50">
+          <div class="cta-wrapper">
             <Button
               title="Preview"
               class="uppercase"
               background="bg-primary"
               textColor="text-on-primary"
-              @clicked="tellmeee"
-              :to="{ name: 'PmuSignFlowPreview' }"
+              @clicked="previewFlow"
             />
           </div>
         </div>
@@ -124,8 +120,8 @@ export default {
     }
   },
   methods: {
-    tellmeee() {
-      console.log('hii');
+    previewFlow() {
+      this.$router.push({ name: 'PmuSignFlowMock' });
     },
     shareDataUrl,
     isShareApiSupported,
@@ -153,6 +149,5 @@ export default {
 }
 .cta-wrapper {
   transform: translateY(-50%);
-  pointer-events: none;
 }
 </style>

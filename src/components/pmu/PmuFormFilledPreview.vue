@@ -17,7 +17,17 @@
 import { mapActions } from 'vuex';
 export default {
   name: 'PmuFormFilledPreview',
-  props: ['tenantSlug', 'templateId', 'title', 'clientId', 'answers'],
+  props: {
+    tenantSlug: [Number, String],
+    templateId: [Number, String],
+    title: String,
+    clientId: [Number, String],
+    answers: Object,
+    isMock: {
+      type: Boolean,
+      default: false
+    }
+  },
   data: () => ({
     imagePreview: ''
   }),
@@ -26,8 +36,13 @@ export default {
   },
   methods: {
     ...mapActions('client', ['pmuFilledPreview']),
+    ...mapActions('tenant', ['pmuFilledPreviewMock']),
     async _pmuFilledPreview() {
-      this.imagePreview = await this.pmuFilledPreview({
+      const method = this.isMock
+        ? this.pmuFilledPreviewMock
+        : this.pmuFilledPreview;
+
+      this.imagePreview = await method({
         params: {
           tenantSlug: this.tenantSlug,
           templateId: this.templateId,

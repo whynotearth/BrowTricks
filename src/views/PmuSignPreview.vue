@@ -1,4 +1,5 @@
 <template>
+  <!-- todo: rename to PmuSign.vue -->
   <PageContentBoard>
     <!-- TODO rename questions to disclosures (or something meaningful and more general) everywhere -->
     <div class="max-w-4xl mx-auto px-4 pt-4">

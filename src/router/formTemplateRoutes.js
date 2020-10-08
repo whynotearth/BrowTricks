@@ -115,9 +115,9 @@ export const formTemplateRoutes = [
 
           // flow (For tenant testing and preview)
           {
-            path: 'flow-preview',
-            name: 'PmuSignFlowPreview',
-            component: () => import('@/views/PmuSignFlowPreview.vue'),
+            path: 'flow-mock',
+            name: 'PmuSignFlowMock',
+            component: () => import('@/views/PmuSignFlowMock.vue'),
             props: true
           }
         ]
