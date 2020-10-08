@@ -9,8 +9,17 @@ const getters = {};
 const mutations = {};
 
 const actions = {
-  pmuEmptyPreview(context, { params }) {
+  pmuEmptyPdfPreview(context, { params }) {
+    return FormAnswerService.pdf(params);
+  },
+  pmuEmptyPngPreview(context, { params }) {
     // NOTE: this is equal to clinet/pmuEmptyPreview
+    return FormAnswerService.png(params);
+  },
+
+  // without clientId
+  pmuFilledPreviewMock(context, { params }) {
+    console.log('params', params);
     return FormAnswerService.preview(params);
   },
 

@@ -34,8 +34,8 @@
 
             <router-link
               class="tg-body-mobile tg-text-brand3 underline"
-              :to="{ name: 'Home' }"
-              >Back to Home</router-link
+              :to="{ name: 'FormTemplateItemEdit' }"
+              >Back to Form Template</router-link
             >
           </div>
           <div v-else>
@@ -45,10 +45,10 @@
 
             <PmuFormFilledPreview
               v-if="isCompleted"
+              :isMock="true"
               title="Here is your PMU form:"
-              :clientId="clientId"
               :tenantSlug="tenantSlug"
-              :templateId="templateId"
+              :templateId="formId"
               :answers="answers"
             />
           </div>
@@ -62,15 +62,14 @@
 import FlowForm, { LanguageModel } from '@whynotearth/vue-flow-form';
 import { mapActions } from 'vuex';
 import { adaptApiQuestionsToModel, adaptAnswersToApi } from '@/services/pmu.js';
-import { get } from 'lodash-es';
 import PmuFormFilledPreview from '@/components/pmu/PmuFormFilledPreview.vue';
 import ErrorFullScreen from '@/components/ErrorFullScreen.vue';
 
 // https://github.com/ditdot-dev/vue-flow-form
 
 export default {
-  name: 'PmuSignFlow',
-  props: ['tenantSlug', 'clientId', 'templateId'],
+  name: 'PmuSignFlowMock',
+  props: ['tenantSlug', 'formId'],
   components: {
     ErrorFullScreen,
     FlowForm,
@@ -96,11 +95,10 @@ export default {
     async init() {
       this.isCompleted = false;
       this.errorMessage = '';
-      const templateId = this.templateId;
       const template = await this.templateFetch({
         params: {
           tenantSlug: this.tenantSlug,
-          templateId
+          templateId: this.formId
         }
       });
       const questions = template.items;
@@ -110,36 +108,11 @@ export default {
       this.questions = adaptApiQuestionsToModel(questions);
       this.isReady = true;
     },
-    onSubmit(questionList) {
+    onSubmit() {
       // This method will only be called if you don't override the
       // completeButton slot.
 
-      const path = this.$router.resolve({
-        name: 'PmuFormDownload'
-      }).href;
-      const callbackUrl = `${window.location.origin}${path}`;
-      console.log('notificationCallBackUrl', callbackUrl);
-      const payload = adaptAnswersToApi(questionList, callbackUrl);
-
-      console.log('answers for api:', payload);
-      this.pmuSignSubmitAnswers({
-        params: {
-          clientId: this.clientId,
-          tenantSlug: this.tenantSlug,
-          templateId: this.templateId,
-          body: payload
-        }
-      })
-        .then(() => {
-          this.isSubmitted = true;
-        })
-        .catch(error => {
-          this.errorMessage = get(
-            error,
-            'response.data.message',
-            'Something went wrong, Answers not submitted.'
-          );
-        });
+      this.isSubmitted = true;
     },
     onComplete(completed, questionList) {
       this.answers = adaptAnswersToApi(questionList);

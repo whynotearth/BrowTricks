@@ -28,6 +28,13 @@
     </router-link>
 
     <div class="px-4 md:px-0">
+      <Button
+        type="button"
+        class="uppercase mb-6"
+        @clicked="isPreviewModalOpen = true"
+        title="Preview & Test"
+      />
+
       <!-- current questions -->
       <SortableList
         :useWindowAsScrollContainer="true"
@@ -122,11 +129,19 @@
         :margin="null"
       />
     </BaseDialog>
+
+    <FormTemplatePreviewModal
+      v-if="isPreviewModalOpen"
+      @close="isPreviewModalOpen = false"
+      :tenantSlug="tenantSlug"
+      :templateId="templateId"
+    />
   </div>
 </template>
 
 <script>
 import FormTemplateFieldTypeCard from '@/components/formTemplate/FormTemplateFieldTypeCard';
+import FormTemplatePreviewModal from '@/components/formTemplate/FormTemplatePreviewModal';
 import IconArrowRight from '@/assets/icons/keyboard_arrow_right.svg';
 import BaseCard from '@/components/BaseCard';
 import BaseDialog from '@/components/BaseDialog';
@@ -172,6 +187,7 @@ export default {
   mixins: [noPullToRefresh],
   props: ['tenantSlug'],
   components: {
+    FormTemplatePreviewModal,
     BaseDialog,
     SortableList,
     SortableItem,
@@ -181,10 +197,14 @@ export default {
     IconAdd
   },
   data: () => ({
+    isPreviewModalOpen: false,
     isDeleteModalOpen: false
   }),
   computed: {
-    ...mapGetters('formTemplate', ['currentTemplateGet'])
+    ...mapGetters('formTemplate', ['currentTemplateGet']),
+    templateId() {
+      return this.$route.params.formId;
+    }
   },
   async created() {
     this.loadingUpdate(true);
@@ -205,7 +225,7 @@ export default {
       if (this.currentTemplateGet.draft && !this.$route.query.refresh) {
         return;
       }
-      if (!this.$route.params.formId) {
+      if (!this.templateId) {
         throw new Error('Something went wrong');
       }
 
@@ -214,7 +234,7 @@ export default {
     _templateFetch() {
       return this.templateFetch({
         params: {
-          templateId: this.$route.params.formId,
+          templateId: this.templateId,
           tenantSlug: this.tenantSlug
         }
       }).catch(() => {
@@ -238,8 +258,8 @@ export default {
       this.templateDelete({
         isDraft: this.currentTemplateGet.draft,
         params: {
-          tenantSlug: this.tenantSlug,
-          templateId: this.$route.params.formId
+          templateId: this.templateId,
+          tenantSlug: this.tenantSlug
         }
       })
         .then(async () => {

@@ -37,7 +37,7 @@
           @click.stop=""
           :href="transformCloudinaryUrl(file.url, 'fl_attachment')"
           class="cursor-pointer p-4"
-          title="Download (Save the file in new tab)"
+          title="Download"
         >
           <DownloadIcon class="text-white w-6 h-6" />
         </a>

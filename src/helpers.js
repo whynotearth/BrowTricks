@@ -149,8 +149,31 @@ export function urlToFile(jsonfile) {
   });
 }
 
+// https://stackoverflow.com/a/38935990
+function dataUrltoFile(dataurl, filename) {
+  var arr = dataurl.split(','),
+    mime = arr[0].match(/:(.*?);/)[1],
+    bstr = atob(arr[1]),
+    n = bstr.length,
+    u8arr = new Uint8Array(n);
+
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+
+  return new File([u8arr], filename, { type: mime });
+}
+
 export function isShareApiSupported() {
   return !!window.navigator.share;
+}
+
+// no old share
+export function shareDataUrl({ data, filename }) {
+  const file = dataUrltoFile(data, filename);
+  window.navigator.share({
+    files: [file]
+  });
 }
 
 // @input jsonfile: {url}
@@ -161,7 +184,7 @@ export function share(jsonfile) {
     return;
   }
 
-  this.urlToFile(jsonfile).then(file => {
+  urlToFile(jsonfile).then(file => {
     // https://web.dev/web-share/#sharing-files
     window.navigator
       .share({

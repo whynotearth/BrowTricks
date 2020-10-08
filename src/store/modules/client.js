@@ -100,9 +100,9 @@ const actions = {
   pmuSendFormLink(context, { params }) {
     return FormAnswerService.notify(params);
   },
-  pmuEmptyPreview(context, { params }) {
+  pmuEmptyPngPreview(context, { params }) {
     // NOTE: this is equal to tenant/pmuEmptyPreview
-    return FormAnswerService.preview(params);
+    return FormAnswerService.png(params);
   },
   pmuFilledPreview(context, { params }) {
     return FormAnswerService.preview1(params);
