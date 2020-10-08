@@ -2,56 +2,56 @@
   <ul
     class="link-items max-w-md mx-auto wrapper flex-auto flex text-left justify-around items-center menu list-none tg-caption-mobile select-none py-4"
   >
-    <li class="text-on-surface text-opacity-high link-item">
+    <li class="text-brand3 text-opacity-high link-item">
       <router-link
         class="navigation--link block"
         :to="{ name: 'TenantHome' }"
         exact
       >
-        <IconHome class="m-auto mb-2 w-5 h-5 text-on-surface" />
+        <IconHome class="m-auto mb-2 w-5 h-5 text-brand3" />
         <span>Home</span>
       </router-link>
     </li>
 
-    <li class="text-on-surface text-opacity-high link-item">
+    <li class="text-brand3 text-opacity-high link-item">
       <router-link class="navigation--link block" :to="{ name: 'ClientList' }">
-        <IconUser class="m-auto mb-2 w-5 h-5 text-on-surface" />
+        <IconUser class="m-auto mb-2 w-5 h-5 text-brand3" />
         <span>Clients</span>
       </router-link>
     </li>
 
-    <li class="text-on-surface text-opacity-high">
+    <li class="text-brand3 text-opacity-high">
       <a
         tabindex="0"
         class="main-button navigation--link flex flex-col justify-center relative text-center outline-none cursor-pointer"
         @click="openDrawerUploadUpdate(UploaderTypes.CLIENT)"
       >
         <div
-          class="main-button--shape absolute rounded-full h-14 w-14 flex items-center justify-center bg-brand2 mx-auto"
+          class="main-button--shape absolute rounded-full h-14 w-14 flex items-center justify-center bg-secondary mx-auto border-2 border-black"
         >
-          <IconCamera class="w-6 h-6 m-auto fill-current text-white" />
+          <IconCamera class="w-6 h-6 m-auto fill-current text-black" />
         </div>
 
-        <IconCamera class="invisible m-auto mb-2 w-5 h-5 text-on-surface" />
+        <IconCamera class="invisible m-auto mb-2 w-5 h-5 text-brand3" />
         <span>Upload</span>
       </a>
     </li>
 
-    <li class="text-on-surface text-opacity-high link-item">
+    <li class="text-brand3 text-opacity-high link-item">
       <!-- FIXME: when tenantSlug is not available yet, this makes / and active -->
       <router-link
         class="navigation--link block"
         :to="{ name: 'FormTemplates' }"
       >
-        <IconDocument class="m-auto mb-2 w-5 h-5 text-on-surface" />
+        <IconDocument class="m-auto mb-2 w-5 h-5 text-brand3" />
         <span>Forms</span>
       </router-link>
     </li>
 
     <!-- MyAccount -->
-    <li class="text-on-surface text-opacity-high link-item">
+    <li class="text-brand3 text-opacity-high link-item">
       <router-link class="navigation--link block" :to="{ name: 'MyAccount' }">
-        <IconUserCircle class="m-auto mb-2 w-5 h-5 text-on-surface" />
+        <IconUserCircle class="m-auto mb-2 w-5 h-5 text-brand3" />
         <span>Account</span>
       </router-link>
     </li>
