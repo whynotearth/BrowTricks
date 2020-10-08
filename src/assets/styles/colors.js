@@ -20,7 +20,7 @@ const colors = {
   'on-accent': '#FFFFFF',
   brand1: '#B5BBC9',
   brand2: '#F6BEAD',
-  brand3: '#'
+  brand3: '#8A8A8A'
 };
 
 module.exports = colors;

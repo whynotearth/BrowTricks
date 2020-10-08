@@ -1,6 +1,6 @@
 <template>
   <div
-    class="h-14 w-full px-2 sticky top-0 z-40 flex justify-between items-center"
+    class="h-14 w-full px-2 sticky top-0 z-40 flex justify-between items-center text-white"
     :class="[background]"
   >
     <router-link
@@ -9,7 +9,7 @@
       class="cursor-pointer w-10 h-10 flex justify-center items-center"
       :to="backRoute"
     >
-      <span class="opacity-high text-on-primary"><IconBack /></span>
+      <span class="opacity-high text-white"><IconBack /></span>
     </router-link>
 
     <slot name="title">

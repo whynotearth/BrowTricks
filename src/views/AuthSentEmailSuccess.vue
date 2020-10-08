@@ -1,8 +1,9 @@
 <template>
   <div class="flex flex-col items-center justify-around h-screen">
     <p>
-      Follow a password recovery instructions we have just sent to your email
-      address
+      An email has been sent to
+      <span class="font-bold">{{ $route.params.email }} </span>. Please check
+      your email and follow the password recovery instructions to continue.
     </p>
     <img
       src="https://res.cloudinary.com/whynotearth/image/upload/v1601899012/BrowTricks/static_v2/auth-forgot-step2_md5jqb.png"

@@ -3,7 +3,7 @@
     class="min-h-vh100 w-full flex flex-col"
     :class="[!meta.noNavigation ? 'has-navigation' : '']"
   >
-    <BaseHeader v-if="appBar" background="bg-background">
+    <BaseHeader v-if="appBar" background="bg-black">
       <template #title>
         <div
           class="flex flex-grow justify-center"
@@ -16,7 +16,7 @@
             <h1 class="tg-h2-mobile">
               {{ appBar.title }}
             </h1>
-            <ArrowDropDown class="text-on-primary fill-current" />
+            <ArrowDropDown class="text-white fill-current" />
           </div>
 
           <div
@@ -58,7 +58,7 @@ import ArrowDropDown from '@/assets/icons/arrow-drop-down.svg';
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'AppBarLayout',
+  name: 'AppBarSwitcherLayout',
   data: () => ({
     showSwitcher: false
   }),

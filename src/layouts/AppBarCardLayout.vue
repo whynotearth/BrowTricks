@@ -35,7 +35,7 @@ import BaseSpinner from '@/components/BaseSpinner.vue';
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'AppBarLayout',
+  name: 'AppBarCardLayout',
   components: {
     BaseSpinner,
     BaseHeader,
@@ -54,7 +54,8 @@ export default {
       return this.meta.pageBackground || 'bg-primary';
     },
     headerBackground() {
-      return this.meta.headerBackground || 'bg-primary';
+      // return this.meta.headerBackground || 'bg-primary';
+      return 'bg-black';
     }
   }
 };
