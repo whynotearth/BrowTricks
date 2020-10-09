@@ -8,21 +8,21 @@
   <body>
     <p>Please wait...</p>
     <script>
-      const apiBase = 'https://stagingapi.whynot.earth/api/v0/shortener/';
-
+      'use strict';
+      var apiBase = 'https://api.whynot.earth/api/v0/shortener/';
       // e.g. '/t/myslug';
-      const pathname = window.location.pathname;
-      const slug = (pathname.split('/') || '')[2];
+      var pathname = window.location.pathname;
+      var slug = (pathname.split('/') || '')[2];
       console.log(pathname, slug);
 
       if (slug) {
         getLongUrl(slug)
-          .then(response => {
+          .then(function(response) {
             console.log(response);
-            const longUrl = response.url;
+            var longUrl = response.url;
             window.location.replace(longUrl);
           })
-          .catch(error => {
+          .catch(function(error) {
             console.log('error', error);
             alert(
               'Something went wrong, refreshing page may can fix it otherwise please contact with: chris@whynot.earth'
@@ -31,12 +31,10 @@
       }
 
       function getLongUrl(slug) {
-        return fetch('https://api.github.com/users/mort3za/orgs').then(
-          response => {
-            return response.json();
-          }
-        );
-        // return fetch.get(`${apiBase}${slug}`);
+        var requestUrl = apiBase + slug;
+        return fetch(requestUrl).then(function(response) {
+          return response.json();
+        });
       }
     </script>
   </body>
