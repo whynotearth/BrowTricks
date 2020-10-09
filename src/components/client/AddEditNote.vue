@@ -6,6 +6,7 @@
         v-model="newNote"
         label="Note"
         labelBg="bg-surface"
+        rows="6"
       />
     </div>
     <div class="py-8">
