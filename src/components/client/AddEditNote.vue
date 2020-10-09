@@ -29,18 +29,42 @@
         textColor="text-error text-opacity-medium"
         title="Delete"
         :background="null"
-        @clicked="$emit('delete', note)"
+        @clicked="isDeleteModalOpen = true"
       />
+      <BaseDialog
+        v-if="isDeleteModalOpen"
+        @close="isDeleteModalOpen = false"
+        title="Delete Note?"
+      >
+        <Button
+          textColor="text-on-primary text-opacity-medium"
+          title="Cancel"
+          :background="null"
+          @clicked="isDeleteModalOpen = false"
+          width="w-auto"
+          :margin="null"
+        />
+        <Button
+          textColor="text-error"
+          title="Delete"
+          :background="null"
+          @clicked="$emit('delete', note)"
+          width="w-auto"
+          :margin="null"
+        />
+      </BaseDialog>
     </div>
   </div>
 </template>
 
 <script>
 import TextAreaInput from '@/components/inputs/TextAreaInput.vue';
+import BaseDialog from '@/components/BaseDialog.vue';
 
 export default {
   components: {
-    TextAreaInput
+    TextAreaInput,
+    BaseDialog
   },
   props: {
     note: {
@@ -50,7 +74,8 @@ export default {
   },
   data() {
     return {
-      newNote: this.note ? this.note.note : null
+      newNote: this.note ? this.note.note : null,
+      isDeleteModalOpen: false
     };
   },
   methods: {
