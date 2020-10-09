@@ -129,7 +129,11 @@ export default {
       this.selectedVideoInfo = { ...defaultVideoInfo };
     },
     onUploadError(error) {
-      alert(error.status);
+      if (error.status.includes('not allowed')) {
+        alert('Format is not accepted!');
+      } else {
+        alert(error.status);
+      }
     },
     onUpload(result) {
       if (result.event === 'success') {
