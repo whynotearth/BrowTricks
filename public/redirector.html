@@ -3,12 +3,41 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= process.env.VUE_APP_SEO_TITLE %></title>
+    <title>Browtricks</title>
   </head>
   <body>
+    <p>Please wait...</p>
     <script>
-      var pathname = window.location.pathname;
-      console.log(pathname);
+      const apiBase = 'https://stagingapi.whynot.earth/api/v0/shortener/';
+
+      // e.g. '/t/myslug';
+      const pathname = window.location.pathname;
+      const slug = (pathname.split('/') || '')[2];
+      console.log(pathname, slug);
+
+      if (slug) {
+        getLongUrl(slug)
+          .then(response => {
+            console.log(response);
+            const longUrl = response.url;
+            window.location.replace(longUrl);
+          })
+          .catch(error => {
+            console.log('error', error);
+            alert(
+              'Something went wrong, refreshing page may can fix it otherwise please contact with: chris@whynot.earth'
+            );
+          });
+      }
+
+      function getLongUrl(slug) {
+        return fetch('https://api.github.com/users/mort3za/orgs').then(
+          response => {
+            return response.json();
+          }
+        );
+        // return fetch.get(`${apiBase}${slug}`);
+      }
     </script>
   </body>
 </html>
