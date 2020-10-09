@@ -7,7 +7,7 @@ const pathname = window.location.pathname;
 const slug = (pathname.split('/') || '')[2];
 console.log(pathname, slug);
 
-if (slug) {
+if (slug && slug !== 'undefined') {
   getLongUrl(slug)
     .then(function(response) {
       console.log(response);
@@ -16,15 +16,25 @@ if (slug) {
     })
     .catch(function(error) {
       console.log('error', error);
-      alert(
-        'Something went wrong, refreshing page may can fix it otherwise please contact with: chris@whynot.earth'
-      );
+      alert('Page not found');
     });
 }
 
 function getLongUrl(slug) {
   const requestUrl = requestBase + slug;
   return fetch(requestUrl).then(function(response) {
+    console.log('response', response);
+    let message = '';
+    if (response.status === 404) {
+      message = 'Page not found';
+    }
+    if (!response.ok) {
+      message =
+        message ||
+        'Something went wrong. Refreshing page may help, otherwise please contact chris@whynot.earth';
+      throw new Error(message);
+    }
+
     return response.json();
   });
 }
