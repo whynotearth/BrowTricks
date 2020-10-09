@@ -7,39 +7,5 @@
   </head>
   <body>
     <p>Please wait...</p>
-    <script>
-      'use strict';
-
-      var requestBase = ''.concat(
-        process.env.VUE_APP_API_URL,
-        '/api/v0/shortener/'
-      ); // e.g. '/t/myslug';
-
-      var pathname = window.location.pathname;
-      var slug = (pathname.split('/') || '')[2];
-      console.log(pathname, slug);
-
-      if (slug) {
-        getLongUrl(slug)
-          .then(function(response) {
-            console.log(response);
-            var longUrl = response.url;
-            window.location.replace(longUrl);
-          })
-          .catch(function(error) {
-            console.log('error', error);
-            alert(
-              'Something went wrong, refreshing page may can fix it otherwise please contact with: chris@whynot.earth'
-            );
-          });
-      }
-
-      function getLongUrl(slug) {
-        var requestUrl = requestBase + slug;
-        return fetch(requestUrl).then(function(response) {
-          return response.json();
-        });
-      }
-    </script>
   </body>
 </html>
