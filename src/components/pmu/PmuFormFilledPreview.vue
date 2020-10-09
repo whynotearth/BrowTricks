@@ -8,10 +8,7 @@
     </h2>
     <img :src="imagePreview" alt="" />
   </div>
-  <div
-    v-else
-    class="absolute w-screen h-full max-w-6xl flex justify-center items-center"
-  >
+  <div v-else class="absolute w-screen h-full flex justify-center items-center">
     <BaseSpinner borderColor="border-brand2" classNames="spinner" />
   </div>
 </template>
