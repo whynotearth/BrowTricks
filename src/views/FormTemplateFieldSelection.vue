@@ -67,7 +67,7 @@ export default {
         type: 'upload',
         description:
           'Already have a PDF or JPEF of your form? Upload to your template with an agreement request.',
-        value: 'I agree to all terms and conditions above.'
+        value: 'I agree to all terms and conditions below.'
       };
     },
     fieldsAvailable() {
