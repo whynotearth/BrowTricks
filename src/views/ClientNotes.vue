@@ -109,9 +109,6 @@ export default {
       }
     },
     deleteNote(note) {
-      if (!confirm('Are you sure?')) {
-        return;
-      }
       this.deleteClientNote({
         clientId: this.clientId,
         tenantSlug: this.tenantSlug,
@@ -123,6 +120,7 @@ export default {
         });
         this.fetchNotes();
         this.isAddEditActive = false;
+        this.selectedNote = null;
       });
     },
     selectNote(note) {
