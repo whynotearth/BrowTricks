@@ -4,6 +4,8 @@
   >
     <div v-if="!invalidPage" class="max-w-md px-4 py-10">
       <p class="tg-body-mobile text-opacity-high">
+        Reset your password to log in to BrowTricks as {{ $route.query.email }}
+
         Your new password must be different from a previously used password.
       </p>
     </div>
