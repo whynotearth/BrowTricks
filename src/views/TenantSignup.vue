@@ -84,6 +84,7 @@ export default {
   },
   methods: {
     ...mapActions('tenant', ['createTenant']),
+    ...mapActions('formTemplate', ['createDefaultTemplates']),
     submit() {
       if (!this.beforeSubmit()) {
         return;
@@ -98,8 +99,24 @@ export default {
           }
         }
       })
+        .then(this._createDefaultTemplates)
         .then(this.onSuccess)
         .catch(this.onSubmitCatch);
+    },
+    async _createDefaultTemplates(tenantSlug) {
+      return await this.createDefaultTemplates({
+        params: {
+          tenantSlug
+        }
+      })
+        .then(() => {
+          return tenantSlug;
+        })
+        .catch(() => {
+          // todo: make a way to run it again
+          console.log('Error in creating default PMU templates.');
+          throw new Error('Could not create default PMU form templates.');
+        });
     },
     onSuccess(tenantSlug) {
       showOverlayAndRedirect({
