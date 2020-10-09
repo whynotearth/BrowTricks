@@ -9,8 +9,12 @@
     <p>Please wait...</p>
     <script>
       'use strict';
-      var apiBase = 'https://api.whynot.earth/api/v0/shortener/';
-      // e.g. '/t/myslug';
+
+      var requestBase = ''.concat(
+        process.env.VUE_APP_API_URL,
+        '/api/v0/shortener/'
+      ); // e.g. '/t/myslug';
+
       var pathname = window.location.pathname;
       var slug = (pathname.split('/') || '')[2];
       console.log(pathname, slug);
@@ -31,7 +35,7 @@
       }
 
       function getLongUrl(slug) {
-        var requestUrl = apiBase + slug;
+        var requestUrl = requestBase + slug;
         return fetch(requestUrl).then(function(response) {
           return response.json();
         });
