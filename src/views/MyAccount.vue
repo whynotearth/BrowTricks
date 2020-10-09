@@ -54,7 +54,6 @@
               </a>
             </template>
           </MediaManager>
-          <MediaManager :files="currentFiles" class="mb-4"> </MediaManager>
         </div>
       </div>
 
