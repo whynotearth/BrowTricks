@@ -11,6 +11,11 @@
   VUE_APP_UPLOADER_PDF_PRESET="browtricks_tenant_cms_pdf"
 
 [[redirects]]
+  from = "/t/*"
+  to = "/redirector.html"
+  status = 200
+
+[[redirects]]
   from = "/*"
   to = "/"
   status = 200
