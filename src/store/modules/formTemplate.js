@@ -50,6 +50,9 @@ const mutations = {
 };
 
 const actions = {
+  createDefaultTemplates(context, { params }) {
+    return FormTemplateService.defaults(params);
+  },
   hasAnyFormTemplates({ dispatch }, tenantSlug) {
     return dispatch('templatesFetch', { params: { tenantSlug } }).then(
       response => {
