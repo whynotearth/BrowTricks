@@ -8,15 +8,23 @@
     </h2>
     <img :src="imagePreview" alt="" />
   </div>
-  <p v-else class="tg-body-mobile text-on-background text-opacity-medium">
-    Generating a preview...
-  </p>
+  <div
+    v-else
+    class="absolute w-screen h-full max-w-6xl flex justify-center items-center"
+  >
+    <BaseSpinner borderColor="border-brand2" classNames="spinner" />
+  </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
+import BaseSpinner from '@/components/BaseSpinner.vue';
+
 export default {
   name: 'TenantPmuPreview',
+  components: {
+    BaseSpinner
+  },
   props: ['tenantSlug', 'title'],
   data: () => ({
     imagePreview: ''
