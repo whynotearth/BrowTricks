@@ -9,7 +9,6 @@ module.exports = {
     redirector: {
       entry: 'src/services/redirector.js',
       template: 'public/redirector.html',
-      chunks: [],
       filename: 'redirector.html'
     }
   },
