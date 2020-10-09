@@ -29,6 +29,12 @@
 
     <div class="px-4 md:px-0">
       <Button
+        v-if="
+          currentTemplateGet.name !== 'Untitled' ||
+            (currentTemplateGet &&
+              currentTemplateGet.items &&
+              currentTemplateGet.items.length)
+        "
         type="button"
         class="uppercase mb-6"
         @clicked="isPreviewModalOpen = true"
