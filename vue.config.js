@@ -6,13 +6,12 @@ module.exports = {
       filename: 'index.html'
     },
 
-    redirector: 'src/services/redirector.js'
-    // {
-    //   entry: 'src/services/redirector.js',
-    //   template: 'public/redirector.html',
-    //   chunks: [],
-    //   filename: 'redirector.html'
-    // }
+    redirector: {
+      entry: 'src/services/redirector.js',
+      template: 'public/redirector.html',
+      chunks: [],
+      filename: 'redirector.html'
+    }
   },
   pwa: {
     name: 'BrowTricks',
