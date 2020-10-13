@@ -177,7 +177,16 @@ export default {
     },
     onSelectClient(client) {
       this.selectedClientId = client.id;
-      this.description += `@${client.firstName}-${client.lastName}`;
+      const regex = /@[A-Za-z0-9.\s]+-[A-Za-z0-9.\s]+\s/g;
+      const found = this.description.match(regex);
+      if (found) {
+        this.description = this.description.replace(
+          regex,
+          `@${client.firstName}-${client.lastName} `
+        );
+      } else {
+        this.description += `@${client.firstName}-${client.lastName} `;
+      }
     },
     async submit() {
       this.$v.$touch();
