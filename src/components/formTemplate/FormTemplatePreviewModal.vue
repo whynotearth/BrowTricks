@@ -38,7 +38,11 @@
       </div>
 
       <!-- bottom toolbar -->
-      <div class="flex justify-end w-full z-20" @click.stop="">
+      <div
+        class="flex justify-end w-full z-20"
+        @click.stop=""
+        :class="[isFileShareApiSupported && 'has-2-buttons']"
+      >
         <div class="flex flex-col justify-center w-full">
           <div class="cta-wrapper">
             <Button
@@ -53,13 +57,8 @@
 
         <!-- share -->
         <a
-          v-if="isShareApiSupported()"
-          @click.stop="
-            shareDataUrl({
-              data: imagePreviewBase64,
-              filename: previewFileName
-            })
-          "
+          v-if="isFileShareApiSupported"
+          @click.stop="onClickShare"
           class="cursor-pointer p-4"
           title="Share"
         >
@@ -68,7 +67,7 @@
 
         <!-- download -->
         <a
-          @click.stop="downloadFile"
+          @click.stop="onClickDownload"
           class="cursor-pointer p-4"
           :class="[loadingPdf ? 'pointer-events-none' : '']"
           title="Download"
@@ -85,7 +84,7 @@ import Close from '@/assets/icons/close.svg';
 import DownloadIcon from '@/assets/icons/download.svg';
 import ShareIcon from '@/assets/icons/share.svg';
 import {
-  isShareApiSupported,
+  isFileShareApiSupported,
   urlToFile,
   shareDataUrl,
   formatDateTime
@@ -98,8 +97,9 @@ import downloadjs from 'downloadjs';
 export default {
   name: 'FormTemplatePreviewModal',
   data: () => ({
-    imagePreviewBase64: '',
-    loadingPdf: false
+    pdfPreviewBase64: '',
+    loadingPdf: false,
+    isFileShareApiSupported
   }),
   mixins: [noPageScrollbarMixin],
   props: ['tenantSlug', 'templateId'],
@@ -123,25 +123,47 @@ export default {
     previewFlow() {
       this.$router.push({ name: 'PmuSignFlowMock' });
     },
-    shareDataUrl,
-    isShareApiSupported,
     urlToFile,
+    async onClickDownload() {
+      if (!this.pdfPreviewBase64) {
+        await this.downloadFile();
+      }
+
+      if (this.pdfPreviewBase64) {
+        downloadjs(
+          this.pdfPreviewBase64,
+          this.previewFileName,
+          'application/pdf'
+        );
+      }
+    },
+    async onClickShare() {
+      if (!this.pdfPreviewBase64) {
+        await this.downloadFile();
+      }
+      if (this.pdfPreviewBase64) {
+        shareDataUrl({
+          data: this.pdfPreviewBase64,
+          filename: this.previewFileName
+        });
+      }
+    },
     async downloadFile() {
       this.loadingPdf = true;
-      const pdfPreviewBase64 = await this.pmuEmptyPdfPreview({
+      await this.pmuEmptyPdfPreview({
         params: {
           tenantSlug: this.tenantSlug,
           templateId: this.templateId
         }
-      }).catch(error => {
-        console.log(error);
-        alert('Something went wrong in generating PDF preview');
-      });
+      })
+        .then(response => {
+          this.pdfPreviewBase64 = response;
+        })
+        .catch(error => {
+          console.log(error);
+          alert('Something went wrong in generating PDF preview');
+        });
       this.loadingPdf = false;
-
-      if (pdfPreviewBase64) {
-        downloadjs(pdfPreviewBase64, this.previewFileName, 'application/pdf');
-      }
     },
     closeModal() {
       this.$emit('close');
@@ -160,5 +182,8 @@ export default {
 }
 .cta-wrapper {
   transform: translateY(-50%) translateX(28px);
+}
+.has-2-buttons .cta-wrapper {
+  transform: translateY(-50%) translateX(56px);
 }
 </style>

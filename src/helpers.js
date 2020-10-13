@@ -151,11 +151,12 @@ export function urlToFile(jsonfile) {
 
 // https://stackoverflow.com/a/38935990
 function dataUrltoFile(dataurl, filename) {
-  var arr = dataurl.split(','),
-    mime = arr[0].match(/:(.*?);/)[1],
-    bstr = atob(arr[1]),
-    n = bstr.length,
-    u8arr = new Uint8Array(n);
+  const arr = dataurl.split(',');
+  console.log(arr);
+  const mime = arr[0].match(/:(.*?);/)[1];
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
 
   while (n--) {
     u8arr[n] = bstr.charCodeAt(n);
@@ -164,9 +165,9 @@ function dataUrltoFile(dataurl, filename) {
   return new File([u8arr], filename, { type: mime });
 }
 
-export function isShareApiSupported() {
-  return !!window.navigator.share;
-}
+// NOTE: this will return false on non-https addresses
+export const isShareApiSupported = !!window.navigator.share;
+export const isFileShareApiSupported = !!window.navigator.canShare;
 
 // no old share
 export function shareDataUrl({ data, filename }) {
@@ -178,8 +179,7 @@ export function shareDataUrl({ data, filename }) {
 
 // @input jsonfile: {url}
 export function share(jsonfile) {
-  const isFileSharingSupported = !!navigator.canShare;
-  if (!isFileSharingSupported) {
+  if (!isFileShareApiSupported) {
     _shareOld(jsonfile);
     return;
   }
