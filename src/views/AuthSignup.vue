@@ -36,7 +36,7 @@
             v-model.trim="$v.lastName.$model"
             label="Last Name"
             :attrs="{
-              autocomplete: 'last-name',
+              autocomplete: 'family-name',
               name: 'lastname',
               enterkeyhint: 'send'
             }"
@@ -71,7 +71,12 @@
             type="email"
             v-model.trim="$v.email.$model"
             label="Email Address"
-            :attrs="{ autocomplete: 'email', inputmode: 'email' }"
+            :attrs="{
+              autocomplete: 'email',
+              inputmode: 'email',
+              name: 'email',
+              enterkeyhint: 'send'
+            }"
             :validatorModel="$v.email"
             :serverErrors="serverErrors.Email"
           >
@@ -86,11 +91,6 @@
           <MaterialInput
             v-model.trim="$v.userName.$model"
             label="Username"
-            :attrs="{
-              autocomplete: 'username',
-              name: 'username',
-              enterkeyhint: 'send'
-            }"
             :validatorModel="$v.userName"
             :serverErrors="serverErrors.UserName"
           >
@@ -116,6 +116,20 @@
               Password is required
             </p>
           </MaterialInput>
+          <MaterialInput
+            type="password"
+            v-model.trim="$v.repeatPassword.$model"
+            label="Confirm Password"
+            :attrs="{ autocomplete: 'new-password', enterkeyhint: 'send' }"
+            :validatorModel="$v.repeatPassword"
+          >
+            <p v-if="!$v.password.required">
+              Password is required
+            </p>
+            <p class="error" v-else-if="!$v.repeatPassword.sameAsPassword">
+              Passwords must match.
+            </p>
+          </MaterialInput>
         </div>
 
         <p v-if="errorMessage" class="mb-4 text-error tg-body-mobile">
@@ -138,7 +152,13 @@
 
 <script>
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
-import { required, alphaNum, minLength, email } from 'vuelidate/lib/validators';
+import {
+  required,
+  alphaNum,
+  minLength,
+  email,
+  sameAs
+} from 'vuelidate/lib/validators';
 import { mapActions, mapGetters } from 'vuex';
 import { showOverlayAndRedirect, isPhoneNumberValid } from '@/helpers';
 import formGeneralUtils from '@/mixins/formGeneralUtils.js';
@@ -157,7 +177,8 @@ export default {
       email: '',
       userName: '',
       password: '',
-      phoneNumber: ''
+      phoneNumber: '',
+      repeatPassword: ''
     };
   },
   validations: {
@@ -178,6 +199,10 @@ export default {
     },
     password: {
       required
+    },
+    repeatPassword: {
+      required,
+      sameAsPassword: sameAs('password')
     },
     phoneNumber: {
       required,
