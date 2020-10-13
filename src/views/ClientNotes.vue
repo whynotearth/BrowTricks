@@ -11,12 +11,13 @@
     <div class="mb-4 mx-4 " v-else>
       <Button
         class="rounded-full"
+        background="bg-brand2"
         title="Tap For New Note"
         :isRipple="false"
         @clicked="isAddEditActive = true"
       />
 
-      <div class="mt-8 " v-if="clientNotes.length > 0">
+      <div class="mt-4 " v-if="clientNotes.length > 0">
         <div
           @click="selectNote(note)"
           class="bg-surface rounded-lg shadow-8dp p-4 my-4"
@@ -108,9 +109,6 @@ export default {
       }
     },
     deleteNote(note) {
-      if (!confirm('Are you sure?')) {
-        return;
-      }
       this.deleteClientNote({
         clientId: this.clientId,
         tenantSlug: this.tenantSlug,
@@ -122,6 +120,7 @@ export default {
         });
         this.fetchNotes();
         this.isAddEditActive = false;
+        this.selectedNote = null;
       });
     },
     selectNote(note) {
