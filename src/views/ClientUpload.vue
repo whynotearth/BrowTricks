@@ -117,9 +117,7 @@ export default {
     selectedClientId: {
       required
     },
-    description: {
-      required
-    }
+    description: {}
   },
   created() {
     this.setDefaultSelectedClient();
