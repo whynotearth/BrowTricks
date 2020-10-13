@@ -1,6 +1,6 @@
 <template>
   <div
-    class="h-vh100 bg-black bg-opacity-high z-50 fixed w-screen top-0 left-0 flex justify-center items-center"
+    class="h-vh100 bg-black z-50 fixed w-screen top-0 left-0 flex justify-center items-center"
   >
     <div
       class="flex flex-col items-center text-left w-full h-full relative"
@@ -27,9 +27,11 @@
       <!-- caption -->
       <div
         @click.stop=""
-        class="w-full content-gradient pb-14 absolute bottom-0"
+        class="w-full content-gradient pb-16 absolute bottom-0"
       >
-        <div class="py-10 px-4 text-on-background-image text-opacity-high">
+        <div
+          class="pt-10 pb-14 px-4 text-on-background-image text-opacity-high"
+        >
           <h1 class="tg-body-mobile mb-2">
             {{ currentTemplateGet.name }}
           </h1>
@@ -39,41 +41,42 @@
 
       <!-- bottom toolbar -->
       <div
-        class="flex justify-end w-full z-20"
+        class="flex flex-col justify-center w-full z-20 relative"
         @click.stop=""
-        :class="[isFileShareApiSupported && 'has-2-buttons']"
       >
-        <div class="flex flex-col justify-center w-full">
-          <div class="cta-wrapper">
-            <Button
-              title="Preview"
-              class="uppercase"
-              background="bg-primary"
-              textColor="text-on-primary"
-              @clicked="previewFlow"
-            />
-          </div>
+        <div
+          class="cta-wrapper absolute bottom-0 w-full flex items-center h-full"
+        >
+          <Button
+            title="Preview"
+            class="uppercase"
+            background="bg-primary"
+            textColor="text-on-primary"
+            @clicked="previewFlow"
+          />
         </div>
 
-        <!-- share -->
-        <a
-          v-if="isFileShareApiSupported"
-          @click.stop="onClickShare"
-          class="cursor-pointer p-4"
-          title="Share"
-        >
-          <ShareIcon class="text-white w-6 h-6" />
-        </a>
+        <div class="w-full flex justify-end relative z-10">
+          <!-- share -->
+          <a
+            v-if="isFileShareApiSupported"
+            @click.stop="onClickShare"
+            class="cursor-pointer p-4"
+            title="Share"
+          >
+            <ShareIcon class="text-white w-6 h-6" />
+          </a>
 
-        <!-- download -->
-        <a
-          @click.stop="onClickDownload"
-          class="cursor-pointer p-4"
-          :class="[loadingPdf ? 'pointer-events-none' : '']"
-          title="Download"
-        >
-          <DownloadIcon class="text-white w-6 h-6" />
-        </a>
+          <!-- download -->
+          <a
+            @click.stop="onClickDownload"
+            class="cursor-pointer p-4"
+            :class="[loadingPdf ? 'pointer-events-none' : '']"
+            title="Download"
+          >
+            <DownloadIcon class="text-white w-6 h-6" />
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -181,9 +184,6 @@ export default {
   background: linear-gradient(180deg, transparent 0%, #000000 93.85%);
 }
 .cta-wrapper {
-  transform: translateY(-50%) translateX(28px);
-}
-.has-2-buttons .cta-wrapper {
-  transform: translateY(-50%) translateX(56px);
+  transform: translateY(-100%);
 }
 </style>
