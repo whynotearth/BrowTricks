@@ -29,6 +29,7 @@
 
     <div class="px-4 md:px-0">
       <Button
+        v-if="shouldShowPreviewButton"
         type="button"
         class="uppercase mb-6"
         @clicked="isPreviewModalOpen = true"
@@ -202,6 +203,9 @@ export default {
   }),
   computed: {
     ...mapGetters('formTemplate', ['currentTemplateGet']),
+    shouldShowPreviewButton() {
+      return get(this.currentTemplateGet, 'items.length', 0) > 0;
+    },
     templateId() {
       return this.$route.params.formId;
     }
