@@ -190,12 +190,14 @@ export default {
       }
 
       const media = this.uploadedFilesGet[0];
+      /* eslint-disable */
       const method =
         media.resourceType === 'image'
           ? this.imageAdd
           : media.resourceType === 'video'
           ? this.videoAdd
           : null;
+      /* eslint-enable */
 
       if (!method) {
         console.log('Unknown media type.');
@@ -212,12 +214,17 @@ export default {
         }
       })
         .then(() => {
+          /* eslint-disable */
+          const route = this.selectedClientId
+            ? {
+                name: 'ClientInfo',
+                params: { clientId: this.selectedClientId }
+              }
+            : { name: 'MyAccount' };
+          /* eslint-enable */
           showOverlayAndRedirect({
             title: 'Success!',
-            route: {
-              name: 'ClientInfo',
-              params: { clientId: this.selectedClientId }
-            }
+            route
           });
         })
         .catch(error => {
