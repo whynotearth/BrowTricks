@@ -1,4 +1,4 @@
-# browtricks
+# Browtricks
 
 # Staging URL
 https://staging.browtricksbeauty.com/
@@ -23,9 +23,10 @@ yarn build
 yarn lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-
 ## License
 
 Licensed under the [GNU Affero General Public License v3.0](LICENSE).
+
+## Tools
+
+[<img src="https://raw.githubusercontent.com/whynotearth/shinta-mani-wild/master/src/assets/img/browserstack-logo.png">](https://browserstack.com)
