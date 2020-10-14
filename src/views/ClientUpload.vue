@@ -95,7 +95,6 @@ import PageContentBoard from '@/components/PageContentBoard';
 import BaseImagePreview from '@/components/uploader/BaseImagePreview';
 import BaseVideoPreview from '@/components/uploader/BaseVideoPreview';
 import BaseChip from '@/components/BaseChip';
-import { required } from 'vuelidate/lib/validators';
 import IconUser from '@/assets/icons/person.svg';
 import IconCheck from '@/assets/icons/check.svg';
 import { mapGetters, mapActions } from 'vuex';
@@ -114,9 +113,7 @@ export default {
     selectedClientId: null
   }),
   validations: {
-    selectedClientId: {
-      required
-    },
+    selectedClientId: {},
     description: {}
   },
   created() {
@@ -192,7 +189,6 @@ export default {
         return;
       }
 
-      const client = await this._fetchClient(this.selectedClientId);
       const media = this.uploadedFilesGet[0];
       const method =
         media.resourceType === 'image'
@@ -209,7 +205,7 @@ export default {
         params: {
           tenantSlug: this.tenantSlug,
           body: {
-            clientId: client.id,
+            clientId: this.selectedClientId,
             [media.resourceType]: media,
             description: this.description
           }
@@ -218,7 +214,10 @@ export default {
         .then(() => {
           showOverlayAndRedirect({
             title: 'Success!',
-            route: { name: 'ClientInfo', params: { clientId: client.id } }
+            route: {
+              name: 'ClientInfo',
+              params: { clientId: this.selectedClientId }
+            }
           });
         })
         .catch(error => {
