@@ -20,27 +20,40 @@
 
           <div>
             <!-- chips -->
-            <a
-              @click.prevent="isOpenClientSelect = true"
-              class="cursor-pointer"
-              tabindex="0"
-              aria-label="Select client"
-              title="Select client"
-            >
-              <BaseChip>
-                <template #icon>
-                  <IconCheck
-                    v-if="selectedClientId"
-                    class="fill-current text-on-surface w-3 h-3"
-                  />
-                  <IconUser
-                    v-else
-                    class="fill-current text-on-surface w-3 h-3"
-                  />
-                </template>
-                Client
-              </BaseChip>
-            </a>
+            <div class="flex items-center">
+              <a
+                @click.prevent="isOpenClientSelect = true"
+                class="cursor-pointer"
+                tabindex="0"
+                aria-label="Select client"
+                title="Select client"
+              >
+                <BaseChip>
+                  <template #icon>
+                    <IconCheck
+                      v-if="selectedClientId"
+                      class="fill-current text-on-surface w-3 h-3"
+                    />
+                    <IconUser
+                      v-else
+                      class="fill-current text-on-surface w-3 h-3"
+                    />
+                  </template>
+                  Client
+                </BaseChip>
+              </a>
+
+              <a
+                tabindex="0"
+                v-if="selectedClientId"
+                title="Deselect Client"
+                aria-label="Deselect Client"
+                class="cursor-pointer select-none p-2 ml-4"
+                @click="onDeselectClient"
+                ><IconClose class="w-4 h-4"></IconClose
+              ></a>
+            </div>
+
             <p
               v-if="$v.selectedClientId.$error"
               class="text-error tg-body-mobile mt-2"
@@ -95,9 +108,9 @@ import PageContentBoard from '@/components/PageContentBoard';
 import BaseImagePreview from '@/components/uploader/BaseImagePreview';
 import BaseVideoPreview from '@/components/uploader/BaseVideoPreview';
 import BaseChip from '@/components/BaseChip';
-import { required } from 'vuelidate/lib/validators';
 import IconUser from '@/assets/icons/person.svg';
 import IconCheck from '@/assets/icons/check.svg';
+import IconClose from '@/assets/icons/close.svg';
 import { mapGetters, mapActions } from 'vuex';
 import {
   share,
@@ -105,21 +118,19 @@ import {
   getCloudinaryThumbnail
 } from '@/helpers.js';
 
+const clientTagRegex = /\s*@[\w]+-[\w]+\s*/g;
+
 export default {
   name: 'ClientUpload',
   data: () => ({
     isOpenClientSelect: false,
     description: '',
     file: null,
-    selectedClientId: null
+    selectedClientId: undefined
   }),
   validations: {
-    selectedClientId: {
-      required
-    },
-    description: {
-      required
-    }
+    selectedClientId: {},
+    description: {}
   },
   created() {
     this.setDefaultSelectedClient();
@@ -134,6 +145,7 @@ export default {
     PageContentBoard,
     ClientSelectOverlay,
     IconUser,
+    IconClose,
     IconCheck,
     BaseChip,
     BaseImagePreview,
@@ -175,18 +187,28 @@ export default {
         console.log('Could not get client info.');
       });
     },
+    replaceClientTag(text, client) {
+      const found = text.match(clientTagRegex);
+      let newTag = ' ';
+      if (client) {
+        newTag = ` @${client.firstName}-${client.lastName} `;
+      }
+
+      let result = text;
+      if (found) {
+        result = text.trim().replace(clientTagRegex, `${newTag}`);
+      } else {
+        result = text.trim() + `${newTag}`;
+      }
+      return result.trim();
+    },
+    onDeselectClient() {
+      this.selectedClientId = undefined;
+      this.description = this.replaceClientTag(this.description, undefined);
+    },
     onSelectClient(client) {
       this.selectedClientId = client.id;
-      const regex = /@[A-Za-z0-9.\s]+-[A-Za-z0-9.\s]+\s/g;
-      const found = this.description.match(regex);
-      if (found) {
-        this.description = this.description.replace(
-          regex,
-          `@${client.firstName}-${client.lastName} `
-        );
-      } else {
-        this.description += `@${client.firstName}-${client.lastName} `;
-      }
+      this.description = this.replaceClientTag(this.description, client);
     },
     async submit() {
       this.$v.$touch();
@@ -194,14 +216,15 @@ export default {
         return;
       }
 
-      const client = await this._fetchClient(this.selectedClientId);
       const media = this.uploadedFilesGet[0];
+      /* eslint-disable */
       const method =
         media.resourceType === 'image'
           ? this.imageAdd
           : media.resourceType === 'video'
           ? this.videoAdd
           : null;
+      /* eslint-enable */
 
       if (!method) {
         console.log('Unknown media type.');
@@ -211,16 +234,24 @@ export default {
         params: {
           tenantSlug: this.tenantSlug,
           body: {
-            clientId: client.id,
+            clientId: this.selectedClientId,
             [media.resourceType]: media,
             description: this.description
           }
         }
       })
         .then(() => {
+          /* eslint-disable */
+          const route = this.selectedClientId
+            ? {
+                name: 'ClientInfo',
+                params: { clientId: this.selectedClientId }
+              }
+            : { name: 'MyAccount' };
+          /* eslint-enable */
           showOverlayAndRedirect({
             title: 'Success!',
-            route: { name: 'ClientInfo', params: { clientId: client.id } }
+            route
           });
         })
         .catch(error => {
