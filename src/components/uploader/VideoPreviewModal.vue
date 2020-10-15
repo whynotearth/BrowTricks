@@ -55,7 +55,12 @@ import Close from '@/assets/icons/close.svg';
 import DeleteIcon from '@/assets/icons/delete.svg';
 import DownloadIcon from '@/assets/icons/download.svg';
 import ShareIcon from '@/assets/icons/share.svg';
-import { transformCloudinaryUrl, urlToFile, share } from '@/helpers.js';
+import {
+  transformCloudinaryUrl,
+  urlToFile,
+  share,
+  isShareApiSupported
+} from '@/helpers.js';
 import noPageScrollbarMixin from '@/utils/noPageScrollbarMixin.js';
 
 export default {
@@ -63,11 +68,9 @@ export default {
   mixins: [noPageScrollbarMixin],
   props: ['file'],
   components: { Close, DeleteIcon, DownloadIcon, ShareIcon },
-  computed: {
-    isShareApiSupported() {
-      return !!window.navigator.share;
-    }
-  },
+  data: () => ({
+    isShareApiSupported
+  }),
   methods: {
     transformCloudinaryUrl,
     urlToFile,
