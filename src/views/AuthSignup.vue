@@ -11,6 +11,14 @@
     <div
       class="flex flex-col items-center flex-grow w-full px-4 py-8 bg-surface rounded-t-xl"
     >
+      <AuthButtons></AuthButtons>
+
+      <div class="flex items-center justify-center w-full py-8">
+        <hr class="flex-grow" />
+        <span class="px-1">OR</span>
+        <hr class="flex-grow" />
+      </div>
+
       <form
         @submit.prevent="submit"
         novalidate
@@ -159,15 +167,17 @@ import {
   email,
   sameAs
 } from 'vuelidate/lib/validators';
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 import { showOverlayAndRedirect, isPhoneNumberValid } from '@/helpers';
 import formGeneralUtils from '@/mixins/formGeneralUtils.js';
+import AuthButtons from '@/components/auth/AuthButtons';
 
 export default {
   name: 'AuthSignup',
   // NOTE: we use a mixin
   mixins: [formGeneralUtils],
   components: {
+    AuthButtons,
     MaterialInput
   },
   data() {
@@ -209,19 +219,8 @@ export default {
       isPhoneNumberValid
     }
   },
-  created() {
-    if (this.isAuthenticated && !this.isPhoneNumberConfirmedGet) {
-      this.goAccountEdit();
-    }
-  },
-  computed: {
-    ...mapGetters('auth', ['isAuthenticated', 'isPhoneNumberConfirmedGet'])
-  },
   methods: {
     ...mapActions('auth', ['register']),
-    goAccountEdit() {
-      this.$router.push({ name: 'AuthSignupEdit' });
-    },
     submit() {
       if (!this.beforeSubmit()) {
         return;

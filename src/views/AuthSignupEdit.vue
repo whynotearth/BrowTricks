@@ -67,11 +67,16 @@
               Please enter a valid phone number
             </p>
           </MaterialInput>
-          <!-- <MaterialInput
+          <MaterialInput
             type="email"
             v-model.trim="$v.email.$model"
             label="Email Address"
-            :attrs="{ autocomplete: 'email', inputmode: 'email' }"
+            :attrs="{
+              autocomplete: 'email',
+              inputmode: 'email',
+              name: 'email',
+              enterkeyhint: 'send'
+            }"
             :validatorModel="$v.email"
             :serverErrors="serverErrors.Email"
           >
@@ -81,7 +86,7 @@
             <p v-else-if="!$v.email.email">
               Please enter an email address
             </p>
-          </MaterialInput> -->
+          </MaterialInput>
         </div>
 
         <p v-if="errorMessage" class="mb-4 text-error tg-body-mobile">
@@ -104,7 +109,7 @@
 
 <script>
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
-import { required } from 'vuelidate/lib/validators';
+import { required, email } from 'vuelidate/lib/validators';
 import { mapActions } from 'vuex';
 import { showOverlayAndRedirect, isPhoneNumberValid } from '@/helpers';
 import formGeneralUtils from '@/mixins/formGeneralUtils.js';
@@ -120,7 +125,8 @@ export default {
     return {
       firstName: '',
       lastName: '',
-      phoneNumber: ''
+      phoneNumber: '',
+      email: ''
     };
   },
   validations: {
@@ -133,20 +139,26 @@ export default {
     phoneNumber: {
       required,
       isPhoneNumberValid
+    },
+    email: {
+      required,
+      email
     }
   },
   created() {
     this._profileFetch();
   },
   methods: {
-    ...mapActions('auth', ['register', 'profileUpdate', 'profileFetch']),
+    ...mapActions('auth', ['register']),
+    ...mapActions('profile', ['profileFetch', 'profileUpdate']),
     async _profileFetch() {
       this.loadingUpdate(true);
       await this.profileFetch()
-        .then(({ phoneNumber, firstName, lastName }) => {
+        .then(({ phoneNumber, firstName, lastName, email }) => {
           this.phoneNumber = phoneNumber;
           this.firstName = firstName;
           this.lastName = lastName;
+          this.email = email;
         })
         .catch(() => {
           console.log('Error in get profile');
@@ -163,7 +175,8 @@ export default {
           body: {
             firstName: this.firstName,
             lastName: this.lastName,
-            phoneNumber: this.phoneNumber
+            phoneNumber: this.phoneNumber,
+            email: this.email
           }
         }
       })
@@ -173,7 +186,7 @@ export default {
     onSuccess() {
       showOverlayAndRedirect({
         title: 'Success!',
-        route: { name: 'AuthNumberVerify' }
+        route: { name: 'PanelRedirector' }
       });
     }
   }

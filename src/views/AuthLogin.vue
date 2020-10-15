@@ -11,13 +11,13 @@
     <div
       class="flex flex-col items-center flex-grow w-full px-4 py-8 bg-surface rounded-t-xl"
     >
-      <!-- <AuthButtons></AuthButtons>
+      <AuthButtons></AuthButtons>
 
       <div class="flex items-center justify-center w-full py-8">
         <hr class="flex-grow" />
         <span class="px-1">OR</span>
         <hr class="flex-grow" />
-      </div> -->
+      </div>
 
       <form
         @submit.prevent="submit"
@@ -96,7 +96,7 @@
 
 <script>
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
-// import AuthButtons from '@/components/auth/AuthButtons';
+import AuthButtons from '@/components/auth/AuthButtons';
 import formGeneralUtils from '@/mixins/formGeneralUtils.js';
 import { required } from 'vuelidate/lib/validators';
 import { mapActions } from 'vuex';
@@ -107,7 +107,7 @@ export default {
   // NOTE: we use a mixin
   mixins: [formGeneralUtils],
   components: {
-    // AuthButtons,
+    AuthButtons,
     MaterialInput
   },
   data() {
