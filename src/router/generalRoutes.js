@@ -124,7 +124,7 @@ export const generalRoutes = [
       layout: AppBarCardLayout,
       appBar: {
         backRoute: { name: 'PanelRedirector' },
-        title: 'Edit Profile'
+        title: 'Edit Account'
       }
     }
   },

@@ -8,10 +8,12 @@
         <span class="font-bold">{{ $route.params.email }} </span>. Please check
         your email and follow the password recovery instructions to continue.
       </p>
-      <img
-        class="my-6 max-w-sm select-none"
-        src="https://res.cloudinary.com/whynotearth/image/upload/v1601899012/BrowTricks/static_v2/auth-forgot-step2_md5jqb.png"
-      />
+      <div class="max-w-sm">
+        <img
+          class="my-6 select-none"
+          src="https://res.cloudinary.com/whynotearth/image/upload/v1601899012/BrowTricks/static_v2/auth-forgot-step2_md5jqb.png"
+        />
+      </div>
       <Button
         title="Back To Login"
         class="mb-6"
