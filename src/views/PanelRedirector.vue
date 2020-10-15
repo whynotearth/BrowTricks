@@ -71,6 +71,11 @@ export default {
         return;
       }
 
+      if (!this.isProfileComplete) {
+        this.goSignupEdit();
+        return;
+      }
+
       this.loadingUpdate(true);
       await this.handleTenantRedirect();
       this.loadingUpdate(false);
@@ -88,9 +93,13 @@ export default {
       this.loadingUpdate(false);
     },
 
-    isSignupFinished() {
-      const user = {}; // todo: get real data
-      return user.firstName && user.lastName;
+    isProfileComplete() {
+      return (
+        this.profile.firstName &&
+        this.profile.lastName &&
+        this.profile.phoneNumber &&
+        this.profile.email
+      );
     },
     handleTenantRedirect() {
       return this.fetchUserTenants()
@@ -110,7 +119,7 @@ export default {
         this.goTenantSignup();
         return;
       }
-      this.onDetectTenant(selectedTenant);
+      this.goTenantHome(selectedTenant);
     },
     goTenantSignup() {
       this.$router.replace({
@@ -118,13 +127,15 @@ export default {
         params: { step: 'business-info' }
       });
     },
-    async onDetectTenant(tenant) {
-      this.goTenantHome(tenant);
-    },
     goTenantHome(tenant) {
       this.$router.replace({
         name: 'TenantHome',
         params: { tenantSlug: tenant.slug }
+      });
+    },
+    goSignupEdit() {
+      this.$router.replace({
+        name: 'AuthSignupEdit'
       });
     },
     goEmailVerification() {

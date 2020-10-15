@@ -112,6 +112,7 @@
               Should be alphanumeric
             </p>
           </MaterialInput>
+
           <MaterialInput
             type="password"
             v-model.trim="$v.password.$model"

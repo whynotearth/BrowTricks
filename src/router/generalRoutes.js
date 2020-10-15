@@ -12,6 +12,20 @@ export const generalRoutes = [
     }
   },
   {
+    path: '/wait',
+    name: 'PanelRedirector',
+    props: true,
+    component: () => import('@/views/PanelRedirector.vue'),
+    meta: {
+      pageBackground: 'bg-background',
+      layout: AppBarCardLayout,
+      noNavigation: true,
+      appBar: {
+        title: 'Please wait...'
+      }
+    }
+  },
+  {
     path: '/logout',
     name: 'AuthLogout',
     component: () => import('@/views/AuthLogout.vue'),
@@ -110,7 +124,7 @@ export const generalRoutes = [
       layout: AppBarCardLayout,
       appBar: {
         backRoute: { name: 'PanelRedirector' },
-        title: 'Edit Account'
+        title: 'Edit Profile'
       }
     }
   },
