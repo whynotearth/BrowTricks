@@ -113,7 +113,7 @@ export default {
       return this.$route.query.username;
     },
     token() {
-      return this.$route.query.token;
+      return this.$route.query.forgot_password_token;
     },
     email() {
       return this.$route.query.email;

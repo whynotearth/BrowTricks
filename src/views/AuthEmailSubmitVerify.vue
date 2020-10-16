@@ -22,9 +22,8 @@ export default {
   methods: {
     ...mapActions('loading', ['loadingUpdate']),
     ...mapActions('auth', ['submitVerifyEmail']),
-    ...mapActions('profile', ['profileFetch']),
     async init() {
-      const token = this.$route.query.token;
+      const token = this.$route.query.email_confirm_token;
       if (!token) {
         alert('Url is invalid.');
         return;
@@ -42,18 +41,27 @@ export default {
         .then(this.onSuccess)
         .catch(error => {
           console.log('error', error.response);
-          this.errorMessage = get(
-            error,
-            'response.data[0].description',
-            'Something went wrong'
-          );
+
+          const status = get(error, 'response.status', null);
+          if (status === 401) {
+            this.errorMessage = 'Please login before verifying your email.';
+          } else {
+            this.errorMessage = get(
+              error,
+              'response.data[0].description',
+              'Something went wrong'
+            );
+          }
         });
     },
     onSuccess() {
       showOverlayAndRedirect({
         timeout: 2500,
         title: 'Success!',
-        route: { name: 'PanelRedirector' },
+        route: {
+          name: 'PanelRedirector',
+          query: { needsPing: 1 }
+        },
         message: 'Your email verified'
       });
     }

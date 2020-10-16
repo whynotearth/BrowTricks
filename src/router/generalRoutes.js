@@ -164,6 +164,7 @@ export const generalRoutes = [
     component: () => import('@/views/AuthEmailSubmitVerify.vue'),
     props: true,
     meta: {
+      isPublic: true,
       pageBackground: 'bg-background',
       noNavigation: true,
       layout: AppBarCardLayout,

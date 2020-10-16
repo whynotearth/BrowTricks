@@ -38,7 +38,11 @@ export default {
   computed: {
     ...mapGetters('auth', ['isAuthenticated'])
   },
-  created() {
+  async created() {
+    if (this.$route.query.needsPing) {
+      await this.ping();
+    }
+
     const gotToken = this.setTokenFromUrl();
     if (!(gotToken || this.isAuthenticated)) {
       alert('Authentication problem occured.');
@@ -49,7 +53,7 @@ export default {
   methods: {
     ...mapActions('global', ['isDrawerOpenAuthUpdate']),
     ...mapActions('tenant', ['fetchUserTenants']),
-    ...mapActions('auth', ['updateToken']),
+    ...mapActions('auth', ['updateToken', 'ping']),
     ...mapActions('profile', ['profileFetch']),
     ...mapActions('loading', ['loadingUpdate']),
     async init() {
