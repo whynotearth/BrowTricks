@@ -59,8 +59,7 @@ export default {
         timeout: 2500,
         title: 'Success!',
         route: {
-          name: 'PanelRedirector',
-          query: { needsPing: 1 }
+          name: 'PanelRedirector'
         },
         message: 'Your email verified'
       });

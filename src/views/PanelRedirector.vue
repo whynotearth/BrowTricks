@@ -39,13 +39,14 @@ export default {
     ...mapGetters('auth', ['isAuthenticated'])
   },
   async created() {
-    if (this.$route.query.needsPing) {
-      await this.ping();
-    }
-
     const gotToken = this.setTokenFromUrl();
-    if (!(gotToken || this.isAuthenticated)) {
-      alert('Authentication problem occured.');
+
+    await this.ping().catch(() => {
+      console.log('Ping failed');
+    });
+    if (!gotToken && !this.isAuthenticated) {
+      console.log('!token !authenticated');
+      this.goLogin();
       return;
     }
     this.init();
@@ -152,6 +153,11 @@ export default {
     goNumberVerification() {
       this.$router.replace({
         name: 'AuthNumberVerify'
+      });
+    },
+    goLogin() {
+      this.$router.replace({
+        name: 'AuthLogin'
       });
     },
     setTokenFromUrl() {
