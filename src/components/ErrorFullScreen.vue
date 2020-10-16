@@ -5,7 +5,7 @@
   >
     <BaseCard className="w-full justify-center">
       <div class="flex flex-col">
-        <div class="text-error tg-body-mobile mb-6">
+        <div class="text-error tg-body-mobile mb-6 text-center">
           <slot />
         </div>
 

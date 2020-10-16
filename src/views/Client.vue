@@ -36,7 +36,8 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('loading', ['loadingGet'])
+    ...mapGetters('loading', ['loadingGet']),
+    ...mapGetters('auth', ['isAuthenticated'])
   },
   async created() {
     this.errorMessage = '';
@@ -53,11 +54,16 @@ export default {
         return;
       }
       return this.tokenlogin({ params: { body: { token } } }).catch(error => {
-        this.errorMessage = get(
-          error,
-          'response.data.error',
-          'This link is not valid.'
-        );
+        const status = get(error, 'response.status', null);
+        const shouldCare = status === 401 && !this.isAuthenticated;
+        console.log('Invalid login token');
+        if (shouldCare) {
+          this.errorMessage = get(
+            error,
+            'response.data.error',
+            'This link is not valid.'
+          );
+        }
       });
     },
     async _fetchClient() {
@@ -71,8 +77,17 @@ export default {
         .then(data => {
           this.client = data;
         })
-        .catch(() => {
+        .catch(error => {
           console.log('Error in getting client');
+          const status = get(error, 'response.status', null);
+          if (!this.errorMessage) {
+            if (status === 401) {
+              this.errorMessage = 'Sorry, this link is not valid.';
+            } else {
+              this.errorMessage =
+                'Could not get client data. If problem persisted please contact chris@whynot.earth';
+            }
+          }
         })
         .finally(() => {
           this.loadingUpdate(false);
