@@ -286,14 +286,18 @@ export function formatDateTime(
   }
 
   // Fix DotNet backward compatibility of not including 'Z' at the end of UTC date
-  let _dateString = dateString;
-  if (_dateString.charAt(_dateString.length - 1) !== 'Z') {
-    _dateString = `${_dateString}Z`;
-  }
+  let _dateString = fixApiDateString(dateString);
 
   const dateObject = new Date(_dateString);
   const dateObjectZoned = utcToZonedTime(dateObject, timeZone);
   return format(dateObjectZoned, dateFormat);
+}
+
+// Fix not having Z at the end of dateStrings in API
+export function fixApiDateString(dateString) {
+  if (dateString.charAt(dateString.length - 1) !== 'Z') {
+    return `${dateString}Z`;
+  }
 }
 
 function _getUserTimeZone() {
