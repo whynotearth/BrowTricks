@@ -59,6 +59,12 @@ export default {
         return;
       }
 
+      if (!this.isProfileComplete()) {
+        console.log('!isProfileComplete');
+        this.goSignupEdit();
+        return;
+      }
+
       if (!this.profile.isEmailConfirmed) {
         console.log('!isEmailConfirmed...');
         this.goEmailVerification();
@@ -68,11 +74,6 @@ export default {
       if (!this.profile.isPhoneNumberConfirmed) {
         console.log('!isEmailConfirmed...');
         this.goNumberVerification();
-        return;
-      }
-
-      if (!this.isProfileComplete) {
-        this.goSignupEdit();
         return;
       }
 
