@@ -67,11 +67,17 @@
               Please enter a valid phone number
             </p>
           </MaterialInput>
-          <!-- <MaterialInput
+
+          <MaterialInput
             type="email"
             v-model.trim="$v.email.$model"
             label="Email Address"
-            :attrs="{ autocomplete: 'email', inputmode: 'email' }"
+            :attrs="{
+              autocomplete: 'email',
+              inputmode: 'email',
+              name: 'email',
+              enterkeyhint: 'send'
+            }"
             :validatorModel="$v.email"
             :serverErrors="serverErrors.Email"
           >
@@ -81,7 +87,24 @@
             <p v-else-if="!$v.email.email">
               Please enter an email address
             </p>
-          </MaterialInput> -->
+          </MaterialInput>
+
+          <MaterialInput
+            v-model.trim="$v.userName.$model"
+            label="Username"
+            :validatorModel="$v.userName"
+            :serverErrors="serverErrors.UserName"
+          >
+            <p v-if="!$v.userName.required">
+              Username is required
+            </p>
+            <p v-if="!$v.userName.minLength">
+              Should be at least 5 characters
+            </p>
+            <p v-else-if="!$v.userName.alphaNum">
+              Should be alphanumeric
+            </p>
+          </MaterialInput>
         </div>
 
         <p v-if="errorMessage" class="mb-4 text-error tg-body-mobile">
@@ -104,10 +127,11 @@
 
 <script>
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
-import { required } from 'vuelidate/lib/validators';
+import { required, email, minLength, alphaNum } from 'vuelidate/lib/validators';
 import { mapActions } from 'vuex';
 import { showOverlayAndRedirect, isPhoneNumberValid } from '@/helpers';
 import formGeneralUtils from '@/mixins/formGeneralUtils.js';
+// import { get } from 'lodash-es';
 
 export default {
   name: 'AuthSignupEdit',
@@ -118,9 +142,13 @@ export default {
   },
   data() {
     return {
+      profile: null,
+
       firstName: '',
       lastName: '',
-      phoneNumber: ''
+      phoneNumber: '',
+      email: '',
+      userName: ''
     };
   },
   validations: {
@@ -133,20 +161,35 @@ export default {
     phoneNumber: {
       required,
       isPhoneNumberValid
+    },
+    email: {
+      required,
+      email
+    },
+    userName: {
+      required,
+      alphaNum,
+      minLength: minLength(5)
     }
   },
   created() {
     this._profileFetch();
   },
   methods: {
-    ...mapActions('auth', ['register', 'profileUpdate', 'profileFetch']),
+    ...mapActions('auth', ['register']),
+    ...mapActions('profile', ['profileFetch', 'profileUpdate']),
     async _profileFetch() {
       this.loadingUpdate(true);
       await this.profileFetch()
-        .then(({ phoneNumber, firstName, lastName }) => {
-          this.phoneNumber = phoneNumber;
-          this.firstName = firstName;
-          this.lastName = lastName;
+        .then(profile => {
+          this.profile = profile;
+
+          this.phoneNumber = this.profile.phoneNumber;
+          this.firstName = this.profile.firstName;
+          this.lastName = this.profile.lastName;
+          this.email = this.profile.email;
+          // this.userName = get(this.profile, 'userName', '').split('@')[0];
+          this.userName = this.profile.userName;
         })
         .catch(() => {
           console.log('Error in get profile');
@@ -163,7 +206,9 @@ export default {
           body: {
             firstName: this.firstName,
             lastName: this.lastName,
-            phoneNumber: this.phoneNumber
+            phoneNumber: this.phoneNumber,
+            email: this.email,
+            userName: this.userName
           }
         }
       })
@@ -173,7 +218,7 @@ export default {
     onSuccess() {
       showOverlayAndRedirect({
         title: 'Success!',
-        route: { name: 'AuthNumberVerify' }
+        route: { name: 'PanelRedirector' }
       });
     }
   }

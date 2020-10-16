@@ -3,19 +3,46 @@
 </template>
 
 <script>
+/**
+
+Signup:
+  Google Auth, then:
+    firstname, lastname, phone, username => continueToApp
+  Standard:
+    firstname, lastname, phone, email, username, password => continueToApp
+
+Login:
+  Google Auth, then:
+    is user: => continueToApp
+    is not user => Signup.Google
+  Standard:
+    username/email, password => continueToApp
+
+Forgot password:
+  email/username
+
+continueToApp = verify email? => verify phone? => create tenant? => dashboard
+
+ */
+
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'PanelRedirector',
   data() {
     return {
-      tenants: []
+      tenants: [],
+      profile: null
     };
   },
   computed: {
-    ...mapGetters('auth', ['isAuthenticated', 'isPhoneNumberConfirmedGet'])
+    ...mapGetters('auth', ['isAuthenticated'])
   },
-  created() {
+  async created() {
+    if (this.$route.query.needsPing) {
+      await this.ping();
+    }
+
     const gotToken = this.setTokenFromUrl();
     if (!(gotToken || this.isAuthenticated)) {
       alert('Authentication problem occured.');
@@ -26,10 +53,30 @@ export default {
   methods: {
     ...mapActions('global', ['isDrawerOpenAuthUpdate']),
     ...mapActions('tenant', ['fetchUserTenants']),
-    ...mapActions('auth', ['updateToken']),
+    ...mapActions('auth', ['updateToken', 'ping']),
+    ...mapActions('profile', ['profileFetch']),
     ...mapActions('loading', ['loadingUpdate']),
     async init() {
-      if (!this.isPhoneNumberConfirmedGet) {
+      await this._profileFetch();
+      if (!this.profile) {
+        alert('Something went wrong. Refreshing page may fix the issue.');
+        return;
+      }
+
+      if (!this.isProfileComplete()) {
+        console.log('!isProfileComplete');
+        this.goSignupEdit();
+        return;
+      }
+
+      if (!this.profile.isEmailConfirmed) {
+        console.log('!isEmailConfirmed...');
+        this.goEmailVerification();
+        return;
+      }
+
+      if (!this.profile.isPhoneNumberConfirmed) {
+        console.log('!isEmailConfirmed...');
         this.goNumberVerification();
         return;
       }
@@ -37,6 +84,27 @@ export default {
       this.loadingUpdate(true);
       await this.handleTenantRedirect();
       this.loadingUpdate(false);
+    },
+
+    async _profileFetch() {
+      this.loadingUpdate(true);
+      await this.profileFetch()
+        .then(response => {
+          this.profile = response;
+        })
+        .catch(() => {
+          console.log('Error in get profile');
+        });
+      this.loadingUpdate(false);
+    },
+
+    isProfileComplete() {
+      return (
+        this.profile.firstName &&
+        this.profile.lastName &&
+        this.profile.phoneNumber &&
+        this.profile.email
+      );
     },
     handleTenantRedirect() {
       return this.fetchUserTenants()
@@ -56,7 +124,7 @@ export default {
         this.goTenantSignup();
         return;
       }
-      this.onDetectTenant(selectedTenant);
+      this.goTenantHome(selectedTenant);
     },
     goTenantSignup() {
       this.$router.replace({
@@ -64,13 +132,21 @@ export default {
         params: { step: 'business-info' }
       });
     },
-    async onDetectTenant(tenant) {
-      this.goTenantHome(tenant);
-    },
     goTenantHome(tenant) {
       this.$router.replace({
         name: 'TenantHome',
         params: { tenantSlug: tenant.slug }
+      });
+    },
+    goSignupEdit() {
+      this.$router.replace({
+        name: 'AuthSignupEdit'
+      });
+    },
+    goEmailVerification() {
+      this.$router.replace({
+        name: 'AuthEmailVerify',
+        query: { email: this.profile.email }
       });
     },
     goNumberVerification() {

@@ -1,16 +1,11 @@
 import { ajax } from '@/services/ajax.js';
 import { getAPIURL } from '@/helpers';
-import {
-  AuthenticationService,
-  ProfileService
-} from '@whynotearth/meredith-axios';
+import { AuthenticationService } from '@whynotearth/meredith-axios';
 
 const state = {
   provider: '',
   returnURL: '',
-  token: '',
-  userName: '',
-  isPhoneNumberConfirmed: null
+  token: ''
 };
 
 const getters = {
@@ -21,12 +16,6 @@ const getters = {
   },
   isAuthenticated(state) {
     return Boolean(state.userName);
-  },
-  userName(state) {
-    return state.userName;
-  },
-  isPhoneNumberConfirmedGet(state) {
-    return state.isPhoneNumberConfirmed;
   }
 };
 
@@ -48,12 +37,6 @@ const actions = {
           reject(error);
         });
     });
-  },
-  profileFetch() {
-    return ProfileService.profile();
-  },
-  profileUpdate(context, { params }) {
-    return ProfileService.profile1(params);
   },
   async loginStandard({ dispatch }, { params }) {
     return AuthenticationService.login(params)
@@ -80,10 +63,6 @@ const actions = {
         .then(response => {
           commit('updateProvider', response.loginProviders[0]);
           commit('updateUserName', response.userName);
-          commit(
-            'isPhoneNumberConfirmedUpdate',
-            response.isPhoneNumberConfirmed
-          );
           dispatch('updateToken', state.token);
           resolve(response);
         })
@@ -118,6 +97,7 @@ const actions = {
       delete ajax.defaults.headers.common['Authorization'];
     }
   },
+  // sms verification
   requestVerifyCode() {
     let companySlug = process.env.VUE_APP_COMPANY_SLUG;
     const params = {
@@ -125,10 +105,14 @@ const actions = {
     };
     return AuthenticationService.confirmphonetoken(params);
   },
-  submitVerifyCode({ commit }, { params }) {
-    return AuthenticationService.confirmphone(params).then(() => {
-      commit('isPhoneNumberConfirmedUpdate', true);
-    });
+  requestVerifyEmail(context, { params }) {
+    return AuthenticationService.confirmemailtoken(params);
+  },
+  submitVerifyCode(context, { params }) {
+    return AuthenticationService.confirmphone(params);
+  },
+  submitVerifyEmail(context, { params }) {
+    return AuthenticationService.confirmemail(params);
   },
   forgotPassword(context, { params }) {
     return AuthenticationService.forgotpassword(params);
@@ -140,7 +124,6 @@ const actions = {
     commit('updateReturnUrl', '');
     commit('updateProvider', '');
     commit('updateUserName', '');
-    commit('isPhoneNumberConfirmedUpdate', null);
   }
 };
 
@@ -150,9 +133,6 @@ const mutations = {
   },
   updateUserName(state, payload) {
     state.userName = payload;
-  },
-  isPhoneNumberConfirmedUpdate(state, payload) {
-    state.isPhoneNumberConfirmed = payload;
   },
   updateProvider(state, payload) {
     state.provider = payload;

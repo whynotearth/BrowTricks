@@ -11,7 +11,7 @@
         <h2 class="tg-h3-mobile text-on-background text-opacity-high mb-4">
           Enter the code sent to your number<br /><span
             class="tg-body-mobile"
-            >{{ phoneNumber }}</span
+            >{{ get(profile, 'phoneNumber') }}</span
           >
         </h2>
         <div class="flex flex-row justify-evenly" ref="otpContainer">
@@ -59,7 +59,7 @@
 <script>
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
 import { required, numeric } from 'vuelidate/lib/validators';
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 import { showOverlayAndRedirect } from '@/helpers';
 import { get } from 'lodash-es';
 import formGeneralUtils from '@/mixins/formGeneralUtils.js';
@@ -74,7 +74,7 @@ export default {
   data() {
     return {
       verifyCode: '',
-      phoneNumber: ''
+      profile: null
     };
   },
   validations: {
@@ -83,29 +83,23 @@ export default {
       numeric
     }
   },
-  computed: {
-    ...mapGetters('auth', ['isAuthenticated', 'isPhoneNumberConfirmedGet'])
-  },
   created() {
     this.clearErrors();
     this.init();
   },
   methods: {
     ...mapActions('loading', ['loadingUpdate']),
-    ...mapActions('auth', [
-      'profileFetch',
-      'requestVerifyCode',
-      'submitVerifyCode'
-    ]),
+    ...mapActions('auth', ['requestVerifyCode', 'submitVerifyCode']),
+    ...mapActions('profile', ['profileFetch']),
+    get,
     async init() {
-      if (!this.isAuthenticated) {
-        this.goLogin();
+      await this._profileFetch();
+      if (!this.profile) {
+        alert('Something went wrong.');
         return;
       }
 
-      this._profileFetch();
-
-      if (this.isPhoneNumberConfirmedGet) {
+      if (this.profile.isPhoneNumberConfirmed) {
         this.goPanelRedirector();
         return;
       }
@@ -114,17 +108,19 @@ export default {
       await this._requestVerifyCode();
       this.loadingUpdate(false);
     },
+
     async _profileFetch() {
       this.loadingUpdate(true);
       await this.profileFetch()
-        .then(({ phoneNumber }) => {
-          this.phoneNumber = phoneNumber;
+        .then(response => {
+          this.profile = response;
         })
         .catch(() => {
           console.log('Error in get profile');
         });
       this.loadingUpdate(false);
     },
+
     _requestVerifyCode() {
       return this.requestVerifyCode({
         // params: {
@@ -161,10 +157,6 @@ export default {
         title: 'Success!',
         route: { name: 'PanelRedirector' }
       });
-    },
-    goLogin() {
-      console.log('Login first, then verify');
-      this.$router.replace({ name: 'AuthLogin' });
     },
     goPanelRedirector() {
       this.$router.replace({ name: 'PanelRedirector' });

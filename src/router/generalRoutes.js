@@ -6,8 +6,24 @@ export const generalRoutes = [
     name: 'Home',
     component: () => import('@/views/Home.vue'),
     meta: {
+      needsUserInfo: true,
       isPublic: true,
       noNavigation: true
+    }
+  },
+  {
+    path: '/wait',
+    name: 'PanelRedirector',
+    props: true,
+    component: () => import('@/views/PanelRedirector.vue'),
+    meta: {
+      isPublic: true,
+      pageBackground: 'bg-background',
+      layout: AppBarCardLayout,
+      noNavigation: true,
+      appBar: {
+        title: 'Please wait...'
+      }
     }
   },
   {
@@ -105,17 +121,16 @@ export const generalRoutes = [
     component: () => import('@/views/AuthSignupEdit.vue'),
     props: true,
     meta: {
-      isPublic: true,
       noNavigation: true,
       layout: AppBarCardLayout,
       appBar: {
-        backRoute: { name: 'AuthNumberVerify' },
+        backRoute: { name: 'PanelRedirector' },
         title: 'Edit Account'
       }
     }
   },
   {
-    path: '/verify',
+    path: '/verify-number',
     name: 'AuthNumberVerify',
     component: () => import('@/views/AuthNumberVerify.vue'),
     props: true,
@@ -126,6 +141,37 @@ export const generalRoutes = [
       appBar: {
         backRoute: { name: 'AuthSignupEdit' },
         title: 'Verification Required'
+      }
+    }
+  },
+  {
+    path: '/verify-email',
+    name: 'AuthEmailVerify',
+    component: () => import('@/views/AuthEmailVerify.vue'),
+    props: true,
+    meta: {
+      pageBackground: 'bg-background',
+      noNavigation: true,
+      layout: AppBarCardLayout,
+      appBar: {
+        backRoute: { name: 'AuthSignupEdit' },
+        title: 'Verification Required'
+      }
+    }
+  },
+  {
+    path: '/verify-submit-email',
+    name: 'AuthEmailSubmitVerify',
+    component: () => import('@/views/AuthEmailSubmitVerify.vue'),
+    props: true,
+    meta: {
+      isPublic: true,
+      pageBackground: 'bg-background',
+      noNavigation: true,
+      layout: AppBarCardLayout,
+      appBar: {
+        backRoute: { name: 'Home' },
+        title: 'Verifying Email'
       }
     }
   },

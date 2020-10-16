@@ -116,7 +116,7 @@ export default {
     onSuccess() {
       this.$router.push({
         name: 'AuthSentEmailSuccess',
-        params: { email: this.email }
+        query: { email: this.email }
       });
     }
   }

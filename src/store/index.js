@@ -8,6 +8,7 @@ import overlay from './modules/overlay';
 import loading from './modules/loading';
 import uploader from './modules/uploader';
 import formTemplate from './modules/formTemplate';
+import profile from './modules/profile';
 
 import VuexPersistence from 'vuex-persist';
 
@@ -38,6 +39,7 @@ export default new Vuex.Store({
     }
   },
   modules: {
+    profile,
     formTemplate,
     global,
     auth,

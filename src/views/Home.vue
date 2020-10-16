@@ -11,6 +11,15 @@
     <template #title>{{ SHORTNAME }}</template>
     <template #primaryCTA>
       <Button
+        v-if="isAuthenticated"
+        background="bg-primary"
+        textColor="text-on-primary"
+        title="Open Dashboard"
+        class="normal-case mb-2"
+        :to="{ name: 'PanelRedirector' }"
+      />
+      <Button
+        v-else
         background="bg-primary"
         textColor="text-on-primary"
         title="Create Account"
@@ -19,7 +28,12 @@
       />
     </template>
     <template #tertiaryCTA>
-      <p class="text-on-background">
+      <p class="text-on-background" v-if="isAuthenticated">
+        Log in with another account?
+        <router-link class="" :to="{ name: 'AuthLogin' }">Log In</router-link>
+      </p>
+
+      <p class="text-on-background" v-else>
         Already have an account?
         <router-link class="" :to="{ name: 'AuthLogin' }">Log In</router-link>
       </p>

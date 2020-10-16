@@ -1,5 +1,5 @@
 import {
-  ClientMediaService,
+  TenantMediaService,
   ClientService,
   ClientNoteService,
   FormAnswerService
@@ -111,16 +111,16 @@ const actions = {
     return FormAnswerService.answer(params);
   },
   imageAdd(context, { params }) {
-    return ClientMediaService.images(params);
+    return TenantMediaService.images(params);
   },
   videoAdd(context, { params }) {
-    return ClientMediaService.videos(params);
+    return TenantMediaService.videos(params);
   },
   imageDelete(context, { params }) {
-    return ClientMediaService.images1(params);
+    return TenantMediaService.images1(params);
   },
   videoDelete(context, { params }) {
-    return ClientMediaService.videos1(params);
+    return TenantMediaService.videos1(params);
   }
 };
 

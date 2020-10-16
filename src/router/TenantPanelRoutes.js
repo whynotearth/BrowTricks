@@ -3,16 +3,6 @@ import AppBarSwitcherLayout from '@/layouts/AppBarSwitcherLayout.vue';
 
 export const TenantPanelRoutes = [
   {
-    path: '/panel-redirecting',
-    name: 'PanelRedirector',
-    props: true,
-    component: () => import('@/views/PanelRedirector.vue'),
-    meta: {
-      layout: AppBarCardLayout,
-      noNavigation: true
-    }
-  },
-  {
     path: '/tenant/:tenantSlug',
     name: 'TenantHome',
     props: true,
