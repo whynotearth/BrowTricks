@@ -186,7 +186,7 @@ export default {
           tenantSlug: this.tenantSlug,
           [`${resourceType}Id`]: id
         }
-      }).then(this._fetchClient);
+      }).then(this._fetchTenant);
     }
   },
   watch: {
