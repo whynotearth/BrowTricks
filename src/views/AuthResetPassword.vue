@@ -147,7 +147,7 @@ export default {
     onSuccess() {
       showOverlayAndRedirect({
         title: 'Success!',
-        route: { name: 'Home' }
+        route: { name: 'AuthLogin' }
       });
     }
   }
