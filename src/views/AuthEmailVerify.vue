@@ -5,7 +5,7 @@
     >
       <p>
         An email has been sent to
-        <span class="font-bold">{{ $route.params.email }}</span
+        <span class="font-bold">{{ $route.query.email }}</span
         >.<br />Please check your email and follow the verification instructions
         to continue.
       </p>

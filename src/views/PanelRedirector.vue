@@ -142,7 +142,7 @@ export default {
     goEmailVerification() {
       this.$router.replace({
         name: 'AuthEmailVerify',
-        params: { email: this.profile.email }
+        query: { email: this.profile.email }
       });
     },
     goNumberVerification() {

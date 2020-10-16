@@ -5,7 +5,7 @@
     >
       <p class="">
         An email has been sent to
-        <span class="font-bold">{{ $route.params.email }} </span>. Please check
+        <span class="font-bold">{{ $route.query.email }} </span>. Please check
         your email and follow the password recovery instructions to continue.
       </p>
       <div class="max-w-sm">
