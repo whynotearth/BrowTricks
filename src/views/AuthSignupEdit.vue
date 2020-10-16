@@ -131,7 +131,7 @@ import { required, email, minLength, alphaNum } from 'vuelidate/lib/validators';
 import { mapActions } from 'vuex';
 import { showOverlayAndRedirect, isPhoneNumberValid } from '@/helpers';
 import formGeneralUtils from '@/mixins/formGeneralUtils.js';
-// import { get } from 'lodash-es';
+import { get } from 'lodash-es';
 
 export default {
   name: 'AuthSignupEdit',
@@ -188,8 +188,8 @@ export default {
           this.firstName = this.profile.firstName;
           this.lastName = this.profile.lastName;
           this.email = this.profile.email;
-          // this.userName = get(this.profile, 'userName', '').split('@')[0];
-          this.userName = this.profile.userName;
+          this.userName = get(this.profile, 'userName', '').split('@')[0];
+          // this.userName = this.profile.userName;
         })
         .catch(() => {
           console.log('Error in get profile');

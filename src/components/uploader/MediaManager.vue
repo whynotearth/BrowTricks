@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import { fixApiDateString } from '@/helpers';
 export default {
   name: 'MediaManager',
   props: {
@@ -61,10 +62,15 @@ export default {
   },
   computed: {
     filesToPreview() {
-      return [...this.files];
+      return [...this.files].sort(this.sortByDate);
     }
   },
   methods: {
+    sortByDate(itemA, itemB) {
+      const dateA = new Date(fixApiDateString(itemA.createdAt));
+      const dateB = new Date(fixApiDateString(itemB.createdAt));
+      return dateB - dateA;
+    },
     getThumbnail(file) {
       const urlSegments = file.url.split('.');
       const extension = urlSegments[urlSegments.length - 1];
