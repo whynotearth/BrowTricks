@@ -17,6 +17,7 @@ export const generalRoutes = [
     props: true,
     component: () => import('@/views/PanelRedirector.vue'),
     meta: {
+      isPublic: true,
       pageBackground: 'bg-background',
       layout: AppBarCardLayout,
       noNavigation: true,
