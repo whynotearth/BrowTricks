@@ -57,6 +57,7 @@ export default {
         const status = get(error, 'response.status', null);
         const shouldCare = status === 401 && !this.isAuthenticated;
         console.log('Invalid login token');
+        // WARNING: this may allow opening page with incorrect previously logged in user (has no security risk). It will just cause 403 error
         if (shouldCare) {
           this.errorMessage = get(
             error,

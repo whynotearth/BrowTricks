@@ -97,6 +97,7 @@ export const clientRoutes = [
         component: () => import('@/views/PmuFormDownload.vue'),
         props: true,
         meta: {
+          isPublic: true,
           noNavigation: true,
           appBar: { layout: AppBarLayout, title: 'PMU Form Download' }
         }
