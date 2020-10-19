@@ -7,9 +7,7 @@
           <h1
             class="tg-h2-mobile text-opacity-high text-on-background uppercase flex mb-2 items-center"
           >
-            <span>Brow</span>
-            <img class="w-20 rounded-full" :src="logo" alt="user-logo" />
-            <span>Tricks</span>
+            <img class="mb-4" :src="logo" alt="user-logo" />
           </h1>
         </div>
 
@@ -135,7 +133,7 @@ export default {
   props: ['tenantSlug'],
   data: () => ({
     isTutorialsModalOpen: false,
-    logo: process.env.VUE_APP_LOGO2_URL,
+    logo: process.env.VUE_APP_LOGO3_URL,
     appShortName: process.env.VUE_APP_SHORTNAME
   }),
   components: {
