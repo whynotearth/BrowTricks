@@ -1531,10 +1531,10 @@
   dependencies:
     swagger-axios-codegen "^0.10.3"
 
-"@whynotearth/vue-flow-form@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@whynotearth/vue-flow-form/-/vue-flow-form-0.0.2.tgz#29a66066bf3a942e0389723b80acdb5674221967"
-  integrity sha512-7f4aiKY4xc66IgJuDXMtTQya4UF7PSxReYWuAhTrWcll4w7C8GnI8QtzSv5BzpWaFn20ucHc2QEYPh4CDTMRtw==
+"@whynotearth/vue-flow-form@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@whynotearth/vue-flow-form/-/vue-flow-form-0.0.4.tgz#7eb442ac3d2b6e68b7d7ca240949acd2ae34975a"
+  integrity sha512-x21Fc+/r9i2jP68/gBfEuHSmJLeQs4rwGtMsrISXaphkLMAzGizGwl78EksTtRk/v9qTPmBqkD+brud0MW+fRg==
   dependencies:
     es6-object-assign "^1.1.0"
     vue-textarea-autosize "^1.1.1"

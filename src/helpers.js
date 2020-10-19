@@ -123,10 +123,10 @@ export function transformCloudinaryUrl(resourceUrl, transformations) {
   return urlParts.join('/');
 }
 
-export function getCloudinaryThumbnail(url) {
+export function changeCloudinaryExtension(url, newformat = 'jpg') {
   const urlSegments = url.split('.');
   const extension = urlSegments[urlSegments.length - 1];
-  const thumbnail = url.replace(new RegExp(extension + '$'), 'jpg');
+  const thumbnail = url.replace(new RegExp(extension + '$'), newformat);
   return thumbnail;
 }
 
@@ -215,11 +215,13 @@ export function cloudinaryFileToMeredithFileAdapter(cloudinaryFileInfo) {
       : cloudinaryFileInfo.resource_type;
 
   if (resourceType === 'pdf') {
-    const { secure_url, public_id } = cloudinaryFileInfo;
+    const { secure_url, public_id, pages } = cloudinaryFileInfo;
+    console.log('pages', pages, cloudinaryFileInfo);
     return {
       resourceType,
       publicId: public_id,
-      url: secure_url
+      url: secure_url,
+      pages
     };
   }
 

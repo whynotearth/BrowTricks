@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@whynotearth/meredith-axios": "^1.0.61",
-    "@whynotearth/vue-flow-form": "^0.0.2",
+    "@whynotearth/vue-flow-form": "^0.0.4",
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
     "date-fns": "^2.16.1",

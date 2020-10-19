@@ -32,7 +32,7 @@
         <BaseImagePreview
           :selectFile="() => {}"
           :file="{ ...file }"
-          :thumbnail="getCloudinaryThumbnail(file.url)"
+          :thumbnail="changeCloudinaryExtension(file.url, 'jpg')"
         />
       </div>
     </div>
@@ -65,7 +65,11 @@ import BaseImagePreview from '@/components/uploader/BaseImagePreview';
 import { cloneDeep, get } from 'lodash-es';
 import { required } from 'vuelidate/lib/validators';
 import { mapActions, mapGetters } from 'vuex';
-import { getCloudinaryThumbnail, randomId } from '@/helpers.js';
+import {
+  changeCloudinaryExtension,
+  randomId,
+  transformCloudinaryUrl
+} from '@/helpers.js';
 
 const isRequiredAlwaysTrue = true;
 
@@ -116,14 +120,29 @@ export default {
       'uploadedFilesUpdate',
       'openDrawerUploadUpdate'
     ]),
-    getCloudinaryThumbnail,
+    changeCloudinaryExtension,
     checkUploadedFileExistance() {
       if (!this.uploadedFilesGet[0]) {
         console.log('No new uploaded file.');
         return;
       }
       this.file = this.uploadedFilesGet[0];
-      this.model.options = [{ value: this.file.url, key: randomId(8) }];
+      this.model.options = this.generateOptionsProperty(this.file);
+    },
+    generateOptionsProperty(file) {
+      let options = [];
+      if (file.resourceType === 'pdf') {
+        for (let i = 1; i <= file.pages; i++) {
+          const jpgUrl = changeCloudinaryExtension(file.url, 'jpg');
+          options.push(transformCloudinaryUrl(jpgUrl, `pg_${i}`));
+        }
+      } else {
+        options.push(file.url);
+      }
+      options = options.map(option => {
+        return { value: option, key: randomId(8) };
+      });
+      return options;
     },
     remove() {
       this.$emit('remove');
