@@ -74,7 +74,10 @@
             <BaseVideoPreview
               v-if="file.resourceType === 'video'"
               :selectFile="() => {}"
-              :file="{ ...file, thumbnail: getCloudinaryThumbnail(file.url) }"
+              :file="{
+                ...file,
+                thumbnail: changeCloudinaryExtension(file.url, 'jpg')
+              }"
             />
           </div>
         </div>
@@ -115,7 +118,7 @@ import { mapGetters, mapActions } from 'vuex';
 import {
   share,
   showOverlayAndRedirect,
-  getCloudinaryThumbnail
+  changeCloudinaryExtension
 } from '@/helpers.js';
 
 const clientTagRegex = /\s*@[\w]+-[\w]+\s*/g;
@@ -159,7 +162,7 @@ export default {
     ...mapActions('client', ['fetchClient', 'videoAdd', 'imageAdd']),
     ...mapActions('uploader', ['openDrawerUploadUpdate']),
     share,
-    getCloudinaryThumbnail,
+    changeCloudinaryExtension,
     checkUploadedFileExistance() {
       if (!this.uploadedFilesGet[0]) {
         alert('No uploaded file.');

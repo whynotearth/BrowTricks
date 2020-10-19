@@ -1,7 +1,6 @@
 // types are: image,pdf,agreement_request,text_response,text,checklist,multiple_choice,
 
 import { isArray } from 'lodash-es';
-import { getCloudinaryThumbnail } from '@/helpers.js';
 import {
   QuestionModel,
   QuestionType,
@@ -69,7 +68,8 @@ export const adaptApiQuestionsToModel = questions => {
           required: question.isRequired,
           // content: 'No content',
           // description: 'No description',
-          image: getCloudinaryThumbnail(question.options[0]),
+          // NOTE: we use a modified version of vue-flow-form here: @whynotearth/vue-flow-form for passing this images prop
+          images: question.options,
           type: QuestionType.SectionBreak
         });
         break;

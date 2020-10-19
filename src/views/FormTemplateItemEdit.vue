@@ -64,7 +64,12 @@
               <img
                 class="card-image-preview block mt-4"
                 v-if="get(field, 'options[0].value')"
-                :src="getCloudinaryThumbnail(get(field, 'options[0].value'))"
+                :src="
+                  changeCloudinaryExtension(
+                    get(field, 'options[0].value'),
+                    'jpg'
+                  )
+                "
                 alt=""
               />
             </FormTemplateFieldTypeCard>
@@ -148,7 +153,7 @@ import BaseCard from '@/components/BaseCard';
 import BaseDialog from '@/components/BaseDialog';
 
 import IconAdd from '@/assets/icons/add.svg';
-import { showOverlayAndRedirect, getCloudinaryThumbnail } from '@/helpers';
+import { showOverlayAndRedirect, changeCloudinaryExtension } from '@/helpers';
 import { ContainerMixin, ElementMixin } from 'vue-slicksort';
 import { mapActions, mapGetters } from 'vuex';
 import noPullToRefresh from '@/utils/noPullToRefreshMixin.js';
@@ -224,7 +229,7 @@ export default {
       'templateDelete'
     ]),
     get,
-    getCloudinaryThumbnail,
+    changeCloudinaryExtension,
     async init() {
       if (this.currentTemplateGet.draft && !this.$route.query.refresh) {
         return;
