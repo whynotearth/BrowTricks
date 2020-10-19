@@ -41,22 +41,11 @@ export default {
   },
   async created() {
     this.errorMessage = '';
-    await this.handleLoginByToken();
-    this._fetchClient();
-  },
-  methods: {
-    ...mapActions('auth', ['updateToken', 'tokenlogin']),
-    ...mapActions('loading', ['loadingUpdate']),
-    ...mapActions('client', ['fetchClient']),
-    handleLoginByToken() {
-      const token = this.$route.query.token;
-      if (!token) {
-        return;
-      }
-      return this.tokenlogin({ params: { body: { token } } }).catch(error => {
-        const status = get(error, 'response.status', null);
-        const shouldCare = status === 401 && !this.isAuthenticated;
-        console.log('Invalid login token');
+    const gotToken = this.setTokenFromUrl();
+    if (gotToken) {
+      await this.ping().catch(error => {
+        const shouldCare = status === 401;
+        console.log('User is not logged in. (Client.vue)');
         // WARNING: this may allow opening page with incorrect previously logged in user (has no security risk). It will just cause 403 error
         if (shouldCare) {
           this.errorMessage = get(
@@ -66,7 +55,22 @@ export default {
           );
         }
       });
+    }
+    this._fetchClient();
+  },
+  methods: {
+    ...mapActions('auth', ['updateToken', 'ping']),
+    ...mapActions('loading', ['loadingUpdate']),
+    ...mapActions('client', ['fetchClient']),
+
+    setTokenFromUrl() {
+      if (this.$route.query.token) {
+        this.updateToken(this.$route.query.token);
+        return true;
+      }
+      return false;
     },
+
     async _fetchClient() {
       this.loadingUpdate(true);
       this.fetchClient({
