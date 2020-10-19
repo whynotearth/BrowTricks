@@ -30,6 +30,7 @@
       </div>
       <div class="image-wrapper max-w-full" v-if="file">
         <BaseImagePreview
+          v-if="file.url"
           :selectFile="() => {}"
           :file="{ ...file }"
           :thumbnail="changeCloudinaryExtension(file.url, 'jpg')"
@@ -60,7 +61,6 @@
 
 <script>
 import TextAreaInput from '@/components/inputs/TextAreaInput';
-// import CheckBox from '@/components/inputs/CheckBox';
 import BaseImagePreview from '@/components/uploader/BaseImagePreview';
 import { cloneDeep, get } from 'lodash-es';
 import { required } from 'vuelidate/lib/validators';
@@ -78,7 +78,6 @@ export default {
   components: {
     BaseImagePreview,
     TextAreaInput
-    // CheckBox
   },
   validations: {
     model: {
@@ -103,6 +102,11 @@ export default {
     ...mapGetters('uploader', ['uploadedFilesGet'])
   },
   created() {
+    if (!this.initialModel.type) {
+      console.log('No initial model (FieldUpload)');
+      this.goToFormTemplate();
+      return;
+    }
     this.model = {
       ...this.model,
       ...cloneDeep(this.initialModel),
@@ -121,6 +125,9 @@ export default {
       'openDrawerUploadUpdate'
     ]),
     changeCloudinaryExtension,
+    goToFormTemplate() {
+      this.$router.replace({ name: 'FormTemplateItemEdit' });
+    },
     checkUploadedFileExistance() {
       if (!this.uploadedFilesGet[0]) {
         console.log('No new uploaded file.');
