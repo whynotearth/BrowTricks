@@ -1,6 +1,10 @@
 <template>
   <div class="max-w-md mx-auto pt-6 px-4">
     <div class="text-on-background">
+      <h2 class="tg-h3-mobile text-on-background text-opacity-high mb-4">
+        Select a question type:
+      </h2>
+
       <a @click.prevent="selectField(uploaderField)" class="cursor-pointer">
         <FormTemplateFieldTypeCard
           @selectHelp="selectHelp"
@@ -12,10 +16,6 @@
           :description="uploaderField.description"
         />
       </a>
-
-      <h2 class="tg-h3-mobile text-on-background text-opacity-high mb-4">
-        Select a question type:
-      </h2>
 
       <a
         v-for="field in fieldsAvailable"

@@ -216,7 +216,6 @@ export function cloudinaryFileToMeredithFileAdapter(cloudinaryFileInfo) {
 
   if (resourceType === 'pdf') {
     const { secure_url, public_id, pages } = cloudinaryFileInfo;
-    console.log('pages', pages, cloudinaryFileInfo);
     return {
       resourceType,
       publicId: public_id,
