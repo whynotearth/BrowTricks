@@ -37,7 +37,7 @@
           @click.stop=""
           :href="transformCloudinaryUrl(file.url, 'fl_attachment')"
           class="cursor-pointer p-4"
-          title="Download (Save the file in new tab)"
+          title="Download"
         >
           <DownloadIcon class="text-white w-6 h-6" />
         </a>
@@ -55,17 +55,22 @@ import Close from '@/assets/icons/close.svg';
 import DeleteIcon from '@/assets/icons/delete.svg';
 import DownloadIcon from '@/assets/icons/download.svg';
 import ShareIcon from '@/assets/icons/share.svg';
-import { transformCloudinaryUrl, urlToFile, share } from '@/helpers.js';
+import {
+  transformCloudinaryUrl,
+  urlToFile,
+  share,
+  isShareApiSupported
+} from '@/helpers.js';
+import noPageScrollbarMixin from '@/utils/noPageScrollbarMixin.js';
 
 export default {
   name: 'VideoPreviewModal',
+  mixins: [noPageScrollbarMixin],
   props: ['file'],
   components: { Close, DeleteIcon, DownloadIcon, ShareIcon },
-  computed: {
-    isShareApiSupported() {
-      return !!window.navigator.share;
-    }
-  },
+  data: () => ({
+    isShareApiSupported
+  }),
   methods: {
     transformCloudinaryUrl,
     urlToFile,
@@ -74,7 +79,7 @@ export default {
       this.$emit('close');
     },
     deleteVideo() {
-      this.$emit('deleteVideo', this.file.index);
+      this.$emit('remove', this.file);
       this.closeModal();
     }
   }

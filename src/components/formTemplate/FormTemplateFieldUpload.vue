@@ -21,7 +21,7 @@
           placeholder="e.g. Check any that apply:"
           label="Question"
           rows="7"
-          :error="$v.model.value.$error"
+          :validatorModel="$v.model.value"
         >
           <p v-if="!$v.model.value.required">
             Description is required
@@ -30,20 +30,21 @@
       </div>
       <div class="image-wrapper max-w-full" v-if="file">
         <BaseImagePreview
+          v-if="file.url"
           :selectFile="() => {}"
           :file="{ ...file }"
-          :thumbnail="getCloudinaryThumbnail(file.url)"
+          :thumbnail="changeCloudinaryExtension(file.url, 'jpg')"
         />
       </div>
     </div>
 
     <div class="px-4">
-      <CheckBox
+      <!-- <CheckBox
         class="block mb-8"
         v-model="model.isRequired"
         :value="true"
         label="This question is required"
-      />
+      /> -->
 
       <Button class="rounded-full mb-4" title="Save" @clicked="save" />
 
@@ -60,19 +61,23 @@
 
 <script>
 import TextAreaInput from '@/components/inputs/TextAreaInput';
-import CheckBox from '@/components/inputs/CheckBox';
 import BaseImagePreview from '@/components/uploader/BaseImagePreview';
 import { cloneDeep, get } from 'lodash-es';
 import { required } from 'vuelidate/lib/validators';
 import { mapActions, mapGetters } from 'vuex';
-import { getCloudinaryThumbnail, randomId } from '@/helpers.js';
+import {
+  changeCloudinaryExtension,
+  randomId,
+  transformCloudinaryUrl
+} from '@/helpers.js';
+
+const isRequiredAlwaysTrue = true;
 
 export default {
   name: 'FormTemplateFieldUpload',
   components: {
     BaseImagePreview,
-    TextAreaInput,
-    CheckBox
+    TextAreaInput
   },
   validations: {
     model: {
@@ -88,7 +93,8 @@ export default {
     file: null,
     model: {
       options: [],
-      isRequired: false,
+      // NOTE: always required
+      isRequired: isRequiredAlwaysTrue,
       value: ''
     }
   }),
@@ -96,7 +102,16 @@ export default {
     ...mapGetters('uploader', ['uploadedFilesGet'])
   },
   created() {
-    this.model = { ...this.model, ...cloneDeep(this.initialModel) };
+    if (!this.initialModel.type) {
+      console.log('No initial model (FieldUpload)');
+      this.goToFormTemplate();
+      return;
+    }
+    this.model = {
+      ...this.model,
+      ...cloneDeep(this.initialModel),
+      isRequired: isRequiredAlwaysTrue
+    };
     if (this.model.draft) {
       this.checkUploadedFileExistance();
       this.openDrawerUploadUpdate(false);
@@ -104,22 +119,37 @@ export default {
       this.file = { url: get(this.model, 'options[0].value') };
     }
   },
-  beforeDestroy() {
-    this.uploadedFilesUpdate([]);
-  },
   methods: {
     ...mapActions('uploader', [
       'uploadedFilesUpdate',
       'openDrawerUploadUpdate'
     ]),
-    getCloudinaryThumbnail,
+    changeCloudinaryExtension,
+    goToFormTemplate() {
+      this.$router.replace({ name: 'FormTemplateItemEdit' });
+    },
     checkUploadedFileExistance() {
       if (!this.uploadedFilesGet[0]) {
         console.log('No new uploaded file.');
         return;
       }
       this.file = this.uploadedFilesGet[0];
-      this.model.options = [{ value: this.file.url, key: randomId(8) }];
+      this.model.options = this.generateOptionsProperty(this.file);
+    },
+    generateOptionsProperty(file) {
+      let options = [];
+      if (file.resourceType === 'pdf') {
+        for (let i = 1; i <= file.pages; i++) {
+          const jpgUrl = changeCloudinaryExtension(file.url, 'jpg');
+          options.push(transformCloudinaryUrl(jpgUrl, `pg_${i}`));
+        }
+      } else {
+        options.push(file.url);
+      }
+      options = options.map(option => {
+        return { value: option, key: randomId(8) };
+      });
+      return options;
     },
     remove() {
       this.$emit('remove');

@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-md mx-auto pt-6">
+  <div class="max-w-md mx-auto pt-6 px-4">
     <div class="mb-6">
       <h2 class="tg-h3-mobile text-on-background text-opacity-high mb-2">
         Name your form template.
@@ -13,7 +13,7 @@
       v-model.trim="$v.name.$model"
       label="Name"
       placeholder="e.g. PMU Agreement Form"
-      :error="$v.name.$error"
+      :validatorModel="$v.name"
     >
       <p v-if="!$v.name.required">
         Name of form template is required
@@ -75,7 +75,8 @@ export default {
         .then(templateId => {
           this.redirectBack(templateId);
         })
-        .catch(() => {
+        .catch(error => {
+          console.log(error);
           alert('Something went wrong');
         });
     },

@@ -1,41 +1,52 @@
 <template>
-  <div class="relative" :class="[margin]">
-    <input
-      class="input appearance-none outline-none relative bg-transparent w-full py-3 border-b text-opacity-medium focus:text-opacity-high border-opacity-medium focus:border-opacity-high"
-      :class="[
-        textColor,
-        borderColor,
-        placeholderColor,
-        { filled: value && value.length > 0 }
-      ]"
-      v-bind="attrs"
-      :id="idName"
-      :type="type"
-      :min="min"
-      :step="step"
-      :value="value | trim"
-      v-on="inputListeners"
-      :placeholder="placeholder || label"
-    />
-    <label
-      :for="idName"
-      class="label absolute mb-0 top-0 left-0 mt-3 cursor-text"
-      :class="[labelColor]"
-    >
-      {{ label }}
-    </label>
-    <div class="mt-2 text-error tg-body-mobile" v-if="error">
-      <slot />
-    </div>
-  </div>
+  <FormGroup v-bind="$attrs" :validatorModel="validatorModel">
+    <template #control>
+      <div class="relative">
+        <input
+          class="input appearance-none outline-none relative bg-transparent w-full pt-3 pb-2 border-b text-opacity-medium focus:text-opacity-high border-opacity-medium focus:border-opacity-high rounded-none"
+          :class="[
+            textColor,
+            borderColor,
+            placeholderColor,
+            { filled: value && value.length > 0 }
+          ]"
+          v-bind="attrs"
+          :id="idName"
+          :type="type"
+          :value="value | trim"
+          v-on="inputListeners"
+          :placeholder="placeholder || label"
+        />
+        <label
+          :for="idName"
+          class="label absolute mb-0 top-0 left-0 mt-3 cursor-text"
+          :class="[labelColor]"
+        >
+          {{ label }}
+        </label>
+      </div>
+    </template>
+
+    <template #error>
+      <div class="text-error tg-body-mobile mt-2" v-if="validatorModel.$error">
+        <slot />
+      </div>
+    </template>
+  </FormGroup>
 </template>
 
 <script>
 import { randomId } from '@/helpers.js';
+import FormGroup from '@/components/inputs/FormGroup.vue';
 
 export default {
   name: 'TextInput',
+  components: { FormGroup },
   props: {
+    validatorModel: {
+      type: Object,
+      default: () => ({})
+    },
     attrs: {
       type: Object,
       default: () => {}
@@ -55,18 +66,6 @@ export default {
       type: String,
       default: 'text'
     },
-    min: {
-      type: [String, Number],
-      default: 0
-    },
-    step: {
-      type: String,
-      default: '1'
-    },
-    error: {
-      type: Boolean,
-      default: false
-    },
     idName: {
       type: String,
       default: randomId
@@ -74,10 +73,6 @@ export default {
     theme: {
       type: String,
       default: 'light'
-    },
-    margin: {
-      type: String,
-      default: 'mb-6'
     },
     // update value on input event
     immediateInput: {
@@ -98,7 +93,7 @@ export default {
       });
     },
     labelColor() {
-      if (this.error) {
+      if (this.validatorModel.$error) {
         return 'text-error';
       }
       return this.theme === 'dark'
@@ -109,13 +104,13 @@ export default {
       return this.theme === 'dark' ? 'text-on-surface' : 'text-on-background';
     },
     placeholderColor() {
-      if (this.error) {
+      if (this.validatorModel.$error) {
         return 'placeholder-error';
       }
       return '';
     },
     borderColor() {
-      if (this.error) {
+      if (this.validatorModel.$error) {
         return 'border-error';
       }
       return this.theme === 'dark' ? 'border-white' : 'border-on-surface';

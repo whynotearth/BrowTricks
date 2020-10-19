@@ -14,7 +14,7 @@ export const clientRoutes = [
           title: 'Add Client',
           icon: IconEdit,
           route: {
-            name: 'AddClient',
+            name: 'ClientItemAdd',
             params: { step: 'basic-info' }
           }
         },
@@ -24,20 +24,23 @@ export const clientRoutes = [
     }
   },
   {
-    path: '/tenant/:tenantSlug/clients/add/:step',
-    name: 'AddClient',
-    props: true,
-    component: () => import('@/views/ClientAddEdit.vue')
-  },
-  {
     path: '/tenant/:tenantSlug/upload',
     name: 'ClientUpload',
     props: true,
     component: () => import('@/views/ClientUpload.vue'),
     meta: {
-      noNavigation: true,
       layout: AppBarLayout,
       appBar: { title: 'Portfolio Upload', backRoute: { name: 'TenantHome' } }
+    }
+  },
+  {
+    path: '/tenant/:tenantSlug/clients/add',
+    name: 'ClientItemAdd',
+    props: true,
+    component: () => import('@/views/ClientItemAdd.vue'),
+    meta: {
+      layout: AppBarLayout,
+      appBar: { title: 'Add Client', backRoute: { name: 'ClientList' } }
     }
   },
   {
@@ -45,7 +48,7 @@ export const clientRoutes = [
     name: 'Client',
     props: true,
     component: () => import('@/views/Client.vue'),
-    redirect: { name: 'ClientEdit' },
+    redirect: { name: 'ClientInfo' },
     meta: {
       appBar: {
         backRoute: { name: 'ClientList' },
@@ -54,45 +57,15 @@ export const clientRoutes = [
     },
     children: [
       {
-        path: 'edit',
-        name: 'ClientEdit',
+        path: 'info',
+        name: 'ClientInfo',
         props: true,
-        component: () => import('@/views/ClientEdit.vue'),
+        component: () => import('@/views/ClientInfo.vue'),
         meta: {
           layout: AppBarLayout,
           pageBackground: 'bg-background',
           headerBackground: 'bg-background',
           appBar: { title: 'Client Profile', backRoute: { name: 'ClientList' } }
-        }
-      },
-      {
-        path: 'uploads',
-        name: 'ClientUploads',
-        props: true,
-        component: () => import('@/views/ClientUploads.vue'),
-        meta: {
-          layout: AppBarLayout,
-          appBar: { backRoute: { name: 'ClientEdit' }, title: 'Uploads' }
-        }
-      },
-      {
-        path: 'uploads/:mediaIndex',
-        name: 'ClientUploadsItem',
-        props: true,
-        component: () => import('@/views/ClientUploads.vue'),
-        meta: {
-          layout: AppBarLayout,
-          appBar: { title: 'Uploads', backRoute: { name: 'ClientUploads' } }
-        }
-      },
-      {
-        path: 'notifications',
-        name: 'ClientNotifications',
-        props: true,
-        component: () => import('@/views/ClientNotifications.vue'),
-        meta: {
-          layout: AppBarLayout,
-          appBar: { title: 'Notifications', backRoute: { name: 'ClientEdit' } }
         }
       },
 
@@ -104,7 +77,7 @@ export const clientRoutes = [
         props: true,
         meta: {
           layout: AppBarLayout,
-          appBar: { title: 'Form Templates', backRoute: { name: 'ClientEdit' } }
+          appBar: { title: 'Form Templates', backRoute: { name: 'ClientInfo' } }
         }
       },
 
@@ -115,7 +88,7 @@ export const clientRoutes = [
         props: true,
         meta: {
           layout: AppBarLayout,
-          appBar: { title: 'PMU Form Sign', backRoute: { name: 'ClientEdit' } }
+          appBar: { title: 'PMU Form Sign', backRoute: { name: 'ClientInfo' } }
         }
       },
       {
@@ -124,11 +97,12 @@ export const clientRoutes = [
         component: () => import('@/views/PmuFormDownload.vue'),
         props: true,
         meta: {
+          isPublic: true,
           noNavigation: true,
           appBar: { layout: AppBarLayout, title: 'PMU Form Download' }
         }
       },
-      // flow (From Notification)
+      // question flow (From Notification)
       {
         path: 'pmu-sign-fn/:templateId/flow',
         name: 'PmuSignFromNotify',
@@ -136,11 +110,11 @@ export const clientRoutes = [
         props: true,
         meta: {
           isPublic: true,
-          appBar: { title: 'PMU Form Sign', backRoute: { name: 'ClientEdit' } }
+          appBar: { title: 'PMU Form Sign', backRoute: { name: 'ClientInfo' } }
         }
       },
+      // question flow (No SMS)
       {
-        // flow (No SMS)
         path: 'pmu-sign/:templateId/flow',
         name: 'PmuSignFlow',
         component: () => import('@/views/PmuSignFlow.vue'),
@@ -154,19 +128,19 @@ export const clientRoutes = [
         props: true,
         meta: {
           layout: AppBarLayout,
-          appBar: { title: 'Notes', backRoute: { name: 'ClientEdit' } }
+          appBar: { title: 'Notes', backRoute: { name: 'ClientInfo' } }
         }
       },
       {
-        path: 'client-info-edit',
-        name: 'ClientInfoEdit',
-        component: () => import('@/views/ClientInfoEdit.vue'),
+        path: 'edit',
+        name: 'ClientItemEdit',
+        component: () => import('@/views/ClientItemEdit.vue'),
         props: true,
         meta: {
           layout: AppBarLayout,
           appBar: {
             title: 'Edit Client Info',
-            backRoute: { name: 'ClientEdit' }
+            backRoute: { name: 'ClientInfo' }
           }
         }
       }

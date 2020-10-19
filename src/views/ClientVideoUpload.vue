@@ -88,7 +88,7 @@ export default {
       });
     },
     goToDetailPage() {
-      this.$router.push({ name: 'ClientEdit' });
+      this.$router.push({ name: 'ClientInfo' });
     },
     sendRequest(notificationType) {
       console.log('TODO: send request', notificationType);

@@ -1,57 +1,57 @@
 <template>
   <ul
-    class="link-items max-w-md mx-auto wrapper flex-auto flex text-left justify-around items-center menu list-none tg-caption-mobile select-none py-4"
+    class="flex items-center justify-around flex-auto max-w-md py-4 mx-auto text-left list-none select-none link-items wrapper menu tg-caption-mobile"
   >
-    <li class="text-on-surface text-opacity-high link-item">
+    <li class="text-brand3 text-opacity-high link-item">
       <router-link
-        class="navigation--link block"
+        class="block navigation--link"
         :to="{ name: 'TenantHome' }"
         exact
       >
-        <IconHome class="m-auto mb-2 w-5 h-5 text-on-surface" />
+        <IconHome class="w-5 h-5 m-auto mb-2 text-brand3" />
         <span>Home</span>
       </router-link>
     </li>
 
-    <li class="text-on-surface text-opacity-high link-item">
-      <router-link class="navigation--link block" :to="{ name: 'ClientList' }">
-        <IconUser class="m-auto mb-2 w-5 h-5 text-on-surface" />
+    <li class="text-brand3 text-opacity-high link-item">
+      <router-link class="block navigation--link" :to="{ name: 'ClientList' }">
+        <IconUser class="w-5 h-5 m-auto mb-2 text-brand3" />
         <span>Clients</span>
       </router-link>
     </li>
 
-    <li class="text-on-surface text-opacity-high">
+    <li class="text-brand3 text-opacity-high">
       <a
         tabindex="0"
-        class="main-button navigation--link flex flex-col justify-center relative text-center outline-none cursor-pointer"
+        class="relative flex flex-col justify-center text-center outline-none cursor-pointer main-button navigation--link"
         @click="openDrawerUploadUpdate(UploaderTypes.CLIENT)"
       >
         <div
-          class="main-button--shape absolute rounded-full h-14 w-14 flex items-center justify-center bg-brand2 mx-auto"
+          class="absolute flex items-center justify-center mx-auto border-2 border-black rounded-full main-button--shape h-14 w-14 bg-accent"
         >
-          <IconCamera class="w-6 h-6 m-auto fill-current text-white" />
+          <IconCamera class="w-6 h-6 m-auto text-black fill-current" />
         </div>
 
-        <IconCamera class="invisible m-auto mb-2 w-5 h-5 text-on-surface" />
+        <IconCamera class="invisible w-5 h-5 m-auto mb-2 text-brand3" />
         <span>Upload</span>
       </a>
     </li>
 
-    <li class="text-on-surface text-opacity-high link-item">
+    <li class="text-brand3 text-opacity-high link-item">
       <!-- FIXME: when tenantSlug is not available yet, this makes / and active -->
       <router-link
-        class="navigation--link block"
+        class="block navigation--link"
         :to="{ name: 'FormTemplates' }"
       >
-        <IconDocument class="m-auto mb-2 w-5 h-5 text-on-surface" />
+        <IconDocument class="w-5 h-5 m-auto mb-2 text-brand3" />
         <span>Forms</span>
       </router-link>
     </li>
 
     <!-- MyAccount -->
-    <li class="text-on-surface text-opacity-high link-item">
-      <router-link class="navigation--link block" :to="{ name: 'MyAccount' }">
-        <IconUserCircle class="m-auto mb-2 w-5 h-5 text-on-surface" />
+    <li class="text-brand3 text-opacity-high link-item">
+      <router-link class="block navigation--link" :to="{ name: 'MyAccount' }">
+        <IconUserCircle class="w-5 h-5 m-auto mb-2 text-brand3" />
         <span>Account</span>
       </router-link>
     </li>

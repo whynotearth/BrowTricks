@@ -51,6 +51,9 @@ html {
   height: 100vh;
   height: calc(100 * var(--vh));
 }
+.min-h-vh100--without-header {
+  min-height: calc(100 * var(--vh) - var(--header-height));
+}
 
 .break-word {
   word-break: break-word;
@@ -60,4 +63,19 @@ html {
   .bg-none {
     background-image: none !important;
   }
+}
+
+.aspect-ratio-box {
+  height: 0;
+  overflow: hidden;
+  padding-top: 100%;
+  background: white;
+  position: relative;
+}
+.aspect-ratio-box-inside {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }

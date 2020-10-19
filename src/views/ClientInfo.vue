@@ -10,21 +10,21 @@
           </h3>
           <div class="flex justify-around tg-caption-mobile w-full sm:w-auto">
             <a
-              class="flex flex-col items-center px-4 sm:px-8 text-on-surface"
+              class="flex flex-col items-center px-4 sm:px-8 text-primary"
               :href="`mailto:${client.email}`"
             >
               <IconMail class="fill-current mb-2" />
               <span class="text-on-background text-opacity-high">Email</span>
             </a>
             <a
-              class="flex flex-col items-center px-4 sm:px-8 text-on-surface"
+              class="flex flex-col items-center px-4 sm:px-8 text-primary"
               :href="`sms:${client.phoneNumber}`"
             >
               <IconPhoneAndroid class="fill-current mb-2" />
               <span class="text-on-background text-opacity-high">Text</span>
             </a>
             <a
-              class="flex flex-col items-center px-4 sm:px-8 text-on-surface"
+              class="flex flex-col items-center px-4 sm:px-8 text-primary"
               :href="`tel:${client.phoneNumber}`"
             >
               <IconPhone class="fill-current mb-2" />
@@ -38,21 +38,22 @@
             title="Edit Profile"
             @click="
               $router.push({
-                name: 'ClientInfoEdit',
+                name: 'ClientItemEdit',
                 params: {
-                  tenantSlug: tenantSlug,
-                  clientId: clientId,
-                  client: client
+                  tenantSlug,
+                  clientId,
+                  client
                 }
               })
             "
           >
             <template #preIcon>
-              <IconNotification class="h-4 w-4 fill-current" />
+              <IconEdit class="h-4 w-4 fill-current" />
             </template>
           </ExpansionPanel>
 
           <!-- incompleted PMU -->
+          <!-- :middleText="pmuMiddleText" -->
           <ExpansionPanel
             @click="
               $router.push({
@@ -61,7 +62,6 @@
               })
             "
             title="PMU Forms"
-            :middleText="pmuMiddleText"
           >
             <template #preIcon>
               <IconDocument class="h-4 w-4 fill-current" />
@@ -83,8 +83,8 @@
       <div class="-mt-8">
         <div class="max-w-md mx-auto px-6 sm:px-0">
           <MediaManager
+            @deleteItem="deleteItem"
             :files="currentFiles"
-            @change="updateFiles"
             class="mb-4"
           >
             <template #uploadButton>
@@ -92,17 +92,12 @@
                 tabindex="0"
                 class="upload-add bg-surface border-brand2 border border-opacity-medium flex justify-center items-center p-4 cursor-pointer"
                 aria-label="Upload"
-                @click="openDrawerUploadUpdate(true)"
+                @click="_openDrawerUploadUpdate"
               >
                 <IconCamera
-                  class="fill-current text-on-background text-opacity-medium w-10 h-10"
+                  class="fill-current text-primary text-opacity-high w-10 h-10"
                 />
               </a>
-            </template>
-            <template #title>
-              <div class="tg-body-mobile ">
-                <span class="text-on-background text-opacity-high"></span>
-              </div>
             </template>
           </MediaManager>
         </div>
@@ -116,20 +111,19 @@ import ExpansionPanel from '@/components/ExpansionPanel.vue';
 import PageContentBoard from '@/components/PageContentBoard.vue';
 import HeaderHeroSection from '@/components/HeaderHeroSection.vue';
 import MediaManager from '@/components/uploader/MediaManager.vue';
-
 import IconDocument from '@/assets/icons/document.svg';
 import IconNotes from '@/assets/icons/notes.svg';
-import IconNotification from '@/assets/icons/notification.svg';
-// import IconImages from '@/assets/icons/images.svg';
+import IconEdit from '@/assets/icons/edit.svg';
 import IconMail from '@/assets/icons/mail.svg';
 import IconPhone from '@/assets/icons/phone.svg';
 import IconCamera from '@/assets/icons/camera.svg';
 import IconPhoneAndroid from '@/assets/icons/phone_android.svg';
 import { get } from 'lodash-es';
 import { mapActions } from 'vuex';
+import { UploaderTypes } from '@/services/uploader';
 
 export default {
-  name: 'ClientEdit',
+  name: 'ClientInfo',
   props: {
     tenantSlug: {
       type: String,
@@ -145,7 +139,7 @@ export default {
     HeaderHeroSection,
     IconDocument,
     IconNotes,
-    IconNotification,
+    IconEdit,
     IconCamera,
     IconMail,
     IconPhone,
@@ -166,7 +160,7 @@ export default {
   computed: {
     pmuMiddleText() {
       const completedPmuCount = get(this.client, 'signatures', []).length;
-      return `Completed: ${completedPmuCount}`;
+      return `Signed: ${completedPmuCount}`;
     },
     currentFiles() {
       return [
@@ -182,8 +176,17 @@ export default {
     }
   },
   methods: {
-    ...mapActions('client', ['updateClient', 'archiveClient', 'fetchClient']),
+    ...mapActions('client', [
+      'updateClient',
+      'archiveClient',
+      'fetchClient',
+      'imageDelete',
+      'videoDelete'
+    ]),
     ...mapActions('uploader', ['openDrawerUploadUpdate']),
+    _openDrawerUploadUpdate() {
+      this.openDrawerUploadUpdate(UploaderTypes.CLIENT);
+    },
     async _fetchClient() {
       this.client = await this.fetchClient({
         params: {
@@ -200,32 +203,22 @@ export default {
         name: 'ClientList'
       });
     },
-    updateFiles(files) {
-      console.log('files before updatefiles', files);
-      const filesAdapted = files.map(item => ({
-        ...item,
-        url: item.url,
-        publicId: item.publicId
-      }));
-      console.log('files after', filesAdapted);
-      const images = filesAdapted.filter(item => item.resourceType === 'image');
-      const videos = filesAdapted.filter(item => item.resourceType === 'video');
-      const updatedInfo = {
-        ...this.client,
-        images,
-        videos
-      };
-      this.updateClient({
-        tenantSlug: this.tenantSlug,
-        clientId: this.clientId,
-        body: updatedInfo
-      })
-        .then(() => {
-          this._fetchClient();
-        })
-        .catch(error => {
-          console.log('Update client error', error.response);
-        });
+    deleteItem({ id, resourceType }) {
+      const method =
+        resourceType === 'image'
+          ? this.imageDelete
+          : resourceType === 'video'
+          ? this.videoDelete
+          : null;
+      if (!method) {
+        console.log('Unknown resource type.');
+      }
+      method({
+        params: {
+          tenantSlug: this.tenantSlug,
+          [`${resourceType}Id`]: id
+        }
+      }).then(this._fetchClient);
     }
   }
 };

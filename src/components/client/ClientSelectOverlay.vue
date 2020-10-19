@@ -24,6 +24,11 @@
           </ClientListItem>
         </div>
       </div>
+      <div class="px-4 py-8 text-center border-t" v-else>
+        <p class="tg-body-mobile text-opacity-high text-on-background">
+          You have no clients yet.
+        </p>
+      </div>
     </BaseOverlayPage>
   </div>
 </template>
@@ -48,6 +53,9 @@ export default {
       type: String,
       required: true
     }
+  },
+  created() {
+    this.fetchClients(this.tenantSlug);
   },
   methods: {
     ...mapActions('client', ['fetchClients']),

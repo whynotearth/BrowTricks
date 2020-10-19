@@ -1,7 +1,7 @@
 <template functional>
-  <div>
+  <div :class="props.classNames">
     <img
-      class="rounded-full"
+      class="rounded-full mx-auto"
       :class="[props.width || 'w-16', props.height || 'h-16']"
       :src="
         props.image ||
@@ -15,6 +15,6 @@
 <script>
 export default {
   name: 'BaseAvatar',
-  props: ['width', 'height', 'image']
+  props: ['width', 'height', 'image', 'classNames']
 };
 </script>

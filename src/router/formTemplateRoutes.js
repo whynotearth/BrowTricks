@@ -49,7 +49,6 @@ export const formTemplateRoutes = [
         component: () => import('@/views/FormTemplateItem.vue'),
         redirect: { name: 'FormTemplateItemEdit' },
         meta: {
-          noNavigation: true,
           layout: AppBarCardLayout,
           appBar: {
             title: 'Form Templates'
@@ -112,6 +111,14 @@ export const formTemplateRoutes = [
                 backRoute: { name: 'FormTemplateItemEdit' }
               }
             }
+          },
+
+          // flow (For tenant testing and preview)
+          {
+            path: 'flow-mock',
+            name: 'PmuSignFlowMock',
+            component: () => import('@/views/PmuSignFlowMock.vue'),
+            props: true
           }
         ]
       }

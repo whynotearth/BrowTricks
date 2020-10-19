@@ -5,8 +5,7 @@ import { AuthenticationService } from '@whynotearth/meredith-axios';
 const state = {
   provider: '',
   returnURL: '',
-  token: '',
-  userName: ''
+  token: ''
 };
 
 const getters = {
@@ -17,9 +16,6 @@ const getters = {
   },
   isAuthenticated(state) {
     return Boolean(state.userName);
-  },
-  userName(state) {
-    return state.userName;
   }
 };
 
@@ -46,20 +42,6 @@ const actions = {
     return AuthenticationService.login(params)
       .then(token => dispatch('updateToken', token))
       .then(async () => await dispatch('ping'));
-  },
-  tokenlogin({ dispatch }, { params }) {
-    return new Promise((resolve, reject) => {
-      // params: {body: {token: 'xyz'}}
-      AuthenticationService.tokenlogin(params)
-        .then(tokenString => {
-          dispatch('updateToken', tokenString);
-          resolve(tokenString);
-        })
-        .catch(error => {
-          dispatch('clear');
-          reject(error);
-        });
-    });
   },
   ping({ commit, dispatch, state }) {
     return new Promise((resolve, reject) => {
@@ -100,6 +82,29 @@ const actions = {
     } else {
       delete ajax.defaults.headers.common['Authorization'];
     }
+  },
+  // sms verification
+  requestVerifyCode() {
+    let companySlug = process.env.VUE_APP_COMPANY_SLUG;
+    const params = {
+      body: { companySlug }
+    };
+    return AuthenticationService.confirmphonetoken(params);
+  },
+  requestVerifyEmail(context, { params }) {
+    return AuthenticationService.confirmemailtoken(params);
+  },
+  submitVerifyCode(context, { params }) {
+    return AuthenticationService.confirmphone(params);
+  },
+  submitVerifyEmail(context, { params }) {
+    return AuthenticationService.confirmemail(params);
+  },
+  forgotPassword(context, { params }) {
+    return AuthenticationService.forgotpassword(params);
+  },
+  resetPassword(context, { params }) {
+    return AuthenticationService.forgotpasswordreset(params);
   },
   clear({ commit }) {
     commit('updateReturnUrl', '');

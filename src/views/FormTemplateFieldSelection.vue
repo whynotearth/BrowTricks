@@ -5,6 +5,18 @@
         Select a question type:
       </h2>
 
+      <a @click.prevent="selectField(uploaderField)" class="cursor-pointer">
+        <FormTemplateFieldTypeCard
+          @selectHelp="selectHelp"
+          class="mb-4"
+          :hasHelp="true"
+          :icon="uploaderField.icon"
+          :name="uploaderField.name"
+          :type="uploaderField.type"
+          :description="uploaderField.description"
+        />
+      </a>
+
       <a
         v-for="field in fieldsAvailable"
         :key="field.type"
@@ -62,16 +74,16 @@ export default {
       return {
         useUploader: true,
         icon: 'IconImages',
-        name: 'Upload',
+        name: 'Use Your Own Form',
         // NOTE: we'll set the actual type in FormTemplateDrawerUpload after upload file (image or pdf)
         type: 'upload',
         description:
-          'Already have a PDF or JPEF of your form? Upload to your template with an agreement request.'
+          'Already have a PDF or JPEG of your form? Upload to your template with an agreement request.',
+        value: 'I agree to all terms and conditions below.'
       };
     },
     fieldsAvailable() {
       return [
-        this.uploaderField,
         {
           icon: 'IconCheckSquared',
           name: 'Agreement Request',

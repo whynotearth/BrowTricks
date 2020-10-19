@@ -1,18 +1,18 @@
 <template>
   <div
-    class="z-50 fixed inset-0 bg-opacity-medium text-left bg-black flex flex-col"
+    class="fixed inset-0 z-50 flex flex-col text-left bg-black bg-opacity-medium"
     @click="$emit('close')"
   >
-    <div class="flex justify-end w-full flex-shrink-0">
+    <div class="flex justify-end flex-shrink-0 w-full">
       <button class="p-3" @click.prevent="$emit('close')" title="Close">
         <IconClose class="text-white" />
       </button>
     </div>
 
-    <div class="w-screen flex justify-center items-center flex-grow">
+    <div class="flex items-center justify-center flex-grow w-screen">
       <div
         @click.stop
-        class="rounded-lg w-full sm:w-128 mx-4"
+        class="w-full mx-4 rounded-lg sm:w-128"
         :class="[background, padding]"
       >
         <h6
@@ -50,7 +50,7 @@ export default {
       type: String
     },
     background: {
-      default: 'bg-primary'
+      default: 'bg-white'
     },
     textColor: {
       default: 'text-on-primary'

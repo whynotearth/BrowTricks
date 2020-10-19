@@ -1524,17 +1524,17 @@
     "@webassemblyjs/wast-parser" "1.9.0"
     "@xtuc/long" "4.2.2"
 
-"@whynotearth/meredith-axios@^1.0.55":
-  version "1.0.55"
-  resolved "https://registry.yarnpkg.com/@whynotearth/meredith-axios/-/meredith-axios-1.0.55.tgz#3230ce28eb9d27b9792903144228a4b27c186fbe"
-  integrity sha512-8zD9ytnvESrLQasUPHQCsltUfv1F63QZ7s4K8l2aKPjb/hIE7GutgGMp0tp/9H0+9erEYO0KVjAoRms/+Bvy6A==
+"@whynotearth/meredith-axios@^1.0.61":
+  version "1.0.61"
+  resolved "https://registry.yarnpkg.com/@whynotearth/meredith-axios/-/meredith-axios-1.0.61.tgz#c48d8f7c1b2650e7fa11e558cadb0e573f2bcf55"
+  integrity sha512-f/G3NcOpHZdAiRjYY6yLGdgADCfH6CvCpKbOeia1JqiPj5txDjKvLrGIOL6/8vFlG3pmw4cTPfo4YSWTJ5VuGQ==
   dependencies:
     swagger-axios-codegen "^0.10.3"
 
-"@whynotearth/vue-flow-form@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@whynotearth/vue-flow-form/-/vue-flow-form-0.0.2.tgz#29a66066bf3a942e0389723b80acdb5674221967"
-  integrity sha512-7f4aiKY4xc66IgJuDXMtTQya4UF7PSxReYWuAhTrWcll4w7C8GnI8QtzSv5BzpWaFn20ucHc2QEYPh4CDTMRtw==
+"@whynotearth/vue-flow-form@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@whynotearth/vue-flow-form/-/vue-flow-form-0.0.4.tgz#7eb442ac3d2b6e68b7d7ca240949acd2ae34975a"
+  integrity sha512-x21Fc+/r9i2jP68/gBfEuHSmJLeQs4rwGtMsrISXaphkLMAzGizGwl78EksTtRk/v9qTPmBqkD+brud0MW+fRg==
   dependencies:
     es6-object-assign "^1.1.0"
     vue-textarea-autosize "^1.1.1"
@@ -3399,6 +3399,11 @@ dotenv@^8.2.0:
   version "8.2.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.2.0.tgz#97e619259ada750eea3e4ea3e26bceea5424b16a"
   integrity sha512-8sJ78ElpbDJBHNeBzUbUVLsqKdccaa/BXF1uPTw3GrvQTBgrQrtObr2mUrE38vzYd8cEv+m/JBfDLioYcfXoaw==
+
+downloadjs@^1.4.7:
+  version "1.4.7"
+  resolved "https://registry.yarnpkg.com/downloadjs/-/downloadjs-1.4.7.tgz#f69f96f940e0d0553dac291139865a3cd0101e3c"
+  integrity sha1-9p+W+UDg0FU9rCkROYZaPNAQHjw=
 
 duplexer@^0.1.1:
   version "0.1.1"

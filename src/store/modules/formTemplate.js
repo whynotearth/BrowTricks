@@ -1,5 +1,5 @@
 import { cloneDeep } from 'lodash-es';
-import { randomId, navigationStatusUpdate } from '@/helpers.js';
+import { randomId } from '@/helpers.js';
 import { FormTemplateService } from '@whynotearth/meredith-axios';
 import {
   adaptApiTemplatesToModel,
@@ -50,6 +50,16 @@ const mutations = {
 };
 
 const actions = {
+  createDefaultTemplates(context, { params }) {
+    return FormTemplateService.defaults(params);
+  },
+  hasAnyFormTemplates({ dispatch }, tenantSlug) {
+    return dispatch('templatesFetch', { params: { tenantSlug } }).then(
+      response => {
+        return response.length > 0;
+      }
+    );
+  },
   templatesFetch(context, { params }) {
     return FormTemplateService.formtemplates1(params).then(response => {
       const adaptedTemplates = adaptApiTemplatesToModel(response);
@@ -97,12 +107,12 @@ const actions = {
       // put method
       apiAction = FormTemplateService.formtemplates3;
     }
+
     return apiAction({
       tenantSlug,
       templateId: template.id,
       body: templateAdapted
     }).then(templateId => {
-      navigationStatusUpdate('normal');
       return templateId;
     });
   },

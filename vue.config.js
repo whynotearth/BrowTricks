@@ -1,4 +1,17 @@
 module.exports = {
+  pages: {
+    index: {
+      entry: 'src/main.js',
+      template: 'public/index.html',
+      filename: 'index.html'
+    },
+
+    redirector: {
+      entry: 'src/services/redirector.js',
+      template: 'public/redirector.html',
+      filename: 'redirector.html'
+    }
+  },
   pwa: {
     name: 'BrowTricks',
     themeColor: '#141414'

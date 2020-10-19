@@ -1,4 +1,5 @@
 import {
+  TenantMediaService,
   ClientService,
   ClientNoteService,
   FormAnswerService
@@ -60,30 +61,19 @@ const actions = {
     // params = { tenantSlug, clientId }
     return ClientService.clients3(params);
   },
-  createClient({ state, commit }, payload) {
-    const clientData = {
-      tenantSlug: payload.tenantSlug,
+  createClient(context, { params }) {
+    const _params = {
       companySlug: process.env.VUE_APP_COMPANY_SLUG,
-      body: {
-        firstName: state.clientInfo.firstName,
-        lastName: state.clientInfo.lastName,
-        phoneNumber: state.clientInfo.phoneNumber,
-        email: state.clientInfo.email,
-        notificationTypes: state.clientInfo.notificationTypes
-      }
+      ...params
     };
-    return ClientService.clients(clientData).then(() => {
-      commit('resetClientInfo');
-    });
+    return ClientService.clients(_params);
   },
-  updateClient(context, payload) {
-    const clientData = {
-      tenantSlug: payload.tenantSlug,
+  updateClient(context, { params }) {
+    const _params = {
       companySlug: process.env.VUE_APP_COMPANY_SLUG,
-      clientId: payload.clientId,
-      body: { ...payload.body }
+      ...params
     };
-    return ClientService.clients2(clientData);
+    return ClientService.clients2(_params);
   },
   archiveClient(context, payload) {
     const clientData = {
@@ -110,15 +100,27 @@ const actions = {
   pmuSendFormLink(context, { params }) {
     return FormAnswerService.notify(params);
   },
-  pmuEmptyPreview(context, { params }) {
+  pmuEmptyPngPreview(context, { params }) {
     // NOTE: this is equal to tenant/pmuEmptyPreview
-    return FormAnswerService.preview(params);
+    return FormAnswerService.png(params);
   },
   pmuFilledPreview(context, { params }) {
     return FormAnswerService.preview1(params);
   },
   pmuSignSubmitAnswers(context, { params }) {
     return FormAnswerService.answer(params);
+  },
+  imageAdd(context, { params }) {
+    return TenantMediaService.images(params);
+  },
+  videoAdd(context, { params }) {
+    return TenantMediaService.videos(params);
+  },
+  imageDelete(context, { params }) {
+    return TenantMediaService.images1(params);
+  },
+  videoDelete(context, { params }) {
+    return TenantMediaService.videos1(params);
   }
 };
 

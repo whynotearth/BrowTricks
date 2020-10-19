@@ -1,23 +1,40 @@
 <template>
-  <div class="flex flex-col items-center text-left w-full">
-    <div class="px-4 max-w-md">
+  <div
+    class="flex flex-col items-center w-full text-left min-h-vh100--without-header"
+  >
+    <div class="max-w-md px-4">
       <img
         src="https://res.cloudinary.com/whynotearth/image/upload/v1600874347/BrowTricks/static_v2/image-login_crwfva.png"
         alt=""
       />
     </div>
     <div
-      class="flex-grow w-full bg-surface rounded-t-xl px-4 py-8 flex flex-col items-center"
+      class="flex flex-col items-center flex-grow w-full px-4 py-8 bg-surface rounded-t-xl"
     >
+      <AuthButtons></AuthButtons>
+
+      <div class="flex items-center justify-center w-full py-8">
+        <hr class="flex-grow" />
+        <span class="px-1">OR</span>
+        <hr class="flex-grow" />
+      </div>
+
       <form
         @submit.prevent="submit"
-        class="flex flex-col w-full max-w-sm flex-grow justify-between"
+        novalidate
+        class="flex flex-col justify-between flex-grow w-full max-w-sm"
       >
         <div class="">
           <MaterialInput
             v-model.trim="$v.firstName.$model"
             label="First Name"
-            :error="$v.firstName.$error"
+            :attrs="{
+              autocomplete: 'first-name',
+              name: 'firstname',
+              enterkeyhint: 'send'
+            }"
+            :validatorModel="$v.firstName"
+            :serverErrors="serverErrors.FirstName"
           >
             <p v-if="!$v.firstName.required">
               First Name is required
@@ -26,16 +43,50 @@
           <MaterialInput
             v-model.trim="$v.lastName.$model"
             label="Last Name"
-            :error="$v.lastName.$error"
+            :attrs="{
+              autocomplete: 'family-name',
+              name: 'lastname',
+              enterkeyhint: 'send'
+            }"
+            :validatorModel="$v.lastName"
+            :serverErrors="serverErrors.LastName"
           >
             <p v-if="!$v.lastName.required">
               Last Name is required
             </p>
           </MaterialInput>
           <MaterialInput
+            v-model.trim="$v.phoneNumber.$model"
+            label="Phone Number"
+            type="tel"
+            :attrs="{
+              autocomplete: 'tel',
+              inputmode: 'tel',
+              name: 'telephone',
+              enterkeyhint: 'send'
+            }"
+            :validatorModel="$v.phoneNumber"
+            :serverErrors="serverErrors.PhoneNumber"
+          >
+            <p v-if="!$v.phoneNumber.required">
+              Phone number is required
+            </p>
+            <p v-else-if="!$v.phoneNumber.isPhoneNumberValid">
+              Please enter a valid phone number
+            </p>
+          </MaterialInput>
+          <MaterialInput
+            type="email"
             v-model.trim="$v.email.$model"
             label="Email Address"
-            :error="$v.email.$error"
+            :attrs="{
+              autocomplete: 'email',
+              inputmode: 'email',
+              name: 'email',
+              enterkeyhint: 'send'
+            }"
+            :validatorModel="$v.email"
+            :serverErrors="serverErrors.Email"
           >
             <p v-if="!$v.email.required">
               Email is required
@@ -44,14 +95,48 @@
               Please enter an email address
             </p>
           </MaterialInput>
+
+          <MaterialInput
+            v-model.trim="$v.userName.$model"
+            label="Username"
+            :validatorModel="$v.userName"
+            :serverErrors="serverErrors.UserName"
+          >
+            <p v-if="!$v.userName.required">
+              Username is required
+            </p>
+            <p v-if="!$v.userName.minLength">
+              Should be at least 5 characters
+            </p>
+            <p v-else-if="!$v.userName.alphaNum">
+              Should be alphanumeric
+            </p>
+          </MaterialInput>
+
           <MaterialInput
             type="password"
             v-model.trim="$v.password.$model"
             label="Password"
-            :error="$v.password.$error"
+            :attrs="{ autocomplete: 'new-password', enterkeyhint: 'send' }"
+            :validatorModel="$v.password"
+            :serverErrors="serverErrors.Password"
           >
             <p v-if="!$v.password.required">
               Password is required
+            </p>
+          </MaterialInput>
+          <MaterialInput
+            type="password"
+            v-model.trim="$v.repeatPassword.$model"
+            label="Confirm Password"
+            :attrs="{ autocomplete: 'new-password', enterkeyhint: 'send' }"
+            :validatorModel="$v.repeatPassword"
+          >
+            <p v-if="!$v.password.required">
+              Password is required
+            </p>
+            <p class="error" v-else-if="!$v.repeatPassword.sameAsPassword">
+              Passwords must match.
             </p>
           </MaterialInput>
         </div>
@@ -62,7 +147,7 @@
 
         <div>
           <Button type="submit" title="Let's Get Started" />
-          <p class="mt-4 tg-body-mobile text-center">
+          <p class="mt-4 text-center tg-body-mobile">
             Already have an account?
             <router-link :to="{ name: 'AuthLogin' }" class="text-primary-blue">
               Login
@@ -76,23 +161,35 @@
 
 <script>
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
-import { required, email } from 'vuelidate/lib/validators';
+import {
+  required,
+  alphaNum,
+  minLength,
+  email,
+  sameAs
+} from 'vuelidate/lib/validators';
 import { mapActions } from 'vuex';
-import { showOverlayAndRedirect } from '@/helpers';
-import { get } from 'lodash-es';
+import { showOverlayAndRedirect, isPhoneNumberValid } from '@/helpers';
+import formGeneralUtils from '@/mixins/formGeneralUtils.js';
+import AuthButtons from '@/components/auth/AuthButtons';
 
 export default {
   name: 'AuthSignup',
+  // NOTE: we use a mixin
+  mixins: [formGeneralUtils],
   components: {
+    AuthButtons,
     MaterialInput
   },
   data() {
     return {
-      errorMessage: '',
       firstName: '',
       lastName: '',
       email: '',
-      password: ''
+      userName: '',
+      password: '',
+      phoneNumber: '',
+      repeatPassword: ''
     };
   },
   validations: {
@@ -106,23 +203,27 @@ export default {
       required,
       email
     },
+    userName: {
+      required,
+      alphaNum,
+      minLength: minLength(5)
+    },
     password: {
       required
+    },
+    repeatPassword: {
+      required,
+      sameAsPassword: sameAs('password')
+    },
+    phoneNumber: {
+      required,
+      isPhoneNumberValid
     }
-  },
-  created() {
-    this.clearError();
   },
   methods: {
     ...mapActions('auth', ['register']),
-    clearError() {
-      this.errorMessage = '';
-    },
     submit() {
-      this.clearError();
-
-      this.$v.$touch();
-      if (this.$v.$invalid) {
+      if (!this.beforeSubmit()) {
         return;
       }
 
@@ -131,25 +232,20 @@ export default {
           body: {
             password: this.password,
             email: this.email,
+            userName: this.userName,
             firstName: this.firstName,
-            lastName: this.lastName
+            lastName: this.lastName,
+            phoneNumber: this.phoneNumber
           }
         }
       })
         .then(this.onSuccess)
-        .catch(error => {
-          this.errorMessage = get(
-            error,
-            'response.data[0].description',
-            'Something went wrong'
-          );
-          console.log(error, error.response);
-        });
+        .catch(this.onSubmitCatch);
     },
     onSuccess() {
       showOverlayAndRedirect({
         title: 'Success!',
-        route: { name: 'TenantHome' }
+        route: { name: 'AuthNumberVerify' }
       });
     }
   }

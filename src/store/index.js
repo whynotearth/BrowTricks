@@ -8,20 +8,20 @@ import overlay from './modules/overlay';
 import loading from './modules/loading';
 import uploader from './modules/uploader';
 import formTemplate from './modules/formTemplate';
-import navigation from './modules/navigation';
+import profile from './modules/profile';
 
 import VuexPersistence from 'vuex-persist';
 
 const vuexSession = new VuexPersistence({
   storage: window.sessionStorage,
-  modules: ['auth', 'tenant', 'uploader', 'formTemplate'],
+  modules: ['auth', 'uploader', 'formTemplate'],
   key: 'vuexSessionStore'
 });
 
 const vuexLocal = new VuexPersistence({
   storage: window.localStorage,
   // TODO: move client to sessionStorage
-  modules: ['client', 'navigation'],
+  modules: ['client'],
   key: 'vuexLocalStore'
 });
 
@@ -39,7 +39,7 @@ export default new Vuex.Store({
     }
   },
   modules: {
-    navigation,
+    profile,
     formTemplate,
     global,
     auth,

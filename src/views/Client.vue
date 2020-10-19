@@ -36,30 +36,41 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('loading', ['loadingGet'])
+    ...mapGetters('loading', ['loadingGet']),
+    ...mapGetters('auth', ['isAuthenticated'])
   },
   async created() {
     this.errorMessage = '';
-    await this.handleLoginByToken();
+    const gotToken = this.setTokenFromUrl();
+    if (gotToken) {
+      await this.ping().catch(error => {
+        const shouldCare = status === 401;
+        console.log('User is not logged in. (Client.vue)');
+        // WARNING: this may allow opening page with incorrect previously logged in user (has no security risk). It will just cause 403 error
+        if (shouldCare) {
+          this.errorMessage = get(
+            error,
+            'response.data.error',
+            'This link is not valid.'
+          );
+        }
+      });
+    }
     this._fetchClient();
   },
   methods: {
-    ...mapActions('auth', ['updateToken', 'tokenlogin']),
+    ...mapActions('auth', ['updateToken', 'ping']),
     ...mapActions('loading', ['loadingUpdate']),
     ...mapActions('client', ['fetchClient']),
-    handleLoginByToken() {
-      const token = this.$route.query.token;
-      if (!token) {
-        return;
+
+    setTokenFromUrl() {
+      if (this.$route.query.token) {
+        this.updateToken(this.$route.query.token);
+        return true;
       }
-      return this.tokenlogin({ params: { body: { token } } }).catch(error => {
-        this.errorMessage = get(
-          error,
-          'response.data.error',
-          'This link is not valid.'
-        );
-      });
+      return false;
     },
+
     async _fetchClient() {
       this.loadingUpdate(true);
       this.fetchClient({
@@ -71,8 +82,17 @@ export default {
         .then(data => {
           this.client = data;
         })
-        .catch(() => {
+        .catch(error => {
           console.log('Error in getting client');
+          const status = get(error, 'response.status', null);
+          if (!this.errorMessage) {
+            if (status === 401) {
+              this.errorMessage = 'Sorry, this link is not valid.';
+            } else {
+              this.errorMessage =
+                'Could not get client data. If problem persisted please contact chris@whynot.earth';
+            }
+          }
         })
         .finally(() => {
           this.loadingUpdate(false);

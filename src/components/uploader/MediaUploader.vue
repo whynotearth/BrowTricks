@@ -45,7 +45,11 @@ export default {
   },
   methods: {
     onUploadError(error) {
-      alert(error.status);
+      if (error.status.includes('not allowed')) {
+        alert('Format is not accepted!');
+      } else {
+        alert(error.status);
+      }
     },
     onUpload(result) {
       if (result.event === 'success') {
@@ -59,16 +63,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.upload-add {
-  height: 100px;
-  width: 100px;
-}
-@screen sm {
-  .upload-add {
-    width: 100px;
-    width: 100px;
-  }
-}
-</style>

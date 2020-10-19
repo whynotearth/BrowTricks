@@ -1,6 +1,7 @@
 import router from '@/router';
 import store from '@/store';
 import { format, utcToZonedTime } from 'date-fns-tz';
+import { required } from 'vuelidate/lib/validators';
 
 export function randomId(len = 16) {
   return (
@@ -66,6 +67,23 @@ export function isPhoneNumberValid(phone) {
   );
 }
 
+export const validationPassword = {
+  required,
+  // minLength: minLength(8)  // I assume you'd want something like this too
+  containsUppercase: function(value) {
+    return !/[A-Z]/.test(value);
+  },
+  containsLowercase: function(value) {
+    return !/[a-z]/.test(value);
+  },
+  containsNumber: function(value) {
+    return !/[0-9]/.test(value);
+  },
+  containsSpecial: function(value) {
+    return !/[#?!@$%^&*-]/.test(value);
+  }
+};
+
 export async function showOverlayAndRedirect({
   title = '',
   message = '',
@@ -105,10 +123,10 @@ export function transformCloudinaryUrl(resourceUrl, transformations) {
   return urlParts.join('/');
 }
 
-export function getCloudinaryThumbnail(url) {
+export function changeCloudinaryExtension(url, newformat = 'jpg') {
   const urlSegments = url.split('.');
   const extension = urlSegments[urlSegments.length - 1];
-  const thumbnail = url.replace(new RegExp(extension + '$'), 'jpg');
+  const thumbnail = url.replace(new RegExp(extension + '$'), newformat);
   return thumbnail;
 }
 
@@ -131,19 +149,42 @@ export function urlToFile(jsonfile) {
   });
 }
 
-export function isShareApiSupported() {
-  return !!window.navigator.share;
+// https://stackoverflow.com/a/38935990
+function dataUrltoFile(dataurl, filename) {
+  const arr = dataurl.split(',');
+  console.log(arr);
+  const mime = arr[0].match(/:(.*?);/)[1];
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+
+  return new File([u8arr], filename, { type: mime });
+}
+
+// NOTE: this will return false on non-https addresses
+export const isShareApiSupported = !!window.navigator.share;
+export const isFileShareApiSupported = !!window.navigator.canShare;
+
+// no old share
+export function shareDataUrl({ data, filename }) {
+  const file = dataUrltoFile(data, filename);
+  window.navigator.share({
+    files: [file]
+  });
 }
 
 // @input jsonfile: {url}
 export function share(jsonfile) {
-  const isFileSharingSupported = !!navigator.canShare;
-  if (!isFileSharingSupported) {
+  if (!isFileShareApiSupported) {
     _shareOld(jsonfile);
     return;
   }
 
-  this.urlToFile(jsonfile).then(file => {
+  urlToFile(jsonfile).then(file => {
     // https://web.dev/web-share/#sharing-files
     window.navigator
       .share({
@@ -174,23 +215,25 @@ export function cloudinaryFileToMeredithFileAdapter(cloudinaryFileInfo) {
       : cloudinaryFileInfo.resource_type;
 
   if (resourceType === 'pdf') {
-    const { secure_url, public_id } = cloudinaryFileInfo;
+    const { secure_url, public_id, pages } = cloudinaryFileInfo;
     return {
       resourceType,
       publicId: public_id,
-      url: secure_url
+      url: secure_url,
+      pages
     };
   }
 
   // image type
   if (resourceType === 'image') {
-    const { secure_url, height, width, public_id } = cloudinaryFileInfo;
+    const { secure_url, height, width, public_id, bytes } = cloudinaryFileInfo;
     return {
       resourceType,
       height,
       width,
       publicId: public_id,
-      url: secure_url
+      url: secure_url,
+      fileSize: bytes
     };
   }
 
@@ -203,7 +246,8 @@ export function cloudinaryFileToMeredithFileAdapter(cloudinaryFileInfo) {
       public_id,
       thumbnail_url,
       format,
-      duration
+      duration,
+      bytes
     } = cloudinaryFileInfo;
     return {
       resourceType: 'video',
@@ -213,7 +257,8 @@ export function cloudinaryFileToMeredithFileAdapter(cloudinaryFileInfo) {
       url: secure_url,
       thumbnailUrl: thumbnail_url,
       format,
-      duration
+      duration,
+      fileSize: bytes
     };
   }
 }
@@ -242,14 +287,18 @@ export function formatDateTime(
   }
 
   // Fix DotNet backward compatibility of not including 'Z' at the end of UTC date
-  let _dateString = dateString;
-  if (_dateString.charAt(_dateString.length - 1) !== 'Z') {
-    _dateString = `${_dateString}Z`;
-  }
+  let _dateString = fixApiDateString(dateString);
 
   const dateObject = new Date(_dateString);
   const dateObjectZoned = utcToZonedTime(dateObject, timeZone);
   return format(dateObjectZoned, dateFormat);
+}
+
+// Fix not having Z at the end of dateStrings in API
+export function fixApiDateString(dateString) {
+  if (dateString.charAt(dateString.length - 1) !== 'Z') {
+    return `${dateString}Z`;
+  }
 }
 
 function _getUserTimeZone() {
@@ -264,6 +313,8 @@ export async function formTemplateAdd() {
   });
 }
 
-export function navigationStatusUpdate(status) {
-  store.dispatch('navigation/statusUpdate', status);
+export function isEmail(value) {
+  const regex = /(^$|^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$)/;
+
+  return regex.test(value);
 }

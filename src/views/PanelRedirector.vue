@@ -3,63 +3,161 @@
 </template>
 
 <script>
+/**
+
+Signup:
+  Google Auth, then:
+    firstname, lastname, phone, username => continueToApp
+  Standard:
+    firstname, lastname, phone, email, username, password => continueToApp
+
+Login:
+  Google Auth, then:
+    is user: => continueToApp
+    is not user => Signup.Google
+  Standard:
+    username/email, password => continueToApp
+
+Forgot password:
+  email/username
+
+continueToApp = verify email? => verify phone? => create tenant? => dashboard
+
+ */
+
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'PanelRedirector',
   data() {
     return {
-      tenants: []
+      tenants: [],
+      profile: null
     };
   },
   computed: {
     ...mapGetters('auth', ['isAuthenticated'])
   },
-  created() {
+  async created() {
     const gotToken = this.setTokenFromUrl();
-    if (!(gotToken || this.isAuthenticated)) {
+
+    await this.ping().catch(() => {
+      console.log('Ping failed');
+    });
+    if (!gotToken && !this.isAuthenticated) {
+      console.log('!token !authenticated');
+      this.goLogin();
       return;
     }
-
     this.init();
   },
   methods: {
     ...mapActions('global', ['isDrawerOpenAuthUpdate']),
     ...mapActions('tenant', ['fetchUserTenants']),
-    ...mapActions('auth', ['updateToken']),
+    ...mapActions('auth', ['updateToken', 'ping']),
+    ...mapActions('profile', ['profileFetch']),
     ...mapActions('loading', ['loadingUpdate']),
-    init() {
-      this.loadingUpdate(true);
+    async init() {
+      await this._profileFetch();
+      if (!this.profile) {
+        alert('Something went wrong. Refreshing page may fix the issue.');
+        return;
+      }
 
-      this.fetchUserTenants()
-        .then(tenants => {
-          this.tenants = tenants;
-          this.handleRedirect(tenants);
+      if (!this.isProfileComplete()) {
+        console.log('!isProfileComplete');
+        this.goSignupEdit();
+        return;
+      }
+
+      if (!this.profile.isEmailConfirmed) {
+        console.log('!isEmailConfirmed...');
+        this.goEmailVerification();
+        return;
+      }
+
+      if (!this.profile.isPhoneNumberConfirmed) {
+        console.log('!isEmailConfirmed...');
+        this.goNumberVerification();
+        return;
+      }
+
+      this.loadingUpdate(true);
+      await this.handleTenantRedirect();
+      this.loadingUpdate(false);
+    },
+
+    async _profileFetch() {
+      this.loadingUpdate(true);
+      await this.profileFetch()
+        .then(response => {
+          this.profile = response;
         })
+        .catch(() => {
+          console.log('Error in get profile');
+        });
+      this.loadingUpdate(false);
+    },
+
+    isProfileComplete() {
+      return (
+        this.profile.firstName &&
+        this.profile.lastName &&
+        this.profile.phoneNumber &&
+        this.profile.email
+      );
+    },
+    handleTenantRedirect() {
+      return this.fetchUserTenants()
+        .then(this.onGetTenants)
         .catch(error => {
           console.log(error);
           alert(
             `Something went wrong in getting your account data, refreshing page may help. Otherwise please contact ${process.env.VUE_APP_ADMINISTRATOR_CONTACT_EMAIL}`
           );
-          this.loadingUpdate(false);
         });
     },
-    async handleRedirect(tenants) {
+    async onGetTenants(tenants) {
+      this.tenants = tenants;
+
       const selectedTenant = tenants[0];
       if (!selectedTenant) {
-        this.tenantSignup();
+        this.goTenantSignup();
         return;
       }
-      await this.$router.replace({
-        name: 'TenantHome',
-        params: { tenantSlug: selectedTenant.slug }
-      });
-      this.loadingUpdate(false);
+      this.goTenantHome(selectedTenant);
     },
-    tenantSignup() {
-      this.$router.push({
+    goTenantSignup() {
+      this.$router.replace({
         name: 'TenantSignup',
         params: { step: 'business-info' }
+      });
+    },
+    goTenantHome(tenant) {
+      this.$router.replace({
+        name: 'TenantHome',
+        params: { tenantSlug: tenant.slug }
+      });
+    },
+    goSignupEdit() {
+      this.$router.replace({
+        name: 'AuthSignupEdit'
+      });
+    },
+    goEmailVerification() {
+      this.$router.replace({
+        name: 'AuthEmailVerify',
+        query: { email: this.profile.email }
+      });
+    },
+    goNumberVerification() {
+      this.$router.replace({
+        name: 'AuthNumberVerify'
+      });
+    },
+    goLogin() {
+      this.$router.replace({
+        name: 'AuthLogin'
       });
     },
     setTokenFromUrl() {
