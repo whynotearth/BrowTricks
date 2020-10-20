@@ -114,7 +114,6 @@
         <div>
           <Button class="mb-4" type="submit" title="Save" />
           <Button
-            type="button"
             title="Logout"
             :background="null"
             :to="{ name: 'AuthLogout' }"
