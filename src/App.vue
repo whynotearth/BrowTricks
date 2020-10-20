@@ -43,11 +43,6 @@
         />
       </div>
     </transition>
-
-    <DrawerAuth
-      @close="isDrawerOpenAuthUpdate(false)"
-      :isOpen="isDrawerOpenAuthGet"
-    ></DrawerAuth>
   </div>
 </template>
 <script>
@@ -55,7 +50,6 @@ import BaseOverlaySuccess from '@/components/BaseOverlaySuccess.vue';
 import SnackBar from '@/components/SnackBar.vue';
 import { mapGetters, mapActions } from 'vuex';
 import vhFix from '@/mixins/vhFix.js';
-import DrawerAuth from '@/components/auth/DrawerAuth';
 
 export default {
   name: 'App',
@@ -65,7 +59,7 @@ export default {
     };
   },
   mixins: [vhFix],
-  components: { BaseOverlaySuccess, SnackBar, DrawerAuth },
+  components: { BaseOverlaySuccess, SnackBar },
   computed: {
     ...mapGetters('global', ['isDrawerOpenAuthGet']),
     ...mapGetters('overlay', {
