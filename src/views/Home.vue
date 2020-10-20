@@ -11,15 +11,6 @@
     <template #title>{{ SHORTNAME }}</template>
     <template #primaryCTA>
       <Button
-        v-if="isAuthenticated"
-        background="bg-primary"
-        textColor="text-on-primary"
-        title="Open Dashboard"
-        class="normal-case mb-2"
-        :to="{ name: 'PanelRedirector' }"
-      />
-      <Button
-        v-else
         background="bg-primary"
         textColor="text-on-primary"
         title="Create Account"
@@ -28,12 +19,7 @@
       />
     </template>
     <template #tertiaryCTA>
-      <p class="text-on-background" v-if="isAuthenticated">
-        Log in with another account?
-        <router-link class="" :to="{ name: 'AuthLogin' }">Log In</router-link>
-      </p>
-
-      <p class="text-on-background" v-else>
+      <p class="text-on-background">
         Already have an account?
         <router-link class="" :to="{ name: 'AuthLogin' }">Log In</router-link>
       </p>
@@ -43,7 +29,7 @@
 
 <script>
 import SplashLayout from '@/layouts/SplashLayout.vue';
-import { mapGetters, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'Home',
@@ -51,7 +37,6 @@ export default {
     SplashLayout
   },
   computed: {
-    ...mapGetters('auth', ['isAuthenticated']),
     SHORTNAME() {
       return process.env.VUE_APP_SHORTNAME;
     }
