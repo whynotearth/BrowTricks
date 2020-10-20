@@ -76,7 +76,7 @@
               :selectFile="() => {}"
               :file="{
                 ...file,
-                thumbnail: changeCloudinaryExtension(file.url, 'jpg')
+                thumbnail: getCloudinaryVideoThumbnail(file.url)
               }"
             />
           </div>
@@ -118,7 +118,7 @@ import { mapGetters, mapActions } from 'vuex';
 import {
   share,
   showOverlayAndRedirect,
-  changeCloudinaryExtension
+  getCloudinaryVideoThumbnail
 } from '@/helpers.js';
 
 const clientTagRegex = /\s*@[\w]+-[\w]+\s*/g;
@@ -162,7 +162,7 @@ export default {
     ...mapActions('client', ['fetchClient', 'videoAdd', 'imageAdd']),
     ...mapActions('uploader', ['openDrawerUploadUpdate']),
     share,
-    changeCloudinaryExtension,
+    getCloudinaryVideoThumbnail,
     checkUploadedFileExistance() {
       if (!this.uploadedFilesGet[0]) {
         alert('No uploaded file.');

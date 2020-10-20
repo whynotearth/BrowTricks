@@ -17,7 +17,11 @@
           v-if="file.resourceType === 'video'"
           :selectFile="selectFile"
           :key="index"
-          :file="{ ...file, index, thumbnail: getThumbnail(file) }"
+          :file="{
+            ...file,
+            index,
+            thumbnail: getCloudinaryVideoThumbnail(file.url)
+          }"
         />
       </div>
       <ImagePreviewModal
@@ -37,7 +41,7 @@
 </template>
 
 <script>
-import { fixApiDateString } from '@/helpers';
+import { fixApiDateString, getCloudinaryVideoThumbnail } from '@/helpers';
 export default {
   name: 'MediaManager',
   props: {
@@ -66,16 +70,11 @@ export default {
     }
   },
   methods: {
+    getCloudinaryVideoThumbnail,
     sortByDate(itemA, itemB) {
       const dateA = new Date(fixApiDateString(itemA.createdAt));
       const dateB = new Date(fixApiDateString(itemB.createdAt));
       return dateB - dateA;
-    },
-    getThumbnail(file) {
-      const urlSegments = file.url.split('.');
-      const extension = urlSegments[urlSegments.length - 1];
-      const thumbnail = file.url.replace(new RegExp(extension + '$'), 'jpg');
-      return thumbnail;
     },
     remove(file) {
       this.$emit('deleteItem', file);

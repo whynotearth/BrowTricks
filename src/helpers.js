@@ -130,6 +130,13 @@ export function changeCloudinaryExtension(url, newformat = 'jpg') {
   return thumbnail;
 }
 
+export function getCloudinaryVideoThumbnail(url, newformat = 'jpg') {
+  return transformCloudinaryUrl(
+    changeCloudinaryExtension(url, newformat),
+    'so_auto'
+  );
+}
+
 // @input jsonfile: {url}
 export function urlToFile(jsonfile) {
   const urlParts = jsonfile.url.split('/');
