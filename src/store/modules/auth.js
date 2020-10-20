@@ -15,7 +15,7 @@ const getters = {
     );
   },
   isAuthenticated(state) {
-    return Boolean(state.userName);
+    return Boolean(state.token);
   }
 };
 
@@ -39,19 +39,20 @@ const actions = {
     });
   },
   async loginStandard({ dispatch }, { params }) {
-    return AuthenticationService.login(params)
-      .then(async token => {
-        await dispatch('updateToken', token);
-      })
-      .then(async () => {
-        await dispatch('ping');
-      });
+    try {
+      const token = await AuthenticationService.login(params);
+      await dispatch('updateToken', token);
+      await dispatch('ping');
+      return true;
+    } catch (error) {
+      console.log('Error in standard login');
+      throw error;
+    }
   },
   ping({ commit, dispatch, state }) {
     return AuthenticationService.ping()
       .then(async response => {
         commit('updateProvider', response.loginProviders[0]);
-        commit('updateUserName', response.userName);
         await dispatch('updateToken', state.token);
         return response;
       })
@@ -111,16 +112,12 @@ const actions = {
   clear({ commit }) {
     commit('updateReturnUrl', '');
     commit('updateProvider', '');
-    commit('updateUserName', '');
   }
 };
 
 const mutations = {
   updateToken(state, payload) {
     state.token = payload;
-  },
-  updateUserName(state, payload) {
-    state.userName = payload;
   },
   updateProvider(state, payload) {
     state.provider = payload;
