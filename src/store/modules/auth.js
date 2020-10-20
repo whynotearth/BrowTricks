@@ -40,23 +40,25 @@ const actions = {
   },
   async loginStandard({ dispatch }, { params }) {
     return AuthenticationService.login(params)
-      .then(token => dispatch('updateToken', token))
-      .then(async () => await dispatch('ping'));
+      .then(async token => {
+        await dispatch('updateToken', token);
+      })
+      .then(async () => {
+        await dispatch('ping');
+      });
   },
   ping({ commit, dispatch, state }) {
-    return new Promise((resolve, reject) => {
-      AuthenticationService.ping()
-        .then(async response => {
-          commit('updateProvider', response.loginProviders[0]);
-          commit('updateUserName', response.userName);
-          await dispatch('updateToken', state.token);
-          resolve(response);
-        })
-        .catch(error => {
-          dispatch('clear');
-          reject(error);
-        });
-    });
+    return AuthenticationService.ping()
+      .then(async response => {
+        commit('updateProvider', response.loginProviders[0]);
+        commit('updateUserName', response.userName);
+        await dispatch('updateToken', state.token);
+        return response;
+      })
+      .catch(error => {
+        dispatch('clear');
+        throw error;
+      });
   },
   logout({ state, dispatch }) {
     return new Promise((resolve, reject) => {
