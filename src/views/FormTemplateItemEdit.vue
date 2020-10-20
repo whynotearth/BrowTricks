@@ -30,7 +30,6 @@
     <div class="px-4 md:px-0">
       <Button
         v-if="shouldShowPreviewButton"
-        type="button"
         class="uppercase mb-6"
         @clicked="isPreviewModalOpen = true"
         title="Preview & Test"
