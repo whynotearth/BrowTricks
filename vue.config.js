@@ -13,10 +13,13 @@ module.exports = {
     }
   },
   pwa: {
-    name: 'BrowTricks',
+    name: 'Brow Tricks',
     themeColor: '#141414',
     msTileColor: '#141414',
     manifestOptions: {
+      name: 'Brow Tricks Beauty',
+      short_name: 'Brow Tricks',
+      background_color: '#141414',
       icons: [
         {
           src: './img/icons/android-chrome-192x192.png',
