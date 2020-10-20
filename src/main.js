@@ -16,6 +16,7 @@ import Button from '@/components/inputs/Button.vue';
 import TextAreaInput from '@/components/inputs/TextAreaInput.vue';
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
 import PageContentBoard from '@/components/PageContentBoard.vue';
+import Rollbar from 'rollbar';
 Vue.component('Button', Button);
 Vue.component('TextAreaInput', TextAreaInput);
 Vue.component('MaterialInput', MaterialInput);
@@ -25,6 +26,20 @@ Vue.use(SmoothPicker);
 Vue.use(Vuelidate);
 Vue.use(vClickOutside);
 Vue.use(PortalVue);
+
+Vue.prototype.$rollbar = new Rollbar({
+  accessToken: '9912db541f8c42d88dc9a147d49062ef',
+  captureUncaught: true,
+  captureUnhandledRejections: true,
+  payload: {
+    environment: process.env.NODE_ENV != "production" ? "staging" : "production"
+  }
+});
+
+Vue.config.errorHandler = (err, vm) => {
+  vm.$rollbar.error(err);
+  throw err;
+};
 
 Vue.config.productionTip = false;
 async function main() {

@@ -19,6 +19,7 @@
     "lodash-es": "^4.17.15",
     "portal-vue": "^2.1.7",
     "register-service-worker": "^1.6.2",
+    "rollbar": "^2.19.4",
     "tailwindcss": "^1.8.10",
     "v-click-outside": "^3.1.0",
     "vue": "^2.6.11",
