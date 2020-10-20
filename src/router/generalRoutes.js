@@ -6,7 +6,6 @@ export const generalRoutes = [
     name: 'Home',
     component: () => import('@/views/Home.vue'),
     meta: {
-      needsUserInfo: true,
       isPublic: true,
       noNavigation: true
     }

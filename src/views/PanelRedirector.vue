@@ -70,15 +70,15 @@ export default {
         return;
       }
 
-      if (!this.profile.isEmailConfirmed) {
-        console.log('!isEmailConfirmed...');
-        this.goEmailVerification();
+      if (!this.profile.isPhoneNumberConfirmed) {
+        console.log('!isPhoneNumberConfirmed...');
+        this.goNumberVerification();
         return;
       }
 
-      if (!this.profile.isPhoneNumberConfirmed) {
+      if (!this.profile.isEmailConfirmed) {
         console.log('!isEmailConfirmed...');
-        this.goNumberVerification();
+        this.goEmailVerification();
         return;
       }
 
