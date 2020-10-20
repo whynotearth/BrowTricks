@@ -46,10 +46,10 @@ const actions = {
   ping({ commit, dispatch, state }) {
     return new Promise((resolve, reject) => {
       AuthenticationService.ping()
-        .then(response => {
+        .then(async response => {
           commit('updateProvider', response.loginProviders[0]);
           commit('updateUserName', response.userName);
-          dispatch('updateToken', state.token);
+          await dispatch('updateToken', state.token);
           resolve(response);
         })
         .catch(error => {
