@@ -8756,13 +8756,6 @@ vue-slicksort@^1.1.3:
   resolved "https://registry.yarnpkg.com/vue-slicksort/-/vue-slicksort-1.1.3.tgz#f8e0a1623bfb8aa39db683e28ac7bea5d9a2d9dc"
   integrity sha512-zGa0t2tyYOJpHsg2eqLZS095ZLHJsyPBoxlRZ/UUzE17VUM0skdz0MElp3/LHrUuK+MzD7wV2cAPZ+LNq6C/nw==
 
-vue-smooth-picker@^0.4.2:
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/vue-smooth-picker/-/vue-smooth-picker-0.4.2.tgz#ab93a54ee84a440d126ba989ab20eff18c70d24a"
-  integrity sha512-TCvdBY3Jw67DhlVJ1Pak+h9PATpmvEgs0sSEEgMah6EVpBakdVyfnZXy2LgysH1+8IscdS2Gpx5WkBw8yL9VWQ==
-  dependencies:
-    vue "^2.5.2"
-
 vue-style-loader@^4.1.0, vue-style-loader@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/vue-style-loader/-/vue-style-loader-4.1.2.tgz#dedf349806f25ceb4e64f3ad7c0a44fba735fcf8"
@@ -8804,7 +8797,7 @@ vue-the-mask@^0.11.1:
   resolved "https://registry.yarnpkg.com/vue-the-mask/-/vue-the-mask-0.11.1.tgz#91ee01008354ae57bccc79bb61b65f32d971d9d5"
   integrity sha512-UquSfnSWejD0zAfcD+3jJ1chUAkOAyoxya9Lxh9acCRtrlmGcAIvd0cQYraWqKenbuZJUdum+S174atv2AuEHQ==
 
-vue@^2.5.2, vue@^2.6, vue@^2.6.11:
+vue@^2.6, vue@^2.6.11:
   version "2.6.11"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.11.tgz#76594d877d4b12234406e84e35275c6d514125c5"
   integrity sha512-VfPwgcGABbGAue9+sfrD4PuwFar7gPb1yl1UK1MwXoQPAw0BKSqWfoYCT/ThFrdEVWoI51dBuyCoiNU9bZDZxQ==

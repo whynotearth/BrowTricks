@@ -172,12 +172,14 @@ export default {
         });
     },
     deleteItem({ id, resourceType }) {
+      /* eslint-disable */
       const method =
         resourceType === 'image'
           ? this.imageDelete
           : resourceType === 'video'
           ? this.videoDelete
           : null;
+      /* eslint-enable */
       if (!method) {
         console.log('Unknown resource type.');
       }

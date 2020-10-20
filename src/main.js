@@ -9,20 +9,19 @@ import Vuelidate from 'vuelidate';
 import vClickOutside from 'v-click-outside';
 import configureModerator from './store/store-moderator';
 import PortalVue from 'portal-vue';
-import SmoothPicker from 'vue-smooth-picker';
-import 'vue-smooth-picker/dist/css/style.css';
+import Rollbar from 'rollbar';
 // global components
+// -----------------
 import Button from '@/components/inputs/Button.vue';
 import TextAreaInput from '@/components/inputs/TextAreaInput.vue';
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
 import PageContentBoard from '@/components/PageContentBoard.vue';
-import Rollbar from 'rollbar';
+// -----------------
 Vue.component('Button', Button);
 Vue.component('TextAreaInput', TextAreaInput);
 Vue.component('MaterialInput', MaterialInput);
 Vue.component('PageContentBoard', PageContentBoard);
 
-Vue.use(SmoothPicker);
 Vue.use(Vuelidate);
 Vue.use(vClickOutside);
 Vue.use(PortalVue);
@@ -32,7 +31,7 @@ Vue.prototype.$rollbar = new Rollbar({
   captureUncaught: true,
   captureUnhandledRejections: true,
   payload: {
-    environment: process.env.NODE_ENV != "production" ? "staging" : "production"
+    environment: process.env.NODE_ENV != 'production' ? 'staging' : 'production'
   }
 });
 
@@ -52,4 +51,3 @@ async function main() {
 }
 
 main();
-console.log('Run main.');
