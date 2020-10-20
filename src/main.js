@@ -16,6 +16,7 @@ import Button from '@/components/inputs/Button.vue';
 import TextAreaInput from '@/components/inputs/TextAreaInput.vue';
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
 import PageContentBoard from '@/components/PageContentBoard.vue';
+import Rollbar from 'rollbar';
 Vue.component('Button', Button);
 Vue.component('TextAreaInput', TextAreaInput);
 Vue.component('MaterialInput', MaterialInput);
@@ -27,7 +28,7 @@ Vue.use(vClickOutside);
 Vue.use(PortalVue);
 
 Vue.prototype.$rollbar = new Rollbar({
-  accessToken: 'WAITING_FOR_ACCESS_KEY',
+  accessToken: '9912db541f8c42d88dc9a147d49062ef',
   captureUncaught: true,
   captureUnhandledRejections: true,
   payload: {
