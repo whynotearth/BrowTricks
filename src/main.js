@@ -26,6 +26,20 @@ Vue.use(Vuelidate);
 Vue.use(vClickOutside);
 Vue.use(PortalVue);
 
+Vue.prototype.$rollbar = new Rollbar({
+  accessToken: 'WAITING_FOR_ACCESS_KEY',
+  captureUncaught: true,
+  captureUnhandledRejections: true,
+  payload: {
+    environment: process.env.NODE_ENV != "production" ? "staging" : "production"
+  }
+});
+
+Vue.config.errorHandler = (err, vm) => {
+  vm.$rollbar.error(err);
+  throw err;
+};
+
 Vue.config.productionTip = false;
 async function main() {
   await configureModerator(store, router);
