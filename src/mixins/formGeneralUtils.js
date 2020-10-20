@@ -39,7 +39,7 @@ export default {
     ) {
       this.clearErrors();
       console.log(
-        'Error in form submition:',
+        'Server error on form submition:',
         get(error, 'response.data', get(error, 'message', 'unknown'))
       );
       this.serverErrors = get(error, serverErrorsField, []);

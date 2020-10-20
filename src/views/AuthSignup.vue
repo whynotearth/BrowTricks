@@ -245,7 +245,7 @@ export default {
     onSuccess() {
       showOverlayAndRedirect({
         title: 'Success!',
-        route: { name: 'AuthNumberVerify' }
+        route: { name: 'PanelRedirector' }
       });
     }
   }
