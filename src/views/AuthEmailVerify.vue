@@ -17,14 +17,8 @@
       </div>
 
       <div>
+        <Button class="mb-4" title="Go Home" :to="{ name: 'Home' }" />
         <Button
-          class="mb-4"
-          type="button"
-          title="Go Home"
-          :to="{ name: 'Home' }"
-        />
-        <Button
-          type="button"
           title="Edit Your Email"
           :background="null"
           :to="{ name: 'AuthSignupEdit' }"

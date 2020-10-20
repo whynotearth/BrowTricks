@@ -1,5 +1,5 @@
 <template>
-  <!-- <div class="max-w-4xl mx-auto mb-6" v-if="imagePreview">
+  <div class="max-w-4xl mx-auto mb-6" v-if="imagePreview">
     <h2
       v-if="title"
       class="tg-body-mobile mb-2 py-2 text-on-background text-opacity-high"
@@ -7,8 +7,8 @@
       {{ title }}
     </h2>
     <img :src="imagePreview" alt="" />
-  </div> -->
-  <div class="absolute w-full h-full flex justify-center items-center">
+  </div>
+  <div v-else class="absolute w-full h-full flex justify-center items-center">
     <BaseSpinner borderColor="border-brand2" classNames="spinner" />
   </div>
 </template>
@@ -62,5 +62,3 @@ export default {
   }
 };
 </script>
-
-<style scoped></style>

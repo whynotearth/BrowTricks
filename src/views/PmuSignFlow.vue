@@ -20,7 +20,7 @@
       v-bind:language="language"
     >
       <template #complete>
-        <div class="section-wrap">
+        <div class="section-wrap pb-8">
           <ErrorFullScreen :height="null" v-if="errorMessage">
             {{ errorMessage }}
           </ErrorFullScreen>
@@ -38,12 +38,13 @@
               >Back to Home</router-link
             >
           </div>
-          <div v-else>
+          <div v-else class="relative">
             <p>
               <span class="fh2">Review and Sign</span>
             </p>
 
             <PmuFormFilledPreview
+              class="mb-8"
               v-if="isCompleted"
               title="Here is your PMU form:"
               :clientId="clientId"
