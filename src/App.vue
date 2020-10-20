@@ -56,6 +56,7 @@ import SnackBar from '@/components/SnackBar.vue';
 import { mapGetters, mapActions } from 'vuex';
 import vhFix from '@/mixins/vhFix.js';
 import DrawerAuth from '@/components/auth/DrawerAuth';
+import store from './store';
 
 export default {
   name: 'App',
@@ -72,6 +73,9 @@ export default {
       overlayModel: 'model'
     })
   },
+  beforeCreate() {
+    store.dispatch('auth/refreshToken');
+  },
   beforeMount() {
     let showSnackBar = localStorage.getItem('privacy-snackbar');
     //if bannerCookie is true (or 1) that means user has seen the banner and dismissed it
@@ -82,6 +86,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions('auth', ['refreshToken']),
     ...mapActions('global', ['isDrawerOpenAuthUpdate']),
     setSnackBarCookie() {
       this.showPrivacySnackBar = false;

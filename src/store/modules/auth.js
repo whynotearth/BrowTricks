@@ -1,6 +1,7 @@
 import { ajax } from '@/services/ajax.js';
 import { getAPIURL } from '@/helpers';
 import { AuthenticationService } from '@whynotearth/meredith-axios';
+import { get } from 'lodash-es';
 
 const state = {
   provider: '',
@@ -49,15 +50,17 @@ const actions = {
       throw error;
     }
   },
-  ping({ commit, dispatch, state }) {
+  ping({ commit, dispatch }) {
     return AuthenticationService.ping()
       .then(async response => {
         commit('updateProvider', response.loginProviders[0]);
-        await dispatch('updateToken', state.token);
         return response;
       })
       .catch(error => {
-        dispatch('clear');
+        const status = get(error, 'response.status');
+        if (status === 401) {
+          dispatch('clear');
+        }
         throw error;
       });
   },
@@ -79,12 +82,19 @@ const actions = {
     });
   },
   updateToken({ commit }, payload = '') {
-    commit('updateToken', payload);
     if (payload) {
+      localStorage.setItem('auth_token', payload);
       ajax.defaults.headers.common['Authorization'] = `Bearer ${payload}`;
+      commit('updateToken', payload);
     } else {
+      localStorage.removeItem('auth_token');
       delete ajax.defaults.headers.common['Authorization'];
+      commit('updateToken', '');
     }
+  },
+  refreshToken({ dispatch }) {
+    const token = localStorage.getItem('auth_token');
+    dispatch('updateToken', token);
   },
   // sms verification
   requestVerifyCode() {
