@@ -1,6 +1,7 @@
 import { ajax } from '@/services/ajax.js';
 import { getAPIURL } from '@/helpers';
 import { AuthenticationService } from '@whynotearth/meredith-axios';
+import { get } from 'lodash-es';
 
 const state = {
   provider: '',
@@ -15,7 +16,7 @@ const getters = {
     );
   },
   isAuthenticated(state) {
-    return Boolean(state.userName);
+    return Boolean(state.token);
   }
 };
 
@@ -39,24 +40,29 @@ const actions = {
     });
   },
   async loginStandard({ dispatch }, { params }) {
-    return AuthenticationService.login(params)
-      .then(token => dispatch('updateToken', token))
-      .then(async () => await dispatch('ping'));
+    try {
+      const token = await AuthenticationService.login(params);
+      await dispatch('updateToken', token);
+      await dispatch('ping');
+      return true;
+    } catch (error) {
+      console.log('Error in standard login');
+      throw error;
+    }
   },
-  ping({ commit, dispatch, state }) {
-    return new Promise((resolve, reject) => {
-      AuthenticationService.ping()
-        .then(response => {
-          commit('updateProvider', response.loginProviders[0]);
-          commit('updateUserName', response.userName);
-          dispatch('updateToken', state.token);
-          resolve(response);
-        })
-        .catch(error => {
+  ping({ commit, dispatch }) {
+    return AuthenticationService.ping()
+      .then(async response => {
+        commit('updateProvider', response.loginProviders[0]);
+        return response;
+      })
+      .catch(error => {
+        const status = get(error, 'response.status');
+        if (status === 401) {
           dispatch('clear');
-          reject(error);
-        });
-    });
+        }
+        throw error;
+      });
   },
   logout({ state, dispatch }) {
     return new Promise((resolve, reject) => {
@@ -76,12 +82,19 @@ const actions = {
     });
   },
   updateToken({ commit }, payload = '') {
-    commit('updateToken', payload);
     if (payload) {
+      localStorage.setItem('auth_token', payload);
       ajax.defaults.headers.common['Authorization'] = `Bearer ${payload}`;
+      commit('updateToken', payload);
     } else {
+      localStorage.removeItem('auth_token');
       delete ajax.defaults.headers.common['Authorization'];
+      commit('updateToken', '');
     }
+  },
+  refreshToken({ dispatch }) {
+    const token = localStorage.getItem('auth_token');
+    dispatch('updateToken', token);
   },
   // sms verification
   requestVerifyCode() {
@@ -109,16 +122,12 @@ const actions = {
   clear({ commit }) {
     commit('updateReturnUrl', '');
     commit('updateProvider', '');
-    commit('updateUserName', '');
   }
 };
 
 const mutations = {
   updateToken(state, payload) {
     state.token = payload;
-  },
-  updateUserName(state, payload) {
-    state.userName = payload;
   },
   updateProvider(state, payload) {
     state.provider = payload;
