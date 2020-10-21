@@ -38,6 +38,7 @@
           :href="transformCloudinaryUrl(file.url, 'fl_attachment')"
           class="cursor-pointer p-4"
           title="Download"
+          download
         >
           <DownloadIcon class="text-white w-6 h-6" />
         </a>
