@@ -33,7 +33,6 @@
         </a>
 
         <a
-          v-else
           @click.stop=""
           :href="transformCloudinaryUrl(file.url, 'fl_attachment')"
           class="cursor-pointer p-4"
