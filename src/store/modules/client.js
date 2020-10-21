@@ -18,7 +18,8 @@ const state = {
     pmu: [],
     notes: []
   },
-  page: 1
+  page: 1,
+  selectedNote: null
 };
 
 const getters = {
@@ -164,6 +165,9 @@ const mutations = {
       pmu: [],
       notes: []
     };
+  },
+  setSelectedNote(state, payload) {
+    state.selectedNote = payload ? { ...payload } : null;
   }
 };
 
