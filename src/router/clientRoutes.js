@@ -134,7 +134,7 @@ export const clientRoutes = [
       {
         path: 'notes/add',
         name: 'AddClientNote',
-        component: () => import('@/components/client/AddEditNote.vue'),
+        component: () => import('@/views/ClientNoteAddOrEdit.vue'),
         props: true,
         meta: {
           layout: AppBarLayout,
@@ -144,7 +144,7 @@ export const clientRoutes = [
       {
         path: 'notes/:id',
         name: 'EditClientNote',
-        component: () => import('@/components/client/AddEditNote.vue'),
+        component: () => import('@/views/ClientNoteAddOrEdit.vue'),
         props: true,
         meta: {
           layout: AppBarLayout,
