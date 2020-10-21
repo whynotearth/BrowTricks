@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="tg-body-mobile">
     <!-- NOTE: these files can affect other pages, so keeping them in component template, makes the isolated -->
     <link
       rel="stylesheet"
@@ -20,7 +20,7 @@
       v-bind:language="language"
     >
       <template #complete>
-        <div class="section-wrap pb-8">
+        <div class="section-wrap overflow-auto">
           <ErrorFullScreen :height="null" v-if="errorMessage">
             {{ errorMessage }}
           </ErrorFullScreen>
@@ -52,6 +52,39 @@
               :templateId="templateId"
               :answers="answers"
             />
+
+            <h3 class="tg-body-mobile mb-2">Sign here:</h3>
+            <SignaturePad
+              class="border border-divider border-opacity-medium bg-surface mb-6"
+              :width="280"
+              :height="240"
+              ref="signaturePad"
+              :options="{}"
+              @input="onSignatureUpdate"
+            />
+
+            <div class="flex">
+              <Button
+                title="Undo"
+                :background="null"
+                class="uppercase w-1/2 ml-0 mr-0"
+                padding="px-0 py-3"
+                :width="null"
+                maxWidth="max-w-200"
+                :isBordered="true"
+                @clicked="onSignatureUndo"
+              />
+              <Button
+                title="Save Signature"
+                :background="null"
+                class="uppercase w-1/2 ml-3 mr-auto"
+                padding="px-2 py-3"
+                :width="null"
+                maxWidth="max-w-200"
+                :isBordered="true"
+                @clicked="onSignatureSave"
+              />
+            </div>
           </div>
         </div>
       </template>
@@ -66,6 +99,7 @@ import { adaptApiQuestionsToModel, adaptAnswersToApi } from '@/services/pmu.js';
 import { get } from 'lodash-es';
 import PmuFormFilledPreview from '@/components/pmu/PmuFormFilledPreview.vue';
 import ErrorFullScreen from '@/components/ErrorFullScreen.vue';
+import SignaturePad from '@/components/SignaturePad.vue';
 
 // https://github.com/ditdot-dev/vue-flow-form
 
@@ -75,7 +109,8 @@ export default {
   components: {
     ErrorFullScreen,
     FlowForm,
-    PmuFormFilledPreview
+    PmuFormFilledPreview,
+    SignaturePad
   },
   created() {
     this.init();
@@ -88,7 +123,8 @@ export default {
       isReady: false,
       language: new LanguageModel({}),
       answers: [],
-      questions: []
+      questions: [],
+      signatureImageData: ''
     };
   },
   methods: {
@@ -110,6 +146,21 @@ export default {
     _adaptApiQuestionsToModel(questions) {
       this.questions = adaptApiQuestionsToModel(questions);
       this.isReady = true;
+    },
+    onSignatureSave() {
+      console.log(this.signatureImageData);
+      // todo: update this.answers.....
+    },
+    onSignatureUndo() {
+      console.log('undo');
+      this.$refs.signaturePad.undo();
+    },
+    onSignatureEnd(arggg) {
+      console.log('on end signature......', arggg);
+    },
+    onSignatureUpdate(data) {
+      console.log('onSignatureUpdate....', data);
+      this.signatureImageData = data;
     },
     onSubmit(questionList) {
       // This method will only be called if you don't override the
@@ -143,6 +194,7 @@ export default {
         });
     },
     onComplete(completed, questionList) {
+      console.log('on complete');
       this.answers = adaptAnswersToApi(questionList);
       this.isCompleted = completed;
     }
