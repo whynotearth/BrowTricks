@@ -10,6 +10,7 @@ import vClickOutside from 'v-click-outside';
 import configureModerator from './store/store-moderator';
 import PortalVue from 'portal-vue';
 import Rollbar from 'rollbar';
+import VueSignaturePad from 'vue-signature-pad';
 // global components
 // -----------------
 import Button from '@/components/inputs/Button.vue';
@@ -25,6 +26,7 @@ Vue.component('PageContentBoard', PageContentBoard);
 Vue.use(Vuelidate);
 Vue.use(vClickOutside);
 Vue.use(PortalVue);
+Vue.use(VueSignaturePad);
 
 Vue.prototype.$rollbar = new Rollbar({
   accessToken: '9912db541f8c42d88dc9a147d49062ef',

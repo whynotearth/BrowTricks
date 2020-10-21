@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="tg-body-mobile">
     <!-- NOTE: these files can affect other pages, so keeping them in component template, makes the isolated -->
     <link
       rel="stylesheet"
@@ -20,7 +20,7 @@
       v-bind:language="language"
     >
       <template #complete>
-        <div class="section-wrap pb-8">
+        <div class="section-wrap overflow-auto">
           <ErrorFullScreen :height="null" v-if="errorMessage">
             {{ errorMessage }}
           </ErrorFullScreen>
@@ -52,6 +52,38 @@
               :templateId="formId"
               :answers="answers"
             />
+
+            <h3 class="tg-body-mobile mb-2">Sign here:</h3>
+            <VueSignaturePad
+              class="border border-divider border-opacity-medium bg-surface mb-6"
+              width="280px"
+              height="240px"
+              ref="signaturePad"
+              :options="{ onEnd: onSignatureEnd }"
+            />
+
+            <div class="flex">
+              <Button
+                title="Undo"
+                :background="null"
+                class="uppercase w-1/2 ml-0 mr-0"
+                padding="px-0 py-3"
+                :width="null"
+                maxWidth="max-w-200"
+                :isBordered="true"
+                @clicked="onSignatureUndo"
+              />
+              <Button
+                title="Save Signature"
+                :background="null"
+                class="uppercase w-1/2 ml-3 mr-auto"
+                padding="px-2 py-3"
+                :width="null"
+                maxWidth="max-w-200"
+                :isBordered="true"
+                @clicked="onSignatureSave"
+              />
+            </div>
           </div>
         </div>
       </template>
@@ -87,7 +119,8 @@ export default {
       isReady: false,
       language: new LanguageModel({}),
       answers: [],
-      questions: []
+      questions: [],
+      signatureImageData: ''
     };
   },
   methods: {
@@ -109,6 +142,20 @@ export default {
       this.questions = adaptApiQuestionsToModel(questions);
       this.isReady = true;
     },
+    onSignatureSave() {
+      const { isEmpty, data } = this.$refs.signaturePad.saveSignature();
+      console.log(isEmpty);
+      console.log(data);
+      this.signatureImageData = data;
+      // this.answers
+    },
+    onSignatureUndo() {
+      console.log('undo');
+      this.$refs.signaturePad.undoSignature();
+    },
+    onSignatureEnd(arggg) {
+      console.log('on end signature......', arggg);
+    },
     onSubmit() {
       // This method will only be called if you don't override the
       // completeButton slot.
@@ -116,6 +163,7 @@ export default {
       this.isSubmitted = true;
     },
     onComplete(completed, questionList) {
+      console.log('on complete');
       this.answers = adaptAnswersToApi(questionList);
       this.isCompleted = completed;
     }
