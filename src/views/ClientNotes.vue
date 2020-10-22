@@ -46,14 +46,10 @@ export default {
     this.fetchNotes();
   },
   methods: {
-    ...mapActions('client', [
-      'createClientNote',
-      'deleteClientNote',
-      'fetchClientNotes'
-    ]),
+    ...mapActions('client', ['notesFetch']),
     ...mapMutations('client', ['setSelectedNote']),
     async fetchNotes() {
-      const notes = await this.fetchClientNotes({
+      const notes = await this.notesFetch({
         clientId: this.clientId,
         tenantSlug: this.tenantSlug
       });

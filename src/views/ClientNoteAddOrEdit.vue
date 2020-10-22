@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-xl mx-auto pt-4">
+  <div class="max-w-xl mx-auto pt-4 mb-20 px-4">
     <div class="py-6 px-2 bg-surface rounded-lg shadow-8dp">
       <TextAreaInput
         class="text-on-surface"
@@ -53,7 +53,7 @@
           textColor="text-error"
           title="Delete"
           :background="null"
-          @clicked="deleteNote(note)"
+          @clicked="_noteDelete(note)"
           width="w-auto"
           :margin="null"
         />
@@ -91,7 +91,7 @@ export default {
   },
   methods: {
     ...mapMutations('client', ['setSelectedNote']),
-    ...mapActions('client', ['createClientNote', 'deleteClientNote']),
+    ...mapActions('client', ['noteSave', 'noteDelete']),
     save() {
       this.$v.$touch();
       if (this.$v.$invalid) {
@@ -107,38 +107,46 @@ export default {
     },
     createOrUpdateNote(note) {
       if (note) {
-        this.createClientNote({
+        this.noteSave({
           clientId: this.$route.params.clientId,
           tenantSlug: this.$route.params.tenantSlug,
           body: {
             ...note
           }
-        }).then(async () => {
-          this.$store.commit('overlay/updateModel', {
-            title: 'Success!',
-            message: 'Client note added!'
+        })
+          .then(async () => {
+            this.$store.commit('overlay/updateModel', {
+              title: 'Success!',
+              message: 'Note added.'
+            });
+            await sleep(1500);
+            this.$store.commit('overlay/updateModel', {
+              title: '',
+              message: ''
+            });
+            this.goBack();
+          })
+          .catch(() => {
+            alert('Failed to save.');
           });
-          await sleep(1500);
-          this.$store.commit('overlay/updateModel', {
-            title: '',
-            message: ''
-          });
-          this.goBack();
-        });
       }
     },
-    deleteNote() {
-      this.deleteClientNote({
+    _noteDelete() {
+      this.noteDelete({
         clientId: this.$route.params.clientId,
         tenantSlug: this.$route.params.tenantSlug,
         noteId: this.note.id
-      }).then(async () => {
-        showOverlayAndRedirect({
-          title: 'Success!',
-          message: 'Client note deleted!'
+      })
+        .then(async () => {
+          showOverlayAndRedirect({
+            title: 'Success!',
+            message: 'Note deleted.'
+          });
+          this.goBack();
+        })
+        .catch(() => {
+          alert('Failed to delete.');
         });
-        this.goBack();
-      });
     },
     goBack() {
       this.$router.push({ name: 'ClientNotes' });
