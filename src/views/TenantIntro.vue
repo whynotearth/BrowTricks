@@ -10,7 +10,9 @@
         Skip
       </a>
     </div>
-    <div class="image-wrapper max-w-md px-4 overflow-x-hidden select-none">
+    <div
+      class="image-wrapper max-w-md px-4 overflow-x-hidden select-none flex items-end"
+    >
       <transition name="slide" mode="out-in">
         <img class="max-h-full" :src="activeImage" :key="activeImage" alt="" />
       </transition>
