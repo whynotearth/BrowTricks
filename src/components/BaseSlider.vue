@@ -1,21 +1,21 @@
 <template>
   <div>
-    <div ref="slider" class="keen-slider">
-      <!-- Add div elements with .keen-slider__slide classname as slide items -->
-      <slot />
-    </div>
-
     <div
       v-if="hasNavigation && slider"
-      class="keen-slider__dots items-center justify-center px-2 py-0 flex mt-6"
+      class="keen-slider__dots items-center justify-center px-2 py-0 flex mb-8"
     >
       <button
         v-for="(slide, idx) in dotHelper"
         @click="slider.moveToSlideRelative(idx)"
-        class="keen-slider__dot bg-secondary my-1 mx-2 cursor-pointer rounded-full border-none transition-all duration-300"
+        class="keen-slider__dot my-1 mx-2 cursor-pointer rounded-full border-none transition-all duration-300"
         :class="{ active: current === idx }"
         :key="idx"
       ></button>
+    </div>
+
+    <div ref="slider" class="keen-slider">
+      <!-- Add div elements with .keen-slider__slide classname as slide items -->
+      <slot />
     </div>
   </div>
 </template>
@@ -48,13 +48,15 @@ export default {
     };
   },
   mounted() {
-    this.init();
+    this.$nextTick(() => {
+      this.init();
+    });
   },
   methods: {
     init() {
       const defaultConfig = {
         // docs https://keen-slider.io/api/#api
-        slidesPerView: 1.0625,
+        slidesPerView: 1,
         spacing: 8,
         centered: false,
         loop: false,
@@ -62,10 +64,14 @@ export default {
         initial: this.current,
         slideChanged: s => {
           this.current = s.details().relativeSlide;
+          this.$emit('slideChange', this.current);
         }
       };
-      const sliderConfig = Object.assign({}, defaultConfig, this.config);
+      const sliderConfig = { ...defaultConfig, ...this.config };
       this.slider = new KeenSlider(this.$refs.slider, sliderConfig);
+    },
+    goStep(index) {
+      this.slider.moveToSlideRelative(index);
     }
   },
   beforeDestroy() {
@@ -93,5 +99,11 @@ export default {
 
 .keen-slider__dot.active {
   transform: scale(2);
+}
+.keen-slider__dot {
+  @apply bg-secondary;
+}
+.keen-slider__dot.active {
+  @apply bg-brand4;
 }
 </style>

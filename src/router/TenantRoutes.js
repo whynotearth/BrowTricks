@@ -10,7 +10,17 @@ export const TenantPanelRoutes = [
     meta: {
       layout: AppBarCardLayout,
       pageBackground: 'bg-background',
-      appBar: { title: 'Brow Tricks', noHeader: true }
+      appBar: { noHeader: true }
+    }
+  },
+  {
+    path: '/tenant/:tenantSlug/intro',
+    name: 'TenantIntro',
+    props: true,
+    component: () => import('@/views/TenantIntro.vue'),
+    meta: {
+      layout: AppBarCardLayout,
+      appBar: { noHeader: true }
     }
   },
   {

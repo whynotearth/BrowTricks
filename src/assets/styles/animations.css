@@ -1,6 +1,6 @@
 .slide-enter-active,
 .slide-leave-active {
-  transition: transform 0.3s ease;
+  transition: transform 150ms linear;
 }
 
 .slide-enter,
