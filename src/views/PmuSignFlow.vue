@@ -1,5 +1,5 @@
 <template>
-  <div class="tg-body-mobile">
+  <div class="tg-body-mobile min-w-app">
     <!-- NOTE: these files can affect other pages, so keeping them in component template, makes the isolated -->
     <link
       rel="stylesheet"
@@ -20,7 +20,7 @@
       v-bind:language="language"
     >
       <template #complete>
-        <div class="section-wrap overflow-auto">
+        <div class="section-wrap">
           <ErrorFullScreen :height="null" v-if="errorMessage">
             {{ errorMessage }}
           </ErrorFullScreen>
@@ -39,19 +39,21 @@
             >
           </div>
           <div v-else class="relative">
-            <p>
+            <h1>
               <span class="fh2">Review and Sign</span>
-            </p>
+            </h1>
 
-            <PmuFormFilledPreview
-              class="mb-8"
-              v-if="isCompleted"
-              title="Here is your PMU form:"
-              :clientId="clientId"
-              :tenantSlug="tenantSlug"
-              :templateId="templateId"
-              :answers="answers"
-            />
+            <div class="preview-wrapper relative mb-4">
+              <PmuFormFilledPreview
+                class="mb-8"
+                v-if="isCompleted"
+                title="Here is your PMU form:"
+                :clientId="clientId"
+                :tenantSlug="tenantSlug"
+                :templateId="templateId"
+                :answers="answers"
+              />
+            </div>
 
             <h3 class="tg-body-mobile mb-2">Sign here:</h3>
             <SignaturePad
@@ -171,7 +173,11 @@ export default {
       }).href;
       const callbackUrl = `${window.location.origin}${path}`;
       console.log('notificationCallBackUrl', callbackUrl);
-      const payload = adaptAnswersToApi(questionList, callbackUrl);
+      const payload = adaptAnswersToApi({
+        questionList,
+        signatureImage: this.signatureImageData,
+        callbackUrl
+      });
 
       console.log('answers for api:', payload);
       this.pmuSignSubmitAnswers({
@@ -205,4 +211,7 @@ export default {
 <style>
 /* @import '~@whynotearth/vue-flow-form/dist/vue-flow-form.css';
 @import '~@whynotearth/vue-flow-form/dist/vue-flow-form.theme-minimal.css'; */
+.preview-wrapper {
+  min-height: 120px;
+}
 </style>

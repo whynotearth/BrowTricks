@@ -43,6 +43,9 @@ html {
   @apply bg-cover bg-no-repeat;
 }
 
+.min-w-app {
+  min-width: 340px;
+}
 .min-h-vh100 {
   min-height: 100vh;
   min-height: calc(100 * var(--vh));
