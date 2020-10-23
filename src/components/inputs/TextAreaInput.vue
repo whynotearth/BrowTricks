@@ -7,7 +7,7 @@
     <template #control>
       <div class="relative" :class="[fillHeight ? 'h-full' : '']">
         <textarea
-          class="block input appearance-none outline-none relative bg-transparent w-full my-3 border-b text-opacity-medium focus:text-opacity-high border-opacity-medium focus:border-opacity-high tg-body-mobile rounded-none"
+          class="block input appearance-none outline-none relative bg-transparent w-full my-3 border-b text-opacity-medium focus:text-opacity-high border-opacity-medium focus:border-opacity-high tg-body-mobile rounded-none narrow-scrollbar has-light-bg"
           :class="[
             fillHeight ? 'h-full' : '',
             textColor,

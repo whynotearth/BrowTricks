@@ -1,133 +1,80 @@
 <template>
   <div class="max-w-xl mx-auto pt-4">
-    <div class="mb-4 mx-4 " v-if="isAddEditActive">
-      <AddEditNote
-        :note="selectedNote"
-        @save="createOrUpdateNote"
-        @delete="deleteNote"
-        @cancel="goBack"
-      />
-    </div>
-    <div class="mb-4 mx-4 " v-else>
+    <div class="mb-4 mx-4 pb-20">
       <Button
         class="rounded-full"
         background="bg-brand2"
         title="Tap For New Note"
         :isRipple="false"
-        @clicked="isAddEditActive = true"
+        @clicked="addNote"
       />
 
       <div class="mt-4 " v-if="clientNotes.length > 0">
-        <div
-          @click="selectNote(note)"
-          class="bg-surface rounded-lg shadow-8dp p-4 my-4"
-          v-for="note in clientNotes"
-          :key="note.id"
+        <router-link
+          v-for="noteItem in clientNotes"
+          :key="noteItem.id"
+          title="Edit Note"
+          :to="{ name: 'EditClientNote', params: { id: noteItem.id } }"
+          class="bg-surface rounded-lg shadow-8dp p-4 my-4 w-full block"
         >
           <div
             class="text-on-surface text-opacity-medium tg-caption-mobile mb-4"
           >
-            {{ format(new Date(note.createdAt), 'dd MMM, yyyy') }}
+            <time>{{
+              formatDateTime(noteItem.createdAt, { dateFormat: 'dd MMM, yyyy' })
+            }}</time>
           </div>
           <div class="text-on-surface">
-            {{ note.note }}
+            {{ noteItem.note }}
           </div>
-        </div>
+        </router-link>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import AddEditNote from '@/components/client/AddEditNote.vue';
-import { format } from 'date-fns';
 import { mapActions } from 'vuex';
-import { sleep, showOverlayAndRedirect } from '@/helpers.js';
+import { formatDateTime } from '@/helpers';
 
 export default {
-  name: 'ClientNotifications',
+  name: 'ClientNotes',
   props: ['tenantSlug', 'clientId'],
-  components: {
-    AddEditNote
-  },
   data() {
     return {
-      newNote: null,
-      isAddEditActive: false,
-      clientNotes: [],
-      selectedNote: null
+      clientNotes: []
     };
   },
-  created() {
-    this.fetchNotes();
+  async created() {
+    this.loadingUpdate(true);
+    await this.fetchNotes();
+    this.loadingUpdate(false);
   },
   methods: {
-    ...mapActions('client', [
-      'createClientNote',
-      'deleteClientNote',
-      'fetchClientNotes'
-    ]),
-    goBack() {
-      if (this.isAddEditActive) {
-        if (this.selectedNote) {
-          this.selectedNote = null;
-        }
-        this.isAddEditActive = false;
-      } else {
-        this.$router.go(-1);
-      }
-    },
+    ...mapActions('client', ['notesFetch']),
+    ...mapActions('loading', ['loadingUpdate']),
     async fetchNotes() {
-      const notes = await this.fetchClientNotes({
+      const notes = await this.notesFetch({
         clientId: this.clientId,
         tenantSlug: this.tenantSlug
       });
 
-      this.clientNotes = notes ? notes : [];
+      this.clientNotes = notes ? notes.map(this.prepareForList) : [];
     },
-    createOrUpdateNote(note) {
-      if (note) {
-        this.createClientNote({
-          clientId: this.clientId,
-          tenantSlug: this.tenantSlug,
-          body: {
-            ...note
-          }
-        }).then(async () => {
-          this.$store.commit('overlay/updateModel', {
-            title: 'Success!',
-            message: 'Client note added!'
-          });
-          await sleep(1500);
-          this.$store.commit('overlay/updateModel', {
-            title: '',
-            message: ''
-          });
-          this.fetchNotes();
-          this.isAddEditActive = false;
-        });
-      }
+    formatDateTime,
+    prepareForList(noteItem) {
+      const content = noteItem.note;
+      const maxLength = 500;
+      return {
+        ...noteItem,
+        note:
+          content.substring(0, maxLength) +
+          (content.length > maxLength ? '...' : '')
+      };
     },
-    deleteNote(note) {
-      this.deleteClientNote({
-        clientId: this.clientId,
-        tenantSlug: this.tenantSlug,
-        noteId: note.id
-      }).then(async () => {
-        showOverlayAndRedirect({
-          title: 'Success!',
-          message: 'Client note deleted!'
-        });
-        this.fetchNotes();
-        this.isAddEditActive = false;
-        this.selectedNote = null;
-      });
-    },
-    selectNote(note) {
-      this.selectedNote = note;
-      this.isAddEditActive = true;
-    },
-    format
+    addNote() {
+      this.$router.push({ name: 'AddClientNote' });
+    }
   }
 };
 </script>

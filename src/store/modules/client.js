@@ -83,17 +83,13 @@ const actions = {
     };
     return ClientService.archive(clientData);
   },
-  fetchClientNotes(context, payload) {
+  notesFetch(context, payload) {
     return ClientNoteService.notes1(payload);
   },
-  createClientNote(context, payload) {
+  noteSave(context, payload) {
     return ClientNoteService.notes2(payload);
   },
-  updateClientNote(context, payload) {
-    // same as create, just with a payload containing an id
-    return ClientNoteService.notes2(payload);
-  },
-  deleteClientNote(context, payload) {
+  noteDelete(context, payload) {
     return ClientNoteService.notes(payload);
   },
 
