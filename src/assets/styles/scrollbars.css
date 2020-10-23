@@ -10,7 +10,7 @@
   }
 
   .narrow-scrollbar::-webkit-scrollbar {
-    width: 5px;
+    width: 8px;
     padding: 2px 0;
   }
 

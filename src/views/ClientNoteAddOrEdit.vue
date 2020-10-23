@@ -3,23 +3,27 @@
     <div class="py-6 px-2 bg-surface rounded-lg shadow-8dp">
       <TextAreaInput
         class="text-on-surface"
-        v-model="$v.newNote.$model"
+        v-model="$v.content.$model"
         label="Note"
         labelBg="bg-surface"
         rows="6"
-        :validatorModel="$v.newNote"
+        :validatorModel="$v.content"
       >
-        <p v-if="!$v.newNote.required">
+        <p v-if="!$v.content.required">
           Note is required
         </p>
       </TextAreaInput>
     </div>
     <div class="py-8">
+      <p v-if="errorMessage" class="mb-4 text-error tg-body-mobile">
+        {{ errorMessage }}
+      </p>
+
       <Button
         class="rounded-full mb-4"
         background="bg-brand2"
         title="Save"
-        @clicked="save"
+        @clicked="submit"
       />
       <Button
         class="mb-2"
@@ -29,7 +33,7 @@
         :background="null"
       />
       <Button
-        v-if="note && note.id"
+        v-if="noteId"
         class="mb-2"
         textColor="text-error text-opacity-medium"
         title="Delete"
@@ -53,7 +57,7 @@
           textColor="text-error"
           title="Delete"
           :background="null"
-          @clicked="_noteDelete(note)"
+          @clicked="_noteDelete(noteId)"
           width="w-auto"
           :margin="null"
         />
@@ -64,85 +68,87 @@
 
 <script>
 import TextAreaInput from '@/components/inputs/TextAreaInput.vue';
-import BaseDialog from '@/components/BaseDialog.vue';
-import { sleep, showOverlayAndRedirect } from '@/helpers.js';
-import { mapActions, mapMutations, mapState } from 'vuex';
+import { showOverlayAndRedirect } from '@/helpers.js';
+import { mapActions } from 'vuex';
 import { required } from 'vuelidate/lib/validators';
+import formGeneralUtils from '@/mixins/formGeneralUtils.js';
 
 export default {
+  name: 'ClientNoteAddOrEdit',
+  // NOTE: we use a mixin
+  mixins: [formGeneralUtils],
+  props: ['tenantSlug', 'clientId'],
   components: {
-    TextAreaInput,
-    BaseDialog
+    TextAreaInput
   },
   validations: {
-    newNote: {
+    content: {
       required
     }
   },
   data() {
     return {
-      newNote: null,
-      isDeleteModalOpen: false,
-      note: null
+      content: null,
+      isDeleteModalOpen: false
     };
   },
   computed: {
-    ...mapState('client', ['selectedNote'])
+    noteId() {
+      return Number(this.$route.params.id) || undefined;
+    }
+  },
+  created() {
+    this._fetchNote();
   },
   methods: {
-    ...mapMutations('client', ['setSelectedNote']),
-    ...mapActions('client', ['noteSave', 'noteDelete']),
-    save() {
-      this.$v.$touch();
-      if (this.$v.$invalid) {
+    ...mapActions('client', ['noteSave', 'noteDelete', 'notesFetch']),
+    async _fetchNote() {
+      if (this.noteId) {
+        this.loadingUpdate(true);
+        const notes = await this.notesFetch({
+          clientId: this.clientId,
+          tenantSlug: this.tenantSlug
+        });
+        this.content = notes.find(item => item.id === this.noteId).note;
+        this.loadingUpdate(false);
+      }
+    },
+    submit() {
+      if (!this.beforeSubmit()) {
         return;
       }
-      const note = {
-        note: this.newNote
-      };
-      if (this.note) {
-        note.id = this.note.id;
-      }
-      this.createOrUpdateNote(note);
+
+      this.noteSave({
+        clientId: this.$route.params.clientId,
+        tenantSlug: this.$route.params.tenantSlug,
+        body: {
+          id: this.noteId,
+          note: this.content
+        }
+      })
+        .then(this.onSuccess)
+        .catch(this.onSubmitCatch);
     },
-    createOrUpdateNote(note) {
-      if (note) {
-        this.noteSave({
-          clientId: this.$route.params.clientId,
-          tenantSlug: this.$route.params.tenantSlug,
-          body: {
-            ...note
-          }
-        })
-          .then(async () => {
-            this.$store.commit('overlay/updateModel', {
-              title: 'Success!',
-              message: 'Note added.'
-            });
-            await sleep(1500);
-            this.$store.commit('overlay/updateModel', {
-              title: '',
-              message: ''
-            });
-            this.goBack();
-          })
-          .catch(() => {
-            alert('Failed to save.');
-          });
-      }
+    onSuccess() {
+      showOverlayAndRedirect({
+        title: 'Success!',
+        route: {
+          name: 'ClientNotes'
+        }
+      });
     },
-    _noteDelete() {
+    _noteDelete(noteId) {
       this.noteDelete({
         clientId: this.$route.params.clientId,
         tenantSlug: this.$route.params.tenantSlug,
-        noteId: this.note.id
+        noteId: noteId
       })
         .then(async () => {
           showOverlayAndRedirect({
             title: 'Success!',
-            message: 'Note deleted.'
+            message: 'Note deleted.',
+            route: { name: 'ClientNotes' }
           });
-          this.goBack();
         })
         .catch(() => {
           alert('Failed to delete.');
@@ -151,27 +157,6 @@ export default {
     goBack() {
       this.$router.push({ name: 'ClientNotes' });
     }
-  },
-
-  watch: {
-    selectedNote(val) {
-      this.note = val;
-    }
-  },
-
-  beforeMount() {
-    if (this.selectedNote && this.selectedNote.id !== this.$route.params.id) {
-      this.goBack();
-    }
-  },
-
-  mounted() {
-    this.note = this.selectedNote;
-    this.newNote = this.selectedNote.note;
-  },
-
-  beforeDestroy() {
-    this.setSelectedNote(null);
   }
 };
 </script>

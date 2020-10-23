@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-xl mx-auto pt-4">
-    <div class="mb-4 mx-4 ">
+    <div class="mb-4 mx-4 pb-20">
       <Button
         class="rounded-full"
         background="bg-brand2"
@@ -10,59 +10,70 @@
       />
 
       <div class="mt-4 " v-if="clientNotes.length > 0">
-        <div
-          @click="editNote(note)"
-          class="bg-surface rounded-lg shadow-8dp p-4 my-4"
-          v-for="note in clientNotes"
-          :key="note.id"
+        <router-link
+          v-for="noteItem in clientNotes"
+          :key="noteItem.id"
+          title="Edit Note"
+          :to="{ name: 'EditClientNote', params: { id: noteItem.id } }"
+          class="bg-surface rounded-lg shadow-8dp p-4 my-4 w-full block"
         >
           <div
             class="text-on-surface text-opacity-medium tg-caption-mobile mb-4"
           >
-            {{ format(new Date(note.createdAt), 'dd MMM, yyyy') }}
+            <time>{{
+              formatDateTime(noteItem.createdAt, { dateFormat: 'dd MMM, yyyy' })
+            }}</time>
           </div>
           <div class="text-on-surface">
-            {{ note.note }}
+            {{ noteItem.note }}
           </div>
-        </div>
+        </router-link>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { format } from 'date-fns';
-import { mapActions, mapMutations } from 'vuex';
+import { mapActions } from 'vuex';
+import { formatDateTime } from '@/helpers';
 
 export default {
-  name: 'ClientNotifications',
+  name: 'ClientNotes',
   props: ['tenantSlug', 'clientId'],
   data() {
     return {
       clientNotes: []
     };
   },
-  created() {
-    this.fetchNotes();
+  async created() {
+    this.loadingUpdate(true);
+    await this.fetchNotes();
+    this.loadingUpdate(false);
   },
   methods: {
     ...mapActions('client', ['notesFetch']),
-    ...mapMutations('client', ['setSelectedNote']),
+    ...mapActions('loading', ['loadingUpdate']),
     async fetchNotes() {
       const notes = await this.notesFetch({
         clientId: this.clientId,
         tenantSlug: this.tenantSlug
       });
 
-      this.clientNotes = notes ? notes : [];
+      this.clientNotes = notes ? notes.map(this.prepareForList) : [];
     },
-    format,
+    formatDateTime,
+    prepareForList(noteItem) {
+      const content = noteItem.note;
+      const maxLength = 500;
+      return {
+        ...noteItem,
+        note:
+          content.substring(0, maxLength) +
+          (content.length > maxLength ? '...' : '')
+      };
+    },
     addNote() {
       this.$router.push({ name: 'AddClientNote' });
-    },
-    editNote(note) {
-      this.setSelectedNote(note);
-      this.$router.push({ name: 'EditClientNote', params: { id: note.id } });
     }
   }
 };
