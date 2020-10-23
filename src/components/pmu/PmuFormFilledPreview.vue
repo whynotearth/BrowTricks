@@ -6,7 +6,7 @@
     >
       {{ title }}
     </h2>
-    <img :src="imagePreview" alt="" />
+    <img :src="imagePreview" alt="Preview of filled PMU form" />
   </div>
   <div v-else class="absolute w-full h-full flex justify-center items-center">
     <BaseSpinner borderColor="border-brand2" classNames="spinner" />
@@ -27,7 +27,7 @@ export default {
     templateId: [Number, String],
     title: String,
     clientId: [Number, String],
-    answers: Object,
+    answersBody: Object,
     isMock: {
       type: Boolean,
       default: false
@@ -36,8 +36,13 @@ export default {
   data: () => ({
     imagePreview: ''
   }),
-  created() {
-    this._pmuFilledPreview();
+  watch: {
+    answersBody: {
+      immediate: true,
+      handler() {
+        this._pmuFilledPreview();
+      }
+    }
   },
   methods: {
     ...mapActions('client', ['pmuFilledPreview']),
@@ -52,12 +57,9 @@ export default {
           tenantSlug: this.tenantSlug,
           templateId: this.templateId,
           clientId: this.clientId,
-          body: this.answers
+          body: this.answersBody
         }
       });
-    },
-    init() {
-      this._pmuFilledPreview();
     }
   }
 };
