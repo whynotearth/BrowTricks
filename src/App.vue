@@ -3,6 +3,8 @@
     id="app"
     class="min-h-vh100 h-full text-center bg-background text-on-background"
   >
+    <SplashOverlay />
+
     <component :is="$route.meta.layout || 'div'">
       <router-view />
     </component>
@@ -47,6 +49,7 @@
 </template>
 <script>
 import BaseOverlaySuccess from '@/components/BaseOverlaySuccess.vue';
+import SplashOverlay from '@/components/splash/SplashOverlay.vue';
 import SnackBar from '@/components/SnackBar.vue';
 import { mapGetters, mapActions } from 'vuex';
 import vhFix from '@/mixins/vhFix.js';
@@ -60,7 +63,7 @@ export default {
     };
   },
   mixins: [vhFix],
-  components: { BaseOverlaySuccess, SnackBar },
+  components: { SplashOverlay, BaseOverlaySuccess, SnackBar },
   computed: {
     ...mapGetters('global', ['isDrawerOpenAuthGet']),
     ...mapGetters('overlay', {
