@@ -123,6 +123,9 @@ export default {
 .min-w-200 {
   min-width: 200px;
 }
+.max-w-200 {
+  max-width: 200px;
+}
 
 .title {
   padding-top: 2px;

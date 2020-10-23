@@ -110,7 +110,7 @@ export default {
             'Add a checklist to your form so your clients can select all options that apply.',
           value: 'Select all that apply',
           options: [
-            'I am currently taking blood thinggers',
+            'I am currently taking blood thinners',
             'I am pregnant or breastfeeding',
             'I have skin diseases such as psoriasis or eczema'
           ]

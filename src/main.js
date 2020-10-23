@@ -16,11 +16,13 @@ import Button from '@/components/inputs/Button.vue';
 import TextAreaInput from '@/components/inputs/TextAreaInput.vue';
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
 import PageContentBoard from '@/components/PageContentBoard.vue';
+import BaseDialog from '@/components/BaseDialog.vue';
 // -----------------
 Vue.component('Button', Button);
 Vue.component('TextAreaInput', TextAreaInput);
 Vue.component('MaterialInput', MaterialInput);
 Vue.component('PageContentBoard', PageContentBoard);
+Vue.component('BaseDialog', BaseDialog);
 
 Vue.use(Vuelidate);
 Vue.use(vClickOutside);
@@ -35,6 +37,7 @@ Vue.prototype.$rollbar = new Rollbar({
   }
 });
 
+// todo: disable in development
 Vue.config.errorHandler = (err, vm) => {
   vm.$rollbar.error(err);
   throw err;

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="tg-body-mobile min-w-app">
     <!-- NOTE: these files can affect other pages, so keeping them in component template, makes the isolated -->
     <link
       rel="stylesheet"
@@ -20,7 +20,7 @@
       v-bind:language="language"
     >
       <template #complete>
-        <div class="section-wrap pb-8">
+        <div class="section-wrap">
           <ErrorFullScreen :height="null" v-if="errorMessage">
             {{ errorMessage }}
           </ErrorFullScreen>
@@ -39,19 +39,54 @@
             >
           </div>
           <div v-else class="relative">
-            <p>
+            <h1>
               <span class="fh2">Review and Sign</span>
-            </p>
+            </h1>
 
-            <PmuFormFilledPreview
-              class="mb-8"
-              v-if="isCompleted"
-              :isMock="true"
-              title="Here is your PMU form:"
-              :tenantSlug="tenantSlug"
-              :templateId="formId"
-              :answers="answers"
+            <div class="preview-wrapper relative mb-4">
+              <PmuFormFilledPreview
+                class=""
+                v-if="isCompleted"
+                :isMock="true"
+                title="Here is your PMU form:"
+                :tenantSlug="tenantSlug"
+                :templateId="formId"
+                :answersBody="answersBody"
+              />
+            </div>
+
+            <h3 class="tg-body-mobile mb-2">Sign here:</h3>
+            <SignaturePad
+              class="border border-divider border-opacity-medium bg-surface mb-6"
+              :width="280"
+              :height="240"
+              ref="signaturePad"
+              :options="{}"
+              @input="onSignatureUpdate"
             />
+
+            <div class="flex">
+              <Button
+                title="Undo"
+                :background="null"
+                class="uppercase w-1/2 ml-0 mr-0"
+                padding="px-0 py-3"
+                :width="null"
+                maxWidth="max-w-200"
+                :isBordered="true"
+                @clicked="onSignatureUndo"
+              />
+              <Button
+                :title="saveButtonText"
+                :background="null"
+                class="uppercase w-1/2 ml-3 mr-auto"
+                padding="px-2 py-3"
+                :width="null"
+                maxWidth="max-w-200"
+                :isBordered="true"
+                @clicked="onSignatureSave"
+              />
+            </div>
           </div>
         </div>
       </template>
@@ -65,6 +100,7 @@ import { mapActions } from 'vuex';
 import { adaptApiQuestionsToModel, adaptAnswersToApi } from '@/services/pmu.js';
 import PmuFormFilledPreview from '@/components/pmu/PmuFormFilledPreview.vue';
 import ErrorFullScreen from '@/components/ErrorFullScreen.vue';
+import SignaturePad from '@/components/SignaturePad.vue';
 
 // https://github.com/ditdot-dev/vue-flow-form
 
@@ -74,7 +110,8 @@ export default {
   components: {
     ErrorFullScreen,
     FlowForm,
-    PmuFormFilledPreview
+    PmuFormFilledPreview,
+    SignaturePad
   },
   created() {
     this.init();
@@ -86,9 +123,24 @@ export default {
       errorMessage: '',
       isReady: false,
       language: new LanguageModel({}),
-      answers: [],
-      questions: []
+      questions: [],
+      questionListFlowObject: [],
+      signatureImageDraft: '',
+      signatureImage: ''
     };
+  },
+  computed: {
+    saveButtonText() {
+      const hasUnsavedSignature =
+        this.signatureImageDraft !== this.signatureImage;
+      return `Save Signature${hasUnsavedSignature ? ' *' : ''}`;
+    },
+    answersBody() {
+      return adaptAnswersToApi({
+        questionList: this.questionListFlowObject,
+        signatureImage: this.signatureImage
+      });
+    }
   },
   methods: {
     ...mapActions('formTemplate', ['templateFetch']),
@@ -109,6 +161,16 @@ export default {
       this.questions = adaptApiQuestionsToModel(questions);
       this.isReady = true;
     },
+    onSignatureSave() {
+      this.signatureImage = this.signatureImageDraft;
+    },
+    onSignatureUndo() {
+      this.$refs.signaturePad.undo();
+    },
+    onSignatureUpdate(data) {
+      console.log('signature updated (not saved yet)');
+      this.signatureImageDraft = data;
+    },
     onSubmit() {
       // This method will only be called if you don't override the
       // completeButton slot.
@@ -116,7 +178,8 @@ export default {
       this.isSubmitted = true;
     },
     onComplete(completed, questionList) {
-      this.answers = adaptAnswersToApi(questionList);
+      console.log('on complete');
+      this.questionListFlowObject = questionList;
       this.isCompleted = completed;
     }
   }
@@ -126,4 +189,7 @@ export default {
 <style>
 /* @import '~@whynotearth/vue-flow-form/dist/vue-flow-form.css';
 @import '~@whynotearth/vue-flow-form/dist/vue-flow-form.theme-minimal.css'; */
+.preview-wrapper {
+  min-height: 120px;
+}
 </style>
