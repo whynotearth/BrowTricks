@@ -77,7 +77,7 @@
                 @clicked="onSignatureUndo"
               />
               <Button
-                title="Save Signature"
+                :title="saveButtonText"
                 :background="null"
                 class="uppercase w-1/2 ml-3 mr-auto"
                 padding="px-2 py-3"
@@ -130,6 +130,11 @@ export default {
     };
   },
   computed: {
+    saveButtonText() {
+      const hasUnsavedSignature =
+        this.signatureImageDraft !== this.signatureImage;
+      return `Save Signature${hasUnsavedSignature ? ' *' : ''}`;
+    },
     answersBody() {
       return adaptAnswersToApi({
         questionList: this.questionListFlowObject,
@@ -173,6 +178,7 @@ export default {
       this.isSubmitted = true;
     },
     onComplete(completed, questionList) {
+      console.log('on complete');
       this.questionListFlowObject = questionList;
       this.isCompleted = completed;
     }

@@ -51,7 +51,7 @@
                 :clientId="clientId"
                 :tenantSlug="tenantSlug"
                 :templateId="templateId"
-                :answers="answers"
+                :answersBody="answersBody"
               />
             </div>
 
@@ -77,7 +77,7 @@
                 @clicked="onSignatureUndo"
               />
               <Button
-                title="Save Signature"
+                :title="saveButtonText"
                 :background="null"
                 class="uppercase w-1/2 ml-3 mr-auto"
                 padding="px-2 py-3"
@@ -124,10 +124,25 @@ export default {
       errorMessage: '',
       isReady: false,
       language: new LanguageModel({}),
-      answers: [],
       questions: [],
-      signatureImageData: ''
+      questionListFlowObject: [],
+      signatureImageDraft: '',
+      signatureImage: ''
     };
+  },
+  computed: {
+    saveButtonText() {
+      const hasUnsavedSignature =
+        this.signatureImageDraft !== this.signatureImage;
+      return `Save Signature${hasUnsavedSignature ? ' *' : ''}`;
+    },
+    answersBody() {
+      console.log('update body');
+      return adaptAnswersToApi({
+        questionList: this.questionListFlowObject,
+        signatureImage: this.signatureImage
+      });
+    }
   },
   methods: {
     ...mapActions('formTemplate', ['templateFetch']),
@@ -150,42 +165,36 @@ export default {
       this.isReady = true;
     },
     onSignatureSave() {
-      console.log(this.signatureImageData);
-      // todo: update this.answers.....
+      this.signatureImage = this.signatureImageDraft;
     },
     onSignatureUndo() {
-      console.log('undo');
       this.$refs.signaturePad.undo();
     },
-    onSignatureEnd(arggg) {
-      console.log('on end signature......', arggg);
-    },
     onSignatureUpdate(data) {
-      console.log('onSignatureUpdate....', data);
-      this.signatureImageData = data;
+      console.log('signature updated (not saved yet)');
+      this.signatureImageDraft = data;
+    },
+    onComplete(completed, questionList) {
+      console.log('on complete');
+      this.questionListFlowObject = questionList;
+      this.isCompleted = completed;
     },
     onSubmit(questionList) {
       // This method will only be called if you don't override the
       // completeButton slot.
+      this.questionListFlowObject = questionList;
 
       const path = this.$router.resolve({
         name: 'PmuFormDownload'
       }).href;
       const callbackUrl = `${window.location.origin}${path}`;
       console.log('notificationCallBackUrl', callbackUrl);
-      const payload = adaptAnswersToApi({
-        questionList,
-        signatureImage: this.signatureImageData,
-        callbackUrl
-      });
-
-      console.log('answers for api:', payload);
       this.pmuSignSubmitAnswers({
         params: {
           clientId: this.clientId,
           tenantSlug: this.tenantSlug,
           templateId: this.templateId,
-          body: payload
+          body: this.answersBody
         }
       })
         .then(() => {
@@ -198,11 +207,6 @@ export default {
             'Something went wrong, Answers not submitted.'
           );
         });
-    },
-    onComplete(completed, questionList) {
-      console.log('on complete');
-      this.answers = adaptAnswersToApi(questionList);
-      this.isCompleted = completed;
     }
   }
 };
