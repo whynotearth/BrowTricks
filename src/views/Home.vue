@@ -10,6 +10,29 @@
     <template #pretitle>Welcome to</template>
     <template #title>{{ SHORTNAME }}</template>
     <template #primaryCTA>
+      <div class="mb-4 text-left">
+        <p><br /><strong>Client Orginization &amp; mangament FREE!</strong></p>
+        <p>- Unlimited notes</p>
+        <p>- Photo management</p>
+        <p><strong>Also free for 30 days:</strong></p>
+        <p>- PMU form building AND digital signing</p>
+        <p>- Client video cloud storage</p>
+        <p>
+          <br /><a
+            href="https://medium.com/progressivewebapps/how-to-install-a-pwa-to-your-device-68a8d37fadc1"
+            ><strong>Install Guide</strong></a
+          >
+          (ios and android apps pending after beta)
+        </p>
+        <br />
+        <p>
+          If you have any questions, please feel free to contact us at ANY time!
+        </p>
+        <p>
+          <br />TEXT US at 510-319-3040 or EMAIL us at:
+          support@browtricksproductsorg.zendesk.com
+        </p>
+      </div>
       <Button
         background="bg-primary"
         textColor="text-on-primary"
