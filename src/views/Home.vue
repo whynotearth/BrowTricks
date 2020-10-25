@@ -22,7 +22,7 @@
             href="https://medium.com/progressivewebapps/how-to-install-a-pwa-to-your-device-68a8d37fadc1"
             ><strong>Install Guide</strong></a
           >
-          (ios and android apps pending after beta)
+          (ios &amp; android apps after beta)
         </p>
         <br />
         <p>
