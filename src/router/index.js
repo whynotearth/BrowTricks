@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 import store from '../store';
 
 import { clientRoutes } from './clientRoutes';
-import { TenantPanelRoutes } from './TenantPanelRoutes';
+import { TenantPanelRoutes } from './TenantRoutes';
 import { generalRoutes } from './generalRoutes';
 import { formTemplateRoutes } from './formTemplateRoutes';
 import { get } from 'lodash-es';

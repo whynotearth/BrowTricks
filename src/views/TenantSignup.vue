@@ -122,7 +122,7 @@ export default {
       showOverlayAndRedirect({
         title: 'Success!',
         route: {
-          name: 'TenantHome',
+          name: 'TenantIntro',
           params: { tenantSlug }
         }
       });
