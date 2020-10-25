@@ -21,6 +21,7 @@ const colors = {
   brand1: '#B5BBC9',
   brand2: '#F6BEAD',
   brand3: '#8A8A8A',
+  brand4: '#071108',
   brand5: '#B3D1D9'
 };
 
