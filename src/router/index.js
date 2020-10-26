@@ -17,10 +17,17 @@ const routes = [
   ...generalRoutes
 ];
 
+const scrollBehavior = (to, from, savedPosition) => {
+  return new Promise(resolve => {
+    resolve(savedPosition || { x: 0, y: 0 });
+  });
+};
+
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+  scrollBehavior
 });
 
 function isRouteChangingUpdate(value) {
