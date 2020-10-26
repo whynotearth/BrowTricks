@@ -10,7 +10,21 @@
     <template #pretitle>Welcome to</template>
     <template #title>{{ SHORTNAME }}</template>
     <template #primaryCTA>
-      <div class="mb-4 text-left">
+      <Button
+        background="bg-primary"
+        textColor="text-on-primary"
+        title="Create Account"
+        class="normal-case mb-2"
+        :to="{ name: 'AuthSignup' }"
+      />
+    </template>
+    <template #tertiaryCTA>
+      <p class="text-on-background">
+        Already have an account?
+        <router-link class="" :to="{ name: 'AuthLogin' }">Log In</router-link>
+      </p>
+      <br />
+      <div class="mb-4 text-left text-on-background">
         <p><br /><strong>Client Orginization &amp; mangament FREE!</strong></p>
         <p>- Unlimited notes</p>
         <p>- Photo management</p>
@@ -33,19 +47,6 @@
           support@browtricksproductsorg.zendesk.com
         </p>
       </div>
-      <Button
-        background="bg-primary"
-        textColor="text-on-primary"
-        title="Create Account"
-        class="normal-case mb-2"
-        :to="{ name: 'AuthSignup' }"
-      />
-    </template>
-    <template #tertiaryCTA>
-      <p class="text-on-background">
-        Already have an account?
-        <router-link class="" :to="{ name: 'AuthLogin' }">Log In</router-link>
-      </p>
     </template>
   </SplashLayout>
 </template>
