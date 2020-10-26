@@ -1,6 +1,20 @@
 /* eslint-disable no-console */
 
 import { register } from 'register-service-worker';
+import store from './store';
+
+const notifyUserAboutUpdate = worker => {
+  store.dispatch('alerter/show', {
+    text: 'New version of website is available!',
+    class: '',
+    button: {
+      title: 'Update',
+      action() {
+        worker.postMessage({ type: 'SKIP_WAITING' });
+      }
+    }
+  });
+};
 
 if (process.env.NODE_ENV === 'production') {
   register(`${process.env.BASE_URL}service-worker.js`, {
@@ -19,8 +33,9 @@ if (process.env.NODE_ENV === 'production') {
     updatefound() {
       console.log('New content is downloading.');
     },
-    updated() {
+    updated(registration) {
       console.log('New content is available; please refresh.');
+      notifyUserAboutUpdate(registration.waiting);
     },
     offline() {
       console.log(
@@ -31,4 +46,15 @@ if (process.env.NODE_ENV === 'production') {
       console.error('Error during service worker registration:', error);
     }
   });
+
+  let refreshing;
+  if (navigator.serviceWorker) {
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (refreshing) {
+        return;
+      }
+      window.location.reload();
+      refreshing = true;
+    });
+  }
 }
