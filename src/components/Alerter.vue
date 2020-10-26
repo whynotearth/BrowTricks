@@ -2,7 +2,7 @@
   <BaseDialog
     v-if="alerterGet.visible"
     @close="updateVisibility(false)"
-    background="bg-white"
+    background="bg-surface"
     textColor="text-on-background"
     :padding="null"
   >
