@@ -19,11 +19,21 @@
             </select>
           </div>
           <input
-            id="phone_number"
+            v-bind="attrs"
+            :id="idName"
+            type="tel"
             class="form-input block w-full pl-16 pt-3 pb-2 outline-none border-b border-on-surface text-opacity-medium focus:text-opacity-high border-opacity-medium focus:border-opacity-high rounded-none"
-            placeholder="+1 (555) 987-6543"
+            :value="value | trim"
+            v-on="inputListeners"
+            :placeholder="placeholder"
           />
         </div>
+      </div>
+    </template>
+
+    <template #error>
+      <div class="text-error tg-body-mobile mt-2" v-if="validatorModel.$error">
+        <slot />
       </div>
     </template>
   </FormGroup>
@@ -34,8 +44,14 @@ import MaterialInput from '@/components/inputs/MaterialInput';
 import FormGroup from '@/components/inputs/FormGroup.vue';
 export default {
   name: 'PhoneInput',
-  components: { FormGroup, MaterialInput }
+  components: { FormGroup, MaterialInput },
+  computed: {
+    placeholder() {
+      return {
+        us: '+1 (555) 987-6543'
+      };
+    }
+  },
+  props: {}
 };
 </script>
-
-<style scoped></style>
