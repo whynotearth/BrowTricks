@@ -2,20 +2,19 @@
   <FormGroup v-bind="$attrs" :validatorModel="validatorModel">
     <template #control>
       <div class="relative z-10">
+        <pre>{{ validatorModel }}</pre>
         <VuePhoneNumberInput
+          v-model="inputModel"
           :error="validatorModel.$error"
           color="#0D1F3C"
           valid-color="#22C38B"
           error-color="#E74323"
-          :default-country-code="value.countryCode"
           :border-radius="0"
+          :default-country-code="'US'"
           :preferred-countries="['US']"
-          v-model="inputModel"
-          @update="onUpdateModel"
-          @phone-number-blur="onBlur"
-          v-on="$listeners"
-          :show-code-on-list="false"
           no-example
+          v-on="$listeners"
+          @update="onUpdateModel"
         />
       </div>
     </template>
@@ -29,7 +28,6 @@
 </template>
 
 <script>
-// import MaterialInput from '@/components/inputs/MaterialInput';
 import FormGroup from '@/components/inputs/FormGroup.vue';
 import VuePhoneNumberInput from 'vue-phone-number-input';
 import 'vue-phone-number-input/dist/vue-phone-number-input.css';
@@ -40,7 +38,6 @@ export default {
   components: {
     VuePhoneNumberInput,
     FormGroup
-    // MaterialInput
   },
   data: () => ({
     phoneModel: {}
@@ -51,24 +48,20 @@ export default {
   },
   props: {
     value: {
-      type: Object,
-      default: () => ({})
+      type: String,
+      default: ''
     },
     validatorModel: {
       type: Object,
       default: () => ({})
     },
-    attrs: {
-      type: Object,
-      default: () => {}
-    },
+    // attrs: {
+    //   type: Object,
+    //   default: () => {}
+    // },
     label: {
       type: String,
       default: 'Label'
-    },
-    type: {
-      type: String,
-      default: 'text'
     },
     idName: {
       type: String,
@@ -78,20 +71,20 @@ export default {
   computed: {
     inputModel: {
       get() {
-        return this.value.phoneNumber;
+        return this.value;
       },
       set(value) {
-        console.log('value', value);
-        // this.$emit('change', value);
+        console.log('set', value);
+        this.$emit('change', value);
+        console.log('this.phoneModel.countryCallingCode', this.phoneModel);
+        this.$emit('changeCountry', this.phoneModel.countryCallingCode);
       }
     }
   },
   methods: {
-    onBlur() {
-      //
-    },
     onUpdateModel(phoneModel) {
-      this.$emit('change', phoneModel);
+      console.log('phoneModel', phoneModel);
+      this.phoneModel = phoneModel;
     }
   }
 };

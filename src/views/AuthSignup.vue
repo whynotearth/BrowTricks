@@ -58,14 +58,18 @@
 
           <PhoneInput
             v-model="$v.phoneNumber.$model"
+            @changeCountry="onChangePhoneInputCountry"
             :validatorModel="$v.phoneNumber"
             :serverErrors="serverErrors.PhoneNumber"
           >
-            <p v-if="!$v.phoneNumber.phoneNumber.required">
+            <p v-if="!$v.phoneNumberCountryCallingCode.required">
+              Select country please
+            </p>
+            <p v-else-if="!$v.phoneNumber.required">
               Phone number is required
             </p>
-            <p v-else-if="!$v.phoneNumber.phoneNumber.isPhoneNumberValid">
-              Please enter a valid phone number
+            <p v-else-if="!$v.phoneNumber.isPhoneNumberValid">
+              Enter a valid phone number please
             </p>
           </PhoneInput>
 
@@ -184,10 +188,8 @@ export default {
       email: '',
       userName: '',
       password: '',
-      phoneNumber: {
-        phoneNumber: '',
-        countryCode: 'US'
-      },
+      phoneNumber: '',
+      phoneNumberCountryCallingCode: '',
       repeatPassword: ''
     };
   },
@@ -215,14 +217,18 @@ export default {
       sameAsPassword: sameAs('password')
     },
     phoneNumber: {
-      phoneNumber: {
-        required,
-        isPhoneNumberValid
-      }
+      required,
+      isPhoneNumberValid
+    },
+    phoneNumberCountryCallingCode: {
+      required
     }
   },
   methods: {
     ...mapActions('auth', ['register']),
+    onChangePhoneInputCountry(value) {
+      console.log('change country', value);
+    },
     submit() {
       if (!this.beforeSubmit()) {
         return;
