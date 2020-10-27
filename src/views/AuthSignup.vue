@@ -55,7 +55,9 @@
               Last Name is required
             </p>
           </MaterialInput>
-          <MaterialInput
+
+          <PhoneInput></PhoneInput>
+          <!-- <MaterialInput
             v-model.trim="$v.phoneNumber.$model"
             label="Phone Number"
             type="tel"
@@ -74,7 +76,7 @@
             <p v-else-if="!$v.phoneNumber.isPhoneNumberValid">
               Please enter a valid phone number
             </p>
-          </MaterialInput>
+          </MaterialInput> -->
           <MaterialInput
             type="email"
             v-model.trim="$v.email.$model"
@@ -161,6 +163,7 @@
 
 <script>
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
+import PhoneInput from '@/components/inputs/PhoneInput.vue';
 import {
   required,
   alphaNum,
@@ -178,6 +181,7 @@ export default {
   // NOTE: we use a mixin
   mixins: [formGeneralUtils],
   components: {
+    PhoneInput,
     AuthButtons,
     MaterialInput
   },
