@@ -152,10 +152,7 @@ export default {
     ...mapGetters('auth', ['isAuthenticated'])
   },
   methods: {
-    ...mapActions('global', ['isDrawerOpenUpdate']),
-    onClickTutorials() {
-      console.log('onClickTutorials...');
-    }
+    ...mapActions('global', ['isDrawerOpenUpdate'])
   }
 };
 </script>
