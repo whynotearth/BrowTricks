@@ -31,7 +31,6 @@
 <script>
 import FormGroup from '@/components/inputs/FormGroup.vue';
 import { VueTelInput } from 'vue-tel-input';
-import 'vue-phone-number-input/dist/vue-phone-number-input.css';
 import { randomId } from '@/helpers';
 
 export default {
