@@ -1,12 +1,16 @@
 <template>
   <FormGroup v-bind="$attrs" :validatorModel="validatorModel">
     <template #control>
-      <div class="relative z-10">
-        <label :for="idName" class="label mb-0 text-sm" :class="[labelColor]">
+      <div class="label-wrapper relative z-10">
+        <label
+          :for="idName"
+          class="label text-opacity-high text-sm block -mb-2 relative z-10"
+          :class="[labelColor]"
+        >
           {{ label }}
         </label>
         <VueTelInput
-          wrapperClasses="input-wrapper outline-none text-opacity-medium focus:text-opacity-high"
+          wrapperClasses="input-wrapper outline-none text-opacity-medium focus:text-opacity-high transition-colors duration-200"
           inputClasses="input outline-none bg-transparent appearance-none pt-3 pb-2"
           mode="international"
           :preferredCountries="['US']"
@@ -91,5 +95,15 @@ export default {
 .input-wrapper.input-wrapper:focus-within {
   box-shadow: none;
   @apply border-on-surface border-opacity-high;
+}
+/deep/ .vti__dropdown {
+  @apply outline-none;
+}
+/deep/ .vti__dropdown:focus-visible {
+  outline: 2px solid black;
+}
+/deep/ .vti__dropdown:hover,
+/deep/ .vti__dropdown:focus {
+  background: none;
 }
 </style>

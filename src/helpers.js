@@ -2,6 +2,7 @@ import router from '@/router';
 import store from '@/store';
 import { format, utcToZonedTime } from 'date-fns-tz';
 import { required } from 'vuelidate/lib/validators';
+import isMobilePhone from 'validator/lib/isMobilePhone';
 
 export function randomId(len = 16) {
   return (
@@ -62,10 +63,7 @@ export function getAPIURL(path) {
 }
 
 export function isPhoneNumberValid(phone) {
-  // FIXME: don't use
-  return /^((\+1|1)?( |-)?)?(\([2-9][0-9]{2}\)|[2-9][0-9]{2})( |-)?([2-9][0-9]{2}( |-)?[0-9]{4})$/.test(
-    phone
-  );
+  return isMobilePhone(phone);
 }
 
 export const validationPassword = {
