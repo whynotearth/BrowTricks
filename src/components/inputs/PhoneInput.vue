@@ -1,33 +1,22 @@
 <template>
   <FormGroup v-bind="$attrs" :validatorModel="validatorModel">
     <template #control>
-      <div class="relative">
-        <label
-          for="phone_number"
-          class="block label mt-3 cursor-text text-sm -mb-2 z-10 relative"
-          >Phone Number</label
-        >
-        <div class="relative rounded-md shadow-sm">
-          <div class="absolute inset-y-0 left-0 flex items-center">
-            <select
-              aria-label="Country"
-              class="form-select h-full py-0 pl-3 pr-7 outline-none border-transparent bg-transparent text-gray-500 sm:text-sm sm:leading-5"
-            >
-              <option>US</option>
-              <option>CA</option>
-              <option>EU</option>
-            </select>
-          </div>
-          <input
-            v-bind="attrs"
-            :id="idName"
-            type="tel"
-            class="form-input block w-full pl-16 pt-3 pb-2 outline-none border-b border-on-surface text-opacity-medium focus:text-opacity-high border-opacity-medium focus:border-opacity-high rounded-none"
-            :value="value | trim"
-            v-on="inputListeners"
-            :placeholder="placeholder"
-          />
-        </div>
+      <div class="relative z-10">
+        <VuePhoneNumberInput
+          :error="validatorModel.$error"
+          color="#0D1F3C"
+          valid-color="#22C38B"
+          error-color="#E74323"
+          :default-country-code="value.countryCode"
+          :border-radius="0"
+          :preferred-countries="['US']"
+          v-model="inputModel"
+          @update="onUpdateModel"
+          @phone-number-blur="onBlur"
+          v-on="$listeners"
+          :show-code-on-list="false"
+          no-example
+        />
       </div>
     </template>
 
@@ -40,18 +29,70 @@
 </template>
 
 <script>
-import MaterialInput from '@/components/inputs/MaterialInput';
+// import MaterialInput from '@/components/inputs/MaterialInput';
 import FormGroup from '@/components/inputs/FormGroup.vue';
+import VuePhoneNumberInput from 'vue-phone-number-input';
+import 'vue-phone-number-input/dist/vue-phone-number-input.css';
+import { randomId } from '@/helpers';
+
 export default {
   name: 'PhoneInput',
-  components: { FormGroup, MaterialInput },
-  computed: {
-    placeholder() {
-      return {
-        us: '+1 (555) 987-6543'
-      };
+  components: {
+    VuePhoneNumberInput,
+    FormGroup
+    // MaterialInput
+  },
+  data: () => ({
+    phoneModel: {}
+  }),
+  model: {
+    prop: 'value',
+    event: 'change'
+  },
+  props: {
+    value: {
+      type: Object,
+      default: () => ({})
+    },
+    validatorModel: {
+      type: Object,
+      default: () => ({})
+    },
+    attrs: {
+      type: Object,
+      default: () => {}
+    },
+    label: {
+      type: String,
+      default: 'Label'
+    },
+    type: {
+      type: String,
+      default: 'text'
+    },
+    idName: {
+      type: String,
+      default: randomId
     }
   },
-  props: {}
+  computed: {
+    inputModel: {
+      get() {
+        return this.value.phoneNumber;
+      },
+      set(value) {
+        console.log('value', value);
+        // this.$emit('change', value);
+      }
+    }
+  },
+  methods: {
+    onBlur() {
+      //
+    },
+    onUpdateModel(phoneModel) {
+      this.$emit('change', phoneModel);
+    }
+  }
 };
 </script>

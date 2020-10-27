@@ -56,27 +56,19 @@
             </p>
           </MaterialInput>
 
-          <PhoneInput></PhoneInput>
-          <!-- <MaterialInput
-            v-model.trim="$v.phoneNumber.$model"
-            label="Phone Number"
-            type="tel"
-            :attrs="{
-              autocomplete: 'tel',
-              inputmode: 'tel',
-              name: 'telephone',
-              enterkeyhint: 'send'
-            }"
+          <PhoneInput
+            v-model="$v.phoneNumber.$model"
             :validatorModel="$v.phoneNumber"
             :serverErrors="serverErrors.PhoneNumber"
           >
-            <p v-if="!$v.phoneNumber.required">
+            <p v-if="!$v.phoneNumber.phoneNumber.required">
               Phone number is required
             </p>
-            <p v-else-if="!$v.phoneNumber.isPhoneNumberValid">
+            <p v-else-if="!$v.phoneNumber.phoneNumber.isPhoneNumberValid">
               Please enter a valid phone number
             </p>
-          </MaterialInput> -->
+          </PhoneInput>
+
           <MaterialInput
             type="email"
             v-model.trim="$v.email.$model"
@@ -192,7 +184,10 @@ export default {
       email: '',
       userName: '',
       password: '',
-      phoneNumber: '',
+      phoneNumber: {
+        phoneNumber: '',
+        countryCode: 'US'
+      },
       repeatPassword: ''
     };
   },
@@ -220,8 +215,10 @@ export default {
       sameAsPassword: sameAs('password')
     },
     phoneNumber: {
-      required,
-      isPhoneNumberValid
+      phoneNumber: {
+        required,
+        isPhoneNumberValid
+      }
     }
   },
   methods: {

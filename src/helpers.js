@@ -62,6 +62,7 @@ export function getAPIURL(path) {
 }
 
 export function isPhoneNumberValid(phone) {
+  // FIXME: don't use
   return /^((\+1|1)?( |-)?)?(\([2-9][0-9]{2}\)|[2-9][0-9]{2})( |-)?([2-9][0-9]{2}( |-)?[0-9]{4})$/.test(
     phone
   );
