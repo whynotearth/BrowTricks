@@ -2,19 +2,16 @@
   <FormGroup v-bind="$attrs" :validatorModel="validatorModel">
     <template #control>
       <div class="relative z-10">
-        <pre>{{ validatorModel }}</pre>
-        <VuePhoneNumberInput
+        <label :for="idName" class="label mb-0 text-sm" :class="[labelColor]">
+          {{ label }}
+        </label>
+        <VueTelInput
+          wrapperClasses="input-wrapper outline-none text-opacity-medium focus:text-opacity-high"
+          inputClasses="input outline-none bg-transparent appearance-none pt-3 pb-2"
+          mode="international"
+          :preferredCountries="['US']"
           v-model="inputModel"
-          :error="validatorModel.$error"
-          color="#0D1F3C"
-          valid-color="#22C38B"
-          error-color="#E74323"
-          :border-radius="0"
-          :default-country-code="'US'"
-          :preferred-countries="['US']"
-          no-example
-          v-on="$listeners"
-          @update="onUpdateModel"
+          :inputId="idName"
         />
       </div>
     </template>
@@ -29,19 +26,16 @@
 
 <script>
 import FormGroup from '@/components/inputs/FormGroup.vue';
-import VuePhoneNumberInput from 'vue-phone-number-input';
+import { VueTelInput } from 'vue-tel-input';
 import 'vue-phone-number-input/dist/vue-phone-number-input.css';
 import { randomId } from '@/helpers';
 
 export default {
   name: 'PhoneInput',
   components: {
-    VuePhoneNumberInput,
+    VueTelInput,
     FormGroup
   },
-  data: () => ({
-    phoneModel: {}
-  }),
   model: {
     prop: 'value',
     event: 'change'
@@ -55,13 +49,9 @@ export default {
       type: Object,
       default: () => ({})
     },
-    // attrs: {
-    //   type: Object,
-    //   default: () => {}
-    // },
     label: {
       type: String,
-      default: 'Label'
+      default: 'Phone Number'
     },
     idName: {
       type: String,
@@ -74,11 +64,14 @@ export default {
         return this.value;
       },
       set(value) {
-        console.log('set', value);
         this.$emit('change', value);
-        console.log('this.phoneModel.countryCallingCode', this.phoneModel);
-        this.$emit('changeCountry', this.phoneModel.countryCallingCode);
       }
+    },
+    labelColor() {
+      if (this.validatorModel.$error) {
+        return 'text-error';
+      }
+      return 'text-on-background';
     }
   },
   methods: {
@@ -89,3 +82,14 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.input-wrapper.input-wrapper {
+  border-width: 0 0 1px 0;
+  @apply rounded-none border-on-surface border-opacity-medium;
+}
+.input-wrapper.input-wrapper:focus-within {
+  box-shadow: none;
+  @apply border-on-surface border-opacity-high;
+}
+</style>
