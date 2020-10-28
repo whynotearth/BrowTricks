@@ -243,6 +243,12 @@ export default {
         .catch(this.onSubmitCatch);
     },
     onSuccess() {
+      this.$gtm.trackEvent({
+        event: 'gaEvent',
+        category: 'Accounts',
+        action: 'Register'
+      });
+
       showOverlayAndRedirect({
         title: 'Success!',
         route: { name: 'PanelRedirector' }

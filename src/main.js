@@ -38,8 +38,8 @@ Vue.use(VueGtm, {
   enabled: true, // Ex: enabled: !!GDPR_Cookie (optional)
   debug: process.env.CONTEXT !== 'production', // Whether or not display console logs debugs (optional)
   loadScript: true,
-  vueRouter: router
-  // ignoredViews: ['Home'],
+  vueRouter: router,
+  ignoredViews: ['PanelRedirector']
   // trackOnNextTick: false
 });
 
