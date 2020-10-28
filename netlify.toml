@@ -4,6 +4,7 @@
   VUE_APP_UPLOADER_MEDIA_PRESET="browtricks_cms_media_dev"
   VUE_APP_UPLOADER_PDF_PRESET="browtricks_tenant_cms_pdf_dev"
   VUE_APP_API_URL="https://stagingapi.whynot.earth"
+  VUE_APP_ROLLBAR_ENABLE=true
 
 [context.master.environment]
   VUE_APP_UPLOADER_IMAGE_PRESET="browtricks_tenant_cms_images"
@@ -11,6 +12,7 @@
   VUE_APP_UPLOADER_MEDIA_PRESET="browtricks_cms_media"
   VUE_APP_UPLOADER_PDF_PRESET="browtricks_tenant_cms_pdf"
   VUE_APP_API_URL="https://api.whynot.earth"
+  VUE_APP_ROLLBAR_ENABLE=true
 
 [[redirects]]
   from = "/t/*"
