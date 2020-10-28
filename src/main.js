@@ -27,7 +27,7 @@ Vue.component('BaseDialog', BaseDialog);
 Vue.use(Vuelidate);
 Vue.use(vClickOutside);
 Vue.use(PortalVue);
-console.log('process.env.VUE_APP_ROLLBAR', process.env.VUE_APP_ROLLBAR);
+
 if (process.env.VUE_APP_ROLLBAR) {
   Vue.prototype.$rollbar = new Rollbar({
     accessToken: '9912db541f8c42d88dc9a147d49062ef',
