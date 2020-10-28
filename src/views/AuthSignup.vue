@@ -243,12 +243,6 @@ export default {
         .catch(this.onSubmitCatch);
     },
     onSuccess() {
-      var dataLayer = dataLayer || [];
-      dataLayer.push({
-        event: 'gaEvent',
-        eventCategory: 'Accounts',
-        eventAction: 'Register'
-      });
       showOverlayAndRedirect({
         title: 'Success!',
         route: { name: 'PanelRedirector' }

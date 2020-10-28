@@ -1,9 +1,15 @@
 <template>
   <div class="p-10">
-    <p class="mb-8">Branch: {{ BRANCH }}</p>
-    <p class="mb-8">Review ID: {{ REVIEW_ID }}</p>
-    <p class="mb-8">Commit ref: {{ COMMIT_REF }}</p>
-    <p class="mb-8">Deploy Prime URL: {{ DEPLOY_PRIME_URL }}</p>
+    <div v-if="BRANCH">
+      <p class="mb-8">Branch: {{ BRANCH }}</p>
+      <p class="mb-8">Review ID: {{ REVIEW_ID }}</p>
+      <p class="mb-8">Commit ref: {{ COMMIT_REF }}</p>
+      <p class="mb-8">Deploy Prime URL: {{ DEPLOY_PRIME_URL }}</p>
+    </div>
+    <div v-else>
+      <p class="mb-8">Not available in local</p>
+    </div>
+
     <p><router-link :to="{ name: 'Home' }">Home</router-link></p>
   </div>
 </template>
