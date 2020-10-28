@@ -76,6 +76,17 @@ export default {
   components: {
     SplashLayout
   },
+  // metaInfo() {
+  //   return {
+  //     script: [
+  //       {
+  //         vmid: 'jsonld',
+  //         type: 'application/ld+json',
+  //         json: {}
+  //       }
+  //     ]
+  //   };
+  // },
   computed: {
     SHORTNAME() {
       return process.env.VUE_APP_SHORTNAME;

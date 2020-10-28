@@ -70,13 +70,14 @@ export default {
   mixins: [vhFix],
   components: { SplashOverlay, Alerter, BaseOverlaySuccess, SnackBar },
   metaInfo() {
-    console.log('run metainfo');
     const title =
-      get(this.$route, 'meta.title', '') ||
-      get(this.$route, 'meta.appBar.title', '');
+      getFormattedMetaTitle(
+        get(this.$route, 'meta.title', '') ||
+          get(this.$route, 'meta.appBar.title', '')
+      ) || undefined;
     return {
-      title: getFormattedMetaTitle(title),
-      titleTemplate
+      title,
+      titleTemplate: title ? titleTemplate : undefined
     };
   },
   computed: {

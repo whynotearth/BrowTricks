@@ -328,7 +328,7 @@ export function isEmail(value) {
 }
 
 export function getFormattedMetaDescription(text) {
-  return text.substring(0, 180).trim();
+  return text.substring(0, 400).trim();
 }
 
 export function getFormattedMetaTitle(
