@@ -1,10 +1,16 @@
+[context.deploy-preview.environment]
+  VUE_APP_ROLLBAR="deploy-preview"
+  
+[context.branch-deploy.environment]
+  VUE_APP_ROLLBAR="branch-deploy"
+
 [context.staging.environment]
   VUE_APP_UPLOADER_IMAGE_PRESET="browtricks_tenant_cms_images_dev"
   VUE_APP_UPLOADER_VIDEO_PRESET="browtricks_tenant_cms_videos_dev"
   VUE_APP_UPLOADER_MEDIA_PRESET="browtricks_cms_media_dev"
   VUE_APP_UPLOADER_PDF_PRESET="browtricks_tenant_cms_pdf_dev"
   VUE_APP_API_URL="https://stagingapi.whynot.earth"
-  VUE_APP_ROLLBAR_ENABLE=true
+  VUE_APP_ROLLBAR="staging"
 
 [context.master.environment]
   VUE_APP_UPLOADER_IMAGE_PRESET="browtricks_tenant_cms_images"
@@ -12,7 +18,8 @@
   VUE_APP_UPLOADER_MEDIA_PRESET="browtricks_cms_media"
   VUE_APP_UPLOADER_PDF_PRESET="browtricks_tenant_cms_pdf"
   VUE_APP_API_URL="https://api.whynot.earth"
-  VUE_APP_ROLLBAR_ENABLE=true
+  VUE_APP_ROLLBAR="production"
+
 
 [[redirects]]
   from = "/t/*"

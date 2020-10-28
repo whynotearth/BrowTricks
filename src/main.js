@@ -27,17 +27,14 @@ Vue.component('BaseDialog', BaseDialog);
 Vue.use(Vuelidate);
 Vue.use(vClickOutside);
 Vue.use(PortalVue);
-console.log(
-  'process.env.VUE_APP_ROLLBAR_ENABLE',
-  process.env.VUE_APP_ROLLBAR_ENABLE
-);
-if (process.env.VUE_APP_ROLLBAR_ENABLE) {
+console.log('process.env.VUE_APP_ROLLBAR', process.env.VUE_APP_ROLLBAR);
+if (process.env.VUE_APP_ROLLBAR) {
   Vue.prototype.$rollbar = new Rollbar({
     accessToken: '9912db541f8c42d88dc9a147d49062ef',
     captureUncaught: true,
     captureUnhandledRejections: true,
     payload: {
-      environment: 'production'
+      environment: process.env.VUE_APP_ROLLBAR
     }
   });
 }
