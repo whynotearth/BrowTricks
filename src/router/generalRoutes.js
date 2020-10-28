@@ -48,6 +48,7 @@ export const generalRoutes = [
       isPublic: true,
       noNavigation: true,
       layout: AppBarCardLayout,
+      title: 'Log In',
       appBar: {
         backRoute: { name: 'Home' },
         title: 'Welcome Back!'

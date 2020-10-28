@@ -10,6 +10,7 @@ import vClickOutside from 'v-click-outside';
 import configureModerator from './store/store-moderator';
 import PortalVue from 'portal-vue';
 import Rollbar from 'rollbar';
+import VueMeta from 'vue-meta';
 // global components
 // -----------------
 import Button from '@/components/inputs/Button.vue';
@@ -27,6 +28,7 @@ Vue.component('BaseDialog', BaseDialog);
 Vue.use(Vuelidate);
 Vue.use(vClickOutside);
 Vue.use(PortalVue);
+Vue.use(VueMeta);
 
 if (process.env.VUE_APP_ROLLBAR) {
   Vue.prototype.$rollbar = new Rollbar({
