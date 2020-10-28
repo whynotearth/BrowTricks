@@ -11,6 +11,15 @@ export const generalRoutes = [
     }
   },
   {
+    path: '/version',
+    name: 'Version',
+    component: () => import('@/views/Version.vue'),
+    meta: {
+      isPublic: true,
+      noNavigation: true
+    }
+  },
+  {
     path: '/wait',
     name: 'PanelRedirector',
     props: true,
