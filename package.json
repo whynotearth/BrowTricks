@@ -5,7 +5,11 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "capacitor:build:staging": "vue-cli-service build --mode mobile-staging",
+    "capacitor:serve:staging": "vue-cli-service serve --mode mobile-staging",
+    "capacitor:build:production": "vue-cli-service build --mode mobile-production",
+    "capacitor:serve:production": "vue-cli-service serve --mode mobile-production"
   },
   "dependencies": {
     "@capacitor/cli": "^2.4.2",

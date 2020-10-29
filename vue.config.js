@@ -1,3 +1,8 @@
+process.env.VUE_APP_MOBILE =
+  process.env.VUE_APP_BUILD == 'mobile' ? true : false;
+
+console.log('process.env.VUE_APP_BUILD', process.env.VUE_APP_BUILD);
+
 module.exports = {
   pages: {
     index: {
