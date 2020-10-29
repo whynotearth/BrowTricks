@@ -56,6 +56,8 @@ import SnackBar from '@/components/SnackBar.vue';
 import { mapGetters, mapActions } from 'vuex';
 import vhFix from '@/mixins/vhFix.js';
 import store from './store';
+import { Plugins } from '@capacitor/core';
+const { SplashScreen } = Plugins;
 
 export default {
   name: 'App',
@@ -83,6 +85,9 @@ export default {
     } else {
       this.showPrivacySnackBar = true;
     }
+  },
+  mounted() {
+    SplashScreen.hide();
   },
   methods: {
     ...mapActions('auth', ['refreshToken']),

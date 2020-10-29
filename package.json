@@ -6,10 +6,12 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "capacitor:build:staging": "vue-cli-service build --mode mobile-staging",
-    "capacitor:serve:staging": "vue-cli-service serve --mode mobile-staging",
-    "capacitor:build:production": "vue-cli-service build --mode mobile-production",
-    "capacitor:serve:production": "vue-cli-service serve --mode mobile-production"
+    "capacitor:build": "vue-cli-service capacitor:build",
+    "capacitor:build:production": "vue-cli-service capacitor:build --mode mobile-production",
+    "capacitor:build:staging": "vue-cli-service capacitor:build --mode mobile-staging",
+    "capacitor:serve": "vue-cli-service capacitor:serve",
+    "capacitor:serve:production": "vue-cli-service capacitor:serve --mode mobile-production",
+    "capacitor:serve:staging": "vue-cli-service capacitor:serve --mode mobile-staging"
   },
   "dependencies": {
     "@capacitor/cli": "^2.4.2",
@@ -55,6 +57,7 @@
     "eslint-plugin-vue": "^6.1.2",
     "postcss-nested": "^4.2.3",
     "prettier": "^1.19.1",
+    "vue-cli-plugin-capacitor": "~2.0.1",
     "vue-template-compiler": "^2.6.11"
   }
 }
