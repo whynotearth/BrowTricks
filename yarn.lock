@@ -846,6 +846,11 @@
   dependencies:
     tslib "^1.9.0"
 
+"@capacitor/ios@2.4.2":
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/@capacitor/ios/-/ios-2.4.2.tgz#cb608c8009a4609f2c654d78bf21967ecf3b0724"
+  integrity sha512-DqfDBrbaVKV2nkjMF7uL58G5QbJHoQVu/qdw/Uh5QSVkHqsY0lBKyi5nxhH3+cqBBMl+oGNB9EMBHovRVdR0EQ==
+
 "@fullhuman/postcss-purgecss@^2.1.0", "@fullhuman/postcss-purgecss@^2.1.2":
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/@fullhuman/postcss-purgecss/-/postcss-purgecss-2.3.0.tgz#50a954757ec78696615d3e118e3fee2d9291882e"
