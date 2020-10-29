@@ -1,0 +1,13 @@
+{
+  "appId": "com.browtricks.app",
+  "appName": "Brow Tricks",
+  "bundledWebRuntime": false,
+  "npmClient": "yarn",
+  "webDir": "dist",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "cordova": {}
+}
