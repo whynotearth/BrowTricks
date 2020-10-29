@@ -6,10 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "capacitor:build": "vue-cli-service capacitor:build",
     "capacitor:build:production": "vue-cli-service capacitor:build --mode mobile-production",
     "capacitor:build:staging": "vue-cli-service capacitor:build --mode mobile-staging",
-    "capacitor:serve": "vue-cli-service capacitor:serve",
     "capacitor:serve:production": "vue-cli-service capacitor:serve --mode mobile-production",
     "capacitor:serve:staging": "vue-cli-service capacitor:serve --mode mobile-staging"
   },
