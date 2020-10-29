@@ -10,6 +10,7 @@ import vClickOutside from 'v-click-outside';
 import configureModerator from './store/store-moderator';
 import PortalVue from 'portal-vue';
 import Rollbar from 'rollbar';
+import { Plugins as CapacitorPlugins } from '@capacitor/core';
 // global components
 // -----------------
 import Button from '@/components/inputs/Button.vue';
@@ -51,7 +52,14 @@ async function main() {
   new Vue({
     router,
     store,
-    render: h => h(App)
+    render: h => h(App),
+    mounted() {
+      // for capacitor
+      if (process.env.VUE_APP_MOBILE) {
+        const { SplashScreen } = CapacitorPlugins;
+        SplashScreen.hide();
+      }
+    }
   }).$mount('#app');
 }
 

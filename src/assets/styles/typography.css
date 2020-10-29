@@ -1,4 +1,11 @@
 @responsive {
+  .tg-base {
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+  }
   .tg-h1-mobile {
     font-family: ChampagneLimousines, sans-serif;
     font-style: normal;

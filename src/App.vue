@@ -1,15 +1,15 @@
 <template>
   <div
     id="app"
-    class="min-h-vh100 h-full text-center bg-background text-on-background"
+    class="min-h-vh100 h-full text-center bg-background text-on-background antialiased tg-base"
   >
-    <SplashOverlay />
+    <SplashOverlay v-if="!isMobile" />
     <Alerter />
 
     <component :is="$route.meta.layout || 'div'">
       <router-view />
     </component>
-    <SnackBar :showSnackBar="showPrivacySnackBar">
+    <SnackBar v-if="!isMobile" :showSnackBar="showPrivacySnackBar">
       <div
         class="flex items-center justify-between text-on-primary w-full h-12 tg-caption-mobile leading-4 p-4 
           bg-primary"
@@ -56,13 +56,12 @@ import SnackBar from '@/components/SnackBar.vue';
 import { mapGetters, mapActions } from 'vuex';
 import vhFix from '@/mixins/vhFix.js';
 import store from './store';
-import { Plugins } from '@capacitor/core';
-const { SplashScreen } = Plugins;
 
 export default {
   name: 'App',
   data() {
     return {
+      isMobile: process.env.VUE_APP_MOBILE === 'true',
       showPrivacySnackBar: true
     };
   },
@@ -85,9 +84,6 @@ export default {
     } else {
       this.showPrivacySnackBar = true;
     }
-  },
-  mounted() {
-    SplashScreen.hide();
   },
   methods: {
     ...mapActions('auth', ['refreshToken']),
