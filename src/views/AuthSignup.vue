@@ -247,12 +247,12 @@ export default {
         .catch(this.onSubmitCatch);
     },
     onSuccess() {
-      var dataLayer = dataLayer || [];
-      dataLayer.push({
+      this.$gtm.trackEvent({
         event: 'gaEvent',
-        eventCategory: 'Accounts',
-        eventAction: 'Register'
+        category: 'Accounts',
+        action: 'Register'
       });
+
       showOverlayAndRedirect({
         title: 'Success!',
         route: { name: 'PanelRedirector' }

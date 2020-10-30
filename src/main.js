@@ -2,6 +2,7 @@ import Vue from 'vue';
 import App from './App.vue';
 import '@/meredith-axios-init.js';
 import './registerServiceWorker';
+import VueGtm from 'vue-gtm';
 import router from './router';
 import store from './store';
 import './assets/styles/app.css';
@@ -30,6 +31,19 @@ Vue.use(vClickOutside);
 Vue.use(PortalVue);
 Vue.use(VueMeta);
 
+console.log('process.env.CONTEXT', process.env.CONTEXT);
+
+Vue.use(VueGtm, {
+  id: ['GTM-K57GPRF'],
+  defer: false,
+  enabled: true, // Ex: enabled: !!GDPR_Cookie (optional)
+  debug: process.env.CONTEXT !== 'production', // Whether or not display console logs debugs (optional)
+  loadScript: true,
+  vueRouter: router,
+  ignoredViews: ['PanelRedirector']
+  // trackOnNextTick: false
+});
+
 if (process.env.VUE_APP_ROLLBAR) {
   Vue.prototype.$rollbar = new Rollbar({
     accessToken: '9912db541f8c42d88dc9a147d49062ef',
@@ -39,13 +53,12 @@ if (process.env.VUE_APP_ROLLBAR) {
       environment: process.env.VUE_APP_ROLLBAR
     }
   });
-}
 
-// todo: disable in development
-Vue.config.errorHandler = (err, vm) => {
-  vm.$rollbar.error(err);
-  throw err;
-};
+  Vue.config.errorHandler = (err, vm) => {
+    vm.$rollbar.error(err);
+    throw err;
+  };
+}
 
 Vue.config.productionTip = false;
 async function main() {
