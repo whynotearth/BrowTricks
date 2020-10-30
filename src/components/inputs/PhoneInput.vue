@@ -54,7 +54,7 @@ export default {
     },
     label: {
       type: String,
-      default: 'Phone Number'
+      default: 'Mobile Number'
     },
     idName: {
       type: String,

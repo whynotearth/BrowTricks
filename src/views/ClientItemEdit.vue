@@ -49,10 +49,10 @@
               :serverErrors="serverErrors.PhoneNumber"
             >
               <p v-if="!$v.phoneNumber.required">
-                Phone number is required
+                Mobile number is required
               </p>
               <p v-else-if="!$v.phoneNumber.isPhoneNumberValid">
-                Enter a valid phone number please
+                Enter a valid mobile number please
               </p>
             </PhoneInput>
 
