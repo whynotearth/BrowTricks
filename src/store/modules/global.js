@@ -3,7 +3,8 @@ import { disableBodyClass, enableBodyClass } from '@/helpers.js';
 
 const defaultState = {
   isDrawerOpen: false,
-  isDrawerOpenAuth: false
+  isDrawerOpenAuth: false,
+  noScrollbarCount: 0
 };
 
 const mutations = {
@@ -12,6 +13,12 @@ const mutations = {
   },
   isDrawerOpenAuthUpdate(state, payload) {
     state.isDrawerOpenAuth = payload;
+  },
+  noScrollbarCountIncrease(state) {
+    state.noScrollbarCount++;
+  },
+  noScrollbarCountDecrease(state) {
+    state.noScrollbarCount--;
   }
 };
 const actions = {
@@ -34,6 +41,9 @@ const getters = {
   },
   isDrawerOpenAuthGet(state) {
     return state.isDrawerOpenAuth;
+  },
+  noScrollbarCountGet(state) {
+    return state.noScrollbarCount;
   }
 };
 

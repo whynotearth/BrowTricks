@@ -9,6 +9,7 @@
     </template>
     <template #pretitle>Welcome to</template>
     <template #title>{{ SHORTNAME }}</template>
+
     <template #primaryCTA>
       <Button
         background="bg-primary"
@@ -18,34 +19,49 @@
         :to="{ name: 'AuthSignup' }"
       />
     </template>
+
     <template #tertiaryCTA>
-      <p class="text-on-background">
+      <p class="text-on-background mb-5">
         Already have an account?
         <router-link class="" :to="{ name: 'AuthLogin' }">Log In</router-link>
       </p>
-      <br />
-      <div class="mb-4 text-left text-on-background">
-        <p><br /><strong>Client Orginization &amp; mangament FREE!</strong></p>
-        <p>- Unlimited notes</p>
-        <p>- Photo management</p>
-        <p><strong>Also free for 30 days:</strong></p>
-        <p>- PMU form building AND digital signing</p>
-        <p>- Client video cloud storage</p>
+    </template>
+
+    <template #moreContent>
+      <div class="mb-4 text-left">
+        <div class="mb-1">
+          <p><b>Client Orginization &amp; mangament FREE!</b></p>
+          <p>- Unlimited notes</p>
+          <p>- Photo management</p>
+        </div>
+        <div class="mb-4">
+          <p><b>Also free for 30 days:</b></p>
+          <p>- PMU form building AND digital signing</p>
+          <p>- Client video cloud storage</p>
+        </div>
         <p>
-          <br /><a
+          <a
             href="https://medium.com/progressivewebapps/how-to-install-a-pwa-to-your-device-68a8d37fadc1"
-            ><strong>Install Guide</strong></a
+            ><b>Install Guide</b></a
           >
-          (ios &amp; android apps after beta)
+          (iOS &amp; Android apps after beta)
         </p>
         <br />
-        <p>
-          If you have any questions, please feel free to contact us at ANY time!
-        </p>
-        <p>
-          <br />TEXT US at 510-319-3040 or EMAIL us at:
-          support@browtricksproductsorg.zendesk.com
-        </p>
+        <div class="mb-4">
+          <p>
+            If you have any questions, please feel free to contact us at ANY
+            time!
+          </p>
+        </div>
+        <div class="break-words">
+          <p>
+            TEXT us at <a href="tel:510-319-3040">510-319-3040</a> or EMAIL us
+            at:
+            <a href="mailto:support@browtricksproductsorg.zendesk.com"
+              >support@browtricksproductsorg.zendesk.com</a
+            >
+          </p>
+        </div>
       </div>
     </template>
   </SplashLayout>
@@ -60,6 +76,17 @@ export default {
   components: {
     SplashLayout
   },
+  // metaInfo() {
+  //   return {
+  //     script: [
+  //       {
+  //         vmid: 'jsonld',
+  //         type: 'application/ld+json',
+  //         json: {}
+  //       }
+  //     ]
+  //   };
+  // },
   computed: {
     SHORTNAME() {
       return process.env.VUE_APP_SHORTNAME;

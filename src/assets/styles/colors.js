@@ -9,6 +9,7 @@ const colors = {
   // surface 4dp: background: linear-gradient(0deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.09)), #FFFFFF;
   surface: '#FFFFFF',
   error: '#E74323',
+  success: '#22c38b',
   divider: '#000000',
   'text-on-accent': '#FFFFFF',
   'on-primary': '#0D1F3C',

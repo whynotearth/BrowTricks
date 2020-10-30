@@ -24,11 +24,9 @@
             </p>
           </MaterialInput>
 
-          <MaterialInput
-            v-model.trim="$v.phoneNumber.$model"
+          <PhoneInput
+            v-model="$v.phoneNumber.$model"
             label="Business Phone Number"
-            type="tel"
-            :attrs="{ autocomplete: 'tel', inputmode: 'tel' }"
             :validatorModel="$v.phoneNumber"
             :serverErrors="serverErrors.PhoneNumber"
           >
@@ -36,9 +34,9 @@
               Phone number is required
             </p>
             <p v-else-if="!$v.phoneNumber.isPhoneNumberValid">
-              Please enter a valid phone number
+              Enter a valid phone number please
             </p>
-          </MaterialInput>
+          </PhoneInput>
 
           <TextAreaInput v-model="$v.description.$model" label="Description" />
         </div>
@@ -60,11 +58,13 @@ import { required } from 'vuelidate/lib/validators';
 import { mapActions } from 'vuex';
 import { isPhoneNumberValid, showOverlayAndRedirect } from '@/helpers';
 import formGeneralUtils from '@/mixins/formGeneralUtils.js';
+import PhoneInput from '@/components/inputs/PhoneInput';
 
 export default {
   name: 'TenantSignup',
   // NOTE: we use a mixin
   mixins: [formGeneralUtils],
+  components: { PhoneInput },
   data() {
     return {
       name: '',

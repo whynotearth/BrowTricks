@@ -10,11 +10,14 @@
     >
       <BaseSpinner />
     </div>
+
+    <!-- main content -->
     <div
       v-show="!loadingGet"
       class="flex flex-col justify-between items-center min-h-vh100 py-5"
     >
       <div class="flex flex-col max-w-sm mx-auto overflow-auto p-4">
+        <!-- slot: image -->
         <div class="mx-auto"><slot name="image" /></div>
         <p class="tg-h2-mobile text-on-background mb-4" v-if="$slots.pretitle">
           <slot name="pretitle" />
@@ -26,6 +29,10 @@
           <slot name="subtitle" />
         </div>
       </div>
+
+      <!-- slots:
+        link, primaryCTA, secondaryCTA, rejectCTA, tertiaryCTA
+      -->
       <div class="flex flex-col max-w-sm mx-auto overflow-auto p-4">
         <div
           v-if="$slots.link"
@@ -50,6 +57,13 @@
           class="tg-body-hyperlink-mobile text-on-background text-opacity-medium mb-4"
         >
           <slot name="tertiaryCTA" />
+        </div>
+
+        <div
+          v-if="$slots.moreContent"
+          class="text-on-background text-opacity-high tg-body-mobile"
+        >
+          <slot name="moreContent" />
         </div>
       </div>
     </div>

@@ -9,7 +9,7 @@ import loading from './modules/loading';
 import uploader from './modules/uploader';
 import formTemplate from './modules/formTemplate';
 import profile from './modules/profile';
-
+import alerter from './modules/alerter';
 import VuexPersistence from 'vuex-persist';
 
 const vuexSession = new VuexPersistence({
@@ -29,16 +29,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   plugins: [vuexSession.plugin, vuexLocal.plugin],
-  state: {
-    // FIXME: temporary hardcoded tenantName for testing purposes
-    tenantName: 'Boise Brow Queen'
-  },
-  getters: {
-    getTenantName(state) {
-      return state.tenantName;
-    }
-  },
   modules: {
+    alerter,
     profile,
     formTemplate,
     global,
