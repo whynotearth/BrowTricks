@@ -18,7 +18,7 @@
           <Button
             v-else
             class="rounded-full mb-6 "
-            title="No phone number provided to send text"
+            title="No mobile number provided to send text"
             :disabled="!client.phoneNumber"
             :background="null"
           ></Button>

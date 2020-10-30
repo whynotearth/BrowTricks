@@ -2,7 +2,6 @@ import router from '@/router';
 import store from '@/store';
 import { format, utcToZonedTime } from 'date-fns-tz';
 import { required } from 'vuelidate/lib/validators';
-import isMobilePhone from 'validator/lib/isMobilePhone';
 import { startCase, toLower } from 'lodash-es';
 
 export function randomId(len = 16) {
@@ -64,7 +63,12 @@ export function getAPIURL(path) {
 }
 
 export function isPhoneNumberValid(phone) {
-  return isMobilePhone(phone);
+  // todo: use a library
+  return isValidDumbPhoneNumber(phone);
+}
+
+export function isValidDumbPhoneNumber(phone) {
+  return /^([0-9()/+ -]{2,24})$/.test(phone);
 }
 
 export const validationPassword = {
