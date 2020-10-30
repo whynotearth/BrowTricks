@@ -56,6 +56,9 @@ import SnackBar from '@/components/SnackBar.vue';
 import { mapGetters, mapActions } from 'vuex';
 import vhFix from '@/mixins/vhFix.js';
 import store from './store';
+import { getFormattedMetaTitle } from './helpers';
+import { get } from 'lodash-es';
+const titleTemplate = process.env.VUE_APP_TITLE_TEMPLATE;
 
 export default {
   name: 'App',
@@ -66,6 +69,17 @@ export default {
   },
   mixins: [vhFix],
   components: { SplashOverlay, Alerter, BaseOverlaySuccess, SnackBar },
+  metaInfo() {
+    const title =
+      getFormattedMetaTitle(
+        get(this.$route, 'meta.title', '') ||
+          get(this.$route, 'meta.appBar.title', '')
+      ) || undefined;
+    return {
+      title,
+      titleTemplate: title ? titleTemplate : undefined
+    };
+  },
   computed: {
     ...mapGetters('global', ['isDrawerOpenAuthGet']),
     ...mapGetters('overlay', {

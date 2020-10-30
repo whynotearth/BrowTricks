@@ -2,6 +2,7 @@ import router from '@/router';
 import store from '@/store';
 import { format, utcToZonedTime } from 'date-fns-tz';
 import { required } from 'vuelidate/lib/validators';
+import { startCase, toLower } from 'lodash-es';
 
 export function randomId(len = 16) {
   return (
@@ -324,4 +325,19 @@ export function isEmail(value) {
   const regex = /(^$|^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$)/;
 
   return regex.test(value);
+}
+
+export function getFormattedMetaDescription(text) {
+  return text.substring(0, 400).trim();
+}
+
+export function getFormattedMetaTitle(
+  text,
+  { titleCase = true, maxLength = 80 } = {}
+) {
+  let result = text;
+  if (titleCase) {
+    result = startCase(toLower(result));
+  }
+  return result.substring(0, maxLength).trim();
 }

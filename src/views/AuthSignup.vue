@@ -169,7 +169,11 @@ import {
   sameAs
 } from 'vuelidate/lib/validators';
 import { mapActions } from 'vuex';
-import { showOverlayAndRedirect, isPhoneNumberValid } from '@/helpers';
+import {
+  showOverlayAndRedirect,
+  isPhoneNumberValid
+  // getFormattedMetaTitle
+} from '@/helpers';
 import formGeneralUtils from '@/mixins/formGeneralUtils.js';
 import AuthButtons from '@/components/auth/AuthButtons';
 
