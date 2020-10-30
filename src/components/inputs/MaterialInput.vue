@@ -153,7 +153,7 @@ export default {
 .input:focus + .label,
 .input:active + .label,
 .input.filled + .label {
-  font-size: 0.75rem;
+  @apply text-sm;
   transition: all 0.2s ease-out;
   top: 0;
   opacity: 1;

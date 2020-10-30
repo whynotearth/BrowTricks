@@ -47,16 +47,9 @@
               Last Name is required
             </p>
           </MaterialInput>
-          <MaterialInput
-            v-model.trim="$v.phoneNumber.$model"
-            label="Phone Number"
-            type="tel"
-            :attrs="{
-              autocomplete: 'tel',
-              inputmode: 'tel',
-              name: 'telephone',
-              enterkeyhint: 'send'
-            }"
+
+          <PhoneInput
+            v-model="$v.phoneNumber.$model"
             :validatorModel="$v.phoneNumber"
             :serverErrors="serverErrors.PhoneNumber"
           >
@@ -64,9 +57,9 @@
               Phone number is required
             </p>
             <p v-else-if="!$v.phoneNumber.isPhoneNumberValid">
-              Please enter a valid phone number
+              Enter a valid phone number please
             </p>
-          </MaterialInput>
+          </PhoneInput>
 
           <MaterialInput
             type="email"
@@ -126,6 +119,7 @@
 
 <script>
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
+import PhoneInput from '@/components/inputs/PhoneInput.vue';
 import { required, email, minLength, alphaNum } from 'vuelidate/lib/validators';
 import { mapActions } from 'vuex';
 import { showOverlayAndRedirect, isPhoneNumberValid } from '@/helpers';
@@ -137,7 +131,8 @@ export default {
   // NOTE: we use a mixin
   mixins: [formGeneralUtils],
   components: {
-    MaterialInput
+    MaterialInput,
+    PhoneInput
   },
   data() {
     return {
