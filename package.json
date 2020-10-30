@@ -1,6 +1,6 @@
 {
   "name": "browtricks",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -26,6 +26,8 @@
     "validator": "^13.1.17",
     "vue": "^2.6.11",
     "vue-100vh": "^0.1.1",
+    "vue-meta": "^2.4.0",
+    "vue-gtm": "3.0.0-vue2",
     "vue-router": "^3.1.5",
     "vue-simplemde": "^1.1.2",
     "vue-slicksort": "^1.1.3",

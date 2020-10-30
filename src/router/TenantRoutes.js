@@ -10,6 +10,7 @@ export const TenantPanelRoutes = [
     meta: {
       layout: AppBarCardLayout,
       pageBackground: 'bg-background',
+      title: 'Home',
       appBar: { noHeader: true }
     }
   },
