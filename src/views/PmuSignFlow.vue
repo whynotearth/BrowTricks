@@ -1,5 +1,5 @@
 <template>
-  <div class="tg-body-mobile min-w-app">
+  <div class="pmu-sign-flow tg-body-mobile min-w-app">
     <!-- NOTE: these files can affect other pages, so keeping them in component template, makes the isolated -->
     <link
       rel="stylesheet"
@@ -21,8 +21,23 @@
     >
       <template #complete>
         <div class="section-wrap">
+          <!-- error screen -->
           <ErrorFullScreen :height="null" v-if="errorMessage">
             {{ errorMessage }}
+            <template #actionButton>
+              <router-link
+                v-if="isFromNotify"
+                class="tg-body-mobile tg-text-brand3 underline"
+                :to="{ name: 'Home' }"
+                >Return to Home</router-link
+              >
+              <router-link
+                v-else
+                class="tg-body-mobile tg-text-brand3 underline"
+                :to="{ name: 'ClientInfo' }"
+                >Return to Client Profile</router-link
+              >
+            </template>
           </ErrorFullScreen>
           <div v-else-if="isSubmitted">
             <p class="mb-2">
@@ -98,7 +113,7 @@
         </div>
       </template>
 
-      <template #completeButton v-if="!signatureImage">
+      <template #completeButton v-if="!signatureImage && !errorMessage">
         <p class="tg-body-mobile">
           Please sign the document and save your signature.
         </p>
@@ -136,7 +151,10 @@ export default {
       isCompleted: false,
       errorMessage: '',
       isReady: false,
-      language: new LanguageModel({}),
+      language: new LanguageModel({
+        // submitText: 'Submit',
+        // continue: 'Continue'
+      }),
       questions: [],
       questionListFlowObject: [],
       signatureImageDraft: '',
@@ -233,5 +251,8 @@ export default {
 @import '~@whynotearth/vue-flow-form/dist/vue-flow-form.theme-minimal.css'; */
 .preview-wrapper {
   min-height: 120px;
+}
+.pmu-sign-flow .o-btn-action {
+  text-transform: none;
 }
 </style>
