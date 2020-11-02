@@ -97,6 +97,12 @@
           </div>
         </div>
       </template>
+
+      <template #completeButton v-if="!signatureImage">
+        <p class="tg-body-mobile">
+          Please sign the document and save your signature.
+        </p>
+      </template>
     </FlowForm>
   </div>
 </template>
