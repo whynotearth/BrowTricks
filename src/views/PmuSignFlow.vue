@@ -33,9 +33,16 @@
             </p>
 
             <router-link
+              v-if="isFromNotify"
               class="tg-body-mobile tg-text-brand3 underline"
               :to="{ name: 'Home' }"
-              >Back to Home</router-link
+              >Return to Home</router-link
+            >
+            <router-link
+              v-else
+              class="tg-body-mobile tg-text-brand3 underline"
+              :to="{ name: 'ClientInfo' }"
+              >Return to Client Profile</router-link
             >
           </div>
           <div v-else class="relative">
@@ -131,6 +138,9 @@ export default {
     };
   },
   computed: {
+    isFromNotify() {
+      return this.$route.name === 'PmuSignFromNotify';
+    },
     saveButtonText() {
       const hasUnsavedSignature =
         this.signatureImageDraft !== this.signatureImage;
