@@ -195,7 +195,9 @@ export default {
           this.firstName = this.profile.firstName;
           this.lastName = this.profile.lastName;
           this.email = this.profile.email;
-          this.userName = get(this.profile, 'userName', '').split('@')[0];
+          this.userName = get(this.profile, 'userName', '')
+            .split('@')[0]
+            .replace(/[^a-zA-Z0-9_]/g, '');
           // this.userName = this.profile.userName;
         })
         .catch(() => {
