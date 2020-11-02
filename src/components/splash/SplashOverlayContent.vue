@@ -10,7 +10,7 @@
         />
       </div>
       <div class="absolute w-full h-full flex justify-center items-end pb-20">
-        <BaseSpinner borderColor="border-secondary" classNames="spinner" />
+        <BaseSpinner borderColor="border-secondary" />
       </div>
     </div>
   </div>

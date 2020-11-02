@@ -9,7 +9,7 @@
     <img :src="imagePreview" alt="" />
   </div>
   <div v-else class="absolute w-screen h-full flex justify-center items-center">
-    <BaseSpinner borderColor="border-brand2" classNames="spinner" />
+    <BaseSpinner borderColor="border-brand2" />
   </div>
 </template>
 
