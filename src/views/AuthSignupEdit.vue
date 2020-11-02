@@ -91,11 +91,17 @@
             <p v-if="!$v.userName.required">
               Username is required
             </p>
-            <p v-if="!$v.userName.minLength">
-              Should be at least 5 characters
+            <p v-else-if="!$v.userName.minLength">
+              It should have at least
+              {{ $v.userName.$params.minLength.min }} characters
             </p>
-            <p v-else-if="!$v.userName.alphaNum">
-              Should be alphanumeric
+            <p v-else-if="!$v.userName.maxLength">
+              It should have maximum
+              {{ $v.userName.$params.maxLength.max }} characters
+            </p>
+            <p v-else-if="!$v.userName.isValidUsername">
+              Username can only contain English characters, digits and
+              underscore
             </p>
           </MaterialInput>
         </div>
@@ -120,7 +126,13 @@
 <script>
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
 import PhoneInput from '@/components/inputs/PhoneInput.vue';
-import { required, email, minLength, alphaNum } from 'vuelidate/lib/validators';
+import { isValidUsername } from '@/helpers.js';
+import {
+  required,
+  email,
+  minLength,
+  maxLength
+} from 'vuelidate/lib/validators';
 import { mapActions } from 'vuex';
 import { showOverlayAndRedirect, isPhoneNumberValid } from '@/helpers';
 import formGeneralUtils from '@/mixins/formGeneralUtils.js';
@@ -162,8 +174,9 @@ export default {
     },
     userName: {
       required,
-      alphaNum,
-      minLength: minLength(5)
+      minLength: minLength(4),
+      maxLength: maxLength(40),
+      isValidUsername
     }
   },
   created() {
@@ -182,7 +195,9 @@ export default {
           this.firstName = this.profile.firstName;
           this.lastName = this.profile.lastName;
           this.email = this.profile.email;
-          this.userName = get(this.profile, 'userName', '').split('@')[0];
+          this.userName = get(this.profile, 'userName', '')
+            .split('@')[0]
+            .replace(/[^a-zA-Z0-9_]/g, '');
           // this.userName = this.profile.userName;
         })
         .catch(() => {
