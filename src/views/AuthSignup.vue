@@ -99,11 +99,17 @@
             <p v-if="!$v.userName.required">
               Username is required
             </p>
-            <p v-if="!$v.userName.minLength">
-              Should be at least 5 characters
+            <p v-else-if="!$v.userName.minLength">
+              It should have at least
+              {{ $v.userName.$params.minLength.min }} characters
             </p>
-            <p v-else-if="!$v.userName.alphaNum">
-              Should be alphanumeric
+            <p v-else-if="!$v.userName.maxLength">
+              It should have maximum
+              {{ $v.userName.$params.maxLength.max }} characters
+            </p>
+            <p v-else-if="!$v.userName.isValidUsername">
+              Username can only contain English characters, digits and
+              underscore
             </p>
           </MaterialInput>
 
@@ -156,10 +162,11 @@
 <script>
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
 import PhoneInput from '@/components/inputs/PhoneInput.vue';
+import { isValidUsername } from '@/helpers.js';
 import {
   required,
-  alphaNum,
   minLength,
+  maxLength,
   email,
   sameAs
 } from 'vuelidate/lib/validators';
@@ -205,8 +212,9 @@ export default {
     },
     userName: {
       required,
-      alphaNum,
-      minLength: minLength(5)
+      minLength: minLength(4),
+      maxLength: maxLength(40),
+      isValidUsername
     },
     password: {
       required

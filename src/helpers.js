@@ -330,6 +330,11 @@ export function isEmail(value) {
   return regex.test(value);
 }
 
+export function isValidUsername(value) {
+  const regex = /^[a-zA-Z0-9_]+$/;
+  return regex.test(value);
+}
+
 export function getFormattedMetaDescription(text) {
   return text.substring(0, 400).trim();
 }
