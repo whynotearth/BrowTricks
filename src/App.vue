@@ -11,13 +11,12 @@
     </component>
     <SnackBar :showSnackBar="showPrivacySnackBar">
       <div
-        class="flex items-center justify-between text-on-primary w-full h-12 tg-caption-mobile leading-4 p-4 
-          bg-primary"
+        class="flex items-center justify-between text-on-primary w-full h-12 leading-4 p-4 bg-primary"
       >
-        <p>
+        <p class="tg-caption-mobile">
           Gotta agree to
           <a
-            class="underline cursor-pointer"
+            class="underline cursor-pointer tg-caption-mobile"
             target="_blank"
             href="/privacy-policy"
           >
@@ -25,7 +24,7 @@
           </a>
         </p>
         <p
-          class="text-button uppercase cursor-pointer"
+          class="text-button uppercase cursor-pointer tg-caption-mobile"
           @click="setSnackBarCookie"
         >
           Agree

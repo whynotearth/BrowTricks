@@ -12,11 +12,7 @@
         <p class="tg-h2-mobile mb-2">{{ APPSLOGAN }}</p>
 
         <div class="flex justify-center items-center mb-8">
-          <img
-            src="https://res.cloudinary.com/whynotearth/image/upload/v1596140165/BrowTricks/static_v2/Rectangle_11_fr7lxx.png"
-            class=""
-            alt=""
-          />
+          <VideoPlayerEmbeded :videoUrl="reviewVideoUrl"></VideoPlayerEmbeded>
         </div>
 
         <div class="mb-8">
@@ -99,9 +95,10 @@
 <script>
 import ClassicLayout from '@/layouts/ClassicLayout.vue';
 import ArticleMini from '@/components/ArticleMini.vue';
+import VideoPlayerEmbeded from '@/components/player/VideoPlayerEmbeded.vue';
 export default {
   name: 'Home',
-  components: { ClassicLayout, ArticleMini },
+  components: { ClassicLayout, ArticleMini, VideoPlayerEmbeded },
   // metaInfo() {
   //   return {
   //     script: [
@@ -114,6 +111,9 @@ export default {
   //   };
   // },
   computed: {
+    reviewVideoUrl() {
+      return 'https://res.cloudinary.com/whynotearth/video/upload/v1604388928/BrowTricks/static_v2/home-review-1.mp4';
+    },
     articles() {
       return [
         {
@@ -136,9 +136,9 @@ export default {
           id: 3,
           image:
             'https://res.cloudinary.com/whynotearth/image/upload/v1604302881/BrowTricks/static_v2/home-img3_gpushf.png',
-          title: 'Rcok your<br />relationships',
+          title: 'Rock your<br />relationships',
           content:
-            'We know your clients are everything to you. AND that you can’t always stay on top of them. Do they have a favorite product? Do they have a birthday coming up? Brow Tricks Beauty lets you save unlimited client notes giving you a way to keep relationships personal… and clients coming back.'
+            'We know your clients are everything to you AND that you can’t always stay on top of them. Do they have a favorite product? Do they have a birthday coming up? Brow Tricks Beauty lets you save unlimited client notes giving you a way to keep relationships personal…and clients coming back.'
         }
       ];
     },

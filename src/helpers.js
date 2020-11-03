@@ -6,7 +6,7 @@ import { startCase, toLower } from 'lodash-es';
 
 export function randomId(len = 16) {
   return (
-    1 +
+    'd' +
     Math.random()
       .toString()
       .substr(2, len - 1)

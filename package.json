@@ -17,6 +17,7 @@
     "downloadjs": "^1.4.7",
     "keen-slider": "^5.1.0",
     "lodash-es": "^4.17.15",
+    "plyr": "^3.6.2",
     "portal-vue": "^2.1.7",
     "register-service-worker": "^1.6.2",
     "rollbar": "^2.19.4",
