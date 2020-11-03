@@ -136,9 +136,9 @@ export default {
           id: 3,
           image:
             'https://res.cloudinary.com/whynotearth/image/upload/v1604302881/BrowTricks/static_v2/home-img3_gpushf.png',
-          title: 'Rcok your<br />relationships',
+          title: 'Rock your<br />relationships',
           content:
-            'We know your clients are everything to you. AND that you can’t always stay on top of them. Do they have a favorite product? Do they have a birthday coming up? Brow Tricks Beauty lets you save unlimited client notes giving you a way to keep relationships personal… and clients coming back.'
+            'We know your clients are everything to you AND that you can’t always stay on top of them. Do they have a favorite product? Do they have a birthday coming up? Brow Tricks Beauty lets you save unlimited client notes giving you a way to keep relationships personal…and clients coming back.'
         }
       ];
     },
