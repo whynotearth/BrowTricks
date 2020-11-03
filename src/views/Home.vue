@@ -112,7 +112,7 @@ export default {
   // },
   computed: {
     reviewVideoUrl() {
-      return 'https://res.cloudinary.com/whynotearth/video/upload/v1604388927/BrowTricks/static_v2/home-review-1.mp4';
+      return 'https://res.cloudinary.com/whynotearth/video/upload/v1604388928/BrowTricks/static_v2/home-review-1.mp4';
     },
     articles() {
       return [
