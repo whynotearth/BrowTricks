@@ -1,19 +1,21 @@
 <template>
   <div class="relative">
     <MaterialInput
-      v-model.trim="validatorModel.$model"
+      v-model="validatorModel.$model"
       v-on="$listeners"
       v-bind="$attrs"
       type="password"
-      label="Password"
-      :attrs="{ autocomplete: 'current-password', enterkeyhint: 'send' }"
+      :label="label"
+      :attrs="{
+        autocomplete: isNew ? 'new-password' : 'current-password',
+        enterkeyhint: 'send'
+      }"
+      :validatorModel="validatorModel"
     >
-      <p v-if="!validatorModel.required">
-        Password is required
-      </p>
+      <slot></slot>
     </MaterialInput>
 
-    <button type="button">show</button>
+    <!-- <button type="button">show</button> -->
   </div>
 </template>
 
@@ -23,6 +25,14 @@ export default {
   name: 'PasswordInput',
   components: { MaterialInput },
   props: {
+    label: {
+      type: String,
+      default: 'Password'
+    },
+    isNew: {
+      type: Boolean,
+      default: false
+    },
     validatorModel: {
       type: Object,
       default: () => ({})

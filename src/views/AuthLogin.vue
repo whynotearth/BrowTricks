@@ -53,11 +53,11 @@
             </p>
           </MaterialInput>
 
-          <!-- v-model="validatorModel.password.$model" -->
-          <PasswordInput
-            :validatorModel="$v.password"
-            :serverErrors="serverErrors.Password"
-          />
+          <PasswordInput :validatorModel="$v.password">
+            <p v-if="!$v.password.required">
+              Password is required
+            </p>
+          </PasswordInput>
 
           <p v-if="errorMessage" class="mb-4 text-error tg-body-mobile">
             {{ errorMessage }}
