@@ -70,6 +70,10 @@ const actions = {
   templateFetch(context, { params }) {
     return FormTemplateService.formtemplates4(params).then(response => {
       const adaptedTemplate = adaptApiTemplateToModel(response);
+      console.log(
+        'templateFetch...',
+        response.items.map(item => item.value.substring(0, 1))
+      );
       context.commit('currentTemplateUpdate', adaptedTemplate);
       return response;
     });

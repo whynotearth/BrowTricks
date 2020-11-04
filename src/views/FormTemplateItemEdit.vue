@@ -1,6 +1,6 @@
 <template>
   <div
-    class="wrapper max-w-md mx-auto pt-2 text-on-background text-opacity-high"
+    class="wrapper max-w-md mx-auto pt-2 text-on-background text-opacity-high tg-body-mobile"
   >
     <!-- form title -->
     <router-link
@@ -12,12 +12,12 @@
       >
         <label
           for="formTemplateName"
-          class="text-on-background text-opacity-high"
+          class="text-on-background text-opacity-high pr-2"
         >
           Name
         </label>
         <div class="flex items-center text-on-background text-opacity-medium">
-          <span id="formTemplateName" class="mr-2">{{
+          <span id="formTemplateName" class="mr-2 tg-body-mobile">{{
             currentTemplateGet.name
           }}</span>
           <IconArrowRight
@@ -66,7 +66,9 @@
                 v-handle
                 class="w-12 h-12 absolute top-0 right-0 flex items-center justify-center"
               >
-                <IconReorder class="text-on-secondary"></IconReorder>
+                <IconReorder
+                  class="fill-current text-on-surface text-opacity-medium"
+                ></IconReorder>
               </div>
               <div class="content-preview">
                 <p class="text-on-background text-opacity-high">
@@ -91,12 +93,14 @@
 
       <!-- add question -->
       <router-link
+        class="z-10 relative"
         :to="{
           name: 'FormTemplateFieldSelection'
         }"
       >
         <BaseCard
           className="items-center flex-col select-none"
+          padding="py-4 px-4"
           rounded="rounded-b"
         >
           <div class="mb-6">
@@ -105,7 +109,7 @@
             />
           </div>
 
-          <h2 class="text-on-surface text-opacity-high mb-6">
+          <h2 class="text-on-surface text-opacity-high mb-6 tg-h3-mobile">
             Add Question
           </h2>
 
@@ -192,7 +196,7 @@ const SortableItem = {
       'li',
       {
         attrs: {
-          class: 'dragging-item list-none'
+          class: 'list-none'
         }
       },
       this.$slots.default
