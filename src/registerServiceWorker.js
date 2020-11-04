@@ -8,7 +8,7 @@ const notifyUserAboutUpdate = worker => {
     text: 'New version of website is available!',
     class: '',
     button: {
-      title: 'Update',
+      title: 'Refresh',
       action() {
         worker.postMessage({ type: 'SKIP_WAITING' });
       }
