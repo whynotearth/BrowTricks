@@ -10,11 +10,13 @@
         </div>
 
         <div class="text-center">
-          <Button
-            :to="{ name: 'Home' }"
-            title="Go home page"
-            :background="null"
-          />
+          <slot name="actionButton">
+            <Button
+              :to="{ name: 'Home' }"
+              title="Go home page"
+              :background="null"
+            />
+          </slot>
         </div>
       </div>
     </BaseCard>

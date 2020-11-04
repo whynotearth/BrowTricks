@@ -31,8 +31,6 @@ Vue.use(vClickOutside);
 Vue.use(PortalVue);
 Vue.use(VueMeta);
 
-console.log('process.env.CONTEXT', process.env.CONTEXT);
-
 Vue.use(VueGtm, {
   id: ['GTM-K57GPRF'],
   defer: false,
