@@ -4,7 +4,10 @@
       <h2 class="tg-h3-mobile text-on-background text-opacity-high mb-2">
         Name your form template.
       </h2>
-      <p class="tg-body-mobile text-on-background text-opacity-medium">
+      <p
+        class="tg-body-mobile text-on-background text-opacity-medium"
+        v-if="currentTemplateGet.draft"
+      >
         You can edit this later.
       </p>
     </div>
@@ -64,6 +67,7 @@ export default {
             tenantSlug: this.tenantSlug
           }
         });
+        this.name = this.currentTemplateGet.name;
       }
     },
 
