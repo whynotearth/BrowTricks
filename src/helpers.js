@@ -2,10 +2,11 @@ import router from '@/router';
 import store from '@/store';
 import { format, utcToZonedTime } from 'date-fns-tz';
 import { required } from 'vuelidate/lib/validators';
+import { startCase, toLower } from 'lodash-es';
 
 export function randomId(len = 16) {
   return (
-    1 +
+    'd' +
     Math.random()
       .toString()
       .substr(2, len - 1)
@@ -62,9 +63,12 @@ export function getAPIURL(path) {
 }
 
 export function isPhoneNumberValid(phone) {
-  return /^((\+1|1)?( |-)?)?(\([2-9][0-9]{2}\)|[2-9][0-9]{2})( |-)?([2-9][0-9]{2}( |-)?[0-9]{4})$/.test(
-    phone
-  );
+  // todo: use a library
+  return isValidDumbPhoneNumber(phone);
+}
+
+export function isValidDumbPhoneNumber(phone) {
+  return /^([0-9()/+ -]{2,24})$/.test(phone);
 }
 
 export const validationPassword = {
@@ -324,4 +328,24 @@ export function isEmail(value) {
   const regex = /(^$|^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$)/;
 
   return regex.test(value);
+}
+
+export function isValidUsername(value) {
+  const regex = /^[a-zA-Z0-9_]+$/;
+  return regex.test(value);
+}
+
+export function getFormattedMetaDescription(text) {
+  return text.substring(0, 400).trim();
+}
+
+export function getFormattedMetaTitle(
+  text,
+  { titleCase = true, maxLength = 80 } = {}
+) {
+  let result = text;
+  if (titleCase) {
+    result = startCase(toLower(result));
+  }
+  return result.substring(0, maxLength).trim();
 }

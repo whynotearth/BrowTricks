@@ -2,6 +2,7 @@ import Vue from 'vue';
 import App from './App.vue';
 import '@/meredith-axios-init.js';
 import './registerServiceWorker';
+import VueGtm from 'vue-gtm';
 import router from './router';
 import store from './store';
 import './assets/styles/app.css';
@@ -11,6 +12,7 @@ import configureModerator from './store/store-moderator';
 import PortalVue from 'portal-vue';
 import Rollbar from 'rollbar';
 import { Plugins as CapacitorPlugins } from '@capacitor/core';
+import VueMeta from 'vue-meta';
 // global components
 // -----------------
 import Button from '@/components/inputs/Button.vue';
@@ -28,6 +30,18 @@ Vue.component('BaseDialog', BaseDialog);
 Vue.use(Vuelidate);
 Vue.use(vClickOutside);
 Vue.use(PortalVue);
+Vue.use(VueMeta);
+
+Vue.use(VueGtm, {
+  id: ['GTM-K57GPRF'],
+  defer: false,
+  enabled: true, // Ex: enabled: !!GDPR_Cookie (optional)
+  debug: process.env.CONTEXT !== 'production', // Whether or not display console logs debugs (optional)
+  loadScript: true,
+  vueRouter: router,
+  ignoredViews: ['PanelRedirector']
+  // trackOnNextTick: false
+});
 
 if (process.env.VUE_APP_ROLLBAR) {
   Vue.prototype.$rollbar = new Rollbar({
@@ -38,13 +52,12 @@ if (process.env.VUE_APP_ROLLBAR) {
       environment: process.env.VUE_APP_ROLLBAR
     }
   });
-}
 
-// todo: disable in development
-Vue.config.errorHandler = (err, vm) => {
-  vm.$rollbar.error(err);
-  throw err;
-};
+  Vue.config.errorHandler = (err, vm) => {
+    vm.$rollbar.error(err);
+    throw err;
+  };
+}
 
 Vue.config.productionTip = false;
 async function main() {

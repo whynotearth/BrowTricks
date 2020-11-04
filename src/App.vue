@@ -11,13 +11,12 @@
     </component>
     <SnackBar v-if="!isMobile" :showSnackBar="showPrivacySnackBar">
       <div
-        class="flex items-center justify-between text-on-primary w-full h-12 tg-caption-mobile leading-4 p-4 
-          bg-primary"
+        class="flex items-center justify-between text-on-primary w-full h-12 leading-4 p-4 bg-primary"
       >
-        <p>
+        <p class="tg-caption-mobile">
           Gotta agree to
           <a
-            class="underline cursor-pointer"
+            class="underline cursor-pointer tg-caption-mobile"
             target="_blank"
             href="/privacy-policy"
           >
@@ -25,7 +24,7 @@
           </a>
         </p>
         <p
-          class="text-button uppercase cursor-pointer"
+          class="text-button uppercase cursor-pointer tg-caption-mobile"
           @click="setSnackBarCookie"
         >
           Agree
@@ -56,6 +55,9 @@ import SnackBar from '@/components/SnackBar.vue';
 import { mapGetters, mapActions } from 'vuex';
 import vhFix from '@/mixins/vhFix.js';
 import store from './store';
+import { getFormattedMetaTitle } from './helpers';
+import { get } from 'lodash-es';
+const titleTemplate = process.env.VUE_APP_TITLE_TEMPLATE;
 
 export default {
   name: 'App',
@@ -67,6 +69,17 @@ export default {
   },
   mixins: [vhFix],
   components: { SplashOverlay, Alerter, BaseOverlaySuccess, SnackBar },
+  metaInfo() {
+    const title =
+      getFormattedMetaTitle(
+        get(this.$route, 'meta.title', '') ||
+          get(this.$route, 'meta.appBar.title', '')
+      ) || undefined;
+    return {
+      title,
+      titleTemplate: title ? titleTemplate : undefined
+    };
+  },
   computed: {
     ...mapGetters('global', ['isDrawerOpenAuthGet']),
     ...mapGetters('overlay', {

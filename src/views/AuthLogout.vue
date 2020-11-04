@@ -3,7 +3,7 @@
     <div
       class="min-h-vh100--without-header flex flex-col justify-center items-center"
     >
-      <BaseSpinner borderColor="border-primary" />
+      <BaseSpinner borderColor="border-primary" classNames="spinner" />
     </div>
   </PageContentBoard>
 </template>

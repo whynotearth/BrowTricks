@@ -1,3 +1,7 @@
+# https://docs.netlify.com/configure-builds/environment-variables/
+# process.env.CONTEXT: Name of the build's deploy context. It can be production, deploy-preview or branch-deploy.
+
+
 [context.deploy-preview.environment]
   VUE_APP_ROLLBAR="deploy-preview"
   

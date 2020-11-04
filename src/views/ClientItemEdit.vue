@@ -43,26 +43,18 @@
                 Last Name is required
               </p>
             </MaterialInput>
-            <MaterialInput
-              v-model.trim="$v.phoneNumber.$model"
-              label="Phone Number"
-              type="tel"
-              :attrs="{
-                autocomplete: 'tel',
-                inputmode: 'tel',
-                name: 'telephone',
-                enterkeyhint: 'send'
-              }"
+            <PhoneInput
+              v-model="$v.phoneNumber.$model"
               :validatorModel="$v.phoneNumber"
               :serverErrors="serverErrors.PhoneNumber"
             >
               <p v-if="!$v.phoneNumber.required">
-                Phone number is required
+                Mobile number is required
               </p>
               <p v-else-if="!$v.phoneNumber.isPhoneNumberValid">
-                Please enter a valid phone number
+                Enter a valid mobile number please
               </p>
-            </MaterialInput>
+            </PhoneInput>
 
             <MaterialInput
               type="email"
@@ -135,12 +127,13 @@ import { mapActions } from 'vuex';
 import { isPhoneNumberValid, showOverlayAndRedirect } from '@/helpers';
 import formGeneralUtils from '@/mixins/formGeneralUtils.js';
 import BaseDialog from '@/components/BaseDialog.vue';
+import PhoneInput from '@/components/inputs/PhoneInput';
 
 export default {
   name: 'ClientItemEdit',
   // NOTE: we use a mixin
   mixins: [formGeneralUtils],
-  components: { BaseDialog },
+  components: { BaseDialog, PhoneInput },
   props: ['tenantSlug', 'client'],
   data() {
     return {

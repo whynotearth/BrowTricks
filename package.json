@@ -1,6 +1,6 @@
 {
   "name": "browtricks",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -24,6 +24,7 @@
     "downloadjs": "^1.4.7",
     "keen-slider": "^5.1.0",
     "lodash-es": "^4.17.15",
+    "plyr": "^3.6.2",
     "portal-vue": "^2.1.7",
     "register-service-worker": "^1.6.2",
     "rollbar": "^2.19.4",
@@ -32,10 +33,13 @@
     "v-click-outside": "^3.1.0",
     "vue": "^2.6.11",
     "vue-100vh": "^0.1.1",
+    "vue-gtm": "3.0.0-vue2",
+    "vue-meta": "^2.4.0",
     "vue-router": "^3.1.5",
     "vue-simplemde": "^1.1.2",
     "vue-slicksort": "^1.1.3",
     "vue-svg-loader": "^0.16.0",
+    "vue-tel-input": "^4.4.2",
     "vuelidate": "^0.7.5",
     "vuex": "^3.1.2",
     "vuex-persist": "^2.2.0"
