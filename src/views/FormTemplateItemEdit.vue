@@ -196,7 +196,7 @@ const SortableItem = {
       'li',
       {
         attrs: {
-          class: 'list-none'
+          class: 'list-none tg-body-mobile'
         }
       },
       this.$slots.default
