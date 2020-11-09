@@ -3,6 +3,7 @@
     id="app"
     class="min-h-vh100 h-full text-center bg-background text-on-background antialiased tg-base"
   >
+    <CssSafeArea background="bg-transparent" />
     <SplashOverlay v-if="!isMobile" />
     <Alerter />
 
@@ -49,6 +50,7 @@
 </template>
 <script>
 import BaseOverlaySuccess from '@/components/BaseOverlaySuccess.vue';
+import CssSafeArea from '@/components/CssSafeArea.vue';
 import Alerter from '@/components/Alerter.vue';
 import SplashOverlay from '@/components/splash/SplashOverlay.vue';
 import SnackBar from '@/components/SnackBar.vue';
@@ -63,12 +65,17 @@ export default {
   name: 'App',
   data() {
     return {
-      isMobile: process.env.VUE_APP_MOBILE === 'true',
       showPrivacySnackBar: true
     };
   },
   mixins: [vhFix],
-  components: { SplashOverlay, Alerter, BaseOverlaySuccess, SnackBar },
+  components: {
+    CssSafeArea,
+    SplashOverlay,
+    Alerter,
+    BaseOverlaySuccess,
+    SnackBar
+  },
   metaInfo() {
     const title =
       getFormattedMetaTitle(
@@ -84,7 +91,10 @@ export default {
     ...mapGetters('global', ['isDrawerOpenAuthGet']),
     ...mapGetters('overlay', {
       overlayModel: 'model'
-    })
+    }),
+    isMobile() {
+      return process.env.VUE_APP_MOBILE === 'true';
+    }
   },
   beforeCreate() {
     store.dispatch('auth/refreshToken');
