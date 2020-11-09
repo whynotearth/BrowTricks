@@ -2,7 +2,6 @@
   <div>
     <div class="safe-area-top" :class="{ isMobile, hasHeader }"></div>
 
-    <div class="debug"></div>
     <div class="debug2"></div>
   </div>
 </template>
@@ -28,16 +27,10 @@ export default {
 .hasHeader.safe-area-top {
   @apply bg-black;
 }
-.debug {
-  display: block;
-  width: 50px;
-  height: 100px;
-  background: red;
-}
 .debug2 {
   display: block;
   width: 50px;
-  height: env(safe-area-inset-top, 40px);
+  height: env(safe-area-inset-top, 0);
   background: blue;
 }
 </style>
