@@ -30,7 +30,7 @@
         <IconAddDark />
       </div> -->
       <div
-        class="flex flex-grow content-start items-center mx-4 cursor-pointer"
+        class="flex flex-grow content-start items-center mx-4 cursor-pointer tg-body-mobile"
       >
         <router-link
           class="text-on-primary text-opacity-high text-base"
@@ -88,7 +88,7 @@ export default {
     },
     goTenantAccount(tenant) {
       this.$router.replace({
-        name: 'MyAccount',
+        name: 'Account',
         params: { tenantSlug: tenant.slug }
       });
     },

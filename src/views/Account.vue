@@ -79,7 +79,7 @@ import IconCamera from '@/assets/icons/camera.svg';
 import { UploaderTypes } from '@/services/uploader';
 
 export default {
-  name: 'MyAccount',
+  name: 'Account',
   components: {
     PageContentBoard,
     HeaderHeroSection,

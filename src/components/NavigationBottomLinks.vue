@@ -48,9 +48,9 @@
       </router-link>
     </li>
 
-    <!-- MyAccount -->
+    <!-- Account -->
     <li class="text-brand3 text-opacity-high link-item">
-      <router-link class="block navigation--link" :to="{ name: 'MyAccount' }">
+      <router-link class="block navigation--link" :to="{ name: 'Account' }">
         <IconUserCircle class="w-5 h-5 m-auto mb-2 text-brand3" />
         <span>Account</span>
       </router-link>

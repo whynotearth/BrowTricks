@@ -1,5 +1,6 @@
 import AppBarCardLayout from '@/layouts/AppBarCardLayout.vue';
 import AppBarSwitcherLayout from '@/layouts/AppBarSwitcherLayout.vue';
+import IconGear from '@/assets/icons/gear.svg';
 
 export const TenantPanelRoutes = [
   {
@@ -26,12 +27,21 @@ export const TenantPanelRoutes = [
   },
   {
     path: '/tenant/:tenantSlug/account',
-    name: 'MyAccount',
+    name: 'Account',
     props: true,
-    component: () => import('@/views/MyAccount.vue'),
+    component: () => import('@/views/Account.vue'),
     meta: {
       layout: AppBarSwitcherLayout,
-      appBar: { title: 'My Account' }
+      appBar: {
+        title: 'My Account',
+        action: {
+          title: 'Settings',
+          icon: IconGear,
+          route: {
+            name: 'AccountSettings'
+          }
+        }
+      }
     }
   },
   {
@@ -50,15 +60,15 @@ export const TenantPanelRoutes = [
     }
   },
   {
-    path: '/tenant/:tenantSlug/account/edit',
-    name: 'AccountInfoEdit',
+    path: '/tenant/:tenantSlug/account/settings',
+    name: 'AccountSettings',
     props: true,
-    component: () => import('@/views/AccountInfoEdit.vue'),
+    component: () => import('@/views/AccountSettings.vue'),
     meta: {
       layout: AppBarCardLayout,
       appBar: {
-        title: 'Edit Account',
-        backRoute: { name: 'MyAccount' }
+        title: 'Settings',
+        backRoute: { name: 'Account' }
       }
     }
   }

@@ -250,7 +250,7 @@ export default {
                 name: 'ClientInfo',
                 params: { clientId: this.selectedClientId }
               }
-            : { name: 'MyAccount' };
+            : { name: 'Account' };
           /* eslint-enable */
           showOverlayAndRedirect({
             title: 'Success!',

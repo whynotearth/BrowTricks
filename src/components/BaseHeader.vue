@@ -21,8 +21,16 @@
     </slot>
 
     <div class="tg-color-label-mobile ml-auto">
-      <router-link v-if="action" :to="action.route">
-        <component :is="action.icon" />
+      <router-link
+        class="block py-1 px-2"
+        v-if="action"
+        :to="action.route"
+        :title="action.title"
+      >
+        <component
+          :is="action.icon"
+          class="text-background text-opacity-high fill-current"
+        />
       </router-link>
     </div>
   </div>
