@@ -9,7 +9,9 @@
     "capacitor:build:production": "vue-cli-service capacitor:build --mode mobile-production",
     "capacitor:build:staging": "vue-cli-service capacitor:build --mode mobile-staging",
     "capacitor:serve:production": "vue-cli-service capacitor:serve --mode mobile-production",
-    "capacitor:serve:staging": "vue-cli-service capacitor:serve --mode mobile-staging"
+    "capacitor:serve:staging": "vue-cli-service capacitor:serve --mode mobile-staging",
+    "capacitor:resources:ios": "cordova-res ios --skip-config --copy",
+    "capacitor:resources:android": "cordova-res android --skip-config --copy"
   },
   "dependencies": {
     "@capacitor/cli": "^2.4.2",
