@@ -15,7 +15,7 @@ export default {
       return process.env.VUE_APP_MOBILE === 'true';
     },
     hasHeader() {
-      return !this.$route.meta.appBar.noHeader;
+      return !(this.$route.meta.appBar || {}).noHeader;
     }
   }
 };
