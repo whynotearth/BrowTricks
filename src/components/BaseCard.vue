@@ -1,7 +1,7 @@
 <template functional>
   <div
-    class="flex bg-surface shadow-1dp py-6 px-4"
-    :class="[props.className, props.rounded]"
+    class="flex bg-surface"
+    :class="[props.className, props.rounded, props.padding, props.shadow]"
   >
     <slot />
   </div>
@@ -16,6 +16,12 @@ export default {
     },
     rounded: {
       default: 'rounded-lg'
+    },
+    padding: {
+      default: 'py-6 px-4'
+    },
+    shadow: {
+      default: 'shadow-1dp'
     }
   }
 };

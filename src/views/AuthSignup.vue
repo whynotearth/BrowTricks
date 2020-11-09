@@ -113,32 +113,24 @@
             </p>
           </MaterialInput>
 
-          <MaterialInput
-            type="password"
-            v-model.trim="$v.password.$model"
-            label="Password"
-            :attrs="{ autocomplete: 'new-password', enterkeyhint: 'send' }"
-            :validatorModel="$v.password"
-            :serverErrors="serverErrors.Password"
-          >
+          <PasswordInput :isNew="true" :validatorModel="$v.password">
             <p v-if="!$v.password.required">
               Password is required
             </p>
-          </MaterialInput>
-          <MaterialInput
-            type="password"
-            v-model.trim="$v.repeatPassword.$model"
-            label="Confirm Password"
-            :attrs="{ autocomplete: 'new-password', enterkeyhint: 'send' }"
+          </PasswordInput>
+
+          <PasswordInput
+            label="Repeat Password"
+            :isNew="true"
             :validatorModel="$v.repeatPassword"
           >
-            <p v-if="!$v.password.required">
+            <p v-if="!$v.repeatPassword.required">
               Password is required
             </p>
             <p class="error" v-else-if="!$v.repeatPassword.sameAsPassword">
               Passwords must match.
             </p>
-          </MaterialInput>
+          </PasswordInput>
         </div>
 
         <p v-if="errorMessage" class="mb-4 text-error tg-body-mobile">
@@ -160,6 +152,7 @@
 </template>
 
 <script>
+import PasswordInput from '@/components/inputs/PasswordInput.vue';
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
 import PhoneInput from '@/components/inputs/PhoneInput.vue';
 import { isValidUsername } from '@/helpers.js';
@@ -184,6 +177,7 @@ export default {
   // NOTE: we use a mixin
   mixins: [formGeneralUtils],
   components: {
+    PasswordInput,
     PhoneInput,
     AuthButtons,
     MaterialInput

@@ -53,18 +53,11 @@
             </p>
           </MaterialInput>
 
-          <MaterialInput
-            type="password"
-            v-model.trim="$v.password.$model"
-            label="Password"
-            :attrs="{ autocomplete: 'current-password', enterkeyhint: 'send' }"
-            :validatorModel="$v.password"
-            :serverErrors="serverErrors.Password"
-          >
+          <PasswordInput :validatorModel="$v.password">
             <p v-if="!$v.password.required">
               Password is required
             </p>
-          </MaterialInput>
+          </PasswordInput>
 
           <p v-if="errorMessage" class="mb-4 text-error tg-body-mobile">
             {{ errorMessage }}
@@ -96,6 +89,7 @@
 
 <script>
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
+import PasswordInput from '@/components/inputs/PasswordInput.vue';
 import AuthButtons from '@/components/auth/AuthButtons';
 import formGeneralUtils from '@/mixins/formGeneralUtils.js';
 import { required } from 'vuelidate/lib/validators';
@@ -108,6 +102,7 @@ export default {
   mixins: [formGeneralUtils],
   components: {
     AuthButtons,
+    PasswordInput,
     MaterialInput
   },
   data() {
