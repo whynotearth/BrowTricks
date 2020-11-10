@@ -1,1 +1,13 @@
-{"appId":"com.browtrickstbeauty.browtricksbeauty","appName":"Brow Tricks","bundledWebRuntime":false,"webDir":"/mnt/c/Users/mort3/www/BrowTricks/dist/bundled"}
+{
+  "appId": "com.browtrickstbeauty.browtricksbeauty",
+  "appName": "Brow Tricks",
+  "bundledWebRuntime": false,
+  "npmClient": "yarn",
+  "webDir": "/mnt/c/Users/mort3/www/BrowTricks/dist/bundled",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 1500
+    }
+  },
+  "cordova": {}
+}

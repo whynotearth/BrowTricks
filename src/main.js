@@ -70,7 +70,10 @@ async function main() {
       // for capacitor
       if (process.env.VUE_APP_MOBILE) {
         const { SplashScreen } = CapacitorPlugins;
-        SplashScreen.hide();
+        SplashScreen.show({
+          showDuration: 1500,
+          autoHide: true
+        });
       }
     }
   }).$mount('#app');
