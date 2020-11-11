@@ -2,22 +2,23 @@
   <component
     :is="type"
     :href="href"
-    class="block cursor-pointer bg-surface shadow-1dp py-3 px-4 rounded-full"
+    class="block cursor-pointer bg-surface shadow-brand1 py-3 px-4 rounded-full"
     :class="[margin]"
     @click="$emit('click')"
     v-bind="attrs"
   >
     <div class="flex">
-      <div class="flex" :class="leftSideClasses">
+      <div class="flex items-center" :class="leftSideClasses">
         <div
-          class="icon-pre text-on-surface text-opacity-medium flex items-center"
+          v-if="$slots.preIcon"
+          class="icon-pre text-on-surface text-opacity-medium flex items-center mr-4"
         >
           <slot name="preIcon"></slot>
         </div>
         <slot
           ><h4
             :title="title"
-            class="title ml-4 mr-4 text-on-surface text-opacity-high min-w-expansion-panel text-left"
+            class="title mr-4 text-on-surface text-opacity-high min-w-expansion-panel text-left tg-body-bold-mobile"
           >
             {{ title }}
           </h4></slot
@@ -38,7 +39,7 @@
         <!-- end icon -->
         <slot name="afterIcon">
           <IconArrowRight
-            class="icon-after fill-current ml-4 text-on-surface"
+            class="icon-after fill-current ml-4 text-brand1 text-opacity-medium"
           />
         </slot>
       </div>
@@ -47,7 +48,7 @@
 </template>
 
 <script>
-import IconArrowRight from '@/assets/icons/keyboard_arrow_right.svg';
+import IconArrowRight from '@/assets/icons/arrow-right.svg';
 
 export default {
   name: 'ExpansionPanel',

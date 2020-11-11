@@ -32,6 +32,18 @@
         :to="{ name: 'ClientItemAdd' }"
       />
     </div>
+
+    <portal to="HeaderAction">
+      <router-link
+        class="tg-color-label-mobile block py-1 px-2"
+        :to="{
+          name: 'ClientItemAdd'
+        }"
+        title="Add Client"
+      >
+        <IconEdit class="text-background text-opacity-high fill-current" />
+      </router-link>
+    </portal>
   </PageContentBoard>
 </template>
 
@@ -39,10 +51,12 @@
 import { mapActions, mapGetters } from 'vuex';
 import ClientListItem from '@/components/client/ClientListItem';
 import PageContentBoard from '@/components/PageContentBoard';
+import IconEdit from '@/assets/icons/edit.svg';
 
 export default {
   name: 'ClientList',
   components: {
+    IconEdit,
     PageContentBoard,
     ClientListItem
   },

@@ -28,6 +28,10 @@
           </div>
         </div>
       </template>
+
+      <template #action>
+        <portal-target name="HeaderAction"></portal-target>
+      </template>
     </BaseHeader>
 
     <!-- loading -->

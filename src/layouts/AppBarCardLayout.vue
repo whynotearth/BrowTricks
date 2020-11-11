@@ -6,7 +6,11 @@
     <BaseHeader
       v-if="appBar && !appBar.noHeader"
       :background="headerBackground"
-    />
+    >
+      <template #action>
+        <portal-target name="HeaderAction"></portal-target>
+      </template>
+    </BaseHeader>
 
     <!-- loading -->
     <div
