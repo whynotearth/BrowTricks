@@ -20,18 +20,8 @@
       </div>
     </slot>
 
-    <div class="tg-color-label-mobile ml-auto">
-      <router-link
-        class="block py-1 px-2"
-        v-if="action"
-        :to="action.route"
-        :title="action.title"
-      >
-        <component
-          :is="action.icon"
-          class="text-background text-opacity-high fill-current"
-        />
-      </router-link>
+    <div class="ml-auto">
+      <slot name="action" />
     </div>
   </div>
 </template>
@@ -50,10 +40,7 @@ export default {
       return this.$route.meta.appBar || {};
     },
     backRoute() {
-      return this.appBar.backRoute;
-    },
-    action() {
-      return this.appBar.action;
+      return this.$route.query.backPath || this.appBar.backRoute;
     }
   },
   props: {

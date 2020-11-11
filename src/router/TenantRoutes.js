@@ -1,6 +1,5 @@
 import AppBarCardLayout from '@/layouts/AppBarCardLayout.vue';
 import AppBarSwitcherLayout from '@/layouts/AppBarSwitcherLayout.vue';
-import IconGear from '@/assets/icons/gear.svg';
 
 export const TenantPanelRoutes = [
   {
@@ -33,14 +32,20 @@ export const TenantPanelRoutes = [
     meta: {
       layout: AppBarSwitcherLayout,
       appBar: {
-        title: 'My Account',
-        action: {
-          title: 'Settings',
-          icon: IconGear,
-          route: {
-            name: 'AccountSettings'
-          }
-        }
+        title: 'My Account'
+      }
+    }
+  },
+  {
+    path: '/tenant/:tenantSlug/account/settings',
+    name: 'AccountSettings',
+    props: true,
+    component: () => import('@/views/AccountSettings.vue'),
+    meta: {
+      layout: AppBarCardLayout,
+      appBar: {
+        title: 'Settings',
+        backRoute: { name: 'Account' }
       }
     }
   },
@@ -56,19 +61,6 @@ export const TenantPanelRoutes = [
       needsUserInfo: true,
       appBar: {
         title: 'Create Business Profile'
-      }
-    }
-  },
-  {
-    path: '/tenant/:tenantSlug/account/settings',
-    name: 'AccountSettings',
-    props: true,
-    component: () => import('@/views/AccountSettings.vue'),
-    meta: {
-      layout: AppBarCardLayout,
-      appBar: {
-        title: 'Settings',
-        backRoute: { name: 'Account' }
       }
     }
   }

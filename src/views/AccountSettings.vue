@@ -105,7 +105,8 @@
           title="Privacy Policy"
           @click="
             $router.push({
-              name: 'PrivacyPolicy'
+              name: 'PrivacyPolicy',
+              query: { backPath: currentPath }
             })
           "
         >
@@ -121,6 +122,11 @@ export default {
   name: 'AccountSettings',
   components: {
     ExpansionPanel
+  },
+  computed: {
+    currentPath() {
+      return this.$route.fullPath;
+    }
   }
 };
 </script>
