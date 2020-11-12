@@ -18,10 +18,8 @@
         </div>
       </slot>
 
-      <div class="tg-color-label-mobile ml-auto">
-        <router-link v-if="action" :to="action.route">
-          <component :is="action.icon" />
-        </router-link>
+      <div class="ml-auto">
+        <slot name="action" />
       </div>
     </div>
   </div>
@@ -41,10 +39,7 @@ export default {
       return this.$route.meta.appBar || {};
     },
     backRoute() {
-      return this.appBar.backRoute;
-    },
-    action() {
-      return this.appBar.action;
+      return this.$route.query.backPath || this.appBar.backRoute;
     }
   },
   props: {

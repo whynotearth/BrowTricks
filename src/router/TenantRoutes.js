@@ -26,12 +26,27 @@ export const TenantPanelRoutes = [
   },
   {
     path: '/tenant/:tenantSlug/account',
-    name: 'MyAccount',
+    name: 'Account',
     props: true,
-    component: () => import('@/views/MyAccount.vue'),
+    component: () => import('@/views/Account.vue'),
     meta: {
       layout: AppBarSwitcherLayout,
-      appBar: { title: 'My Account' }
+      appBar: {
+        title: 'My Account'
+      }
+    }
+  },
+  {
+    path: '/tenant/:tenantSlug/account/settings',
+    name: 'AccountSettings',
+    props: true,
+    component: () => import('@/views/AccountSettings.vue'),
+    meta: {
+      layout: AppBarCardLayout,
+      appBar: {
+        title: 'Settings',
+        backRoute: { name: 'Account' }
+      }
     }
   },
   {
@@ -46,19 +61,6 @@ export const TenantPanelRoutes = [
       needsUserInfo: true,
       appBar: {
         title: 'Create Business Profile'
-      }
-    }
-  },
-  {
-    path: '/tenant/:tenantSlug/account/edit',
-    name: 'AccountInfoEdit',
-    props: true,
-    component: () => import('@/views/AccountInfoEdit.vue'),
-    meta: {
-      layout: AppBarCardLayout,
-      appBar: {
-        title: 'Edit Account',
-        backRoute: { name: 'MyAccount' }
       }
     }
   }

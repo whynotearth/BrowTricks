@@ -60,6 +60,16 @@
       <portal to="SwitcherBar">
         <DropDownSheet :tenants="tenants" />
       </portal>
+
+      <portal to="HeaderAction">
+        <router-link
+          class="tg-color-label-mobile block py-1 px-2"
+          :to="{ name: 'AccountSettings' }"
+          title="Settings"
+        >
+          <IconGear class="text-background text-opacity-high fill-current" />
+        </router-link>
+      </portal>
     </div>
   </PageContentBoard>
 </template>
@@ -76,10 +86,11 @@ import IconPerson from '@/assets/icons/person.svg';
 import DropDownSheet from '@/components/tenant/DropDownSheet.vue';
 import BaseAvatar from '@/components/BaseAvatar.vue';
 import IconCamera from '@/assets/icons/camera.svg';
+import IconGear from '@/assets/icons/gear.svg';
 import { UploaderTypes } from '@/services/uploader';
 
 export default {
-  name: 'MyAccount',
+  name: 'Account',
   components: {
     PageContentBoard,
     HeaderHeroSection,
@@ -89,6 +100,7 @@ export default {
     ExpansionPanel,
     MediaManager,
     IconPerson,
+    IconGear,
     IconCamera
   },
   data() {

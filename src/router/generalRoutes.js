@@ -182,6 +182,9 @@ export const generalRoutes = [
     component: () => import('@/views/PrivacyPolicy.vue'),
     meta: {
       isPublic: true,
+      layout: AppBarCardLayout,
+      pageBackground: 'bg-background',
+      noNavigation: true,
       appBar: {
         title: 'Privacy Policy'
       }

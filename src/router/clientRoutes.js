@@ -1,5 +1,4 @@
 import AppBarLayout from '@/layouts/AppBarCardLayout.vue';
-import IconEdit from '@/assets/icons/edit.svg';
 
 export const clientRoutes = [
   {
@@ -10,14 +9,6 @@ export const clientRoutes = [
     meta: {
       layout: AppBarLayout,
       appBar: {
-        action: {
-          title: 'Add Client',
-          icon: IconEdit,
-          route: {
-            name: 'ClientItemAdd',
-            params: { step: 'basic-info' }
-          }
-        },
         title: 'Clients',
         backRoute: { name: 'TenantHome' }
       }
