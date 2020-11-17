@@ -34,6 +34,10 @@
       </div>
 
       <ContentPricing />
+
+      <ContentCtaSignupOrDownload />
+
+      <NavigationFooter />
     </template>
   </ClassicLayout>
 </template>
@@ -43,9 +47,18 @@ import ArticleMini from '@/components/ArticleMini.vue';
 import ContentHero from '@/components/ContentHero.vue';
 import HeaderNavigation from '@/components/HeaderNavigation.vue';
 import ContentPricing from '@/components/ContentPricing.vue';
+import ContentCtaSignupOrDownload from '@/components/ContentCtaSignupOrDownload.vue';
+import NavigationFooter from '@/components/NavigationFooter.vue';
 export default {
   name: 'Home',
-  components: { ArticleMini, HeaderNavigation, ContentHero, ContentPricing },
+  components: {
+    ArticleMini,
+    HeaderNavigation,
+    ContentHero,
+    ContentPricing,
+    ContentCtaSignupOrDownload,
+    NavigationFooter
+  },
   // metaInfo() {
   //   return {
   //     script: [
