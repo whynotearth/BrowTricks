@@ -42,9 +42,10 @@
 import ArticleMini from '@/components/ArticleMini.vue';
 import ContentHero from '@/components/ContentHero.vue';
 import HeaderNavigation from '@/components/HeaderNavigation.vue';
+import ContentPricing from '@/components/ContentPricing.vue';
 export default {
   name: 'Home',
-  components: { ArticleMini, HeaderNavigation, ContentHero },
+  components: { ArticleMini, HeaderNavigation, ContentHero, ContentPricing },
   // metaInfo() {
   //   return {
   //     script: [
@@ -119,14 +120,14 @@ export default {
 
 .box {
   @apply flex items-center justify-center p-4;
-  height: 440px;
+  height: 400px;
   background-position: bottom right;
   background-size: contain;
   background-repeat: no-repeat;
 }
 @screen md {
   .box {
-    height: 640px;
+    height: 512px;
   }
 }
 </style>

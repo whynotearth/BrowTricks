@@ -10,11 +10,11 @@
         class="absolute inset-0 z-10"
         src="https://res.cloudinary.com/whynotearth/video/upload/v1605597409/BrowTricks/static_v2/hero-bg-crf25_ltcqjd.mp4"
       ></video> -->
-      <div class="px-4 z-20">
-        <h2 class="hero-h2 mb-8">
+      <div class="px-4">
+        <h2 class="hero-h2 tg-h1-mobile mb-8">
           All you need to do is show up at the right time
         </h2>
-        <h3 class="tg-h1-mobile mb-8">
+        <h3 class="tg-h3-mobile md:tg-h1-mobile mb-8">
           Your online assistant, working 24/7 to fill your schedule.
         </h3>
       </div>
@@ -40,7 +40,7 @@
 // https://res.cloudinary.com/whynotearth/video/upload/v1605596899/BrowTricks/static_v2/hero-bg-crf18_xzlyxv.mp4
 // https://res.cloudinary.com/whynotearth/video/upload/v1605597409/BrowTricks/static_v2/hero-bg-crf25_ltcqjd.mp4
 export default {
-  name: 'HomeHero'
+  name: 'ContentHero'
 };
 </script>
 
@@ -48,11 +48,13 @@ export default {
 .hero-wrapper {
   max-height: 760px;
 }
-.hero-h2 {
-  font-family: ChampagneLimousines, sans-serif;
-  font-weight: normal;
-  font-size: 72px;
-  line-height: 1;
-  text-align: center;
+@screen md {
+  .hero-h2 {
+    font-family: ChampagneLimousines, sans-serif;
+    font-weight: normal;
+    font-size: 72px;
+    line-height: 1;
+    text-align: center;
+  }
 }
 </style>

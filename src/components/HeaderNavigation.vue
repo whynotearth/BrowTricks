@@ -1,10 +1,11 @@
 <template>
-  <header class="sticky top-0 z-10">
+  <header class="sticky top-0 z-20">
     <div class="flex justify-between items-center bg-brand6 px-4 py-3 h-16">
       <div class="flex items-center">
+        <!-- hamburger menu -->
         <a
           @click.stop="isMenuVisible = !isMenuVisible"
-          class="cursor-pointer relative md:hidden"
+          class="cursor-pointer relative md:hidden menu-hamburger"
         >
           <IconHamburger class="text-on-brand6 mr-4" />
 
@@ -15,10 +16,10 @@
               v-if="isMenuVisible"
               class="menu-content"
             >
-              <ul class="flex flex-col bg-background shadow-md">
+              <ul class="flex flex-col bg-background shadow-md py-2 rounded-md">
                 <li class="w-full">
                   <router-link
-                    class="text-on-background block p-2 rounded-md"
+                    class="text-on-background block px-4 py-2 hover:bg-primary"
                     :to="{ name: 'Home' }"
                     exact
                     >Home</router-link
@@ -26,21 +27,21 @@
                 </li>
                 <li class="w-full">
                   <router-link
-                    class="block p-2 text-on-background"
+                    class="block px-4 py-2 hover:bg-primary text-on-background"
                     :to="{ name: 'Pricing' }"
                     >Pricing</router-link
                   >
                 </li>
                 <li class="w-full">
                   <router-link
-                    class="block p-2 text-on-background"
+                    class="block px-4 py-2 hover:bg-primary text-on-background"
                     :to="{ name: 'Help' }"
                     >Help</router-link
                   >
                 </li>
                 <li class="w-full">
                   <router-link
-                    class="block p-2 text-on-background"
+                    class="block px-4 py-2 hover:bg-primary text-on-background"
                     :to="{ name: 'AuthLogin' }"
                     >Log in</router-link
                   >
@@ -56,7 +57,8 @@
         </h1>
       </div>
 
-      <nav class="flex">
+      <!-- horizontal menu -->
+      <nav class="flex menu-horizontal">
         <ul class="hidden md:flex items-center tg-h3-mobile select-none">
           <li class="h-full flex items-center">
             <router-link
@@ -117,7 +119,10 @@ export default {
 </script>
 
 <style scoped>
-.router-link-active {
+.menu-hamburger .router-link-active {
+  @apply bg-primary bg-opacity-disabled;
+}
+.menu-horizontal .router-link-active {
   @apply bg-on-background-image bg-opacity-disabled;
 }
 .menu-content {
