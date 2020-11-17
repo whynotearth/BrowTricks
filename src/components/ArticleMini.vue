@@ -6,7 +6,7 @@
       </div>
       <div class="text-center px-4 flex-grow">
         <h2
-          class="tg-h2-mobile text-on-background text-opacity-medium"
+          class="tg-h1-mobile text-on-background text-opacity-medium"
           v-html="article.title"
         ></h2>
       </div>

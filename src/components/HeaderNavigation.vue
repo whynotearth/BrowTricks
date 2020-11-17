@@ -1,6 +1,6 @@
 <template>
   <header class="sticky top-0 z-10">
-    <div class="flex justify-between items-center bg-brand6 px-8 py-3">
+    <div class="flex justify-between items-center bg-brand6 px-4 py-3 h-16">
       <div class="flex items-center">
         <a
           @click.stop="isMenuVisible = !isMenuVisible"
@@ -49,7 +49,9 @@
             </nav>
           </transition>
         </a>
-        <h1 class="tg-h2-mobile text-on-brand6 select-none">
+        <h1
+          class="text-left tg-h3-mobile md:tg-h2-mobile text-on-brand6 select-none"
+        >
           {{ APPNAME }}
         </h1>
       </div>
@@ -88,7 +90,7 @@
         </ul>
 
         <Button
-          padding="py-1 px-4 ml-3"
+          padding="py-1 px-3 md:px-4 ml-3"
           radius="rounded-md"
           :width="null"
           title="Try it now"
