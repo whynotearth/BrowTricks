@@ -18,7 +18,6 @@
         <slot name="content" />
       </TransitionPage>
     </div>
-    <slot name="footer" />
   </div>
 </template>
 

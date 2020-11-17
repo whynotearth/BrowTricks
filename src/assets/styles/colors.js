@@ -1,6 +1,6 @@
 const colors = {
   inherit: 'inherit',
-  primary: '#C5E2D8',
+  primary: '#E9CFC4',
   secondary: '#E6EDF9',
   // Button & Accent
   accent: '#C5E2D8',
