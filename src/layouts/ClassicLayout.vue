@@ -10,10 +10,7 @@
     </div>
 
     <!-- mb-14 for bottom navigation -->
-    <div
-      v-show="!loadingGet"
-      class="flex-grow overflow-auto flex flex-col mb-14 pb-6"
-    >
+    <div v-show="!loadingGet" class="flex-grow overflow-auto flex flex-col">
       <TransitionPage>
         <slot name="content" />
       </TransitionPage>

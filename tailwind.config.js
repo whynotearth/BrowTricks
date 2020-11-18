@@ -15,7 +15,7 @@ module.exports = {
       boxShadow,
       colors,
       opacity: {
-        high: '0.84',
+        high: '1',
         medium: '0.54',
         disabled: '0.38',
         divider: '0.12'

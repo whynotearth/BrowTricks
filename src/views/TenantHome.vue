@@ -47,7 +47,9 @@
               <IconTutorial class="h-4 w-4 fill-current" />
             </template>
             <template #afterIcon>
-              <IconExit class="h-6 w-6 fill-current" />
+              <IconExit
+                class="h-6 w-6 fill-current text-opacity-medium text-on-surface"
+              />
             </template>
           </ExpansionPanel>
 
@@ -60,7 +62,9 @@
               <IconShop class="h-4 w-4 fill-current" />
             </template>
             <template #afterIcon>
-              <IconExit class="h-6 w-6 fill-current" />
+              <IconExit
+                class="h-6 w-6 fill-current text-opacity-medium text-on-surface"
+              />
             </template>
           </ExpansionPanel>
 
@@ -73,7 +77,9 @@
               <IconFacebook class="h-4 w-4 fill-current" />
             </template>
             <template #afterIcon>
-              <IconExit class="h-6 w-6 fill-current" />
+              <IconExit
+                class="h-6 w-6 fill-current text-opacity-medium text-on-surface"
+              />
             </template>
           </ExpansionPanel>
         </div>

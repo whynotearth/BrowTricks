@@ -11,8 +11,7 @@
     font-family: ChampagneLimousines, sans-serif;
     font-style: normal;
     font-weight: normal;
-    /* was 24px, decreased dut to large titles in mobile */
-    font-size: 20px;
+    font-size: 24px;
     line-height: 28px;
     letter-spacing: 0.15em;
   }

@@ -33,7 +33,11 @@
         </div>
       </div>
 
-      <ContentPricing />
+      <FrameFullWidth>
+        <div class="max-w-3xl mx-auto py-10">
+          <ContentPricing />
+        </div>
+      </FrameFullWidth>
 
       <ContentCtaSignupOrDownload />
 
@@ -49,9 +53,12 @@ import HeaderNavigation from '@/components/HeaderNavigation.vue';
 import ContentPricing from '@/components/ContentPricing.vue';
 import ContentCtaSignupOrDownload from '@/components/ContentCtaSignupOrDownload.vue';
 import NavigationFooter from '@/components/NavigationFooter.vue';
+import FrameFullWidth from '@/components/FrameFullWidth';
+
 export default {
   name: 'Home',
   components: {
+    FrameFullWidth,
     ArticleMini,
     HeaderNavigation,
     ContentHero,

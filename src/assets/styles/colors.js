@@ -24,6 +24,7 @@ const colors = {
   brand3: '#8A8A8A',
   brand4: '#071108',
   brand5: '#B3D1D9',
+  // brand6 is the new primary
   brand6: '#000000',
   'on-brand6': '#ffffff',
   brand7: '#E9CFC4',
