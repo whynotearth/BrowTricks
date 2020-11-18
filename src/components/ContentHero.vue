@@ -1,15 +1,6 @@
 <template>
-  <div
-    class="hero-wrapper h-vh100--without-header flex items-center max-w-4xl mx-auto relative"
-  >
+  <div class="hero-wrapper flex items-center max-w-4xl mx-auto relative">
     <div class="flex flex-col items-center justify-center">
-      <!-- <video
-        autoplay
-        muted
-        playsinline
-        class="absolute inset-0 z-10"
-        src="https://res.cloudinary.com/whynotearth/video/upload/v1605597409/BrowTricks/static_v2/hero-bg-crf25_ltcqjd.mp4"
-      ></video> -->
       <div class="px-4">
         <h2 class="hero-h2 tg-h1-mobile mb-8">
           All you need to do is show up at the right time
@@ -37,8 +28,6 @@
 </template>
 
 <script>
-// https://res.cloudinary.com/whynotearth/video/upload/v1605596899/BrowTricks/static_v2/hero-bg-crf18_xzlyxv.mp4
-// https://res.cloudinary.com/whynotearth/video/upload/v1605597409/BrowTricks/static_v2/hero-bg-crf25_ltcqjd.mp4
 export default {
   name: 'ContentHero'
 };
@@ -46,7 +35,7 @@ export default {
 
 <style scoped>
 .hero-wrapper {
-  max-height: 760px;
+  height: calc(100 * var(--vh) - var(--header-height) - 70px);
 }
 @screen md {
   .hero-h2 {

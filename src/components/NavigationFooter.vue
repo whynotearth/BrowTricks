@@ -2,7 +2,7 @@
   <div class="bg-brand6">
     <div class="max-w-6xl mx-auto py-16 px-6">
       <div
-        class="grid grid-cols-1 md:grid-cols-4 text-left px-16 md:px-0 mb-12 md:mb-0"
+        class="grid grid-cols-1 md:grid-cols-4 text-left px-10 md:px-0 mb-12 md:mb-0"
       >
         <nav class="md:col-span-2 mb-10 md:mb-0">
           <h3 class="tg-h2-mobile list-title">Quick Links</h3>
@@ -58,7 +58,7 @@
       </div>
 
       <div
-        class="flex justify-center md:justify-end text-on-brand6 text-opacity-high tg-h1-mobile px-16 md:px-0"
+        class="flex justify-center md:justify-end text-on-brand6 text-opacity-high tg-h1-mobile px-10 md:px-0"
       >
         {{ APPNAME }}
       </div>
