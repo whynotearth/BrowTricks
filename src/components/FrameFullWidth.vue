@@ -1,6 +1,6 @@
 <template functional>
-  <div class="bg-pattern p-10">
-    <div class="bg-background p-4">
+  <div class="bg-pattern px-2 md:px-10 py-6 md:py-10">
+    <div class="bg-background p-2 md:p-4">
       <slot />
     </div>
   </div>

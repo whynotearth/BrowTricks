@@ -5,7 +5,9 @@
     >
       Pricing
     </h2>
-    <div class="grid grid-flow-row md:grid-flow-col gap-4 md:gap-16 px-6">
+    <div
+      class="grid grid-flow-row md:grid-flow-col gap-6 md:gap-16 px-0 md:px-6"
+    >
       <BaseCard className="flex flex-col">
         <h3 class="tg-h2-mobile mb-4">Standard (Free)</h3>
         <div class="tg-body-mobile">

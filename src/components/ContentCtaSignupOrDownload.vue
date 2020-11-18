@@ -1,8 +1,8 @@
 <template>
   <div class="bg-primary">
-    <div class="flex pt-16 max-w-6xl mx-auto">
+    <div class="flex flex-col md:flex-row pt-16 max-w-6xl mx-auto">
       <div class="flex items-center justify-center text-center flex-grow">
-        <div class="max-w-2xl">
+        <div class="max-w-2xl px-4 mb-12 md:mb-0">
           <h2 class="tg-h1-mobile text-on-background text-opacity-medium mb-8">
             {{ APPNAME }}
           </h2>
@@ -29,9 +29,9 @@
         </div>
       </div>
 
-      <div class="app-image flex-shrink-0">
+      <div class="app-image mx-auto flex-shrink-0">
         <img
-          class=""
+          class="px-6"
           src="https://res.cloudinary.com/whynotearth/image/upload/v1605631504/BrowTricks/static_v2/home-app_mea1yu.png"
           alt="app"
         />
@@ -53,6 +53,6 @@ export default {
 
 <style scoped>
 .app-image {
-  width: 240px;
+  width: 288px;
 }
 </style>
