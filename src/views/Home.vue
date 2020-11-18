@@ -17,13 +17,10 @@
       <!-- row 1 -->
       <div class="flex flex-col md:flex-row w-full">
         <div class="box box-1 box-video md:w-1/2">
-          <video
-            loop
-            autoplay
-            muted
-            playsinline
-            src="https://res.cloudinary.com/whynotearth/video/upload/v1605597409/BrowTricks/static_v2/hero-bg-crf25_ltcqjd.mp4"
-          ></video>
+          <VideoSimple
+            class="video-content"
+            url="https://res.cloudinary.com/whynotearth/video/upload/v1605713658/BrowTricks/static_v2/home-feature-3_gajq0w.mp4"
+          />
         </div>
         <div class="box box-2 box-article md:w-1/2 bg-brand9">
           <ArticleMini
@@ -36,13 +33,10 @@
       <!-- row 2 -->
       <div class="flex flex-col md:flex-row w-full">
         <div class="box box-4 box-video md:w-1/2 md:order-2">
-          <video
-            loop
-            autoplay
-            muted
-            playsinline
-            src="https://res.cloudinary.com/whynotearth/video/upload/v1605713583/BrowTricks/static_v2/home-feature-2_gvagmt.mp4"
-          ></video>
+          <VideoSimple
+            class="video-content"
+            url="https://res.cloudinary.com/whynotearth/video/upload/v1605713583/BrowTricks/static_v2/home-feature-2_gvagmt.mp4"
+          />
         </div>
         <div class="box box-3 box-article md:w-1/2 bg-accent md:order-1">
           <ArticleMini
@@ -53,13 +47,10 @@
       </div>
       <div class="flex flex-col md:flex-row w-full">
         <div class="box box-5 box-video md:w-1/2">
-          <video
-            loop
-            autoplay
-            muted
-            playsinline
-            src="https://res.cloudinary.com/whynotearth/video/upload/v1605713658/BrowTricks/static_v2/home-feature-3_gajq0w.mp4"
-          ></video>
+          <VideoSimple
+            class="video-content"
+            url="https://res.cloudinary.com/whynotearth/video/upload/v1605715999/BrowTricks/static_v2/home-feature-3.2_wqxsxu.mp4"
+          />
         </div>
         <div class="box box-6 box-article md:w-1/2 bg-brand8">
           <ArticleMini
@@ -70,7 +61,7 @@
       </div>
 
       <FrameFullWidth>
-        <div class="max-w-3xl mx-auto py-10">
+        <div class="max-w-3xl mx-auto py-10" id="section-pricing">
           <ContentPricing />
         </div>
       </FrameFullWidth>
@@ -90,10 +81,12 @@ import ContentPricing from '@/components/ContentPricing.vue';
 import ContentCtaSignupOrDownload from '@/components/ContentCtaSignupOrDownload.vue';
 import NavigationFooter from '@/components/NavigationFooter.vue';
 import FrameFullWidth from '@/components/FrameFullWidth';
+import VideoSimple from '@/components/player/VideoSimple';
 
 export default {
   name: 'Home',
   components: {
+    VideoSimple,
     FrameFullWidth,
     ArticleMini,
     HeaderNavigation,
@@ -179,5 +172,8 @@ export default {
 }
 .box-article {
   @apply py-16;
+}
+.video-content {
+  pointer-events: none;
 }
 </style>

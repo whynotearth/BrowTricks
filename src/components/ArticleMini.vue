@@ -1,20 +1,17 @@
-<template>
-  <article>
+<template functional>
+  <article class="px-2">
     <header class="flex mb-6 items-center">
-      <div class="article-image flex justify-center items-center">
-        <img class="max-w-full max-h-full" :src="article.image" alt="" />
-      </div>
       <div class="text-center px-4 flex-grow">
         <h2
           class="tg-h1-mobile text-on-background text-opacity-medium"
-          v-html="article.title"
+          v-html="props.article.title"
         ></h2>
       </div>
     </header>
 
     <div
       class="tg-body-mobile text-on-background text-opacity-medium"
-      v-html="article.content"
+      v-html="props.article.content"
     ></div>
   </article>
 </template>
@@ -30,10 +27,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.article-image {
-  width: 40px;
-  height: 40px;
-}
-</style>

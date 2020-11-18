@@ -26,17 +26,17 @@
                   >
                 </li>
                 <li class="w-full">
-                  <router-link
+                  <a
                     class="block px-4 py-2 hover:bg-primary text-on-background"
-                    :to="{ name: 'Pricing' }"
-                    >Pricing</router-link
+                    href="#section-pricing"
+                    >Pricing</a
                   >
                 </li>
                 <li class="w-full">
-                  <router-link
+                  <a
                     class="block px-4 py-2 hover:bg-primary text-on-background"
-                    :to="{ name: 'Help' }"
-                    >Help</router-link
+                    href="https://browtricksproductsorg.zendesk.com/"
+                    >Help</a
                   >
                 </li>
                 <li class="w-full">
@@ -69,17 +69,17 @@
             >
           </li>
           <li class="h-full flex items-center">
-            <router-link
+            <a
               class="text-on-brand6 mx-1 p-2 rounded-md"
-              :to="{ name: 'Pricing' }"
-              >Pricing</router-link
+              href="#section-pricing"
+              >Pricing</a
             >
           </li>
           <li class="h-full flex items-center">
-            <router-link
+            <a
               class="text-on-brand6 mx-1 p-2 rounded-md"
-              :to="{ name: 'Help' }"
-              >Help</router-link
+              href="https://browtricksproductsorg.zendesk.com/"
+              >Help</a
             >
           </li>
           <li class="h-full flex items-center">

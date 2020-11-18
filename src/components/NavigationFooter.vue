@@ -51,7 +51,7 @@
           <h3 class="tg-h2-mobile list-title">Stay In Touch</h3>
           <ul class="list-items tg-body-bold-mobile">
             <li class="mb-2 md:mb-0">
-              <router-link :to="{ name: 'Home' }">Help</router-link>
+              <a href="https://browtricksproductsorg.zendesk.com/">Help</a>
             </li>
           </ul>
         </nav>

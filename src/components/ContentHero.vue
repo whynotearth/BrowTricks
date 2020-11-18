@@ -35,7 +35,7 @@ export default {
 
 <style scoped>
 .hero-wrapper {
-  height: calc(100 * var(--vh) - var(--header-height) - 70px);
+  height: calc(100 * var(--vh) - var(--header-height) - 80px);
 }
 @screen md {
   .hero-h2 {
