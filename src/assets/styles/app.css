@@ -20,6 +20,7 @@ html {
   --navigation-height: 80px;
   --header-height: 56px;
   --content-board-spacer: 24px;
+  --headernav-height: 64px;
   --footernav-height: 352px;
 }
 
@@ -54,6 +55,9 @@ html {
 .h-vh100 {
   height: 100vh;
   height: calc(100 * var(--vh));
+}
+.h-vh100--without-headernav {
+  height: calc(100 * var(--vh) - var(--headernav-height));
 }
 .min-h-vh100--without-header {
   min-height: calc(100 * var(--vh) - var(--header-height));

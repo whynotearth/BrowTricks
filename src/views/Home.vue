@@ -7,13 +7,6 @@
     <template #content>
       <ContentHero />
 
-      <div class="px-4">
-        <p class="text-on-background mb-5">
-          It’s easy & user friendly. No credit card or commitments. We promise
-          you’ll love it!
-        </p>
-      </div>
-
       <!-- row 1 -->
       <div class="flex flex-col md:flex-row w-full">
         <div class="box box-1 box-video md:w-1/2">
