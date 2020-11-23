@@ -1,7 +1,7 @@
 <template>
   <component
     :is="type"
-    class="tg-color-label-mobile button cursor-pointer transition-all duration-75 select-none"
+    class="flex justify-center tg-color-label-mobile button cursor-pointer transition-all duration-75 select-none"
     :class="[
       isBordered ? 'border border-black' : '',
       shadow,

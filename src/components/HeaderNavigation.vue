@@ -50,11 +50,11 @@
             </nav>
           </transition>
         </a>
-        <h1
+        <div
           class="text-left tg-h3-mobile md:tg-h2-mobile text-on-brand6 select-none"
         >
           {{ APPNAME }}
-        </h1>
+        </div>
       </div>
 
       <!-- horizontal menu -->
@@ -92,10 +92,11 @@
         </ul>
 
         <Button
-          padding="py-1 px-3 md:px-4 ml-3"
+          padding="py-1 px-3 md:px-4 md:ml-3"
           radius="rounded-md"
           :width="null"
           title="Try it now"
+          :to="{ name: 'AuthSignup' }"
         />
       </nav>
     </div>

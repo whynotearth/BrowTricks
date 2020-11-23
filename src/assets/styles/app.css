@@ -20,6 +20,7 @@ html {
   --navigation-height: 80px;
   --header-height: 56px;
   --content-board-spacer: 24px;
+  --footernav-height: 352px;
 }
 
 .bg-pattern {
@@ -59,6 +60,11 @@ html {
 }
 .h-vh100--without-header {
   height: calc(100 * var(--vh) - var(--header-height));
+}
+.min-h-vh100--without-footernav-n-header {
+  min-height: calc(
+    100 * var(--vh) - var(--header-height) - var(--footernav-height)
+  );
 }
 
 .break-word {

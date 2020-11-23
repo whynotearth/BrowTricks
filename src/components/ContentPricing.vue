@@ -1,10 +1,5 @@
 <template>
   <div>
-    <h2
-      class="tg-h1-mobile text-on-background text-opacity-medium text-center mb-6"
-    >
-      Pricing
-    </h2>
     <div
       class="grid grid-flow-row md:grid-flow-col gap-6 md:gap-16 px-0 md:px-6"
     >

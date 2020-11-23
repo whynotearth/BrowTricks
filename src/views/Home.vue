@@ -22,7 +22,7 @@
             url="https://res.cloudinary.com/whynotearth/video/upload/v1605713658/BrowTricks/static_v2/home-feature-3_gajq0w.mp4"
           />
         </div>
-        <div class="box box-2 box-article md:w-1/2 bg-brand9">
+        <div class="box box-2 box-article md:w-1/2">
           <ArticleMini
             class="flex flex-col justify-center"
             :article="articles[0]"
@@ -38,7 +38,7 @@
             url="https://res.cloudinary.com/whynotearth/video/upload/v1605713583/BrowTricks/static_v2/home-feature-2_gvagmt.mp4"
           />
         </div>
-        <div class="box box-3 box-article md:w-1/2 bg-accent md:order-1">
+        <div class="box box-3 box-article md:w-1/2 md:order-1">
           <ArticleMini
             class="flex flex-col justify-center"
             :article="articles[1]"
@@ -52,7 +52,7 @@
             url="https://res.cloudinary.com/whynotearth/video/upload/v1605715999/BrowTricks/static_v2/home-feature-3.2_wqxsxu.mp4"
           />
         </div>
-        <div class="box box-6 box-article md:w-1/2 bg-brand8">
+        <div class="box box-6 box-article md:w-1/2">
           <ArticleMini
             class="flex flex-col justify-center"
             :article="articles[2]"
@@ -60,11 +60,18 @@
         </div>
       </div>
 
-      <FrameFullWidth>
-        <div class="max-w-3xl mx-auto py-10" id="section-pricing">
-          <ContentPricing />
-        </div>
-      </FrameFullWidth>
+      <div id="section-pricing">
+        <FrameFullWidth>
+          <div class="max-w-3xl mx-auto py-10">
+            <h2
+              class="tg-h1-mobile text-on-background text-opacity-medium text-center mb-6"
+            >
+              Pricing
+            </h2>
+            <ContentPricing />
+          </div>
+        </FrameFullWidth>
+      </div>
 
       <ContentCtaSignupOrDownload />
 
@@ -162,6 +169,15 @@ export default {
 }
 .box-5 {
   background-color: #f0e2d7;
+}
+.box-2 {
+  background-color: #ebbbb6;
+}
+.box-3 {
+  background-color: #cce9de;
+}
+.box-6 {
+  background-color: #f1e2d8;
 }
 
 .box {

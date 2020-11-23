@@ -1,26 +1,21 @@
 <template>
-  <ClassicLayout class="bg-background">
-    <template #header>
-      <HeaderNavigation />
-    </template>
+  <div>
+    <div
+      class="max-w-3xl mx-auto py-10 min-h-vh100--without-footernav-n-header"
+    >
+      <ContentPricing />
+    </div>
 
-    <template #content>
-      <div class="max-w-3xl mx-auto py-10">
-        <ContentPricing />
-      </div>
-
-      <NavigationFooter />
-    </template>
-  </ClassicLayout>
+    <NavigationFooter />
+  </div>
 </template>
 
 <script>
-import HeaderNavigation from '@/components/HeaderNavigation.vue';
 import ContentPricing from '@/components/ContentPricing.vue';
 import NavigationFooter from '@/components/NavigationFooter.vue';
 export default {
   name: 'Pricing',
-  components: { HeaderNavigation, ContentPricing, NavigationFooter }
+  components: { ContentPricing, NavigationFooter }
 };
 </script>
 

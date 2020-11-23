@@ -3,33 +3,44 @@
     <div class="flex flex-col items-center justify-center">
       <div class="px-4">
         <h2 class="hero-h2 tg-h1-mobile mb-8">
-          All you need to do is show up at the right time
+          You be a brow boss, let us do the organizing.
         </h2>
-        <h3 class="tg-h3-mobile md:tg-h1-mobile mb-8">
-          Your online assistant, working 24/7 to fill your schedule.
-        </h3>
+        <h1 class="tg-h3-mobile md:tg-h1-mobile mb-8">
+          {{ APPNAME }}. {{ SLOGAN }}
+        </h1>
       </div>
 
-      <Button
-        background="bg-brand6"
-        textColor="text-on-brand6"
-        maxWidth="max-w-240"
-        radius="rounded-md"
-        title="Try it now"
-        class="mb-6"
-        :to="{ name: 'AuthSignup' }"
-      />
+      <div class="flex flex-col sm:flex-row mt-6 items-center justify-center">
+        <Button
+          class="cta-button mb-4 sm:mb-0"
+          margin="mx-4"
+          :width="null"
+          background="bg-brand6"
+          textColor="text-on-brand6"
+          radius="rounded-md"
+          title="Sign Up"
+          :to="{ name: 'AuthSignup' }"
+        />
 
-      <!-- <a href="" title="download on Google Play">
-        <img src="https://res.cloudinary.com/whynotearth/image/upload/v1604305045/BrowTricks/static_v2/google-play_gz9egz.png" alt="Google Play">
-      </a> -->
+        <ButtonGooglePlay className="mx-4" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import ButtonGooglePlay from '@/components/inputs/ButtonGooglePlay';
 export default {
-  name: 'ContentHero'
+  name: 'ContentHero',
+  components: { ButtonGooglePlay },
+  computed: {
+    APPNAME() {
+      return process.env.VUE_APP_NAME;
+    },
+    SLOGAN() {
+      return process.env.VUE_APP_SLOGAN;
+    }
+  }
 };
 </script>
 
@@ -45,5 +56,8 @@ export default {
     line-height: 1;
     text-align: center;
   }
+}
+.cta-button {
+  width: 148px;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-primary">
+  <div class="bg-primary wrapper">
     <div class="flex flex-col md:flex-row pt-16 max-w-6xl mx-auto">
       <div class="flex items-center justify-center text-center flex-grow">
         <div class="max-w-2xl px-4 mb-12 md:mb-0">
@@ -14,18 +14,22 @@
             with them like never before.
           </p>
 
-          <!-- <a href="" title="download on Google Play">
-            <img src="https://res.cloudinary.com/whynotearth/image/upload/v1604305045/BrowTricks/static_v2/google-play_gz9egz.png" alt="Google Play">
-          </a> -->
-          <Button
-            background="bg-brand6"
-            textColor="text-on-brand6"
-            maxWidth="max-w-240"
-            radius="rounded-md"
-            title="Sign Up"
-            class="mt-6"
-            :to="{ name: 'AuthSignup' }"
-          />
+          <div
+            class="flex flex-col sm:flex-row mt-6 items-center justify-center"
+          >
+            <Button
+              class="cta-button mb-4 sm:mb-0"
+              margin="mx-4"
+              :width="null"
+              background="bg-brand6"
+              textColor="text-on-brand6"
+              radius="rounded-md"
+              title="Sign Up"
+              :to="{ name: 'AuthSignup' }"
+            />
+
+            <ButtonGooglePlay className="mx-4" />
+          </div>
         </div>
       </div>
 
@@ -41,8 +45,10 @@
 </template>
 
 <script>
+import ButtonGooglePlay from '@/components/inputs/ButtonGooglePlay';
 export default {
   name: 'ContentCtaSignupOrDownload',
+  components: { ButtonGooglePlay },
   computed: {
     APPNAME() {
       return process.env.VUE_APP_NAME;
@@ -54,5 +60,14 @@ export default {
 <style scoped>
 .app-image {
   width: 288px;
+}
+.wrapper {
+  background: url('https://res.cloudinary.com/whynotearth/image/upload/v1606118230/BrowTricks/static_v2/circles-bg_ypvzz3.jpg')
+    bottom center;
+  background-size: cover;
+}
+
+.cta-button {
+  width: 148px;
 }
 </style>

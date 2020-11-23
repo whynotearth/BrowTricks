@@ -32,10 +32,14 @@ export const generalRoutes = [
     name: 'Pricing',
     component: () => import('@/views/Pricing.vue'),
     meta: {
+      layout: AppBarCardLayout,
       isPublic: true,
       pageBackground: 'bg-background',
       noNavigation: true,
-      title: 'Pricing'
+      appBar: {
+        backRoute: { name: 'Home' },
+        title: 'Pricing'
+      }
     }
   },
   {
