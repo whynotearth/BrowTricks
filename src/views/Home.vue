@@ -12,7 +12,7 @@
         <div class="box box-1 box-video md:w-1/2">
           <VideoSimple
             class="video-content"
-            url="https://res.cloudinary.com/whynotearth/video/upload/v1605713658/BrowTricks/static_v2/home-feature-3_gajq0w.mp4"
+            url="https://res.cloudinary.com/whynotearth/video/upload/v1606202008/BrowTricks/static_v2/home-feature-pink_yvz5tb.mp4"
           />
         </div>
         <div class="box box-2 box-article md:w-1/2">
@@ -28,7 +28,7 @@
         <div class="box box-4 box-video md:w-1/2 md:order-2">
           <VideoSimple
             class="video-content"
-            url="https://res.cloudinary.com/whynotearth/video/upload/v1605713583/BrowTricks/static_v2/home-feature-2_gvagmt.mp4"
+            url="https://res.cloudinary.com/whynotearth/video/upload/v1606202007/BrowTricks/static_v2/home-feature-green_inuipz.mp4"
           />
         </div>
         <div class="box box-3 box-article md:w-1/2 md:order-1">
@@ -42,7 +42,7 @@
         <div class="box box-5 box-video md:w-1/2">
           <VideoSimple
             class="video-content"
-            url="https://res.cloudinary.com/whynotearth/video/upload/v1605715999/BrowTricks/static_v2/home-feature-3.2_wqxsxu.mp4"
+            url="https://res.cloudinary.com/whynotearth/video/upload/v1606201991/BrowTricks/static_v2/home-feature-blue_yvoqzy.mp4"
           />
         </div>
         <div class="box box-6 box-article md:w-1/2">
@@ -155,22 +155,22 @@ export default {
 }
 
 .box-1 {
-  background-color: #ecbbb6;
-}
-.box-4 {
-  background-color: #cde9dd;
-}
-.box-5 {
-  background-color: #f0e2d7;
+  background-color: #ebd3cd;
 }
 .box-2 {
-  background-color: #ebbbb6;
+  background-color: #ebd3cd;
+}
+.box-4 {
+  background-color: #d2e9e0;
 }
 .box-3 {
-  background-color: #cce9de;
+  background-color: #d2e9e0;
+}
+.box-5 {
+  background-color: #eaf0fa;
 }
 .box-6 {
-  background-color: #f1e2d8;
+  background-color: #eaf0fa;
 }
 
 .box {
