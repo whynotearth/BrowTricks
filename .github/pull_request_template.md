@@ -6,11 +6,11 @@ Put the issue(s) # that your PR is addressing here. e.g. `#15`, `#29`
 
 Put an `x` in the brackets for the type(s) of PR this is. You may tick more than one.
 
-[ ] Bug Fix
-[ ] Refactor
-[ ] New Feature
-[ ] Update to Existing Feature
-[ ] Other (state below)
+- [ ] Bug Fix
+- [ ] Refactor
+- [ ] New Feature
+- [ ] Update to Existing Feature
+- [ ] Other (state below)
 
 # Description
 

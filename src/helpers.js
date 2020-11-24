@@ -349,3 +349,5 @@ export function getFormattedMetaTitle(
   }
   return result.substring(0, maxLength).trim();
 }
+
+export const isIE = !!window.MSInputMethodContext && !!document.documentMode;

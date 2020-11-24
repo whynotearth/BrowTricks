@@ -4,6 +4,7 @@ import store from '../store';
 
 import { clientRoutes } from './clientRoutes';
 import { TenantPanelRoutes } from './TenantRoutes';
+import { authRoutes } from './authRoutes';
 import { generalRoutes } from './generalRoutes';
 import { formTemplateRoutes } from './formTemplateRoutes';
 import { get } from 'lodash-es';
@@ -14,6 +15,7 @@ const routes = [
   ...formTemplateRoutes,
   ...TenantPanelRoutes,
   ...clientRoutes,
+  ...authRoutes,
   ...generalRoutes
 ];
 

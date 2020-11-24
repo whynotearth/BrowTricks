@@ -1,104 +1,100 @@
 <template>
-  <ClassicLayout class="bg-brand7">
+  <ClassicLayout class="bg-background">
+    <template #header>
+      <HeaderNavigation />
+    </template>
+
     <template #content>
-      <div class="max-w-sm mx-auto px-4">
-        <div class="flex justify-center items-center mb-8 pt-16">
-          <img :src="LOGO" class="logo" alt="" />
-        </div>
+      <ContentHero />
 
-        <h1 class="tg-h1-mobile mb-2">
-          {{ APPNAME }}
-        </h1>
-        <p class="tg-h2-mobile mb-2">{{ APPSLOGAN }}</p>
-
-        <div class="flex justify-center items-center mb-8">
-          <VideoPlayerEmbeded :videoUrl="reviewVideoUrl"></VideoPlayerEmbeded>
-        </div>
-
-        <div class="mb-8">
-          <Button
-            background="bg-brand6"
-            textColor="text-on-brand6"
-            maxWidth="max-w-240"
-            title="Create Account"
-            class="normal-case mb-4"
-            :to="{ name: 'AuthSignup' }"
+      <!-- row 1 -->
+      <div class="flex flex-col md:flex-row w-full">
+        <div class="box box-1 box-video md:w-1/2">
+          <VideoSimple
+            class="video-content"
+            url="https://res.cloudinary.com/whynotearth/video/upload/v1606202008/BrowTricks/static_v2/home-feature-pink_yvz5tb.mp4"
           />
-
-          <p class="text-on-background mb-5">
-            Already have an account?
-            <router-link class="underline font-bold" :to="{ name: 'AuthLogin' }"
-              >Log In</router-link
-            >
-          </p>
         </div>
-
-        <div>
+        <div class="box box-2 box-article md:w-1/2">
           <ArticleMini
-            class="mb-6"
-            v-for="article in articles"
-            :key="article.id"
-            :article="article"
+            class="flex flex-col justify-center"
+            :article="articles[0]"
+          ></ArticleMini>
+        </div>
+      </div>
+
+      <!-- row 2 -->
+      <div class="flex flex-col md:flex-row w-full">
+        <div class="box box-4 box-video md:w-1/2 md:order-2">
+          <VideoSimple
+            class="video-content"
+            url="https://res.cloudinary.com/whynotearth/video/upload/v1606202007/BrowTricks/static_v2/home-feature-green_inuipz.mp4"
           />
         </div>
-
-        <Button
-          background="bg-brand6"
-          textColor="text-on-brand6"
-          maxWidth="max-w-240"
-          title="Create Account"
-          class="normal-case mb-6"
-          :to="{ name: 'AuthSignup' }"
-        />
-
-        <article
-          class="text-center tg-body-mobile text-on-background text-opacity-medium mb-6"
-        >
-          <div class="mb-6">
-            <h2 class="tg-body-bold-mobile text-on-background">
-              Client organization &amp; management FREE!
-            </h2>
-            <p>- Unlimited notes</p>
-            <p>- Photo management</p>
-          </div>
-
-          <div class="mb-6">
-            <h2 class="tg-body-bold-mobile text-on-background">
-              $10 monthly after 30 days:
-            </h2>
-            <p>- PMU form building AND digital signing</p>
-            <p>- Client video cloud storage</p>
-          </div>
-
-          <p class="mb-6">
-            If you have any questions, please feel free to<br />contact us at
-            ANY time!
-          </p>
-
-          <p>TEXT us at <a href="tel:510-319-3040">510-319-3040</a></p>
-        </article>
-
-        <a
-          class="store-link block mx-auto"
-          href="https://play.google.com/store/apps/details?id=com.browtricksteauty&utm_campaign=home&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"
-        >
-          <img
-            src="https://res.cloudinary.com/whynotearth/image/upload/v1604305045/BrowTricks/static_v2/google-play_gz9egz.png"
-            alt="Get it on Google Play"
-          />
-        </a>
+        <div class="box box-3 box-article md:w-1/2 md:order-1">
+          <ArticleMini
+            class="flex flex-col justify-center"
+            :article="articles[1]"
+          ></ArticleMini>
+        </div>
       </div>
+      <div class="flex flex-col md:flex-row w-full">
+        <div class="box box-5 box-video md:w-1/2">
+          <VideoSimple
+            class="video-content"
+            url="https://res.cloudinary.com/whynotearth/video/upload/v1606201991/BrowTricks/static_v2/home-feature-blue_yvoqzy.mp4"
+          />
+        </div>
+        <div class="box box-6 box-article md:w-1/2">
+          <ArticleMini
+            class="flex flex-col justify-center"
+            :article="articles[2]"
+          ></ArticleMini>
+        </div>
+      </div>
+
+      <div id="section-pricing">
+        <FrameFullWidth>
+          <div class="max-w-3xl mx-auto py-10">
+            <h2
+              class="tg-h1-mobile text-on-background text-opacity-medium text-center mb-6"
+            >
+              Pricing
+            </h2>
+            <ContentPricing />
+          </div>
+        </FrameFullWidth>
+      </div>
+
+      <ContentCtaSignupOrDownload />
+
+      <NavigationFooter />
     </template>
   </ClassicLayout>
 </template>
 
 <script>
-import ClassicLayout from '@/layouts/ClassicLayout.vue';
 import ArticleMini from '@/components/ArticleMini.vue';
-import VideoPlayerEmbeded from '@/components/player/VideoPlayerEmbeded.vue';
+import ContentHero from '@/components/ContentHero.vue';
+import HeaderNavigation from '@/components/HeaderNavigation.vue';
+import ContentPricing from '@/components/ContentPricing.vue';
+import ContentCtaSignupOrDownload from '@/components/ContentCtaSignupOrDownload.vue';
+import NavigationFooter from '@/components/NavigationFooter.vue';
+import FrameFullWidth from '@/components/FrameFullWidth';
+import VideoSimple from '@/components/player/VideoSimple';
+
 export default {
   name: 'Home',
-  components: { ClassicLayout, ArticleMini, VideoPlayerEmbeded },
+  components: {
+    VideoSimple,
+    FrameFullWidth,
+    ArticleMini,
+    HeaderNavigation,
+    ContentHero,
+    ContentPricing,
+    ContentCtaSignupOrDownload,
+    NavigationFooter
+  },
   // metaInfo() {
   //   return {
   //     script: [
@@ -114,37 +110,6 @@ export default {
     reviewVideoUrl() {
       return 'https://res.cloudinary.com/whynotearth/video/upload/v1604388928/BrowTricks/static_v2/home-review-1.mp4';
     },
-    articles() {
-      return [
-        {
-          id: 1,
-          image:
-            'https://res.cloudinary.com/whynotearth/image/upload/v1604302881/BrowTricks/static_v2/home-img1_epbt7t.png',
-          title: 'Custom PMU forms<br />with eSignatures',
-          content:
-            'Get PMU forms done faster with legally binding eSignatures. Send, sign and collect signatures in an instant. Compliant with all major eSignature laws including ESIGN Act, UETA, and European eIDAS.'
-        },
-        {
-          id: 2,
-          image:
-            'https://res.cloudinary.com/whynotearth/image/upload/v1604302881/BrowTricks/static_v2/home-img2_semgxv.png',
-          title: 'Manage client<br />video and photos',
-          content:
-            'Brow Tricks Beauty lets you snap, store, and see client photos and vidoes easily. This is great for remembering every single detail with a visual history of client&apos;s styles and progress. We recommend using this feature to deepen relationships with clients and connect with them like never before.'
-        },
-        {
-          id: 3,
-          image:
-            'https://res.cloudinary.com/whynotearth/image/upload/v1604302881/BrowTricks/static_v2/home-img3_gpushf.png',
-          title: 'Rock your<br />relationships',
-          content:
-            'We know your clients are everything to you AND that you can’t always stay on top of them. Do they have a favorite product? Do they have a birthday coming up? Brow Tricks Beauty lets you save unlimited client notes giving you a way to keep relationships personal…and clients coming back.'
-        }
-      ];
-    },
-    APPNAME() {
-      return process.env.VUE_APP_NAME;
-    },
     APPSLOGAN() {
       return process.env.VUE_APP_SLOGAN;
     },
@@ -153,6 +118,29 @@ export default {
     },
     LOGO() {
       return process.env.VUE_APP_LOGO_URL;
+    },
+    articles() {
+      return [
+        {
+          id: 1,
+          title: 'Custom PMU forms with eSignatures',
+          content:
+            'Get PMU forms done faster with legally binding eSignatures. Send, sign and collect signatures in an instant. Compliant with all major eSignature laws including ESIGN Act, UETA, and European eIDAS.'
+        },
+        {
+          id: 2,
+          title: 'Manage client video and photos',
+          content:
+            /* eslint-disable-next-line */
+            "Brow Tricks Beauty lets you snap, store, and see client photos and vidoes easily. This is great for remembering every single detail with a visual history of client's styles and progress. We recommend using this feature to deepen relationships with clients and connect with them like never before. "
+        },
+        {
+          id: 3,
+          title: 'Rock Your Relationships',
+          content:
+            'We know your clients are everything to you AND that you can’t always stay on top of them. Do they have a favorite product? Do they have a birthday coming up? Brow Tricks Beauty lets you save unlimited client notes giving you a way to keep relationships personal…and clients coming back.'
+        }
+      ];
     }
   }
 };
@@ -164,5 +152,37 @@ export default {
 }
 .store-link {
   width: 180px;
+}
+
+.box-1 {
+  background-color: #ebd3cd;
+}
+.box-2 {
+  background-color: #ebd3cd;
+}
+.box-4 {
+  background-color: #d2e9e0;
+}
+.box-3 {
+  background-color: #d2e9e0;
+}
+.box-5 {
+  background-color: #eaf0fa;
+}
+.box-6 {
+  background-color: #eaf0fa;
+}
+
+.box {
+  @apply flex items-center justify-center;
+  background-position: bottom right;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.box-article {
+  @apply py-16;
+}
+.video-content {
+  pointer-events: none;
 }
 </style>

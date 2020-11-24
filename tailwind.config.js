@@ -15,13 +15,14 @@ module.exports = {
       boxShadow,
       colors,
       opacity: {
-        high: '0.84',
+        high: '1',
         medium: '0.54',
         disabled: '0.38',
         divider: '0.12'
       },
       borderRadius: {
         sm: '0.1875rem',
+        md: '0.375rem',
         xl: '0.75rem',
         '2xl': '1.25rem'
       },

@@ -86,7 +86,6 @@
       <div class="px-4">
         <div>
           <Button
-            :isRounded="true"
             title="Upload"
             @clicked="submit"
             background="bg-brand2"

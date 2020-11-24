@@ -7,11 +7,12 @@ import router from './router';
 import store from './store';
 import './assets/styles/app.css';
 import Vuelidate from 'vuelidate';
-import vClickOutside from 'v-click-outside';
 import configureModerator from './store/store-moderator';
 import PortalVue from 'portal-vue';
 import Rollbar from 'rollbar';
 import VueMeta from 'vue-meta';
+import vClickOutside from 'v-click-outside';
+
 // global components
 // -----------------
 import Button from '@/components/inputs/Button.vue';
@@ -19,12 +20,14 @@ import TextAreaInput from '@/components/inputs/TextAreaInput.vue';
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
 import PageContentBoard from '@/components/PageContentBoard.vue';
 import BaseDialog from '@/components/BaseDialog.vue';
+import ClassicLayout from '@/layouts/ClassicLayout.vue';
 // -----------------
 Vue.component('Button', Button);
 Vue.component('TextAreaInput', TextAreaInput);
 Vue.component('MaterialInput', MaterialInput);
 Vue.component('PageContentBoard', PageContentBoard);
 Vue.component('BaseDialog', BaseDialog);
+Vue.component('ClassicLayout', ClassicLayout);
 
 Vue.use(Vuelidate);
 Vue.use(vClickOutside);
