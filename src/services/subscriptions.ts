@@ -16,6 +16,14 @@ export interface Subscription {
   transactions: Transaction[];
 }
 
+export interface Plan {
+  id: string;
+  name: string;
+  description: string;
+  features: string[];
+  terms: string;
+}
+
 export enum Brands {
   Unknown = 0,
   Amex,
