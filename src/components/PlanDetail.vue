@@ -1,12 +1,12 @@
 <template>
-    <div
-        @click="onSelected"
-        @keyup.space="onSelected"
-        @keyup.enter="onSelected"
-    >
-        <BaseCard>
+    <div>
+        <BaseCard class="flex justify-center my-1">
             <template #header class="flex justify-between space-x-10 py-2">
-                <div class="w-full cursor-pointer tg-body-mobile flex items-center focus:shadow-outline outline-none">
+                <div class="w-full cursor-pointer tg-body-mobile flex items-center focus:shadow-outline outline-none"
+                    @click="onSelected"
+                    @keyup.space="onSelected"
+                    @keyup.enter="onSelected"
+                >
                     <div
                         class="rounded-full h-5 w-5 p-1 border-2 border-gray-500 mr-4"
                         :class="{ 'border-secondary': selected === plan.id }"
@@ -16,7 +16,7 @@
                             :class="{ 'bg-secondary': selected === plan.id }"
                         ></div>
                     </div>
-                    <span class="text-center text-xl text-gray-700">{{ plan.name }}</span>
+                    <span class="text-center text-xl text-gray-700">{{ plan.name }}: {{ formatter.format(plan.price) }} / mo</span>
                 </div>
             </template>
 
@@ -56,6 +56,12 @@ export default class extends Vue {
 
     @Prop()
     selected?: string;
+
+    formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 0
+    });
 
     private viewterms = false;
 

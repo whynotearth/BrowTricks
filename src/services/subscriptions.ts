@@ -20,8 +20,14 @@ export interface Plan {
   id: string;
   name: string;
   description: string;
+  price: number;
   features: string[];
   terms: string;
+}
+
+export interface Coupon {
+  code: string;
+  discount: number;
 }
 
 export enum Brands {
@@ -57,12 +63,6 @@ export interface Transaction {
   date: string;
   last4?: string;
   amount: number;
-}
-
-export interface Plan {
-  id: number;
-  name: number;
-  price: number;
 }
 
 export default class SubscriptionService {
