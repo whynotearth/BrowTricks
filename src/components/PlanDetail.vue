@@ -42,7 +42,7 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import { Prop } from "vue-property-decorator";
-import { Plan } from "../services/subscriptions";
+import { Plan } from "@/services/subscriptions";
 
 @Component({
     name: "plan-detail",

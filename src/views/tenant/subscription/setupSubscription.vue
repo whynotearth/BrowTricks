@@ -17,7 +17,7 @@
             </BaseCard>
             <PlanSelector v-if="plan == true"
                 v-model="selectedPlanID"
-                :plans="testPlans"
+                :plans="availablePlans"
             ></PlanSelector>
             <BaseCard class="flex justify-center my-6">
                 <template #content>
@@ -57,12 +57,12 @@
                                 theme="none"
                             ></Button>
                         </span>
-                        <TextArea v-if="addingCoupon"
+                        <TextArea
                             rows="1"
                             label="Coupon Code"
-                            @input="updateCoupon"
+                            model="couponCode"
                         />
-                        <Button @clicked="openCoupon"
+                        <Button @clicked="addCoupon"
                             title="Add Coupon"
                             textColor="bg-none text-purple-600"
                             theme="none"
@@ -87,6 +87,7 @@ import Vue from "vue";
 import Component from "vue-class-component";
 import { Prop, Watch } from "vue-property-decorator";
 import { Plan, Coupon } from "@/services/subscriptions";
+import SubscriptionService, { Subscription, SubscriptionStatuses, Brands, Card, BillingDetails } from "@/services/subscriptions";
 
 @Component({
     name: "setup-subscription",
@@ -107,7 +108,7 @@ export default class extends Vue {
     private agree = false;
     private stripe = false;
     private plan = false;
-    private selectedPlanID = "";
+    private service = new SubscriptionService();
 
     navigation = [
         {
@@ -132,104 +133,35 @@ export default class extends Vue {
         }
     ];
 
-    testPlans: Plan[] = [ //Move this later
-        {
-            id: "subscription-basic",
-            name: "Basic",
-            price: 5,
-            description: "Our most basic plan, great for getting started!",
-            features: [
-                "Client Management & Orginization",
-                "100 Client Profile Storage",
-                "Legally Compliant Form Builder"
-            ],
-            terms: "Test terms, basic and long terms for things."
-        },
-        {
-            id: "subscription-intermediate",
-            name: "Intermediate",
-            price: 10,
-            description: "Kickstart your business with this great package!",
-            features: [
-                "Client Management & Orginization",
-                "500 Client Profile Storage",
-                "Legally Compliant Form Builder",
-                "Easily Send Forms Via Text to Clients",
-                "SMS & Email Notifications"
-            ],
-            terms: "Test terms, basic and long terms for things."
-        },
-        {
-            id: "subscription-enterprise",
-            name: "Enterprise",
-            price: 15,
-            description: "Advanced features for pros who need more customization",
-            features: [
-                "Client Management & Orginization",
-                "1000+ Client Profile Storage",
-                "Legally Compliant Form Builder",
-                "Easily Send Forms Via Text to Clients",
-                "SMS & Email Notifications",
-                "Store Client Notes and Forms",
-                "Easily Contact Your Clients From the App"
-            ],
-            terms: "Test terms, basic and long terms for things."
-        }
-    ];
-
-    testCoupons: Coupon[] = [
-        {
-            code: "QUEEN",
-            discount: 5,
-        },
-        {
-            code: "BRAVE",
-            discount: 7,
-        }
-    ];
-
+    availablePlans: Plan[] = [];
     coupon: Coupon | null = null;
     addingCoupon = false;
     couponCode = "";
     error = "";
     selectedPlan: Plan | null = null;
 
+    platformDomain = "browtricks.com";
+
     formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD'
     });
 
-    created() {
-        this.selectedPlan = this.testPlans[0];
-        this.selectedPlanID = this.testPlans[0].id;
+    get selectedPlanID() { return this.selectedPlan?.id; }
+
+    async created() {
+        this.availablePlans = await this.service.getPlans(this.platformDomain);
     }
 
     updateAgree(consent: boolean) {
         this.agree = consent;
     }
 
-        updateCoupon(value: string) {
-        this.couponCode = value;
-    }
-
-    openCoupon() {
-        if (this.addingCoupon) this.validateCoupon();
-        else this.addingCoupon = true;
-        this.couponCode = "";
-    }
-
-    validateCoupon() {
-        //Send code to server for testing
-        if (this.couponCode.length == 0) return
-        let testCode = this.couponCode;
-        let index = this.testCoupons.findIndex(f => f.code === testCode);
-        if (index == -1) {
-            this.error = "Invalid Coupon Code: " + testCode;
-            return;
+    async addCoupon() { 
+        const coupon = await this.service.validateCoupon(this.platformDomain, this.couponCode);
+        if(coupon != null) {
+            this.coupon = coupon;
         }
-        this.coupon = this.testCoupons[index];
-        this.addingCoupon = false;
-        this.couponCode = "";
     }
 
     calculateDiscount() {
@@ -241,7 +173,7 @@ export default class extends Vue {
     @Watch("selectedPlanID")
     changePlan(newVal: string, oldVal: string) {
         this.plan = false;
-        this.selectedPlan = this.testPlans.find(t => t.id == newVal) ?? null;
+        this.selectedPlan = this.availablePlans.find(t => t.id == newVal) ?? null;
     }
 
 }

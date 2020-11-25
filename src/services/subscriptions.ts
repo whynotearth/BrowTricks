@@ -73,6 +73,16 @@ export default class SubscriptionService {
     return response.data;
   }
 
+  async validateCoupon(domain: string, couponCode: string): Promise<Coupon> {
+    const response = await ajax.post(
+      `/api/v0/subscriptions/domain/${domain}/validateCoupon`,
+      {
+        couponCode: couponCode
+      }
+    );
+    return response.data;
+  }
+
   async createSubscirption(
     tenantSlug: string,
     subscriptionId: number,

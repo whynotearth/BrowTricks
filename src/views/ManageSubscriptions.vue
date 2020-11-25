@@ -220,19 +220,19 @@ import Vue from "vue";
 import Component from "vue-class-component";
 import { Prop } from "vue-property-decorator";
 import Moment from 'moment';
-import SubscriptionService, { Subscription, SubscriptionStatuses, Brands, Card, BillingDetails } from "../services/subscriptions";
+import SubscriptionService, { Subscription, SubscriptionStatuses, Brands, Card, BillingDetails } from "@/services/subscriptions";
 import { Card as StripeCard, createToken } from 'vue-stripe-elements-plus';
 
 @Component({
     name: "manage-subscriptions",
     components: {
         ClassicLayout: () => import("@/layouts/ClassicLayout.vue"),
-        BaseCard: () => import("../components/BaseCard.vue"),
-        BaseHeader: () => import("../components/BaseHeader.vue"),
-        Button: () => import("../components/inputs/Button.vue"),
-        BaseCreditCard: () => import("../components/BaseCreditCard.vue"),
-        RadioInput: () => import("../components/inputs/RadioInput.vue"),
-        MaterialInput: () => import("../components/inputs/MaterialInput.vue"),
+        BaseCard: () => import("@/components/BaseCard.vue"),
+        BaseHeader: () => import("@/components/BaseHeader.vue"),
+        Button: () => import("@/components/inputs/Button.vue"),
+        BaseCreditCard: () => import("@/components/BaseCreditCard.vue"),
+        RadioInput: () => import("@/components/inputs/RadioInput.vue"),
+        MaterialInput: () => import("@/components/inputs/MaterialInput.vue"),
         StripeCard
     }
 })
@@ -245,7 +245,7 @@ export default class extends Vue {
     private complete = false;
     private darkText = "text-gray-800 text-sm";
     private lightText = "text-gray-500 text-sm";
-    private service: SubscriptionService = new SubscriptionService();
+    private service = new SubscriptionService();
     private subscription: Subscription | null = null;
     private paymentMethods: Card[] = [];
     private currentCard: Card | null = null;
