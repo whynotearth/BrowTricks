@@ -39,19 +39,30 @@
             </template>
           </ExpansionPanel>
 
-          <ExpansionPanel
-            title="Tutorials"
-            @click="isTutorialsModalOpen = true"
+        <ExpansionPanel
+          title="Manage Subscriptions"
+          @click="$router.push({name: 'ManageSubscriptions'})"
           >
-            <template #preIcon>
-              <IconTutorial class="h-4 w-4 fill-current" />
-            </template>
-            <template #afterIcon>
-              <IconExit
-                class="h-6 w-6 fill-current text-opacity-medium text-on-surface"
-              />
-            </template>
-          </ExpansionPanel>
+          <template #preIcon>
+          </template>
+        </ExpansionPanel>
+
+        <ExpansionPanel title="Tutorials" @click="isTutorialsModalOpen = true">
+          <template #preIcon>
+            <IconTutorial class="h-4 w-4 fill-current" />
+          </template>
+          <template #afterIcon>
+            <IconExit class="h-6 w-6 fill-current" />
+          </template>
+        </ExpansionPanel>
+
+        <ExpansionPanel
+          title="Manage Subscriptions"
+          @click="$router.push({name: 'ManageSubscriptions'})"
+          >
+          <template #preIcon>
+          </template>
+        </ExpansionPanel>
 
           <ExpansionPanel
             title="Shops"

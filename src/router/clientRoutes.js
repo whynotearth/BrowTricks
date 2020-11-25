@@ -15,6 +15,17 @@ export const clientRoutes = [
     }
   },
   {
+    path: '/tenant/:tenantSlug/subscriptions',
+    name: 'ManageSubscriptions',
+    props: true,
+    component: () => import('@/views/ManageSubscriptions.vue'),
+    meta: {
+      layout: WithTitleBarLayout,
+      title: 'Subscription Management',
+      backRoute: { name: 'TenantHome' }
+    }
+  },
+  {
     path: '/tenant/:tenantSlug/upload',
     name: 'ClientUpload',
     props: true,

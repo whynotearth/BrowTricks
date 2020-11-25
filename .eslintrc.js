@@ -3,15 +3,25 @@ module.exports = {
   env: {
     node: true
   },
-  extends: ['plugin:vue/essential', 'eslint:recommended', '@vue/prettier'],
+  extends: [
+    'plugin:vue/essential',
+    'eslint:recommended',
+    '@vue/prettier',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended'
+  ],
+  parser: 'vue-eslint-parser',
   parserOptions: {
-    parser: 'babel-eslint'
+    parser: '@typescript-eslint/parser'
   },
   rules: {
     'no-unused-vars': 'warn',
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'vue/no-unused-components': 'warn',
+    '@typescript-eslint/no-empty-function': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off',
+    '@typescript-eslint/no-this-alias': 'off',
     indent: ['warn', 2, { SwitchCase: 1 }],
     quotes: ['warn', 'single']
   }
