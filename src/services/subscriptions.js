@@ -1,10 +1,6 @@
 import { ajax } from '@/services/ajax';
 
-export enum SubscriptionStatuses {
-  Unknown = 0,
-  Active,
-  Cancelled
-}
+/*
 
 export interface Subscription {
   id: number;
@@ -64,16 +60,32 @@ export interface Transaction {
   last4?: string;
   amount: number;
 }
+*/
+
+export const SubscriptionStatuses = {
+  Unknown: 0,
+  Active: 1,
+  Cancelled: 2
+};
+
+export const Brands = {
+  Unknown: 0,
+  Amex: 1,
+  DinersClub: 2,
+  Discover: 3,
+  Jcb: 4,
+  Mastercard: 5,
+  Visa: 6,
+  UnionPay: 7
+};
 
 export default class SubscriptionService {
-  async getPlans(domain: string): Promise<Plan[]> {
-    const response = await ajax.get<Plan[]>(
-      `/api/v0/subscriptions/domain/${domain}`
-    );
+  async getPlans(domain) {
+    const response = await ajax.get(`/api/v0/subscriptions/domain/${domain}`);
     return response.data;
   }
 
-  async validateCoupon(domain: string, couponCode: string): Promise<Coupon> {
+  async validateCoupon(domain, couponCode) {
     const response = await ajax.post(
       `/api/v0/subscriptions/domain/${domain}/validateCoupon`,
       {
@@ -83,11 +95,7 @@ export default class SubscriptionService {
     return response.data;
   }
 
-  async createSubscirption(
-    tenantSlug: string,
-    subscriptionId: number,
-    couponCode: string
-  ) {
+  async createSubscirption(tenantSlug, subscriptionId, couponCode) {
     const response = await ajax.post(
       `/api/v0/tenant/${tenantSlug}/subscriptions/`,
       {
@@ -97,7 +105,7 @@ export default class SubscriptionService {
     );
   }
 
-  async loadSubscriptionByTenant(tenantSlug: string): Promise<Subscription> {
+  async loadSubscriptionByTenant(tenantSlug) {
     const response = await ajax.get(
       `/api/v0/tenant/${tenantSlug}/subscriptions/`
     );
@@ -110,7 +118,7 @@ export default class SubscriptionService {
     };
   }
 
-  async loadPaymentMethodsByTenant(tenantSlug: string): Promise<Card[]> {
+  async loadPaymentMethodsByTenant(tenantSlug) {
     const response = await ajax.get(
       `/api/v0/tenant/${tenantSlug}/paymentmethods`
     );
@@ -118,26 +126,26 @@ export default class SubscriptionService {
     return response.data;
   }
 
-  async cancelSubscription(tenantSlug: string): Promise<void> {
+  async cancelSubscription(tenantSlug) {
     const response = await ajax.post(
       `/api/v0/tenant/${tenantSlug}/subscriptions/cancel1`
     );
   }
 
-  async changePaymentMethod(tenantSlug: string, cardId: number): Promise<void> {
+  async changePaymentMethod(tenantSlug, cardId) {
     await ajax.post(
       `/api/v0/tenant/${tenantSlug}/subscriptions/changepaymentmethod`,
       { cardId: cardId }
     );
   }
 
-  async addPaymentMethod(tenantSlug: string, token: string): Promise<void> {
+  async addPaymentMethod(tenantSlug, token) {
     await ajax.post(`/api/v0/tenant/${tenantSlug}/paymentmethods/`, {
       token: token
     });
   }
 
-  async getPublishableKey(tenantSlug: string): Promise<string> {
+  async getPublishableKey(tenantSlug) {
     const response = await ajax.get(
       `/api/v0/tenant/${tenantSlug}/paymentmethods/stripe`
     );

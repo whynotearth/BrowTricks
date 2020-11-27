@@ -12,19 +12,19 @@
   </div>
 </template>
 
-<script lang="ts">
-import Vue from 'vue';
-import Component from 'vue-class-component';
-import SubscriptionService, { Subscription } from '@/services/subscriptions';
+<script>
+import SubscriptionService from '@/services/subscriptions';
 
-@Component
-export default class extends Vue {
-  subscription: Subscription | null = null;
-  subscriptionService = new SubscriptionService();
+export default {
+  name: 'Subscription',
+  data: () => ({
+    subscription: null,
+    subscriptionService: new SubscriptionService()
+  }),
   async mounted() {
     this.subscription = await this.subscriptionService.loadSubscriptionByTenant(
-      this.$route.params.tenant
+      this.$route.params.tenantSlug
     );
   }
-}
+};
 </script>

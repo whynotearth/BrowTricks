@@ -1,4 +1,5 @@
 import AppBarLayout from '@/layouts/AppBarCardLayout.vue';
+import WithTitleBarLayout from '@/layouts/WithTitleBarLayout.vue';
 
 export const clientRoutes = [
   {

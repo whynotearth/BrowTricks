@@ -1,53 +1,53 @@
 <template>
-    <div>
-        <PlanDetail
-            v-for="plan in planstorage"
-            :key="plan.id"
-            :plan="plan"
-            :selected="selected"
-            @selected="planSelected"
-        ></PlanDetail>
-    </div>
+  <div>
+    <PlanDetail
+      v-for="plan in planstorage"
+      :key="plan.id"
+      :plan="plan"
+      :selected="selected"
+      @selected="planSelected"
+    ></PlanDetail>
+  </div>
 </template>
 
-<script lang="ts">
-import Vue from "vue";
-import Component from "vue-class-component";
-import { Prop, Watch } from "vue-property-decorator";
-import { Plan } from "@/services/subscriptions";
-
-@Component({
-    name: "plan-selector",
-    components: {
-        PlanDetail: () => import("./PlanDetail.vue")
+<script>
+export default {
+  name: 'plan-selector',
+  components: {
+    PlanDetail: () => import('./PlanDetail.vue')
+  },
+  props: {
+    plans: {
+      type: Array
+    },
+    value: {
+      type: String
     }
-})
-export default class extends Vue {
-    @Prop()
-    plans?: Plan[];
+  },
 
-    @Prop()
-    value?: string;
+  data: () => ({
+    planstorage: [],
+    selected: ''
+  }),
 
-    private planstorage: Plan[] = [];
-    private selected = "";
+  async mounted() {
+    this.planstorage.push(...(this.plans ?? []));
+    this.selected = this.value ?? '';
+  },
 
-    async mounted() {
-        this.planstorage.push(...(this.plans ?? []));
-        this.selected = this.value ?? ""
+  methods: {
+    planSelected(plan) {
+      if (this.selected !== plan.id) {
+        this.selected = plan.id;
+        this.$emit('input', plan.id);
+        console.log(`Selected ${plan.id}`);
+      }
     }
-
-    planSelected(plan: Plan) {
-        if (this.selected !== plan.id) {
-            this.selected = plan.id;
-            this.$emit("input", plan.id);
-            console.log(`Selected ${plan.id}`);
-        }
+  },
+  watch: {
+    value(newVal) {
+      this.selected = newVal;
     }
-
-    @Watch("value")
-    onChange(oldVal: string, newVal: string) {
-        this.selected = newVal;
-    }
-}
+  }
+};
 </script>

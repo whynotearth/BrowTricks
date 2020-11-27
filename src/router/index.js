@@ -16,7 +16,6 @@ const routes = [
   ...formTemplateRoutes,
   ...TenantPanelRoutes,
   ...clientRoutes,
-  ...authRoutes,
   ...generalRoutes,
   ...authRoutes,
   ...SubscriptionRoutes
