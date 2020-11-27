@@ -94,10 +94,7 @@
 </template>
 
 <script>
-import SubscriptionService, {
-  SubscriptionStatuses,
-  Brands
-} from '@/services/subscriptions';
+import SubscriptionService from '@/services/subscriptions';
 
 export default {
   name: 'SetupSubscription',
@@ -109,7 +106,7 @@ export default {
     Checkbox: () => import('@/components/inputs/CheckBox.vue'),
     BaseCard: () => import('@/components/BaseCard.vue'),
     PlanSelector: () => import('@/components/PlanSelector.vue'),
-    PlanDetail: () => import('@/components/PlanDetail.vue'),
+    // PlanDetail: () => import('@/components/PlanDetail.vue'),
     TextArea: () => import('@/components/inputs/TextAreaInput.vue')
   },
 
@@ -188,7 +185,7 @@ export default {
   },
 
   watch: {
-    selectedPlanID(newVal, oldVal) {
+    selectedPlanID(newVal) {
       this.plan = false;
       this.selectedPlan = this.availablePlans.find(t => t.id == newVal) ?? null;
     }

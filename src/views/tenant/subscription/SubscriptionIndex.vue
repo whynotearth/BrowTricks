@@ -16,15 +16,17 @@
 import SubscriptionService from '@/services/subscriptions';
 
 export default {
-  name: 'Subscription',
+  name: 'SubscriptionIndex',
   data: () => ({
     subscription: null,
     subscriptionService: new SubscriptionService()
   }),
   async mounted() {
-    this.subscription = await this.subscriptionService.loadSubscriptionByTenant(
-      this.$route.params.tenantSlug
-    );
+    this.subscription = await this.subscriptionService
+      .loadSubscriptionByTenant(this.$route.params.tenantSlug)
+      .catch(error => {
+        console.log(error);
+      });
   }
 };
 </script>

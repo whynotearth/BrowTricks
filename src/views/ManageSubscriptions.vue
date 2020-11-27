@@ -251,7 +251,7 @@ export default {
   components: {
     ClassicLayout: () => import('@/layouts/ClassicLayout.vue'),
     BaseCard: () => import('@/components/BaseCard.vue'),
-    BaseHeader: () => import('@/components/BaseHeader.vue'),
+    // BaseHeader: () => import('@/components/BaseHeader.vue'),
     Button: () => import('@/components/inputs/Button.vue'),
     BaseCreditCard: () => import('@/components/BaseCreditCard.vue'),
     RadioInput: () => import('@/components/inputs/RadioInput.vue'),

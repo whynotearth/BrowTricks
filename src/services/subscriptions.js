@@ -96,13 +96,10 @@ export default class SubscriptionService {
   }
 
   async createSubscirption(tenantSlug, subscriptionId, couponCode) {
-    const response = await ajax.post(
-      `/api/v0/tenant/${tenantSlug}/subscriptions/`,
-      {
-        subscriptionId: subscriptionId,
-        couponCode: couponCode
-      }
-    );
+    return await ajax.post(`/api/v0/tenant/${tenantSlug}/subscriptions/`, {
+      subscriptionId: subscriptionId,
+      couponCode: couponCode
+    });
   }
 
   async loadSubscriptionByTenant(tenantSlug) {
@@ -127,9 +124,7 @@ export default class SubscriptionService {
   }
 
   async cancelSubscription(tenantSlug) {
-    const response = await ajax.post(
-      `/api/v0/tenant/${tenantSlug}/subscriptions/cancel1`
-    );
+    return ajax.post(`/api/v0/tenant/${tenantSlug}/subscriptions/cancel1`);
   }
 
   async changePaymentMethod(tenantSlug, cardId) {
