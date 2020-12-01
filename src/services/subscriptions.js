@@ -104,7 +104,7 @@ export default class SubscriptionService {
 
   async loadSubscriptionByTenant(tenantSlug) {
     const response = await ajax.get(
-      `/api/v0/tenant/${tenantSlug}/subscriptions/`
+      `/api/v0/tenant/${tenantSlug}/subscriptions`
     );
     const transactions = await ajax.get(
       `/api/v0/tenant/${tenantSlug}/subscriptions/payments`

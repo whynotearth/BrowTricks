@@ -2,6 +2,7 @@
   <component
     :is="type"
     :href="href"
+    :to="to"
     class="block cursor-pointer bg-surface shadow-brand1 py-3 px-4 rounded-full"
     :class="[margin]"
     @click="$emit('click')"
@@ -66,6 +67,9 @@ export default {
     href: {
       type: String
     },
+    to: {
+      type: Object
+    },
     middleText: {
       type: [String, Number]
     },
@@ -82,6 +86,9 @@ export default {
     type() {
       if (this.href) {
         return 'a';
+      }
+      if (this.to) {
+        return 'router-link';
       }
       return 'div';
     }

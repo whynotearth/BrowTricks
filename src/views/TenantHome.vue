@@ -13,27 +13,13 @@
 
         <!-- content -->
         <div class="max-w-md mx-auto w-full">
-          <ExpansionPanel
-            title="Clients"
-            @click="
-              $router.push({
-                name: 'ClientList'
-              })
-            "
-          >
+          <ExpansionPanel title="Clients" :to="{ name: 'ClientList' }">
             <template #preIcon>
               <IconUser class="h-4 w-4 fill-current" />
             </template>
           </ExpansionPanel>
 
-          <ExpansionPanel
-            @click="
-              $router.push({
-                name: 'FormTemplatesList'
-              })
-            "
-            title="PMU Forms"
-          >
+          <ExpansionPanel :to="{ name: 'FormTemplatesList' }" title="PMU Forms">
             <template #preIcon>
               <IconDocument slot="preIcon" class="h-4 w-4 fill-current" />
             </template>
@@ -41,9 +27,11 @@
 
           <ExpansionPanel
             title="Manage Subscriptions"
-            @click="$router.push({ name: 'ManageSubscriptions' })"
+            :to="{ name: 'ManageSubscriptions' }"
           >
-            <template #preIcon> </template>
+            <template #preIcon
+              ><IconDocument slot="preIcon" class="h-4 w-4 fill-current"
+            /></template>
           </ExpansionPanel>
 
           <ExpansionPanel
@@ -54,15 +42,10 @@
               <IconTutorial class="h-4 w-4 fill-current" />
             </template>
             <template #afterIcon>
-              <IconExit class="h-6 w-6 fill-current" />
+              <IconExit
+                class="h-6 w-6 fill-current text-opacity-medium text-on-surface"
+              />
             </template>
-          </ExpansionPanel>
-
-          <ExpansionPanel
-            title="Manage Subscriptions"
-            @click="$router.push({ name: 'ManageSubscriptions' })"
-          >
-            <template #preIcon> </template>
           </ExpansionPanel>
 
           <ExpansionPanel
