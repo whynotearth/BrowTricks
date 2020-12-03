@@ -5,7 +5,7 @@
     >
       <div>
         <div class="my-4">
-          {{ subscription }}
+          <pre>{{ subscription }}</pre>
         </div>
       </div>
     </div>

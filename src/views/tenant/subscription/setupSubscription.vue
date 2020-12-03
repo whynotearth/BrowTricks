@@ -1,6 +1,5 @@
 <template>
   <div>
-    <StepperTop :navigation="navigation" :page="5" />
     <div v-if="!stripe" class="mx-10">
       <p>
         Your Brow tricks Beauty subscription starts as soon as you set up
@@ -89,7 +88,6 @@
         @update="updateAgree"
       />
     </div>
-    <StepperBottom nextStepText="Finish" :page="5" :hideNext="!agree" />
   </div>
 </template>
 
@@ -99,8 +97,6 @@ import SubscriptionService from '@/services/subscriptions';
 export default {
   name: 'SetupSubscription',
   components: {
-    StepperTop: () => import('@/components/BaseStepperTopBar.vue'),
-    StepperBottom: () => import('@/components/BaseStepperBottomBar.vue'),
     ExpansionPanel: () => import('@/components/ExpansionPanel.vue'),
     Button: () => import('@/components/inputs/Button.vue'),
     Checkbox: () => import('@/components/inputs/CheckBox.vue'),
@@ -115,28 +111,6 @@ export default {
     stripe: false,
     plan: false,
     service: new SubscriptionService(),
-    navigation: [
-      {
-        step: 'business-info',
-        name: 'Business Info'
-      },
-      {
-        step: 'link-account',
-        name: 'Link Account'
-      },
-      {
-        step: 'notifications',
-        name: 'Notifications'
-      },
-      {
-        step: 'business-hours',
-        name: 'Business Hours'
-      },
-      {
-        step: 'start-subscription',
-        name: 'Start Subscription'
-      }
-    ],
     availablePlans: [],
     coupon: null,
     addingCoupon: false,

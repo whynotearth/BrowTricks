@@ -1,7 +1,7 @@
 <template>
   <div>
     <PlanDetail
-      v-for="plan in planstorage"
+      v-for="plan in plans"
       :key="plan.id"
       :plan="plan"
       :selected="selected"
@@ -18,7 +18,8 @@ export default {
   },
   props: {
     plans: {
-      type: Array
+      type: Array,
+      default: () => []
     },
     value: {
       type: String
@@ -26,12 +27,10 @@ export default {
   },
 
   data: () => ({
-    planstorage: [],
     selected: ''
   }),
 
   async mounted() {
-    this.planstorage.push(...(this.plans ?? []));
     this.selected = this.value ?? '';
   },
 

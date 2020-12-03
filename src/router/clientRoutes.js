@@ -1,5 +1,4 @@
 import AppBarLayout from '@/layouts/AppBarCardLayout.vue';
-import WithTitleBarLayout from '@/layouts/WithTitleBarLayout.vue';
 
 export const clientRoutes = [
   {
@@ -21,9 +20,12 @@ export const clientRoutes = [
     props: true,
     component: () => import('@/views/ManageSubscriptions.vue'),
     meta: {
-      layout: WithTitleBarLayout,
+      layout: AppBarLayout,
       title: 'Subscription Management',
-      backRoute: { name: 'TenantHome' }
+      appBar: {
+        title: 'Subscriptions',
+        backRoute: { name: 'TenantHome' }
+      }
     }
   },
   {

@@ -8,7 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@whynotearth/meredith-axios": "^1.0.63",
+    "@whynotearth/meredith-axios": "^1.0.64",
     "@whynotearth/vue-flow-form": "^0.0.4",
     "axios": "^0.21.0",
     "core-js": "^3.6.4",
