@@ -7,7 +7,7 @@ import { TenantPanelRoutes } from './TenantRoutes';
 import { authRoutes } from './authRoutes';
 import { generalRoutes } from './generalRoutes';
 import { formTemplateRoutes } from './formTemplateRoutes';
-import { SubscriptionRoutes } from './subscriptionRoutes';
+import { billingRoutes } from './billingRoutes';
 import { get } from 'lodash-es';
 
 Vue.use(VueRouter);
@@ -18,7 +18,7 @@ const routes = [
   ...clientRoutes,
   ...generalRoutes,
   ...authRoutes,
-  ...SubscriptionRoutes
+  ...billingRoutes
 ];
 
 const scrollBehavior = (to, from, savedPosition) => {

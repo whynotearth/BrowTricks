@@ -50,6 +50,19 @@ export const TenantPanelRoutes = [
     }
   },
   {
+    path: '/tenant/:tenantSlug/account/manage',
+    name: 'AccountManage',
+    props: true,
+    component: () => import('@/views/AccountManage.vue'),
+    meta: {
+      layout: AppBarCardLayout,
+      appBar: {
+        title: 'Manage Account',
+        backRoute: { name: 'AccountSettings' }
+      }
+    }
+  },
+  {
     path: '/tenant-signup',
     name: 'TenantSignup',
     props: true,

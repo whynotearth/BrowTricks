@@ -13,25 +13,25 @@
         >
         </ExpansionPanel> -->
 
-        <!-- <ExpansionPanel
-        title="Manage Account"
-        @click="
-          $router.push({
-            name: 'AccountManage'
-          })
-        "
-      >
-      </ExpansionPanel> -->
+        <ExpansionPanel
+          title="Manage Account"
+          @click="
+            $router.push({
+              name: 'AccountManage'
+            })
+          "
+        >
+        </ExpansionPanel>
 
-        <!-- <ExpansionPanel
-        title="Billing"
-        @click="
-          $router.push({
-            name: 'AccountBilling'
-          })
-        "
-      >
-      </ExpansionPanel> -->
+        <ExpansionPanel
+          title="Billing"
+          @click="
+            $router.push({
+              name: 'AccountBilling'
+            })
+          "
+        >
+        </ExpansionPanel>
 
         <!-- <ExpansionPanel
         title="Share Profile"
