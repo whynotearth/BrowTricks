@@ -25,16 +25,28 @@
           </h4></slot
         >
       </div>
-      <div class="flex flex-grow justify-end">
+      <div class="flex flex-grow justify-end items-center">
         <div
-          class="subtitle flex-grow flex items-center"
+          class="subtitle flex-grow flex items-center text-left"
           v-if="middleText || $slots.middleText"
         >
           <!-- middle text -->
           <div
-            class="text-on-surface text-opacity-medium text-left capitalize tg-caption-mobile"
+            class="text-on-surface text-opacity-medium capitalize tg-caption-mobile w-full"
           >
             <slot name="middleText">{{ middleText }}</slot>
+          </div>
+        </div>
+
+        <div
+          class="subtitle flex-grow flex items-center text-right"
+          v-if="endText || $slots.endText"
+        >
+          <!-- middle text -->
+          <div
+            class="text-on-surface text-opacity-medium capitalize tg-caption-mobile w-full"
+          >
+            <slot name="endText">{{ endText }}</slot>
           </div>
         </div>
         <!-- end icon -->
@@ -71,6 +83,9 @@ export default {
       type: Object
     },
     middleText: {
+      type: [String, Number]
+    },
+    endText: {
       type: [String, Number]
     },
     margin: {

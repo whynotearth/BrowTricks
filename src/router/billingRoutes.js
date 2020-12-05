@@ -1,6 +1,7 @@
 import AppBarLayout from '@/layouts/AppBarCardLayout.vue';
 
 export const billingRoutes = [
+  // billing
   {
     path: '/tenant/:tenantSlug/account/billing',
     name: 'AccountBilling',
@@ -15,6 +16,7 @@ export const billingRoutes = [
     }
   },
 
+  // billing activity
   {
     path: '/tenant/:tenantSlug/account/billing/activity',
     name: 'AccountBillingActivity',
@@ -29,6 +31,7 @@ export const billingRoutes = [
     }
   },
 
+  // billing payment methods
   {
     path: '/tenant/:tenantSlug/account/billing/payment-methods',
     name: 'AccountBillingPaymentMethods',
@@ -70,30 +73,19 @@ export const billingRoutes = [
       }
     }
   },
-  // {
-  //   path: '/tenant/:tenantSlug/subscription',
-  //   name: 'TenantSubscription',
-  //   props: true,
-  //   component: () => import('@/views/tenant/subscription/SubscriptionIndex.vue')
-  // },
-  // {
-  //   path: '/tenant/:tenantSlug/setupTest',
-  //   name: 'SetupSubscription',
-  //   props: true,
-  //   component: () => import('@/views/tenant/subscription/setupSubscription.vue')
-  // }
 
+  // billing subscription
   {
-    path: '/tenant/:tenantSlug/subscriptions',
-    name: 'SubscriptionsManage',
+    path: '/tenant/:tenantSlug/account/billing/subscriptions',
+    name: 'AccountBillingSubscriptions',
     props: true,
-    component: () => import('@/views/SubscriptionsManage.vue'),
+    component: () => import('@/views/AccountBillingSubscriptions.vue'),
     meta: {
       layout: AppBarLayout,
       title: 'Subscriptions Management',
       appBar: {
         title: 'Subscriptions',
-        backRoute: { name: 'TenantHome' }
+        backRoute: { name: 'AccountBilling' }
       }
     }
   }

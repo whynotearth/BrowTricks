@@ -27,7 +27,7 @@
 
           <ExpansionPanel
             title="Manage Subscriptions"
-            :to="{ name: 'ManageSubscriptions' }"
+            :to="{ name: 'AccountBillingSubscriptions' }"
           >
             <template #preIcon
               ><IconDocument slot="preIcon" class="h-4 w-4 fill-current"
