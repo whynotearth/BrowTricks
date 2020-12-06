@@ -87,7 +87,7 @@ import DropDownSheet from '@/components/tenant/DropDownSheet.vue';
 import BaseAvatar from '@/components/BaseAvatar.vue';
 import IconCamera from '@/assets/icons/camera.svg';
 import IconGear from '@/assets/icons/gear.svg';
-import { UploaderTypes } from '@/services/uploader';
+import { DrawerTypes } from '@/services/drawerTypes.js';
 
 export default {
   name: 'Account',
@@ -145,7 +145,7 @@ export default {
     ]),
     ...mapActions('uploader', ['openDrawerUploadUpdate']),
     _openDrawerUploadUpdate() {
-      this.openDrawerUploadUpdate(UploaderTypes.CLIENT);
+      this.openDrawerUploadUpdate(DrawerTypes.CLIENT);
     },
     async init() {
       this.loadingUpdate(true);

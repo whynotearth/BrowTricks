@@ -37,7 +37,7 @@
 
     <FormTemplateDrawerUpload
       @close="openDrawerUploadUpdate(false)"
-      :isOpen="openDrawerUploadGet === UploaderTypes.FORM_TEMPLATE"
+      :isOpen="openDrawerUploadGet === DrawerTypes.FORM_TEMPLATE"
       :fieldId="get(draftField, 'id', null)"
     ></FormTemplateDrawerUpload>
 
@@ -50,7 +50,7 @@ import FormTemplateFieldTypeCard from '@/components/formTemplate/FormTemplateFie
 import FormTemplateDrawerUpload from '@/components/formTemplate/FormTemplateDrawerUpload';
 import FormTemplateCardHelp from '@/components/formTemplate/FormTemplateCardHelp';
 import { get } from 'lodash-es';
-import { UploaderTypes } from '@/services/uploader.js';
+import { DrawerTypes } from '@/services/drawerTypes.js';
 
 import { mapActions, mapGetters } from 'vuex';
 export default {
@@ -66,8 +66,8 @@ export default {
   }),
   computed: {
     ...mapGetters('uploader', ['openDrawerUploadGet']),
-    UploaderTypes() {
-      return UploaderTypes;
+    DrawerTypes() {
+      return DrawerTypes;
     },
     // NOTE: types are: text, agreement_request, text_response, checklist, multiple_choice, image, pdf
     uploaderField() {
@@ -147,7 +147,7 @@ export default {
     },
 
     selectUploader() {
-      this.openDrawerUploadUpdate(UploaderTypes.FORM_TEMPLATE);
+      this.openDrawerUploadUpdate(DrawerTypes.FORM_TEMPLATE);
     },
     selectOrdinaryFields(type, fieldId) {
       this.$router.push({

@@ -24,7 +24,7 @@
       <a
         tabindex="0"
         class="relative flex flex-col justify-center text-center outline-none cursor-pointer main-button navigation--link"
-        @click="openDrawerUploadUpdate(UploaderTypes.CLIENT)"
+        @click="openDrawerUploadUpdate(DrawerTypes.CLIENT)"
       >
         <div
           class="absolute flex items-center justify-center mx-auto border-2 border-black rounded-full main-button--shape h-14 w-14 bg-accent"
@@ -65,7 +65,7 @@ import IconUser from '@/assets/icons/person.svg';
 import IconUserCircle from '@/assets/icons/person-circle.svg';
 import IconDocument from '@/assets/icons/document.svg';
 import { mapActions } from 'vuex';
-import { UploaderTypes } from '@/services/uploader.js';
+import { DrawerTypes } from '@/services/drawerTypes.js';
 
 export default {
   name: 'NavigationBottomNormal',
@@ -80,8 +80,8 @@ export default {
     ...mapActions('uploader', ['openDrawerUploadUpdate'])
   },
   computed: {
-    UploaderTypes() {
-      return UploaderTypes;
+    DrawerTypes() {
+      return DrawerTypes;
     }
   }
 };

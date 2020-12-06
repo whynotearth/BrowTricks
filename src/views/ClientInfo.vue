@@ -120,7 +120,7 @@ import IconCamera from '@/assets/icons/camera.svg';
 import IconPhoneAndroid from '@/assets/icons/phone_android.svg';
 import { get } from 'lodash-es';
 import { mapActions } from 'vuex';
-import { UploaderTypes } from '@/services/uploader';
+import { DrawerTypes } from '@/services/drawerTypes.js';
 
 export default {
   name: 'ClientInfo',
@@ -185,7 +185,7 @@ export default {
     ]),
     ...mapActions('uploader', ['openDrawerUploadUpdate']),
     _openDrawerUploadUpdate() {
-      this.openDrawerUploadUpdate(UploaderTypes.CLIENT);
+      this.openDrawerUploadUpdate(DrawerTypes.CLIENT);
     },
     async _fetchClient() {
       this.client = await this.fetchClient({

@@ -33,22 +33,38 @@
     </div>
 
     <!-- todo: add "delete account" here -->
+
+    <DrawerAccountTypeSelector
+      @close="isDrawerOpenUpdate(false)"
+      :isOpen="isDrawerOpen"
+    ></DrawerAccountTypeSelector>
   </div>
 </template>
 
 <script>
+import DrawerAccountTypeSelector from '@/components/account/DrawerAccountTypeSelector';
+import { DrawerTypes } from '@/services/drawerTypes.js';
 export default {
   name: 'AccountManage',
+  components: { DrawerAccountTypeSelector },
   data: () => ({
-    accountType: 'user'
+    accountType: 'user',
+    isDrawerOpen: false
   }),
+  computed: {
+    DrawerTypes() {
+      return DrawerTypes;
+    }
+  },
   methods: {
+    isDrawerOpenUpdate(value) {
+      this.isDrawerOpen = value;
+    },
     switchType(newType) {
+      this.isDrawerOpenUpdate(true);
       console.log('newType', newType);
       // todo: open "upgrade drawer here"
     }
   }
 };
 </script>
-
-<style scoped></style>

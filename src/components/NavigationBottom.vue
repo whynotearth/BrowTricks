@@ -11,7 +11,7 @@
     </nav>
     <DrawerUpload
       @close="openDrawerUploadUpdate(false)"
-      :isOpen="openDrawerUploadGet === UploaderTypes.CLIENT"
+      :isOpen="openDrawerUploadGet === DrawerTypes.CLIENT"
     ></DrawerUpload>
   </div>
 </template>
@@ -20,7 +20,7 @@
 import DrawerUpload from '@/components/DrawerUpload';
 import NavigationBottomLinks from '@/components/NavigationBottomLinks';
 import { mapGetters, mapActions } from 'vuex';
-import { UploaderTypes } from '@/services/uploader.js';
+import { DrawerTypes } from '@/services/drawerTypes.js';
 
 export default {
   name: 'NavigationBottom',
@@ -39,8 +39,8 @@ export default {
   },
   computed: {
     ...mapGetters('uploader', ['openDrawerUploadGet']),
-    UploaderTypes() {
-      return UploaderTypes;
+    DrawerTypes() {
+      return DrawerTypes;
     },
     hasActiveTenant() {
       return this.$route.params.tenantSlug;
