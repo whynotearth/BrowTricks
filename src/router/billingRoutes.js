@@ -82,7 +82,7 @@ export const billingRoutes = [
     component: () => import('@/views/AccountBillingSubscriptions.vue'),
     meta: {
       layout: AppBarLayout,
-      title: 'Subscriptions Management',
+      title: 'Subscription',
       appBar: {
         title: 'Subscriptions',
         backRoute: { name: 'AccountBilling' }

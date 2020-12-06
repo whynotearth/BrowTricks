@@ -29,7 +29,8 @@ const colors = {
   'on-brand6': '#ffffff',
   brand7: '#E9CFC4',
   brand8: '#F1DFD1',
-  brand9: '#EDBBAE'
+  brand9: '#EDBBAE',
+  brand10: '#B5E3D8'
 };
 
 module.exports = colors;
