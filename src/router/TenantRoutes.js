@@ -55,6 +55,7 @@ export const TenantPanelRoutes = [
     props: true,
     component: () => import('@/views/AccountManage.vue'),
     meta: {
+      pageBackground: 'bg-background',
       layout: AppBarCardLayout,
       appBar: {
         title: 'Manage Account',

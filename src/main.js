@@ -19,6 +19,8 @@ import Button from '@/components/inputs/Button.vue';
 import TextAreaInput from '@/components/inputs/TextAreaInput.vue';
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
 import PageContentBoard from '@/components/PageContentBoard.vue';
+import BaseCard from '@/components/BaseCard.vue';
+import ExpansionPanel from '@/components/ExpansionPanel.vue';
 import BaseDialog from '@/components/BaseDialog.vue';
 import ClassicLayout from '@/layouts/ClassicLayout.vue';
 // -----------------
@@ -26,6 +28,8 @@ Vue.component('Button', Button);
 Vue.component('TextAreaInput', TextAreaInput);
 Vue.component('MaterialInput', MaterialInput);
 Vue.component('PageContentBoard', PageContentBoard);
+Vue.component('BaseCard', BaseCard);
+Vue.component('ExpansionPanel', ExpansionPanel);
 Vue.component('BaseDialog', BaseDialog);
 Vue.component('ClassicLayout', ClassicLayout);
 
