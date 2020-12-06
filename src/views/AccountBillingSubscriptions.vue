@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-md w-full mx-auto pt-6 px-4 text-left pb-20">
+  <div class="max-w-md w-full mx-auto pt-6 px-4 text-left pb-32">
     <BaseCard
       className="flex flex-col tg-body-mobile text-on-background text-opacity-medium mb-6"
     >

@@ -8,6 +8,7 @@ export const billingRoutes = [
     props: true,
     component: () => import('@/views/AccountBilling.vue'),
     meta: {
+      pageBackground: 'bg-background',
       layout: AppBarLayout,
       appBar: {
         title: 'Billing',
@@ -23,6 +24,7 @@ export const billingRoutes = [
     props: true,
     component: () => import('@/views/AccountBillingActivity.vue'),
     meta: {
+      pageBackground: 'bg-background',
       layout: AppBarLayout,
       appBar: {
         title: 'Activity',
@@ -38,6 +40,7 @@ export const billingRoutes = [
     props: true,
     component: () => import('@/views/AccountBillingPaymentMethods.vue'),
     meta: {
+      pageBackground: 'bg-background',
       layout: AppBarLayout,
       appBar: {
         title: 'Payment Methods',
@@ -52,6 +55,7 @@ export const billingRoutes = [
     props: true,
     component: () => import('@/views/AccountBillingPaymentMethodsAddEdit.vue'),
     meta: {
+      pageBackground: 'bg-background',
       layout: AppBarLayout,
       appBar: {
         title: 'Payment Methods',
@@ -66,6 +70,7 @@ export const billingRoutes = [
     props: true,
     component: () => import('@/views/AccountBillingPaymentMethodsAddEdit.vue'),
     meta: {
+      pageBackground: 'bg-background',
       layout: AppBarLayout,
       appBar: {
         title: 'Payment Methods',
@@ -81,6 +86,7 @@ export const billingRoutes = [
     props: true,
     component: () => import('@/views/AccountBillingSubscriptions.vue'),
     meta: {
+      pageBackground: 'bg-background',
       layout: AppBarLayout,
       title: 'Subscription',
       appBar: {

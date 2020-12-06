@@ -4,16 +4,18 @@
     Email kasjdf@kjsdf<br />
 
     <!-- if user account -->
-    <div>Switch to business account link <br /></div>
+    <div v-if="accountType === 'user'">
+      <a @click="switchType('business')">Switch to business account link</a>
+    </div>
 
     <!-- if business account -->
-    <div>
+    <div v-if="accountType === 'business'">
       Activate Site inactive <br />
       Business hours <br />
       Order Options <br />
       Services <br />
       Promotions <br />
-      Switch to user account link <br />
+      <a @click="switchType('user')">Switch to user account link</a>
 
       <router-link :to="{ name: 'AccountBilling' }"
         >Upgrade to pro account</router-link
@@ -27,7 +29,15 @@
 
 <script>
 export default {
-  name: 'AccountManage'
+  name: 'AccountManage',
+  data: () => ({
+    accountType: 'user'
+  }),
+  methods: {
+    switchType(newType) {
+      console.log('newType', newType);
+    }
+  }
 };
 </script>
 

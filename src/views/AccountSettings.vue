@@ -13,7 +13,7 @@
         >
         </ExpansionPanel> -->
 
-        <!-- <ExpansionPanel
+        <ExpansionPanel
           title="Manage Account"
           @click="
             $router.push({
@@ -21,7 +21,7 @@
             })
           "
         >
-        </ExpansionPanel> -->
+        </ExpansionPanel>
 
         <ExpansionPanel
           title="Billing"
