@@ -24,8 +24,13 @@
             />
           </a>
         </header>
-        <DrawerContent class="flex-grow flex h-full">
-          <slot />
+        <DrawerContent
+          class="flex-grow flex h-full pt-2 narrow-scrollbar has-light-bg overflow-y-auto"
+          :class="className"
+        >
+          <div class="w-full">
+            <slot />
+          </div>
         </DrawerContent>
       </section>
     </div>
@@ -53,6 +58,10 @@ export default {
       default: false
     },
     title: {
+      type: String,
+      default: ''
+    },
+    className: {
       type: String,
       default: ''
     }

@@ -8,12 +8,11 @@
     @keyup.space="selectOption"
   >
     <div
-      class="rounded-full h-5 w-5 p-1 border-2 border-gray-500 mr-4"
-      :class="{ 'border-secondary': selectedOption === value }"
+      class="rounded-full h-5 w-5 p-1 border-2 border-black border-opacity-disabled mr-4"
     >
       <div
-        class="h-full w-full rounded-full"
-        :class="{ 'bg-secondary': selectedOption === value }"
+        class="h-full w-full rounded-full bg-opacity-disabled"
+        :class="{ 'bg-black': selectedOption === value }"
       ></div>
     </div>
     <div>

@@ -9,6 +9,7 @@
     background: transparent; /* Chrome/Safari/Webkit */
   }
 
+  /* NOTE: use has-light-bg for white backgrounds */
   .narrow-scrollbar::-webkit-scrollbar {
     width: 8px;
     padding: 2px 0;

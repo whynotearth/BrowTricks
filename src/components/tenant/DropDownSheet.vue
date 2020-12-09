@@ -1,6 +1,6 @@
 <template>
   <div
-    class="wrapper bg-surface text-white text-opacity-high py-2 px-6 overflow-y-auto narrow-scrollbar shadow-4dp rounded-b-xl"
+    class="wrapper bg-surface text-white text-opacity-high py-2 px-6 overflow-y-auto narrow-scrollbar has-light-bg shadow-4dp rounded-b-xl"
   >
     <a
       v-for="tenant in tenants"
