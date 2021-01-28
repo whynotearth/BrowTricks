@@ -2880,6 +2880,11 @@ copy-webpack-plugin@^5.1.1:
     serialize-javascript "^2.1.2"
     webpack-log "^2.0.0"
 
+cordova-plugin-inappbrowser@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/cordova-plugin-inappbrowser/-/cordova-plugin-inappbrowser-4.1.0.tgz#6010809d1cd813c546f65e4e41dc2b9ed97179e4"
+  integrity sha512-jPvcwDx2/L5ZbVG69NT2xmlG1E+MljRxkdsFpgj/5aoaF4oPqxg44J/bYxJNWgQtGnRSRWoqCRmU7FgmmMNMxA==
+
 core-js-compat@^3.6.2, core-js-compat@^3.6.5:
   version "3.6.5"
   resolved "https://registry.yarnpkg.com/core-js-compat/-/core-js-compat-3.6.5.tgz#2a51d9a4e25dfd6e690251aa81f99e3c05481f1c"

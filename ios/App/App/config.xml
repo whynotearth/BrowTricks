@@ -2,5 +2,11 @@
 <widget version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <access origin="*" />
   
+  <feature name="InAppBrowser">
+    <param name="ios-package" value="CDVWKInAppBrowser"/>
+    <param name="onload" value="true"/>
+  </feature>
+
   
+  <preference name="OverrideUserAgent" value="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36" />
 </widget>
