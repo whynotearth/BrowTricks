@@ -106,9 +106,7 @@ export default {
   data() {
     return {
       tenants: [],
-      tenantData: {},
-      logoUrl:
-        'https://res.cloudinary.com/whynotearth/image/upload/v1601297685/BrowTricks/static_v2/pattern_zjdihx.jpg'
+      tenantData: {}
     };
   },
   computed: {

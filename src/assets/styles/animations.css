@@ -51,6 +51,22 @@
   opacity: 0;
 }
 
+/* fade faster */
+.menu-fade-enter-active,
+.menu-fade-leave-active {
+  transition: all 200ms ease;
+}
+.menu-fade-enter,
+.menu-fade-leave-to {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.menu-fade-enter-to,
+.menu-fade-leave {
+  opacity: 1;
+  transform: translateY(0px);
+}
+
 /* router-view fade */
 .pagefade-enter-active {
   transition: opacity 0.5s ease-in-out;

@@ -1,3 +1,5 @@
+import { isIE } from '@/helpers';
+
 // TODO: move to utils folder
 export default {
   mounted() {
@@ -17,10 +19,11 @@ export default {
         this.fixVhUnit();
       };
       // TODO: use debounce for performance
-      window.addEventListener('resize', listener);
+      const eventConfig = isIE ? false : { passive: true };
+      window.addEventListener('resize', listener, eventConfig);
 
       this.$once('hook:destroyed', () => {
-        document.removeEventListener('resize', listener);
+        document.removeEventListener('resize', listener, eventConfig);
       });
     }
   }

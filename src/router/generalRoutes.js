@@ -8,7 +8,8 @@ export const generalRoutes = [
     meta: {
       isPublic: true,
       noNavigation: true,
-      appBar: { noHeader: true }
+      appBar: { noHeader: true },
+      pageBackground: 'bg-background',
     }
   },
   {
@@ -26,154 +27,31 @@ export const generalRoutes = [
       }
     }
   },
+
   {
-    path: '/logout',
-    name: 'AuthLogout',
-    component: () => import('@/views/AuthLogout.vue'),
+    path: '/pricing',
+    name: 'Pricing',
+    component: () => import('@/views/Pricing.vue'),
     meta: {
+      layout: AppBarCardLayout,
       isPublic: true,
-      noNavigation: true,
-      layout: AppBarCardLayout,
-      appBar: {
-        backRoute: { name: 'Home' },
-        title: 'Logging out...'
-      }
-    }
-  },
-  {
-    path: '/login',
-    name: 'AuthLogin',
-    component: () => import('@/views/AuthLogin.vue'),
-    props: true,
-    meta: {
-      isPublic: true,
-      noNavigation: true,
-      layout: AppBarCardLayout,
-      title: 'Log In',
-      appBar: {
-        backRoute: { name: 'Home' },
-        title: 'Welcome Back!'
-      }
-    }
-  },
-  {
-    path: '/forgot',
-    name: 'AuthForgotPassword',
-    component: () => import('@/views/AuthForgotPassword.vue'),
-    props: true,
-    meta: {
-      isPublic: true,
-      noNavigation: true,
-      layout: AppBarCardLayout,
-      appBar: {
-        backRoute: { name: 'AuthLogin' },
-        title: 'Forgot Password?'
-      }
-    }
-  },
-  {
-    path: '/email-sent-success',
-    name: 'AuthSentEmailSuccess',
-    component: () => import('@/views/AuthSentEmailSuccess.vue'),
-    props: true,
-    meta: {
-      isPublic: true,
-      noNavigation: true,
-      layout: AppBarCardLayout,
-      appBar: {
-        backRoute: { name: 'AuthLogin' },
-        title: 'Check Your Email'
-      }
-    }
-  },
-  {
-    path: '/reset',
-    name: 'AuthResetPassword',
-    component: () => import('@/views/AuthResetPassword.vue'),
-    props: true,
-    meta: {
-      isPublic: true,
-      noNavigation: true,
-      layout: AppBarCardLayout,
-      appBar: {
-        backRoute: { name: 'AuthLogin' },
-        title: 'Create New Password'
-      }
-    }
-  },
-  {
-    path: '/signup',
-    name: 'AuthSignup',
-    component: () => import('@/views/AuthSignup.vue'),
-    props: true,
-    meta: {
-      isPublic: true,
-      noNavigation: true,
-      layout: AppBarCardLayout,
-      appBar: {
-        backRoute: { name: 'Home' },
-        title: 'Create Account'
-      }
-    }
-  },
-  {
-    path: '/signup/edit',
-    name: 'AuthSignupEdit',
-    component: () => import('@/views/AuthSignupEdit.vue'),
-    props: true,
-    meta: {
-      noNavigation: true,
-      layout: AppBarCardLayout,
-      appBar: {
-        backRoute: { name: 'PanelRedirector' },
-        title: 'Edit Account'
-      }
-    }
-  },
-  {
-    path: '/verify-number',
-    name: 'AuthNumberVerify',
-    component: () => import('@/views/AuthNumberVerify.vue'),
-    props: true,
-    meta: {
       pageBackground: 'bg-background',
       noNavigation: true,
-      layout: AppBarCardLayout,
       appBar: {
-        backRoute: { name: 'AuthSignupEdit' },
-        title: 'Verification Required'
+        backRoute: { name: 'Home' },
+        title: 'Pricing'
       }
     }
   },
   {
-    path: '/verify-email',
-    name: 'AuthEmailVerify',
-    component: () => import('@/views/AuthEmailVerify.vue'),
-    props: true,
-    meta: {
-      pageBackground: 'bg-background',
-      noNavigation: true,
-      layout: AppBarCardLayout,
-      appBar: {
-        backRoute: { name: 'AuthSignupEdit' },
-        title: 'Verification Required'
-      }
-    }
-  },
-  {
-    path: '/verify-submit-email',
-    name: 'AuthEmailSubmitVerify',
-    component: () => import('@/views/AuthEmailSubmitVerify.vue'),
-    props: true,
+    path: '/help',
+    name: 'Help',
+    component: () => import('@/views/Help.vue'),
     meta: {
       isPublic: true,
       pageBackground: 'bg-background',
       noNavigation: true,
-      layout: AppBarCardLayout,
-      appBar: {
-        backRoute: { name: 'Home' },
-        title: 'Verifying Email'
-      }
+      title: 'Help'
     }
   },
   {
@@ -182,10 +60,10 @@ export const generalRoutes = [
     component: () => import('@/views/PrivacyPolicy.vue'),
     meta: {
       isPublic: true,
-      layout: AppBarCardLayout,
       pageBackground: 'bg-background',
       noNavigation: true,
       appBar: {
+        backRoute: { name: 'Home' },
         title: 'Privacy Policy'
       }
     }

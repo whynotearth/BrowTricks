@@ -1,14 +1,14 @@
 <template>
   <component
     :is="type"
-    class="button tg-button font-semibold cursor-pointer transition-all duration-75 select-none"
+    class="flex justify-center tg-color-label-mobile button cursor-pointer transition-all duration-75 select-none"
     :class="[
       isBordered ? 'border border-black' : '',
       shadow,
       margin,
       display,
       maxWidth,
-      isRounded ? 'rounded-full' : '',
+      radius,
       width,
       background,
       textColor,
@@ -73,9 +73,9 @@ export default {
       type: String,
       default: 'px-4 py-2'
     },
-    isRounded: {
-      type: Boolean,
-      default: true
+    radius: {
+      type: String,
+      default: 'rounded-full'
     },
     display: {
       type: String,
