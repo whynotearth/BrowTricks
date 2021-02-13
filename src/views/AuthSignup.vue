@@ -22,7 +22,7 @@
       <form
         @submit.prevent="submit"
         novalidate
-        class="flex flex-col justify-between flex-grow w-full max-w-sm"
+        class="flex flex-col justify-between w-full max-w-sm"
       >
         <div class="">
           <MaterialInput
