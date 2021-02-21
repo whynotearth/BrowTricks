@@ -11,6 +11,17 @@
     <div
       class="flex flex-col items-center flex-grow w-full px-4 py-8 bg-surface rounded-t-xl"
     >
+      <div class="mb-8 flex items-baseline space-x-3 tg-h1-mobile">
+        <h2>Sign up as a</h2>
+        <select
+          name="userType"
+          class="appearance-none border-b border-gray-700 py-2"
+        >
+          <option value="Customer" class="text-base">Customer</option>
+          <option value="Customer" class="text-base">Business</option>
+        </select>
+      </div>
+
       <AuthButtons></AuthButtons>
 
       <div class="flex items-center justify-center w-full py-8">
