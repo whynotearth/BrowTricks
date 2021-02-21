@@ -21,8 +21,8 @@
             name="userType"
             class="pr-6 appearance-none outline-none cursor-pointer"
           >
-            <option value="customer" class="text-base">customer</option>
-            <option value="business" class="text-base">business</option>
+            <option value="customer" class="tg-body-mobile">customer</option>
+            <option value="business" class="tg-body-mobile">business</option>
           </select>
           <ArrowDropDown class="-ml-5 my-auto pointer-events-none" />
         </div>
