@@ -16,7 +16,11 @@
       >
         <h2 class="mb-4">Sign up as a</h2>
         <div class="mb-4 py-2 flex border-b border-gray-700">
-          <select name="userType" class="pr-6 appearance-none cursor-pointer">
+          <select
+            v-model="userType"
+            name="userType"
+            class="pr-6 appearance-none cursor-pointer"
+          >
             <option value="customer" class="text-base">customer</option>
             <option value="business" class="text-base">business</option>
           </select>
@@ -199,6 +203,7 @@ export default {
   },
   data() {
     return {
+      userType: 'business',
       firstName: '',
       lastName: '',
       email: '',
