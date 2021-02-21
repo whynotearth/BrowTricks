@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-8 flex flex-wrap">
+  <div class="flex flex-wrap">
     <div
       class="p-3 mx-auto"
       v-for="({ name, logo }, index) in socialMediaProviders"

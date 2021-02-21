@@ -12,7 +12,7 @@
       class="flex flex-col items-center flex-grow w-full px-4 py-8 bg-surface rounded-t-xl"
     >
       <div
-        class="mb-4 flex flex-wrap justify-center items-baseline space-x-3 tg-h1-mobile"
+        class="mb-8 flex flex-wrap justify-center items-baseline space-x-3 tg-h1-mobile"
       >
         <h2 class="mb-4">Sign up as a</h2>
         <div class="mb-4 py-2 flex border-b border-gray-700">
