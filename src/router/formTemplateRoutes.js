@@ -37,7 +37,8 @@ export const formTemplateRoutes = [
         meta: {
           layout: AppBarCardLayout,
           appBar: {
-            title: 'Form Templates'
+            title: 'Form Templates',
+            backRoute: { name: 'TenantHome' }
           }
         }
       },
