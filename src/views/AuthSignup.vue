@@ -19,7 +19,7 @@
           <select
             v-model="userType"
             name="userType"
-            class="pr-6 appearance-none cursor-pointer"
+            class="pr-6 appearance-none outline-none cursor-pointer"
           >
             <option value="customer" class="text-base">customer</option>
             <option value="business" class="text-base">business</option>
