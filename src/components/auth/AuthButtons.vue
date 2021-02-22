@@ -8,12 +8,8 @@
       <Button :title="`${name}`" @clicked="openAuthentication(name)">
         <template #start>
           <!-- icon -->
-          <component
-            :is="logo"
-            class="fill-current text-on-secondary text-opacity-high"
-          />
+          <component :is="logo" class="mr-2" />
         </template>
-        <template #end><i></i></template>
       </Button>
     </div>
   </div>
@@ -21,9 +17,17 @@
 
 <script>
 import { mapMutations, mapGetters } from 'vuex';
+import IconApple from '@/assets/icons/apple.svg';
+import IconFacebook from '@/assets/icons/Facebook_OAuth.svg';
+import IconGoogle from '@/assets/icons/google.svg';
 
 export default {
   name: 'AuthButtons',
+  components: {
+    IconApple,
+    IconFacebook,
+    IconGoogle
+  },
   props: {
     mode: {
       type: String,
@@ -34,13 +38,16 @@ export default {
     return {
       socialMediaProviders: [
         {
-          name: 'Apple'
+          name: 'Apple',
+          logo: 'IconApple'
         },
         {
-          name: 'Facebook'
+          name: 'Facebook',
+          logo: 'IconFacebook'
         },
         {
-          name: 'Google'
+          name: 'Google',
+          logo: 'IconGoogle'
         }
       ]
     };
