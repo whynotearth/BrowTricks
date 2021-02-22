@@ -34,6 +34,9 @@ export default {
     return {
       socialMediaProviders: [
         {
+          name: 'Apple'
+        },
+        {
           name: 'Facebook'
         },
         {
