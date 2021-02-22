@@ -106,6 +106,8 @@ export default {
 .router-link-active {
   @apply font-bold;
 }
+.router-link-active,
 .router-link-active svg path {
+  @apply text-white;
 }
 </style>

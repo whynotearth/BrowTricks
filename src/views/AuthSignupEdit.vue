@@ -14,7 +14,7 @@
       <form
         @submit.prevent="submit"
         novalidate
-        class="flex flex-col w-full max-w-sm flex-grow justify-between"
+        class="flex flex-col w-full max-w-sm justify-between"
       >
         <div class="">
           <MaterialInput

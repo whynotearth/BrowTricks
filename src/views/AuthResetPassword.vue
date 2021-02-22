@@ -54,7 +54,7 @@
         <div>
           <Button class="mb-6" type="submit" title="Submit" />
           <p class="mt-4 text-center tg-body-mobile">
-            <router-link :to="{ name: 'AuthLogin' }" class="text-primary-blue">
+            <router-link :to="{ name: 'AuthLogin' }" class="underline">
               Back to login
             </router-link>
           </p>

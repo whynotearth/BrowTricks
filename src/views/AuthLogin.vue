@@ -22,7 +22,7 @@
       <form
         @submit.prevent="submit"
         novalidate
-        class="flex flex-col justify-between flex-grow w-full max-w-sm"
+        class="flex flex-col justify-between w-full max-w-sm"
       >
         <div class="">
           <!-- <MaterialInput
@@ -68,16 +68,13 @@
           <Button class="mb-6" type="submit" title="Login" />
           <p class="mt-4 text-center tg-body-mobile">
             Don't have an account?
-            <router-link :to="{ name: 'AuthSignup' }" class="text-primary-blue">
+            <router-link :to="{ name: 'AuthSignup' }" class="underline">
               Sign Up
             </router-link>
           </p>
 
           <p class="mt-4 text-center tg-body-mobile">
-            <router-link
-              :to="{ name: 'AuthForgotPassword' }"
-              class="text-primary-blue"
-            >
+            <router-link :to="{ name: 'AuthForgotPassword' }" class="underline">
               Forgot password?
             </router-link>
           </p>
