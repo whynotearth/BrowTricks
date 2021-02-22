@@ -1,9 +1,12 @@
 <template>
   <component
     :is="type"
-    class="flex justify-center tg-color-label-mobile button cursor-pointer transition-all duration-75 select-none hover:shadow-lg"
     :class="[
-      isBordered ? 'border border-black' : '',
+      'flex justify-center tg-color-label-mobile button cursor-pointer transition-all duration-75 select-none',
+      {
+        'hover:shadow-lg': background !== null || isBordered,
+        'border border-black': isBordered
+      },
       shadow,
       margin,
       display,
