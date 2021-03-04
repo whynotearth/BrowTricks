@@ -14,14 +14,14 @@ import VuexPersistence from 'vuex-persist';
 
 const vuexSession = new VuexPersistence({
   storage: window.sessionStorage,
-  modules: ['auth', 'uploader', 'formTemplate'],
+  modules: ['uploader', 'formTemplate'],
   key: 'vuexSessionStore'
 });
 
 const vuexLocal = new VuexPersistence({
   storage: window.localStorage,
   // TODO: move client to sessionStorage
-  modules: ['client'],
+  modules: ['auth', 'client'],
   key: 'vuexLocalStore'
 });
 
