@@ -11,7 +11,7 @@
     <div
       class="flex flex-col items-center flex-grow w-full px-4 py-8 bg-surface rounded-t-xl"
     >
-      <div
+      <!-- <div
         class="mb-8 flex flex-wrap justify-center items-baseline space-x-3 tg-h1-mobile"
       >
         <h2 class="mb-4">Sign up as a</h2>
@@ -26,7 +26,7 @@
           </select>
           <ArrowDropDown class="-ml-5 my-auto pointer-events-none" />
         </div>
-      </div>
+      </div> -->
 
       <AuthButtons></AuthButtons>
 
@@ -188,7 +188,7 @@ import {
 } from '@/helpers';
 import formGeneralUtils from '@/mixins/formGeneralUtils.js';
 import AuthButtons from '@/components/auth/AuthButtons';
-import ArrowDropDown from '@/assets/icons/arrow-drop-down.svg';
+// import ArrowDropDown from '@/assets/icons/arrow-drop-down.svg';
 
 export default {
   name: 'AuthSignup',
@@ -198,12 +198,12 @@ export default {
     PasswordInput,
     PhoneInput,
     AuthButtons,
-    MaterialInput,
-    ArrowDropDown
+    MaterialInput
+    // ArrowDropDown
   },
   data() {
     return {
-      userType: 'business',
+      // userType: 'business',
       firstName: '',
       lastName: '',
       email: '',
