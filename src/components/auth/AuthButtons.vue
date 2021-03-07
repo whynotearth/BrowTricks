@@ -17,6 +17,7 @@
 
 <script>
 import { mapMutations, mapGetters } from 'vuex';
+const { cordova } = window;
 import IconApple from '@/assets/icons/apple.svg';
 import IconFacebook from '@/assets/icons/Facebook_OAuth.svg';
 import IconGoogle from '@/assets/icons/google.svg';
@@ -71,7 +72,42 @@ export default {
     async openAuthentication(provider) {
       await this.updateProvider(provider);
       await this.updateReturnUrl(this.signupReturnUrl);
-      window.location.assign(this.oauthUrlGet);
+
+      if (process.env.VUE_APP_MOBILE && cordova) {
+        // When we run the App in mobile, then
+        // we will open the authentication page inside
+        // the mobile app.
+        const browser = cordova.InAppBrowser.open(
+          this.oauthUrlGet,
+          '_blank',
+          'location=yes'
+        );
+
+        // We will listen to load start page and find
+        // whether the query string has token in it.
+        browser.addEventListener(
+          'loadstart',
+          function(event) {
+            const currentURL = new URL(event.url);
+            const token = currentURL.searchParams.get('token');
+
+            // If we find a token then we assume the authentication
+            // process is completed.
+            if (token != null) {
+              const redirectURL = this.signupReturnUrl + '&token=' + token;
+
+              // Manually redirect to wait page to store the token
+              // and proceed further
+              window.location.assign(redirectURL);
+
+              // Close the browser we have opened.
+              browser.close();
+            }
+          }.bind(this)
+        );
+      } else {
+        window.location.assign(this.oauthUrlGet);
+      }
     }
   }
 };

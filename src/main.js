@@ -10,6 +10,7 @@ import Vuelidate from 'vuelidate';
 import configureModerator from './store/store-moderator';
 import PortalVue from 'portal-vue';
 import Rollbar from 'rollbar';
+import { Plugins as CapacitorPlugins } from '@capacitor/core';
 import VueMeta from 'vue-meta';
 import vClickOutside from 'v-click-outside';
 
@@ -67,7 +68,17 @@ async function main() {
   new Vue({
     router,
     store,
-    render: h => h(App)
+    render: h => h(App),
+    mounted() {
+      // for capacitor
+      if (process.env.VUE_APP_MOBILE) {
+        const { SplashScreen } = CapacitorPlugins;
+        SplashScreen.show({
+          showDuration: 1500,
+          autoHide: true
+        });
+      }
+    }
   }).$mount('#app');
 }
 

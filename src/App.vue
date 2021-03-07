@@ -1,15 +1,16 @@
 <template>
   <div
     id="app"
-    class="min-h-vh100 h-full text-center bg-background text-on-background"
+    class="min-h-vh100 h-full text-center bg-background text-on-background antialiased tg-base"
   >
-    <SplashOverlay />
+    <CssSafeArea background="bg-transparent" />
+    <SplashOverlay v-if="!isMobile" />
     <Alerter />
 
     <component :is="$route.meta.layout || 'div'">
       <router-view />
     </component>
-    <SnackBar :showSnackBar="showPrivacySnackBar">
+    <SnackBar v-if="!isMobile" :showSnackBar="showPrivacySnackBar">
       <div
         class="flex items-center justify-between text-on-primary w-full h-12 leading-4 p-4 bg-primary"
       >
@@ -49,6 +50,7 @@
 </template>
 <script>
 import BaseOverlaySuccess from '@/components/BaseOverlaySuccess.vue';
+import CssSafeArea from '@/components/CssSafeArea.vue';
 import Alerter from '@/components/Alerter.vue';
 import SplashOverlay from '@/components/splash/SplashOverlay.vue';
 import SnackBar from '@/components/SnackBar.vue';
@@ -67,7 +69,13 @@ export default {
     };
   },
   mixins: [vhFix],
-  components: { SplashOverlay, Alerter, BaseOverlaySuccess, SnackBar },
+  components: {
+    CssSafeArea,
+    SplashOverlay,
+    Alerter,
+    BaseOverlaySuccess,
+    SnackBar
+  },
   metaInfo() {
     const title =
       getFormattedMetaTitle(
@@ -83,7 +91,10 @@ export default {
     ...mapGetters('global', ['isDrawerOpenAuthGet']),
     ...mapGetters('overlay', {
       overlayModel: 'model'
-    })
+    }),
+    isMobile() {
+      return process.env.VUE_APP_MOBILE === 'true';
+    }
   },
   beforeCreate() {
     store.dispatch('auth/refreshToken');

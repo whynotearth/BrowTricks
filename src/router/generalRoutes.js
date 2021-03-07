@@ -7,8 +7,9 @@ export const generalRoutes = [
     component: () => import('@/views/Home.vue'),
     meta: {
       isPublic: true,
+      noNavigation: true,
+      appBar: { noHeader: true },
       pageBackground: 'bg-background',
-      noNavigation: true
     }
   },
   {
