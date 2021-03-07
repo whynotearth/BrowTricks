@@ -3,13 +3,13 @@
     id="app"
     class="safe-top safe-left safe-right safe-bottom min-h-vh100 h-full text-center bg-background text-on-background antialiased tg-base"
   >
-    <SplashOverlay v-if="!isMobile" />
+    <SplashOverlay v-if="!isMobileApp" />
     <Alerter />
 
     <component :is="$route.meta.layout || 'div'">
       <router-view />
     </component>
-    <SnackBar v-if="!isMobile" :showSnackBar="showPrivacySnackBar">
+    <SnackBar v-if="!isMobileApp" :showSnackBar="showPrivacySnackBar">
       <div
         class="flex items-center justify-between text-on-primary w-full h-12 leading-4 p-4 bg-primary"
       >

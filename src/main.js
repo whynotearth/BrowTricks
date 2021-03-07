@@ -37,7 +37,7 @@ Vue.use(VueMeta);
 
 Vue.mixin({
   computed: {
-    isMobile() {
+    isMobileApp() {
       return process.env.VUE_APP_MOBILE === 'true';
     }
   }

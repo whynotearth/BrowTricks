@@ -1,5 +1,5 @@
 <template>
-  <div :class="['safe-area-top', { isMobile, hasHeader }]" />
+  <div :class="['safe-area-top', { isMobileApp, hasHeader }]" />
 </template>
 
 <script>
@@ -14,7 +14,7 @@ export default {
 </script>
 
 <style scoped>
-.isMobile.safe-area-top {
+.isMobileApp.safe-area-top {
   height: env(safe-area-inset-top, 0);
 }
 .hasHeader.safe-area-top {

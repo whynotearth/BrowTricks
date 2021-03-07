@@ -43,7 +43,7 @@
               :to="{ name: 'AuthSignup' }"
             />
             <Button
-              v-if="isMobile"
+              v-if="isMobileApp"
               class="cta-button mb-4 sm:mb-0"
               margin="mx-4"
               :width="null"
