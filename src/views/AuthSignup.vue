@@ -180,7 +180,7 @@ import {
   email,
   sameAs
 } from 'vuelidate/lib/validators';
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import {
   showOverlayAndRedirect,
   isPhoneNumberValid
@@ -241,6 +241,16 @@ export default {
       required,
       isPhoneNumberValid
     }
+  },
+  computed: {
+    ...mapGetters('auth', ['isAuthenticated'])
+  },
+  created() {
+    if (this.isAuthenticated)
+      this.$router.replace({
+        name: 'PanelRedirector',
+        params: { authPage: 'signup' }
+      });
   },
   methods: {
     ...mapActions('auth', ['register']),

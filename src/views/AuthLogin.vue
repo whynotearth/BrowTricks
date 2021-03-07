@@ -90,7 +90,7 @@ import PasswordInput from '@/components/inputs/PasswordInput.vue';
 import AuthButtons from '@/components/auth/AuthButtons';
 import formGeneralUtils from '@/mixins/formGeneralUtils.js';
 import { required } from 'vuelidate/lib/validators';
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import { isEmail, showOverlayAndRedirect } from '@/helpers';
 
 export default {
@@ -120,6 +120,12 @@ export default {
     password: {
       required
     }
+  },
+  computed: {
+    ...mapGetters('auth', ['isAuthenticated'])
+  },
+  created() {
+    if (this.isAuthenticated) this.$router.replace({ name: 'PanelRedirector' });
   },
   methods: {
     ...mapActions('auth', ['loginStandard']),
