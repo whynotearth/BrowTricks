@@ -1,5 +1,6 @@
 // Default config https://github.com/tailwindcss/tailwindcss/blob/master/stubs/defaultConfig.stub.js
 const defaultTheme = require('tailwindcss/defaultTheme');
+const plugin = require('tailwindcss/plugin');
 
 const boxShadow = require('./src/assets/styles/shadows');
 const colors = require('./src/assets/styles/colors');
@@ -56,5 +57,31 @@ module.exports = {
       }
     }
   },
-  plugins: []
+  plugins: [
+    plugin(function({ addUtilities }) {
+      const newUtilities = {
+        '.safe-top': {
+          paddingTop: 'constant(safe-area-inset-top)',
+          paddingTop: 'env(safe-area-inset-top)'
+        },
+        '.safe-left': {
+          paddingLeft: 'constant(safe-area-inset-left)',
+          paddingLeft: 'env(safe-area-inset-left)'
+        },
+        '.safe-right': {
+          paddingRight: 'constant(safe-area-inset-right)',
+          paddingRight: 'env(safe-area-inset-right)'
+        },
+        '.safe-bottom': {
+          paddingBottom: 'constant(safe-area-inset-bottom)',
+          paddingBottom: 'env(safe-area-inset-bottom)'
+        },
+        '.no-tap-highlighting': {
+          'webkit-tap-highlight-color': 'rgba(0,0,0,0)'
+        }
+      };
+
+      addUtilities(newUtilities);
+    })
+  ]
 };
