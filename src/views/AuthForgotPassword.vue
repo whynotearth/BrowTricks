@@ -14,7 +14,7 @@
       <form
         @submit.prevent="submit"
         novalidate
-        class="flex flex-col justify-between flex-grow w-full max-w-sm"
+        class="flex flex-col justify-between w-full max-w-sm"
       >
         <div class="">
           <MaterialInput
@@ -44,7 +44,7 @@
         <div>
           <Button class="mb-6" type="submit" title="Reset Password" />
           <p class="mt-4 text-center tg-body-mobile">
-            <router-link :to="{ name: 'AuthLogin' }" class="text-primary-blue">
+            <router-link :to="{ name: 'AuthLogin' }" class="underline">
               Back to login
             </router-link>
           </p>

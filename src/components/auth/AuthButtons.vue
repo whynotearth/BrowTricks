@@ -1,19 +1,15 @@
 <template>
-  <div>
+  <div class="flex flex-wrap">
     <div
-      class="py-3"
+      class="p-3 mx-auto"
       v-for="({ name, logo }, index) in socialMediaProviders"
       :key="index"
     >
       <Button :title="`${name}`" @clicked="openAuthentication(name)">
         <template #start>
           <!-- icon -->
-          <component
-            :is="logo"
-            class="fill-current text-on-secondary text-opacity-high"
-          />
+          <component :is="logo" class="mr-2" />
         </template>
-        <template #end><em></em></template>
       </Button>
     </div>
   </div>
@@ -22,9 +18,17 @@
 <script>
 import { mapMutations, mapGetters } from 'vuex';
 const { cordova } = window;
+import IconApple from '@/assets/icons/apple.svg';
+import IconFacebook from '@/assets/icons/Facebook_OAuth.svg';
+import IconGoogle from '@/assets/icons/google.svg';
 
 export default {
   name: 'AuthButtons',
+  components: {
+    IconApple,
+    IconFacebook,
+    IconGoogle
+  },
   props: {
     mode: {
       type: String,
@@ -35,13 +39,16 @@ export default {
     return {
       socialMediaProviders: [
         {
-          name: 'Facebook'
+          name: 'Apple',
+          logo: 'IconApple'
         },
         {
-          name: 'Google'
+          name: 'Facebook',
+          logo: 'IconFacebook'
         },
         {
-          name: 'Apple'
+          name: 'Google',
+          logo: 'IconGoogle'
         }
       ]
     };

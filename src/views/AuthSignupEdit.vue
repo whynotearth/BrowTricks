@@ -14,7 +14,7 @@
       <form
         @submit.prevent="submit"
         novalidate
-        class="flex flex-col w-full max-w-sm flex-grow justify-between"
+        class="flex flex-col w-full max-w-sm justify-between"
       >
         <div class="">
           <MaterialInput
@@ -73,6 +73,7 @@
             }"
             :validatorModel="$v.email"
             :serverErrors="serverErrors.Email"
+            :class="{ hidden: !!provider }"
           >
             <p v-if="!$v.email.required">
               Email is required
@@ -133,7 +134,7 @@ import {
   minLength,
   maxLength
 } from 'vuelidate/lib/validators';
-import { mapActions } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import { showOverlayAndRedirect, isPhoneNumberValid } from '@/helpers';
 import formGeneralUtils from '@/mixins/formGeneralUtils.js';
 import { get } from 'lodash-es';
@@ -178,6 +179,9 @@ export default {
       maxLength: maxLength(40),
       isValidUsername
     }
+  },
+  computed: {
+    ...mapState('auth', ['provider'])
   },
   created() {
     this._profileFetch();

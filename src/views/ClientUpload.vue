@@ -1,17 +1,17 @@
 <template>
   <PageContentBoard>
     <div
-      class="mx-auto pt-4 text-on-background text-opacity-high text-left max-w-2xl"
+      class="mx-auto pt-8 text-on-background text-opacity-high text-left max-w-2xl"
     >
-      <div class="flex items-stretch px-2 mb-6">
+      <div class="flex items-stretch px-2">
         <!-- description -->
-        <div class="flex-grow px-2 break-word flex flex-col">
+        <div class="p-2 flex-grow break-word flex flex-col">
           <TextAreaInput
             class="flex-grow"
             v-model="$v.description.$model"
             :validatorModel="$v.description"
             label="Description"
-            rows="4"
+            rows="5"
           >
             <p v-if="!$v.description.required">
               Description is required
@@ -83,7 +83,7 @@
         </div>
       </div>
 
-      <div class="px-4">
+      <div class="px-4 my-4">
         <div>
           <Button
             title="Upload"

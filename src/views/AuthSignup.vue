@@ -11,6 +11,23 @@
     <div
       class="flex flex-col items-center flex-grow w-full px-4 py-8 bg-surface rounded-t-xl"
     >
+      <!-- <div
+        class="mb-8 flex flex-wrap justify-center items-baseline space-x-3 tg-h1-mobile"
+      >
+        <h2 class="mb-4">Sign up as a</h2>
+        <div class="mb-4 py-2 flex border-b border-gray-700">
+          <select
+            v-model="userType"
+            name="userType"
+            class="pr-6 appearance-none outline-none cursor-pointer"
+          >
+            <option value="customer" class="tg-body-mobile">customer</option>
+            <option value="business" class="tg-body-mobile">business</option>
+          </select>
+          <ArrowDropDown class="-ml-5 my-auto pointer-events-none" />
+        </div>
+      </div> -->
+
       <AuthButtons></AuthButtons>
 
       <div class="flex items-center justify-center w-full py-8">
@@ -22,7 +39,7 @@
       <form
         @submit.prevent="submit"
         novalidate
-        class="flex flex-col justify-between flex-grow w-full max-w-sm"
+        class="flex flex-col justify-between w-full max-w-sm"
       >
         <div class="">
           <MaterialInput
@@ -141,7 +158,7 @@
           <Button type="submit" title="Let's Get Started" />
           <p class="mt-4 text-center tg-body-mobile">
             Already have an account?
-            <router-link :to="{ name: 'AuthLogin' }" class="text-primary-blue">
+            <router-link :to="{ name: 'AuthLogin' }" class="underline">
               Login
             </router-link>
           </p>
@@ -171,6 +188,7 @@ import {
 } from '@/helpers';
 import formGeneralUtils from '@/mixins/formGeneralUtils.js';
 import AuthButtons from '@/components/auth/AuthButtons';
+// import ArrowDropDown from '@/assets/icons/arrow-drop-down.svg';
 
 export default {
   name: 'AuthSignup',
@@ -181,9 +199,11 @@ export default {
     PhoneInput,
     AuthButtons,
     MaterialInput
+    // ArrowDropDown
   },
   data() {
     return {
+      // userType: 'business',
       firstName: '',
       lastName: '',
       email: '',

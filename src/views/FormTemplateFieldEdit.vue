@@ -83,7 +83,7 @@ export default {
       this.saveField({
         tenantSlug: this.tenantSlug,
         field,
-        formId: Number(this.$route.params.formId)
+        formId: this.$route.params.formId
       }).then(templateId => {
         const _templateId = templateId || this.$route.params.formId;
         this.redirectBack(_templateId);
