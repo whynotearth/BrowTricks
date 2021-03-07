@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <div class="safe-area-top" :class="{ isMobile, hasHeader }"></div>
-  </div>
+  <div :class="['safe-area-top', { isMobile, hasHeader }]" />
 </template>
 
 <script>
@@ -9,10 +7,10 @@ export default {
   name: 'CssSafeArea',
   computed: {
     isMobile() {
-      return process.env.VUE_APP_MOBILE === 'true';
+      return process.env.VUE_APP_MOBILE === 'true' ? 'isMobile' : '';
     },
     hasHeader() {
-      return !(this.$route.meta.appBar || {}).noHeader;
+      return !(this.$route.meta.appBar || {}).noHeader ? 'hasHeader' : '';
     }
   }
 };

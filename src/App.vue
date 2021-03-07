@@ -3,7 +3,7 @@
     id="app"
     class="min-h-vh100 h-full text-center bg-background text-on-background antialiased tg-base"
   >
-    <CssSafeArea background="bg-transparent" />
+    <CssSafeArea />
     <SplashOverlay v-if="!isMobile" />
     <Alerter />
 

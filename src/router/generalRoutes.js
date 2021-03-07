@@ -9,7 +9,7 @@ export const generalRoutes = [
       isPublic: true,
       noNavigation: true,
       appBar: { noHeader: true },
-      pageBackground: 'bg-background',
+      pageBackground: 'bg-background'
     }
   },
   {
