@@ -22,7 +22,7 @@
       <form
         @submit.prevent="submit"
         novalidate
-        class="flex flex-col justify-between flex-grow w-full max-w-sm"
+        class="flex flex-col justify-between w-full max-w-sm"
       >
         <div class="">
           <!-- <MaterialInput
@@ -53,18 +53,11 @@
             </p>
           </MaterialInput>
 
-          <MaterialInput
-            type="password"
-            v-model.trim="$v.password.$model"
-            label="Password"
-            :attrs="{ autocomplete: 'current-password', enterkeyhint: 'send' }"
-            :validatorModel="$v.password"
-            :serverErrors="serverErrors.Password"
-          >
+          <PasswordInput :validatorModel="$v.password">
             <p v-if="!$v.password.required">
               Password is required
             </p>
-          </MaterialInput>
+          </PasswordInput>
 
           <p v-if="errorMessage" class="mb-4 text-error tg-body-mobile">
             {{ errorMessage }}
@@ -75,16 +68,13 @@
           <Button class="mb-6" type="submit" title="Login" />
           <p class="mt-4 text-center tg-body-mobile">
             Don't have an account?
-            <router-link :to="{ name: 'AuthSignup' }" class="text-primary-blue">
+            <router-link :to="{ name: 'AuthSignup' }" class="underline">
               Sign Up
             </router-link>
           </p>
 
           <p class="mt-4 text-center tg-body-mobile">
-            <router-link
-              :to="{ name: 'AuthForgotPassword' }"
-              class="text-primary-blue"
-            >
+            <router-link :to="{ name: 'AuthForgotPassword' }" class="underline">
               Forgot password?
             </router-link>
           </p>
@@ -96,10 +86,11 @@
 
 <script>
 import MaterialInput from '@/components/inputs/MaterialInput.vue';
+import PasswordInput from '@/components/inputs/PasswordInput.vue';
 import AuthButtons from '@/components/auth/AuthButtons';
 import formGeneralUtils from '@/mixins/formGeneralUtils.js';
 import { required } from 'vuelidate/lib/validators';
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import { isEmail, showOverlayAndRedirect } from '@/helpers';
 
 export default {
@@ -108,6 +99,7 @@ export default {
   mixins: [formGeneralUtils],
   components: {
     AuthButtons,
+    PasswordInput,
     MaterialInput
   },
   data() {
@@ -128,6 +120,12 @@ export default {
     password: {
       required
     }
+  },
+  computed: {
+    ...mapGetters('auth', ['isAuthenticated'])
+  },
+  created() {
+    if (this.isAuthenticated) this.$router.replace({ name: 'PanelRedirector' });
   },
   methods: {
     ...mapActions('auth', ['loginStandard']),

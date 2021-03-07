@@ -61,7 +61,7 @@ export default {
         route: {
           name: 'PanelRedirector'
         },
-        message: 'Your email verified'
+        message: 'Your email is now verified!'
       });
     }
   }

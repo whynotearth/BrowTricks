@@ -2,17 +2,18 @@
   <BaseCard
     className="items-center flex-col text-center select-none"
     v-bind="attrs"
+    padding="py-4 px-4"
   >
     <div class="mb-6">
       <component
         :is="icon"
-        class="h-6 w-6 fill-current text-on-surface text-opacity-medium"
+        class="h-4 w-4 fill-current text-on-surface text-opacity-medium"
       />
     </div>
 
     <!-- title -->
     <h2
-      class="text-on-surface text-opacity-high mb-6 flex items-center relative"
+      class="text-on-surface text-opacity-high mb-4 flex items-center relative tg-h3-mobile"
     >
       <span class="block">{{ name }}</span>
       <a

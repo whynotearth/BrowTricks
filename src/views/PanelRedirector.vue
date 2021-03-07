@@ -29,6 +29,12 @@ import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'PanelRedirector',
+  props: {
+    authPage: {
+      type: String,
+      default: 'login'
+    }
+  },
   data() {
     return {
       tenants: [],
@@ -46,7 +52,7 @@ export default {
     });
     if (!gotToken && !this.isAuthenticated) {
       console.log('!token !authenticated');
-      this.goLogin();
+      this.authPage === 'signup' ? this.goSignUp() : this.goLogin();
       return;
     }
     this.init();
@@ -158,6 +164,11 @@ export default {
     goLogin() {
       this.$router.replace({
         name: 'AuthLogin'
+      });
+    },
+    goSignUp() {
+      this.$router.replace({
+        name: 'AuthSignup'
       });
     },
     setTokenFromUrl() {

@@ -9,10 +9,9 @@
         class="flex flex-col w-full max-w-sm flex-grow justify-between"
       >
         <h2 class="tg-h3-mobile text-on-background text-opacity-high mb-4">
-          Enter the code sent to your number<br /><span
-            class="tg-body-mobile"
-            >{{ get(profile, 'phoneNumber') }}</span
-          >
+          Enter the code sent to your number
+          <br />
+          <span class="tg-body-mobile">{{ get(profile, 'phoneNumber') }}</span>
         </h2>
         <div class="flex flex-row justify-evenly" ref="otpContainer">
           <MaterialInput

@@ -1,6 +1,6 @@
 const colors = {
   inherit: 'inherit',
-  primary: '#C5E2D8',
+  primary: '#E9CFC4',
   secondary: '#E6EDF9',
   // Button & Accent
   accent: '#C5E2D8',
@@ -24,9 +24,12 @@ const colors = {
   brand3: '#8A8A8A',
   brand4: '#071108',
   brand5: '#B3D1D9',
+  // brand6 is the new primary
   brand6: '#000000',
   'on-brand6': '#ffffff',
-  brand7: '#E9CFC4'
+  brand7: '#E9CFC4',
+  brand8: '#F1DFD1',
+  brand9: '#EDBBAE'
 };
 
 module.exports = colors;

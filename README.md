@@ -23,6 +23,19 @@ yarn build
 yarn lint
 ```
 
+## iOS app setup
+
+Generate icon and splash  
+```
+yarn global add cordova-res  
+yarn capacitor:resources:ios
+```  
+
+Build and run xcode for iOS  
+```
+yarn capacitor:serve:production
+```
+
 ## License
 
 Licensed under the [GNU Affero General Public License v3.0](LICENSE).

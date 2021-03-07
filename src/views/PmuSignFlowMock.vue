@@ -9,9 +9,18 @@
       rel="stylesheet"
       href="https://unpkg.com/@ditdot-dev/vue-flow-form@1.1.0/dist/vue-flow-form.theme-minimal.min.css"
     />
+
+    <Button
+      :to="{ name: 'FormTemplateItemEdit' }"
+      title="Return to BrowTricks"
+      class="tg-body-mobile tg-text-brand3 underline"
+      :background="null"
+    />
+
     <ErrorFullScreen :height="null" v-if="isReady && !(questions.length > 0)">
       This form template has no questions.
     </ErrorFullScreen>
+
     <FlowForm
       v-else-if="isReady"
       v-on:submit="onSubmit"
@@ -31,12 +40,6 @@
                 >PMU successfuly submitted.</span
               >
             </p>
-
-            <router-link
-              class="tg-body-mobile tg-text-brand3 underline"
-              :to="{ name: 'FormTemplateItemEdit' }"
-              >Back to Form Template</router-link
-            >
           </div>
           <div v-else class="relative">
             <h1>

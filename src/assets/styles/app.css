@@ -20,6 +20,8 @@ html {
   --navigation-height: 80px;
   --header-height: 56px;
   --content-board-spacer: 24px;
+  --headernav-height: 64px;
+  --footernav-height: 352px;
 }
 
 .bg-pattern {
@@ -54,8 +56,19 @@ html {
   height: 100vh;
   height: calc(100 * var(--vh));
 }
+.h-vh100--without-headernav {
+  height: calc(100 * var(--vh) - var(--headernav-height));
+}
 .min-h-vh100--without-header {
   min-height: calc(100 * var(--vh) - var(--header-height));
+}
+.h-vh100--without-header {
+  height: calc(100 * var(--vh) - var(--header-height));
+}
+.min-h-vh100--without-footernav-n-header {
+  min-height: calc(
+    100 * var(--vh) - var(--header-height) - var(--footernav-height)
+  );
 }
 
 .break-word {
@@ -81,4 +94,20 @@ html {
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+html,
+body {
+  scroll-behavior: smooth;
+}
+@media screen and (prefers-reduced-motion: reduce) {
+  html,
+  body {
+    scroll-behavior: auto;
+  }
+}
+
+#app {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
