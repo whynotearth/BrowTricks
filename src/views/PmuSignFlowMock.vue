@@ -12,7 +12,7 @@
 
     <Button
       :to="{ name: 'FormTemplateItemEdit' }"
-      title="Back to Form Template"
+      title="Return to BrowTricks"
       class="tg-body-mobile tg-text-brand3 underline"
       :background="null"
     />
