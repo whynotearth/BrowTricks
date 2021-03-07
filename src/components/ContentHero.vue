@@ -42,7 +42,17 @@
               title="Sign Up"
               :to="{ name: 'AuthSignup' }"
             />
-
+            <Button
+              v-if="isMobile"
+              class="cta-button mb-4 sm:mb-0"
+              margin="mx-4"
+              :width="null"
+              background="bg-brand6"
+              textColor="text-on-brand6"
+              radius="rounded-md"
+              title="Log in"
+              :to="{ name: 'AuthLogin' }"
+            />
             <ButtonGooglePlay className="mx-4 mb-4 sm:mb-0" />
           </div>
         </div>
