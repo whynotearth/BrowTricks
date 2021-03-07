@@ -6,9 +6,6 @@
 export default {
   name: 'CssSafeArea',
   computed: {
-    isMobile() {
-      return process.env.VUE_APP_MOBILE === 'false';
-    },
     hasHeader() {
       return !(this.$route.meta.appBar || {}).noHeader;
     }

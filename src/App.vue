@@ -91,10 +91,7 @@ export default {
     ...mapGetters('global', ['isDrawerOpenAuthGet']),
     ...mapGetters('overlay', {
       overlayModel: 'model'
-    }),
-    isMobile() {
-      return process.env.VUE_APP_MOBILE === 'true';
-    }
+    })
   },
   beforeCreate() {
     store.dispatch('auth/refreshToken');

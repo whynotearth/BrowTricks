@@ -35,6 +35,14 @@ Vue.use(vClickOutside);
 Vue.use(PortalVue);
 Vue.use(VueMeta);
 
+Vue.mixin({
+  computed: {
+    isMobile() {
+      return process.env.VUE_APP_MOBILE === 'true';
+    }
+  }
+});
+
 Vue.use(VueGtm, {
   id: ['GTM-K57GPRF'],
   defer: false,
