@@ -2,7 +2,7 @@
   <component
     :is="type"
     :class="[
-      'flex justify-center tg-color-label-mobile cursor-pointer transition-all duration-75 select-none',
+      'flex justify-center tg-color-label-mobile cursor-pointer transition-all duration-75 select-none no-tap-highlighting',
       {
         'button hover:shadow-lg': background !== null || isBordered,
         'border border-black': isBordered
