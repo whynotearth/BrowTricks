@@ -19,7 +19,7 @@
     "@capacitor/ios": "2.4.2",
     "@whynotearth/meredith-axios": "^1.0.61",
     "@whynotearth/vue-flow-form": "^0.0.4",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "cordova-plugin-inappbrowser": "^4.1.0",
     "core-js": "^3.6.4",
     "date-fns": "^2.16.1",
