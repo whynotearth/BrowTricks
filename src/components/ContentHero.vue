@@ -53,7 +53,7 @@
               title="Log in"
               :to="{ name: 'AuthLogin' }"
             />
-            <ButtonGooglePlay className="mx-4 mb-4 sm:mb-0" />
+            <ButtonGooglePlay v-else className="mx-4 mb-4 sm:mb-0" />
           </div>
         </div>
       </div>
