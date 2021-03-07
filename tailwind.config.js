@@ -76,6 +76,10 @@ module.exports = {
           paddingBottom: 'constant(safe-area-inset-bottom)',
           paddingBottom: 'env(safe-area-inset-bottom)'
         },
+        '.safe-height': {
+          height:
+            'calc(100% + (var(--safe-area-inset-top) + var(--safe-area-inset-bottom)))'
+        },
         '.no-tap-highlighting': {
           'webkit-tap-highlight-color': 'rgba(0,0,0,0)'
         }
